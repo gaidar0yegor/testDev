@@ -1,0 +1,7 @@
+body {background-color: white; color: brown; }
+.img_logo {position: absolute; left: 4%; top: 8%; }
+.img_logo img {height: 100px; }
+i {color: black; }
+tr {background-color: brown; color: white; }
+td {background-color: LightCyan; color: black; }
+.button {text-align: end; }
