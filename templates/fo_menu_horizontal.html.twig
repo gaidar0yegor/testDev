@@ -1,25 +1,25 @@
 <ul id="menu-demo2">
-	<li><a href="fo-tableau-de-bord.php">Tableau de bord</a>	</li>
-	<li><a href="">Mes Projets</a>
+	<li><a href="{{ path ('synthese_fo_') }}">Tableau de bord</a>	</li>
+	<li><a href="{{ path ('projets_') }}">Mes Projets</a>
 		<ul>
-			<li><a href="fo-projet-01.php"  class="menu-icon">Liste des projets</a></li>
-			<li><a href="fo-new-projet.php" class="menu-icon">Nouveau projet</a></li>	
+			<li><a href="{{ path ('projets_') }}"  class="menu-icon">Liste des projets</a></li>
+			<li><a href="{{ path ('infos_projet_') }}" class="menu-icon">Nouveau projet</a></li>	
 			<!-- <li><a href="fo-projet-02.php">Détails du projet</a></li>
 			<li><a href="fo-projet-03.php">Ajouter un fait marquant</a></li> -->
 			
 		</ul>
 	</li>
-	<li><a href="">Suivi temps</a>
+	<li><a href="{{ path ('temps_') }}">Suivi temps</a>
 		<ul>
-			<li><a href="fo-temps-01.php">Feuille de temps</a></li>
-			<li><a href="fo-absences.php">Mes absences</a></li>
+			<li><a href="{{ path ('temps_') }}">Feuille de temps</a></li>
+			<li><a href="{{ path ('absences_') }}">Mes absences</a></li>
 		</ul>
 	</li>
-	<li><a href="">Administration</a>
+	<li><a href="{{ path ('utilisateurs_fo_') }}">Administration</a>
 		<ul>
-			<li><a href="fo-admin-02.php">Liste des utilisateurs</a></li>
-			<li><a href="fo-admin-03.php">Nouvel utilisateur</a></li>
-			<li><a href="fo-admin-01.php">Mon compte</a></li>
+			<li><a href="{{ path ('utilisateurs_fo_') }}">Liste des utilisateurs</a></li>
+			<li><a href="{{ path ('infos_utilisateur_fo_') }}">Nouvel utilisateur</a></li>
+			<li><a href="{{ path ('infos_utilisateur_fo_') }}">Mon compte</a></li>
 		</ul>
 	</li>
 </ul>

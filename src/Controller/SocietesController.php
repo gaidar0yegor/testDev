@@ -12,8 +12,19 @@ class SocietesController extends AbstractController
      */
     public function index()
     {
-        return $this->render('societes/index.html.twig', [
+        return $this->render('societes/liste_societes.html.twig', [
             'controller_name' => 'SocietesController',
         ]);
     }
+
+    /**
+     * @Route("/infos_societe", name="infos_societe_")
+     */
+    public function saisieInfosSocietet()
+    {
+        return $this->render('societes/saisie_infos_societe.html.twig', [
+            'controller_name' => 'SocietesController',
+        ]);
+    }
+
 }

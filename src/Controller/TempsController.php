@@ -8,11 +8,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class TempsController extends AbstractController
 {
     /**
-     * @Route("/temps", name="temps")
+     * @Route("/temps", name="temps_")
      */
-    public function index()
+    public function saisieTempsEnPourCent()
     {
-        return $this->render('temps/index.html.twig', [
+        return $this->render('temps/temps_en_pour_cent.html.twig', [
+            'controller_name' => 'TempsController',
+        ]);
+    }
+
+    /**
+     * @Route("/absences", name="absences_")
+     */
+    public function saisieAbsences()
+    {
+        return $this->render('temps/absences.html.twig', [
             'controller_name' => 'TempsController',
         ]);
     }
