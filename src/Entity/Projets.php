@@ -133,7 +133,7 @@ class Projets
 
         return $this;
     }
-
+ 
     public function getDateFin(): ?\DateTimeInterface
     {
         return $this->date_fin;

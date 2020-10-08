@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Projets;
+use App\Form\ProjetFormType;
 
 class ProjetsController extends AbstractController
 {
@@ -12,9 +14,18 @@ class ProjetsController extends AbstractController
      */
     public function listerProjets()
     {
+        // return $this->render('projets/liste_projets.html.twig', [
+        //     'controller_name' => 'ProjetsController',
+        // ]);
+        //    dd(4);
+        $projets = $this->getDoctrine()->getRepository(Projets::class)->findAll();
+        //  dd($projets);
         return $this->render('projets/liste_projets.html.twig', [
-            'controller_name' => 'ProjetsController',
+            'projets'=> $projets
         ]);
+
+
+
     }
 
     /**
