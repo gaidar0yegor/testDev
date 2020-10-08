@@ -18,7 +18,7 @@ html{
 .container 
 {
     background-color: white; 
-    min-height: 532px; 
+    /* min-height: 532px;  */
 }
 
 
