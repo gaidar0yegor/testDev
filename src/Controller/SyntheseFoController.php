@@ -13,7 +13,7 @@ class SyntheseFoController extends AbstractController
     public function AfficherIndicateurs()
     {
         return $this->render('synthese_fo/synthese_fo.html.twig', [
-            'tableau_de_bord' => $tableau_de_bord,
+            // 'tableau_de_bord' => $tableau_de_bord,
         ]);
     }
 }
