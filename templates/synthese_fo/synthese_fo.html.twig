@@ -49,33 +49,35 @@
         .select {position: absolute; left: 70%; bottom: 20%; }
     }
 </style>
-    <section style="height: 1090px;">
-        <div class="container">        
-            <div class="title">
-                <div class="subtitle">
-                    <label for="bday-month"><h1 class="text-center mt-4" style="color: #ce352c;">Projets de l'année </h1></label>
-                </div>
-                <div class="select">
-                    <select name="select" class="form-control" id="dropdownYear" style="width: 120px; position: absolute; left: 56%; top: 30%;" onchange="getProjectReportFunc()"></select>
-                </div>                   
-            </div>
-        </div>
 
-        <div class="chart">
-            <div id="piechart_3d" class="text-center mx-auto" style="width: 3125%; height: 500px;"></div>
-            <div id="myDiv" class="text-center mx-auto"   style="width: 3125%; height: 500px;">Projet des trois dernières années</div>
-        </div>            
-            <!--   <h4 class="text-center"><a><i class="fas fa-arrow-alt-circle-left"></i></a> <| 2020 |> <a href="#"><i class="fas fa-arrow-alt-circle-right"></i></a></h4>
--->
-        <div class="container">
-            <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
-                <thead>
-                    <tr class="table table-secondary">
-                        <th scope="col">TABLEAU DE BORD</th>
-                        <th scope="col" class="text-center">ID</th>
-                        <th scope="col" class="text-center">Equipe</th>
-                    </tr>
-                </thead>
+<section style="height: 1090px;">
+    <div class="container">        
+        <div class="title">
+            <div class="subtitle">
+                <label for="bday-month"><h1 class="text-center mt-4" style="color: #ce352c;">Projets de l'année </h1></label>
+            </div>
+            <div class="select">
+                <select name="select" class="form-control" id="dropdownYear" style="width: 120px; position: absolute; left: 56%; top: 30%;" onchange="getProjectReportFunc()"></select>
+            </div>                   
+        </div>
+    </div>
+
+     <div class="chart">
+        <div id="piechart_3d" class="text-center mx-auto" style="width: 3125%; height: 500px;"></div>
+        <div id="myDiv" class="text-center mx-auto"   style="width: 3125%; height: 500px;">Projet des trois dernières années</div>
+    </div>            
+        <!--   <h4 class="text-center"><a><i class="fas fa-arrow-alt-circle-left"></i></a> <| 2020 |> <a href="#"><i class="fas fa-arrow-alt-circle-right"></i></a></h4>
+--> <div class="container">
+        <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
+            <thead>
+                <tr class="table table-secondary">
+                    <th scope="col">TABLEAU DE BORD</th>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Equipe</th>
+                </tr>
+            </thead>
+
+            {# {% for synthese_fo in tableau_de_bord %} #}
                 <tbody>
                     <tr>
                         <th scope="row">Nombre de projets de l'année en cours</th>
@@ -92,17 +94,19 @@
                         <td class="text-center">0</td>
                         <td class="text-center">0</td>
                     </tr>
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="button text-center mb-5">
-            <a href="fo-temps-01.php"><input type="button" class="btn btn-success" value="Mettre à jour votre feuille de temps"></a>
-        </div>
-    </section>
+                </tbody>               
+            {# {% endfor %} #}
+
+        </table>
+    </div>
+    
+    <div class="button text-center mb-5">
+        <a href="fo-temps-01.php"><input type="button" class="btn btn-success" value="Mettre à jour votre feuille de temps"></a>
+    </div>
+</section>
 
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<cript src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
