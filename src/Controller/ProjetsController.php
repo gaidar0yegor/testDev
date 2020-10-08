@@ -14,7 +14,6 @@ class ProjetsController extends AbstractController
     /**
      * @Route("/projets", name="projets_")
      */
-
     public function listerProjets()
     {
         // return $this->render('projets/liste_projets.html.twig', [

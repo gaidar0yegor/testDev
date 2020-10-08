@@ -35,15 +35,10 @@ class UtilisateursFoController extends AbstractController
      /**
      * @Route("/utilisateurs/compte", name="compte_")
      */
-    // public function compteUtilisateur()
-    // {
-    //     return $this->render('utilisateurs_fo/compte_utilisateur_fo.html.twig', [
-    //         'controller_name' => 'UtilisateursFoController',
-    
-    public function index(UsersRepository $ur)
+    public function compteUtilisateur(UsersRepository $ur)
     {
         $liste_utilisateurs = $ur->findAll();
-        return $this->render('utilisateurs_fo/index.html.twig', [
+        return $this->render('utilisateurs_fo/compte_utilisateur_fo.html.twig', [
             'liste_utilisateurs' => $liste_utilisateurs,
         ]);
     }
