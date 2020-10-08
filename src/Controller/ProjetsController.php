@@ -20,10 +20,10 @@ class ProjetsController extends AbstractController
         //     'controller_name' => 'ProjetsController',
         // ]);
         //    dd(4);
-        $projets = $this->getDoctrine()->getRepository(Projets::class)->findAll();
+        $liste_projets = $this->getDoctrine()->getRepository(Projets::class)->findAll();
         //  dd($projets);
         return $this->render('projets/liste_projets.html.twig', [
-            'projets'=> $projets
+            'liste_projets'=> $liste_projets
         ]);
 
     }

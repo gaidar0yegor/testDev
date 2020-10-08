@@ -22,9 +22,10 @@
         {% include('fo-header.html.twig') %}
         {% include('fo_menu_horizontal.html.twig') %}
         
-
-        {% block body %}{% endblock %}
-
+            {% block body %}
+                {# <section style="min-height: 980px;">
+                </section> #}
+            {% endblock %}
         {% include('footer.html.twig') %}
     </body>
 </html>

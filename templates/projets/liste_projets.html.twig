@@ -36,22 +36,27 @@
                 <th scope="col" class="">Heures équipe</th>
             </tr>
         </thead>
-        {# {% for projet in liste_projets %}
+        {% for projet in liste_projets %}
             <tbody>
                 <tr style="color: #e6e6e6;">
-                    <td scope="row" class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
+                    <td scope="row" class="text-center"> <a href="">{{ projet.titre }}</a> </td>
+                    {# <td class="text-center">{{ projet.date_debut }}</td> #}
+                    {# <td class="text-center">{{ projet.date_fin }}</td> #}
+                    {# <td class="text-center">{{ projet.statuts_projet }}</td>
+                    <td class="text-center">{{ projet.participants_projet }}</td> #}
+                    <td class="text-center">{{ projet.resume }}</td>
+                    {# <td class="text-center">{{ projet.statut_rdi }}</td>
+                    <td class="text-center">{{ projet.temps_passe }}</td> #}
+                    {# <td class="text-center">{{ projet. }}</td> #}
                 </tr>
             </tbody>
-        {% endfor %} #}
+        {% endfor %}
     </table>
+
+    <div class="button mb-4" style="text-align: end">
+        <a href="{{ path('infos_projet_') }}"><input type="button" class="btn btn-success new_project" value="Nouveau Projet">
+    </div>
+
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

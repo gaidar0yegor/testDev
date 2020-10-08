@@ -1,20 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateursFoController!{% endblock %}
+{% block title %}BACK OFFICE - Ajouter un nouvel utilisateur{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+    	#users div{margin-bottom: 30px; }
+        .btn-success{color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
+    	.form-group.row {justify-content: space-around; }
+    </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-    Todo : Saisie nouvel utilisateur
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/src/Controller/UtilisateursFoController.php'|file_link(0) }}">src/Controller/UtilisateursFoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/templates/utilisateurs_fo/index.html.twig'|file_link(0) }}">templates/utilisateurs_fo/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container">
+    	<div class="col-lg-6 mx-auto">
+    		<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter un nouvel utilisateur</h1>
+    		{% for message in app.flashes('info') %}
+    			<div class="alert alert-success text-center">
+    				{{ message }}
+    			</div>
+    		{% endfor %}
+            
+    		{{ form_start(form) }}		
+    			{{ form_row(form.nom) }}
+    			{{ form_row(form.prenom) }}
+    			{{ form_row(form.telephone) }}
+    			{{ form_row(form.email) }}
+    			{# {{ form_row(form.societes) }} #}
+    			{{ form_row(form.roles) }}
+    			{# {{ form_row(form.statuts_utilisateur) }} #}
+    			
+                <div class="form-group row">
+				    <div class="form-group mt-5">
+    			        <a href="" class="btn btn-danger">Annuler</a>
+    			    </div>
+    			    {{ form_row(form.ajouter) }}
+    			</div>
+			{{ form_end(form) }} 	
+    	</div>
+    </div>
 {% endblock %}
