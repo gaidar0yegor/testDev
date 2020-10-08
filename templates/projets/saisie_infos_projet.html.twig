@@ -1,79 +1,47 @@
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des projets{% endblock %}
+{% block title %}Hello ProjetsController!{% endblock %}
 
 {% block body %}
+
+
+    {# <div class="container">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="text-center mb-4"  style="color: #ce352c;">Ajouter un projet</h1>
+
+            {{ form_start(form) }}		
+            	{{ form_row(form.titre) }}
+            	{{ form_row(form.statuts_projet) }}
+            	{{ form_row(form.resume) }}
+
+                <div class="form-group row">
+            	    {{ form_row(form.date_debut) }}
+            	    {{ form_row(form.date_fin) }}
+                </div>
+
+            {{ form_end(form) }} 
+
+        <div class="text-center mt-5 register">
+            <a href="fo-projet-01.php"><input type="button" class="btn btn-success" value="Enregistrer">
+        </div>
+    </div> #}
+
+
+    </div>
+
+
 <style>
-    .title {display: flex; justify-content: space-between; }
-    .select {display: flex; align-items: center; }
-    a:hover {text-decoration: none; color: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
-    h1, td a {color: black; }
-    .table thead th {background-color: #ce352c; color: white; }
-    tr, td {background-color: #e6e6e6; }
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="container">
-    <div class="title">
-        <div class="subtitle">
-            <label for="bday-month"><h1 class="text-center mt-4" style="color: #ce352c;">Mes projets de l'année </h1></label>
-        </div>
-        <div class="select">
-            <select name="select" class="form-control" id="dropdownYear" style="height: 43%; margin-top: 11%;"; onchange="getProjectReportFunc()"></select>
-        </div>                   
-    </div>
-    
-    <table class="table  text-center mx-auto m-5">
-        <thead>
-            <tr>
-                <th scope="col" class="">PROJETS</th>
-                <th scope="col" class="">Début</th>
-                <th scope="col" class="">Fin</th>
-                <th scope="col" class="">Statut</th>
-                <th scope="col" class="">Participants</th>
-                <th scope="col" class="">Faits Marquants</th>
-                <th scope="col" class="">RDI</th>
-                <th scope="col" class="">Mes Heures</th>
-                <th scope="col" class="">Heures équipe</th>
-            </tr>
-        </thead>
-        {% for projet in liste_projets %}
-            <tbody>
-                <tr style="color: #e6e6e6;">
-                    <td scope="row" class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
-                </tr>
-            </tbody>
-        {% endfor %}
-    </table>
+<div class="example-wrapper">
+    {# <h1> {{ controller_name }}! ✅</h1> #}
+    TODO tableau liste des projets (fo-projet-01.php)
+    This friendly message is coming from:
+    <ul>
+        <li>Your controller at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/src/Controller/ProjetsController.php'|file_link(0) }}">src/Controller/ProjetsController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/templates/projets/index.html.twig'|file_link(0) }}">templates/projets/index.html.twig</a></code></li>
+    </ul>
 </div>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
-
-<script type="text/javascript" src="{{ asset('https://www.gstatic.com/charts/loader.js') }}"></script>
-<script>
-    $('#dropdownYear').each(function() {
-        var year = (new Date()).getFullYear();
-        var current = year;
-        // year += 4;
-        for (var i = 0; i < 5; i++) {
-          if ((year+i) == current)
-            $(this).append('<option selected value="' + (year - i) + '">' + (year - i) + '</option>');
-          else
-            $(this).append('<option value="' + (year - i) + '">' + (year - i) + '</option>');
-        }
-    })
-</script>
-
 {% endblock %}
-

@@ -28,19 +28,13 @@ class ProjetsController extends AbstractController
 
     }
 
-    
-    // public function saisieInfosProjet()
-    // {
-    //     return $this->render('projets/saisie_infos_projet.html.twig', [
-    //         'controller_name' => 'ProjetsController',
-
     /**
      * @Route("/infos_projet", name="infos_projet_")
      */
-    public function index(ProjetsRepository $pr)
+    public function saisieInfosProjet(ProjetsRepository $pr)
     {
         $liste_projets = $pr->findAll();
-        return $this->render('projets/index.html.twig', [
+        return $this->render('projets/saisie_infos_projet.html.twig', [
             'liste_projets' => $liste_projets,
 
         ]);
