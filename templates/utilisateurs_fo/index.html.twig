@@ -1,20 +1,76 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateursFoController!{% endblock %}
+{% block title %}Liste des utilisateurs{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .img_logo {position: absolute; left: 4%; top: 8%; }
+    .img_logo img {height: 50px; }
+    .container {margin-top: 40px; }
+    .table thead th {background-color: #ce352c; color: white; }
+    tr, td {background-color: #e6e6e6; }
+    .edit-delete1 {position: absolute; top: 42%; left: 83%; }
+    .edit-delete2 {position: absolute; top: 38%; left: 83%; }
+    .new_user {text-align: center; }
+    .edit-delete1, .edit-delete2 {display: flex; }
+    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+<div class="container">
+    <h1 class="text-center m-4" style="color: #ce352c;">Liste des utilisateurs</h1>
+    {# <p class="text-end mt-4 mb-4">Licences disponibles : <span>03</span></p> #}
 
-    This friendly message is coming from:
+    <table class="table text-center mx-auto m-5"  style="max-width: 80%;">
+        <thead>
+            <tr class="table table-secondary">
+                <th scope="col" class="text-center">N°</th>
+                <th scope="col" class="text-center">Nom</th>
+                <th scope="col" class="text-center">Prénom</th>
+                <th scope="col" class="text-center">Email</th>
+                <th scope="col" class="text-center">Rôle</th>
+                <th scope="col" class="text-center">Statut</th>
+                <th scope="col" class="text-center">Date</th>
+                <th scope="col" class="text-center">Nb projets</th>
+            </tr>
+        </thead>
+        {% for utlisateur in liste_utilisateurs %}
+            <tbody>
+                <tr>
+                    <td class="text-center">{{ utilisateurs.id }}</td>     
+                    <td class="text-center">{{ utilisateurs.nom }}</td>      
+                    <td class="text-center">{{ utilisateurs.prenom }}</td>      
+                    <td class="text-center">{{ utilisateurs.email }}</td>      
+                    <td class="text-center">{{ utilisateurs.roles }}</td>      
+                    <td class="text-center">{{ utilisateurs.statuts_utilisateur }}</td>      
+                    <td class="text-center">09-10-2020</td>      
+                    <td class="text-center">0</td>      
+                    {# <td style="background: white; border: white;">
+                        <a href="{{ path("artist_fiche", { id: artiste.id }) }}">
+                            <i class="fa fa-guitar"></i>
+                        </a>
+                    </td> #}
+                    {# <td style="background: white; border: white;"></td> #}
+                </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+    
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+    {# <h1>Hello {{ controller_name }}! ✅</h1> #}
+    {# This friendly message is coming from:
     <ul>
         <li>Your controller at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/src/Controller/UtilisateursFoController.php'|file_link(0) }}">src/Controller/UtilisateursFoController.php</a></code></li>
         <li>Your template at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/templates/utilisateurs_fo/index.html.twig'|file_link(0) }}">templates/utilisateurs_fo/index.html.twig</a></code></li>
-    </ul>
-</div>
-{% endblock %}
+    </ul> #}
