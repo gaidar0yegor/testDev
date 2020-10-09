@@ -61,35 +61,47 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/fo/compte", name="compte_")
+     * @Route("/utilisateurs/fo/compte", name="compte_", requirements={"id"="\d+"})
      */
-    public function compteUtilisateur()
+    public function compteUtilisateur(Request $rq, EntityManager $em, UsersRepository $ur)
     {
+    //  Modifier un utilisateur existant
+        // récupérer l'utilisateur avec son id, l'afficher dans le formulaire et enregistrer les modifications dans la base de données
+        // $utilisateurAmodifier = $ur->find($id);
+        // $formUtilisateur = $this->createForm(UserType::class, $utilisateurAmodifier);
+        // $formUtilisateur->handleRequest($rq);
+        // if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+        //     // $em->persist($utilisateurAmodifier);
+        //     $em->flush();
+        //     $this->addFlash("success", "Les informations de l'utilisateur ont été modifiées");
+        //     return $this->redirectToRoute("compte_");
+        // }
         return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
+            // 'formUtilisateur' => $form->createView(), // On créé la vue du formulaire      
             'controller_name' => 'UtilisateursFoController',
         ]);
     }
 
-    /**
-     * @Route("/utilisateurs/fo/modifier/{id}", name="utilisateurs_fo_modifier", requirements={"id"="\d+"})
-     */
-    // public function modifier(Request $rq, EntityManager $em, ArtistRepository $ar, $id)
+    // /**
+    //  * @Route("/utilisateurs/fo/modifier/{id}", name="utilisateurs_fo_modifier", requirements={"id"="\d+"})
+    //  */
+    // public function modifier(Request $rq, EntityManager $em, UsersRepository $ur, $id)
     // {
     //     // Modifier un utilisateur existant
     //     // récupérer l'utilisateur avec son id, l'afficher dans le formulaire et enregistrer les modifications dans la base de données
-    //     $utilisateurAmodifier = $ar->find($id);
-    //     $formArtiste = $this->createForm(ArtistType::class, $utilisateurAmodifier);
-    //     $formArtiste->handleRequest($rq);
-    //     if($formArtiste->isSubmitted() && $formArtiste->isValid()){
+    //     $utilisateurAmodifier = $ur->find($id);
+    //     $formUtilisateur = $this->createForm(UserType::class, $utilisateurAmodifier);
+    //     $formUtilisateur->handleRequest($rq);
+    //     if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
     //         // $em->persist($utilisateurAmodifier);
     //         $em->flush();
-    //         $this->addFlash("success", "Les informations de l'artiste ont été modifiées");
-    //         return $this->redirectToRoute("artist");
+    //         $this->addFlash("success", "Les informations de l'utilisateur ont été modifiées");
+    //         return $this->redirectToRoute("compte_");
     //     }
-    //     return $this->render("artist/form.html.twig", [ 
-    //         "form" => $formArtiste->createView(), 
-    //         "bouton" => "Modifier",
-    //         "titre" => "Modification de l'artiste n°$id" 
+    //     return $this->render("utilisateurs_fo/compte_utilisateurs_fo.html.twig", [ 
+    //         "form" => $formUtilisateur->createView(), 
+    //         // "bouton" => "Modifier",
+    //         // "titre" => "Modification de l'artiste n°$id" 
     //     ]);
     // }
 }

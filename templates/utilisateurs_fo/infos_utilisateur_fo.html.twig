@@ -3,37 +3,39 @@
 {% block title %}BACK OFFICE - Ajouter un nouvel utilisateur{% endblock %}
 
 {% block body %}
-    <style>
-    	#users div{margin-bottom: 30px; }
-        .btn-success{color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-    	.form-group.row {justify-content: space-around; }
-    </style>
+<style>
+	#users div{margin-bottom: 30px; }
+    .btn-success{color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
+	.form-group.row {justify-content: space-around; }
+</style>
 
-    <div class="container">
-    	<div class="col-lg-6 mx-auto">
-    		<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter un nouvel utilisateur</h1>
-    		{% for message in app.flashes('info') %}
-    			<div class="alert alert-success text-center">
-    				{{ message }}
-    			</div>
-    		{% endfor %}
-            
-    		{{ form_start(form) }}		
-    			{{ form_row(form.nom) }}
-    			{{ form_row(form.prenom) }}
-    			{{ form_row(form.telephone) }}
-    			{{ form_row(form.email) }}
-    			{# {{ form_row(form.societes) }} #}
-    			{{ form_row(form.roles) }}
-    			{# {{ form_row(form.statuts_utilisateur) }} #}
-    			
-                <div class="form-group row">
-				    <div class="form-group mt-5">
-    			        <a href="" class="btn btn-danger">Annuler</a>
-    			    </div>
-    			    {{ form_row(form.ajouter) }}
-    			</div>
-			{{ form_end(form) }} 	
-    	</div>
-    </div>
+<div class="container">
+	<div class="col-lg-6 mx-auto">
+		<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter un nouvel utilisateur</h1>
+		
+        {% for message in app.flashes('info') %}
+			<div class="alert alert-success text-center">
+				{{ message }}
+			</div>
+		{% endfor %}
+        
+		{{ form_start(form) }}		
+			{{ form_row(form.nom) }}
+			{{ form_row(form.prenom) }}
+			{{ form_row(form.telephone) }}
+			{{ form_row(form.email) }}
+			{# {{ form_row(form.societes) }} #}
+			{{ form_row(form.roles) }}
+			{# {{ form_row(form.statuts_utilisateur) }} #}
+			
+            <div class="form-group row">
+			    <div class="form-group mt-5">
+			        <a href="" class="btn btn-danger">Annuler</a>
+			    </div>
+			    {{ form_row(form.ajouter) }}
+			</div>
+		{{ form_end(form) }} 	
+	</div>
+</div>
+
 {% endblock %}

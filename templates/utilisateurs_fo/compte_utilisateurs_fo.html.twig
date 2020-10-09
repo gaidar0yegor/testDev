@@ -1,20 +1,170 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UtilisateursFoController!{% endblock %}
+{% block title %}Mon compte{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    /* .changer_mdp ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active {background: border-box border-box; border-radius: 1%; } */
+    .container {min-height: 86vh; }
+    form {position: relative; left: 16%; color: black; }
+    .text-center {justify-content: space-between; }
+    .btn-success1 {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
+    .col-sm-8 {max-width: 51.666667%; }
+    .change_mdp {position: relative; right: 28%; }
+    .button {display: flex;  justify-content: space-between; position: relative; left: 12%; }
+    .update {position: relative; left: 4%; }
+    .overlay {position: fixed; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); transition: opacity 500ms; visibility: hidden; opacity: 0; }
+    .overlay:target {visibility: visible; opacity: 1; }
+    #popup2 {position: fixed; z-index: 5; }
+    #popup1 {position: fixed; z-index: 5; }
+    .popup {margin: 70px auto; padding: 20px; background: #fff; border-radius: 5px; width: 50%; position: relative; transition: all 5s ease-in-out; top: 19%; }
+    .close {position: absolute; top: 5%; right: 3%; font-size: xx-large; }
+    .valid {text-align: center; margin-top: 20px; }
 </style>
 
-<div class="example-wrapper">
-    <h1> {{ controller_name }}! ✅</h1>
-    Todo : liste des utilisateurs FO
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/src/Controller/UtilisateursFoController.php'|file_link(0) }}">src/Controller/UtilisateursFoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/templates/utilisateurs_fo/index.html.twig'|file_link(0) }}">templates/utilisateurs_fo/index.html.twig</a></code></li>
-    </ul>
+<div class="container">
+    <h1 class="text-center m-4"  style="color: #ce352c;">Mon compte</h1>
+<!-- <h4 class="mb-4">Activer votre compte RDI Manager</h4> -->
+    <form action="" method="post" style="max-width: 82%;">
+        <div class="form-group row">
+            <label for="nom" class="col-md-2 col-form-label">Nom</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="nom" placeholder="DOE" disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="prenom" class="col-md-2 col-form-label">Prénom</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" id="prenom" placeholder="John"  disabled>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="mobile" class="col-md-2 col-form-label">Mobile</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="mobile"placeholder="09 9d-89 99 09"  disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="email" class="col-md-2 col-form-label">Email</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="email" placeholder="john.doe@email.com" disabled>
+                </div>
+            </div>
+            <div class="form-group row" id="nom_societe">
+                <label for="nom_societe" class="col-md-2 col-form-label" id="nom_societe">Nom de la société</label>
+                <div class="col-md-8">
+                  <input type="text" class="form-control" id="nom_societe" placeholder="Société 1" disabled>
+                </div>
+            </div>
+            <div class="form-group row" id="role">
+                <label for="role" class="col-md-2 col-form-label">Rôle</label>
+                <div class="col-md-8">
+                    <select id="role" class="form-control" disabled>
+                        <option selected>Administrateur</option>
+                        <option>Chef de projet</option>
+                        <option>Participant</option>
+                        <option>Observateur</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="button mt-5 mb-4">
+            <!-- <input type="submit" class="btn btn-secondary" value="Annuler"> -->
+            <div class="update">
+                <a href="#popup2"> <input type="update" class="btn btn-success" value="Mettre à jour"> </a>
+            </div>
+            <div class="change_mdp">
+                <a href="#popup1"><input type="button" class="btn btn-warning" value="Modifier votre mot de passe"> </a>
+            </div>
+        </div>
+        <!-- <div id="modifier"> -->
+    
+        <!-- <div class="button text-center m-4">
+            <a href="fo-temps-01.php"><input type="button" class="btn btn-success1" value="Modifier votre mot de passe">
+        </div> -->
+    <div id="popup2"  class="overlay">
+        <div class="popup">
+            <a class="close" href="#">&times;</a> 
+            <div class="col-lg text-center mx-auto">    
+                <form method="post">
+                    <div class="form-group row">
+                        <label for="nom" class="col-sm-2 col-form-label">Nom</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="nom" placeholder="DOE" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="prenom" class="col-sm-2 col-form-label">Prénom</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="prenom" placeholder="John"  >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="mobile" class="col-sm-2 col-form-label">Mobile</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="mobile"placeholder="09 90 89 99 09"  >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="email" placeholder="john.doe@email.com" >
+                        </div>
+                    </div>
+                    <div class="form-group row" id="nom_societe">
+                        <label for="nom_societe" class="col-sm-2 col-form-label" id="nom_societe">Nom de la société</label>
+                        <div class="col-sm-8">
+                          <input type="text" class="form-control" id="nom_societe" placeholder="Société 1" >
+                        </div>
+                    </div>
+                    <div class="form-group row" id="role">
+                        <label for="role" class="col-sm-2 col-form-label">Rôle</label>
+                        <div class="col-sm-8">
+                            <select id="role" class="form-control" >
+                                <option selected>Administrateur</option>
+                                <option>Chef de projet</option>
+                                <option>Participant</option>
+                                <option>Observateur</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <div class="update text-center mt-5">
+                    <a href="{{ path('compte_') }}"> <input type="update" class="btn btn-primary" value="Modifier"> </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="popup1" class="overlay">
+        <div class="popup">
+            <!-- <h2 class="text-center m-4">Projet : <span>Développement IP</span> </h2> -->
+            <a class="close" href="#">&times;</a>
+            <div class="col-lg mx-auto">
+                <form class="changer_mdp" action="" method="post">
+                    <div class="form-group row">
+                        <label for="mdp" class="col-sm-2 col-form-label">Mot de passe actuel</label>
+                        <div class="col-sm-8">
+                          <input type="password" class="form-control" id="mdp">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="new_mdp" class="col-sm-2 col-form-label">Nouveau mot de passe</label>
+                        <div class="col-sm-8">
+                          <input type="password" class="form-control" id="new_mdp">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="confirm_mdp" class="col-sm-2 col-form-label">Retapez le mot de passe</label>
+                        <div class="col-sm-8">
+                          <input type="password" class="form-control" id="confirm_mdp">
+                        </div>
+                    </div>
+                </form> 
+                <div class="valid">
+                    <a href=""><input type="button" class="btn btn-success1" value="Modifier"></a>
+                </div><br> 
+            </div> 
+        </div>
+    </div>
 </div>
 {% endblock %}

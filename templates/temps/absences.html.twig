@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TempsController!{% endblock %}
+{% block title %}Mes absences{% endblock %}
 
 {% block body %}
 <style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .calendar {background-color: beige; border: 1px solid black; border-radius: 2em; width: 50%; margin: 25px; padding: 20px; position: relative; left: 23%;  }
+    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 </style>
 
-<div class="example-wrapper">
-    <h1> {{ controller_name }}! ✅</h1>
-    Todo saisie des absences
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/src/Controller/TempsController.php'|file_link(0) }}">src/Controller/TempsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/templates/temps/index.html.twig'|file_link(0) }}">templates/temps/index.html.twig</a></code></li>
-    </ul>
+<div class="cd-popup1" role="alert">
+    
+    <div class="calendar text-center">
+        <h1 style="color: #ce352c; margin-bottom: 20px; ">Indiquez vos jours d'absence</h1>
+        <div class="datepicker" style="display: flex; justify-content: space-between;">
+            <div class="mbsc-col-sm-12 mbsc-col-md-4">
+                <div class="mbsc-form-group">
+                    <div class="mbsc-form-group-title"> <h2>Journée</h2></div>
+                    <div id="maxPicks" class="d-flex justify-content-center"></div>
+                </div>
+            </div>
+            <div class="mbsc-col-sm-12 mbsc-col-md-4">
+                <div class="mbsc-form-group">
+                    <div class="mbsc-form-group-title"> <h2>Demi-Journée</h2></div>
+                    <div id="maxPicks1" class="d-flex justify-content-center"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center m-5">
+            <a href="{{ path('synthese_fo_') }}"><input type="button" class="btn btn-success" value="Valider">
+        </div>
+    </div>
 </div>
+
+<script type="application/javascript" src="js/jquery-1.9.1.js"></script>
+<script type="application/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
+<script type="application/javascript" src="js/jquery.ui.datepicker-fr.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.6/jquery-ui.multidatespicker.js"></script><!-- <script type="application/javascript" src="js/datepicker.js"></script> -->
+<!-- <script type="application/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script> -->
+<script>
+    $('#maxPicks').multiDatesPicker({
+        dateFormat: "y-m-d", 
+        defaultDate:"20-9-1",
+        lang: "fr"
+    });
+    $('#maxPicks1').multiDatesPicker({
+        dateFormat: "y-m-d", 
+        defaultDate:"20-9-1"
+    });
+</script>
+
 {% endblock %}
