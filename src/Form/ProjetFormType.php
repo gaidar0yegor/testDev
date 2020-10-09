@@ -26,7 +26,7 @@ class ProjetFormType extends AbstractType
             ->add('projet_interne')
             ->add('projet_collaboratif')
             ->add('projet_ppp')
-            ->add('statuts_projet')
+            //->add('statuts_projet')
             ->add('ajouter', SubmitType::class, [
                 "label" => "Ajouter",
                 "attr"=> [

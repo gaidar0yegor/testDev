@@ -47,10 +47,9 @@ class ProjetsController extends AbstractController
                 
                dump($projet);
                // On vérifie si le formulaire a été envoyé et si les données sont valides
-               //if($form->isSubmitted() && $form->isValid()) {
-               if($form->isSubmitted()) {
-                    dd($projet);
-                // // On enregistre l'utilisateur en bdd
+               if($form->isSubmitted() && $form->isValid()) {
+            
+                 // On enregistre l'utilisateur en bdd
                    $em = $this->getDoctrine()->getManager();
                    $em->persist($projet);
                    $em->flush(); // Transférer l'information vers la base de données "rdi_manager_01"
