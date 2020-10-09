@@ -40,7 +40,7 @@ class Projets
     private $date_fin;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $statut_rdi;
 
@@ -84,6 +84,11 @@ class Projets
      * @ORM\Column(type="string", length=255)
      */
     private $acronyme;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $projet_interne;
 
     public function __construct()
     {
@@ -222,7 +227,7 @@ class Projets
     {
         $this->statuts_projet = $statuts_projet;
 
-        return $this;
+        return (string) $this;
     }
 
     /**
@@ -326,6 +331,18 @@ class Projets
     public function setAcronyme(string $acronyme): self
     {
         $this->acronyme = $acronyme;
+
+        return $this;
+    }
+
+    public function getProjetInterne(): ?bool
+    {
+        return $this->projet_interne;
+    }
+
+    public function setProjetInterne(?bool $projet_interne): self
+    {
+        $this->projet_interne = $projet_interne;
 
         return $this;
     }
