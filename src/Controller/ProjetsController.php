@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Projets;
 use App\Entity\FaitsMarquants;
+use App\Entity\Users;
 use App\Form\ProjetFormType;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use App\Repository\UsersRepository;
@@ -72,12 +73,16 @@ class ProjetsController extends AbstractController
      */
     public function ficheProjet(UsersRepository $ur)
     {
-        if ($this->getUser()) {
-            $utilisateur = $ur->find($this->getUser()->getId());
+        //if ($this->getUser()) {
+            //$utilisateur = $ur->find($this->getUser()->getId());
+            $utilisateur = new Users;
             return $this->render('projets/fiche_projet.html.twig', [
-                'utilisateur' => $utilisateur
+                'utilisateur' => $utilisateur ,
             ]);    
-        }
-        return $this->redirectToRoute('fiche_projet_');
+        //dd($this);
+       // }
+
+
+       // return $this->redirectToRoute('fiche_projet_');
     }
 }
