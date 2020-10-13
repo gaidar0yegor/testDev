@@ -33,23 +33,27 @@
                 <th scope="col" class="text-center">Nb projets</th>
             </tr>
         </thead>
-        {% for utlisateur in liste_utilisateurs %}
+        {% for utilisateur in liste_utilisateurs %}
             <tbody>
                 <tr>
                     <td class="text-center">{{ utilisateur.id }}</td>     
                     <td class="text-center">{{ utilisateur.nom }}</td>      
                     <td class="text-center">{{ utilisateur.prenom }}</td>      
                     <td class="text-center">{{ utilisateur.email }}</td>      
-                    <td class="text-center">{{ utilisateur.roles }}</td>      
-                    <td class="text-center">{{ utilisateur.statuts_utilisateur }}</td>      
-                    <td class="text-center">09-10-2020</td>      
+                    {# <td class="text-center">{{ utilisateur.roles }}</td>       #}
+                    {# <td class="text-center">{{ utilisateur.statuts_utilisateur }}</td>       #}
+                    {# <td class="text-center">{{ utilisateur.created_at }}</td>       #}
                     <td class="text-center">0</td>      
-                    {# <td style="background: white; border: white;">
-                        <a href="{{ path("artist_fiche", { id: artiste.id }) }}">
-                            <i class="fa fa-guitar"></i>
+                    <td style="background: white; border: white;">
+                        <a href="{{ path('compte_', { id: utilisateur.id }) }}">
+                            <i class="fa fa-edit"></i>
                         </a>
-                    </td> #}
-                    {# <td style="background: white; border: white;"></td> #}
+                    </td> 
+                    <td style="background: white; border: white;">
+                        <a href="">
+                            <i class="fa fa-trash"></i>
+                        </a>                   
+                    </td>
                 </tr>
             </tbody>
         {% endfor %}

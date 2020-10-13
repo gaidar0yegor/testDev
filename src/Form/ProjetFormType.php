@@ -22,7 +22,7 @@ class ProjetFormType extends AbstractType
     {
         $builder
             ->add('acronyme', NumberType::class, [
-                "label" => "Acronyme",
+                "label" => "Projet",
                 "attr" => [
                     "class" => "form-control"
                 ]

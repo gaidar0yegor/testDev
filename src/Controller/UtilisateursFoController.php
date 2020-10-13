@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use App\Entity\Users;
 use App\Repository\UsersRepository;
+// use App\Repository\SocietesRepository;
+
 use App\Form\UtilisateursFormType;
 
 
@@ -61,25 +63,17 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/fo/compte", name="compte_", requirements={"id"="\d+"})
+     * @Route("/utilisateurs/fo/compte", name="compte_")
      */
-    public function compteUtilisateur(Request $rq, EntityManager $em, UsersRepository $ur)
+    public function compteUtilisateur(UsersRepository $ur)
     {
-    //  Modifier un utilisateur existant
-        // récupérer l'utilisateur avec son id, l'afficher dans le formulaire et enregistrer les modifications dans la base de données
-        // $utilisateurAmodifier = $ur->find($id);
-        // $formUtilisateur = $this->createForm(UserType::class, $utilisateurAmodifier);
-        // $formUtilisateur->handleRequest($rq);
-        // if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-        //     // $em->persist($utilisateurAmodifier);
-        //     $em->flush();
-        //     $this->addFlash("success", "Les informations de l'utilisateur ont été modifiées");
-        //     return $this->redirectToRoute("compte_");
-        // }
-        return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
-            // 'formUtilisateur' => $form->createView(), // On créé la vue du formulaire      
-            'controller_name' => 'UtilisateursFoController',
-        ]);
+        if ($this->getUser()) {
+            $utilisateur = $utilisateur->find($this->getUser()->getId());
+            return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
+                'utilisateur' => $utilisateur ]);
+        }
+
+        return $this->redirectToRoute('compte_');
     }
 
     // /**
