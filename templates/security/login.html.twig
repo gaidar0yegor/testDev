@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {# <img class="logofooter" src="{{ asset('img/logosign.png') }}" alt="">  #}
+            <title>{% block title %}RDI MANAGER - Connectez-vous{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+            <link rel="stylesheet" href="css/styles.css">
+            <link rel="stylesheet" href="css/menu-horizontal-front.css">
+            <link rel="stylesheet" href="css/popup.css">
+            <link rel="stylesheet" href="css/all.css">
+
+            {# <link rel="stylesheet" href="css/styles-old.css"> #}
+            <style>
+            body {overflow-y: hidden; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); color: white; }
+    
+            section {height: 837px; display: flex; justify-content: center; }
+    
+            .connexion { position: absolute; top: 13%; left: 10%; }
+            .img-logo {position: relative; left: 6%; margin-bottom: 12px; }
+            .logofooter1 { height: 15vh; width: 15vh; border-radius: 148%; margin-top: 13px; padding-left: 0vh; margin-left: 30px;margin-right: 6px; }
+    
+            /* form {border: 2px solid black; border-radius: 1em; min-height: 39vh; } */
+            .form-group {position: relative; left: 6%; }
+            .forget_mdp, .new_compte {text-align: center; margin: 5px; }
+            a:hover {background: none; color: white; text-decoration: white; }
+    
+            .presentation {position: absolute; left: 33%; top: 15%; }
+            .text {width: 576px; text-align: justify; position: absolute; top: 116px; left: 40px; }
+    
+            @media screen and (max-width: 1012px) {
+                body {overflow-x: hidden; }
+                .connexion {position: relative; left: -1%; }
+                .img-logo {position: relative; left: 10%; }
+                .presentation { display: none; text-decoration: none;  }
+                .cd-popup-container .cd-buttons li:first-child a {background: #ce352c; }
+                .cd-popup-container .cd-buttons li:last-child a {background: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
+            }
+            </style>
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>        
+            <script>
+                jQuery(document).ready(function($){
+                	//open popup
+                	$('.cd-popup-trigger').on('click', function(event){
+                		event.preventDefault();
+                		$('.cd-popup').addClass('is-visible');
+                	});
+
+                	//close popup
+                	$('.cd-popup').on('click', function(event){
+                		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+                			event.preventDefault();
+                			$(this).removeClass('is-visible');
+                		}
+                	});
+                    
+                	//close popup when clicking the esc keyboard button
+                	$(document).keyup(function(event){
+                    	if(event.which=='27'){
+                    		$('.cd-popup').removeClass('is-visible');
+                	    }
+                    });
+
+                });   
+            </script>       
+
+            {# // jQuery(document).ready(function($){
+            //     $('cd-popup-date').('click', function(event){
+            // 		event.preventDefault();
+            // 		$('.cd-popup1').addClass('is-visible');
+            //     });
+            // }); #}
+        {% endblock %}
+    </head>
+
+    {# <form method="post"> #}
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% if app.user %}
+            <div class="mb-3">
+                Vous êtes connecté(e) en tant que : {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+            </div>
+        {% endif %}
+
+        <section>
+            <div class="connexion">
+                <div class="img-logo">
+                    <img class="logofooter1" style="font-size: 2em;" src="img/logosign.png" alt="">
+                </div>
+                <form action="" method="post">
+                    <div class="form-group row">
+                        <label for="identifiant" class="col-sm-2 col-form-label">Identifiant</label>
+                    </div>
+                    <div class="col-md-12 mb-4">
+                        <input type="text" class="form-control" id="identifiant" value="{{ last_username }}" required autofocus>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-sm-6 col-form-label">Mot de passe</label>
+                    </div>
+                    <div class="col-md-12">
+                      <input type="password" class="form-control" id="password" required>
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    <div class="forget_mdp mt-4">
+                        <span style="color: white;" class="cd-popup-trigger"><a href="#0">Mot de passe oublié ?</a></span>
+                    </div>
+
+                    <div class="connect text-center mt-4">
+                        <a href="{{ path("synthese_fo_") }}"><input type="submit" class="btn btn-success" value="Connexion"></a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="presentation">
+                <h1 class="display-4"><img src="img/Logo-RDI-blanc.png"></h1>
+
+                <div class="text" style="margin-top: 30px; margin-left: 30">
+                    <p>RDI Manager est une plateforme qui permet de simplifier le suivi des projets de recherche, développement et innovation. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem fugiat numquam ducimus, consectetur sed nobis fugit magnam non quisquam quasi? Cumque amet ducimus sunt veritatis optio architecto odio impedit nihil.
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore ad cupiditate, doloremque maxime quas suscipit iure dignissimos, nobis veritatis debitis labore quis, aliquam ex ut harum eveniet quaerat quia at?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident temporibus in reiciendis, magni omnis accusantium aperiam itaque voluptatum quis tempore numquam, optio ducimus harum saepe ipsam nulla repudiandae culpa sequi?</p>
+                </div>
+            </div>
+
+            <div class="cd-popup" role="alert">
+	            <div class="cd-popup-container" style="top: 18%;">
+                    <h2 class="mt-4" style="color: black;">Mot de passe oublié</h2>
+                    <p style="color: black;">Pour réinitialiser votre mot de passe, veuillez entrer votre adresse e-mail ci-dessous</p>
+                    
+                    <div class="col-md text-center">
+                        <input type="email" class="form-control" id="email"  placeholder="fvuadiambo@eurekaci.com" required>
+                    </div>
+                    {# {{ form(emailForm) }} #}
+
+                    <div class="connect text-center mt-4">
+                        <a href="{{ path("app_login") }}"><input type="submit" class="btn btn-success" value="Envoyer"></a>
+                    </div>
+
+	                <a href="#0" class="cd-popup-close img-replace">Close</a>
+                </div>                 
+            </div>
+
+        </section>
+
+    {% include "footer.html.twig" %}
+
+    </html>
+</html>
+

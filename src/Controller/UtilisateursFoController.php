@@ -47,6 +47,9 @@ class UtilisateursFoController extends AbstractController
 
         // On vérifie si le formulaire a été envoyé et si les données sont valides
         if($form->isSubmitted() && $form->isValid()) {
+            $users->getCreatedAt = date('Y-m-d H:m:s');
+            $users->getSocietes = 36;
+            dd($users);
             // // On enregistre l'utilisateur en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($users);
@@ -54,7 +57,7 @@ class UtilisateursFoController extends AbstractController
 
             // $request->getSession()->getFlashBag()->add();
             $this->addFlash('info', "La fiche de l'utilisateur " . $users->getPrenom() . " " . $users->getNom() . " a été crée");
-            return $this->redirectToRoute("users");
+            return $this->redirectToRoute("infos_utilisateur_fo_");
         }
         
         return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [

@@ -60,7 +60,7 @@ class ProjetsController extends AbstractController
             
              //TODO
              // $this->addFlash('info', "La fiche de l'utilisateur " . $users->getPrenom() . " " . $users->getNom() . " a été crée");
-             return $this->redirectToRoute("projet");
+             return $this->redirectToRoute("projets");
         }
          
          return $this->render('projets/saisie_infos_projet.html.twig', [
@@ -74,6 +74,7 @@ class ProjetsController extends AbstractController
     public function ficheProjet(UsersRepository $ur)
     {
         //if ($this->getUser()) {
+            
             //$utilisateur = $ur->find($this->getUser()->getId());
             $utilisateur = new Users;
             return $this->render('projets/fiche_projet.html.twig', [
