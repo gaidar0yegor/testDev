@@ -26,6 +26,7 @@ class ProjetsController extends AbstractController
         // ]);
         //    dd(4);
         $liste_projets = $this->getDoctrine()->getRepository(Projets::class)->findAll();
+        // $users->getFaitsMarquants = 36;
         //  dd($projets);
         return $this->render('projets/liste_projets.html.twig', [
             'liste_projets'=> $liste_projets
@@ -53,6 +54,7 @@ class ProjetsController extends AbstractController
       
            // On enregistre l'utilisateur en bdd
              $em = $this->getDoctrine()->getManager();
+            //  $em = $this->getdate_Debut();
              $em->persist($projet);
              $em->flush(); // Transférer l'information vers la base de données "rdi_manager_01"
 
@@ -60,7 +62,7 @@ class ProjetsController extends AbstractController
             
              //TODO
              // $this->addFlash('info', "La fiche de l'utilisateur " . $users->getPrenom() . " " . $users->getNom() . " a été crée");
-             return $this->redirectToRoute("projets");
+             return $this->redirectToRoute("projets_");
         }
          
          return $this->render('projets/saisie_infos_projet.html.twig', [

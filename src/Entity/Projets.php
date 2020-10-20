@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass=ProjetsRepository::class)
  */
@@ -89,6 +90,11 @@ class Projets
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $projet_interne;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $chefDeProjet;
 
     public function __construct()
     {
@@ -343,6 +349,18 @@ class Projets
     public function setProjetInterne(?bool $projet_interne): self
     {
         $this->projet_interne = $projet_interne;
+
+        return $this;
+    }
+
+    public function getChefDeProjet(): ?string
+    {
+        return $this->chefDeProjet;
+    }
+
+    public function setChefDeProjet(?string $chefDeProjet): self
+    {
+        $this->chefDeProjet = $chefDeProjet;
 
         return $this;
     }
