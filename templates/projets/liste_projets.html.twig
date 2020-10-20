@@ -39,7 +39,7 @@
                     <td class="text-center">{{ projet.dateDebut|date('d/m/Y') }}</td>  
                     <td class="text-center">{{ projet.dateFin|date('d/m/Y') }}</td>
                     <td class="text-center">{{ projet.statutProjet.libelle }}</td>
-                    <td class="text-center">{{ projet.participantsProjet|length }}</td>
+                    <td class="text-center">{{ projet.projetParticipants|length }}</td>
                 </tr>
             </tbody>
         {% endfor %}

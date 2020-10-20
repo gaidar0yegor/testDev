@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\RoleParticipantProjetRepository;
+use App\Repository\RoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=RoleParticipantProjetRepository::class)
+ * @ORM\Entity(repositoryClass=RoleRepository::class)
  */
-class RoleParticipantProjet
+class Role
 {
     /**
      * @ORM\Id()
@@ -25,9 +25,9 @@ class RoleParticipantProjet
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=ParticipantsProjet::class, mappedBy="roles_participant_projet")
+     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="role")
      */
-    private $participantsProjets;
+    private $projetParticipants;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -36,7 +36,7 @@ class RoleParticipantProjet
 
     public function __construct()
     {
-        $this->participantsProjets = new ArrayCollection();
+        $this->projetParticipants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -57,29 +57,29 @@ class RoleParticipantProjet
     }
 
     /**
-     * @return Collection|ParticipantsProjet[]
+     * @return Collection|ProjetParticipant[]
      */
-    public function getParticipantsProjets(): Collection
+    public function getProjetParticipants(): Collection
     {
-        return $this->participantsProjets;
+        return $this->projetParticipants;
     }
 
-    public function addParticipantsProjet(ParticipantsProjet $participantsProjet): self
+    public function addProjetParticipant(ProjetParticipant $projetParticipant): self
     {
-        if (!$this->participantsProjets->contains($participantsProjet)) {
-            $this->participantsProjets[] = $participantsProjet;
-            $participantsProjet->setRoleParticipantProjet($this);
+        if (!$this->projetParticipants->contains($projetParticipant)) {
+            $this->projetParticipants[] = $projetParticipant;
+            $projetParticipant->setRole($this);
         }
 
         return $this;
     }
 
-    public function removeParticipantsProjet(ParticipantsProjet $participantsProjet): self
+    public function removeProjetParticipant(ProjetParticipant $projetParticipant): self
     {
-        if ($this->participantsProjets->contains($participantsProjet)) {
-            $this->participantsProjets->removeElement($participantsProjet);
-            if ($participantsProjet->getRoleParticipantProjet() === $this) {
-                $participantsProjet->setRoleParticipantProjet(null);
+        if ($this->projetParticipants->contains($projetParticipant)) {
+            $this->projetParticipants->removeElement($projetParticipant);
+            if ($projetParticipant->getRole() === $this) {
+                $projetParticipant->setRole(null);
             }
         }
 

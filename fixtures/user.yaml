@@ -1,0 +1,5 @@
+App\Entity\User:
+    user1:
+        nom: Eureka
+        prenom: User1
+        email: user1@eureka.com

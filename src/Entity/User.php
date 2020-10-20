@@ -74,7 +74,7 @@ class User implements UserInterface
     private $cadre;
 
     /**
-     * @ORM\OneToOne(targetEntity=Licences::class, inversedBy="users", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Licences::class, inversedBy="user", cascade={"persist", "remove"})
      */
     private $licences;
 
@@ -108,20 +108,20 @@ class User implements UserInterface
     private $joursAbsences;
 
     /**
-     * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="users", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="user", orphanRemoval=true)
      */
     private $tempsPasses;
 
     /**
-     * @ORM\OneToMany(targetEntity=ParticipantsProjet::class, mappedBy="users", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="user", orphanRemoval=true)
      */
-    private $participantsProjets;
+    private $projetParticipants;
 
     public function __construct()
     {
         $this->joursAbsences = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
-        $this->participantsProjets = new ArrayCollection();
+        $this->projetParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
     }
 
@@ -417,30 +417,30 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|ParticipantsProjet[]
+     * @return Collection|ProjetParticipant[]
      */
-    public function getParticipantsProjets(): Collection
+    public function getProjetParticipants(): Collection
     {
-        return $this->participantsProjets;
+        return $this->projetParticipants;
     }
 
-    public function addParticipantsProjet(ParticipantsProjet $participantsProjet): self
+    public function addProjetParticipant(ProjetParticipant $projetParticipant): self
     {
-        if (!$this->participantsProjets->contains($participantsProjet)) {
-            $this->participantsProjets[] = $participantsProjet;
-            $participantsProjet->setUser($this);
+        if (!$this->projetParticipants->contains($projetParticipant)) {
+            $this->projetParticipants[] = $projetParticipant;
+            $projetParticipant->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeParticipantsProjet(ParticipantsProjet $participantsProjet): self
+    public function removeProjetParticipant(ProjetParticipant $projetParticipant): self
     {
-        if ($this->participantsProjets->contains($participantsProjet)) {
-            $this->participantsProjets->removeElement($participantsProjet);
+        if ($this->projetParticipants->contains($projetParticipant)) {
+            $this->projetParticipants->removeElement($projetParticipant);
             // set the owning side to null (unless already changed)
-            if ($participantsProjet->getUser() === $this) {
-                $participantsProjet->setUser(null);
+            if ($projetParticipant->getUser() === $this) {
+                $projetParticipant->setUser(null);
             }
         }
 
