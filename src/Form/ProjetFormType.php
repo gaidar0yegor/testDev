@@ -40,7 +40,7 @@ class ProjetFormType extends AbstractType
                     "class" => "form-control"
                 ]
             ])
-            ->add('chef_de_projet', TextType::class, [
+            ->add('chefDeProjet', TextType::class, [
                 "label" => "Chef de projet",
                 "attr" => [
                     "class" => "form-control"

@@ -91,6 +91,11 @@ class Projets
      */
     private $projet_interne;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $chefDeProjet;
+
     public function __construct()
     {
         $this->fichiersProjets = new ArrayCollection();
@@ -350,12 +355,12 @@ class Projets
 
     public function getChefDeProjet(): ?string
     {
-        return $this->ChefDeProjet;
+        return $this->chefDeProjet;
     }
 
-    public function setChefDeProjet(?string $ChefDeProjet): self
+    public function setChefDeProjet(?string $chefDeProjet): self
     {
-        $this->ChefDeProjet = $ChefDeProjet;
+        $this->chefDeProjet = $chefDeProjet;
 
         return $this;
     }
