@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\RolesParticipantProjetRepository;
+use App\Repository\RoleParticipantProjetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=RolesParticipantProjetRepository::class)
+ * @ORM\Entity(repositoryClass=RoleParticipantProjetRepository::class)
  */
-class RolesParticipantProjet
+class RoleParticipantProjet
 {
     /**
      * @ORM\Id()
@@ -44,14 +44,14 @@ class RolesParticipantProjet
         return $this->id;
     }
 
-    public function getLibelleRoleParticipantProjet(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelle_role_participant_projet;
+        return $this->libelle;
     }
 
-    public function setLibelleRoleParticipantProjet(string $libelle_role_participant_projet): self
+    public function setLibelle(string $libelle): self
     {
-        $this->libelle_role_participant_projet = $libelle_role_participant_projet;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -68,7 +68,7 @@ class RolesParticipantProjet
     {
         if (!$this->participantsProjets->contains($participantsProjet)) {
             $this->participantsProjets[] = $participantsProjet;
-            $participantsProjet->setRolesParticipantProjet($this);
+            $participantsProjet->setRoleParticipantProjet($this);
         }
 
         return $this;
@@ -78,9 +78,8 @@ class RolesParticipantProjet
     {
         if ($this->participantsProjets->contains($participantsProjet)) {
             $this->participantsProjets->removeElement($participantsProjet);
-            // set the owning side to null (unless already changed)
-            if ($participantsProjet->getRolesParticipantProjet() === $this) {
-                $participantsProjet->setRolesParticipantProjet(null);
+            if ($participantsProjet->getRoleParticipantProjet() === $this) {
+                $participantsProjet->setRoleParticipantProjet(null);
             }
         }
 

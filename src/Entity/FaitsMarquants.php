@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\FaitsMarquantsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,6 +21,12 @@ class FaitsMarquants
      */
     private $titre;
 
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $autre;
+
     /**
      * @ORM\Column(type="text")
      */
@@ -38,10 +43,10 @@ class FaitsMarquants
     private $created_by;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projets::class, inversedBy="faits_marquants")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="faits_marquants")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $projets;
+    private $projet;
 
     public function getId(): ?int
     {
@@ -96,14 +101,14 @@ class FaitsMarquants
         return $this;
     }
 
-    public function getProjets(): ?Projets
+    public function getProjet(): ?Projet
     {
-        return $this->projets;
+        return $this->projet;
     }
 
-    public function setProjets(?Projets $projets): self
+    public function setProjet(?Projet $projet): self
     {
-        $this->projets = $projets;
+        $this->projet = $projet;
 
         return $this;
     }

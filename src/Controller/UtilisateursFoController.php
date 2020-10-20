@@ -6,22 +6,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface as EntityManager;
-use App\Entity\Users;
-use App\Repository\UsersRepository;
-// use App\Repository\SocietesRepository;
-
+use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Form\UtilisateursFormType;
-
-
-
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UtilisateursFoController extends AbstractController
 {
     /**
      * @Route("/utilisateurs/fo", name="utilisateurs_fo_")
      */
-    public function listerUtilisateurs(UsersRepository $ur)
+    public function listerUtilisateurs(UserRepository $ur)
     {
         $liste_utilisateurs = $ur->findAll();
         return $this->render('utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
@@ -34,49 +29,51 @@ class UtilisateursFoController extends AbstractController
      * @param Request $rq
      * @return Response
      */
-    public function infosUtilisateur(Request $rq) : Response
+    public function infosUtilisateur(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        // On instancie l'entité "Users" 
-        $users = new Users();
+        $user = new User();
 
         // On crée l'objet formulaire
-        $form = $this->createForm(UtilisateursFormType::class, $users);
+        $form = $this->createForm(UtilisateursFormType::class, $user);
 
         // On récupère les données saisies, si le formulaire a été soumis
-        $form->handleRequest($rq);
+        $form->handleRequest($request);
 
-        // On vérifie si le formulaire a été envoyé et si les données sont valides
-        if($form->isSubmitted() && $form->isValid()) {
-            // $users->getCreatedAt = date('Y-m-d H:m:s');
-            // $users->getSocietes = 36;
-            // dd($users);
-            // // On enregistre l'utilisateur en bdd
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($users);
-            $em->flush(); // Transférer l'information vers la base de données "rdi_bdd_v1"
+        if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            /*
+            // Need password now ?
+            $user->setPassword(
+                $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData())
+            );
+            */
 
-            // $request->getSession()->getFlashBag()->add();
-            $this->addFlash('info', "La fiche de l'utilisateur " . $users->getPrenom() . " " . $users->getNom() . " a été crée");
-            return $this->redirectToRoute("infos_utilisateur_fo_");
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('info', sprintf('La fiche de l\'utilisateur %s %s a été crée.', $user->getPrenom(), $user->getNom()));
+
+            return $this->redirectToRoute('utilisateurs_fo_');
         }
-        
+
         return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [
-            'form' => $form->createView(), // On créé la vue du formulaire       
+            'form' => $form->createView(),
         ]);
     }
 
     /**
      * @Route("/utilisateurs/fo/compte", name="compte_")
      */
-    public function compteUtilisateur(UsersRepository $ur)
+    public function compteUtilisateur()
     {
-        // if ($this->getUser()) {
-            // $utilisateur = $utilisateur->find($this->getUser()->getId());
-            return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig');
-                // 'utilisateur' => $utilisateur ]);
-        // }
+        if (!$this->getUser()) {
+            return $this->redirectToRoute('compte_');
+        }
 
-        return $this->redirectToRoute('compte_');
+        return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
+            'utilisateur' => $this->getUser(),
+        ]);
     }
 
     // /**

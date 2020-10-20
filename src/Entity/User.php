@@ -2,16 +2,18 @@
 
 namespace App\Entity;
 
-use App\Repository\UsersRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UsersRepository::class)
+ * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class Users implements UserInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -27,7 +29,7 @@ class Users implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", nullable=true)
      */
     private $password;
 
@@ -54,20 +56,20 @@ class Users implements UserInterface
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $createdAt;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $deleted_at;
+    private $deletedAt;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
      */
-    private $deleted_by;
+    private $deletedBy;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $cadre;
 
@@ -78,25 +80,25 @@ class Users implements UserInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Societes::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $societes;
 
     /**
      * @ORM\ManyToOne(targetEntity=ProfilsUtilisateur::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $profils_utilisateur;
 
     /**
      * @ORM\ManyToOne(targetEntity=StatutsUtilisateur::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $statuts_utilisateur;
 
     /**
      * @ORM\ManyToOne(targetEntity=BaseTempsParContrat::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $base_temps_par_contrat;
 
@@ -120,6 +122,7 @@ class Users implements UserInterface
         $this->joursAbsences = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
         $this->participantsProjets = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?string
@@ -245,36 +248,36 @@ class Users implements UserInterface
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
-        $this->created_at = $created_at;
+        $this->createdAt = $createdAt;
 
         return $this;
     }
 
     public function getDeletedAt(): ?\DateTimeInterface
     {
-        return $this->deleted_at;
+        return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTimeInterface $deleted_at): self
+    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
     {
-        $this->deleted_at = $deleted_at;
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
 
     public function getDeletedBy(): ?string
     {
-        return $this->deleted_by;
+        return $this->deletedBy;
     }
 
-    public function setDeletedBy(?string $deleted_by): self
+    public function setDeletedBy(?string $deletedBy): self
     {
-        $this->deleted_by = $deleted_by;
+        $this->deletedBy = $deletedBy;
 
         return $this;
     }
@@ -363,7 +366,7 @@ class Users implements UserInterface
     {
         if (!$this->joursAbsences->contains($joursAbsence)) {
             $this->joursAbsences[] = $joursAbsence;
-            $joursAbsence->setUsers($this);
+            $joursAbsence->setUser($this);
         }
 
         return $this;
@@ -374,8 +377,8 @@ class Users implements UserInterface
         if ($this->joursAbsences->contains($joursAbsence)) {
             $this->joursAbsences->removeElement($joursAbsence);
             // set the owning side to null (unless already changed)
-            if ($joursAbsence->getUsers() === $this) {
-                $joursAbsence->setUsers(null);
+            if ($joursAbsence->getUser() === $this) {
+                $joursAbsence->setUser(null);
             }
         }
 
@@ -394,7 +397,7 @@ class Users implements UserInterface
     {
         if (!$this->tempsPasses->contains($tempsPass)) {
             $this->tempsPasses[] = $tempsPass;
-            $tempsPass->setUsers($this);
+            $tempsPass->setUser($this);
         }
 
         return $this;
@@ -405,8 +408,8 @@ class Users implements UserInterface
         if ($this->tempsPasses->contains($tempsPass)) {
             $this->tempsPasses->removeElement($tempsPass);
             // set the owning side to null (unless already changed)
-            if ($tempsPass->getUsers() === $this) {
-                $tempsPass->setUsers(null);
+            if ($tempsPass->getUser() === $this) {
+                $tempsPass->setUser(null);
             }
         }
 
@@ -425,7 +428,7 @@ class Users implements UserInterface
     {
         if (!$this->participantsProjets->contains($participantsProjet)) {
             $this->participantsProjets[] = $participantsProjet;
-            $participantsProjet->setUsers($this);
+            $participantsProjet->setUser($this);
         }
 
         return $this;
@@ -436,8 +439,8 @@ class Users implements UserInterface
         if ($this->participantsProjets->contains($participantsProjet)) {
             $this->participantsProjets->removeElement($participantsProjet);
             // set the owning side to null (unless already changed)
-            if ($participantsProjet->getUsers() === $this) {
-                $participantsProjet->setUsers(null);
+            if ($participantsProjet->getUser() === $this) {
+                $participantsProjet->setUser(null);
             }
         }
 

@@ -35,7 +35,7 @@ class BaseTempsParContrat
     private $non_cadre_nb_heures_mensuelles;
 
     /**
-     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="base_temps_par_contrat")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="base_temps_par_contrat")
      */
     private $users;
 
@@ -86,14 +86,14 @@ class BaseTempsParContrat
     }
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|User[]
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(Users $user): self
+    public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
@@ -103,11 +103,10 @@ class BaseTempsParContrat
         return $this;
     }
 
-    public function removeUser(Users $user): self
+    public function removeUser(User $user): self
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
-            // set the owning side to null (unless already changed)
             if ($user->getBaseTempsParContrat() === $this) {
                 $user->setBaseTempsParContrat(null);
             }
