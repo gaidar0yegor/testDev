@@ -21,12 +21,6 @@ class FaitsMarquants
      */
     private $titre;
 
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $autre;
-
     /**
      * @ORM\Column(type="text")
      */
