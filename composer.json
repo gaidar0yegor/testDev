@@ -1,4 +1,6 @@
 {
+    "name": "sylvain78310/rdi_manager_01",
+    "description": "Projet RDI Manager",
     "type": "project",
     "license": "proprietary",
     "require": {
