@@ -2,8 +2,17 @@
 
 {% block title %}Acronyme du projet{% endblock %}
 
+{% block h1 %}
+    {% if acronyme is defined %}
+        {{ acronyme }}
+    {% else %}
+        Projet 
+    {% endif %}
+{% endblock %}
+
 {% block body %}
     <style>
+        body {min-height: 532px; }
         a {color: black; }
         a:hover {text-decoration: none; color:  linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
         .img_logo {position: absolute; left: 4%; top: 8%; }
@@ -20,7 +29,6 @@
         .gestion {position: relative; left: -16%; }
         .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 
-
         .settings {display: flex; justify-content: space-between;  }
         .settings1 {display: flex; justify-content: space-between; }
         .facts {border: 1px solid black; border-radius: 2em; background-color: #ce352c; color: white; }
@@ -31,21 +39,34 @@
         #popup4 {position: absolute; z-index: 5; height: 57em; top: 19%; left: 10%; width: 80%; }
         #popup3 {position: absolute; z-index: 5; height: 57em; top: 19%; left: 10%; width: 80%; }
 
-
         #popup1 {position: absolute; z-index: 5; height: 57em; top: 19%; left: 10%; width: 80%; }
         span {font-size: 1em; }
         .popup {margin: 70px auto; padding: 20px; background: #fff; border-radius: 5px; width: 50%; position: relative; transition: all 5s ease-in-out; }
         .close {position: absolute; top: 5%; right: 3%; font-size: xx-large; }
         .valid {text-align: center; margin-top: 20px; }
+
+        {#--------------------------------------------------- RESPOONSIVE DESIGN --------------------------------------------------#}
+        @media screen and (max-width: 970px)
+        {
+            #fichier {display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center;     }
+        }
+
+
+
+
+
+
+        @media screen and (max-width: 540px)
+        {
+            #fichiers {display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; }
+        }
     </style>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
-
     <title>Détails du projet</title>
-
     
     <div class="contenu">
 
@@ -93,7 +114,7 @@
                 </div>
             </div> -->
             <div class="form-group row">
-                <label for="liste_projets" class="col-lg-2 col-form-label">Résumé</label>
+                <label for="liste_projets" class="col-lg-2 col-form-label"></label>
                 <div class="col-lg-8">
                     <textarea class="form-control" id="liste_projets" rows="3"  disabled>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium ratione rem repellat dolores ut recusandae asperiores corrupti, quo, id provident dolorem voluptatum excepturi perspiciatis quia possimus! Laudantium sed dolore labore?</textarea>
                 </div>    
@@ -106,23 +127,6 @@
             </div>
             <div class="bloc">
                 <div class="date">
-                    <!-- <div class="date_debut form-group row">
-                        <label for="date_debut" class="col-lg-4 col-form-label" id="date_fin">Date de début</label>
-                        <div class="col-lg-2" style="position: relative; left: -17%;">
-                          <input type="date" class="form-control" id="date_debut">
-                        </div>
-                        <div class="settings"  style="margin-left: 5%;" >
-                            <div class="gestion">
-                                <a href="bo-form_utili.php"><input type="button" class="btn btn-success" value="Fichiers joints"></a>
-                            </div>
-                            <div class="new_user"  style="margin-left: -14%;">
-                                <a href="bo-form_utili.php"><input type="button" class="btn btn-success" value="Gestion des participants"></a>
-                            </div>
-                            <div class="new_user" style="position: relative; left: 13%;">
-                                <a href="bo-form_utili.php"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
-                            </div>
-                        </div>
-                    </div> -->
                     <div class="form-group row">
                         <label for="date_debut" class="col-lg-2 col-form-label">Date de début</label>
                         <div class="col-lg-2">
@@ -133,7 +137,10 @@
                             <input type="date" class="form-control" id="date_fin"  disabled>
                         </div>
                     </div>
-                    <div class="form-group row" style="position: relative; left: -12%; margin-top: 7%;">
+                </div>
+            </div>
+                <div class="fichier">
+                    <div class="form-group row" id="fichiers" style="position: relative; left: -12%; margin-top: 7%;">
                         <div class="col-lg-4 mx-auto settings"  style="margin-left: 5%;">
                             <div class="gestion">
                                 <a href="fo-liste-fichiers.php"><input type="button" class="btn btn-success" style="width: 30.2vh;" value="Fichiers joints"></a>
@@ -146,7 +153,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row" style="position: relative; left: -12%;">
+                    <div class="form-group row" id="fichiers" style="position: relative; left: -12%;">
                         <div class="col-lg-4 mx-auto settings"  style="margin-left: 5%;">
                             <div class="gestion">
                                 <a href="#"><input type="file" class="btn btn-success" style="width: 30.2vh;" value="Ajouter un fichier"></a>
@@ -159,25 +166,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="date_fin form-group row">
-                        <label for="date_fin" class="col-lg-4 col-form-label" id="date_fin">Date de fin</label>
-                        <div class="col-lg-2" style="position: relative; left: -17%;">
-                            <input type="date" class="form-control" id="date_fin">
-                        </div>
-                        <div class="settings1">
-                            <div class="gestion">
-                                <a href="#popup3"><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
-                            </div>
-                            <div class="new_user"  style="margin-left: -16%;">
-                                <a href="bo-form_utili.php"><input type="button" class="btn btn-success" value="Ajouter un particpant"></a>
-                            </div>
-                            <div class="new_user">
-                                <a class="button" href="#popup1"><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
-            </div>
         </div>
     </div>
 
@@ -317,62 +306,19 @@
                                     University of Sussex, to broaden my knowledge and gain skills necessary for my
                                     future in business and management.
                                 </p>
-                            </li></a>
-                            <a href="#"><li class="event">
-                                <h4 style="font-size: 1em;" data-date="12 Sept 2020">12 Sept 2020 - <span>Sylvain Clément</span></h4>
-                                <p><h3>Claromentis</h3></p>
-                                <p>
-                                    Claromentis is an intranet software provider company. I started working at the
-                                    Brighton office as a Marketing Designer while I was still attending my final year at
-                                    the University of Sussex. My primary responsibilities included creating corporate
-                                    identity
-                                    for the company; I re-designed their website, and have created marketing materials
-                                    such as brochures.
-                                </p>
-                                <p>
-                                    Since graduating from university, I have also undertaken responsibilities for
-                                    designing a product for the company. The roles I have been given have provided the
-                                    perfect opportunity to implement the skills I have gained throughout my higher
-                                    education, as well as experiencing the running of a successful business.
-                                </p>
-                            </li></a>
-                            <a href="#"><li class="event">
-                                <h4 style="font-size: 1em;" data-date="14 Juil 2020">14 Juil 2020 - <span>Kévin Njifenju</span></h4>
-                                <p><h3>Games & Multimedia Environments BSc (Hons)</h3></p>
-                                <p>Throughout my degree I have gained expansive knowledge of informatics areas including
-                                    Human Computer Interaction, Multimedia Design and Development, Program Analysis and
-                                    Design For my final year project, I created a 2D Puzzler Game for iOS
-                                    called 'Flat Ball' and received a first. I therefore hope to release this game and
-                                    further develop it to add new levels and improve the features.
-                                </p>
-                            </li></a>
-                            <a href="#"><li class="event">
-                                <h4 style="font-size: 1em;" data-date="22 Mai 2020">15 Juin 2020 - <span>Yanny Appadoo</span></h4>
-                                <p><h3>1108 Studios</h3></p>
-                                <p>This is a small startup that a friend and I created to gain more skills and apply
-                                    those I had learned while completing my diploma. Since its inception, as a front -
-                                    end web developer I have advised, designed and built web solutions for numerous
-                                    clients.
-                                </p>
-                            </li></a>
-                            <a href="#"><li class="event">
-                                <h4 style="font-size: 1em;" data-date="22 Mai 2020">22 Mai 2020 - <span>Fleury Vuadiambo</span></h4>
-                                <p><h3>IT Practitioners BTEC National Diploma</h3></p>
-                                <p>This is where my interest in building things for interactive media began. During my
-                                    first computing course I studied a range of core topics including multimedia design,
-                                    database design, computer games development, computer networks and object
-                                    oriented programming.
-                                </p>
+                                <div class="font-awesome" style="text-align: end;"> 
+                                    <a href=""><i class="fa fa-edit" style="font-size: 1.5em;"></i></a>
+                                    <a href=""><i class="fa fa-trash" style="font-size: 1.5em;"></i></a>
+                                </div>
                             </li></a>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- <a class="portfolio-link" target "_blank" href="http://www.erpik.com">
-            <h6>www.erpik.com</h6>
-        </a> -->
+
         <br />
     </div>
 
 {% endblock %}
+

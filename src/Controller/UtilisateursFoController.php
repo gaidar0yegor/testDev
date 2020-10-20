@@ -47,9 +47,9 @@ class UtilisateursFoController extends AbstractController
 
         // On vérifie si le formulaire a été envoyé et si les données sont valides
         if($form->isSubmitted() && $form->isValid()) {
-            $users->getCreatedAt = date('Y-m-d H:m:s');
-            $users->getSocietes = 36;
-            dd($users);
+            // $users->getCreatedAt = date('Y-m-d H:m:s');
+            // $users->getSocietes = 36;
+            // dd($users);
             // // On enregistre l'utilisateur en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($users);
@@ -70,11 +70,11 @@ class UtilisateursFoController extends AbstractController
      */
     public function compteUtilisateur(UsersRepository $ur)
     {
-        if ($this->getUser()) {
-            $utilisateur = $utilisateur->find($this->getUser()->getId());
-            return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
-                'utilisateur' => $utilisateur ]);
-        }
+        // if ($this->getUser()) {
+            // $utilisateur = $utilisateur->find($this->getUser()->getId());
+            return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig');
+                // 'utilisateur' => $utilisateur ]);
+        // }
 
         return $this->redirectToRoute('compte_');
     }
