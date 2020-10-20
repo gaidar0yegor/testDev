@@ -2,16 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ProjetsRepository;
+use App\Repository\ProjetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * @ORM\Entity(repositoryClass=ProjetsRepository::class)
+ * @ORM\Entity(repositoryClass=ProjetRepository::class)
  */
-class Projets
+class Projet
 {
     /**
      * @ORM\Id()
@@ -33,53 +33,53 @@ class Projets
     /**
      * @ORM\Column(type="date")
      */
-    private $date_debut;
+    private $dateDebut;
 
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $date_fin;
+    private $dateFin;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $statut_rdi;
+    private $statutRdi;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $projet_collaboratif;
+    private $projetCollaboratif;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $projet_ppp;
+    private $projetPpp;
 
     /**
-     * @ORM\OneToMany(targetEntity=FichiersProjet::class, mappedBy="projets", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="projets", orphanRemoval=true)
      */
-    private $fichiersProjets;
+    private $fichierProjets;
 
     /**
-     * @ORM\ManyToOne(targetEntity=StatutsProjet::class, inversedBy="projets")
+     * @ORM\ManyToOne(targetEntity=StatutProjet::class, inversedBy="projets")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $statuts_projet;
+    private $statutProjet;
 
     /**
      * @ORM\OneToMany(targetEntity=ParticipantsProjet::class, mappedBy="projets", orphanRemoval=true)
      */
-    private $participants_projet;
+    private $participantsProjet;
 
     /**
      * @ORM\OneToMany(targetEntity=FaitsMarquants::class, mappedBy="projets", orphanRemoval=true)
      */
-    private $faits_marquants;
+    private $faitsMarquants;
 
     /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="projets", orphanRemoval=true)
      */
-    private $temps_passe;
+    private $tempsPasse;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -89,7 +89,7 @@ class Projets
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $projet_interne;
+    private $projetInterne;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -98,10 +98,10 @@ class Projets
 
     public function __construct()
     {
-        $this->fichiersProjets = new ArrayCollection();
-        $this->participants_projet = new ArrayCollection();
-        $this->faits_marquants = new ArrayCollection();
-        $this->temps_passe = new ArrayCollection();
+        $this->fichierProjets = new ArrayCollection();
+        $this->participantsProjet = new ArrayCollection();
+        $this->faitsMarquants = new ArrayCollection();
+        $this->tempsPasse = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -135,105 +135,105 @@ class Projets
 
     public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->date_debut;
+        return $this->dateDebut;
     }
 
-    public function setDateDebut(\DateTimeInterface $date_debut): self
+    public function setDateDebut(\DateTimeInterface $dateDebut): self
     {
-        $this->date_debut = $date_debut;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
  
     public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->date_fin;
+        return $this->dateFin;
     }
 
-    public function setDateFin(?\DateTimeInterface $date_fin): self
+    public function setDateFin(?\DateTimeInterface $dateFin): self
     {
-        $this->date_fin = $date_fin;
+        $this->dateFin = $dateFin;
 
         return $this;
     }
 
     public function getStatutRdi(): ?int
     {
-        return $this->statut_rdi;
+        return $this->statutRdi;
     }
 
-    public function setStatutRdi(int $statut_rdi): self
+    public function setStatutRdi(int $statutRdi): self
     {
-        $this->statut_rdi = $statut_rdi;
+        $this->statutRdi = $statutRdi;
 
         return $this;
     }
 
     public function getProjetCollaboratif(): ?bool
     {
-        return $this->projet_collaboratif;
+        return $this->projetCollaboratif;
     }
 
-    public function setProjetCollaboratif(bool $projet_collaboratif): self
+    public function setProjetCollaboratif(bool $projetCollaboratif): self
     {
-        $this->projet_collaboratif = $projet_collaboratif;
+        $this->projetCollaboratif = $projetCollaboratif;
 
         return $this;
     }
 
     public function getProjetPpp(): ?bool
     {
-        return $this->projet_ppp;
+        return $this->projetPpp;
     }
 
-    public function setProjetPpp(bool $projet_ppp): self
+    public function setProjetPpp(bool $projetPpp): self
     {
-        $this->projet_ppp = $projet_ppp;
+        $this->projetPpp = $projetPpp;
 
         return $this;
     }
 
     /**
-     * @return Collection|FichiersProjet[]
+     * @return Collection|FichierProjet[]
      */
-    public function getFichiersProjets(): Collection
+    public function getFichierProjets(): Collection
     {
-        return $this->fichiersProjets;
+        return $this->fichierProjets;
     }
 
-    public function addFichiersProjet(FichiersProjet $fichiersProjet): self
+    public function addFichierProjet(FichierProjet $fichierProjet): self
     {
-        if (!$this->fichiersProjets->contains($fichiersProjet)) {
-            $this->fichiersProjets[] = $fichiersProjet;
-            $fichiersProjet->setProjets($this);
+        if (!$this->fichierProjets->contains($fichierProjet)) {
+            $this->fichierProjets[] = $fichierProjet;
+            $fichierProjet->setProjet($this);
         }
 
         return $this;
     }
 
-    public function removeFichiersProjet(FichiersProjet $fichiersProjet): self
+    public function removeFichierProjet(FichierProjet $fichierProjet): self
     {
-        if ($this->fichiersProjets->contains($fichiersProjet)) {
-            $this->fichiersProjets->removeElement($fichiersProjet);
-            // set the owning side to null (unless already changed)
-            if ($fichiersProjet->getProjets() === $this) {
-                $fichiersProjet->setProjets(null);
+        if ($this->fichierProjets->contains($fichierProjet)) {
+            $this->fichierProjets->removeElement($fichierProjet);
+            if ($fichierProjet->getProjet() === $this) {
+                $fichierProjet->setProjet(null);
             }
         }
 
         return $this;
     }
 
-    public function getStatutsProjet(): ?StatutsProjet
+    public function getStatutProjet(): ?StatutProjet
     {
-        return $this->statuts_projet;
+        return $this->statutProjet;
     }
 
-    public function setStatutsProjet(?StatutsProjet $statuts_projet): self
+    public function setStatutProjet(?StatutProjet $statutProjet): self
     {
-        $this->statuts_projet = $statuts_projet;
+        $this->statutProjet = $statutProjet;
 
-        return (string) $this;
+        return 
+        $this;
     }
 
     /**
@@ -241,13 +241,13 @@ class Projets
      */
     public function getParticipantsProjet(): Collection
     {
-        return $this->participants_projet;
+        return $this->participantsProjet;
     }
 
     public function addParticipantsProjet(ParticipantsProjet $participantsProjet): self
     {
-        if (!$this->participants_projet->contains($participantsProjet)) {
-            $this->participants_projet[] = $participantsProjet;
+        if (!$this->participantsProjet->contains($participantsProjet)) {
+            $this->participantsProjet[] = $participantsProjet;
             $participantsProjet->setProjets($this);
         }
 
@@ -256,9 +256,8 @@ class Projets
 
     public function removeParticipantsProjet(ParticipantsProjet $participantsProjet): self
     {
-        if ($this->participants_projet->contains($participantsProjet)) {
-            $this->participants_projet->removeElement($participantsProjet);
-            // set the owning side to null (unless already changed)
+        if ($this->participantsProjet->contains($participantsProjet)) {
+            $this->participantsProjet->removeElement($participantsProjet);
             if ($participantsProjet->getProjets() === $this) {
                 $participantsProjet->setProjets(null);
             }
@@ -272,14 +271,14 @@ class Projets
      */
     public function getFaitsMarquants(): Collection
     {
-        return $this->faits_marquants;
+        return $this->faitsMarquants;
     }
 
     public function addFaitsMarquant(FaitsMarquants $faitsMarquant): self
     {
-        if (!$this->faits_marquants->contains($faitsMarquant)) {
-            $this->faits_marquants[] = $faitsMarquant;
-            $faitsMarquant->setProjets($this);
+        if (!$this->faitsMarquants->contains($faitsMarquant)) {
+            $this->faitsMarquants[] = $faitsMarquant;
+            $faitsMarquant->setProjet($this);
         }
 
         return $this;
@@ -287,11 +286,10 @@ class Projets
 
     public function removeFaitsMarquant(FaitsMarquants $faitsMarquant): self
     {
-        if ($this->faits_marquants->contains($faitsMarquant)) {
-            $this->faits_marquants->removeElement($faitsMarquant);
-            // set the owning side to null (unless already changed)
-            if ($faitsMarquant->getProjets() === $this) {
-                $faitsMarquant->setProjets(null);
+        if ($this->faitsMarquants->contains($faitsMarquant)) {
+            $this->faitsMarquants->removeElement($faitsMarquant);
+            if ($faitsMarquant->getProjet() === $this) {
+                $faitsMarquant->setProjet(null);
             }
         }
 
@@ -303,14 +301,14 @@ class Projets
      */
     public function getTempsPasse(): Collection
     {
-        return $this->temps_passe;
+        return $this->tempsPasse;
     }
 
     public function addTempsPasse(TempsPasse $tempsPasse): self
     {
-        if (!$this->temps_passe->contains($tempsPasse)) {
-            $this->temps_passe[] = $tempsPasse;
-            $tempsPasse->setProjets($this);
+        if (!$this->tempsPasse->contains($tempsPasse)) {
+            $this->tempsPasse[] = $tempsPasse;
+            $tempsPasse->setProjet($this);
         }
 
         return $this;
@@ -318,11 +316,10 @@ class Projets
 
     public function removeTempsPasse(TempsPasse $tempsPasse): self
     {
-        if ($this->temps_passe->contains($tempsPasse)) {
-            $this->temps_passe->removeElement($tempsPasse);
-            // set the owning side to null (unless already changed)
-            if ($tempsPasse->getProjets() === $this) {
-                $tempsPasse->setProjets(null);
+        if ($this->tempsPasse->contains($tempsPasse)) {
+            $this->tempsPasse->removeElement($tempsPasse);
+            if ($tempsPasse->getProjet() === $this) {
+                $tempsPasse->setProjet(null);
             }
         }
 
@@ -343,12 +340,12 @@ class Projets
 
     public function getProjetInterne(): ?bool
     {
-        return $this->projet_interne;
+        return $this->projetInterne;
     }
 
-    public function setProjetInterne(?bool $projet_interne): self
+    public function setProjetInterne(bool $projetInterne): self
     {
-        $this->projet_interne = $projet_interne;
+        $this->projetInterne = $projetInterne;
 
         return $this;
     }

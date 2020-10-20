@@ -21,34 +21,10 @@
     				{{ message }}
     			</div>
     		{% endfor %}
-            
-    		{{ form_start(form) }}		
-    			{{ form_row(form.acronyme) }}
-                {{ form_row(form.titre) }}
-    			{{ form_row(form.resume) }}
-    			{{ form_row(form.chefDeProjet) }}
-				<div class="form-group row mt-3">
-    				{{ form_row(form.date_debut) }}
-    				{{ form_row(form.date_fin) }}
-				</div>
-    			{# {{ form_row(form.statuts_projet) }} #}
-				<div class="row">
-					<label class="col-form-label pt-0 mt-3" style="position: relative; left: 3%;">Type de projet</label>
-					<div class="row" style="position: relative; left: 6%;">
-    					{{ form_row(form.projet_collaboratif) }}
-                		{{ form_row(form.projet_ppp) }}
-                		{{ form_row(form.projet_interne) }}
-					</div>
-				</div>
-                <div class="form-group row">
-				    <div class="form-group mt-5">
-    			        <a href="" class="btn btn-danger">Annuler</a>
-    			    </div>
-    			    {{ form_row(form.ajouter) }}
-    			</div>
-			{{ form_end(form) }} 	
+
+    		{{ form(form) }}
     	</div>
     </div>
 </section>
-	
+
 {% endblock %}

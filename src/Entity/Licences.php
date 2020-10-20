@@ -44,9 +44,9 @@ class Licences
     private $societes;
 
     /**
-     * @ORM\OneToOne(targetEntity=Users::class, mappedBy="licences", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="licences", cascade={"persist", "remove"})
      */
-    private $users;
+    private $user;
 
     public function getId(): ?int
     {
@@ -113,19 +113,19 @@ class Licences
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(?Users $users): self
+    public function setUser(?User $user): self
     {
-        $this->users = $users;
+        $this->user = $user;
 
         // set (or unset) the owning side of the relation if necessary
-        $newLicences = null === $users ? null : $this;
-        if ($users->getLicences() !== $newLicences) {
-            $users->setLicences($newLicences);
+        $newLicences = null === $user ? null : $this;
+        if ($user->getLicences() !== $newLicences) {
+            $user->setLicences($newLicences);
         }
 
         return $this;

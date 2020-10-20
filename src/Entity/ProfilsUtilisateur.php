@@ -35,7 +35,7 @@ class ProfilsUtilisateur
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="profils_utilisateur")
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="profils_utilisateur")
      */
     private $users;
 
@@ -93,7 +93,7 @@ class ProfilsUtilisateur
         return $this->users;
     }
 
-    public function addUser(Users $user): self
+    public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
@@ -103,7 +103,7 @@ class ProfilsUtilisateur
         return $this;
     }
 
-    public function removeUser(Users $user): self
+    public function removeUser(User $user): self
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);

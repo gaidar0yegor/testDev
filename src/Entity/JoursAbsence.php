@@ -28,7 +28,7 @@ class JoursAbsence
     private $journee_entiere;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="joursAbsences")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="joursAbsences")
      * @ORM\JoinColumn(nullable=false)
      */
     private $users;
@@ -62,14 +62,14 @@ class JoursAbsence
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(?Users $users): self
+    public function setUser(?User $user): self
     {
-        $this->users = $users;
+        $this->user = $user;
 
         return $this;
     }

@@ -2,15 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\StatutsProjetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=StatutsProjetRepository::class)
+ * @ORM\Entity
  */
-class StatutsProjet
+class StatutProjet
 {
     /**
      * @ORM\Id()
@@ -25,7 +24,7 @@ class StatutsProjet
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Projets::class, mappedBy="statuts_projet")
+     * @ORM\OneToMany(targetEntity=Projet::class, mappedBy="statutProjet")
      */
     private $projets;
 
@@ -44,14 +43,14 @@ class StatutsProjet
         return $this->id;
     }
 
-    public function getLibelleStatutProjet(): ?string
+    public function getLibelle(): ?string
     {
-        return $this->libelle_statut_projet;
+        return $this->libelle;
     }
 
-    public function setLibelleStatutProjet(string $libelle_statut_projet): self
+    public function setLibelle(string $libelle): self
     {
-        $this->libelle_statut_projet = $libelle_statut_projet;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -64,23 +63,22 @@ class StatutsProjet
         return $this->projets;
     }
 
-    public function addProjet(Projets $projet): self
+    public function addProjet(Projet $projet): self
     {
         if (!$this->projets->contains($projet)) {
             $this->projets[] = $projet;
-            $projet->setStatutsProjet($this);
+            $projet->setStatutProjet($this);
         }
 
         return $this;
     }
 
-    public function removeProjet(Projets $projet): self
+    public function removeProjet(Projet $projet): self
     {
         if ($this->projets->contains($projet)) {
             $this->projets->removeElement($projet);
-            // set the owning side to null (unless already changed)
-            if ($projet->getStatutsProjet() === $this) {
-                $projet->setStatutsProjet(null);
+            if ($projet->getStatutProjet() === $this) {
+                $projet->setStatutProjet(null);
             }
         }
 

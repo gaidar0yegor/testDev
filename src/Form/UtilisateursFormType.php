@@ -2,17 +2,16 @@
 
 namespace App\Form;
 
-use App\Entity\Users;
-// use App\Entity\Societes;
+use App\Entity\RoleParticipantProjet;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-// use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UtilisateursFormType extends AbstractType
 {
@@ -20,56 +19,33 @@ class UtilisateursFormType extends AbstractType
     {
         $builder
         ->add('nom', TextType::class, [
-            "label" => "Nom",
-            "attr" => [
-                "class" => "form-control"
-            ]
+            'label' => 'Nom',
         ])
         ->add('prenom', TextType::class, [
-            "label" => "Prénom",
-            "attr" => [
-                "class" => "form-control"
-            ]
+            'label' => 'Prénom',
         ])
         ->add('telephone', Numbertype::class, [
-            "label" => "Mobile",
-            "attr" => [
-                "class" => "form-control"
-            ]
+            'label' => 'Mobile',
+            'required' => false,
         ])
         ->add('email', EmailType::class, [
-            "label" => "Email",
-            "attr" => [
-                "class" => "form-control"
-            ]
+            'label' => 'Email',
         ])
-        // ->add('societes')
-        ->add('roles',  ChoiceType::class, [
-            "label" => "Rôle",
-            "attr" => [
-                "class" => "form-control"
-            ],
-            "multiple" => true,
-            "choices" => [
-                "Membre" => "ROLE_USER",
-                "Contributeur" => "ROLE_CONTRIBUTEUR",
-                "Administrateur" => "ROLE_ADMIN",   
-                "Développeur" => "ROLE_DEV"
-            ],
+        ->add('roles',  EntityType::class, [
+            'label' => 'Rôle',
+            'class' => RoleParticipantProjet::class,
+            'choice_label' => 'libelle',
+            'multiple' => true,
         ])
         ->add('ajouter', SubmitType::class, [
-            "label" => "Ajouter",
-            "attr"=> [
-                "class" => "mt-5 btn btn-success"
-            ]
+            'label' => 'Ajouter',
         ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Users::class,
+            'data_class' => User::class,
         ]);
     }
 }
-

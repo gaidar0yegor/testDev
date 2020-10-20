@@ -23,16 +23,16 @@ class TempsPasse
     private $pourcent_sur_le_mois;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="tempsPasses")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tempsPasses")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $users;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projets::class, inversedBy="temps_passe")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="temps_passe")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $projets;
+    private $projet;
 
     /**
      * @ORM\Column(type="date")
@@ -56,26 +56,26 @@ class TempsPasse
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(?Users $users): self
+    public function setUser(?User $user): self
     {
-        $this->users = $users;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getProjets(): ?Projets
+    public function getProjet(): ?Projet
     {
-        return $this->projets;
+        return $this->projet;
     }
 
-    public function setProjets(?Projets $projets): self
+    public function setProjet(?Projet $projet): self
     {
-        $this->projets = $projets;
+        $this->projet = $projet;
 
         return $this;
     }

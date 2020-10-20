@@ -55,7 +55,7 @@ class Societes
     private $Licences;
 
     /**
-     * @ORM\OneToMany(targetEntity=Users::class, mappedBy="societes", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="societes", orphanRemoval=true)
      */
     private $users;
 
@@ -179,14 +179,14 @@ class Societes
     }
 
     /**
-     * @return Collection|Users[]
+     * @return Collection|User[]
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(Users $user): self
+    public function addUser(User $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
@@ -196,7 +196,7 @@ class Societes
         return $this;
     }
 
-    public function removeUser(Users $user): self
+    public function removeUser(User $user): self
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);

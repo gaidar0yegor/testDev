@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=FichiersProjetRepository::class)
  */
-class FichiersProjet
+class FichierProjet
 {
     /**
      * @ORM\Id()
@@ -33,10 +33,10 @@ class FichiersProjet
     private $nom_uploader;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projets::class, inversedBy="fichiersProjets")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="fichiersProjet")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $projets;
+    private $projet;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -84,14 +84,14 @@ class FichiersProjet
         return $this;
     }
 
-    public function getProjets(): ?Projets
+    public function getProjet(): ?Projet
     {
-        return $this->projets;
+        return $this->projet;
     }
 
-    public function setProjets(?Projets $projets): self
+    public function setProjet(?Projet $projet): self
     {
-        $this->projets = $projets;
+        $this->projet = $projet;
 
         return $this;
     }

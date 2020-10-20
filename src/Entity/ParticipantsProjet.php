@@ -23,19 +23,19 @@ class ParticipantsProjet
     private $date_ajout;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Users::class, inversedBy="participantsProjets")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="participantsProjets")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $users;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projets::class, inversedBy="participants_projet")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="participantsProjet")
      * @ORM\JoinColumn(nullable=false)
      */
     private $projets;
 
     /**
-     * @ORM\ManyToOne(targetEntity=RolesParticipantProjet::class, inversedBy="participantsProjets")
+     * @ORM\ManyToOne(targetEntity=RoleParticipantProjet::class, inversedBy="participantsProjets")
      * @ORM\JoinColumn(nullable=false)
      */
     private $roles_participant_projet;
@@ -57,36 +57,36 @@ class ParticipantsProjet
         return $this;
     }
 
-    public function getUsers(): ?Users
+    public function getUser(): ?User
     {
-        return $this->users;
+        return $this->user;
     }
 
-    public function setUsers(?Users $users): self
+    public function setUser(?User $user): self
     {
-        $this->users = $users;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getProjets(): ?Projets
+    public function getProjets(): ?Projet
     {
         return $this->projets;
     }
 
-    public function setProjets(?Projets $projets): self
+    public function setProjets(?Projet $projets): self
     {
         $this->projets = $projets;
 
         return $this;
     }
 
-    public function getRolesParticipantProjet(): ?RolesParticipantProjet
+    public function getRoleParticipantProjet(): ?RoleParticipantProjet
     {
         return $this->roles_participant_projet;
     }
 
-    public function setRolesParticipantProjet(?RolesParticipantProjet $roles_participant_projet): self
+    public function setRoleParticipantProjet(?RoleParticipantProjet $roles_participant_projet): self
     {
         $this->roles_participant_projet = $roles_participant_projet;
 
