@@ -50,21 +50,12 @@ class ProjetController extends AbstractController
     } 
 
     /**
-     * @Route("/fiche/projet", name="fiche_projet_")
+     * @Route("/fiche/projet/{id}", name="fiche_projet_")
      */
-    public function ficheProjet()
+    public function ficheProjet(Projet $projet)
     {
-        //if ($this->getUser()) {
-            
-            //$utilisateur = $ur->find($this->getUser()->getId());
-            $utilisateur = new User();
-            return $this->render('projets/fiche_projet.html.twig', [
-                'utilisateur' => $utilisateur ,
-            ]);    
-        //dd($this);
-       // }
-
-
-       // return $this->redirectToRoute('fiche_projet_');
+        return $this->render('projets/fiche_projet.html.twig', [
+            'projet' => $projet,
+        ]);
     }
 }

@@ -72,9 +72,9 @@ class Projet
     private $projetParticipants;
 
     /**
-     * @ORM\OneToMany(targetEntity=FaitsMarquants::class, mappedBy="projet", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FaitMarquant::class, mappedBy="projet", orphanRemoval=true)
      */
-    private $faitsMarquants;
+    private $faitMarquants;
 
     /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="projet", orphanRemoval=true)
@@ -100,7 +100,7 @@ class Projet
     {
         $this->fichierProjets = new ArrayCollection();
         $this->projetParticipants = new ArrayCollection();
-        $this->faitsMarquants = new ArrayCollection();
+        $this->faitMarquants = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
     }
 
@@ -267,29 +267,34 @@ class Projet
     }
 
     /**
-     * @return Collection|FaitsMarquants[]
+     * @return Collection|FaitMarquant[]
      */
-    public function getFaitsMarquants(): Collection
+    public function getFaitMarquants(): Collection
     {
-        return $this->faitsMarquants;
+        return $this->faitMarquants;
     }
 
-    public function addFaitsMarquant(FaitsMarquants $faitsMarquant): self
+    public function hasFaitMarquants(): bool
     {
-        if (!$this->faitsMarquants->contains($faitsMarquant)) {
-            $this->faitsMarquants[] = $faitsMarquant;
-            $faitsMarquant->setProjet($this);
+        return count($this->faitMarquants) > 0;
+    }
+
+    public function addFaitMarquant(FaitMarquant $faitMarquant): self
+    {
+        if (!$this->faitMarquants->contains($faitMarquant)) {
+            $this->faitMarquants[] = $faitMarquant;
+            $faitMarquant->setProjet($this);
         }
 
         return $this;
     }
 
-    public function removeFaitsMarquant(FaitsMarquants $faitsMarquant): self
+    public function removeFaitMarquant(FaitMarquant $faitMarquant): self
     {
-        if ($this->faitsMarquants->contains($faitsMarquant)) {
-            $this->faitsMarquants->removeElement($faitsMarquant);
-            if ($faitsMarquant->getProjet() === $this) {
-                $faitsMarquant->setProjet(null);
+        if ($this->faitMarquants->contains($faitMarquant)) {
+            $this->faitMarquants->removeElement($faitMarquant);
+            if ($faitMarquant->getProjet() === $this) {
+                $faitMarquant->setProjet(null);
             }
         }
 

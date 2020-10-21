@@ -35,7 +35,7 @@
         {% for projet in liste_projets %}
             <tbody>
                 <tr>
-                    <td scope="row" class="text-center"> <a href="{{ path('fiche_projet_') }}">{{ projet.titre }}</a> </td>
+                    <td scope="row" class="text-center"> <a href="{{ path('fiche_projet_', {'id': projet.id}) }}">{{ projet.titre }}</a> </td>
                     <td class="text-center">{{ projet.dateDebut|date('d/m/Y') }}</td>  
                     <td class="text-center">{{ projet.dateFin|date('d/m/Y') }}</td>
                     <td class="text-center">{{ projet.statutProjet.libelle }}</td>

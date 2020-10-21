@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=FaitsMarquantsRepository::class)
+ * @ORM\Entity(repositoryClass=FaitMarquantRepository::class)
  */
-class FaitsMarquants
+class FaitMarquant
 {
     /**
      * @ORM\Id()
@@ -29,15 +29,16 @@ class FaitsMarquants
     /**
      * @ORM\Column(type="datetime")
      */
-    private $created_at;
+    private $date;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $created_by;
+    private $createdBy;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="faitsMarquants")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="faitMarquants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $projet;
@@ -71,26 +72,26 @@ class FaitsMarquants
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->created_at;
+        return $this->date;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->created_at = $created_at;
+        $this->date = $date;
 
         return $this;
     }
 
-    public function getCreatedBy(): ?string
+    public function getCreatedBy(): ?User
     {
-        return $this->created_by;
+        return $this->createdBy;
     }
 
-    public function setCreatedBy(string $created_by): self
+    public function setCreatedBy(User $createdBy): self
     {
-        $this->created_by = $created_by;
+        $this->createdBy = $createdBy;
 
         return $this;
     }
