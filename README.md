@@ -22,7 +22,7 @@ composer install
 # Initialize database and fixtures
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force
-php bin/console hautelook:fixtures:load
+php bin/console hautelook:fixtures:load --no-interaction
 
 # Run application
 symfony serve
