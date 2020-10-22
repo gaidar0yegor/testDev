@@ -1,5 +1,16 @@
 App\Entity\User:
-    user1:
+    user:
         nom: Eureka
-        prenom: User1
-        email: user1@eureka.com
+        prenom: User
+        email: user@eureka.com
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$PZhx5wJyDeZ++osfTU3LYA\$97KzeaULWjIH7SRz158cydsgVSvuARlCxdPmJb1zkR8
+        # password is 'user'
+        roles: [ROLE_FO_USER]
+
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@eureka.com
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$zn0eAhjYovsdtBEzSHCX+w\$Ze1du/PDQS45f9AhEfHbdVcBg/r15uS2V2Et5BSdrk0
+        # password is 'admin'
+        roles: [ROLE_FO_ADMIN]

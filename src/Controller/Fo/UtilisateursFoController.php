@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Fo;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,7 +10,11 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Form\UtilisateursFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
+/**
+ * @IsGranted("ROLE_FO_ADMIN")
+ */
 class UtilisateursFoController extends AbstractController
 {
     /**

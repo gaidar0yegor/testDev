@@ -144,7 +144,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->id;
+        return $this->email;
     }
 
     /**
@@ -171,7 +171,7 @@ class User implements UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -220,6 +220,11 @@ class User implements UserInterface
         $this->prenom = $prenom;
 
         return $this;
+    }
+
+    public function getFullname(): string
+    {
+        return $this->getPrenom() . ' ' . $this->getNom();
     }
 
     public function getEmail(): ?string

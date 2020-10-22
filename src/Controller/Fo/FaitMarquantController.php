@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Fo;
 
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
@@ -30,12 +30,9 @@ class FaitMarquantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // $user = $this->getUser(); Quand l'auth sera fonctionnelle
-            $user = $userRepository->findOneBy(['email' => 'user1@eureka.com']);
-
             $faitMarquant
                 ->setProjet($projet)
-                ->setCreatedBy($user)
+                ->setCreatedBy($this->getUser())
                 ->setDate(new \DateTime())
             ;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Fo;
 
 use App\Exception\MonthOutOfRangeException;
 use App\Form\TempsPassesType;
@@ -32,16 +32,13 @@ class TempsController extends AbstractController
             return $this->redirectToRoute('temps_');
         }
 
-        // $user = $this->getUser(); Quand l'auth sera fonctionnelle
-        $user = $userRepository->findOneBy(['email' => 'user1@eureka.com']);
-
         try {
             $mois = $dateMonthService->getMonthFromYearAndMonth($year, $month);
         } catch (MonthOutOfRangeException $e) {
             throw $this->createNotFoundException($e->getMessage());
         }
 
-        $listeTempsPasses = $tempsPasseService->loadTempsPasses($user, $mois);
+        $listeTempsPasses = $tempsPasseService->loadTempsPasses($this->getUser(), $mois);
         $form = $this->createForm(TempsPassesType::class, $listeTempsPasses);
 
         $form->handleRequest($request);

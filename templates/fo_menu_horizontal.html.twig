@@ -17,6 +17,7 @@
 			<li><a href="{{ path ('absences_') }}">Mes absences</a></li>
 		</ul>
 	</li>
+	{% if is_granted('ROLE_FO_ADMIN') %}
 	<li><a href="{{ path ('utilisateurs_fo_') }}">Administration</a>
 		<ul>
 			<li><a href="{{ path ('utilisateurs_fo_') }}">Liste des utilisateurs</a></li>
@@ -24,4 +25,5 @@
 			<li><a href="{{ path ('compte_') }}">Mon compte</a></li>
 		</ul>
 	</li>
+	{% endif %}
 </ul>

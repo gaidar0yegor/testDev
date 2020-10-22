@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Fo;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -11,8 +11,6 @@ use App\Repository\ProjetRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-// use App\Form\ProjetFormType;
-// use App\Repository\FichiersProjetRepository;
 
 class ProjetController extends AbstractController
 {
@@ -22,7 +20,7 @@ class ProjetController extends AbstractController
     public function listerProjet(ProjetRepository $projetRepository)
     {
         return $this->render('projets/liste_projets.html.twig', [
-            'liste_projets'=> $projetRepository->findAll(),
+            'liste_projets'=> $projetRepository->findAllForUser($this->getUser()),
         ]);
 
     }
