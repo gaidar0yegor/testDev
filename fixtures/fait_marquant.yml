@@ -1,0 +1,7 @@
+App\Entity\FaitMarquant:
+    fait{1..3}:
+        titre: 'Fait <current()>'
+        description: 'Nous avons réalisé ce fait <current()> sur ce projet. <paragraphs(2, true)>'
+        date: '<date_create()>'
+        createdBy: '@user1'
+        projet: '@projet1'

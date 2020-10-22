@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un fait marquant{% endblock %}
+
+{% block body %}
+    <h1>Ajouter un fait marquant</h1>
+
+    {{ include('fait_marquant/_form.html.twig') }}
+
+    <a href="{{ path('fiche_projet_', {id: app.request.get('projetId')}) }}">Retour au projet</a>
+{% endblock %}
