@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\RoleParticipantProjet;
+use App\Entity\Role;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -33,7 +33,7 @@ class UtilisateursFormType extends AbstractType
         ])
         ->add('roles',  EntityType::class, [
             'label' => 'Rôle',
-            'class' => RoleParticipantProjet::class,
+            'class' => Role::class,
             'choice_label' => 'libelle',
             'multiple' => true,
         ])

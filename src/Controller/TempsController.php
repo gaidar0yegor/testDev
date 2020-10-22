@@ -2,18 +2,70 @@
 
 namespace App\Controller;
 
+use App\Exception\MonthOutOfRangeException;
+use App\Form\TempsPassesType;
+use App\Repository\UserRepository;
+use App\Service\DateMonthService;
+use App\Service\TempsPasseService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TempsController extends AbstractController
 {
     /**
-     * @Route("/temps", name="temps_")
+     * @Route(
+     *      "/temps/{year}/{month}",
+     *      requirements={"year"="\d{4}", "month"="\d{2}"},
+     *      name="temps_"
+     * )
      */
-    public function saisieTempsEnPourCent()
-    {
+    public function saisieTempsEnPourCent(
+        Request $request,
+        string $year = null,
+        string $month = null,
+        UserRepository $userRepository,
+        TempsPasseService $tempsPasseService,
+        DateMonthService $dateMonthService
+    ) {
+        if ($year !== null && $month === null) {
+            return $this->redirectToRoute('temps_');
+        }
+
+        // $user = $this->getUser(); Quand l'auth sera fonctionnelle
+        $user = $userRepository->findOneBy(['email' => 'user1@eureka.com']);
+
+        try {
+            $mois = $dateMonthService->getMonthFromYearAndMonth($year, $month);
+        } catch (MonthOutOfRangeException $e) {
+            throw $this->createNotFoundException($e->getMessage());
+        }
+
+        $listeTempsPasses = $tempsPasseService->loadTempsPasses($user, $mois);
+        $form = $this->createForm(TempsPassesType::class, $listeTempsPasses);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+
+            foreach ($listeTempsPasses->getTempsPasses() as $tempsPasse) {
+                $em->persist($tempsPasse);
+            }
+
+            $em->flush();
+
+            return $this->redirectToRoute('temps_', [
+                'year' => $year,
+                'month' => $month,
+            ]);
+        }
+
         return $this->render('temps/temps_en_pour_cent.html.twig', [
-            'controller_name' => 'TempsController',
+            'mois' => $mois,
+            'form' => $form->createView(),
+            'next' => $dateMonthService->getNextMonth($mois),
+            'prev' => $dateMonthService->getPrevMonth($mois),
         ]);
     }
 

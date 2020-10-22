@@ -37,7 +37,7 @@ class FaitsMarquants
     private $created_by;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="faits_marquants")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="faitsMarquants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $projet;

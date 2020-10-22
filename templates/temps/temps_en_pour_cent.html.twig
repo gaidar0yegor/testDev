@@ -8,37 +8,23 @@
     .img_logo {position: absolute; left: 4%; top: 8%; }
     .img_logo img {height: 50px; }
     i {color: black; }
-    form {position: relative; left: 35%; }
     .cd-popup-container .cd-buttons li:first-child a {background: #ce352c; }
     .cd-popup-container .cd-buttons li:last-child a {background: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
 </style>
 
 <div class="container">
     <h1 class="text-center m-4" style="color: #ce352c;">Saisie de temps passé</h1>
-    <p class="text-center m-4" style="font-size: 1.5em;"><a href="#"><img src="https://img.icons8.com/android/24/000000/arrow-pointing-left.png"/></a> Mai <a href="#"><img src="https://img.icons8.com/android/24/000000/arrow.png"/></i></a></p>
+    <p class="text-center m-4" style="font-size: 1.5em;">
+		<a href="{{ path('temps_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
+			<img src="https://img.icons8.com/android/24/000000/arrow-pointing-left.png"/>
+		</a>
+		{{ mois|format_date(pattern='MMMM Y')|capitalize }}
+		<a href="{{ path('temps_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
+			<img src="https://img.icons8.com/android/24/000000/arrow.png"/>
+		</a>
+	</p>
 
-    <form action="" method="post">
-        <div class="form-group row">
-            <label for="developpement" class="col-sm-2 col-form-label">Développement IP</label>
-            <div class="col-sm-2">
-              <input type="text" class="form-control" id="developpement">
-            </div> 
-            %
-        </div>
-
-        {% block h1 %}
-            {% if titre is defined %}
-                {{ titre }}
-            {% else %}
-                Projet à définir 
-            {% endif %}
-        {% endblock %}
-    </form>
-
-    <div class="button text-center">
-        <!-- <input type="submit" class="btn btn-secondary" value="Annuler"> -->
-        <a href="#0"><input type="submit" class="btn btn-success cd-popup-trigger" value="Mettre à jour"></a>
-    </div>
+    {{ form(form) }}
 
     <div class="cd-popup" role="alert">
 	    <div class="cd-popup-container" style="top: 18%;">

@@ -33,7 +33,7 @@ class FichierProjet
     private $nom_uploader;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="fichiersProjet")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="fichierProjets")
      * @ORM\JoinColumn(nullable=false)
      */
     private $projet;

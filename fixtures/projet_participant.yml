@@ -1,0 +1,9 @@
+App\Entity\ProjetParticipant:
+    user1projet1:
+        user: '@user1'
+        projet: '@projet1'
+        role: '@chef_de_projet'
+    user1projet3:
+        user: '@user1'
+        projet: '@projet3'
+        role: '@contributeur'

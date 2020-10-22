@@ -4,9 +4,15 @@ namespace App\Entity;
 
 use App\Repository\TempsPasseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=TempsPasseRepository::class)
+ * @UniqueEntity(
+ *     fields={"user", "projet", "mois"},
+ *     errorPath="pourcentage",
+ *     message="Cet utilisateur ne peut pas créer un deuxième pourcentage sur ce projet et ce mois. Il faut modifier l'autre pourcentage plutôt."
+ * )
  */
 class TempsPasse
 {
@@ -18,9 +24,19 @@ class TempsPasse
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * Mois sur lequel le temps a ete passe sur le projet
+     *
+     * @ORM\Column(type="date")
      */
-    private $pourcent_sur_le_mois;
+    private $mois;
+
+    /**
+     * Pourcentage du temps passe sur le projet
+     * De 0 a 100
+     *
+     * @ORM\Column(type="integer")
+     */
+    private $pourcentage;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tempsPasses")
@@ -29,29 +45,24 @@ class TempsPasse
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="temps_passe")
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="tempsPasses")
      * @ORM\JoinColumn(nullable=false)
      */
     private $projet;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date_de_saisie;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPourcentSurLeMois(): ?int
+    public function getPourcentage(): ?int
     {
-        return $this->pourcent_sur_le_mois;
+        return $this->pourcentage;
     }
 
-    public function setPourcentSurLeMois(?int $pourcent_sur_le_mois): self
+    public function setPourcentage(?int $pourcentage): self
     {
-        $this->pourcent_sur_le_mois = $pourcent_sur_le_mois;
+        $this->pourcentage = $pourcentage;
 
         return $this;
     }
@@ -80,14 +91,14 @@ class TempsPasse
         return $this;
     }
 
-    public function getDateDeSaisie(): ?\DateTimeInterface
+    public function getMois(): ?\DateTimeInterface
     {
-        return $this->date_de_saisie;
+        return $this->mois;
     }
 
-    public function setDateDeSaisie(\DateTimeInterface $date_de_saisie): self
+    public function setMois(\DateTimeInterface $mois): self
     {
-        $this->date_de_saisie = $date_de_saisie;
+        $this->mois = $mois;
 
         return $this;
     }

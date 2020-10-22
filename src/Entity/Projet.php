@@ -56,7 +56,7 @@ class Projet
     private $projetPpp;
 
     /**
-     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="projets", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="projet", orphanRemoval=true)
      */
     private $fichierProjets;
 
@@ -67,19 +67,19 @@ class Projet
     private $statutProjet;
 
     /**
-     * @ORM\OneToMany(targetEntity=ParticipantsProjet::class, mappedBy="projets", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="projet", orphanRemoval=true)
      */
-    private $participantsProjet;
+    private $projetParticipants;
 
     /**
-     * @ORM\OneToMany(targetEntity=FaitsMarquants::class, mappedBy="projets", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FaitsMarquants::class, mappedBy="projet", orphanRemoval=true)
      */
     private $faitsMarquants;
 
     /**
-     * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="projets", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="projet", orphanRemoval=true)
      */
-    private $tempsPasse;
+    private $tempsPasses;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -99,9 +99,9 @@ class Projet
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
-        $this->participantsProjet = new ArrayCollection();
+        $this->projetParticipants = new ArrayCollection();
         $this->faitsMarquants = new ArrayCollection();
-        $this->tempsPasse = new ArrayCollection();
+        $this->tempsPasses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -237,29 +237,29 @@ class Projet
     }
 
     /**
-     * @return Collection|ParticipantsProjet[]
+     * @return Collection|ProjetParticipant[]
      */
-    public function getParticipantsProjet(): Collection
+    public function getProjetParticipants(): Collection
     {
-        return $this->participantsProjet;
+        return $this->projetParticipants;
     }
 
-    public function addParticipantsProjet(ParticipantsProjet $participantsProjet): self
+    public function addProjetParticipant(ProjetParticipant $projetParticipant): self
     {
-        if (!$this->participantsProjet->contains($participantsProjet)) {
-            $this->participantsProjet[] = $participantsProjet;
-            $participantsProjet->setProjets($this);
+        if (!$this->projetParticipants->contains($projetParticipant)) {
+            $this->projetParticipants[] = $projetParticipant;
+            $projetParticipant->setProjet($this);
         }
 
         return $this;
     }
 
-    public function removeParticipantsProjet(ParticipantsProjet $participantsProjet): self
+    public function removeProjetParticipant(ProjetParticipant $projetParticipant): self
     {
-        if ($this->participantsProjet->contains($participantsProjet)) {
-            $this->participantsProjet->removeElement($participantsProjet);
-            if ($participantsProjet->getProjets() === $this) {
-                $participantsProjet->setProjets(null);
+        if ($this->projetParticipants->contains($projetParticipant)) {
+            $this->projetParticipants->removeElement($projetParticipant);
+            if ($projetParticipant->getProjet() === $this) {
+                $projetParticipant->setProjet(null);
             }
         }
 
@@ -299,15 +299,15 @@ class Projet
     /**
      * @return Collection|TempsPasse[]
      */
-    public function getTempsPasse(): Collection
+    public function getTempsPasses(): Collection
     {
-        return $this->tempsPasse;
+        return $this->tempsPasses;
     }
 
     public function addTempsPasse(TempsPasse $tempsPasse): self
     {
-        if (!$this->tempsPasse->contains($tempsPasse)) {
-            $this->tempsPasse[] = $tempsPasse;
+        if (!$this->tempsPasses->contains($tempsPasse)) {
+            $this->tempsPasses[] = $tempsPasse;
             $tempsPasse->setProjet($this);
         }
 
@@ -316,8 +316,8 @@ class Projet
 
     public function removeTempsPasse(TempsPasse $tempsPasse): self
     {
-        if ($this->tempsPasse->contains($tempsPasse)) {
-            $this->tempsPasse->removeElement($tempsPasse);
+        if ($this->tempsPasses->contains($tempsPasse)) {
+            $this->tempsPasses->removeElement($tempsPasse);
             if ($tempsPasse->getProjet() === $this) {
                 $tempsPasse->setProjet(null);
             }

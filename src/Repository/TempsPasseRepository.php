@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\TempsPasse;
+use App\Entity\User;
+use App\Service\DateMonthService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -14,37 +16,29 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TempsPasseRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $dateMonthService;
+
+    public function __construct(ManagerRegistry $registry, DateMonthService $dateMonthService)
     {
         parent::__construct($registry, TempsPasse::class);
+
+        $this->dateMonthService = $dateMonthService;
     }
 
-    // /**
-    //  * @return TempsPasse[] Returns an array of TempsPasse objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAllForUserAndMonth(User $user, \DateTime $mois): array
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
+        $this->dateMonthService->normalize($mois);
+
+        return $this
+            ->createQueryBuilder('tempsPasse')
+            ->where('tempsPasse.user = :user')
+            ->andWhere('tempsPasse.mois = :mois')
+            ->setParameters([
+                'user' => $user,
+                'mois' => $mois,
+            ])
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?TempsPasse
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
