@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit FaitMarquant{% endblock %}
+
+{% block body %}
+    <h1>Edit FaitMarquant</h1>
+
+    {{ include('fait_marquant/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('fiche_projet_', {id: faitMarquant.projet.id}) }}">Annuler et retourner au projet</a>
+
+    {{ include('fait_marquant/_delete_form.html.twig') }}
+{% endblock %}
