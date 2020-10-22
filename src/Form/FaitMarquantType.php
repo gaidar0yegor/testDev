@@ -14,7 +14,6 @@ class FaitMarquantType extends AbstractType
         $builder
             ->add('titre')
             ->add('description')
-            ->add('date')
         ;
     }
 

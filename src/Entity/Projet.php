@@ -73,6 +73,7 @@ class Projet
 
     /**
      * @ORM\OneToMany(targetEntity=FaitMarquant::class, mappedBy="projet", orphanRemoval=true)
+     * @ORM\OrderBy({"date" = "DESC"})
      */
     private $faitMarquants;
 

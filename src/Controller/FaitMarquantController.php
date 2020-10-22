@@ -36,6 +36,7 @@ class FaitMarquantController extends AbstractController
             $faitMarquant
                 ->setProjet($projet)
                 ->setCreatedBy($user)
+                ->setDate(new \DateTime())
             ;
 
             $em = $this->getDoctrine()->getManager();
