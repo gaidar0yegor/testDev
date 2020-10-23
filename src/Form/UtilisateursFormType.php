@@ -39,6 +39,10 @@ class UtilisateursFormType extends AbstractType
         ])
         ->add('ajouter', SubmitType::class, [
             'label' => 'Ajouter',
+            'attr' => [
+                'class' => 'mt-5 btn btn-success'
+            ]
+            
         ]);
     }
 

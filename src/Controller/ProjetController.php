@@ -6,11 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Projet;
 use App\Entity\User;
-use App\Form\ProjetFormType;
+use App\Entity\FichierProjet;
 use App\Repository\ProjetRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+// use App\Form\ProjetFormType;
+// use App\Repository\FichiersProjetRepository;
 
 class ProjetController extends AbstractController
 {
@@ -58,4 +60,15 @@ class ProjetController extends AbstractController
             'projet' => $projet,
         ]);
     }
+
+    /**
+     * @Route("/liste/fichiers", name="liste_fichiers_")
+     */
+    // public function listeFichiers()
+    // {
+    //     $fichier = new Fichier();
+    //     return $this->render('projets/liste_fichiers.html.twig', [
+    //         'fichier' => $fichier,
+    //     ]);
+    // }
 }

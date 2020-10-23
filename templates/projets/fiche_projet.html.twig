@@ -12,7 +12,7 @@
 
 {% block body %}
     <style>
-        body {min-height: 532px; }
+        body {min-height: 532px; overflow-x: hidden; }
         a {color: black; }
         a:hover {text-decoration: none; color:  linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
         .img_logo {position: absolute; left: 4%; top: 8%; }
@@ -26,7 +26,16 @@
         .gerer_participants {background-color: rgb(134, 174, 226); }
         th {color: white; }
         td {background-color: whitesmoke; text-align: center; }
-        .gestion {position: relative; left: -16%; }
+
+        {# .gestion {position: relative; left: -16%; } #}
+        .fichier {margin-left: -10em; display: flex;  flex-direction: column; flex-wrap: wrap; justify-content: center; position: relative; left: 5.30%; }
+        .gestion, .new_user {margin-right: 1em; }
+        input {width: 30.2vh; }
+
+
+        /* #fichiers {display: flex; flex-direction: column;   flex-wrap: wrap; 	justify-content: center; align-items: center; margin: 0 auto;} */
+
+
         .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 
         .settings {display: flex; justify-content: space-between;  }
@@ -45,20 +54,29 @@
         .close {position: absolute; top: 5%; right: 3%; font-size: xx-large; }
         .valid {text-align: center; margin-top: 20px; }
 
+        .cd-popup-container .cd-buttons li:first-child a {background: #ce352c; }
+        .cd-popup-container .cd-buttons li:last-child a {background: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
+
         {#--------------------------------------------------- RESPOONSIVE DESIGN --------------------------------------------------#}
-        @media screen and (max-width: 970px)
-        {
-            #fichier {display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center;     }
+
+        @media (min-width: 768px) and (max-width: 991.98px) {
+            .fichier {margin-left: -10em; display: flex;  flex-direction: column; flex-wrap: wrap; justify-content: center; }
         }
 
+        @media (min-width: 576px) and (max-width: 767.98px) {
+            .fichier {display: flex; flex-direction: column;   flex-wrap: wrap; 	justify-content: center; align-items: center; margin: 0 auto; }
+            .gestion, .new_user {margin-bottom: 1em; }
+            label#date_fin.col-lg-4.col-form-label {position: relative; left: 0%; }
 
+        }
 
-
-
-
-        @media screen and (max-width: 540px)
-        {
-            #fichiers {display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; }
+        @media screen and (max-width: 576px) {
+            .fichier {display: flex; flex-direction: column;   flex-wrap: wrap; 	justify-content: center; align-items: center; margin: 0 auto; }
+            .gestion, .new_user {margin-bottom: 1em; }    
+            #menu-demo2 {display: flex; flex-direction: column; flex-wrap: wrap; justify-content: center; }
+            label#date_fin.col-lg-4.col-form-label {position: relative; left: 0%; }
+            .personne {display: none; }
+            .select {position: absolute; left: 70%; bottom: 20%; }
         }
     </style>
 
@@ -135,18 +153,14 @@
                     </div>
                 </div>
             </div>
-                <div class="fichier">
-                    <div class="form-group row" id="fichiers" style="position: relative; left: -12%; margin-top: 7%;">
-                        <div class="col-lg-4 mx-auto settings"  style="margin-left: 5%;">
-                            <div class="gestion">
-                                <a href="fo-liste-fichiers.php"><input type="button" class="btn btn-success" style="width: 30.2vh;" value="Fichiers joints"></a>
-                            </div>
-                            <div class="new_user"  style="margin-left: -12%;">
-                                <a class="button" href="#popup3"><input type="button" class="btn btn-success" style="width: 30.2vh;" value="Gestion des participants"></a>
-                            </div>
-                            <div class="new_user" style="position: relative; left: 5%;">
-                                <a href="#popup4"><input type="button" class="btn btn-success" style="width: 30.2vh;" value="Modifier le projet"></a>
-                            </div>
+    {# <div class="container"> #}
+
+            <section class="fichier text-center mx-auto">
+
+                <div class="form-group row" id="fichiers">
+                    <!-- <div class="col-lg-4 mx-auto settings d-flex m-right: 12px;"> -->
+                        <div class="gestion">
+                            <a href=""><input type="button" class="btn btn-success" value="Fichiers joints"></a>
                         </div>
                     </div>
                     <div class="form-group row" id="fichiers" style="position: relative; left: -12%;">
@@ -161,9 +175,30 @@
                                 <a class="button" href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}" ><input type="submit" class="btn btn-success" style="width: 30.2vh;" value="Ajouter un fait marquant"></a>
                             </div>
                         </div>
-                    </div>
+                        <div class="new_user">
+                            <a href="#popup4"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
+                        </div>
+                    <!-- </div> -->
                 </div>
+
+                <div class="form-group row" id="fichiers">
+                    <!-- <div class="col-lg-4 mx-auto settings d-flex"> -->
+                        <div class="gestion">
+                            <a href="#"><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
+                        </div>
+                        <div class="new_user">
+                            <a href="fo-new-user.php"><input type="button" class="btn btn-success" value="Ajouter un participant"></a>
+                        </div>
+                        <div class="new_user">
+                            <a class="button" href="#popup1" ><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
+                        </div>
+                    <!-- </div> -->
+                </div>
+
+            </section> </br>
+
         </div>
+    {# </div> #}
     </div>
 
     <div id="popup4" class="overlay">
@@ -313,5 +348,88 @@
         </div>
     </div> 
 
+<<<<<<< HEAD
 {% endblock %}
+=======
+    <div class="main-container" style="margin-top: 7vh;">
+        <section id="timeline" class="timeline-outer">
+            <div class="container" id="content">
+                <div class="row">
+                    <div class="col s12 m12 l12">
+                        <div class="text-center mx-auto facts">
+                            <h1 style="font-size: 2.5em; text-decoration: none; ">Faits marquants</h1>
+                        </div>
+                        <ul class="timeline">
+                            <a href="#"><li class="event">
+                                <h4 style="font-size: 1em;" data-date="22 Sept 2020">22 Sept 2020 - <span>Kévin Njifenju</span></h4>
+                                <p><h3>Management and Entreprenurship (MSc)</h3></p>
+                                <p>
+                                    This September 2015 I will begin an MSc in Management and Entrepreneurship at
+                                    University of Sussex, to broaden my knowledge and gain skills necessary for my
+                                    future in business and management.
+                                </p>
+                                <div class="font-awesome" style="text-align: end;"> 
+                                    <a href="#0" class="cd-popup-trigger"><i class="fa fa-edit" style="font-size: 1.5em;"></i></a>
+                                    <a href="#0" class="cd-popup-trigger"><i class="fa fa-trash" style="font-size: 1.5em;"></i></a>
+                                </div>
+                            </li></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 
+    <div class="cd-popup" role="alert">
+	    <div class="cd-popup-container" style="top: 18%;">
+            <h4 class="text-center mb-4">Projet : Développement ID</h4>
+            <div class="projet form-group row" style="position: relative; left: 3%;">
+                <label for="titre" class="col-sm-2 col-form-label">Titre</label>
+            <div class="col-lg-8">
+                <input type="text" class="form-control" id="projet" placeholder="Management and Entreprenurship (MSc)">
+            </div>
+        </div> 
+        <!-- <h2 class="text-center m-4">Projet : <span>Développement IP</span> </h2> -->
+        <div class="col-lg mx-auto">
+            <textarea class="form-control" id="liste_projets" rows="11"></textarea>
+        </div> 
+	    <ul class="cd-buttons mt-5">
+	        <li><a href="">Supprimer</a></li>
+	        <li class="cd-popup-date"><a href="{{ path('fiche_projet_') }}">Annuler</a></li>
+	    </ul>       
+	    <a href="#0" class="cd-popup-close img-replace">Close</a>
+    </div>
+</div>
+
+>>>>>>> 401b937... Modification fiche_projet, installation popup timeline et pop compte_utilisateurs_fo
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<script>
+    jQuery(document).ready(function($){
+    	//open popup
+    	$('.cd-popup-trigger').on('click', function(event){
+    		event.preventDefault();
+    		$('.cd-popup').addClass('is-visible');
+    	});
+
+    	//close popup
+    	$('.cd-popup').on('click', function(event){
+    		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+    			event.preventDefault();
+    			$(this).removeClass('is-visible');
+    		}
+    	});
+
+    	//close popup when clicking the esc keyboard button
+    	$(document).keyup(function(event) {
+        	if(event.which=='27'){
+        		$('.cd-popup').removeClass('is-visible');
+    	    }
+        });
+    });
+</script> 
+
+{% endblock %}

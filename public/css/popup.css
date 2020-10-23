@@ -124,6 +124,7 @@ header h1 {
   background: #35a785;
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.07);
 } */
+
 @media only screen and (min-width: 1170px) {
   .cd-popup-trigger {
     margin: 6em auto;
@@ -148,7 +149,9 @@ xpopup
   -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
   transition: opacity 0.3s 0s, visibility 0s 0.3s;
 }
+
 .cd-popup.is-visible {
+  z-index: 5;
   opacity: 1;
   visibility: visible;
   -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
@@ -156,10 +159,37 @@ xpopup
   transition: opacity 0.3s 0s, visibility 0s 0s;
 }
 
+.cd-popup1 {
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100%;
+  width: 100%;
+  background-color: rgba(94, 110, 141, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+}
+
+.cd-popup1.is-visible {
+  z-index: 5;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+}
+
+
+
+
+
 .cd-popup-container {
   position: relative;
   height: 500px;
-  width: 90%;
+  width: 95%;
   max-width: 650px;
   margin: 4em auto;
   background: #FFF;
