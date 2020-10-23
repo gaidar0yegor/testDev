@@ -47,6 +47,6 @@ App\Entity\User:
         prenom: Chef de projet 20
         email: cdp20@societe2.dev
         password: \$argon2id\$v=19\$m=65536,t=4,p=1\$DaEbAssZqRrOu5rWvpVWAQ\$ZB5eIn67Hhiu2uE3KZHl0tzZ7BkOiUrvJcdREU+1sig
-        # password is 'user20'
+        # password is 'cdp20'
         roles: [ROLE_FO_CDP]
         societe: '@societe2'

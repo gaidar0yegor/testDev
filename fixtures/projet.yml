@@ -4,7 +4,6 @@ App\Entity\Projet:
         titre: 'Projet 1'
         acronyme: 'P1'
         resume: 'Projet de test numéro 1'
-        chefDeProjet: '@cdp'
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
@@ -14,7 +13,6 @@ App\Entity\Projet:
         titre: 'Projet 2'
         acronyme: 'P2'
         resume: 'Projet de test numéro 2'
-        chefDeProjet: '@cdp'
         projetCollaboratif: false
         projetPpp: false
         projetInterne: true
@@ -24,7 +22,6 @@ App\Entity\Projet:
         titre: 'Projet 3'
         acronyme: 'P3'
         resume: 'Projet de test numéro 3'
-        chefDeProjet: '@cdp2'
         projetCollaboratif: false
         projetPpp: false
         projetInterne: true
@@ -36,7 +33,6 @@ App\Entity\Projet:
         titre: 'Projet société 2'
         acronyme: 'PS20'
         resume: 'Projet de test appartenant à société 2'
-        chefDeProjet: '@cdp20'
         projetCollaboratif: false
         projetPpp: false
         projetInterne: true

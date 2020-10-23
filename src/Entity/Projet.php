@@ -2,7 +2,9 @@
 
 namespace App\Entity;
 
+use App\Exception\RdiException;
 use App\Repository\ProjetRepository;
+use App\Role;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -91,11 +93,6 @@ class Projet
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $projetInterne;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     */
-    private $chefDeProjet;
 
     public function __construct()
     {
@@ -358,13 +355,12 @@ class Projet
 
     public function getChefDeProjet(): ?User
     {
-        return $this->chefDeProjet;
-    }
+        foreach ($this->projetParticipants as $participant) {
+            if ($participant->getRole() === Role::CDP) {
+                return $participant->getUser();
+            }
+        }
 
-    public function setChefDeProjet(?User $chefDeProjet): self
-    {
-        $this->chefDeProjet = $chefDeProjet;
-
-        return $this;
+        throw new RdiException('This projet has no Chef de Projet');
     }
 }

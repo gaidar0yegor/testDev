@@ -1,5 +1,0 @@
-App\Entity\Role:
-    contributeur:
-        libelle: Contributeur
-    observateur:
-        libelle: Observateur

@@ -44,6 +44,10 @@ class UtilisateursFoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user
+                ->setSociete($this->getUser()->getSociete())
+            ;
+
             // encode the plain password
             /*
             // Need password now ?

@@ -7,8 +7,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Projet;
 use App\Form\ProjetFormType;
 use App\Repository\ProjetParticipantRepository;
+use App\Entity\ProjetParticipant;
+use App\Role;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ProjetController extends AbstractController
 {
@@ -28,7 +31,7 @@ class ProjetController extends AbstractController
      *
      * @IsGranted("ROLE_FO_CDP")
      */
-    public function saisieInfosProjet(Request $rq) : Response
+    public function creation(Request $rq) : Response
     {
         $projet = new Projet();
         $form = $this->createForm(ProjetFormType::class, $projet);
@@ -36,17 +39,54 @@ class ProjetController extends AbstractController
         $form->handleRequest($rq);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $projet->setChefDeProjet($this->getUser());
+            $participant = new ProjetParticipant();
+            $participant
+                ->setUser($this->getUser())
+                ->setProjet($projet)
+                ->setRole(Role::CDP)
+            ;
+
+            $projet->addProjetParticipant($participant);
 
             $em = $this->getDoctrine()->getManager();
+            $em->persist($participant);
             $em->persist($projet);
             $em->flush();
 
             $this->addFlash('success', sprintf('Le projet "%s" a été créé.', $projet->getTitre()));
-            return $this->redirectToRoute('projets_');
+            return $this->redirectToRoute('fiche_projet_', [
+                'id' => $projet->getId(),
+            ]);
         }
 
         return $this->render('projets/saisie_infos_projet.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/projets/{id}/edition", name="projet_edition")
+     */
+    public function edition(Request $request, Projet $projet): Response
+    {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        $form = $this->createForm(ProjetFormType::class, $projet);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($projet);
+            $em->flush();
+
+            $this->addFlash('success', sprintf('Le projet "%s" a été modifié.', $projet->getTitre()));
+            return $this->redirectToRoute('fiche_projet_', [
+                'id' => $projet->getId(),
+            ]);
+        }
+
+        return $this->render('projets/edition_projet.html.twig', [
             'form' => $form->createView(),
         ]);
     }
