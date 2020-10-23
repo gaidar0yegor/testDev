@@ -28,9 +28,9 @@
         td {background-color: whitesmoke; text-align: center; }
 
         {# .gestion {position: relative; left: -16%; } #}
-        .fichier {margin-left: -10em; display: flex;  flex-direction: column; flex-wrap: wrap; justify-content: center; position: relative; left: 5.30%; }
+        .fichier {margin-left: -10em; margin-top: 5%;  flex-direction: column; flex-wrap: wrap; justify-content: center; position: relative; left: 36.30%; }
         .gestion, .new_user {margin-right: 1em; }
-        input {width: 30.2vh; }
+        input {width: 25.2vh; }
 
 
         /* #fichiers {display: flex; flex-direction: column;   flex-wrap: wrap; 	justify-content: center; align-items: center; margin: 0 auto;} */
@@ -153,27 +153,16 @@
                     </div>
                 </div>
             </div>
-    {# <div class="container"> #}
 
-            <section class="fichier text-center mx-auto">
+            <section class="fichier col-lg">
 
                 <div class="form-group row" id="fichiers">
                     <!-- <div class="col-lg-4 mx-auto settings d-flex m-right: 12px;"> -->
                         <div class="gestion">
-                            <a href=""><input type="button" class="btn btn-success" value="Fichiers joints"></a>
+                            <a href="fo-liste-fichiers.php"><input type="button" class="btn btn-success" value="Fichiers joints"></a>
                         </div>
-                    </div>
-                    <div class="form-group row" id="fichiers" style="position: relative; left: -12%;">
-                        <div class="col-lg-4 mx-auto settings"  style="margin-left: 5%;">
-                            <div class="gestion">
-                                <a href="#"><input type="file" class="btn btn-success" style="width: 30.2vh;" value="Ajouter un fichier"></a>
-                            </div>
-                            <div class="new_user"  style="margin-left: -12%;">
-                                <a href="fo-new-user.php"><input type="button" class="btn btn-success" style="width: 30.2vh;" value="Ajouter un participant"></a>
-                            </div>
-                            <div class="new_user" style="position: relative; left: 5%;">
-                                <a class="button" href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}" ><input type="submit" class="btn btn-success" style="width: 30.2vh;" value="Ajouter un fait marquant"></a>
-                            </div>
+                        <div class="new_user">
+                            <a class="button" href="#popup3"><input type="button" class="btn btn-success" value="Gestion des participants"></a>
                         </div>
                         <div class="new_user">
                             <a href="#popup4"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
@@ -183,22 +172,21 @@
 
                 <div class="form-group row" id="fichiers">
                     <!-- <div class="col-lg-4 mx-auto settings d-flex"> -->
-                        <div class="gestion">
-                            <a href="#"><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
-                        </div>
-                        <div class="new_user">
-                            <a href="fo-new-user.php"><input type="button" class="btn btn-success" value="Ajouter un participant"></a>
-                        </div>
-                        <div class="new_user">
-                            <a class="button" href="#popup1" ><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
-                        </div>
-                    <!-- </div> -->
+                    <div class="gestion">
+                        <a href="#"><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
+                    </div>
+                    <div class="new_user">
+                        <a href="fo-new-user.php"><input type="button" class="btn btn-success" value="Ajouter un participant"></a>
+                    </div>
+                    <div class="new_user">
+                        <a class="button" href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}" ><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
+                    </div>
                 </div>
 
             </section> </br>
 
         </div>
-    {# </div> #}
+ 
     </div>
 
     <div id="popup4" class="overlay">
@@ -348,38 +336,6 @@
         </div>
     </div> 
 
-<<<<<<< HEAD
-{% endblock %}
-=======
-    <div class="main-container" style="margin-top: 7vh;">
-        <section id="timeline" class="timeline-outer">
-            <div class="container" id="content">
-                <div class="row">
-                    <div class="col s12 m12 l12">
-                        <div class="text-center mx-auto facts">
-                            <h1 style="font-size: 2.5em; text-decoration: none; ">Faits marquants</h1>
-                        </div>
-                        <ul class="timeline">
-                            <a href="#"><li class="event">
-                                <h4 style="font-size: 1em;" data-date="22 Sept 2020">22 Sept 2020 - <span>Kévin Njifenju</span></h4>
-                                <p><h3>Management and Entreprenurship (MSc)</h3></p>
-                                <p>
-                                    This September 2015 I will begin an MSc in Management and Entrepreneurship at
-                                    University of Sussex, to broaden my knowledge and gain skills necessary for my
-                                    future in business and management.
-                                </p>
-                                <div class="font-awesome" style="text-align: end;"> 
-                                    <a href="#0" class="cd-popup-trigger"><i class="fa fa-edit" style="font-size: 1.5em;"></i></a>
-                                    <a href="#0" class="cd-popup-trigger"><i class="fa fa-trash" style="font-size: 1.5em;"></i></a>
-                                </div>
-                            </li></a>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
     <div class="cd-popup" role="alert">
 	    <div class="cd-popup-container" style="top: 18%;">
             <h4 class="text-center mb-4">Projet : Développement ID</h4>
@@ -395,13 +351,12 @@
         </div> 
 	    <ul class="cd-buttons mt-5">
 	        <li><a href="">Supprimer</a></li>
-	        <li class="cd-popup-date"><a href="{{ path('fiche_projet_') }}">Annuler</a></li>
+	        <li class="cd-popup-date"><a href="{{ path('fiche_projet_', {'id': projet.id}) }}">Annuler</a></li>
 	    </ul>       
 	    <a href="#0" class="cd-popup-close img-replace">Close</a>
     </div>
 </div>
 
->>>>>>> 401b937... Modification fiche_projet, installation popup timeline et pop compte_utilisateurs_fo
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
