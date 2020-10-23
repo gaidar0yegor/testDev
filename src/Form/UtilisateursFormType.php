@@ -41,8 +41,7 @@ class UtilisateursFormType extends AbstractType
             'label' => 'Ajouter',
             'attr' => [
                 'class' => 'mt-5 btn btn-success'
-            ]
-            
+            ]            
         ]);
     }
 
