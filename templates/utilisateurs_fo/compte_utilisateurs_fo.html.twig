@@ -5,6 +5,7 @@
 {% block body %}
 <style>
     /* .changer_mdp ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active {background: border-box border-box; border-radius: 1%; } */
+    body  {overflow-x: hidden; }
     .container {min-height: 86vh; }
     form {position: relative; left: 16%; color: black; }
     .text-center {justify-content: space-between; }
@@ -13,13 +14,16 @@
     .change_mdp {position: relative; right: 28%; }
     .button {display: flex;  justify-content: space-between; position: relative; left: 12%; }
     .update {position: relative; left: 4%; }
-    .overlay {position: fixed; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); transition: opacity 500ms; visibility: hidden; opacity: 0; }
+    .close {position: absolute; top: 5%; right: 3%; font-size: xx-large; }
+    .valid {text-align: center; margin-top: 20px; }
+    {# .overlay {position: fixed; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); transition: opacity 500ms; visibility: hidden; opacity: 0; }
     .overlay:target {visibility: visible; opacity: 1; }
     #popup2 {position: fixed; z-index: 5; }
     #popup1 {position: fixed; z-index: 5; }
-    .popup {margin: 70px auto; padding: 20px; background: #fff; border-radius: 5px; width: 50%; position: relative; transition: all 5s ease-in-out; top: 19%; }
-    .close {position: absolute; top: 5%; right: 3%; font-size: xx-large; }
-    .valid {text-align: center; margin-top: 20px; }
+    .popup {margin: 70px auto; padding: 20px; background: #fff; border-radius: 5px; width: 50%; position: relative; transition: all 5s ease-in-out; top: 19%; } #}
+
+    .cd-popup-container .cd-buttons li:first-child a {background: #ce352c; }
+    .cd-popup-container .cd-buttons li:last-child a {background: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
 </style>
 
     <div class="container">
@@ -77,21 +81,20 @@
     <div class="button mt-5 mb-4">
         <!-- <input type="submit" class="btn btn-secondary" value="Annuler"> -->
         <div class="update">
-            <a href="#popup2"> <input type="update" class="btn btn-success" value="Mettre à jour"> </a>
+            <a href="#0" class="cd-popup-trigger"> <input type="update" class="btn btn-success" value="Mettre à jour"> </a>
         </div>
         <div class="change_mdp">
-            <a href="#popup1"><input type="button" class="btn btn-warning" value="Modifier votre mot de passe"> </a>
+            <a href="" class="cd-popup-trigger1"><input type="button" class="btn btn-warning" value="Modifier votre mot de passe"> </a>
         </div>
     </div>
     <!-- <div id="modifier"> -->
         <!-- <div class="button text-center m-4">
         <a href="fo-temps-01.php"><input type="button" class="btn btn-success1" value="Modifier votre mot de passe">
     </div> -->
-    <div id="popup2"  class="overlay">
-        <div class="popup">
-            <a class="close" href="#">&times;</a> 
+    <div class="cd-popup" role="alert">
+	    <div class="cd-popup-container" style="top: 18%;">
             <div class="col-lg text-center mx-auto">    
-                <form method="post">
+                <form method="post" class="mt-5">
                     <div class="form-group row">
                         <label for="nom" class="col-sm-2 col-form-label">Nom</label>
                         <div class="col-sm-8">
@@ -135,15 +138,17 @@
                     </div>
                 </form>
                 <div class="update text-center mt-5">
-                    <a href="{{ path('compte_') }}"> <input type="update" class="btn btn-primary" value="Modifier"> </a>
+                    <a href="{{ path('compte_')}}"> <input type="update" class="btn btn-primary" value="Modifier"> </a>
                 </div>
+        	    <a href="#0" class="cd-popup-close img-replace">Close</a>
             </div>
         </div>
     </div>
-    <div id="popup1" class="overlay">
-        <div class="popup">
+    
+    <div class="cd-popup1" role="alert">
+	    <div class="cd-popup-container" style="top: 18%;">
             <!-- <h2 class="text-center m-4">Projet : <span>Développement IP</span> </h2> -->
-            <a class="close" href="#">&times;</a>
+
             <div class="col-lg mx-auto">
                 <form class="changer_mdp" action="" method="post">
                     <div class="form-group row">
@@ -165,11 +170,68 @@
                         </div>
                     </div>
                 </form> 
+
                 <div class="valid">
-                    <a href=""><input type="button" class="btn btn-success1" value="Modifier"></a>
-                </div><br> 
+                    <a href="{{ path('compte_') }}"><input type="button" class="btn btn-success1" value="Modifier"></a>
+                </div><br>
+	            <a href="#0" class="cd-popup-close img-replace">Close</a>
             </div> 
         </div>
     </div>
+
 </div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<script>
+    jQuery(document).ready(function($){
+    	//open popup
+    	$('.cd-popup-trigger').on('click', function(event){
+    		event.preventDefault();
+    		$('.cd-popup').addClass('is-visible');
+    	});
+
+    	//close popup
+    	$('.cd-popup').on('click', function(event){
+    		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup') ) {
+    			event.preventDefault();
+    			$(this).removeClass('is-visible');
+    		}
+    	});
+
+    	//close popup when clicking the esc keyboard button
+    	$(document).keyup(function(event) {
+        	if(event.which=='27'){
+        		$('.cd-popup').removeClass('is-visible');
+    	    }
+        });      
+    });
+
+    jQuery(document).ready(function($){
+    	//open popup
+    	$('.cd-popup-trigger1').on('click', function(event){
+    		event.preventDefault();
+    		$('.cd-popup1').addClass('is-visible');
+    	});
+
+    	//close popup
+    	$('.cd-popup1').on('click', function(event){
+    		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup1') ) {
+    			event.preventDefault();
+    			$(this).removeClass('is-visible');
+    		}
+    	});
+
+    	//close popup when clicking the esc keyboard button
+    	$(document).keyup(function(event) {
+        	if(event.which=='27'){
+        		$('.cd-popup1').removeClass('is-visible');
+    	    }
+        });      
+    });
+
+</script> 
+
 {% endblock %}

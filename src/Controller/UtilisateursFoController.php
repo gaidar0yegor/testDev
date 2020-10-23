@@ -47,7 +47,6 @@ class UtilisateursFoController extends AbstractController
                 $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData())
             );
             */
-
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -67,9 +66,9 @@ class UtilisateursFoController extends AbstractController
      */
     public function compteUtilisateur()
     {
-        if (!$this->getUser()) {
-            return $this->redirectToRoute('compte_');
-        }
+        // if (!$this->getUser()) {
+        //     return $this->redirectToRoute('compte_');
+        // }
 
         return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
             'utilisateur' => $this->getUser(),
