@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Societes;
+use App\Entity\Societe;
 use App\Entity\StatutsSociete;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Societes|null find($id, $lockMode = null, $lockVersion = null)
- * @method Societes|null findOneBy(array $criteria, array $orderBy = null)
- * @method Societes[]    findAll()
- * @method Societes[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Societe|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Societe|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Societe[]    findAll()
+ * @method Societe[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class SocietesRepository extends ServiceEntityRepository
+class SocieteRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Societes::class);
+        parent::__construct($registry, Societe::class);
     }
 
     // /**
-    //  * @return Societes[] Returns an array of Societes objects
+    //  * @return Societe[] Returns an array of Societe objects
     //  */
     /*
     public function findByExampleField($value)
@@ -38,7 +38,7 @@ class SocietesRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Societes
+    public function findOneBySomeField($value): ?Societe
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.exampleField = :val')
@@ -49,7 +49,7 @@ class SocietesRepository extends ServiceEntityRepository
     }
     */
 
-  public function testFindOneBySomeField($value): ?Societes
+  public function testFindOneBySomeField($value): ?Societe
   {
       return $this->createQueryBuilder('s')
           ->andWhere('s.id = :val')
@@ -60,7 +60,7 @@ class SocietesRepository extends ServiceEntityRepository
   }
 
 
-    public function afficheInfosSociete(): ?Societes
+    public function afficheInfosSociete(): ?Societe
     {
             $qb = $this
                 ->createQueryBuilder('s')
@@ -73,12 +73,12 @@ class SocietesRepository extends ServiceEntityRepository
 
     }
 
-    public function listeRaisonSocialeSociete(): ?Societes
+    public function listeRaisonSocialeSociete(): ?Societe
     {
         $qb = $this
             ->createQueryBuilder('s')
             ->select('s','statuts')
-            ->from(Societes::class, 'statuts')
+            ->from(Societe::class, 'statuts')
             ->innerJoin ('s.StatutsSociete','statuts');
 
         return $qb

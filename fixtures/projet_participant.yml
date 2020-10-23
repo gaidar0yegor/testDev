@@ -1,9 +1,16 @@
 App\Entity\ProjetParticipant:
-    user1projet1:
+    # Société 1
+    user_projet1:
         user: '@user'
         projet: '@projet1'
-        role: '@chef_de_projet'
-    user1projet3:
+        role: '@contributeur'
+    user_projet3:
         user: '@user'
         projet: '@projet3'
+        role: '@observateur'
+
+    # Société 2
+    user20_projet20:
+        user: '@user20'
+        projet: '@projet20'
         role: '@contributeur'

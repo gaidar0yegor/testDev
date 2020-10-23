@@ -30,9 +30,6 @@ class ProjetFormType extends AbstractType
                 'label' => 'Résumé',
                 'required' => false,
             ])
-            ->add('chefDeProjet', TextType::class, [
-                'label' => 'Chef de projet',
-            ])
             ->add('dateDebut', DateType::class, [
                 'label' => 'Date de début',
             ])

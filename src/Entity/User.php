@@ -79,10 +79,10 @@ class User implements UserInterface
     private $licences;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Societes::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $societes;
+    private $societe;
 
     /**
      * @ORM\ManyToOne(targetEntity=ProfilsUtilisateur::class, inversedBy="users")
@@ -311,14 +311,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSocietes(): ?Societes
+    public function getSociete(): ?Societe
     {
-        return $this->societes;
+        return $this->societe;
     }
 
-    public function setSocietes(?Societes $societes): self
+    public function setSociete(?Societe $societe): self
     {
-        $this->societes = $societes;
+        $this->societe = $societe;
 
         return $this;
     }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\ProjetParticipant;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -17,5 +18,19 @@ class ProjetParticipantRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ProjetParticipant::class);
+    }
+
+    /**
+     * Recupère tous les projet auxquels $user participe.
+     */
+    public function findAllForUser(User $user): array
+    {
+        return $this
+            ->createQueryBuilder('projetParticipant')
+            ->where('projetParticipant.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

@@ -93,7 +93,7 @@ class Projet
     private $projetInterne;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\ManyToOne(targetEntity=User::class)
      */
     private $chefDeProjet;
 
@@ -356,12 +356,12 @@ class Projet
         return $this;
     }
 
-    public function getChefDeProjet(): ?string
+    public function getChefDeProjet(): ?User
     {
         return $this->chefDeProjet;
     }
 
-    public function setChefDeProjet(?string $chefDeProjet): self
+    public function setChefDeProjet(?User $chefDeProjet): self
     {
         $this->chefDeProjet = $chefDeProjet;
 

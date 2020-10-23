@@ -1,8 +1,4 @@
 App\Entity\Role:
-    referent:
-        libelle: Référent Société
-    chef_de_projet:
-        libelle: Chef de projet
     contributeur:
         libelle: Contributeur
     observateur:

@@ -26,20 +26,22 @@
         <thead>
             <tr>
                 <th scope="col" class="">PROJETS</th>
+                <th scope="col" class="">Mon role</th>
                 <th scope="col" class="">Début</th>
                 <th scope="col" class="">Fin</th>
                 <th scope="col" class="">Statut</th>
                 <th scope="col" class="">Participants</th>
             </tr>
         </thead>
-        {% for projet in liste_projets %}
+        {% for participe in participes %}
             <tbody>
                 <tr>
-                    <td scope="row" class="text-center"> <a href="{{ path('fiche_projet_', {'id': projet.id}) }}">{{ projet.titre }}</a> </td>
-                    <td class="text-center">{{ projet.dateDebut|date('d/m/Y') }}</td>  
-                    <td class="text-center">{{ projet.dateFin|date('d/m/Y') }}</td>
-                    <td class="text-center">{{ projet.statutProjet.libelle }}</td>
-                    <td class="text-center">{{ projet.projetParticipants|length }}</td>
+                    <td scope="row" class="text-center"> <a href="{{ path('fiche_projet_', {'id': participe.projet.id}) }}">{{ participe.projet.titre }}</a> </td>
+                    <td class="text-center">{{ participe.role.libelle }}</td>
+                    <td class="text-center">{{ participe.projet.dateDebut|date('d/m/Y') }}</td>  
+                    <td class="text-center">{{ participe.projet.dateFin|date('d/m/Y') }}</td>
+                    <td class="text-center">{{ participe.projet.statutProjet.libelle }}</td>
+                    <td class="text-center">{{ participe.projet.projetParticipants|length }}</td>
                 </tr>
             </tbody>
         {% endfor %}

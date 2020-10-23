@@ -1,10 +1,10 @@
 App\Entity\StatutProjet:
-    planning:
+    projet_en_cours:
         libelle: En Cours
         description: Le projet est toujours en cours de développement.
-    active:
+    projet_suspendu:
         libelle: Suspendu
         description: Le projet est commencé mais suspendu.
-    finished:
+    projet_termine:
         libelle: Termine
         description: Le projet est terminé.

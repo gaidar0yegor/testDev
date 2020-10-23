@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\SocietesRepository;
+use App\Repository\SocieteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=SocietesRepository::class)
+ * @ORM\Entity(repositoryClass=SocieteRepository::class)
  */
-class Societes
+class Societe
 {
     /**
      * @ORM\Id()
@@ -22,7 +22,7 @@ class Societes
     /**
      * @ORM\Column(type="string", length=45)
      */
-    private $raison_sociale;
+    private $raisonSociale;
 
     /**
      * @ORM\Column(type="string", length=45)
@@ -30,12 +30,12 @@ class Societes
     private $siret;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_licences;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_licences_dispo;
 
@@ -55,14 +55,14 @@ class Societes
     private $Licences;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="societes", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="societe", orphanRemoval=true)
      */
     private $users;
 
     /**
-     * @ORM\ManyToOne(targetEntity=StatutsSociete::class, inversedBy="societes")
+     * @ORM\ManyToOne(targetEntity=SocieteStatut::class, inversedBy="societes")
      */
-    private $statuts_societe;
+    private $statut;
 
     public function __construct()
     {
@@ -77,12 +77,12 @@ class Societes
 
     public function getRaisonSociale(): ?string
     {
-        return $this->raison_sociale;
+        return $this->raisonSociale;
     }
 
-    public function setRaisonSociale(string $raison_sociale): self
+    public function setRaisonSociale(string $raisonSociale): self
     {
-        $this->raison_sociale = $raison_sociale;
+        $this->raisonSociale = $raisonSociale;
 
         return $this;
     }
@@ -190,7 +190,7 @@ class Societes
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setSocietes($this);
+            $user->setSociete($this);
         }
 
         return $this;
@@ -201,22 +201,22 @@ class Societes
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
-            if ($user->getSocietes() === $this) {
-                $user->setSocietes(null);
+            if ($user->getSociete() === $this) {
+                $user->setSociete(null);
             }
         }
 
         return $this;
     }
 
-    public function getStatutsSociete(): ?StatutsSociete
+    public function getStatut(): ?SocieteStatut
     {
-        return $this->statuts_societe;
+        return $this->statut;
     }
 
-    public function setStatutsSociete(?StatutsSociete $statuts_societe): self
+    public function setStatut(?SocieteStatut $statut): self
     {
-        $this->statuts_societe = $statuts_societe;
+        $this->statut = $statut;
 
         return $this;
     }
