@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'bo_base.html.twig' %}
 
 {% block title %}Liste des utilisateurs{% endblock %}
 
@@ -18,31 +18,27 @@
 
 <div class="container">
     <h1 class="text-center m-4" style="color: #ce352c;">Liste des utilisateurs</h1>
-    {# <p class="text-end mt-4 mb-4">Licences disponibles : <span>03</span></p> #}
-
     <table class="table text-center mx-auto m-5"  style="max-width: 80%;">
         <thead>
             <tr class="table table-secondary">
-                <th scope="col" class="text-center">N°</th>
                 <th scope="col" class="text-center">Nom</th>
                 <th scope="col" class="text-center">Prénom</th>
                 <th scope="col" class="text-center">Email</th>
                 <th scope="col" class="text-center">Rôle</th>
                 <th scope="col" class="text-center">Statut</th>
-                <th scope="col" class="text-center">Date</th>
-                <th scope="col" class="text-center">Nb projets</th>
+                <th scope="col" class="text-center">Date - Heure</th>
             </tr>
         </thead>
         {% for utilisateur in liste_utilisateurs %}
             <tbody>
                 <tr>
-                    <td class="text-center">{{ utilisateur.id }}</td>     
                     <td class="text-center">{{ utilisateur.nom }}</td>      
                     <td class="text-center">{{ utilisateur.prenom }}</td>      
-                    <td class="text-center">{{ utilisateur.email }}</td>      
-                    {# <td class="text-center">{{ utilisateur.roles }}</td>       #}
-                    {# <td class="text-center">{{ utilisateur.statuts_utilisateur }}</td>       #}
-                    {# <td class="text-center">{{ utilisateur.created_at }}</td>       #}
+                    <td class="text-center">{{ utilisateur.email }}</td>
+                    {# <td class="text-center">{{ utilisateur.roles }}</td>   #}
+                    {# <td class="text-center">{{ utilisateur.statuts_utilisateur }}</td>   #}
+                    {# <td class="text-center">{{ utilisateur.createdAt }}</td>   #}
+
                     <td class="text-center">0</td>      
                     <td style="background: white; border: white;">
                         <a href="{{ path('compte_', { id: utilisateur.id }) }}">
@@ -58,24 +54,6 @@
             </tbody>
         {% endfor %}
     </table>
-    
 </div>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-    {# <h1>Hello {{ controller_name }}! ✅</h1> #}
-    {# This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/src/Controller/UtilisateursFoController.php'|file_link(0) }}">src/Controller/UtilisateursFoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/templates/utilisateurs_fo/index.html.twig'|file_link(0) }}">templates/utilisateurs_fo/index.html.twig</a></code></li>
-    </ul> #}

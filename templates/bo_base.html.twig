@@ -7,17 +7,16 @@
             <link rel="stylesheet" href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css') }}" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
             <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
             <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/menu-horizontal-front.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/popup.css') }}">
+            <link rel="stylesheet" href="{{ asset('css/menu-horizontal-back.css') }}">
             <link rel="stylesheet" href="{{ asset('font-awesome/css/font-awesome.min.css') }}">
-            <link rel="stylesheet" href="{{ asset('css/timeline.css') }}">
+            {# <link rel="stylesheet" href="{{ asset('css/popup.css') }}"> #}
 
 
         {% block stylesheets %} {% endblock %}
     </head>
     <body>
-        {% include('fo_header.html.twig') %}
-        {% include('fo_menu_horizontal.html.twig') %}
+        {% include('bo_header.html.twig') %}
+        {% include('bo_menu_horizontal.html.twig') %}
 
             {% block body %}
                 {# <section style="min-height: 980px;">
