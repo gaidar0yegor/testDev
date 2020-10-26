@@ -52,8 +52,8 @@ class ProjetFormType extends AbstractType
                 'class' => StatutProjet::class,
                 'choice_label' => 'libelle',
             ])
-            ->add('ajouter', SubmitType::class, [
-                "label" => "Ajouter",
+            ->add('submit', SubmitType::class, [
+                'label' => 'Soumettre',
             ])
         ;
     }
