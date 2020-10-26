@@ -5,10 +5,9 @@
 
 		<ul>
 			<li><a href="{{ path ('projets_') }}"  class="menu-icon">Liste des projets</a></li>
-			<li><a href="{{ path ('infos_projet_') }}" class="menu-icon">Nouveau projet</a></li>	
-			<!-- <li><a href="fo-projet-02.php">Détails du projet</a></li>
-			<li><a href="fo-projet-03.php">Ajouter un fait marquant</a></li> -->
-			
+			{% if is_granted('ROLE_FO_CDP') %}
+			<li><a href="{{ path ('infos_projet_') }}" class="menu-icon">Nouveau projet</a></li>
+			{% endif %}
 		</ul>
 	</li>
 	<li><a href="{{ path ('temps_') }}">Suivi temps</a>
@@ -17,6 +16,7 @@
 			<li><a href="{{ path ('absences_') }}">Mes absences</a></li>
 		</ul>
 	</li>
+	{% if is_granted('ROLE_FO_ADMIN') %}
 	<li><a href="{{ path ('utilisateurs_fo_') }}">Administration</a>
 		<ul>
 			<li><a href="{{ path ('utilisateurs_fo_') }}">Liste des utilisateurs</a></li>
@@ -24,4 +24,5 @@
 			<li><a href="{{ path ('compte_') }}">Mon compte</a></li>
 		</ul>
 	</li>
+	{% endif %}
 </ul>

@@ -79,10 +79,10 @@ class User implements UserInterface
     private $licences;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Societes::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=true)
      */
-    private $societes;
+    private $societe;
 
     /**
      * @ORM\ManyToOne(targetEntity=ProfilsUtilisateur::class, inversedBy="users")
@@ -144,7 +144,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->id;
+        return $this->email;
     }
 
     /**
@@ -166,12 +166,24 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getRole(): string
+    {
+        return $this->getRoles()[0];
+    }
+
+    public function setRole(string $role): self
+    {
+        $this->roles = [$role];
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
     public function getPassword(): string
     {
-        return (string) $this->password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -220,6 +232,11 @@ class User implements UserInterface
         $this->prenom = $prenom;
 
         return $this;
+    }
+
+    public function getFullname(): string
+    {
+        return $this->getPrenom() . ' ' . $this->getNom();
     }
 
     public function getEmail(): ?string
@@ -306,14 +323,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getSocietes(): ?Societes
+    public function getSociete(): ?Societe
     {
-        return $this->societes;
+        return $this->societe;
     }
 
-    public function setSocietes(?Societes $societes): self
+    public function setSociete(?Societe $societe): self
     {
-        $this->societes = $societes;
+        $this->societe = $societe;
 
         return $this;
     }

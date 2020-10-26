@@ -1,0 +1,7 @@
+App\Entity\SocieteStatut:
+    societe_nouvelle:
+        libelle: Nouvelle
+    societe_active:
+        libelle: Activée
+    societe_desactivee:
+        libelle: Désactivée

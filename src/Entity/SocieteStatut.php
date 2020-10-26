@@ -2,15 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\StatutSocieteRepository;
+use App\Repository\SocieteStatutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=StatutSocieteRepository::class)
+ * @ORM\Entity(repositoryClass=SocieteStatutRepository::class)
  */
-class StatutsSociete
+class SocieteStatut
 {
     /**
      * @ORM\Id()
@@ -25,7 +25,7 @@ class StatutsSociete
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Societes::class, mappedBy="statuts_societe")
+     * @ORM\OneToMany(targetEntity=Societe::class, mappedBy="statut")
      */
     private $societes;
 
@@ -64,23 +64,23 @@ class StatutsSociete
         return $this->societes;
     }
 
-    public function addSociete(Societes $societe): self
+    public function addSociete(Societe $societe): self
     {
         if (!$this->societes->contains($societe)) {
             $this->societes[] = $societe;
-            $societe->setStatutsSociete($this);
+            $societe->setStatut($this);
         }
 
         return $this;
     }
 
-    public function removeSociete(Societes $societe): self
+    public function removeSociete(Societe $societe): self
     {
         if ($this->societes->contains($societe)) {
             $this->societes->removeElement($societe);
             // set the owning side to null (unless already changed)
-            if ($societe->getStatutsSociete() === $this) {
-                $societe->setStatutsSociete(null);
+            if ($societe->getStatut() === $this) {
+                $societe->setStatut(null);
             }
         }
 

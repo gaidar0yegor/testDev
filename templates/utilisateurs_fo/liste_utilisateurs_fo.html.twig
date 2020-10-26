@@ -27,9 +27,6 @@
                 <th scope="col" class="text-center">Nom</th>
                 <th scope="col" class="text-center">Prénom</th>
                 <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">Rôle</th>
-                <th scope="col" class="text-center">Statut</th>
-                <th scope="col" class="text-center">Date</th>
                 <th scope="col" class="text-center">Nb projets</th>
             </tr>
         </thead>
@@ -40,10 +37,7 @@
                     <td class="text-center">{{ utilisateur.nom }}</td>      
                     <td class="text-center">{{ utilisateur.prenom }}</td>      
                     <td class="text-center">{{ utilisateur.email }}</td>      
-                    {# <td class="text-center">{{ utilisateur.roles }}</td>       #}
-                    {# <td class="text-center">{{ utilisateur.statuts_utilisateur }}</td>       #}
-                    {# <td class="text-center">{{ utilisateur.created_at }}</td>       #}
-                    <td class="text-center">0</td>      
+                    <td class="text-center">{{ utilisateur.projetParticipants|length }}</td>
                     <td style="background: white; border: white;">
                         <a href="{{ path('compte_', { id: utilisateur.id }) }}">
                             <i class="fa fa-edit"></i>

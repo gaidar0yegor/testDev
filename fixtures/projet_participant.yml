@@ -1,9 +1,38 @@
 App\Entity\ProjetParticipant:
-    user1projet1:
-        user: '@user1'
+    # Société 1
+    user_projet1:
+        user: '@user'
         projet: '@projet1'
-        role: '@chef_de_projet'
-    user1projet3:
-        user: '@user1'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+    user_projet3:
+        user: '@user'
         projet: '@projet3'
-        role: '@contributeur'
+        role: '<(App\Role::OBSERVATEUR)>'
+    cdp_projet3:
+        user: '@cdp'
+        projet: '@projet3'
+        role: '<(App\Role::OBSERVATEUR)>'
+
+    cdp_projet1:
+        user: '@cdp'
+        projet: '@projet1'
+        role: '<(App\Role::CDP)>'
+    cdp_projet2:
+        user: '@cdp'
+        projet: '@projet2'
+        role: '<(App\Role::CDP)>'
+    cdp2_projet3:
+        user: '@cdp2'
+        projet: '@projet3'
+        role: '<(App\Role::CDP)>'
+
+    # Société 2
+    user20_projet20:
+        user: '@user20'
+        projet: '@projet20'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+
+    cdp20_projet20:
+        user: '@cdp20'
+        projet: '@projet20'
+        role: '<(App\Role::CDP)>'

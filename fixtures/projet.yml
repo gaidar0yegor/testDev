@@ -1,10 +1,40 @@
 App\Entity\Projet:
-    projet{1..3}:
-        titre: 'Projet <current()>'
-        resume: 'Projet de test numéro <current()>'
+    # Société 1
+    projet1:
+        titre: 'Projet 1'
+        acronyme: 'P1'
+        resume: 'Projet de test numéro 1'
         projetCollaboratif: true
         projetPpp: false
-        statutProjet: '@active'
-        acronyme: 'P<current()>'
         projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateDebut: '<date_create()>'
+    projet2:
+        titre: 'Projet 2'
+        acronyme: 'P2'
+        resume: 'Projet de test numéro 2'
+        projetCollaboratif: false
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateDebut: '<date_create()>'
+    projet3:
+        titre: 'Projet 3'
+        acronyme: 'P3'
+        resume: 'Projet de test numéro 3'
+        projetCollaboratif: false
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateDebut: '<date_create()>'
+
+    # Société 2
+    projet20:
+        titre: 'Projet société 2'
+        acronyme: 'PS20'
+        resume: 'Projet de test appartenant à société 2'
+        projetCollaboratif: false
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
         dateDebut: '<date_create()>'

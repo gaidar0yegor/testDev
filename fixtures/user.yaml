@@ -1,5 +1,52 @@
 App\Entity\User:
-    user1:
+    # Société 1
+    user:
         nom: Eureka
-        prenom: User1
-        email: user1@eureka.com
+        prenom: User
+        email: user@societe.dev
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$PZhx5wJyDeZ++osfTU3LYA\$97KzeaULWjIH7SRz158cydsgVSvuARlCxdPmJb1zkR8
+        # password is 'user'
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$zn0eAhjYovsdtBEzSHCX+w\$Ze1du/PDQS45f9AhEfHbdVcBg/r15uS2V2Et5BSdrk0
+        # password is 'admin'
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
+    cdp:
+        nom: Eureka
+        prenom: Chef de projet
+        email: cdp@societe.dev
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$oOzDk4ms5ppm04hGvrDz9Q\$3fkfjEMr/CSZE/CJ4vBM0UiB4N+1mr2/5N0HMN6rTiI
+        # password is 'cdp'
+        roles: [ROLE_FO_CDP]
+        societe: '@societe'
+    cdp2:
+        nom: Eureka
+        prenom: Chef de projet 2
+        email: cdp2@societe.dev
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$TcXwdgyA5zNdK1B4pWygpQ\$KjfGhyEphN34jcMOM25ZbAybkxdZlVXKB9/RAiOlLak
+        # password is 'cdp'
+        roles: [ROLE_FO_CDP]
+        societe: '@societe'
+
+    # Société 2
+    user20:
+        nom: Eureka
+        prenom: User 20
+        email: user20@societe2.dev
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$OuxfegH9tekyq+ixYBslSw\$gUAVwg5N+5NROiOdglpHlEjQHA//x9R/3SyF4OdxV1A
+        # password is 'user20'
+        roles: [ROLE_FO_USER]
+        societe: '@societe2'
+    cdp20:
+        nom: Eureka
+        prenom: Chef de projet 20
+        email: cdp20@societe2.dev
+        password: \$argon2id\$v=19\$m=65536,t=4,p=1\$DaEbAssZqRrOu5rWvpVWAQ\$ZB5eIn67Hhiu2uE3KZHl0tzZ7BkOiUrvJcdREU+1sig
+        # password is 'cdp20'
+        roles: [ROLE_FO_CDP]
+        societe: '@societe2'

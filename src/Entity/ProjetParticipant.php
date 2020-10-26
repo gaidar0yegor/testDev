@@ -35,8 +35,7 @@ class ProjetParticipant
     private $projet;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Role::class, inversedBy="projetParticipants")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=15)
      */
     private $role;
 
@@ -86,12 +85,12 @@ class ProjetParticipant
         return $this;
     }
 
-    public function getRole(): ?Role
+    public function getRole(): ?string
     {
         return $this->role;
     }
 
-    public function setRole(?Role $role): self
+    public function setRole(?string $role): self
     {
         $this->role = $role;
 

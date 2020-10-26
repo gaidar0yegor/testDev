@@ -77,18 +77,13 @@
             // }); #}
         {% endblock %}
     </head>
+    <body>
 
     <title>Connexion</title>
 
     {# <form method="post"> #}
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
-
-        {% if app.user %}
-            <div class="mb-3">
-                Vous êtes connecté(e) en tant que : {{ app.user.username }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
-            </div>
         {% endif %}
 
         <section>
@@ -101,13 +96,13 @@
                         <label for="identifiant" class="col-sm-2 col-form-label">Identifiant</label>
                     </div>
                     <div class="col-md-12 mb-4">
-                        <input type="text" class="form-control" id="identifiant" value="{{ last_username }}" required autofocus>
+                        <input type="text" name="_username" class="form-control" id="identifiant" value="{{ last_username }}" required autofocus>
                     </div>
                     <div class="form-group row">
                         <label for="password" class="col-sm-6 col-form-label">Mot de passe</label>
                     </div>
                     <div class="col-md-12">
-                      <input type="password" class="form-control" id="password" required>
+                      <input type="password" name="_password" class="form-control" id="password" required>
                     </div>
 
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
@@ -154,17 +149,5 @@
 
     {% include "footer.html.twig" %}
 
-    </html>
+    </body>
 </html>
-
-
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}

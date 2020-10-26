@@ -2,10 +2,9 @@
 
 namespace App\Form;
 
-use App\Entity\Role;
 use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -31,11 +30,12 @@ class UtilisateursFormType extends AbstractType
         ->add('email', EmailType::class, [
             'label' => 'Email',
         ])
-        ->add('roles',  EntityType::class, [
-            'label' => 'Rôle',
-            'class' => Role::class,
-            'choice_label' => 'libelle',
-            'multiple' => true,
+        ->add('role',  ChoiceType::class, [
+            'choices' => [
+                'Utilisateur' => 'ROLE_FO_USER',
+                'Chef de projet' => 'ROLE_FO_CDP',
+                'Référent' => 'ROLE_FO_ADMIN',
+            ],
         ])
         ->add('ajouter', SubmitType::class, [
             'label' => 'Ajouter',

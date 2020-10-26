@@ -3,5 +3,5 @@ App\Entity\FaitMarquant:
         titre: 'Fait <current()>'
         description: 'Nous avons réalisé ce fait <current()> sur ce projet. <paragraphs(2, true)>'
         date: '<date_create()>'
-        createdBy: '@user1'
+        createdBy: '@user'
         projet: '@projet1'

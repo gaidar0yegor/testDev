@@ -38,7 +38,7 @@ class Licences
     private $cle;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Societes::class, inversedBy="Licences")
+     * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="Licences")
      * @ORM\JoinColumn(nullable=false)
      */
     private $societes;
@@ -101,12 +101,12 @@ class Licences
         return $this;
     }
 
-    public function getSocietes(): ?Societes
+    public function getSocietes(): ?Societe
     {
         return $this->societes;
     }
 
-    public function setSocietes(?Societes $societes): self
+    public function setSocietes(?Societe $societes): self
     {
         $this->societes = $societes;
 

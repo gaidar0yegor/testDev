@@ -1,14 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Acronyme du projet{% endblock %}
-
-{% block h1 %}
-    {% if acronyme is defined %}
-        {{ acronyme }}
-    {% else %}
-        Projet 
-    {% endif %}
-{% endblock %}
+{% block title %}Projet {{ projet.titre }}{% endblock %}
 
 {% block body %}
     <style>
@@ -89,70 +81,41 @@
             <div class="form-group row">
                 <div class="text-center mx-auto projet">
                     <h1 style="color: #ce352c;">
-                        {% if acronyme is defined %}
-                            {{ acronyme }}
-                        {% else %}
-                            Projet 
-                        {% endif %}
+                        Projet {{ projet.titre }}
                     </h1>
                 </div>
             </div>
-            <div class="form-group row" style="display: flex;">
-                <div class="text-center mx-auto">
-                    <button type="button" class="btn btn-outline-primary">Collaboratif</button>
-                    <button type="button" class="btn btn-outline-secondary">PPP - R&D</button>
-                    <button type="button" class="btn btn-outline-success">Eligible RDI</button>
-                </div>
-            </div>
-<!-- 
-            <div class="form-group row">
-                <label for="projet" class="col-sm-2 col-form-label">Projet</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="projet">
-                </div>
-            </div> -->
-            <div class="form-group row">
-                <label for="titre" class="col-lg-2 col-form-label">Titre</label>
-                <div class="col-lg-8">
-                  <input type="text" class="form-control" id="titre" placeholder="Développement IP" disabled>
-                </div>
-            </div>
-            <!-- <div class="form-group row">
-                <label for="statut" class="col-lg-2 col-form-label">Statut</label>
-                <div class="col-lg-8">
-                    <select id="statut" class="form-control"  disabled>
-                        <option selected>En cours</option>
-                        <option>Création</option>
-                        <option>Terminé</option>
-                    </select>                
-                </div>
-            </div> -->
-            <div class="form-group row">
-                <label for="liste_projets" class="col-lg-2 col-form-label"></label>
-                <div class="col-lg-8">
-                    <textarea class="form-control" id="liste_projets" rows="3"  disabled>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium ratione rem repellat dolores ut recusandae asperiores corrupti, quo, id provident dolorem voluptatum excepturi perspiciatis quia possimus! Laudantium sed dolore labore?</textarea>
-                </div>    
-            </div>
-            <div class="form-group row">
-                <label for="chef_projet" class="col-lg-2 col-form-label">Chef du projet</label>
-                <div class="col-lg-8">
-                  <input type="text" class="form-control" id="chef_projet" placeholder="Sylvain Clément"  disabled>
-                </div>
-            </div>
-            <div class="bloc">
-                <div class="date">
-                    <div class="form-group row">
-                        <label for="date_debut" class="col-lg-2 col-form-label">Date de début</label>
-                        <div class="col-lg-2">
-                          <input type="date" class="form-control" id="date_debut"  disabled>
-                        </div>
-                        <label for="date_fin" class="col-lg-4 col-form-label" id="date_fin">Date de fin</label>
-                        <div class="col-lg-2">
-                            <input type="date" class="form-control" id="date_fin"  disabled>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <p class="text-center">
+                {% if projet.projetCollaboratif %}
+                    <span class="badge badge-success">Collaboratif</span>
+                {% endif %}
+                {% if projet.projetInterne %}
+                    <span class="badge badge-success">Interne</span>
+                {% endif %}
+                {% if projet.projetPpp %}
+                    <span class="badge badge-success">PPP - R&amp;D</span>
+                {% endif %}
+                {% if projet.statutRdi %}
+                    <span class="badge badge-success">Elligible RDI</span>
+                {% endif %}
+            </p>
+            <p>
+                {{ projet.resume|nl2br }}
+            </p>
+            <dl class="row">
+                <dt class="col-sm-3">Acronyme</dt>
+                <dd class="col-sm-9">{{ projet.acronyme }}</dd>
+                <dt class="col-sm-3">Chef de projet</dt>
+                <dd class="col-sm-9">{{ projet.chefDeProjet.fullname }}</dd>
+                <dt class="col-sm-3">Date de début</dt>
+                <dd class="col-sm-9">{{ projet.dateDebut|format_date }}</dd>
+                {% if projet.dateFin %}
+                    <dt class="col-sm-3">Date de fin</dt>
+                    <dd class="col-sm-9">{{ projet.dateFin|format_date }}</dd>
+                {% endif %}
+                <dt class="col-sm-3">Statut</dt>
+                <dd class="col-sm-9">{{ projet.statutProjet.libelle }}</dd>
+            </dl>
 
             <section class="fichier col-lg">
 
@@ -165,7 +128,7 @@
                             <a class="button" href="#popup3"><input type="button" class="btn btn-success" value="Gestion des participants"></a>
                         </div>
                         <div class="new_user">
-                            <a href="#popup4"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
+                            <a href="{{ path('projet_edition', {'id': projet.id}) }}"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
                         </div>
                     <!-- </div> -->
                 </div>

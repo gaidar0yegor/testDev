@@ -30,14 +30,13 @@ class ProjetFormType extends AbstractType
                 'label' => 'Résumé',
                 'required' => false,
             ])
-            ->add('chefDeProjet', TextType::class, [
-                'label' => 'Chef de projet',
-            ])
             ->add('dateDebut', DateType::class, [
                 'label' => 'Date de début',
+                'data' => new \DateTime(),
             ])
             ->add('dateFin', DateType::class, [
                 'label' => 'Date de fin',
+                'data' => (new \DateTime())->modify('+2 years'),
             ])
             ->add('projetInterne', CheckboxType::class, [
                 'label' => 'Projet en collaboration avec au moins un partenaire externe',
@@ -55,8 +54,8 @@ class ProjetFormType extends AbstractType
                 'class' => StatutProjet::class,
                 'choice_label' => 'libelle',
             ])
-            ->add('ajouter', SubmitType::class, [
-                "label" => "Ajouter",
+            ->add('submit', SubmitType::class, [
+                'label' => 'Soumettre',
             ])
         ;
     }
