@@ -29,3 +29,11 @@ symfony serve
 ```
 
 Then go to <http://127.0.0.1:8000/projets>
+
+## Development
+
+Run integration tests:
+
+``` bash
+vendor/bin/behat
+```
