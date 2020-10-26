@@ -1,0 +1,15 @@
+default:
+    suites:
+        default:
+            contexts:
+                - App\Tests\Behat\RdiContext
+                - behatch:context:browser
+                - behatch:context:debug
+
+    extensions:
+        FriendsOfBehat\SymfonyExtension: null
+        Behat\MinkExtension:
+            sessions:
+                symfony:
+                    symfony: ~
+        Behatch\Extension: ~
