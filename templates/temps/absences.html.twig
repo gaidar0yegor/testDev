@@ -4,11 +4,12 @@
 
 {% block body %}
 <style>
+    body {min-height: 85vh; }
     .calendar { width: 50%; margin: 25px; padding: 20px; position: relative; left: 23%;  }
     .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 </style>
 
-<div class="cd-popup1" role="alert">
+<div class="cd-popup5" role="alert">
     <div class="calendar text-center">
         <h1 style="color: #ce352c; margin-bottom: 20px; ">Indiquez vos jours d'absence</h1>
         <div class="datepicker" style="display: flex; justify-content: space-between;">
@@ -41,12 +42,13 @@
 <script>
     $('#maxPicks').multiDatesPicker({
         dateFormat: "y-m-d", 
-        defaultDate:"20-9-1",
+        defaultDate:"20-9-1",   
         lang: "fr"
     });
     $('#maxPicks1').multiDatesPicker({
         dateFormat: "y-m-d", 
-        defaultDate:"20-9-1"
+        defaultDate:"20-9-1",
+        lang: "fr"
     });
 </script>
 
