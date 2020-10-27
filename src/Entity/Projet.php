@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Exception\RdiException;
+use App\HasSocieteInterface;
 use App\Repository\ProjetRepository;
 use App\Role;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -13,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=ProjetRepository::class)
  */
-class Projet
+class Projet implements HasSocieteInterface
 {
     /**
      * @ORM\Id()
@@ -362,5 +363,10 @@ class Projet
         }
 
         throw new RdiException('This projet has no Chef de Projet');
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->getChefDeProjet()->getSociete();
     }
 }
