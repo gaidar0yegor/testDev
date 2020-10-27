@@ -37,7 +37,7 @@
         /* .facts .new_user a {background-color: brown; } */
         .overlay {position: fixed; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); transition: opacity 500ms; visibility: hidden; opacity: 0; }
         .overlay:target {visibility: visible; opacity: 1; }
-        #popup4 {position: absolute; z-index: 5; height: 57em; top: 19%; left: 10%; width: 80%; }
+        {# #popup4 {position: absolute; z-index: 5; height: 57em; top: 19%; left: 10%; width: 80%; } #}
         #popup3 {position: absolute; z-index: 5; height: 57em; top: 19%; left: 10%; width: 80%; }
 
         #popup1 {position: absolute; z-index: 5; height: 57em; top: 19%; left: 10%; width: 80%; }
@@ -122,10 +122,10 @@
                 <div class="form-group row" id="fichiers">
                     <!-- <div class="col-lg-4 mx-auto settings d-flex m-right: 12px;"> -->
                         <div class="gestion">
-                            <a href="fo-liste-fichiers.php"><input type="button" class="btn btn-success" value="Fichiers joints"></a>
+                            <a href="{{ path('liste_fichiers_') }}"><input type="button" class="btn btn-success" value="Fichiers joints"></a>
                         </div>
                         <div class="new_user">
-                            <a class="button" href="#popup3"><input type="button" class="btn btn-success" value="Gestion des participants"></a>
+                            <a href="" class="cd-popup-trigger3"><input type="button" class="btn btn-success" value="Gestion des participants"></a>
                         </div>
                         <div class="new_user">
                             <a href="{{ path('projet_edition', {'id': projet.id}) }}"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
@@ -136,10 +136,10 @@
                 <div class="form-group row" id="fichiers">
                     <!-- <div class="col-lg-4 mx-auto settings d-flex"> -->
                     <div class="gestion">
-                        <a href="#"><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
+                        <a href=""><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
                     </div>
                     <div class="new_user">
-                        <a href="fo-new-user.php"><input type="button" class="btn btn-success" value="Ajouter un participant"></a>
+                        <a href="{{ path('infos_utilisateur_fo_') }}"><input type="button" class="btn btn-success" value="Ajouter un participant"></a>
                     </div>
                     <div class="new_user">
                         <a class="button" href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}" ><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
@@ -152,10 +152,10 @@
  
     </div>
 
-    <div id="popup4" class="overlay">
-        <div class="popup">
+    <div class="cd-popup2" role="alert">
+	    <div class="cd-popup-container" style="top: 18%;">
+
             <h5 class="text-center m-4" style="font-size: 2em;">Modifier le projet</h5>    
-            <a class="close" href="#">&times;</a>
             <div class="form-group row">
                 <label for="titre" class="col-sm-2 col-form-label">Titre</label>
                 <div class="col-sm-8">
@@ -200,7 +200,10 @@
             </div>
             <div class="text-center new_user">
                 <a href="fo-projet-02.php"><input type="button" class="btn btn-success" value="Modifier"></a>
-            </div>      
+            </div> 
+
+	        <a href="#0" class="cd-popup-close img-replace">Close</a>
+
         </div>
     </div>
 
@@ -232,10 +235,10 @@
         </section>
     </div>
 
-    <div id="popup3" class="overlay">
-        <div class="popup">
+    <div class="cd-popup3" role="alert">
+        <div class="cd-popup-container" style="top: 18%;">
+
             <h5 class="text-center m-4" style="font-size: 2em;">Gérer les participants</h5>    
-            <a class="close" href="#">&times;</a>
             <table class="table table-bordered col-md text-center mx-auto m-5" style="max-width: 90%;">
                 <thead>
                     <tr class="gerer_participants">
@@ -265,9 +268,13 @@
                     </tr>
                 </tbody>
             </table>
+
             <div class="text-center new_user">
                 <a href="fo-new-user.php"><input type="button" class="btn btn-success" value="Ajouter"></a>
             </div>
+
+	        <a href="#0" class="cd-popup-close img-replace">Close</a>
+
         </div>
     </div>
         
@@ -318,6 +325,7 @@
 	    </ul>       
 	    <a href="#0" class="cd-popup-close img-replace">Close</a>
     </div>
+
 </div>
 
 
@@ -348,6 +356,55 @@
     	    }
         });
     });
+
+
+    jQuery(document).ready(function($){
+    	//open popup
+    	$('.cd-popup-trigger2').on('click', function(event){
+    		event.preventDefault();
+    		$('.cd-popup2').addClass('is-visible');
+    	});
+
+    	//close popup
+    	$('.cd-popup2').on('click', function(event){
+    		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup2') ) {
+    			event.preventDefault();
+    			$(this).removeClass('is-visible');
+    		}
+    	});
+
+    	//close popup when clicking the esc keyboard button
+    	$(document).keyup(function(event) {
+        	if(event.which=='27'){
+        		$('.cd-popup2').removeClass('is-visible');
+    	    }
+        });
+    });
+
+
+    jQuery(document).ready(function($){
+    	//open popup
+    	$('.cd-popup-trigger3').on('click', function(event){
+    		event.preventDefault();
+    		$('.cd-popup3').addClass('is-visible');
+    	});
+
+    	//close popup
+    	$('.cd-popup3').on('click', function(event){
+    		if( $(event.target).is('.cd-popup-close') || $(event.target).is('.cd-popup3') ) {
+    			event.preventDefault();
+    			$(this).removeClass('is-visible');
+    		}
+    	});
+
+    	//close popup when clicking the esc keyboard button
+    	$(document).keyup(function(event) {
+        	if(event.which=='27'){
+        		$('.cd-popup3').removeClass('is-visible');
+    	    }
+        });
+    });
+
 </script> 
 
 {% endblock %}

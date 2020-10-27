@@ -63,8 +63,8 @@
     </div>
 
      <div class="chart">
-        <div id="piechart_3d" class="text-center mx-auto" style="width: 3125%; height: 500px;"></div>
-        <div id="myDiv" class="text-center mx-auto"   style="width: 3125%; height: 500px;">Projet des trois dernières années</div>
+        <div id="piechart_3d" class="text-center mx-auto" style="width: 1000%; height: 500px;"></div>
+        <div id="myDiv" class="text-center mx-auto"   style="width: 1000%; height: 500px;">Projet des trois dernières années</div>
     </div>            
         <!--   <h4 class="text-center"><a><i class="fas fa-arrow-alt-circle-left"></i></a> <| 2020 |> <a href="#"><i class="fas fa-arrow-alt-circle-right"></i></a></h4>
 --> <div class="container">
@@ -81,18 +81,18 @@
                 <tbody>
                     <tr>
                         <th scope="row">Nombre de projets de l'année en cours</th>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
                     </tr>
                     <tr>
                         <th scope="row">Nombre de projets de type CIR-CII</th>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
                     </tr>
                     <tr>
                         <th scope="row">Temps total passé en  heures</th>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
+                        <td class="text-center"></td>
+                        <td class="text-center"></td>
                     </tr>
                 </tbody>               
             {# {% endfor %} #}
@@ -101,7 +101,7 @@
     </div>
     
     <div class="button text-center mb-5">
-        <a href="fo-temps-01.php"><input type="button" class="btn btn-success" value="Mettre à jour votre feuille de temps"></a>
+        <a href="{{ path('temps_') }}"><input type="button" class="btn btn-success" value="Mettre à jour votre feuille de temps"></a>
     </div>
 </section>
 

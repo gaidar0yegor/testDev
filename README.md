@@ -19,6 +19,9 @@ cd rdi_manager_01/
 # Install php dependencies
 composer install
 
+# Si la base de données existe déjà
+php bin/console doctrine:database:drop --force
+
 # Initialize database and fixtures
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force

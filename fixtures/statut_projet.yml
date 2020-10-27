@@ -6,5 +6,5 @@ App\Entity\StatutProjet:
         libelle: Suspendu
         description: Le projet est commencé mais suspendu.
     projet_termine:
-        libelle: Termine
+        libelle: Terminé
         description: Le projet est terminé.

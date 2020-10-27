@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}FRONT OFFICE - Liste des fichiers{% endblock %}
+
+{% block body %}
+<style>
+    a:hover {text-decoration: none; color: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
+    h1, td a {color: black; }
+    .table thead th {background-color: #ce352c; color: white; }
+    tr, td {background-color: #e6e6e6; }  
+</style>
+
+<div class="container">
+    <h1 class="text-center mt-4" style="color: #ce352c;"> Liste des fichiers </h1>
+    <table class="table  text-center mx-auto m-5">
+        <thead>
+            <tr>
+                <th scope="col" class="">Fichier</th>
+                <th scope="col" class="">Uploader</th>
+                <th scope="col" class="">Date</th>
+                <th scope="col" class="">Actions</th>
+            </tr>
+        </thead>
+        {% for fichier in liste_fichiers %}
+        <tbody>
+            <tr>
+                <td class="text-center">{{ fichier.nom_fichier }}</td>
+                <td class="text-center">{{ fichier.nom_uploader }}</td>
+                {# <td class="text-center">{{ fichier. }}</td> #}
+                <td class="text-center">
+                    <a href=""><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+                    <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+    <div class="text-center mx-auto">
+        <button class="btn btn-success" href="">Ajouter un fichier <i class="fa fa-cloud-download" style="color: white;" aria-hidden="true"></i></button>
+    </div>
+</div>
+{% endblock %}
