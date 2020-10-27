@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\FichiersProjet;
+use App\Entity\FichierProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,7 +16,7 @@ class FichiersProjetRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, FichiersProjet::class);
+        parent::__construct($registry, FichierProjet::class);
     }
 
     // /**

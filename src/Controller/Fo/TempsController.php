@@ -15,9 +15,9 @@ class TempsController extends AbstractController
 {
     /**
      * @Route(
-     *      "/temps/{year}/{month}",
-     *      requirements={"year"="\d{4}", "month"="\d{2}"},
-     *      name="temps_"
+     * "/temps/{year}/{month}",
+     * requirements={"year"="\d{4}", "month"="\d{2}"},
+     * name="temps_"
      * )
      */
     public function saisieTempsEnPourCent(
