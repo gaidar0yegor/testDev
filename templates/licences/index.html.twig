@@ -1,0 +1,44 @@
+{% extends 'bo_base.html.twig' %}
+
+{% block title %}Hello LicencesController!{% endblock %}
+
+{% block body %}
+<style>
+    .img_logo {position: absolute; left: 4%; top: 8%; }
+    .img_logo img {height: 50px; }
+    .container {margin-top: 40px; }
+    .table thead th {background-color: #ce352c; color: white; }
+    tr, td {background-color: #e6e6e6; }
+    .edit-delete1 {position: absolute; top: 42%; left: 83%; }
+    .edit-delete2 {position: absolute; top: 38%; left: 83%; }
+    .new_user {text-align: center; }
+    .edit-delete1, .edit-delete2 {display: flex; }
+    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
+</style>
+
+<div class="container">
+    <h1 class="text-center m-4" style="color: #ce352c;">Licences distribuées</h1>
+    <table class="table text-center mx-auto m-5"  style="max-width: 80%;">
+        <thead>
+            <tr class="table table-secondary">       
+                <th scope="col" class="text-center">Société</th>
+                <th scope="col" class="text-center">Personne</th>
+                <th scope="col" class="text-center">Statut</th>
+                <th scope="col" class="text-center">Action</th>
+                <th scope="col" class="text-center">Statut</th>
+            </tr>
+        </thead>
+        {% for licence in licences_distribuees %}
+            <tbody>
+                <tr>
+                    <td class="text-center">{{ licence.societe }}</td>      
+                    <td class="text-center">{{ licence.personne }}</td>      
+                    <td class="text-center">{{ licence.statut }}</td>
+                    <td class="text-center">{{ licence.action }}</td>      
+                    <td class="text-center">{{ licence.statut }}</td>
+                </tr>
+            </tbody>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
