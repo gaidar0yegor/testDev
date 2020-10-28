@@ -5,3 +5,8 @@ services:
 
     App\Tests\Behat\:
         resource: '../tests/Behat/*'
+
+    App\Tests\Behat\RdiContext:
+        arguments:
+            $loader: '@fidry_alice_data_fixtures.doctrine.purger_loader'
+            $fixturesBasePath: 'features/'

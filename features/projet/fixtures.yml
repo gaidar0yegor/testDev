@@ -1,0 +1,53 @@
+App\Entity\User:
+    user:
+        nom: Eureka
+        prenom: User
+        email: user@societe.dev
+        password: user
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    cdp:
+        nom: Eureka
+        prenom: Chef de projet
+        email: cdp@societe.dev
+        password: cdp
+        roles: [ROLE_FO_CDP]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet{1..3}:
+        titre: 'Projet <current()>'
+        acronyme: 'P<current()>'
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateDebut: '<date_create()>'
+
+App\Entity\ProjetParticipant:
+    user_projet1:
+        user: '@user'
+        projet: '@projet1'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+    user_projet3:
+        user: '@user'
+        projet: '@projet3'
+        role: '<(App\Role::OBSERVATEUR)>'
+    cdp_projet{1..3}:
+        user: '@cdp'
+        projet: '@projet<current()>'
+        role: '<(App\Role::CDP)>'
+
+App\Entity\StatutProjet:
+    projet_en_cours:
+        libelle: En Cours
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société
+        siret: 111111111
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée
