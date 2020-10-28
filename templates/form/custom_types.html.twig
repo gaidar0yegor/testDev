@@ -12,3 +12,15 @@
         </div>
     </div>
 {% endblock %}
+
+{% block projet_participant_row %}
+    <div class="row">
+        <div class="col">
+            {{ form.vars.data.user.fullname }}
+        </div>
+        <div class="col">
+            {{ form_errors(form.children.role) }}
+            {{ form_widget(form.children.role) }}
+        </div>
+    </div>
+{% endblock %}

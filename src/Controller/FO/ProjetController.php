@@ -101,6 +101,7 @@ class ProjetController extends AbstractController
 
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
+            'userCanEditProjet' => $this->isGranted('edit', $projet),
         ]);
     }
 

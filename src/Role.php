@@ -21,4 +21,13 @@ class Role
      * @var string Constante du role "Observateur".
      */
     public const OBSERVATEUR = 'OBSERVATEUR';
+
+    public static function getRoles(): array
+    {
+        return [
+            self::OBSERVATEUR => self::OBSERVATEUR,
+            self::CONTRIBUTEUR => self::CONTRIBUTEUR,
+            self::CDP => self::CDP,
+        ];
+    }
 }

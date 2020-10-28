@@ -6,6 +6,7 @@ use App\Exception\RdiException;
 use App\HasSocieteInterface;
 use App\Repository\ProjetRepository;
 use App\Role;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -71,6 +72,8 @@ class Projet implements HasSocieteInterface
 
     /**
      * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="projet", orphanRemoval=true)
+     *
+     * @AppAssert\ExactlyOneChefDeProjet
      */
     private $projetParticipants;
 
