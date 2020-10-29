@@ -26,6 +26,7 @@
         });
 
         $prototypeContainer.after(options.$addButton);
+        options.$addButton.show();
     };
 
     EmbedForm.addPrototypedItem = function ($prototypeContainer, options) {

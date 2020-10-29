@@ -18,10 +18,21 @@
 
 {{ form(form) }}
 
+<button
+    type="button"
+    id="btn-ajouter-participant"
+    class="btn btn-outline-primary"
+    style="display: none"
+>Ajouter un participant</button>
+
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('js/projetParticipant.js') }}"></script>
+    <script type="text/javascript">
+        EmbedForm.init($('#liste_projet_participants_projetParticipants'), {
+            $addButton: $('#btn-ajouter-participant'),
+        });
+    </script>
 {% endblock %}
