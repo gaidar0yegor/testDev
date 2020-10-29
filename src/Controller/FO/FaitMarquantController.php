@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Fo;
+namespace App\Controller\FO;
 
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
