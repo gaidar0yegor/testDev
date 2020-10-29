@@ -220,4 +220,15 @@ class Societe
 
         return $this;
     }
+
+//     public function getGestionnaire(): ?User
+//     {
+//         foreach ($this->projetParticipants as $participant) {
+//             if ($participant->getRole() === Role::CDP) {
+//                 return $participant->getUser();
+//             }
+//         }
+
+//         throw new RdiException('This projet has no Chef de Projet');
+//     }
 }

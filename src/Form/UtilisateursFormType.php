@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Entity\StatutsUtilisateur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -23,10 +25,10 @@ class UtilisateursFormType extends AbstractType
         ->add('prenom', TextType::class, [
             'label' => 'Prénom',
         ])
-        ->add('telephone', Numbertype::class, [
-            'label' => 'Mobile',
-            'required' => false,
-        ])
+        // ->add('telephone', Numbertype::class, [
+        //     'label' => 'Mobile',
+        //     'required' => false,
+        // ])
         ->add('email', EmailType::class, [
             'label' => 'Email',
         ])
@@ -36,6 +38,11 @@ class UtilisateursFormType extends AbstractType
                 'Chef de projet' => 'ROLE_FO_CDP',
                 'Référent' => 'ROLE_FO_ADMIN',
             ],
+        ])
+        ->add('statuts_utilisateur', EntityType::class, [
+            'class' => StatutsUtilisateur::class,
+            'label' => 'Statut',
+            'choice_label' => 'libelle',
         ])
         ->add('ajouter', SubmitType::class, [
             'label' => 'Ajouter',
