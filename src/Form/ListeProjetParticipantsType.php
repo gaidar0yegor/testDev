@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Projet;
+use App\Entity\Societe;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,6 +19,9 @@ class ListeProjetParticipantsType extends AbstractType
         $builder
             ->add('projetParticipants', CollectionType::class, [
                 'entry_type' => ProjetParticipantType::class,
+                'entry_options' => [
+                    'societe' => $options['societe'] ?? null,
+                ],
                 'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
@@ -45,6 +49,9 @@ class ListeProjetParticipantsType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Projet::class,
+            'societe' => null,
         ]);
+
+        $resolver->setAllowedTypes('societe', ['null', Societe::class]);
     }
 }
