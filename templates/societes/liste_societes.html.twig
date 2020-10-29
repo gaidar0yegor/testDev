@@ -34,13 +34,13 @@
         {% for societe in liste_societes %}
             <tbody>
                 <tr>
-                    {# <td class="text-center">{{ societe.id }}</td>       #}
-                    {# <td class="text-center">{{ societe.societe }}</td>       #}
-                    {# <td class="text-center">{{ societe. }}</td> #}
-                    {# <td class="text-center">{{ utilisateur.roles }}</td>   #}
-                    {# <td class="text-center">{{ utilisateur.statuts_utilisateur }}</td>   #}
-                    {# <td class="text-center">{{ utilisateur.createdAt }}</td>   #}
-                    {# <td class="text-center">{{ societe. }}</td> #}
+                    <td class="text-center">{{ societe.id }}</td>     
+                    <td class="text-center">{{ societe.raisonSociale }}</td>      
+                    <td class="text-center">{{ societe.nbLicences }}</td>
+                    <td class="text-center">{{ societe.nbLicencesDispo }}</td>  
+                    <td class="text-center">{{ societe.statut.libelle }}</td>
+                    {# <td class="text-center">{{ societe.dateDebut|date('d/m/Y') }}</td>   #}
+                    {# <td class="text-center">{{ societe.user }}</td> #}
                     <td style="background: white; border: white;">
                         <a href="{{ path('compte_', { id: societe.id }) }}">
                             <i class="fa fa-edit"></i>

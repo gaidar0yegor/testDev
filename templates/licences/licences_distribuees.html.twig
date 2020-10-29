@@ -1,6 +1,6 @@
 {% extends 'bo_base.html.twig' %}
 
-{% block title %}Hello LicencesController!{% endblock %}
+{% block title %} Licences distribuées {% endblock %}
 
 {% block body %}
 <style>
@@ -31,7 +31,7 @@
         {% for licence in licences_distribuees %}
             <tbody>
                 <tr>
-                    <td class="text-center">{{ licence.societe }}</td>      
+                    <td class="text-center">{{ licence.societe.raisonSociale }}</td>      
                     <td class="text-center">{{ licence.personne }}</td>      
                     <td class="text-center">{{ licence.statut }}</td>
                     <td class="text-center">{{ licence.action }}</td>      
