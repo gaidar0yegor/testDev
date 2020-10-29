@@ -20,6 +20,7 @@ class ListeProjetParticipantsType extends AbstractType
                 'entry_type' => ProjetParticipantType::class,
                 'label' => false,
                 'allow_add' => true,
+                'allow_delete' => true,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',

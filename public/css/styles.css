@@ -31,12 +31,6 @@ html{
     margin-left: 0;
 }
 
-.projet-role-header {
-    display: flex;
-    justify-content: space-around;
-    font-weight: bold;
-}
-
 
 /**************************** NAV ************************/
 nav

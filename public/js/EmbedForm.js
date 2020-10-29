@@ -17,10 +17,6 @@
             options.$addButton = $('<button type="button" class="btn btn-primary">Add</button>');
         }
 
-        if (!options.$itemWrapper) {
-            options.$itemWrapper = $('<fieldset class="form-group"></fieldset>');
-        }
-
         options.$addButton.on('click', function (e) {
             EmbedForm.addPrototypedItem($prototypeContainer, options);
         });
@@ -36,7 +32,11 @@
         var newForm = prototype.replace(/__name__/g, index);
         $prototypeContainer.data('index', index + 1);
 
-        $prototypeContainer.append(options.$itemWrapper.clone().append(newForm));
+        if (options.$itemWrapper) {
+            $prototypeContainer.append(options.$itemWrapper.clone().append(newForm));
+        } else {
+            $prototypeContainer.append(newForm);
+        }
     };
 
     _export.EmbedForm = EmbedForm;

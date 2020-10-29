@@ -4,15 +4,20 @@
 
 {% block body %}
 
-<div class="row">
+<h1>Gestion des participants</h1>
+
+<div class="row font-weight-bold">
     <div class="col-sm">
     </div>
     <div class="col-sm">
-        <div class="projet-role-header">
+        <div class="d-flex justify-content-around">
             <p>Chef de projet</p>
             <p>Contributeur</p>
             <p>Observateur</p>
         </div>
+    </div>
+    <div class="col-sm-2 text-center">
+        <p>Enlever</p>
     </div>
 </div>
 
@@ -31,8 +36,14 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        EmbedForm.init($('#liste_projet_participants_projetParticipants'), {
+        const $participants = $('#liste_projet_participants_projetParticipants');
+
+        EmbedForm.init($participants, {
             $addButton: $('#btn-ajouter-participant'),
+        });
+
+        $participants.on('click', '.embed-form-remove', function () {
+            $(this).closest('.projet-participant-row').remove();
         });
     </script>
 {% endblock %}

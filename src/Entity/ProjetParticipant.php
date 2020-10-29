@@ -106,6 +106,10 @@ class ProjetParticipant implements HasSocieteInterface
 
     public function getSociete(): ?Societe
     {
-        return $this->getUser()->getSociete();
+        if (null === $this->user) {
+            return null;
+        }
+
+        return $this->user->getSociete();
     }
 }
