@@ -10,7 +10,7 @@ use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetRepository::class)
@@ -71,9 +71,11 @@ class Projet implements HasSocieteInterface
     private $statutProjet;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="projet", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
      *
+     * @Assert\Valid
      * @AppAssert\ExactlyOneChefDeProjet
+     * @AppAssert\AllSameSociete
      */
     private $projetParticipants;
 

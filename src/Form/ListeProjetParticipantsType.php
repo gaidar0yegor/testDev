@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ListeProjetParticipantsType extends AbstractType
@@ -17,11 +19,25 @@ class ListeProjetParticipantsType extends AbstractType
             ->add('projetParticipants', CollectionType::class, [
                 'entry_type' => ProjetParticipantType::class,
                 'label' => false,
+                'allow_add' => true,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',
             ])
+            ->addEventListener(FormEvents::SUBMIT, [$this, 'putAllParticipantOnProjet'])
         ;
+    }
+
+    /**
+     * Affecte tous les participants, notamment les nouveaux, sur ce projet.
+     */
+    public function putAllParticipantOnProjet(FormEvent $event)
+    {
+        $projet = $event->getData();
+
+        foreach ($projet->getProjetParticipants() as $projetParticipant) {
+            $projetParticipant->setProjet($projet);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

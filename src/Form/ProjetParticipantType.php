@@ -17,7 +17,6 @@ class ProjetParticipantType extends AbstractType
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'email',
-                'disabled' => true,
             ])
             ->add('role', ParticipantRoleChoiceType::class)
         ;

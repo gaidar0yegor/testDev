@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Societe;
 use App\HasSocieteInterface;
 
 class SocieteChecker
@@ -19,5 +20,28 @@ class SocieteChecker
         }
 
         return $societe0 === $societe1;
+    }
+
+    /**
+     * @param HasSocieteInterface[] $entities
+     * @param Societe|null $societe
+     *
+     * @return bool Si toutes les $entities sont dans la même société.
+     *      Si $societe est défini, vérifie que toutes mes $entities sont dans cette $societe.
+     */
+    public function allSameSociete(iterable $entities, Societe $societe = null): bool
+    {
+        foreach ($entities as $entity) {
+            if (null === $societe) {
+                $societe = $entity->getSociete();
+                continue;
+            }
+
+            if ($entity->getSociete() !== $societe) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

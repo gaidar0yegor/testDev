@@ -19,3 +19,9 @@
 {{ form(form) }}
 
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/projetParticipant.js') }}"></script>
+{% endblock %}
