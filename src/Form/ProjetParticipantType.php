@@ -4,10 +4,8 @@ namespace App\Form;
 
 use App\Entity\ProjetParticipant;
 use App\Entity\User;
-use App\Role;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,9 +19,7 @@ class ProjetParticipantType extends AbstractType
                 'choice_label' => 'email',
                 'disabled' => true,
             ])
-            ->add('role', ChoiceType::class, [
-                'choices' => Role::getRoles(),
-            ])
+            ->add('role', ParticipantRoleChoiceType::class)
         ;
     }
 

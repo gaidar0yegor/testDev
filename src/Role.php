@@ -25,9 +25,9 @@ class Role
     public static function getRoles(): array
     {
         return [
-            self::OBSERVATEUR => self::OBSERVATEUR,
-            self::CONTRIBUTEUR => self::CONTRIBUTEUR,
             self::CDP => self::CDP,
+            self::CONTRIBUTEUR => self::CONTRIBUTEUR,
+            self::OBSERVATEUR => self::OBSERVATEUR,
         ];
     }
 }

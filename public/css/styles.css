@@ -21,6 +21,21 @@ html{
     /* min-height: 532px;  */
 }
 
+.form-inline-radio {
+    display: flex;
+    justify-content: space-around;
+}
+.form-inline-radio .form-check-input {
+    position: relative;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.projet-role-header {
+    display: flex;
+    justify-content: space-around;
+    font-weight: bold;
+}
 
 
 /**************************** NAV ************************/

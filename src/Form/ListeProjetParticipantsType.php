@@ -16,6 +16,7 @@ class ListeProjetParticipantsType extends AbstractType
         $builder
             ->add('projetParticipants', CollectionType::class, [
                 'entry_type' => ProjetParticipantType::class,
+                'label' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',
