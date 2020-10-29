@@ -81,7 +81,7 @@
             <div class="form-group row">
                 <div class="text-center mx-auto projet">
                     <h1 style="color: #ce352c;">
-                        Projet {{ projet.titre }}
+                        {{ projet.titre }}
                     </h1>
                 </div>
             </div>
@@ -150,61 +150,6 @@
 
         </div>
  
-    </div>
-
-    <div class="cd-popup2" role="alert">
-	    <div class="cd-popup-container" style="top: 18%;">
-
-            <h5 class="text-center m-4" style="font-size: 2em;">Modifier le projet</h5>    
-            <div class="form-group row">
-                <label for="titre" class="col-sm-2 col-form-label">Titre</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="titre" placeholder="Développement IP">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="statut" class="col-sm-2 col-form-label">Statut</label>
-                <div class="col-sm-8">
-                    <select id="statut" class="form-control" >
-                        <option selected>En cours</option>
-                        <option>Création</option>
-                        <option>Terminé</option>
-                    </select>                
-                </div>
-            </div>
-            <div class="form-group row">
-                <label for="liste_projets" class="col-sm-2 col-form-label">Résumé</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" id="liste_projets" rows="3">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Praesentium ratione rem repellat dolores ut recusandae asperiores corrupti, quo, id provident dolorem voluptatum excepturi perspiciatis quia possimus! Laudantium sed dolore labore?</textarea>
-                </div>    
-            </div>
-            <div class="form-group row">
-                <label for="chef_projet" class="col-sm-2 col-form-label">Chef du projet</label>
-                <div class="col-sm-8">
-                  <input type="text" class="form-control" id="chef_projet" placeholder="Sylvain Clément">
-                </div>
-            </div>
-            <div class="bloc">
-                <div class="date">
-                    <div class="form-group row">
-                        <label for="date_debut" class="col-sm-2 col-form-label">Date de début</label>
-                        <div class="col-sm-2">
-                          <input type="date" class="form-control" id="date_debut">
-                        </div>
-                        <label for="date_fin" class="col-sm-4 col-form-label" id="date_fin">Date de fin</label>
-                        <div class="col-sm-2">
-                            <input type="date" class="form-control" id="date_fin">
-                        </div>
-                    </div>      
-                </div>
-            </div>
-            <div class="text-center new_user">
-                <a href="fo-projet-02.php"><input type="button" class="btn btn-success" value="Modifier"></a>
-            </div> 
-
-	        <a href="#0" class="cd-popup-close img-replace">Close</a>
-
-        </div>
     </div>
 
     <div class="main-container" style="margin-top: 7vh;">

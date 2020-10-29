@@ -4,7 +4,9 @@ default:
             contexts:
                 - App\Tests\Behat\RdiContext
                 - behatch:context:browser
-                - behatch:context:debug
+                - behatch:context:table
+                - behatch:context:debug:
+                    screenshotDir: var
 
     extensions:
         FriendsOfBehat\SymfonyExtension: null

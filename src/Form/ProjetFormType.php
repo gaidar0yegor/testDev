@@ -20,11 +20,11 @@ class ProjetFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('acronyme', TextType::class, [
-                'label' => 'Acronyme',
-            ])
             ->add('titre', TextType::class, [
                 'label' => 'Titre',
+            ])
+            ->add('acronyme', TextType::class, [
+                'label' => 'Acronyme',
             ])
             ->add('resume', TextareaType::class, [
                 'label' => 'Résumé',

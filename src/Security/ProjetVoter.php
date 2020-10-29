@@ -4,7 +4,9 @@ namespace App\Security;
 
 use App\Entity\Projet;
 use App\Entity\User;
-use App\Exception\RdiException;
+use App\Role;
+use App\Service\ParticipantService;
+use App\Service\SocieteChecker;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -17,9 +19,18 @@ class ProjetVoter extends Voter
 {
     private $authChecker;
 
-    public function __construct(AuthorizationCheckerInterface $authChecker)
-    {
+    private $participantService;
+
+    private $societeChecker;
+
+    public function __construct(
+        AuthorizationCheckerInterface $authChecker,
+        ParticipantService $participantService,
+        SocieteChecker $societeChecker
+    ) {
         $this->authChecker = $authChecker;
+        $this->participantService = $participantService;
+        $this->societeChecker = $societeChecker;
     }
 
     /**
@@ -27,19 +38,25 @@ class ProjetVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return $subject instanceof Projet;
+        return $subject instanceof Projet && in_array($attribute, [
+            'view',
+            'edit',
+            'delete',
+        ]);
     }
 
     /**
      * {@inheritDoc}
-     *
-     * @param string $attribute
-     * @param Projet $subject
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
+        return $this->userCan($attribute, $token->getUser(), $subject);
+    }
+
+    private function userCan(string $action, User $user, Projet $projet): bool
+    {
         // Empêche tous les accès aux projets des autres sociétés
-        if (!$this->isSameSociete($subject, $token->getUser())) {
+        if (!$this->societeChecker->isSameSociete($user, $projet)) {
             return false;
         }
 
@@ -49,43 +66,19 @@ class ProjetVoter extends Voter
         }
 
         // Le chef de projet a tous les droits sur son propre projet
-        if ($this->isUserProjetCdp($subject, $token->getUser())) {
+        if ($this->participantService->hasRoleOnProjet($user, $projet, Role::CDP)) {
             return true;
         }
 
-        switch ($attribute) {
+        switch ($action) {
             case 'view':
                 // L'utilisateur peut voir le projet s'il a un rôle dessus
-                return $this->isParticipant($subject, $token->getUser());
+                return $this->participantService->isParticipant($user, $projet);
 
             case 'edit':
             case 'delete':
                 // L'utilisateur ne peut pas modifier les infos du projet, ni supprimer le projet
                 return false;
-
-            default:
-                throw new RdiException(sprintf('Unexpected attribute "%s"', $attribute));
         }
-    }
-
-    private function isSameSociete(Projet $projet, User $user): bool
-    {
-        return $projet->getChefDeProjet()->getSociete() === $user->getSociete();
-    }
-
-    private function isUserProjetCdp(Projet $projet, User $user): bool
-    {
-        return $projet->getChefDeProjet() === $user;
-    }
-
-    private function isParticipant(Projet $projet, User $user): bool
-    {
-        foreach ($projet->getProjetParticipants() as $projetParticipant) {
-            if ($projetParticipant->getUser() === $user) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

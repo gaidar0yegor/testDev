@@ -4,7 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Behat;
 
+use App\Entity\User;
+use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
+use Behat\MinkExtension\Context\RawMinkContext;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Tools\SchemaTool;
+use Doctrine\Persistence\ManagerRegistry;
+use Fidry\AliceDataFixtures\LoaderInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -17,14 +24,59 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 final class RdiContext extends MinkContext
 {
-    /** @var KernelInterface */
-    private $kernel;
-
     /** @var Response|null */
     private $response;
 
-    public function __construct(KernelInterface $kernel)
+    private $doctrine;
+
+    private $loader;
+
+    private $fixturesBasePath;
+
+    public function __construct(
+        ManagerRegistry $doctrine,
+        LoaderInterface $loader,
+        string $fixturesBasePath
+    ) {
+        $this->doctrine = $doctrine;
+        $this->loader = $loader;
+        $this->fixturesBasePath = $fixturesBasePath;
+    }
+
+    /**
+     * @Given I have loaded fixtures from :filename
+     */
+    public function iLoadedFixturesFrom($filename)
     {
-        $this->kernel = $kernel;
+        $managers = $this->doctrine->getManagers();
+
+        foreach ($managers as $manager) {
+            if ($manager instanceof EntityManagerInterface) {
+                $schemaTool = new SchemaTool($manager);
+                $schemaTool->dropDatabase();
+                $schemaTool->createSchema($manager->getMetadataFactory()->getAllMetadata());
+            }
+        }
+
+        $this->loader->load([$this->fixturesBasePath.$filename]);
+    }
+
+    /**
+     * Vérifie que la ligne du table qui contient un texte contient aussi un autre texte.
+     * Exemple:
+     *      Then I should see "Contributeur" in the "Projet 3" row
+     *
+     * @Then I should see :text in the :rowText row
+     */
+    public function iShouldSeeTextInTheRow($text, $rowText)
+    {
+        $rowSelector = sprintf('table tr:contains("%s")', $rowText);
+        $row = $this->getSession()->getPage()->find('css', $rowSelector);
+
+        if (!$row) {
+            throw new \Exception(sprintf('Cannot find any row on the page containing the text "%s"', $rowText));
+        }
+
+        $this->assertElementContainsText($rowSelector, $text);
     }
 }

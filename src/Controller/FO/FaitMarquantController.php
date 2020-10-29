@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Controller\Fo;
+namespace App\Controller\FO;
 
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Form\FaitMarquantType;
-use App\Repository\FaitMarquantRepository;
-use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,8 +21,10 @@ class FaitMarquantController extends AbstractController
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      */
-    public function new(Projet $projet, Request $request, UserRepository $userRepository): Response
+    public function new(Projet $projet, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('create_fait_marquant', $projet);
+
         $faitMarquant = new FaitMarquant();
         $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
         $form->handleRequest($request);
@@ -56,6 +56,8 @@ class FaitMarquantController extends AbstractController
      */
     public function edit(Request $request, FaitMarquant $faitMarquant): Response
     {
+        $this->denyAccessUnlessGranted('edit', $faitMarquant);
+
         $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
         $form->handleRequest($request);
 
@@ -78,6 +80,8 @@ class FaitMarquantController extends AbstractController
      */
     public function delete(Request $request, FaitMarquant $faitMarquant): Response
     {
+        $this->denyAccessUnlessGranted('delete', $faitMarquant);
+
         if ($this->isCsrfTokenValid('delete'.$faitMarquant->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($faitMarquant);
