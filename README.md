@@ -35,8 +35,28 @@ Then go to <http://127.0.0.1:8000/projets>
 
 ## Development
 
-Run integration tests:
+### Run integration tests
+
+Pour ne pas écraser votre base de données lors des tests,
+il est possible d'en créer une autre,
+puis de l'utiliser dans les tests
+en ajoutant dans le fichier à la racine du projet `.env.test.local`:
+
+```
+DATABASE_URL=mysql://...
+
+# Ou d'utiliser une base de données sqlite avec:
+DATABASE_URL=sqlite:///%kernel.project_dir%/var/test.db3
+```
+
+Lancer tous les tests avec:
 
 ``` bash
 vendor/bin/behat
+```
+
+Ou lancer les tests d'un seul fichier avec:
+
+``` bash
+vendor/bin/behat features/projet/page_projet.feature
 ```
