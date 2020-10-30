@@ -26,11 +26,10 @@
     };
 
     EmbedForm.addPrototypedItem = function ($prototypeContainer, options) {
-        var prototype = $prototypeContainer.data('prototype');
-        var index = $prototypeContainer.data('index');
+        const prototype = $prototypeContainer.data('prototype');
+        const index = (Math.random()+'').substr(2);
 
-        var newForm = prototype.replace(/__name__/g, index);
-        $prototypeContainer.data('index', index + 1);
+        const newForm = prototype.replace(/__name__/g, index);
 
         if (options.$itemWrapper) {
             $prototypeContainer.append(options.$itemWrapper.clone().append(newForm));
