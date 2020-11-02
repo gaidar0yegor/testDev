@@ -46,8 +46,7 @@ class SocietesController extends AbstractController
             $em->persist($societe);
             $em->flush();            
             
-            // $this->addFlash('info', sprintf('La fiche de la société été crée.', $societe->getPrenom(), $user->getNom()));
-            
+            $this->addFlash('info', sprintf('La fiche de la société %s été crée.', $societe->getRaisonSociale()) );
             return $this->redirectToRoute('societes_');
         }
 

@@ -4,12 +4,16 @@ namespace App\Controller\BO;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
+use App\Entity\SocieteStatut;
 use App\Repository\UserRepository;
 use App\Form\UtilisateursFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+// use App\Repository\SocieteStatutRepository;
 
 
 
@@ -52,8 +56,7 @@ class UtilisateursBoController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('info', sprintf('La fiche de l\'utilisateur %s %s a été crée.', $user->getPrenom(), $user->getNom()));
-
-            return $this->redirectToRoute('utilisateurs_Bo_');
+            return $this->redirectToRoute('utilisateurs_bo_');
         }
 
         return $this->render('utilisateurs_bo/infos_utilisateur_bo.html.twig', [
@@ -61,4 +64,26 @@ class UtilisateursBoController extends AbstractController
             // 'controller_name' => 'UtilisateursBoController',
         ]);
     }
+
+    // /**
+    // * @Route("/infos/utilisateur/bo/supprimer", name="infos_utilisateur_bo_supprimer_")
+    // */
+    // public function supprimer(Request $rq, EntityManager $em, UserRepository $ur)
+    // {
+    //     $userDelete = $ur->find($id);
+    //     $formUtilisateur = $this->createForm(UtilisateurFormType::class, $userDelete);
+    //     $formUtilisateur->handleRequest($rq);
+    //     if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+    //         $em->remove($userDelete);
+    //         $em->flush();
+    //         $this->addFlash("success", "L'artiste " . $artisteAsupprimer->getName() . " a été supprimé");
+    //         return $this->redirectToRoute("utilisateurs_bo_");
+    //     }
+    //     $this->addFlash("warning", "<strong>Confirmation</strong> de suppresion");
+    //     return $this->render("artist/form.html.twig", [ 
+    //         "form" => $formUtilisateur->createView(), 
+    //         "bouton" => "Confirmer",
+    //         // "titre" => "Suppression de l'artiste n°$id"
+    //     ]);
+    // }
 }
