@@ -8,6 +8,7 @@ use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Repository\ProjetRepository;
 use App\Repository\TempsPasseRepository;
+use App\Role;
 
 /**
  * Service pour gerer les temps passés.
@@ -35,7 +36,7 @@ class TempsPasseService
     {
         $this->dateMonthService->normalize($mois);
 
-        $userProjets = $this->projetRepository->findAllForUser($user);
+        $userProjets = $this->projetRepository->findAllForUser($user, Role::CONTRIBUTEUR);
         $tempsPasses = $this->tempsPasseRepository->findAllForUserAndMonth($user, $mois);
 
         foreach ($userProjets as $userProjet) {
