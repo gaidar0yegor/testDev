@@ -36,6 +36,10 @@ class TempsController extends AbstractController
             throw $this->createNotFoundException($e->getMessage());
         }
 
+        if ($mois > new \DateTime()) {
+            throw $this->createNotFoundException('Impossible de saisir les temps passés dans le futur.');
+        }
+
         $listeTempsPasses = $tempsPasseService->loadTempsPasses($this->getUser(), $mois);
         $form = $this->createForm(TempsPassesType::class, $listeTempsPasses);
 
