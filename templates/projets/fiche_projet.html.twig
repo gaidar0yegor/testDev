@@ -134,7 +134,13 @@
                             >Gestion des participants</a>
                         </div>
                         <div class="new_user">
-                            <a href="{{ path('projet_edition', {'id': projet.id}) }}"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
+                            <a
+                                href="{{ path('projet_edition', {'id': projet.id}) }}"
+                                class="btn btn-success {{ userCanEditProjet ? '' : 'disabled' }}"
+                                {% if not userCanEditProjet %}
+                                    title="Seul le chef de projet peut modifier"
+                                {% endif %}
+                            >Modifier le projet</a>
                         </div>
                     <!-- </div> -->
                 </div>
@@ -145,7 +151,13 @@
                         <a href=""><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
                     </div>
                     <div class="new_user">
-                        <a class="button" href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}" ><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
+                        <a
+                            href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}"
+                            class="btn btn-success {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
+                            {% if not userCanAddFaitMarquant %}
+                                title="Seuls les contributeurs du projet peuvent ajouter un fait marquant"
+                            {% endif %}
+                        >Ajouter un fait marquant</a>
                     </div>
                 </div>
 
