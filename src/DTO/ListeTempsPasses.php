@@ -3,6 +3,7 @@
 namespace App\DTO;
 
 use App\Entity\TempsPasse;
+use App\Validator as AppAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -15,6 +16,7 @@ class ListeTempsPasses
      * @var TempsPasse[]
      *
      * @Assert\Valid
+     * @AppAssert\TempsPassesValid
      */
     private $tempsPasses;
 

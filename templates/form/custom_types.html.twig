@@ -1,14 +1,18 @@
 {% block temps_passe_row %}
-    <div class="row">
-        <div class="col">
+    <div class="row mb-2 align-items-center">
+        <div class="col text-right lead">
             {{ form.vars.data.projet.titre}}
         </div>
         <div class="col">
             {{ form_errors(form.children.pourcentage) }}
-            {{ form_widget(form.children.pourcentage) }}
+            <div class="input-group input-group-lg">
+                {{ form_widget(form.children.pourcentage) }}
+                <div class="input-group-append">
+                    <span class="input-group-text">%</span>
+                </div>
+            </div>
         </div>
-        <div class="col">
-            %
+        <div class="col d-none d-sm-block">
         </div>
     </div>
 {% endblock %}
