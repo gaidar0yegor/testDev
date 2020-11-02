@@ -52,6 +52,17 @@ class TempsController extends AbstractController
 
             $em->flush();
 
+            $href = $this->generateUrl('absences_', [
+                'year' => $year,
+                'month' => $month,
+            ]);
+
+            $this->addFlash('success', 'Temps passés mis à jour.');
+            $this->addFlash(
+                'warning',
+                '<a href="'.$href.'" class="alert-link">Saisissez vos congés</a> si vous en avez pris ce mois ci.'
+            );
+
             return $this->redirectToRoute('temps_', [
                 'year' => $year,
                 'month' => $month,

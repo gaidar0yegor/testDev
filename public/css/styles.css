@@ -99,6 +99,10 @@ h1 {
     color: #ce352c;
 }
 
+.flash-messages {
+    margin-top: 1em;
+}
+
 /* li, a:hover 
 {
     background-color: #ce352c;
