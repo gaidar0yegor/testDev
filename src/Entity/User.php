@@ -104,11 +104,6 @@ class User implements UserInterface, HasSocieteInterface
     private $base_temps_par_contrat;
 
     /**
-     * @ORM\OneToMany(targetEntity=JoursAbsence::class, mappedBy="users", orphanRemoval=true)
-     */
-    private $joursAbsences;
-
-    /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="user", orphanRemoval=true)
      */
     private $tempsPasses;
@@ -118,12 +113,17 @@ class User implements UserInterface, HasSocieteInterface
      */
     private $projetParticipants;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Cra::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $cras;
+
     public function __construct()
     {
-        $this->joursAbsences = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
         $this->projetParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->cras = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -373,37 +373,6 @@ class User implements UserInterface, HasSocieteInterface
     }
 
     /**
-     * @return Collection|JoursAbsence[]
-     */
-    public function getJoursAbsences(): Collection
-    {
-        return $this->joursAbsences;
-    }
-
-    public function addJoursAbsence(JoursAbsence $joursAbsence): self
-    {
-        if (!$this->joursAbsences->contains($joursAbsence)) {
-            $this->joursAbsences[] = $joursAbsence;
-            $joursAbsence->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeJoursAbsence(JoursAbsence $joursAbsence): self
-    {
-        if ($this->joursAbsences->contains($joursAbsence)) {
-            $this->joursAbsences->removeElement($joursAbsence);
-            // set the owning side to null (unless already changed)
-            if ($joursAbsence->getUser() === $this) {
-                $joursAbsence->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|TempsPasse[]
      */
     public function getTempsPasses(): Collection
@@ -459,6 +428,37 @@ class User implements UserInterface, HasSocieteInterface
             // set the owning side to null (unless already changed)
             if ($projetParticipant->getUser() === $this) {
                 $projetParticipant->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Cra[]
+     */
+    public function getCras(): Collection
+    {
+        return $this->cras;
+    }
+
+    public function addCra(Cra $cra): self
+    {
+        if (!$this->cras->contains($cra)) {
+            $this->cras[] = $cra;
+            $cra->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCra(Cra $cra): self
+    {
+        if ($this->cras->contains($cra)) {
+            $this->cras->removeElement($cra);
+            // set the owning side to null (unless already changed)
+            if ($cra->getUser() === $this) {
+                $cra->setUser(null);
             }
         }
 

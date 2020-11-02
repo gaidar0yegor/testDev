@@ -67,12 +67,31 @@ class TempsController extends AbstractController
     }
 
     /**
-     * @Route("/absences", name="absences_")
+     * @Route(
+     *      "/absences/{year}/{month}",
+     *      requirements={"year"="\d{4}", "month"="\d{2}"},
+     *      name="absences_"
+     * )
      */
-    public function saisieAbsences()
-    {
+    public function saisieAbsences(
+        string $year = null,
+        string $month = null,
+        DateMonthService $dateMonthService
+    ) {
+        if ((null === $year) xor (null === $month)) {
+            throw $this->createNotFoundException('Year and month must be set.');
+        }
+
+        try {
+            $date = $dateMonthService->getMonthFromYearAndMonth($year, $month);
+        } catch (MonthOutOfRangeException $e) {
+            throw $this->createNotFoundException($e->getMessage());
+        }
+
         return $this->render('temps/absences.html.twig', [
-            'controller_name' => 'TempsController',
+            'date' => $date,
+            'year' => $date->format('Y'),
+            'month' => $date->format('m'),
         ]);
     }
 }

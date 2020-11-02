@@ -35,6 +35,17 @@ Then go to <http://127.0.0.1:8000/projets>
 
 ## Development
 
+### Run unit tests
+
+Pour lancer les tests unitaires :
+
+```
+php bin/phpunit
+```
+
+Les tests unitaires sont dans `tests/Unit/`,
+et les dossiers reproduisent la même structure que dans `src/`.
+
 ### Run integration tests
 
 Pour ne pas écraser votre base de données lors des tests,
