@@ -3,53 +3,40 @@
 {% block title %}Mes absences{% endblock %}
 
 {% block body %}
-<style>
-    body {min-height: 85vh; }
-    .calendar { width: 50%; margin: 25px; padding: 20px; position: relative; left: 23%;  }
-    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-</style>
 
-<div class="cd-popup5" role="alert">
-    <div class="calendar text-center">
-        <h1 style="color: #ce352c; margin-bottom: 20px; ">Indiquez vos jours d'absence</h1>
-        <div class="datepicker" style="display: flex; justify-content: space-between;">
-            <div class="mbsc-col-sm-12 mbsc-col-md-4">
-                <div class="mbsc-form-group">
-                    <div class="mbsc-form-group-title"> <h2>Journée</h2></div>
-                    <div id="maxPicks" class="d-flex justify-content-center"></div>
-                </div>
-            </div>
-            <div class="mbsc-col-sm-12 mbsc-col-md-4">
-                <div class="mbsc-form-group">
-                    <div class="mbsc-form-group-title"> <h2>Demi-Journée</h2></div>
-                    <div id="maxPicks1" class="d-flex justify-content-center"></div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="text-center m-5">
-            <a href="{{ path('synthese_fo_') }}"><input type="button" class="btn btn-success" value="Valider">
-        </div>
-    </div>
+<h1>Indiquez vos jours d'absence</h1>
+
+<h2>
+    <a href="{{ path('absences_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
+        <img src="https://img.icons8.com/android/24/000000/arrow-pointing-left.png"/>
+    </a>
+    {{ date|format_date(pattern='MMMM Y')|capitalize }}
+    <a href="{{ path('absences_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
+        <img src="https://img.icons8.com/android/24/000000/arrow.png"/>
+    </a>
+</h2>
+
+{#
+    Calendrier affiché temporairement en attendant le chargement des données
+#}
+<div class="calmonth">
+    {% include 'temps/_calendrier_vide.html.twig' %}
 </div>
 
-<script type="application/javascript" src="js/jquery-1.9.1.js"></script>
-<script type="application/javascript" src="js/jquery-ui-1.10.3.custom.js"></script>
-<script type="application/javascript" src="js/jquery.ui.datepicker-fr.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui-multidatespicker/1.6.6/jquery-ui.multidatespicker.js"></script><!-- <script type="application/javascript" src="js/datepicker.js"></script> -->
-<!-- <script type="application/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script> -->
-<script>
-    $('#maxPicks').multiDatesPicker({
-        dateFormat: "y-m-d", 
-        defaultDate:"20-9-1",   
-        lang: "fr"
-    });
-    $('#maxPicks1').multiDatesPicker({
-        dateFormat: "y-m-d", 
-        defaultDate:"20-9-1",
-        lang: "fr"
-    });
-</script>
+<div class="d-flex justify-content-center">
+    <button type="submit" class="btn btn-lg btn-success btn-validate-cra my-3">Enregistrer</button>
+</div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/Cra.js') }}"></script>
+    <script src="{{ asset('js/absences.js') }}"></script>
+
+    <script type="text/javascript">
+        const date = {{ {'year': year, 'month': month}|json_encode|raw }};
+        initAbsences(date);
+    </script>
 {% endblock %}

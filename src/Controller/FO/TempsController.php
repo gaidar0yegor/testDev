@@ -52,6 +52,17 @@ class TempsController extends AbstractController
 
             $em->flush();
 
+            $href = $this->generateUrl('absences_', [
+                'year' => $year,
+                'month' => $month,
+            ]);
+
+            $this->addFlash('success', 'Temps passés mis à jour.');
+            $this->addFlash(
+                'warning',
+                '<a href="'.$href.'" class="alert-link">Saisissez vos congés</a> si vous en avez pris ce mois ci.'
+            );
+
             return $this->redirectToRoute('temps_', [
                 'year' => $year,
                 'month' => $month,
@@ -67,12 +78,33 @@ class TempsController extends AbstractController
     }
 
     /**
-     * @Route("/absences", name="absences_")
+     * @Route(
+     *      "/absences/{year}/{month}",
+     *      requirements={"year"="\d{4}", "month"="\d{2}"},
+     *      name="absences_"
+     * )
      */
-    public function saisieAbsences()
-    {
+    public function saisieAbsences(
+        string $year = null,
+        string $month = null,
+        DateMonthService $dateMonthService
+    ) {
+        if ((null === $year) xor (null === $month)) {
+            throw $this->createNotFoundException('Year and month must be set.');
+        }
+
+        try {
+            $date = $dateMonthService->getMonthFromYearAndMonth($year, $month);
+        } catch (MonthOutOfRangeException $e) {
+            throw $this->createNotFoundException($e->getMessage());
+        }
+
         return $this->render('temps/absences.html.twig', [
-            'controller_name' => 'TempsController',
+            'date' => $date,
+            'next' => $dateMonthService->getNextMonth($date),
+            'prev' => $dateMonthService->getPrevMonth($date),
+            'year' => $date->format('Y'),
+            'month' => $date->format('m'),
         ]);
     }
 }
