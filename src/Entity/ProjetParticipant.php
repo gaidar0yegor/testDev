@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
+use App\HasSocieteInterface;
 use App\Repository\ProjetParticipantRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetParticipantRepository::class)
+ * @UniqueEntity(
+ *     fields={"user", "projet"},
+ *     errorPath="user",
+ *     message="Cet utilisateur a déjà un rôle sur ce projet."
+ * )
  */
-class ProjetParticipant
+class ProjetParticipant implements HasSocieteInterface
 {
     /**
      * @ORM\Id()
@@ -95,5 +102,14 @@ class ProjetParticipant
         $this->role = $role;
 
         return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        if (null === $this->user) {
+            return null;
+        }
+
+        return $this->user->getSociete();
     }
 }

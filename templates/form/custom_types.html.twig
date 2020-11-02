@@ -12,3 +12,22 @@
         </div>
     </div>
 {% endblock %}
+
+{% block projet_participant_row %}
+    <div class="row mb-3 projet-participant-row">
+        <div class="col-sm text-center text-sm-left">
+            {{ form_widget(form.children.user) }}
+            {{ form_errors(form.children.user) }}
+        </div>
+        <div class="col-sm">
+            {{ form_errors(form.children.role) }}
+            {{ form_widget(form.children.role) }}
+        </div>
+        <div class="col-sm-2 text-center">
+            <button
+                type="button"
+                class="btn btn-outline-danger embed-form-remove"
+            >&times;</button>
+        </div>
+    </div>
+{% endblock %}

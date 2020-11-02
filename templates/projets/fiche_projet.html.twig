@@ -125,7 +125,13 @@
                             <a href="{{ path('liste_fichiers_') }}"><input type="button" class="btn btn-success" value="Fichiers joints"></a>
                         </div>
                         <div class="new_user">
-                            <a href="" class="cd-popup-trigger3"><input type="button" class="btn btn-success" value="Gestion des participants"></a>
+                            <a
+                                href="{{ path('projet_participant', {'projetId': projet.id}) }}"
+                                class="btn btn-success {{ userCanEditProjet ? '' : 'disabled' }}"
+                                {% if not userCanEditProjet %}
+                                    title="Seul le chef de projet peut gérer les participants"
+                                {% endif %}
+                            >Gestion des participants</a>
                         </div>
                         <div class="new_user">
                             <a href="{{ path('projet_edition', {'id': projet.id}) }}"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
@@ -137,9 +143,6 @@
                     <!-- <div class="col-lg-4 mx-auto settings d-flex"> -->
                     <div class="gestion">
                         <a href=""><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
-                    </div>
-                    <div class="new_user">
-                        <a href="{{ path('infos_utilisateur_fo_') }}"><input type="button" class="btn btn-success" value="Ajouter un participant"></a>
                     </div>
                     <div class="new_user">
                         <a class="button" href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}" ><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
