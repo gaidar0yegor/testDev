@@ -90,6 +90,8 @@ class TempsController extends AbstractController
 
         return $this->render('temps/absences.html.twig', [
             'date' => $date,
+            'next' => $dateMonthService->getNextMonth($date),
+            'prev' => $dateMonthService->getPrevMonth($date),
             'year' => $date->format('Y'),
             'month' => $date->format('m'),
         ]);

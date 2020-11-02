@@ -6,111 +6,26 @@
 
 <h1>Indiquez vos jours d'absence</h1>
 
-<h2 class="text-center">{{ date|format_date(pattern='MMMM Y')|capitalize}}</h2>
+<h2>
+    <a href="{{ path('absences_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
+        <img src="https://img.icons8.com/android/24/000000/arrow-pointing-left.png"/>
+    </a>
+    {{ date|format_date(pattern='MMMM Y')|capitalize }}
+    <a href="{{ path('absences_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
+        <img src="https://img.icons8.com/android/24/000000/arrow.png"/>
+    </a>
+</h2>
 
 {#
-    Calmonth affiché temporairement en attendant le chargement des données
+    Calendrier affiché temporairement en attendant le chargement des données
 #}
 <div class="calmonth">
-    <div class="calmonth-row">
-        <p>lun</p>
-        <p>mar</p>
-        <p>mer</p>
-        <p>jeu</p>
-        <p>ven</p>
-        <p>sam</p>
-        <p>dim</p>
-    </div>
-    <div class="calmonth-row">
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-    </div>
-    <div class="calmonth-row">
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-    </div>
-    <div class="calmonth-row">
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-    </div>
-    <div class="calmonth-row">
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-    </div>
-    <div class="calmonth-row">
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-        <button class="btn btn-jour btn-secondary btn-block" disabled><span>&nbsp;</span></button>
-    </div>
+    {% include 'temps/_calendrier_vide.html.twig' %}
 </div>
 
 <div class="d-flex justify-content-center">
     <button type="submit" class="btn btn-lg btn-success btn-validate-cra my-3">Enregistrer</button>
 </div>
-
-<style>
-    .calmonth {
-        max-width: 500px;
-        margin: auto;
-    }
-    .calmonth-row {
-        display: flex;
-        justify-content: space-around;
-    }
-    .btn-jour,
-    .btn-block + .btn-block {
-        position: relative;
-        margin: 0.2em;
-        padding: 0.4em;
-        text-align: right;
-    }
-    .demi-journee {
-        display: none;
-        position: absolute;
-        left: 0.25em;
-        bottom: 0;
-    }
-    @media (min-width: 575px) {
-        .btn-jour,
-        .btn-block + .btn-block {
-            margin: 0.2em;
-            padding: 0.2em 0.4em 0.6em 0.4em;
-            text-align: right;
-            font-size: 1.25em;
-        }
-        /* Affiche demi journee 1/2 seulement sur ecran sm et bouton demi journee */
-        .btn-jour.btn-info .demi-journee {
-            display: inline;
-        }
-    }
-    .btn-jour span {
-        font-weight: bold;
-    }
-</style>
 
 {% endblock %}
 
