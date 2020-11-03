@@ -2,10 +2,9 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>
-			{% block title %}Welcome!
-			{% endblock %}
-		</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>{% block title %}RDI Manager{% endblock %}</title>
 
 		<link rel="stylesheet" href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css') }}" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -22,7 +21,7 @@
 		{% include('fo_header.html.twig') %}
 		{% include('fo_menu_horizontal.html.twig') %}
 
-		<div class="container">
+		<div class="container main-container">
 			{% include '_flash_messages.html.twig' %}
 
 			{% block body %}
@@ -37,7 +36,7 @@
 		<script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 		<script src="{{ asset('https://www.gstatic.com/charts/loader.js') }}"></script>
         <script src="{{ asset('js/EmbedForm.js') }}"></script>
-		
+
 		{% block javascripts %}{% endblock %}
 	</body>
 </html>

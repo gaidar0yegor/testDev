@@ -17,15 +17,8 @@
 </style>
 
 
-<div class="container">
-    <h1 class="text-center m-4" style="color: #ce352c;">Liste des sociétés</h1>
+    <h1>Liste des sociétés</h1>
 
-        {% for message in app.flashes('info') %}
-			<div class="alert alert-success text-center">
-				{{ message }}
-			</div>
-		{% endfor %}
-        
     <table class="table text-center mx-auto m-5"  style="max-width: 80%;">
         <thead>
             <tr class="table table-secondary">
@@ -38,8 +31,8 @@
                 <th scope="col" class="text-center">Gestionnaire</th>
             </tr>
         </thead>
-        {% for societe in liste_societes %}
-            <tbody>
+        <tbody>
+            {% for societe in liste_societes %}
                 <tr>
                     <td class="text-center">{{ societe.id }}</td>     
                     <td class="text-center">{{ societe.raisonSociale }}</td>      
@@ -59,8 +52,7 @@
                         </a>                   
                     </td>
                 </tr>
-            </tbody>
-        {% endfor %}
+            {% endfor %}
+        </tbody>
     </table>
-</div>
 {% endblock %}
