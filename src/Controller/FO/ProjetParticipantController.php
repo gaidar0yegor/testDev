@@ -40,6 +40,8 @@ class ProjetParticipantController extends AbstractController
 
             $em->flush();
 
+            $this->addFlash('success', 'Les rôles des participants ont été mis à jour.');
+
             return $this->redirectToRoute('fiche_projet_', [
                 'id' => $projet->getId(),
             ]);
