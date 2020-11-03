@@ -7,59 +7,47 @@
     .title {display: flex; justify-content: space-between; }
     .select {display: flex; align-items: center; }
     a:hover {text-decoration: none; color: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
-    h1, td a {color: black; }
+    td a {color: black; }
     .table thead th {background-color: #ce352c; color: white; }
     tr, td {background-color: #e6e6e6; }
 </style>
 
-<div class="container">
-    <div class="title">
-        <div class="subtitle">
-            <label for="bday-month"><h1 class="text-center mt-4" style="color: #ce352c;">Mes projets de l'année </h1></label>
-        </div>
-        <div class="select">
-            <select name="select" class="form-control" id="dropdownYear" style="height: 43%; margin-top: 11%;"; onchange="getProjectReportFunc()"></select>
-        </div>                   
-    </div>
-    
+    <h1>Mes projets de l'année</h1>
+
     <table class="table  text-center mx-auto m-5">
         <thead>
             <tr>
-                <th scope="col" class="">PROJETS</th>
-                <th scope="col" class="">Mon rôle</th>
-                <th scope="col" class="">Début</th>
-                <th scope="col" class="">Fin</th>
-                <th scope="col" class="">Statut</th>
-                <th scope="col" class="">Participants</th>
+                <th scope="col">Projet</th>
+                <th scope="col">Mon rôle</th>
+                <th scope="col" class="d-none d-md-table-cell">Début</th>
+                <th scope="col" class="d-none d-md-table-cell">Fin</th>
+                <th scope="col" class="d-none d-md-table-cell">Statut</th>
+                <th scope="col">Participants</th>
             </tr>
         </thead>
-        {% for participe in participes %}
-            <tbody>
+        <tbody>
+            {% for participe in participes %}
                 <tr>
                     <td scope="row" class="text-center"> <a href="{{ path('fiche_projet_', {'id': participe.projet.id}) }}">{{ participe.projet.titre }}</a> </td>
                     <td class="text-center">{{ participe.role|trans }}</td>
-                    <td class="text-center">{{ participe.projet.dateDebut ? participe.projet.dateDebut|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center">{{ participe.projet.dateFin ? participe.projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center">{{ participe.projet.statutProjet.libelle }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateDebut ? participe.projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateFin ? participe.projet.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.statutProjet.libelle }}</td>
                     <td class="text-center">{{ participe.projet.projetParticipants|length }}</td>
                 </tr>
-            </tbody>
-        {% endfor %}
+            {% endfor %}
+        </tbody>
     </table>
 
-    <div class="button mb-4" style="text-align: end">
-        <input
-            type="button"
-            class="btn btn-success new_project"
-            value="Nouveau Projet"
-            {% if not is_granted('ROLE_FO_CDP') %}
-                disabled
-                title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
-            {% endif %}
-        >
-    </div>
+    <a
+        href="{{ path('infos_projet_') }}"
+        class="btn btn-success"
+        {% if not is_granted('ROLE_FO_CDP') %}
+            disabled
+            title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
+        {% endif %}
+    >Nouveau Projet</a>
 
-</div>
 
 {% endblock %}
 

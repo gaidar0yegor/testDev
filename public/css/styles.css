@@ -15,10 +15,8 @@ html{
     height:100% !important;
 }
 
-.container 
-{
-    background-color: white; 
-    /* min-height: 532px;  */
+.main-container {
+    padding-bottom: 6em;
 }
 
 .form-inline-radio {
@@ -161,7 +159,6 @@ footer
         position: fixed;
         bottom: 0% !important;
         width: 100%;
-    
     }
    
  .logofooter

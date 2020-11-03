@@ -17,8 +17,8 @@
     .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 </style>
 
-<div class="container">
-    <h1 class="text-center m-4" style="color: #ce352c;">Ajouter une société</h1>
+        <h1>Ajouter une société</h1>
+
         <div class="col-sm-8 mx-auto">
             {{ form_start(form) }}
                 {{ form_row(form.raisonSociale) }}
@@ -37,6 +37,4 @@
 		    	</div>
 		    {{ form_end(form) }}
         </div>
-    {# {{ form(form) }} #}
-</div>
 {% endblock %}
