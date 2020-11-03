@@ -4,7 +4,6 @@ namespace App\Controller\FO;
 
 use App\Exception\MonthOutOfRangeException;
 use App\Form\TempsPassesType;
-use App\Repository\UserRepository;
 use App\Service\DateMonthService;
 use App\Service\TempsPasseService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,7 +23,6 @@ class TempsController extends AbstractController
         Request $request,
         string $year = null,
         string $month = null,
-        UserRepository $userRepository,
         TempsPasseService $tempsPasseService,
         DateMonthService $dateMonthService
     ) {
@@ -36,6 +34,10 @@ class TempsController extends AbstractController
             $mois = $dateMonthService->getMonthFromYearAndMonth($year, $month);
         } catch (MonthOutOfRangeException $e) {
             throw $this->createNotFoundException($e->getMessage());
+        }
+
+        if ($mois > new \DateTime()) {
+            throw $this->createNotFoundException('Impossible de saisir les temps passés dans le futur.');
         }
 
         $listeTempsPasses = $tempsPasseService->loadTempsPasses($this->getUser(), $mois);

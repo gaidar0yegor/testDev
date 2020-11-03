@@ -15,6 +15,14 @@ class TempsPasseType extends AbstractType
         $builder
             ->add('pourcentage', NumberType::class, [
                 'label' => 'Pourcentage',
+
+                // Validation front
+                'html5' => true,
+                'attr' => [
+                    'min' => 0,
+                    'max' => 100,
+                    'step' => 5,
+                ],
             ])
         ;
     }

@@ -102,6 +102,7 @@ class ProjetController extends AbstractController
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
             'userCanEditProjet' => $this->isGranted('edit', $projet),
+            'userCanAddFaitMarquant' => $this->isGranted('create_fait_marquant', $projet),
         ]);
     }
 

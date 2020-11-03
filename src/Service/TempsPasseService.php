@@ -6,8 +6,10 @@ use App\DTO\ListeTempsPasses;
 use App\Entity\Projet;
 use App\Entity\TempsPasse;
 use App\Entity\User;
+use App\Exception\TempsPassesPercentException;
 use App\Repository\ProjetRepository;
 use App\Repository\TempsPasseRepository;
+use App\Role;
 
 /**
  * Service pour gerer les temps passés.
@@ -35,7 +37,7 @@ class TempsPasseService
     {
         $this->dateMonthService->normalize($mois);
 
-        $userProjets = $this->projetRepository->findAllForUser($user);
+        $userProjets = $this->projetRepository->findAllForUser($user, Role::CONTRIBUTEUR);
         $tempsPasses = $this->tempsPasseRepository->findAllForUserAndMonth($user, $mois);
 
         foreach ($userProjets as $userProjet) {
@@ -73,5 +75,37 @@ class TempsPasseService
         }
 
         return false;
+    }
+
+    /**
+     * Vérifie qu'une liste de pourcentage de temps passés est valide.
+     *
+     * @param TempsPasse[] $tempsPasses
+     *
+     * @throws TempsPassesPercentException Si les pourcentages ne sont pas valide.
+     */
+    public function checkPercents(array $tempsPasses)
+    {
+        $totalPercent = 0;
+
+        foreach ($tempsPasses as $tempsPasse) {
+            $percent = $tempsPasse->getPourcentage();
+
+            if ($percent < 0 || $percent > 100) {
+                throw new TempsPassesPercentException(sprintf(
+                    'Un pourcentage doit être entre 0 et 100, %d obtenu.',
+                    $percent
+                ));
+            }
+
+            $totalPercent += $percent;
+        }
+
+        if ($totalPercent < 0 || $totalPercent > 100) {
+            throw new TempsPassesPercentException(sprintf(
+                'La somme des pourcentages doit être entre 0 et 100, %d obtenu.',
+                $totalPercent
+            ));
+        }
     }
 }
