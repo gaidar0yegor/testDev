@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Projet;
 use App\Entity\User;
+use App\Role;
 use App\Service\DateMonthService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,15 +28,32 @@ class ProjetRepository extends ServiceEntityRepository
 
     /**
      * Recupère tous les projet auxquels $user participe.
+     *
+     * @param User $user
+     * @param null|string $roleMinimum Rôle minimum sur le projet
+     *
+     * @return Projet[]
      */
-    public function findAllForUser(User $user): array
+    public function findAllForUser(User $user, ?string $roleMinimum = null): array
     {
-        return $this
+        $qb = $this
             ->createQueryBuilder('projet')
             ->leftJoin('projet.projetParticipants', 'projetParticipant')
             ->leftJoin('projetParticipant.user', 'user')
             ->where('projetParticipant.user = :user')
-            ->setParameter('user', $user)
+        ;
+
+        if (null !== $roleMinimum) {
+            $qb
+                ->andWhere('projetParticipant.role in (:roles)')
+                ->setParameters([
+                    'user' => $user,
+                    'roles' => Role::getRoles($roleMinimum),
+                ])
+            ;
+        }
+
+        return $qb
             ->getQuery()
             ->getResult()
         ;

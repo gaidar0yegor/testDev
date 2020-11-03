@@ -12,19 +12,8 @@
 	input#projet_form_projet_interne {position: relative; left: -104%; }
 </style>
 
-<section style="min-height: 1000px;">
-    <div class="container">
-    	<div class="col-lg-6 mx-auto">
-    		<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter un nouveau projet</h1>
-    		{% for message in app.flashes('info') %}
-    			<div class="alert alert-success text-center">
-    				{{ message }}
-    			</div>
-    		{% endfor %}
+<h1>Ajouter un nouveau projet</h1>
 
-    		{{ form(form) }}
-    	</div>
-    </div>
-</section>
+{{ form(form) }}
 
 {% endblock %}

@@ -36,18 +36,16 @@ class ProjetController extends AbstractController
         $projet = new Projet();
         $form = $this->createForm(ProjetFormType::class, $projet);
 
+        $participant = new ProjetParticipant();
+        $projet->addProjetParticipant($participant);
+        $participant
+            ->setUser($this->getUser())
+            ->setRole(Role::CDP)
+        ;
+
         $form->handleRequest($rq);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $participant = new ProjetParticipant();
-            $participant
-                ->setUser($this->getUser())
-                ->setProjet($projet)
-                ->setRole(Role::CDP)
-            ;
-
-            $projet->addProjetParticipant($participant);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($participant);
             $em->persist($projet);
@@ -102,6 +100,7 @@ class ProjetController extends AbstractController
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
             'userCanEditProjet' => $this->isGranted('edit', $projet),
+            'userCanAddFaitMarquant' => $this->isGranted('create_fait_marquant', $projet),
         ]);
     }
 

@@ -4,27 +4,18 @@
 
 {% block body %}
 <style>
-	#users div{margin-bottom: 30px; }
+    #users div{margin-bottom: 30px; }
     .btn-success{color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-	.form-group.row {justify-content: space-around; }
-	input#projet_form_projet_collaboratif {position: relative; left: -104.56%; }
-	input#projet_form_projet_ppp {position: relative; left: -103.95%; }
-	input#projet_form_projet_interne {position: relative; left: -104%; }
+    .form-group.row {justify-content: space-around; }
+    input#projet_form_projet_collaboratif {position: relative; left: -104.56%; }
+    input#projet_form_projet_ppp {position: relative; left: -103.95%; }
+    input#projet_form_projet_interne {position: relative; left: -104%; }
 </style>
 
-<section style="min-height: 1000px;">
-    <div class="container">
-    	<div class="col-lg-6 mx-auto">
-    		<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Edition du projet {{ projet.titre }}</h1>
-    		{% for message in app.flashes('info') %}
-    			<div class="alert alert-success text-center">
-    				{{ message }}
-    			</div>
-    		{% endfor %}
+<div class="col-lg-6 mx-auto">
+    <h1>Edition du projet {{ projet.titre }}</h1>
 
-    		{{ form(form) }}
-    	</div>
-    </div>
-</section>
+    {{ form(form) }}
+</div>
 
 {% endblock %}

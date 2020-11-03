@@ -16,6 +16,7 @@ class TempsPassesType extends AbstractType
         $builder
             ->add('tempsPasses', CollectionType::class, [
                 'entry_type' => TempsPasseType::class,
+                'label' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',

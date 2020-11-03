@@ -15,10 +15,8 @@ html{
     height:100% !important;
 }
 
-.container 
-{
-    background-color: white; 
-    /* min-height: 532px;  */
+.main-container {
+    padding-bottom: 6em;
 }
 
 .form-inline-radio {
@@ -91,6 +89,18 @@ header
     background-color: #ce352c;
 }
 
+h1, h2 {
+    text-align: center;
+    margin: 0.5em 0;
+}
+h1 {
+    color: #ce352c;
+}
+
+.flash-messages {
+    margin-top: 1em;
+}
+
 /* li, a:hover 
 {
     background-color: #ce352c;
@@ -149,7 +159,6 @@ footer
         position: fixed;
         bottom: 0% !important;
         width: 100%;
-    
     }
    
  .logofooter
@@ -172,6 +181,47 @@ a button
     color: white;
     margin-top: 2vh;
     font-size: 1.05em;
+}
+
+/**
+ * Jours travaillés
+ */
+.calmonth {
+    max-width: 500px;
+    margin: auto;
+}
+.calmonth-row {
+    display: flex;
+    justify-content: space-around;
+}
+.btn-jour,
+.btn-block + .btn-block {
+    position: relative;
+    margin: 0.2em;
+    padding: 0.4em;
+    text-align: right;
+}
+.demi-journee {
+    display: none;
+    position: absolute;
+    left: 0.25em;
+    bottom: 0;
+}
+@media (min-width: 575px) {
+    .btn-jour,
+    .btn-block + .btn-block {
+        margin: 0.2em;
+        padding: 0.2em 0.4em 0.6em 0.4em;
+        text-align: right;
+        font-size: 1.25em;
+    }
+    /* Affiche demi journee 1/2 seulement sur ecran sm et bouton demi journee */
+    .btn-jour.btn-info .demi-journee {
+        display: inline;
+    }
+}
+.btn-jour span {
+    font-weight: bold;
 }
 
 /* ***************************************Connexion Inscription*****************************

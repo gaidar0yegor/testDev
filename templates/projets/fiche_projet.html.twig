@@ -10,7 +10,6 @@
         .img_logo {position: absolute; left: 4%; top: 8%; }
 
         .img_logo img {height: 40px; } 
-        .contenu {margin-top: 40px; display: flex; }
 
         .date_fin {position: relative; left: 0%; }
         label#date_fin.col-lg-4.col-form-label {position: relative; left: 20%; }
@@ -72,94 +71,89 @@
         }
     </style>
 
-    <title>Détails du projet</title>
-    
-    <div class="contenu">
+    <div class="form">
 
-        <div class="container form">
-        
-            <div class="form-group row">
-                <div class="text-center mx-auto projet">
-                    <h1 style="color: #ce352c;">
-                        {{ projet.titre }}
-                    </h1>
-                </div>
-            </div>
-            <p class="text-center">
-                {% if projet.projetCollaboratif %}
-                    <span class="badge badge-success">Collaboratif</span>
-                {% endif %}
-                {% if projet.projetInterne %}
-                    <span class="badge badge-success">Interne</span>
-                {% endif %}
-                {% if projet.projetPpp %}
-                    <span class="badge badge-success">PPP - R&amp;D</span>
-                {% endif %}
-                {% if projet.statutRdi %}
-                    <span class="badge badge-success">Elligible RDI</span>
-                {% endif %}
-            </p>
-            <p>
-                {{ projet.resume|nl2br }}
-            </p>
-            <dl class="row">
-                <dt class="col-sm-3">Acronyme</dt>
-                <dd class="col-sm-9">{{ projet.acronyme }}</dd>
-                <dt class="col-sm-3">Chef de projet</dt>
-                <dd class="col-sm-9">{{ projet.chefDeProjet.fullname }}</dd>
-                <dt class="col-sm-3">Date de début</dt>
-                <dd class="col-sm-9">{{ projet.dateDebut|format_date }}</dd>
-                {% if projet.dateFin %}
-                    <dt class="col-sm-3">Date de fin</dt>
-                    <dd class="col-sm-9">{{ projet.dateFin|format_date }}</dd>
-                {% endif %}
-                <dt class="col-sm-3">Statut</dt>
-                <dd class="col-sm-9">{{ projet.statutProjet.libelle }}</dd>
-            </dl>
+        <h1>{{ projet.titre }}</h1>
 
-            <section class="fichier col-lg">
+        <p class="text-center">
+            {% if projet.projetCollaboratif %}
+                <span class="badge badge-success">Collaboratif</span>
+            {% endif %}
+            {% if projet.projetInterne %}
+                <span class="badge badge-success">Interne</span>
+            {% endif %}
+            {% if projet.projetPpp %}
+                <span class="badge badge-success">PPP - R&amp;D</span>
+            {% endif %}
+            {% if projet.statutRdi %}
+                <span class="badge badge-success">Elligible RDI</span>
+            {% endif %}
+        </p>
+        <p>
+            {{ projet.resume|nl2br }}
+        </p>
+        <dl class="row">
+            <dt class="col-sm-3">Acronyme</dt>
+            <dd class="col-sm-9">{{ projet.acronyme }}</dd>
+            <dt class="col-sm-3">Chef de projet</dt>
+            <dd class="col-sm-9">{{ projet.chefDeProjet.fullname }}</dd>
+            <dt class="col-sm-3">Date de début</dt>
+            <dd class="col-sm-9">{{ projet.dateDebut|format_date }}</dd>
+            {% if projet.dateFin %}
+                <dt class="col-sm-3">Date de fin</dt>
+                <dd class="col-sm-9">{{ projet.dateFin|format_date }}</dd>
+            {% endif %}
+            <dt class="col-sm-3">Statut</dt>
+            <dd class="col-sm-9">{{ projet.statutProjet.libelle }}</dd>
+        </dl>
 
-                <div class="form-group row" id="fichiers">
-                    <!-- <div class="col-lg-4 mx-auto settings d-flex m-right: 12px;"> -->
-                        <div class="gestion">
-                            <a href="{{ path('liste_fichiers_') }}"><input type="button" class="btn btn-success" value="Fichiers joints"></a>
-                        </div>
-                        <div class="new_user">
-                            <a
-                                href="{{ path('projet_participant', {'projetId': projet.id}) }}"
-                                class="btn btn-success {{ userCanEditProjet ? '' : 'disabled' }}"
-                                {% if not userCanEditProjet %}
-                                    title="Seul le chef de projet peut gérer les participants"
-                                {% endif %}
-                            >Gestion des participants</a>
-                        </div>
-                        <div class="new_user">
-                            <a href="{{ path('projet_edition', {'id': projet.id}) }}"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
-                        </div>
-                    <!-- </div> -->
-                </div>
+        <section class="fichier col-lg">
 
-                <div class="form-group row" id="fichiers">
-                    <!-- <div class="col-lg-4 mx-auto settings d-flex"> -->
+            <div class="form-group row" id="fichiers">
+                <!-- <div class="col-lg-4 mx-auto settings d-flex m-right: 12px;"> -->
                     <div class="gestion">
-                        <a href=""><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
+                        <a href="{{ path('liste_fichiers_') }}"><input type="button" class="btn btn-success" value="Fichiers joints"></a>
                     </div>
                     <div class="new_user">
-                        <a class="button" href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}" ><input type="submit" class="btn btn-success" value="Ajouter un fait marquant"></a>
+                        <a
+                            href="{{ path('projet_participant', {'projetId': projet.id}) }}"
+                            class="btn btn-success {{ userCanEditProjet ? '' : 'disabled' }}"
+                            {% if not userCanEditProjet %}
+                                title="Seul le chef de projet peut gérer les participants"
+                            {% endif %}
+                        >Gestion des participants</a>
                     </div>
+                    <div class="new_user">
+                        <a href="{{ path('projet_edition', {'id': projet.id}) }}"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
+                    </div>
+                <!-- </div> -->
+            </div>
+
+            <div class="form-group row" id="fichiers">
+                <!-- <div class="col-lg-4 mx-auto settings d-flex"> -->
+                <div class="gestion">
+                    <a href=""><input type="button" class="btn btn-success" value="Ajouter un fichier"></a>
                 </div>
+                <div class="new_user">
+                    <a
+                        href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}"
+                        class="btn btn-success {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
+                        {% if not userCanAddFaitMarquant %}
+                            title="Seuls les contributeurs du projet peuvent ajouter un fait marquant"
+                        {% endif %}
+                    >Ajouter un fait marquant</a>
+                </div>
+            </div>
 
-            </section> </br>
+        </section> </br>
 
-        </div>
- 
     </div>
 
     <div class="main-container" style="margin-top: 7vh;">
         <section id="timeline" class="timeline-outer">
             <div class="container" id="content">
                 <div class="text-center mx-auto facts">
-                    <h1 style="font-size: 2.5em; text-decoration: none; ">Faits marquants</h1>
+                    <h2>Faits marquants</h2>
                 </div>
                 {% if projet.hasFaitMarquants() %}
                 <ul class="timeline">
@@ -275,11 +269,6 @@
     </div>
 
 </div>
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 
 <script>
     jQuery(document).ready(function($){

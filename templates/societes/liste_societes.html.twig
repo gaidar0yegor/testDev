@@ -17,8 +17,8 @@
 </style>
 
 
-<div class="container">
-    <h1 class="text-center m-4" style="color: #ce352c;">Liste des sociétés</h1>
+    <h1>Liste des sociétés</h1>
+
     <table class="table text-center mx-auto m-5"  style="max-width: 80%;">
         <thead>
             <tr class="table table-secondary">
@@ -31,16 +31,16 @@
                 <th scope="col" class="text-center">Gestionnaire</th>
             </tr>
         </thead>
-        {% for societe in liste_societes %}
-            <tbody>
+        <tbody>
+            {% for societe in liste_societes %}
                 <tr>
                     <td class="text-center">{{ societe.id }}</td>     
                     <td class="text-center">{{ societe.raisonSociale }}</td>      
                     <td class="text-center">{{ societe.nbLicences }}</td>
                     <td class="text-center">{{ societe.nbLicencesDispo }}</td>  
                     <td class="text-center">{{ societe.statut.libelle }}</td>
-                    {# <td class="text-center">{{ societe.dateDebut|date('d/m/Y') }}</td>   #}
-                    {# <td class="text-center">{{ societe.user }}</td> #}
+                    {# <td class="text-center">{{ societe.date }}</td> #}
+                    {# <td class="text-center">{{ societe.users }}</td>   #}
                     <td style="background: white; border: white;">
                         <a href="{{ path('compte_', { id: societe.id }) }}">
                             <i class="fa fa-edit"></i>
@@ -52,8 +52,7 @@
                         </a>                   
                     </td>
                 </tr>
-            </tbody>
-        {% endfor %}
+            {% endfor %}
+        </tbody>
     </table>
-</div>
 {% endblock %}

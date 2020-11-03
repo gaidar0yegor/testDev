@@ -222,8 +222,10 @@ class Societe implements HasSocieteInterface
         return $this;
     }
 
+
     public function getSociete(): ?Societe
     {
         return $this;
     }
+
 }

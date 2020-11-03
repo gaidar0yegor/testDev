@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Exception\RdiException;
+
 /**
  * Roles entre Fo users et projets
  */
@@ -22,12 +24,31 @@ class Role
      */
     public const OBSERVATEUR = 'OBSERVATEUR';
 
-    public static function getRoles(): array
+    /**
+     * @param string $roleMinimum Si fourni, retourne tous les rôles avec $role minimum
+     */
+    public static function getRoles(string $roleMinimum = self::OBSERVATEUR): array
     {
-        return [
-            self::CDP => self::CDP,
-            self::CONTRIBUTEUR => self::CONTRIBUTEUR,
-            self::OBSERVATEUR => self::OBSERVATEUR,
-        ];
+        $roles = [];
+
+        switch ($roleMinimum) {
+            case self::OBSERVATEUR:
+                $roles[self::OBSERVATEUR] = self::OBSERVATEUR;
+                // no-break
+
+            case self::CONTRIBUTEUR:
+                $roles[self::CONTRIBUTEUR] = self::CONTRIBUTEUR;
+                // no-break
+
+            case self::CDP:
+                $roles[self::CDP] = self::CDP;
+                // no-break
+
+            break;
+            default:
+                throw new RdiException(sprintf('Unknown role "%s".', $roleMinimum));
+        }
+
+        return $roles;
     }
 }

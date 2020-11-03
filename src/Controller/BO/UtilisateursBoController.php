@@ -5,12 +5,16 @@ namespace App\Controller\BO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Component\Routing\Annotation\Route;
+use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
+use App\Entity\SocieteStatut;
 use App\Repository\UserRepository;
 use App\Form\UtilisateursFormType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+
+// use App\Repository\SocieteStatutRepository;
 
 
 
@@ -53,8 +57,7 @@ class UtilisateursBoController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('info', sprintf('La fiche de l\'utilisateur %s %s a été crée.', $user->getPrenom(), $user->getNom()));
-
-            return $this->redirectToRoute('utilisateurs_Bo_');
+            return $this->redirectToRoute('utilisateurs_bo_');
         }
 
         return $this->render('utilisateurs_bo/infos_utilisateur_bo.html.twig', [
@@ -64,6 +67,7 @@ class UtilisateursBoController extends AbstractController
             // 'controller_name' => 'UtilisateursBoController',
         ]);
     }
+
 
     /**
      * @Route("/utilisateur/modifier/{id}", name="utilisateur_modifier_", requirements={"id"="\d+"})
@@ -106,4 +110,4 @@ class UtilisateursBoController extends AbstractController
             "titre" => "Suppression de l'utilisateur n°$id" 
         ]);
     }
-}
+

@@ -1,0 +1,9 @@
+<section class="flash-messages">
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}" role="alert">
+                {{ message | striptags('<a>') | raw }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</section>
