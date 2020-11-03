@@ -28,22 +28,8 @@
 		{% endfor %}
 
 
-		{{ form_start(form) }}		
-			{{ form_row(form.nom) }}
-			{{ form_row(form.prenom) }}
-			{{ form_row(form.telephone) }}
-			{{ form_row(form.email) }}
-			{# {{ form_row(form.societes) }} #}
-			{{ form_row(form.role) }}
-			{# {{ form_row(form.statuts_utilisateur) }} #}
-			
-            <div class="form-group row">
-			    <div class="form-group mt-5">
-			        <a href="" class="btn btn-danger">Annuler</a>
-			    </div>
-			    {{ form_row(form.ajouter, { 'label' : bouton }) }}
-			</div>
-		{{ form_end(form) }} 	
+		{{ form(form) }}		
+		
 	</div>
 </div>
 

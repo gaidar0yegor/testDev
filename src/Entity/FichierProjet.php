@@ -13,7 +13,8 @@ class FichierProjet
 
     /**
      * @ORM\Id()
-     * @ORM\Column(type="string")
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
     private $id;
 
