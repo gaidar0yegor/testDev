@@ -124,7 +124,13 @@
                         >Gestion des participants</a>
                     </div>
                     <div class="new_user">
-                        <a href="{{ path('projet_edition', {'id': projet.id}) }}"><input type="button" class="btn btn-success" value="Modifier le projet"></a>
+                        <a
+                            href="{{ path('projet_edition', {'id': projet.id}) }}"
+                            class="btn btn-success {{ userCanEditProjet ? '' : 'disabled' }}"
+                            {% if not userCanEditProjet %}
+                                title="Seul le chef de projet peut modifier"
+                            {% endif %}
+                        >Modifier le projet</a>
                     </div>
                 <!-- </div> -->
             </div>
