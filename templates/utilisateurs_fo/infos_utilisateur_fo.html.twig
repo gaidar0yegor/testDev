@@ -11,15 +11,20 @@
 
 <div class="container">
 	<div class="col-lg-6 mx-auto">
-		<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter un nouvel utilisateur</h1>
-		
+	{% block h1 %}
+	    {% if titre is defined %}
+	        <h1 class="text-center mt-4 mb-4" style="color: #ce352c;"> {{ titre }} </h1>
+	    {% else %}
+			<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter un nouvel utilisateur</h1>
+		    <h4 class="mb-4">Saisir les informations</h4>    
+		{% endif %}
+	{% endblock h1 %}	
+
         {% for message in app.flashes('info') %}
 			<div class="alert alert-success text-center">
 				{{ message }}
 			</div>
 		{% endfor %}
-
-	    <h4 class="mb-4">Saisir les informations</h4>
 
 		{{ form_start(form) }}		
 			{{ form_row(form.nom) }}
@@ -34,7 +39,7 @@
 			    <div class="form-group mt-5">
 			        <a href="" class="btn btn-danger">Annuler</a>
 			    </div>
-			    {{ form_row(form.ajouter) }}
+			    {{ form_row(form.ajouter, { 'label' : bouton }) }}
 			</div>
 		{{ form_end(form) }} 	
 	</div>
