@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class FichierProjet
 {
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -60,12 +61,12 @@ class FichierProjet
         return $this;
     }
 
-    public function getNomFichier(): ?string
+    public function getNomFichier()
     {
         return $this->nom_fichier;
     }
 
-    public function setNomFichier(string $nom_fichier): self
+    public function setNomFichier($nom_fichier): self
     {
         $this->nom_fichier = $nom_fichier;
 

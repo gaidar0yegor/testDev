@@ -3,8 +3,8 @@
 namespace App\Controller\BO;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
@@ -60,30 +60,54 @@ class UtilisateursBoController extends AbstractController
         }
 
         return $this->render('utilisateurs_bo/infos_utilisateur_bo.html.twig', [
-            'form' => $form->createView(),           
+            'form' => $form->createView(),     
+            "bouton" => "Ajouter",
+
             // 'controller_name' => 'UtilisateursBoController',
         ]);
     }
 
-    // /**
-    // * @Route("/infos/utilisateur/bo/supprimer", name="infos_utilisateur_bo_supprimer_")
-    // */
-    // public function supprimer(Request $rq, EntityManager $em, UserRepository $ur)
-    // {
-    //     $userDelete = $ur->find($id);
-    //     $formUtilisateur = $this->createForm(UtilisateurFormType::class, $userDelete);
-    //     $formUtilisateur->handleRequest($rq);
-    //     if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-    //         $em->remove($userDelete);
-    //         $em->flush();
-    //         $this->addFlash("success", "L'artiste " . $artisteAsupprimer->getName() . " a été supprimé");
-    //         return $this->redirectToRoute("utilisateurs_bo_");
-    //     }
-    //     $this->addFlash("warning", "<strong>Confirmation</strong> de suppresion");
-    //     return $this->render("artist/form.html.twig", [ 
-    //         "form" => $formUtilisateur->createView(), 
-    //         "bouton" => "Confirmer",
-    //         // "titre" => "Suppression de l'artiste n°$id"
-    //     ]);
-    // }
+
+    /**
+     * @Route("/utilisateur/modifier/{id}", name="utilisateur_modifier_", requirements={"id"="\d+"})
+     */
+    public function modifier(Request $rq, EntityManager $em, UserRepository $ur, $id)
+    {
+        $utilisateurAmodifier = $ur->find($id);
+        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAmodifier);
+        $formUtilisateur->handleRequest($rq);
+        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+            // $em->persist($UtilisateurAmodifier);
+            $em->flush();
+            // $this->addFlash("success", "Les informations de l'Utilisateur ont été modifiées");
+            return $this->redirectToRoute("utilisateurs_bo_");
+        }
+        return $this->render('utilisateurs_bo/infos_utilisateur_bo.html.twig', [ 
+            "form" => $formUtilisateur->createView(), 
+            "bouton" => "Modifier",
+            "titre" => "Modification de l'utilisateur n°$id" 
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/supprimer/{id}", name="utilisateur_supprimer_", requirements={"id"="\d+"})
+     */
+    public function supprimer(Request $rq, EntityManager $em, UserRepository $ur, $id)
+    {
+        $utilisateurAsupprimer = $ur->find($id);
+        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
+        $formUtilisateur->handleRequest($rq);
+        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+            $em->remove($utilisateurAsupprimer);
+            $em->flush();
+            // $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
+            return $this->redirectToRoute("utilisateurs_bo_");
+        }
+        return $this->render('utilisateurs_bo/infos_utilisateur_bo.html.twig', [ 
+            "form" => $formUtilisateur->createView(), 
+            "bouton" => "Confirmer",
+            "titre" => "Suppression de l'utilisateur n°$id" 
+        ]);
+    }
+
 }

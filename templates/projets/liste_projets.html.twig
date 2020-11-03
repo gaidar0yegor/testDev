@@ -39,14 +39,15 @@
         </tbody>
     </table>
 
-    <a
-        href="{{ path('infos_projet_') }}"
-        class="btn btn-success"
-        {% if not is_granted('ROLE_FO_CDP') %}
-            disabled
-            title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
-        {% endif %}
-    >Nouveau Projet</a>
+
+    <div class="button mb-4" style="text-align: end">
+        <a href="{{ path('infos_projet_') }}"><input type="button" class="btn btn-success new_project" value="Nouveau Projet"
+            {% if not is_granted('ROLE_FO_CDP') %}
+                disabled
+                title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
+            {% endif %}
+        ></a>
+    </div>
 
 
 {% endblock %}

@@ -39,12 +39,12 @@
                     <td class="text-center">{{ utilisateur.email }}</td>      
                     <td class="text-center">{{ utilisateur.projetParticipants|length }}</td>
                     <td style="background: white; border: white;">
-                        <a href="{{ path('compte_', { id: utilisateur.id }) }}">
+                        <a href="{{ path('utilisateur_fo_modifier_', { id: utilisateur.id }) }}">
                             <i class="fa fa-edit"></i>
                         </a>
                     </td> 
                     <td style="background: white; border: white;">
-                        <a href="">
+                        <a href="{{ path('utilisateur_fo_supprimer_', { id: utilisateur.id }) }}">
                             <i class="fa fa-trash"></i>
                         </a>                   
                     </td>

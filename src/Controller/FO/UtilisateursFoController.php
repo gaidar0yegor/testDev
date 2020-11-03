@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Form\UtilisateursFormType;
@@ -83,26 +84,45 @@ class UtilisateursFoController extends AbstractController
         ]);
     }
 
-    // /**
-    //  * @Route("/utilisateurs/fo/modifier/{id}", name="utilisateurs_fo_modifier", requirements={"id"="\d+"})
-    //  */
-    // public function modifier(Request $rq, EntityManager $em, UsersRepository $ur, $id)
+    /**
+     * @Route("/utilisateur/fo/modifier/{id}", name="utilisateur_fo_modifier_", requirements={"id"="\d+"})
+     */
+    public function modifier(Request $rq, EntityManager $em, UserRepository $ur, $id)
+    {
+        $utilisateurAmodifier = $ur->find($id);
+        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAmodifier);
+        $formUtilisateur->handleRequest($rq);
+        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+            // $em->persist($UtilisateurAmodifier);
+            $em->flush();
+            // $this->addFlash("success", "Les informations de l'Utilisateur ont été modifiées");
+            return $this->redirectToRoute("utilisateurs_fo_");
+        }
+        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
+            "form" => $formUtilisateur->createView(), 
+            "bouton" => "Modifier",
+            "titre" => "Modification de l'utilisateur n°$id" 
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/fo/supprimer/{id}", name="utilisateur_fo_supprimer_", requirements={"id"="\d+"})
+     */
+    // public function supprimer(Request $rq, EntityManager $em, UserRepository $ur, $id)
     // {
-    //     // Modifier un utilisateur existant
-    //     // récupérer l'utilisateur avec son id, l'afficher dans le formulaire et enregistrer les modifications dans la base de données
-    //     $utilisateurAmodifier = $ur->find($id);
-    //     $formUtilisateur = $this->createForm(UserType::class, $utilisateurAmodifier);
+    //     $utilisateurAsupprimer = $ur->find($id);
+    //     $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
     //     $formUtilisateur->handleRequest($rq);
     //     if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-    //         // $em->persist($utilisateurAmodifier);
+    //         $em->remove($utilisateurAsupprimer);
     //         $em->flush();
-    //         $this->addFlash("success", "Les informations de l'utilisateur ont été modifiées");
-    //         return $this->redirectToRoute("compte_");
+    //         // $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
+    //         return $this->redirectToRoute("utilisateurs_fo_");
     //     }
-    //     return $this->render("utilisateurs_fo/compte_utilisateurs_fo.html.twig", [ 
+    //     return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
     //         "form" => $formUtilisateur->createView(), 
-    //         // "bouton" => "Modifier",
-    //         // "titre" => "Modification de l'artiste n°$id" 
+    //         "bouton" => "Confirmer",
+    //         "titre" => "Suppression de l'utilisateur n°$id" 
     //     ]);
     // }
 }
