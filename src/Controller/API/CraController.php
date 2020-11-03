@@ -70,8 +70,6 @@ class CraController extends AbstractController
             throw $this->createNotFoundException($e->getMessage());
         }
 
-        dump($request->get('cra'));
-
         $cra = $craService->loadCraForUser($this->getUser(), $mois);
 
         $cra->setJours($request->get('cra'));
