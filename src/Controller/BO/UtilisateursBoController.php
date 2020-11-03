@@ -5,7 +5,6 @@ namespace App\Controller\BO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
@@ -111,3 +110,4 @@ class UtilisateursBoController extends AbstractController
         ]);
     }
 
+}
