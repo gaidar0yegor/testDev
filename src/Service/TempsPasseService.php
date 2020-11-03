@@ -66,7 +66,7 @@ class TempsPasseService
      *
      * @return bool Si Un des temps passé correspond au projet.
      */
-    private function tempsPassesContainsProjet(array $tempsPasses, Projet $projet): bool
+    private function tempsPassesContainsProjet(iterable $tempsPasses, Projet $projet): bool
     {
         foreach ($tempsPasses as $tempsPasse) {
             if ($tempsPasse->getProjet() === $projet) {
@@ -84,7 +84,7 @@ class TempsPasseService
      *
      * @throws TempsPassesPercentException Si les pourcentages ne sont pas valide.
      */
-    public function checkPercents(array $tempsPasses)
+    public function checkPercents(iterable $tempsPasses)
     {
         $totalPercent = 0;
 
