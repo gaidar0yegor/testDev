@@ -12,7 +12,7 @@ class ParticipantRoleChoiceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choices' => Role::getRoles(),
+            'choices' => array_reverse(Role::getRoles()),
             'expanded' => true,
             'choice_label' => false,
             'attr' => ['class' => 'form-inline-radio'],
