@@ -108,21 +108,21 @@ class UtilisateursFoController extends AbstractController
     /**
      * @Route("/utilisateur/fo/supprimer/{id}", name="utilisateur_fo_supprimer_", requirements={"id"="\d+"})
      */
-    public function supprimer(Request $rq, EntityManager $em, UserRepository $ur, $id)
-    {
-        $utilisateurAsupprimer = $ur->find($id);
-        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
-        $formUtilisateur->handleRequest($rq);
-        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-            $em->remove($utilisateurAsupprimer);
-            $em->flush();
-            // $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
-            return $this->redirectToRoute("utilisateurs_fo_");
-        }
-        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
-            "form" => $formUtilisateur->createView(), 
-            "bouton" => "Confirmer",
-            "titre" => "Suppression de l'utilisateur n°$id" 
-        ]);
-    }
+    // public function supprimer(Request $rq, EntityManager $em, UserRepository $ur, $id)
+    // {
+    //     $utilisateurAsupprimer = $ur->find($id);
+    //     $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
+    //     $formUtilisateur->handleRequest($rq);
+    //     if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+    //         $em->remove($utilisateurAsupprimer);
+    //         $em->flush();
+    //         // $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
+    //         return $this->redirectToRoute("utilisateurs_fo_");
+    //     }
+    //     return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
+    //         "form" => $formUtilisateur->createView(), 
+    //         "bouton" => "Confirmer",
+    //         "titre" => "Suppression de l'utilisateur n°$id" 
+    //     ]);
+    // }
 }
