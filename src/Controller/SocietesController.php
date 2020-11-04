@@ -57,4 +57,25 @@ class SocietesController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/utilisateur/modifier/{id}", name="utilisateur_modifier_", requirements={"id"="\d+"})
+     */
+    public function modifier(Request $rq, EntityManager $em, UserRepository $ur, $id)
+    {
+        $utilisateurAmodifier = $ur->find($id);
+        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAmodifier);
+        $formUtilisateur->handleRequest($rq);
+        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+            // $em->persist($UtilisateurAmodifier);
+            $em->flush();
+            // $this->addFlash("success", "Les informations de l'Utilisateur ont été modifiées");
+            return $this->redirectToRoute("utilisateurs_bo_");
+        }
+        return $this->render('utilisateurs_bo/infos_utilisateur_bo.html.twig', [ 
+            "form" => $formUtilisateur->createView(), 
+            "bouton" => "Modifier",
+            "titre" => "Modification de l'utilisateur n°$id" 
+        ]);
+    }
+
 }
