@@ -87,8 +87,6 @@ class Projet implements HasSocieteInterface
 
     /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="projet", orphanRemoval=true)
-     *
-     * @AppAssert\TempsPassesValid
      */
     private $tempsPasses;
 
