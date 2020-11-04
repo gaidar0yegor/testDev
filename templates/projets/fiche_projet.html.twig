@@ -89,24 +89,19 @@
                 <span class="badge badge-success">Elligible RDI</span>
             {% endif %}
         </p>
-        <p>
-            {{ projet.resume|nl2br }}
-        </p>
-        <dl class="row">
-            <dt class="col-sm-3">Acronyme</dt>
-            <dd class="col-sm-9">{{ projet.acronyme }}</dd>
-            <dt class="col-sm-3">Chef de projet</dt>
-            <dd class="col-sm-9">{{ projet.chefDeProjet.fullname }}</dd>
-            <dt class="col-sm-3">Date de début</dt>
-            <dd class="col-sm-9">{{ projet.dateDebut|format_date }}</dd>
-            {% if projet.dateFin %}
-                <dt class="col-sm-3">Date de fin</dt>
-                <dd class="col-sm-9">{{ projet.dateFin|format_date }}</dd>
-            {% endif %}
-            <dt class="col-sm-3">Statut</dt>
-            <dd class="col-sm-9">{{ projet.statutProjet.libelle }}</dd>
-        </dl>
 
+        <div class="container">
+            <h2 class="text-center"> {{ projet.acronyme }} </h2>
+            <ul class="list-group col-lg-8 mt-4 mx-auto">
+                <li class="list-group-item"><strong>Résumé : </strong> {{ projet.resume|nl2br }} </li>
+                <li class="list-group-item"><strong>Chef de projet : </strong> {{ projet.chefDeProjet.fullname }} </li>
+                <li class="list-group-item"><strong>Date de début : </strong> {{ projet.dateDebut|format_date }} </li>
+                {% if projet.dateFin %}
+                    <li class="list-group-item"><strong>Date de fin : </strong> {{ projet.dateFin|format_date }} </li>
+                {% endif %}
+                <li class="list-group-item"><strong>Statut : </strong> {{ projet.statutProjet.libelle }} </li>
+            </ul>
+        </div>
         <section class="fichier col-lg">
 
             <div class="form-group row" id="fichiers">
@@ -159,7 +154,7 @@
         <section id="timeline" class="timeline-outer">
             <div class="container" id="content">
                 <div class="text-center mx-auto facts">
-                    <h2>Faits marquants</h2>
+                    <h1 style="font-size: 2.5em; text-decoration: none; ">Faits marquants</h1>
                 </div>
                 {% if projet.hasFaitMarquants() %}
                 <ul class="timeline">
