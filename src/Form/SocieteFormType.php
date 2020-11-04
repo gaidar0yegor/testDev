@@ -44,7 +44,7 @@ class SocieteFormType extends AbstractType
                 'label' => 'Nb de licences disponibles',
                 'required' => false,
             ])
-            ->add('submit', SubmitType::class, [
+            ->add('ajouter', SubmitType::class, [
                 'label' => 'Ajouter',
                 'attr' => [
                     'class' => 'mt-5 btn btn-success'

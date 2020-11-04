@@ -17,24 +17,30 @@
     .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 </style>
 
-        <h1>Ajouter une société</h1>
+{% block h1 %}
+    {% if titre is defined %}
+        <h1 class="text-center mt-4 mb-4" style="color: #ce352c;"> {{ titre }} </h1>
+    {% else %}
+        <h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter une société</h1>
+    {% endif %}
+{% endblock h1 %}
 
-        <div class="col-sm-8 mx-auto">
-            {{ form_start(form) }}
-                {{ form_row(form.raisonSociale) }}
-		    	{{ form_row(form.siret) }}
-		    	{# {{ form_row(form.email) }} #}
-		    	{# {{ form_row(form.mobile) }} #}
-		    	{{ form_row(form.statut) }}
-		    	{{ form_row(form.nb_licences) }}
-		    	{{ form_row(form.nb_licences_dispo) }}
-    
-                <div class="form-group row">
-		    	    <div class="form-group mt-5">
-		    	        <a href="" class="btn btn-danger">Annuler</a>
-		    	    </div>
-		    	    {{ form_row(form.submit) }}
-		    	</div>
-		    {{ form_end(form) }}
-        </div>
+<div class="col-sm-6 mx-auto">
+    {{ form_start(form) }}
+        {{ form_row(form.raisonSociale) }}
+    	{{ form_row(form.siret) }}
+    	{# {{ form_row(form.email) }} #}
+    	{# {{ form_row(form.mobile) }} #}
+    	{{ form_row(form.statut) }}
+    	{{ form_row(form.nb_licences) }}
+    	{{ form_row(form.nb_licences_dispo) }}
+        <div class="form-group row">
+    	    <div class="form-group mt-5">
+    	        <a href="{{ path('societes_') }}" class="btn btn-danger">Annuler</a>
+    	    </div>
+    	    {{ form_row(form.ajouter, { 'label' : bouton }) }}
+    	</div>
+    {{ form_end(form) }}
+</div>
+
 {% endblock %}
