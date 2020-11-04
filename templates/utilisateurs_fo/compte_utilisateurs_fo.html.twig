@@ -28,13 +28,13 @@
 
     <h1 class="text-center m-4"  style="color: #ce352c;">Mon compte</h1>
 
-    <ul class="list-group col-lg-8 mt-5 mx-auto">
-        <li class="list-group-item"> Nom: {{ app.user.nom }} </li>
-        <li class="list-group-item"> Prénom: {{ app.user.prenom }} </li>
-        <li class="list-group-item"> Téléphone: {{ app.user.telephone }} </li>
-        <li class="list-group-item">E-mail : {{ app.user.email }} </li>
-        <li class="list-group-item">Identifiant de connexion : {{ app.user.username }}</li>
-        <li class="list-group-item">Rôles : 
+    <ul class="list-group col-lg-10 mt-5 mx-auto">
+        <li class="list-group-item"><strong>Nom :</strong> {{ app.user.nom }} </li>
+        <li class="list-group-item"><strong>Prénom :</strong> {{ app.user.prenom }} </li>
+        <li class="list-group-item"><strong>Téléphone :</strong> {{ app.user.telephone }} </li>
+        <li class="list-group-item"><strong>E-mail :</strong> {{ app.user.email }} </li>
+        <li class="list-group-item"><strong>Identifiant de connexion :</strong> {{ app.user.username }}</li>
+        <li class="list-group-item"><strong>Rôles :</strong> 
             <ul class="list-group">
                 {% for role in app.user.roles %}
                     {% if role == "ROLE_USER" %}
@@ -48,6 +48,17 @@
             </ul>
         </li>
     </ul>
+
+    <div class="button mt-5 mb-4">
+        <!-- <input type="submit" class="btn btn-secondary" value="Annuler"> -->
+        <div class="update">
+            <a href="#0" class="cd-popup-trigger"> <input type="update" class="btn btn-success" value="Mettre à jour"> </a>
+        </div>
+        <div class="change_mdp">
+            <a href="" class="cd-popup-trigger1"><input type="button" class="btn btn-warning" value="Modifier votre mot de passe"> </a>
+        </div>
+    </div>
+
     {# <div class="container">
 
         <h1 class="text-center m-4"  style="color: #ce352c;">Mon compte</h1>
