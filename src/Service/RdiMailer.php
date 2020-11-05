@@ -4,8 +4,8 @@ namespace App\Service;
 
 use App\Entity\User;
 use App\Exception\RdiException;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -31,9 +31,9 @@ class RdiMailer
         $this->urlGenerator = $urlGenerator;
     }
 
-    private function createDefaultEmail(): Email
+    private function createDefaultEmail(): TemplatedEmail
     {
-        $email = new Email();
+        $email = new TemplatedEmail();
 
         $email
             ->from($this->mailFrom)
@@ -67,6 +67,13 @@ class RdiMailer
                 $this->translator->trans($invitedUser->getRole()),
                 $invitationLink
             ))
+
+            ->htmlTemplate('mail/invite.html.twig')
+            ->context([
+                'invitedUser' => $invitedUser,
+                'adminUser' => $adminUser,
+                'invitationLink' => $invitationLink,
+            ])
         ;
 
         $this->mailer->send($email);

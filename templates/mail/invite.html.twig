@@ -1,0 +1,36 @@
+{% apply inky_to_html|inline_css(source('@css/foundation-emails.min.css')) %}
+<wrapper>
+    <container>
+        <row class="footer">
+            <columns>
+                <spacer size="8"></spacer>
+                <h1 class="text-center">Invitation sur RDI manager</h1>
+            </columns>
+        </row>
+        <row>
+            <columns>
+                <p>
+                    <strong>{{ adminUser.fullname }}</strong> vous invite sur RDI manager
+                    dans la société <strong>{{ adminUser.societe.raisonSociale }}</strong>
+                    en tant que <strong>{{ invitedUser.role|trans }}</strong>.
+                </p>
+                <p>
+                    Finalisez votre inscription en cliquant sur ce bouton :
+                    <button href="{{ invitationLink }}" class="large expanded">Finaliser mon inscription</button>
+                </p>
+            </columns>
+        </row>
+        <row class="footer">
+            <columns>
+                <p class="text-center">
+                    <small>© Copyright Eurêka C.I</small>
+                </p>
+                <center>
+                    <img src="{{ email.image('@images/logosign.png') }}" width="26" height="26" alt="Logo Eureka C.I">
+                </center>
+                <spacer size="8"></spacer>
+            </columns>
+        </row>
+    </container>
+</wrapper>
+{% endapply %}

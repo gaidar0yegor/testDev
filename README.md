@@ -31,6 +31,25 @@ php bin/console hautelook:fixtures:load --no-interaction
 symfony serve
 ```
 
+Then create `.env.local` file at the root directory, and:
+
+- Configure **email smtp server**:
+
+``` yaml
+MAILER_DSN=smtp://USER:PASS@mail.eurekaci.com:465
+# USER : Email de la boite encodé avec urlencode (le "@" doit être encodé en "%40")
+# PASS : Mot de passe de la boite email
+
+MAILER_FROM=rdi-manager@eurekaci.com
+# Pour changer l'email d'envoi. Par défaut celui ci dessus.
+```
+
+- Configure **database**:
+
+``` yaml
+DATABASE_URL=mysql://USER:PASS@HOST:PORT/DBNAME
+```
+
 Then go to <http://127.0.0.1:8000/projets>
 
 ## Development

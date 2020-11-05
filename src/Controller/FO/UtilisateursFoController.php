@@ -51,7 +51,7 @@ class UtilisateursFoController extends AbstractController
             $user->setInvitationToken($tokenGenerator->generateUrlToken());
 
             $em->persist($user);
-            $em->flush();
+            //$em->flush();
 
             $mailer->sendInvitationEmail($user, $this->getUser());
 

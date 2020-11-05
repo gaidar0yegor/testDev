@@ -3,6 +3,9 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     exception_controller: null
+    paths:
+        '%kernel.project_dir%/public/img': images
+        '%kernel.project_dir%/public/css': css
     form_themes:
         - 'bootstrap_4_layout.html.twig'
         - 'form/custom_types.html.twig'
