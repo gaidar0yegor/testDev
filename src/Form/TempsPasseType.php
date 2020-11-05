@@ -21,7 +21,6 @@ class TempsPasseType extends AbstractType
                 'attr' => [
                     'min' => 0,
                     'max' => 100,
-                    'step' => 5,
                 ],
             ])
         ;
