@@ -27,8 +27,8 @@
                 <th scope="col" class="text-center">Nb de licences</th>
                 <th scope="col" class="text-center">Nb de licences utilisées</th>
                 <th scope="col" class="text-center">Statut</th>
-                <th scope="col" class="text-center">Date - Heure</th>
-                <th scope="col" class="text-center">Gestionnaire</th>
+                {# <th scope="col" class="text-center">Date - Heure</th>
+                <th scope="col" class="text-center">Gestionnaire</th> #}
             </tr>
         </thead>
         <tbody>
@@ -42,12 +42,12 @@
                     {# <td class="text-center">{{ societe.date }}</td> #}
                     {# <td class="text-center">{{ societe.users }}</td>   #}
                     <td style="background: white; border: white;">
-                        <a href="{{ path('compte_', { id: societe.id }) }}">
+                        <a href="{{ path('societes_modifier_', { id: societe.id }) }}">
                             <i class="fa fa-edit"></i>
                         </a>
                     </td> 
                     <td style="background: white; border: white;">
-                        <a href="">
+                        <a href="{{ path('societes_supprimer_', { id: societe.id }) }}">
                             <i class="fa fa-trash"></i>
                         </a>                   
                     </td>

@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Societe;
 use App\Repository\SocieteRepository;
+use Doctrine\ORM\EntityManagerInterface as EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Form\SocieteFormType;
@@ -33,7 +34,7 @@ class SocietesController extends AbstractController
      * @param Request $rq
      * @return Response
      */
-    public function saisieInfosSociete(Request $request): Response
+    public function saisieInfosSociete(Request $request, EntityManager $em): Response
     {
         $societe = new Societe();
 
@@ -52,8 +53,52 @@ class SocietesController extends AbstractController
 
         return $this->render('societes/saisie_infos_societe.html.twig', [
             'societe' => $societe,
+            "bouton" => "Ajouter",
             'form' => $form->createView(),
             // 'controller_name' => 'SocietesController',
+        ]);
+    }
+
+    /**
+     * @Route("/societes/modifier/{id}", name="societes_modifier_", requirements={"id"="\d+"})
+     */
+    public function modifier(Request $rq, EntityManager $em, SocieteRepository $sr, $id)
+    {
+        $societeAmodifier = $sr->find($id);
+        $formSociete = $this->createForm(SocieteFormType::class, $societeAmodifier);
+        $formSociete->handleRequest($rq);
+        if($formSociete->isSubmitted() && $formSociete->isValid()){
+            // $em->persist($UtilisateurAmodifier);
+            $em->flush();
+            // $this->addFlash("success", "Les informations de l'Utilisateur ont été modifiées");
+            return $this->redirectToRoute("societes_");
+        }
+        return $this->render('societes/saisie_infos_societe.html.twig', [
+            "form" => $formSociete->createView(), 
+            "bouton" => "Modifier",
+            "titre" => "Modification de la société n°$id" 
+        ]);
+    }
+
+    /**
+     * @Route("/societes/supprimer/{id}", name="societes_supprimer_", requirements={"id"="\d+"})
+     */
+    public function supprimer(Request $rq, EntityManager $em, SocieteRepository $sr, $id)
+    {
+        $societeAsupprimer = $sr->find($id);
+        $formSociete = $this->createForm(SocieteFormType::class, $societeAsupprimer);
+        $formSociete->handleRequest($rq);
+        if($formSociete->isSubmitted() && $formSociete->isValid()){
+            $em->remove($societeAsupprimer);
+            // $em->persist($UtilisateurAsupprimer$societeAsupprimer);
+            $em->flush();
+            // $this->addFlash("success", "Les informations de l'Utilisateur ont été modifiées");
+            return $this->redirectToRoute("societes_");
+        }
+        return $this->render('societes/saisie_infos_societe.html.twig', [
+            "form" => $formSociete->createView(), 
+            "bouton" => "Confirmer",
+            "titre" => "Suppression de la société n°$id" 
         ]);
     }
 
