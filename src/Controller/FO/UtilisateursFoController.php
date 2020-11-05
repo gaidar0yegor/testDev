@@ -2,16 +2,17 @@
 
 namespace App\Controller\FO;
 
+use App\Entity\User;
+use App\Form\InviteUserType;
+use App\Form\UtilisateursFormType;
+use App\Repository\UserRepository;
+use App\Service\TokenGenerator;
+use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Doctrine\ORM\EntityManagerInterface as EntityManager;
-use App\Entity\User;
-use App\Repository\UserRepository;
-use App\Form\UtilisateursFormType;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @IsGranted("ROLE_FO_ADMIN")
@@ -30,39 +31,26 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/fo/infos", name="infos_utilisateur_fo_")
-     * @param Request $rq
-     * @return Response
+     * @Route("/utilisateurs/invite", name="fo_user_invite")
      */
-    public function infosUtilisateur(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
+    public function invite(Request $request, EntityManagerInterface $em, TokenGenerator $tokenGenerator): Response
     {
         $user = new User();
+        $user->setSociete($this->getUser()->getSociete());
 
-        // On crée l'objet formulaire
-        $form = $this->createForm(UtilisateursFormType::class, $user);
+        $form = $this->createForm(InviteUserType::class, $user);
 
-        // On récupère les données saisies, si le formulaire a été soumis
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user
-                ->setSociete($this->getUser()->getSociete())
-            ;
+            $user->setInvitationToken($tokenGenerator->generateUrlToken());
 
-            // encode the plain password
-            /*
-            // Need password now ?
-            $user->setPassword(
-                $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData())
-            );
-            */
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $em->persist($user);
+            $em->flush();
 
-            $this->addFlash('info', sprintf('La fiche de l\'utilisateur %s %s a été crée.', $user->getPrenom(), $user->getNom()));
+            $this->addFlash('success', sprintf('Un email avec un lien d\'invitation a été envoyé à "%s".', $user->getEmail()));
 
-            return $this->redirectToRoute('utilisateurs_fo_');
+            return $this->redirectToRoute('fo_user_invite');
         }
 
         return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [
@@ -87,8 +75,10 @@ class UtilisateursFoController extends AbstractController
     /**
      * @Route("/utilisateur/fo/modifier/{id}", name="utilisateur_fo_modifier_", requirements={"id"="\d+"})
      */
-    public function modifier(Request $rq, EntityManager $em, UserRepository $ur, $id)
+    public function modifier(Request $rq, EntityManagerInterface $em, UserRepository $ur, $id)
     {
+        return new Response('', Response::HTTP_NOT_IMPLEMENTED);
+
         $utilisateurAmodifier = $ur->find($id);
         $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAmodifier);
         $formUtilisateur->handleRequest($rq);
@@ -108,21 +98,23 @@ class UtilisateursFoController extends AbstractController
     /**
      * @Route("/utilisateur/fo/supprimer/{id}", name="utilisateur_fo_supprimer_", requirements={"id"="\d+"})
      */
-    // public function supprimer(Request $rq, EntityManager $em, UserRepository $ur, $id)
-    // {
-    //     $utilisateurAsupprimer = $ur->find($id);
-    //     $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
-    //     $formUtilisateur->handleRequest($rq);
-    //     if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-    //         $em->remove($utilisateurAsupprimer);
-    //         $em->flush();
-    //         // $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
-    //         return $this->redirectToRoute("utilisateurs_fo_");
-    //     }
-    //     return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
-    //         "form" => $formUtilisateur->createView(), 
-    //         "bouton" => "Confirmer",
-    //         "titre" => "Suppression de l'utilisateur n°$id" 
-    //     ]);
-    // }
+    public function supprimer(Request $rq, EntityManagerInterface $em, UserRepository $ur, $id)
+    {
+        return new Response('', Response::HTTP_NOT_IMPLEMENTED);
+
+        $utilisateurAsupprimer = $ur->find($id);
+        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
+        $formUtilisateur->handleRequest($rq);
+        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
+            $em->remove($utilisateurAsupprimer);
+            $em->flush();
+            $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
+            return $this->redirectToRoute("utilisateurs_fo_");
+        }
+        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
+            "form" => $formUtilisateur->createView(), 
+            "bouton" => "Confirmer",
+            "titre" => "Suppression de l'utilisateur n°$id" 
+        ]);
+    }
 }

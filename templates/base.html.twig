@@ -19,7 +19,10 @@
 	</head>
 	<body>
 		{% include('fo_header.html.twig') %}
-		{% include('fo_menu_horizontal.html.twig') %}
+
+		{% if app.user %}
+			{% include('fo_menu_horizontal.html.twig') %}
+		{% endif %}
 
 		<div class="container main-container">
 			{% include '_flash_messages.html.twig' %}
