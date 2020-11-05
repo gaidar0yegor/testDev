@@ -25,7 +25,7 @@ php bin/console doctrine:database:drop --force
 # Initialize database and fixtures
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force
-php bin/console hautelook:fixtures:load --no-interaction
+FIXTURES=fixtures/demo php bin/console hautelook:fixtures:load --no-interaction
 
 # Run application
 symfony serve
