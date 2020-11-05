@@ -29,5 +29,8 @@ services:
 
     Twig\Extensions\IntlExtension: ~
 
+    App\Service\RdiMailer:
+        $mailFrom: '%env(MAILER_FROM)%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

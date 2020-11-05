@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\InviteUserType;
 use App\Form\UtilisateursFormType;
 use App\Repository\UserRepository;
+use App\Service\RdiMailer;
 use App\Service\TokenGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -33,8 +34,12 @@ class UtilisateursFoController extends AbstractController
     /**
      * @Route("/utilisateurs/invite", name="fo_user_invite")
      */
-    public function invite(Request $request, EntityManagerInterface $em, TokenGenerator $tokenGenerator): Response
-    {
+    public function invite(
+        Request $request,
+        EntityManagerInterface $em,
+        TokenGenerator $tokenGenerator,
+        RdiMailer $mailer
+    ): Response {
         $user = new User();
         $user->setSociete($this->getUser()->getSociete());
 
@@ -47,6 +52,8 @@ class UtilisateursFoController extends AbstractController
 
             $em->persist($user);
             $em->flush();
+
+            $mailer->sendInvitationEmail($user, $this->getUser());
 
             $this->addFlash('success', sprintf('Un email avec un lien d\'invitation a été envoyé à "%s".', $user->getEmail()));
 
