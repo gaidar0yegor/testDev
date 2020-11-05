@@ -32,9 +32,14 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
         And I press "Finir mon inscription"
         Then I should be on "/connexion"
 
+        # Vérifie que je peux me connecter après la finalisation
         When I fill in the following:
             | _username | invite@societe.dev |
             | _password | m0nM0tdepass3      |
         And I press "Connexion"
         Then I should see "Bienvenue"
         And I should see "JeSuis LeNouveau"
+
+        # Vérifie que le lien d'invitation ne fonctionne plus une fois la finalisation terminée.
+        When I go to "/inscription/cV2bvNJg4e_zkzXis-rfKlih"
+        Then the response status code should be 404
