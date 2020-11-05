@@ -35,19 +35,27 @@ class User implements UserInterface, HasSocieteInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=63, nullable=true)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=63, nullable=true)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=255)
      */
     private $email;
+
+    /**
+     * Clé secrète créée lorsque cet user est invité
+     * à rejoindre la société et à finaliser la création de son compte.
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $invitationToken;
 
     /**
      * @ORM\Column(type="string", length=45, nullable=true)
@@ -90,12 +98,6 @@ class User implements UserInterface, HasSocieteInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $profils_utilisateur;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=StatutsUtilisateur::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $statuts_utilisateur;
 
     /**
      * @ORM\ManyToOne(targetEntity=BaseTempsParContrat::class, inversedBy="users")
@@ -148,6 +150,25 @@ class User implements UserInterface, HasSocieteInterface
         return $this->email;
     }
 
+    public function getInvitationToken(): string
+    {
+        return $this->invitationToken;
+    }
+
+    public function setInvitationToken(string $invitationToken): self
+    {
+        $this->invitationToken = $invitationToken;
+
+        return $this;
+    }
+
+    public function removeInvitationToken(): self
+    {
+        $this->invitationToken = null;
+
+        return $this;
+    }
+
     /**
      * @see UserInterface
      */
@@ -182,7 +203,7 @@ class User implements UserInterface, HasSocieteInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -344,18 +365,6 @@ class User implements UserInterface, HasSocieteInterface
     public function setProfilsUtilisateur(?ProfilsUtilisateur $profils_utilisateur): self
     {
         $this->profils_utilisateur = $profils_utilisateur;
-
-        return $this;
-    }
-
-    public function getStatutsUtilisateur(): ?StatutsUtilisateur
-    {
-        return $this->statuts_utilisateur;
-    }
-
-    public function setStatutsUtilisateur(?StatutsUtilisateur $statuts_utilisateur): self
-    {
-        $this->statuts_utilisateur = $statuts_utilisateur;
 
         return $this;
     }

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription sur RDI manager{% endblock %}
+
+{% block body %}
+
+<h1>Finalisation de votre inscription</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p>
+            Vous êtes sur le point de vous inscrire sur RDI manager,
+            et de rejoindre la société <strong>{{ user.societe.raisonSociale }}</strong>
+            avec le rôle <strong>{{ user.role|trans }}</strong>.
+        </p>
+        <p>
+            Complétez vos informations personnelles,
+            et choisissez votre mot de passe de connexion.
+        </p>
+
+        <h2>Vos informations</h2>
+
+        {{ form(form) }}
+    </div>
+</div>
+
+{% endblock %}
