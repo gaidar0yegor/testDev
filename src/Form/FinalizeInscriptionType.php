@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -18,6 +19,10 @@ class FinalizeInscriptionType extends AbstractType
         $builder
             ->add('prenom', TextType::class)
             ->add('nom', TextType::class)
+            ->add('email', EmailType::class, [
+                'disabled' => true,
+                'label' => 'Email / Nom d\'utilisateur',
+            ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Erreur dans l\'un des deux mots de passe.',

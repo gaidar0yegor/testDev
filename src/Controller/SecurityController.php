@@ -54,7 +54,11 @@ class SecurityController extends AbstractController
         ]);
 
         if (null === $user) {
-            throw $this->createNotFoundException('Lien d\'invitation expiré ou invalide.');
+            return $this->render(
+                'utilisateurs_fo/invalid_invitation_token.html.twig',
+                [],
+                new Response('', Response::HTTP_NOT_FOUND)
+            );
         }
 
         $form = $this->createForm(FinalizeInscriptionType::class, $user);
