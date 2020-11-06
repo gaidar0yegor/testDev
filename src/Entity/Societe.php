@@ -26,7 +26,7 @@ class Societe implements HasSocieteInterface
     private $raisonSociale;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(type="string", length=45, nullable=true)
      */
     private $siret;
 

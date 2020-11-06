@@ -52,6 +52,19 @@ DATABASE_URL=mysql://USER:PASS@HOST:PORT/DBNAME
 
 Then go to <http://127.0.0.1:8000/projets>
 
+### Initialiser une société et un accès référent
+
+Lancer la commande :
+
+``` bash
+php bin/console app:init-societe-referent
+```
+
+La commande vous demandera le nom de la société et l'email du référent.
+
+Un accès sera initialisé et un lien d'invitation sera créé
+pour finaliser la création de compte du référent.
+
 ## Development
 
 ### Run unit tests
