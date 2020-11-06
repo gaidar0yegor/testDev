@@ -29,8 +29,15 @@
 		</a>
 
 		<div style="left:-65px;min-width: 7rem;list-style-type: none; position: absolute; left: -92px;" class="dropdown-menu" aria-labelledby="navbarDropdown">
-			<!-- <a class="dropdown-item" href="bo-moncompte.php">Mon Compte</a> -->
-			<a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+			<a class="dropdown-item" href="{{ path('compte_') }}">
+				<i class="fa fa-user" aria-hidden="true"></i>
+				Mon Compte
+			</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="{{ path('app_logout') }}">
+				<i class="fa fa-sign-out" aria-hidden="true"></i>
+				Déconnexion
+			</a>
 		</div>
 	</li>
 	{% endif %}

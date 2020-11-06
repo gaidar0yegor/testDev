@@ -69,13 +69,7 @@ class UtilisateursFoController extends AbstractController
      */
     public function compteUtilisateur()
     {
-        // if (!$this->getUser()) {
-        //     return $this->redirectToRoute('compte_');
-        // }
-
-        return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
-            'utilisateur' => $this->getUser(),
-        ]);
+        return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig');
     }
 
     /**
