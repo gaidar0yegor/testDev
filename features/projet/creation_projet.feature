@@ -14,9 +14,9 @@ Feature: Création de projet
         When I follow "Nouveau projet"
         Then I should be on "/infos_projet"
         When I fill in the following:
-            | projet_form[titre]    | MonProjetTest |
             | projet_form[acronyme] | MPT           |
+            | projet_form[titre]    | MonProjetTest |
         And I press "Soumettre"
         Then the url should match "/fiche/projet/"
-        And I should see "MonProjetTest" in the "h1" element
+        And I should see "MPT" in the "h1" element
         And I should see "Le projet \"MonProjetTest\" a été créé"

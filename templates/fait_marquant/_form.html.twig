@@ -1,7 +1,11 @@
+
 {{ form_start(form) }}
     {{ form_widget(form) }}
     <div class="text-center mt-5">
-        <button class="btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
-        <a href="{{ path('fiche_projet_', {id: app.request.get('projetId')}) }}">Retour au projet</a>
+        <button class="btn btn-success" style="background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); ">
+            {{ button_label|default('Sauvegarder') }}
+        </button>
     </div>
 {{ form_end(form) }}
+
+

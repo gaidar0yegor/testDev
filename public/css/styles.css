@@ -29,6 +29,11 @@ html{
     margin-left: 0;
 }
 
+.btn-success {
+    color: white; 
+    background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); 
+    border: none;
+}
 
 /**************************** NAV ************************/
 nav
@@ -70,13 +75,6 @@ nav
     text-align: right;
 }
 
-/*
-.navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: .5rem;
-    padding-left: .5rem;
-    font-weight: bold;
-}
-*/
 .bg-light 
 {
     margin-bottom: -1vh;
@@ -101,54 +99,7 @@ h1 {
     margin-top: 1em;
 }
 
-/* li, a:hover 
-{
-    background-color: #ce352c;
-} */
 
-/* h1
-{
-    
-}
-
-.présentation
-{
-    width: 76vh;
-    margin: 0 auto;
-    display: flex;
-    text-align: center;
-    font-size: xx-large;
-    padding: 10vh;
-    font-family: fantasy;
-}
-
-
-
-h1 {
-    margin-top: 2.5rem;
-    font-size: xx-large;
-    font-size: 1.2rem;
-    font-family: inherit;
-    display: flex;
-    justify-content: center;
-    text-decoration: underline;
-    color: red;
-}
-
-
-h2{
-  
-        font-size: 1.8rem;
-        margin: 83px auto;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1vh;
-    }
-
-h5{
-    display: inline-block; 
-} */
-    
 
 /**************************** FOOTER ********************************/
 footer
@@ -224,63 +175,6 @@ a button
     font-weight: bold;
 }
 
-/* ***************************************Connexion Inscription*****************************
-
-  .container {
-    width: 500px;
-    height: 400px;
-    text-align: center;
-    margin: auto;
-    background-color: #ce352c;
-    margin-top: 20%;
-    border-radius: 5px;
-    margin-bottom: 18%;
-}
-  
-  .logologin {
-    width: 150px;
-    height:150px;
-    border-radius:50%;
-    margin-top:-70px;
-    margin-bottom: 30px;
-  }
-   input {
-    height: 40px;
-    width: 300px;
-    font-size: 18px;
-    font-family: "Lato";
-    margin-bottom: 29px;
-    border-radius: 5px;
-    padding-left: 35px;
-  }
-  .form-input {
-    position: relative;
-    margin-bottom: 5%;
-}
-  .fa-lock, .fa-user {
-    position:absolute;
-    top: 8px;
-    left: 88px;
-    color:#3BA8A5;
-  }
-  
-  #submit {
-    width: 80px;
-    height: 40px;
-    padding: 5px;
-    background-color: #D6D6D6;
-    border-style: none;
-    margin-top: 30px;
-    margin-bottom: 30px
-  }
-  #submit:hover {
-    cursor: pointer;
-    background-color: #575C56;
-    color: white;
-  }
-  a {
-    color: white;
-  } */
 /*************************************** INSCRIPTION ********************************/
 .form1 {
     margin: 0 auto;
@@ -289,152 +183,3 @@ a button
     width: 70vh;
     padding-top: 0vh;
 } 
-/***************************************MAQUETTE 3***********************************/
-/* .societegerer 
-{
-    font-size: 2.5rem;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 4vh;
-    margin-top: 13vh;
-}
-
-.table {
-    width: 63%;
-    color: #212529;
-    margin: 0 auto;
-    margin-bottom: 6vh;
-    border: 2px solid darkgrey;
-
-}
-
-.btn-success
-{
-    margin: 0 auto;
-    display: flex;
-    margin-bottom: 27vh;
-
-} */
-
-/***************************************MAQUETTE 4***********************************/
-/* .col-form-label {
-    padding-top: calc(.375rem + 1px);
-    padding-bottom: calc(.375rem + 1px);
-    margin-bottom: 0;
-    font-size: inherit;
-    line-height: 1;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.form4 {
-    margin: 0 auto;
-    text-align: center;
-    height: 76vh;
-    width: 136vh;
-    padding-top: 4vh;
-}
-
-
-input[type=submit]{
-    width: 11vh;
-} */
-/* *header h1
-{
-    display: flex;
-    justify-content: center;
-    
-}
-
-
-    #form-outer
-    {
-        background-color: rgb(250, 250, 250);
-        margin:0 auto;
-        border-radius: 6px;
-        width: 75%;
-        max-width: 900px;
-        padding: 10px;
-        padding-top: 30px;
-    }
-    .labels
-    {
-        display: inline-block;
-        text-align: right;
-        width: 40%;
-        padding: 5px;
-        vertical-align: top;
-        margin-top: 10px;
-    }
-    .rightTab
-    {
-        display: inline-block;
-        text-align: left;
-        width: 48%;
-        vertical-align: middle;
-    }
-    .input-field
-    {
-        height: 20px;
-        width: 280px;
-        padding: 5px;
-        margin:10px;
-        border: 1px solid #c0c0c0;
-        border-radius: 2px;
-    }
-    #userAge
-    {
-        width: 40px;
-    }
-    .userRatings, input[type="checkbox"] 
-    {
-        float: left;
-        margin-right: 5px;
-    }   
-    #submit {
-        background-color: #59ace0;
-        border-radius: 4px;
-        color: white;
-        font-size: 1em;
-        height: 30px;
-        width: 105px;
-        margin: 1px;
-        border: 0px solid;
-    }
-
-    .societegerer1 {
-        font-size: 1.8rem;
-        margin: 83px auto;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 1vh;
-    } **/
-
-/*************************************************** MAQUETTE 6 ********************************************/
-/* 
-.form6 {
-    margin: 0 auto;
-    text-align: center;
-    border: 2px solid black;
-    height: 79vh;
-    width: 150vh;
-    padding-top: 4vh;
-} */
-
-
-    /************************************************** MAQUETTE 7 **********************************************/
-
-
-    /************************************************** MAQUETTE 8 *******************************************/
-
-/* .form8 {
-        margin: 0 auto;
-        text-align: center;
-        min-height: 45vh;
-        width: 136vh;
-        background-color: antiquewhite;
-        padding-top: 4vh;
-    } */
-    
-       /************************************************** TIMELINE *******************************************/

@@ -3,12 +3,12 @@
 {% block title %}Ajouter un fait marquant{% endblock %}
 
 {% block body %}
-<style>
-    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-</style>
+
 
 <h1>Ajouter un fait marquant</h1>
 
     {{ include('fait_marquant/_form.html.twig') }}
+
+    <a href="{{ path('fiche_projet_', {id: app.request.get('projetId')}) }}" class="btn btn-danger">Retour au projet</a>
 
 {% endblock %}
