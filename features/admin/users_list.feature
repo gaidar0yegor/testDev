@@ -1,7 +1,7 @@
 Feature: Liste des utilisateurs visible par le référent.
 
     Background:
-        Given I have loaded fixtures from "admin/users_list.yml"
+        Given I have loaded fixtures from "admin/users.yml"
 
         Given I am on "/connexion"
         When I fill in the following:

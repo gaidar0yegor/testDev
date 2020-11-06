@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 class UtilisateursFoController extends AbstractController
 {
     /**
-     * @Route("/utilisateurs/fo", name="utilisateurs_fo_")
+     * @Route("/utilisateurs", name="utilisateurs_fo_")
      */
     public function listerUtilisateurs(UserRepository $ur)
     {
@@ -59,44 +59,53 @@ class UtilisateursFoController extends AbstractController
             return $this->redirectToRoute('fo_user_invite');
         }
 
-        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [
+        return $this->render('utilisateurs_fo/invite_user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/utilisateurs/fo/compte", name="compte_")
+     * @Route("/utilisateurs/{id}", name="users_fo_user")
      */
-    public function compteUtilisateur()
+    public function compteUtilisateur(User $user)
     {
-        return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig');
-    }
+        $this->denyAccessUnlessGranted('same_societe', $user);
 
-    /**
-     * @Route("/utilisateur/fo/modifier/{id}", name="utilisateur_fo_modifier_", requirements={"id"="\d+"})
-     */
-    public function modifier(Request $rq, EntityManagerInterface $em, UserRepository $ur, $id)
-    {
-        return new Response('', Response::HTTP_NOT_IMPLEMENTED);
-
-        $utilisateurAmodifier = $ur->find($id);
-        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAmodifier);
-        $formUtilisateur->handleRequest($rq);
-        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-            // $em->persist($UtilisateurAmodifier);
-            $em->flush();
-            // $this->addFlash("success", "Les informations de l'Utilisateur ont été modifiées");
-            return $this->redirectToRoute("utilisateurs_fo_");
-        }
-        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
-            "form" => $formUtilisateur->createView(), 
-            "bouton" => "Modifier",
-            "titre" => "Modification de l'utilisateur n°$id" 
+        return $this->render('utilisateurs_fo/view_user.html.twig', [
+            'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/utilisateur/fo/supprimer/{id}", name="utilisateur_fo_supprimer_", requirements={"id"="\d+"})
+     * @Route("/utilisateurs/{id}/modifier", name="utilisateur_fo_modifier_")
+     */
+    public function modifier(Request $request, User $user, EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('same_societe', $user);
+
+        $form = $this->createForm(UtilisateursFormType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Les informations de l\'utilisateur ont été modifiées');
+
+            return $this->redirectToRoute('users_fo_user', [
+                'id' => $user->getId(),
+            ]);
+        }
+
+        return $this->render('utilisateurs_fo/edit_user.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/fo/supprimer/{id}", name="utilisateur_fo_supprimer_")
      */
     public function supprimer(Request $rq, EntityManagerInterface $em, UserRepository $ur, $id)
     {

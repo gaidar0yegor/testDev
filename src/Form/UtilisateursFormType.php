@@ -25,10 +25,9 @@ class UtilisateursFormType extends AbstractType
         ->add('prenom', TextType::class, [
             'label' => 'Prénom',
         ])
-        // ->add('telephone', Numbertype::class, [
-        //     'label' => 'Mobile',
-        //     'required' => false,
-        // ])
+        ->add('telephone', TextType::class, [
+            'required' => false,
+        ])
         ->add('email', EmailType::class, [
             'label' => 'Email',
         ])
@@ -40,10 +39,7 @@ class UtilisateursFormType extends AbstractType
             ],
         ])
         ->add('ajouter', SubmitType::class, [
-            'label' => 'Ajouter',
-            'attr' => [
-                'class' => 'mt-5 btn btn-success'
-            ]            
+            'label' => 'Mettre à jour',
         ]);
     }
 
