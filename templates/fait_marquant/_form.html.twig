@@ -1,4 +1,7 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+    <div class="text-center mt-5">
+        <button class="btn btn-success">{{ button_label|default('Sauvegarder') }}</button>
+        <a href="{{ path('fiche_projet_', {id: app.request.get('projetId')}) }}">Retour au projet</a>
+    </div>
 {{ form_end(form) }}
