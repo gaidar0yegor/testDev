@@ -10,6 +10,7 @@ App\Entity\User:
         nom: Eureka
         prenom: Utilisateur
         email: user@societe.dev
+        password: user
         roles: [ROLE_FO_USER]
         societe: '@societe'
     user_autre_societe:
