@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur serveur | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>
+    Erreur serveur
+</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p>
+            Oups, il semblerait qu'il y ait un bug de notre côté.
+
+            Vous pouvez soit revenir à la page précédente, soit
+            <a href="{{ app.request.schemeAndHttpHost }}">revenir sur la page d'accueil</a>.
+        </p>
+    </div>
+</div>
+
+{% endblock %}
