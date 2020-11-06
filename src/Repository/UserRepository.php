@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Societe;
 use App\Entity\User;
+use App\HasSocieteInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -28,5 +29,12 @@ class UserRepository extends ServiceEntityRepository
             ->where('user.societe = :societe')
             ->setParameter('societe', $societe)
         ;
+    }
+
+    public function findBySameSociete(HasSocieteInterface $entity)
+    {
+        return $this->findBy([
+            'societe' => $entity->getSociete(),
+        ]);
     }
 }

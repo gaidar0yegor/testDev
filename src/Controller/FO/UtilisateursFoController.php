@@ -25,9 +25,8 @@ class UtilisateursFoController extends AbstractController
      */
     public function listerUtilisateurs(UserRepository $ur)
     {
-        $liste_utilisateurs = $ur->findAll();
         return $this->render('utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
-            'liste_utilisateurs' => $liste_utilisateurs,
+            'users' => $ur->findBySameSociete($this->getUser()),
         ]);
     }
 
