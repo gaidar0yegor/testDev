@@ -22,7 +22,7 @@
     </thead>
     <tbody>
         {% for user in users %}
-            <tr>
+            <tr class="{{ user.enabled ? '' : 'text-muted' }}">
                 <td class="text-center">{{ user.nom }}</td>
                 <td class="text-center">{{ user.prenom }}</td>
                 <td class="text-center d-none d-md-table-cell">{{ user.email }}</td>
@@ -33,9 +33,6 @@
                     </a>
                     <a href="{{ path('utilisateur_fo_modifier_', { 'id': user.id }) }}">
                         <i class="fa fa-lg fa-edit"></i>
-                    </a>
-                    <a href="{{ path('utilisateur_fo_supprimer_', { 'id': user.id }) }}">
-                        <i class="fa fa-lg fa-trash"></i>
                     </a>
                 </td>
             </tr>

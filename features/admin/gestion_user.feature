@@ -35,3 +35,19 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         When I go to "/utilisateurs/3/modifier"
         Then the response status code should be 403
         And I should not see "AutreSociete"
+
+    Scenario: Le référent peut désactiver et réactiver un utilisateur
+        When I click on the 1st "[href='/utilisateurs/2']" element
+        Then I should see "Activé" in the ".badge" element
+
+        When I press "Désactiver"
+        Then I should see "Utilisateur Eureka a été désactivé, il ne pourra plus se connecter"
+        And I should see "Désactivé" in the ".badge" element
+
+        When I press "Ré-activer"
+        Then I should see "Utilisateur Eureka a été activé, il pourra se connecter de nouveau"
+        And I should see "Activé" in the ".badge" element
+
+    Scenario: Le référent ne peut pas désactiver les utilisateurs des autres société
+        When I send a POST request to "/utilisateurs/3/desactiver"
+        Then the response status code should be 403

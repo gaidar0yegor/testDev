@@ -18,8 +18,13 @@
                 cette page n'existe pas.
             {% elseif 403 == error.statusCode %}
                 vous n'ayez pas accès à cette page.
+            {% elseif 409 == error.statusCode %}
+                cette action soit impossible dans l'état actuel.
+            {% else %}
+                vous ayez tenté une action impossible.
             {% endif %}
-
+        </p>
+        <p>
             Vous pouvez soit revenir à la page précédente, soit
             <a href="{{ app.request.schemeAndHttpHost }}">revenir sur la page d'accueil</a>.
         </p>

@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**
  * @IsGranted("ROLE_FO_ADMIN")
@@ -105,25 +106,62 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateur/fo/supprimer/{id}", name="utilisateur_fo_supprimer_")
+     * @Route(
+     *      "/utilisateurs/{id}/desactiver",
+     *      name="utilisateur_fo_disable",
+     *      methods={"POST"}
+     * )
      */
-    public function supprimer(Request $rq, EntityManagerInterface $em, UserRepository $ur, $id)
+    public function disable(Request $request, User $user, EntityManagerInterface $em)
     {
-        return new Response('', Response::HTTP_NOT_IMPLEMENTED);
+        $this->denyAccessUnlessGranted('same_societe', $user);
 
-        $utilisateurAsupprimer = $ur->find($id);
-        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
-        $formUtilisateur->handleRequest($rq);
-        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-            $em->remove($utilisateurAsupprimer);
-            $em->flush();
-            $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
-            return $this->redirectToRoute("utilisateurs_fo_");
+        if (!$user->getEnabled()) {
+            throw new ConflictHttpException('Cet utilisateur a déjà été désactivé.');
         }
-        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
-            "form" => $formUtilisateur->createView(), 
-            "bouton" => "Confirmer",
-            "titre" => "Suppression de l'utilisateur n°$id" 
+
+        $user->setEnabled(false);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('warning', sprintf(
+            'L\'utilisateur %s a été désactivé, il ne pourra plus se connecter.',
+            $user->getFullname()
+        ));
+
+        return $this->redirectToRoute('users_fo_user', [
+            'id' => $user->getId(),
+        ]);
+    }
+
+    /**
+     * @Route(
+     *      "/utilisateurs/{id}/activer",
+     *      name="utilisateur_fo_enable",
+     *      methods={"POST"}
+     * )
+     */
+    public function enable(Request $request, User $user, EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('same_societe', $user);
+
+        if ($user->getEnabled()) {
+            throw new ConflictHttpException('Cet utilisateur est déjà activé.');
+        }
+
+        $user->setEnabled(true);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('success', sprintf(
+            'L\'utilisateur %s a été activé, il pourra se connecter de nouveau.',
+            $user->getFullname()
+        ));
+
+        return $this->redirectToRoute('users_fo_user', [
+            'id' => $user->getId(),
         ]);
     }
 }

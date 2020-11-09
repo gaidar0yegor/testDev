@@ -6,6 +6,14 @@ App\Entity\User:
         password: user
         roles: [ROLE_FO_USER]
         societe: '@societe'
+    user_desactive:
+        enabled: false
+        nom: Eureka
+        prenom: User Désactivé
+        email: user-desactive@societe.dev
+        password: user-desactive
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
 
 App\Entity\Societe:
     societe:

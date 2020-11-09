@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Security;
+namespace App\Security\Voter;
 
 use App\Exception\RdiException;
 use App\HasSocieteInterface;
