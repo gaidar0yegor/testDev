@@ -1,113 +1,78 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+{% extends "base_html.html.twig" %}
 
-        <title>RDI Manager | Connexion</title>
+{% block stylesheets %}
+    <style>
+    body {overflow-y: hidden; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); color: white; }
 
-        {% block stylesheets %}
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-            <link rel="stylesheet" href="css/styles.css">
-            <link rel="stylesheet" href="css/menu-horizontal-front.css">
-            <link rel="stylesheet" href="css/popup.css">
-            <link rel="stylesheet" href="css/all.css">
+    section {height: 837px; display: flex; justify-content: center; }
 
-            {# <link rel="stylesheet" href="css/styles-old.css"> #}
-            <style>
-            body {overflow-y: hidden; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); color: white; }
-    
-            section {height: 837px; display: flex; justify-content: center; }
-    
-            .connexion { position: absolute; top: 13%; left: 10%; }
-            .img-logo {position: relative; left: 6%; margin-bottom: 12px; }
-            .logofooter1 { height: 15vh; width: 15vh; border-radius: 148%; margin-top: 13px; padding-left: 0vh; margin-left: 30px;margin-right: 6px; }
-    
-            /* form {border: 2px solid black; border-radius: 1em; min-height: 39vh; } */
-            .form-group {position: relative; left: 6%; }
-            .forget_mdp, .new_compte {text-align: center; margin: 5px; }
-            a:hover {background: none; color: white; text-decoration: white; }
-    
-            .presentation {position: absolute; left: 33%; top: 15%; }
-            .text {width: 576px; text-align: justify; position: absolute; top: 116px; left: 40px; }
-    
-            @media screen and (max-width: 1012px) {
-                body {overflow-x: hidden; }
-                .connexion {position: relative; left: -1%; }
-                .img-logo {position: relative; left: 10%; }
-                .presentation { display: none; text-decoration: none;  }
-                .cd-popup-container .cd-buttons li:first-child a {background: #ce352c; }
-                .cd-popup-container .cd-buttons li:last-child a {background: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
-            }
-            </style>
-        {% endblock %}
-    </head>
-    <body>
+    .connexion { position: absolute; top: 13%; left: 10%; }
+    .img-logo {position: relative; left: 6%; margin-bottom: 12px; }
+    .logofooter1 { height: 15vh; width: 15vh; border-radius: 148%; margin-top: 13px; padding-left: 0vh; margin-left: 30px;margin-right: 6px; }
 
-        {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+    /* form {border: 2px solid black; border-radius: 1em; min-height: 39vh; } */
+    .form-group {position: relative; left: 6%; }
+    .forget_mdp, .new_compte {text-align: center; margin: 5px; }
+    a:hover {background: none; color: white; text-decoration: white; }
 
-        <section>
-            <div class="connexion">
-                <div class="img-logo">
-                    <img class="logofooter1" style="font-size: 2em;" src="img/logosign.png" alt="">
-                </div>
-                <form action="" method="post">
-                    <div class="form-group row">
-                        <label for="identifiant" class="col-sm-2 col-form-label">Identifiant</label>
-                    </div>
-                    <div class="col-md-12 mb-4">
-                        <input type="text" name="_username" class="form-control" id="identifiant" value="{{ last_username }}" required autofocus>
-                    </div>
-                    <div class="form-group row">
-                        <label for="password" class="col-sm-6 col-form-label">Mot de passe</label>
-                    </div>
-                    <div class="col-md-12">
-                      <input type="password" name="_password" class="form-control" id="password" required>
-                    </div>
+    .presentation {position: absolute; left: 33%; top: 15%; }
+    .text {width: 576px; text-align: justify; position: absolute; top: 116px; left: 40px; }
 
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+    @media screen and (max-width: 1012px) {
+        body {overflow-x: hidden; }
+        .connexion {position: relative; left: -1%; }
+        .img-logo {position: relative; left: 10%; }
+        .presentation { display: none; text-decoration: none;  }
+        .cd-popup-container .cd-buttons li:first-child a {background: #ce352c; }
+        .cd-popup-container .cd-buttons li:last-child a {background: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
+    }
+    </style>
+{% endblock %}
 
-                    <div class="forget_mdp mt-4">
-                        <span style="color: white;" class="cd-popup-trigger"><a href="#0">Mot de passe oublié ?</a></span>
-                    </div>
+{% block base_body %}
 
-                    <div class="connect text-center mt-4">
-                        <input type="submit" class="btn btn-success" value="Connexion">
-                    </div>
-                </form>
+{% if error %}
+    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<section>
+    <div class="connexion">
+        <div class="img-logo">
+            <img class="logofooter1" style="font-size: 2em;" src="img/logosign.png" alt="">
+        </div>
+        <form action="" method="post">
+            <div class="form-group row">
+                <label for="identifiant" class="col-sm-2 col-form-label">Identifiant</label>
+            </div>
+            <div class="col-md-12 mb-4">
+                <input type="text" name="_username" class="form-control" id="identifiant" value="{{ last_username }}" required autofocus>
+            </div>
+            <div class="form-group row">
+                <label for="password" class="col-sm-6 col-form-label">Mot de passe</label>
+            </div>
+            <div class="col-md-12">
+                <input type="password" name="_password" class="form-control" id="password" required>
             </div>
 
-            <div class="presentation">
-                <h1 class="display-4"><img src="img/Logo-RDI-blanc.png"></h1>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                <div class="text" style="margin-top: 30px; margin-left: 30">
-                    <p>RDI Manager est une plateforme qui permet de simplifier le suivi des projets de recherche, développement et innovation. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem fugiat numquam ducimus, consectetur sed nobis fugit magnam non quisquam quasi? Cumque amet ducimus sunt veritatis optio architecto odio impedit nihil.
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore ad cupiditate, doloremque maxime quas suscipit iure dignissimos, nobis veritatis debitis labore quis, aliquam ex ut harum eveniet quaerat quia at?
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident temporibus in reiciendis, magni omnis accusantium aperiam itaque voluptatum quis tempore numquam, optio ducimus harum saepe ipsam nulla repudiandae culpa sequi?</p>
-                </div>
+            <div class="connect text-center mt-4">
+                <input type="submit" class="btn btn-success" value="Connexion">
             </div>
+        </form>
+    </div>
 
-            <div class="cd-popup" role="alert">
-	            <div class="cd-popup-container" style="top: 18%;">
-                    <h2 class="mt-4" style="color: black;">Mot de passe oublié</h2>
-                    <p style="color: black;">Pour réinitialiser votre mot de passe, veuillez entrer votre adresse e-mail ci-dessous</p>
+    <div class="presentation">
+        <h1 class="display-4"><img src="img/Logo-RDI-blanc.png"></h1>
 
-                    <div class="col-md text-center">
-                        <input type="email" class="form-control" id="email" placeholder="fvuadiambo@eurekaci.com" required>
-                    </div>
+        <div class="text" style="margin-top: 30px; margin-left: 30">
+            <p>RDI Manager est une plateforme qui permet de simplifier le suivi des projets de recherche, développement et innovation. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quidem fugiat numquam ducimus, consectetur sed nobis fugit magnam non quisquam quasi? Cumque amet ducimus sunt veritatis optio architecto odio impedit nihil.
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolore ad cupiditate, doloremque maxime quas suscipit iure dignissimos, nobis veritatis debitis labore quis, aliquam ex ut harum eveniet quaerat quia at?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident temporibus in reiciendis, magni omnis accusantium aperiam itaque voluptatum quis tempore numquam, optio ducimus harum saepe ipsam nulla repudiandae culpa sequi?</p>
+        </div>
+    </div>
+</section>
 
-                    <div class="connect text-center mt-4">
-                        <a href="{{ path("app_login") }}"><input type="submit" class="btn btn-success" value="Envoyer"></a>
-                    </div>
+{% include('_footer.html.twig') %}
 
-	                <a href="#0" class="cd-popup-close img-replace">Close</a>
-                </div>
-            </div>
-
-        </section>
-
-        {% include "footer.html.twig" %}
-    </body>
-</html>
+{% endblock %}

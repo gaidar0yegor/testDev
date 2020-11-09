@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>{% block title %}RDI Manager{% endblock %}</title>
+
+		<link rel="stylesheet" href="{{ asset('dependences/bootstrap-4.5.0.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('dependences/font-awesome/css/font-awesome.min.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/menu-horizontal-front.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/popup.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/timeline.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+
+		{% block stylesheets %}
+		{% endblock %}
+	</head>
+	<body>
+		{% block base_body %}
+		{% endblock %}
+
+		<script src="{{ asset('dependences/jquery-3.5.1.min.js') }}"></script>
+		<script src="{{ asset('dependences/bootstrap-4.5.0.min.js') }}"></script>
+		<script src="{{ asset('js/EmbedForm.js') }}"></script>
+
+    	{% block javascripts %}
+		{% endblock %}
+	</body>
+</html>
