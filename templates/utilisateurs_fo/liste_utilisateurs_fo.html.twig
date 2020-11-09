@@ -1,32 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des utilisateurs{% endblock %}
+{% block title %}Liste des utilisateurs | {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .table thead th {background-color: #ce352c; color: white; }
-    tr, td {background-color: #e6e6e6; }
-</style>
+<h1>Liste des utilisateurs</h1>
 
-<h1 class="text-center m-4" style="color: #ce352c;">Liste des utilisateurs</h1>
-
-<table class="table text-center mx-auto"  style="max-width: 80%;">
+<table class="table text-center">
     <thead>
-        <tr class="table">
-            <th class="text-center">Nom</th>
-            <th class="text-center">Prénom</th>
-            <th class="text-center d-none d-md-table-cell">Email</th>
-            <th class="text-center">Nb projets</th>
+        <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th class="d-none d-md-table-cell">Email</th>
+            <th>Nb projets</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
         {% for user in users %}
             <tr class="{{ user.enabled ? '' : 'text-muted' }}">
-                <td class="text-center">{{ user.nom }}</td>
-                <td class="text-center">{{ user.prenom }}</td>
-                <td class="text-center d-none d-md-table-cell">{{ user.email }}</td>
-                <td class="text-center">{{ user.projetParticipants|length }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td class=" d-none d-md-table-cell">{{ user.email }}</td>
+                <td>{{ user.projetParticipants|length }}</td>
                 <td class="flex justify-content-around">
                     <a href="{{ path('users_fo_user', { 'id': user.id }) }}">
                         <i class="fa fa-lg fa-eye"></i>
@@ -41,20 +36,3 @@
 </table>
 
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-    {# <h1>Hello {{ controller_name }}! ✅</h1> #}
-    {# This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/src/Controller/UtilisateursFoController.php'|file_link(0) }}">src/Controller/UtilisateursFoController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/ZeRdiManager/rdi_manager_01/templates/utilisateurs_fo/index.html.twig'|file_link(0) }}">templates/utilisateurs_fo/index.html.twig</a></code></li>
-    </ul> #}

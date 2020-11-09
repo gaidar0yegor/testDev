@@ -1,21 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edition du projet {{ projet.titre }}{% endblock %}
+{% block title %}Edition du projet {{ projet.titre }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    #users div{margin-bottom: 30px; }
-    .btn-success{color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-    .form-group.row {justify-content: space-around; }
-    input#projet_form_projet_collaboratif {position: relative; left: -104.56%; }
-    input#projet_form_projet_ppp {position: relative; left: -103.95%; }
-    input#projet_form_projet_interne {position: relative; left: -104%; }
-</style>
 
-<div class="col-lg-6 mx-auto">
-    <h1>Edition du projet {{ projet.titre }}</h1>
+<h1>Edition du projet {{ projet.titre }}</h1>
 
-    {{ form(form) }}
-</div>
+{{ form(form) }}
 
 {% endblock %}

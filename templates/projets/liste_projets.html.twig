@@ -3,15 +3,6 @@
 {% block title %}Liste des projets{% endblock %}
 
 {% block body %}
-<style>
-    .title {display: flex; justify-content: space-between; }
-    .select {display: flex; align-items: center; }
-    a:hover {text-decoration: none; color: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
-    td a {color: black; }
-    .table thead th {background-color: #ce352c; color: white; }
-    tr, td {background-color: #e6e6e6; }
-</style>
-
     <h1>Mes projets de l'année</h1>
 
     <table class="table  text-center mx-auto m-5">
@@ -48,22 +39,4 @@
             {% endif %}
         ></a>
     </div>
-
-
-{% endblock %}
-
-{% block javascripts %}
-    <script type="text/javascript">
-        $('#dropdownYear').each(function() {
-            var year = (new Date()).getFullYear();
-            var current = year;
-            // year += 4;
-            for (var i = 0; i < 5; i++) {
-            if ((year+i) == current)
-                $(this).append('<option selected value="' + (year - i) + '">' + (year - i) + '</option>');
-            else
-                $(this).append('<option value="' + (year - i) + '">' + (year - i) + '</option>');
-            }
-        })
-    </script>
 {% endblock %}

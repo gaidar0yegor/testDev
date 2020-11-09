@@ -29,10 +29,29 @@ html{
     margin-left: 0;
 }
 
-.btn-success {
+.btn-rdi {
     color: white; 
     background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); 
     border: none;
+}
+
+table thead tr {
+    background-color: #ce352c;
+    color: white;
+}
+table tbody tr {
+    background-color: #e6e6e6;
+}
+table tbody a {
+    color: black;
+}
+
+.facts {
+    border-radius: 2em;
+    background-color: #ce352c;
+    color: white;
+    padding: 0.25em 0 0.15em 0;
+    margin-top: 1em;
 }
 
 /**************************** NAV ************************/
@@ -145,8 +164,7 @@ a button
     display: flex;
     justify-content: space-around;
 }
-.btn-jour,
-.btn-block + .btn-block {
+.btn-jour {
     position: relative;
     margin: 0.2em;
     padding: 0.4em;
@@ -159,8 +177,7 @@ a button
     bottom: 0;
 }
 @media (min-width: 575px) {
-    .btn-jour,
-    .btn-block + .btn-block {
+    .btn-jour {
         margin: 0.2em;
         padding: 0.2em 0.4em 0.6em 0.4em;
         text-align: right;

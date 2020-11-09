@@ -2,52 +2,28 @@
 
 
 {% block body %}
-<style>
-	#users div{margin-bottom: 30px; }
-	
-    .btn-success{color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-	.form-group.row {justify-content: space-around; }
-</style>
 
-<div class="container">
-	<div class="col-lg-6 mx-auto">
+<h1>Ajouter un nouvel utilisateur</h1>
 
-	{% block h1 %}
-	    {% if titre is defined %}
-	        <h1 class="text-center mt-4 mb-4" style="color: #ce352c;"> {{ titre }} </h1>
-	    {% else %}
-			<h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter un nouvel utilisateur</h1>
-		    <h4 class="mb-4">Saisir les informations</h4>    
-		{% endif %}
-	{% endblock h1 %}
-		
-        {% for message in app.flashes('info') %}
-			<div class="alert alert-success text-center">
-				{{ message }}
-			</div>
-		{% endfor %}
+<h4 class="mb-4">Saisir les informations</h4>
 
+{{ form_start(form) }}
 
-		{{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form.prenom) }}
+    {# {{ form_row(form.telephone) }} #}
+    {{ form_row(form.email) }}
+    {{ form_row(form.role) }}
+    {{ form_row(form.statuts_utilisateur) }}
 
-            {{ form_row(form.nom) }}
-			{{ form_row(form.prenom) }}
-			{# {{ form_row(form.telephone) }} #}
-			{{ form_row(form.email) }}
-			{{ form_row(form.role) }}
-			{{ form_row(form.statuts_utilisateur) }}
+    <div class="form-group row">
+        <div class="form-group mt-5">
+            <a href="" class="btn btn-danger">Annuler</a>
+        </div>
+        {{ form_row(form.ajouter, { 'label' : bouton }) }}
+    </div>
 
-            <div class="form-group row">
-			    <div class="form-group mt-5">
-			        <a href="" class="btn btn-danger">Annuler</a>
-			    </div>
-			    {{ form_row(form.ajouter, { 'label' : bouton }) }}
-			</div>
-
-		{{ form_end(form) }}
-
-	</div>
-</div>
+{{ form_end(form) }}
 
 {% endblock %}
 
