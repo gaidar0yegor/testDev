@@ -4,6 +4,7 @@ default:
             contexts:
                 - App\Tests\Behat\RdiContext
                 - behatch:context:browser
+                - behatch:context:rest
                 - behatch:context:table
                 - behatch:context:debug:
                     screenshotDir: var

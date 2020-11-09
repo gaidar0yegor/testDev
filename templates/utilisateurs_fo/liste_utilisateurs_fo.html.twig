@@ -4,56 +4,41 @@
 
 {% block body %}
 <style>
-    .img_logo {position: absolute; left: 4%; top: 8%; }
-    .img_logo img {height: 50px; }
-    .container {margin-top: 40px; }
     .table thead th {background-color: #ce352c; color: white; }
     tr, td {background-color: #e6e6e6; }
-    .edit-delete1 {position: absolute; top: 42%; left: 83%; }
-    .edit-delete2 {position: absolute; top: 38%; left: 83%; }
-    .new_user {text-align: center; }
-    .edit-delete1, .edit-delete2 {display: flex; }
-    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
 </style>
 
-<div class="container">
-    <h1 class="text-center m-4" style="color: #ce352c;">Liste des utilisateurs</h1>
-    {# <p class="text-end mt-4 mb-4">Licences disponibles : <span>03</span></p> #}
+<h1 class="text-center m-4" style="color: #ce352c;">Liste des utilisateurs</h1>
 
-    <table class="table text-center mx-auto m-5"  style="max-width: 80%;">
-        <thead>
-            <tr class="table table-secondary">
-                <th scope="col" class="text-center">N°</th>
-                <th scope="col" class="text-center">Nom</th>
-                <th scope="col" class="text-center">Prénom</th>
-                <th scope="col" class="text-center">Email</th>
-                <th scope="col" class="text-center">Nb projets</th>
+<table class="table text-center mx-auto"  style="max-width: 80%;">
+    <thead>
+        <tr class="table">
+            <th class="text-center">Nom</th>
+            <th class="text-center">Prénom</th>
+            <th class="text-center d-none d-md-table-cell">Email</th>
+            <th class="text-center">Nb projets</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr class="{{ user.enabled ? '' : 'text-muted' }}">
+                <td class="text-center">{{ user.nom }}</td>
+                <td class="text-center">{{ user.prenom }}</td>
+                <td class="text-center d-none d-md-table-cell">{{ user.email }}</td>
+                <td class="text-center">{{ user.projetParticipants|length }}</td>
+                <td class="flex justify-content-around">
+                    <a href="{{ path('users_fo_user', { 'id': user.id }) }}">
+                        <i class="fa fa-lg fa-eye"></i>
+                    </a>
+                    <a href="{{ path('utilisateur_fo_modifier_', { 'id': user.id }) }}">
+                        <i class="fa fa-lg fa-edit"></i>
+                    </a>
+                </td>
             </tr>
-        </thead>
-        {% for utilisateur in liste_utilisateurs %}
-            <tbody>
-                <tr>
-                    <td class="text-center">{{ utilisateur.id }}</td>     
-                    <td class="text-center">{{ utilisateur.nom }}</td>      
-                    <td class="text-center">{{ utilisateur.prenom }}</td>      
-                    <td class="text-center">{{ utilisateur.email }}</td>      
-                    <td class="text-center">{{ utilisateur.projetParticipants|length }}</td>
-                    <td style="background: white; border: white;">
-                        <a href="{{ path('utilisateur_fo_modifier_', { id: utilisateur.id }) }}">
-                            <i class="fa fa-edit"></i>
-                        </a>
-                    </td> 
-                    <td style="background: white; border: white;">
-                        <a href="{#{ path('utilisateur_fo_supprimer_', { id: utilisateur.id }) }#}">
-                            <i class="fa fa-trash"></i>
-                        </a>                   
-                    </td>
-                </tr>
-            </tbody>
         {% endfor %}
-    </table>
-    
-</div>
+    </tbody>
+</table>
 
 {% endblock %}
 

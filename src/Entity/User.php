@@ -68,14 +68,11 @@ class User implements UserInterface, HasSocieteInterface
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * Si cet utilisateur est activé, et peux se connecter.
+     *
+     * @ORM\Column(type="boolean")
      */
-    private $deletedAt;
-
-    /**
-     * @ORM\Column(type="string", length=45, nullable=true)
-     */
-    private $deletedBy;
+    private $enabled;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
@@ -122,6 +119,7 @@ class User implements UserInterface, HasSocieteInterface
 
     public function __construct()
     {
+        $this->enabled = true;
         $this->tempsPasses = new ArrayCollection();
         $this->projetParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
@@ -297,26 +295,14 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getDeletedAt(): ?\DateTimeInterface
+    public function getEnabled(): bool
     {
-        return $this->deletedAt;
+        return $this->enabled;
     }
 
-    public function setDeletedAt(?\DateTimeInterface $deletedAt): self
+    public function setEnabled(bool $enabled): self
     {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    public function getDeletedBy(): ?string
-    {
-        return $this->deletedBy;
-    }
-
-    public function setDeletedBy(?string $deletedBy): self
-    {
-        $this->deletedBy = $deletedBy;
+        $this->enabled = $enabled;
 
         return $this;
     }

@@ -38,6 +38,8 @@ security:
                 # where to redirect after logout
                 # target: app_any_route
 
+            user_checker: App\Security\RdiUserChecker
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 

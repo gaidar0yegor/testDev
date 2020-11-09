@@ -26,3 +26,14 @@ Feature: Page de connexion
         Then I should be on "/connexion"
         And I should not see "Bienvenue"
         And I should not see "User Eureka"
+
+    Scenario: Je ne peux pas me connecter si mon compte a été désactivé par l'administrateur
+        Given I have loaded fixtures from "connexion/fixtures.yml"
+        And I am on "/connexion"
+        When I fill in the following:
+            | _username | user-desactive@societe.dev     |
+            | _password | user-desactive |
+        And I press "Connexion"
+        Then I should be on "/connexion"
+        And I should not see "Bienvenue"
+        And I should see "Le compte est désactivé"

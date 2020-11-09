@@ -2,7 +2,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
     dans sa société en les invitant par leur email.
 
     Background:
-        Given I have loaded fixtures from "admin/invite.yml"
+        Given I have loaded fixtures from "admin/invitation/invite.yml"
 
     Scenario: L'admin peut inviter un utilisateur avec son email et un rôle.
         Given I am on "/connexion"

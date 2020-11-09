@@ -1,0 +1,35 @@
+App\Entity\User:
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: admin
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
+    user:
+        nom: Eureka
+        prenom: Utilisateur
+        email: user@societe.dev
+        password: user
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    user_autre_societe:
+        nom: AutreSociete
+        prenom: Utilisateur
+        email: autre-user@societe.dev
+        roles: [ROLE_FO_USER]
+        societe: '@societe2'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: SociétéTest
+        siret: 111111111
+        statut: '@societe_active'
+    societe2:
+        raisonSociale: AutreSociété
+        siret: 222222222
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée

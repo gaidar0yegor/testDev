@@ -14,6 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**
  * @IsGranted("ROLE_FO_ADMIN")
@@ -21,13 +22,12 @@ use Symfony\Component\HttpFoundation\Response;
 class UtilisateursFoController extends AbstractController
 {
     /**
-     * @Route("/utilisateurs/fo", name="utilisateurs_fo_")
+     * @Route("/utilisateurs", name="utilisateurs_fo_")
      */
     public function listerUtilisateurs(UserRepository $ur)
     {
-        $liste_utilisateurs = $ur->findAll();
         return $this->render('utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
-            'liste_utilisateurs' => $liste_utilisateurs,
+            'users' => $ur->findBySameSociete($this->getUser()),
         ]);
     }
 
@@ -60,68 +60,108 @@ class UtilisateursFoController extends AbstractController
             return $this->redirectToRoute('fo_user_invite');
         }
 
-        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [
+        return $this->render('utilisateurs_fo/invite_user.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/utilisateurs/fo/compte", name="compte_")
+     * @Route("/utilisateurs/{id}", name="users_fo_user")
      */
-    public function compteUtilisateur()
+    public function compteUtilisateur(User $user)
     {
-        // if (!$this->getUser()) {
-        //     return $this->redirectToRoute('compte_');
-        // }
+        $this->denyAccessUnlessGranted('same_societe', $user);
 
-        return $this->render('utilisateurs_fo/compte_utilisateurs_fo.html.twig', [
-            'utilisateur' => $this->getUser(),
+        return $this->render('utilisateurs_fo/view_user.html.twig', [
+            'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/utilisateur/fo/modifier/{id}", name="utilisateur_fo_modifier_", requirements={"id"="\d+"})
+     * @Route("/utilisateurs/{id}/modifier", name="utilisateur_fo_modifier_")
      */
-    public function modifier(Request $rq, EntityManagerInterface $em, UserRepository $ur, $id)
+    public function modifier(Request $request, User $user, EntityManagerInterface $em)
     {
-        return new Response('', Response::HTTP_NOT_IMPLEMENTED);
+        $this->denyAccessUnlessGranted('same_societe', $user);
 
-        $utilisateurAmodifier = $ur->find($id);
-        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAmodifier);
-        $formUtilisateur->handleRequest($rq);
-        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-            // $em->persist($UtilisateurAmodifier);
+        $form = $this->createForm(UtilisateursFormType::class, $user);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $em->persist($user);
             $em->flush();
-            // $this->addFlash("success", "Les informations de l'Utilisateur ont été modifiées");
-            return $this->redirectToRoute("utilisateurs_fo_");
+
+            $this->addFlash('success', 'Les informations de l\'utilisateur ont été modifiées');
+
+            return $this->redirectToRoute('users_fo_user', [
+                'id' => $user->getId(),
+            ]);
         }
-        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
-            "form" => $formUtilisateur->createView(), 
-            "bouton" => "Modifier",
-            "titre" => "Modification de l'utilisateur n°$id" 
+
+        return $this->render('utilisateurs_fo/edit_user.html.twig', [
+            'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 
     /**
-     * @Route("/utilisateur/fo/supprimer/{id}", name="utilisateur_fo_supprimer_", requirements={"id"="\d+"})
+     * @Route(
+     *      "/utilisateurs/{id}/desactiver",
+     *      name="utilisateur_fo_disable",
+     *      methods={"POST"}
+     * )
      */
-    public function supprimer(Request $rq, EntityManagerInterface $em, UserRepository $ur, $id)
+    public function disable(Request $request, User $user, EntityManagerInterface $em)
     {
-        return new Response('', Response::HTTP_NOT_IMPLEMENTED);
+        $this->denyAccessUnlessGranted('same_societe', $user);
 
-        $utilisateurAsupprimer = $ur->find($id);
-        $formUtilisateur = $this->createForm(UtilisateursFormType::class, $utilisateurAsupprimer);
-        $formUtilisateur->handleRequest($rq);
-        if($formUtilisateur->isSubmitted() && $formUtilisateur->isValid()){
-            $em->remove($utilisateurAsupprimer);
-            $em->flush();
-            $this->addFlash("success", "Les informations de l'Utilisateur ont été supprimées");
-            return $this->redirectToRoute("utilisateurs_fo_");
+        if (!$user->getEnabled()) {
+            throw new ConflictHttpException('Cet utilisateur a déjà été désactivé.');
         }
-        return $this->render('utilisateurs_fo/infos_utilisateur_fo.html.twig', [ 
-            "form" => $formUtilisateur->createView(), 
-            "bouton" => "Confirmer",
-            "titre" => "Suppression de l'utilisateur n°$id" 
+
+        $user->setEnabled(false);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('warning', sprintf(
+            'L\'utilisateur %s a été désactivé, il ne pourra plus se connecter.',
+            $user->getFullname()
+        ));
+
+        return $this->redirectToRoute('users_fo_user', [
+            'id' => $user->getId(),
+        ]);
+    }
+
+    /**
+     * @Route(
+     *      "/utilisateurs/{id}/activer",
+     *      name="utilisateur_fo_enable",
+     *      methods={"POST"}
+     * )
+     */
+    public function enable(Request $request, User $user, EntityManagerInterface $em)
+    {
+        $this->denyAccessUnlessGranted('same_societe', $user);
+
+        if ($user->getEnabled()) {
+            throw new ConflictHttpException('Cet utilisateur est déjà activé.');
+        }
+
+        $user->setEnabled(true);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('success', sprintf(
+            'L\'utilisateur %s a été activé, il pourra se connecter de nouveau.',
+            $user->getFullname()
+        ));
+
+        return $this->redirectToRoute('users_fo_user', [
+            'id' => $user->getId(),
         ]);
     }
 }

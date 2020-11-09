@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte de {{ user.fullname }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Compte de {{ user.fullname }}</h1>
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Nom</strong> : {{ user.nom }}</li>
+                <li class="list-group-item"><strong>Prénom</strong> : {{ user.prenom }}</li>
+                <li class="list-group-item"><strong>Rôle</strong> : {{ user.role|trans }}</li>
+                <li class="list-group-item"><strong>E-mail / Identifiant</strong> : {{ user.email }}</li>
+                <li class="list-group-item"><strong>Téléphone</strong> : {{ user.telephone }}</li>
+                <li class="list-group-item"><strong>Status</strong> :
+                    {% if user.enabled %}
+                        <span class="badge badge-success">Activé</span>
+                    {% else %}
+                        <span class="badge badge-warning">Désactivé</span>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <div class="d-flex flex-column flex-md-row justify-content-md-between">
+                <a href="{{ path('utilisateur_fo_modifier_', { id: user.id }) }}" class="btn btn-success mt-2">Mettre à jour</a>
+                {% if user.enabled %}
+                    <form
+                        action="{{ path('utilisateur_fo_disable', { id: user.id }) }}"
+                        method="POST"
+                        class="form"
+                    >
+                        <input type="submit" value="Désactiver" class="btn btn-warning mt-2" />
+                    </form>
+                {% else %}
+                    <form
+                        action="{{ path('utilisateur_fo_enable', { id: user.id }) }}"
+                        method="POST"
+                        class="form"
+                    >
+                        <input type="submit" value="Ré-activer" class="btn btn-warning mt-2" />
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
