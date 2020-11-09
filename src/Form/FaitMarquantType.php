@@ -6,6 +6,8 @@ use App\Entity\FaitMarquant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+
 
 class FaitMarquantType extends AbstractType
 {
@@ -13,7 +15,11 @@ class FaitMarquantType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('description')
+            ->add('description', TextareaType:: class, [
+                'attr' => [
+                    'rows' => 10,
+                ]
+            ])
         ;
     }
 
