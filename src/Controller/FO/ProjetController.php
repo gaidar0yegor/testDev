@@ -60,6 +60,9 @@ class ProjetController extends AbstractController
         return $this->render('projets/saisie_infos_projet.html.twig', [
             'form' => $form->createView(),
             'bouton' => "Soumettre",
+            'attr' => [
+                'class' =>'btn-rdi',
+            ]
         ]);
     }
 

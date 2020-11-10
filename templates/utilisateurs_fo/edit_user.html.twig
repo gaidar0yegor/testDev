@@ -6,6 +6,21 @@
 
 <h1>Modification de {{ user.fullname }}</h1>
 
-{{ form(form) }}
+<div class="col-lg-6 mx-auto">
+    {{ form_start(form) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.telephone) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.role) }}
+
+        <div class="d-flex justify-content-around">
+            <div class="form-group mt-5">
+                <a href="{{ path('utilisateurs_fo_') }}" class="btn btn-danger">Annuler</a>
+            </div>
+            {{ form_row(form.ajouter, { 'label' : bouton }) }}
+        </div>
+    {{ form_end(form) }}
+</div>
 
 {% endblock %}

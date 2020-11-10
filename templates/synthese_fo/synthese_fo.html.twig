@@ -9,6 +9,8 @@
         .form-control col-sm-3 {position: absolute;}
         .img_logo {position: absolute; left: 4%; top: 8%; }
         .img_logo img {height: 50px; }
+
+        .title {position: relative; left: -2%; }
         /* .title {display: flex; justify-content: space-around; } */
         i {color: black; }
         .table thead th {background-color: #ce352c; color: white; }
@@ -64,15 +66,8 @@
             position: relative; 
             right: 10%;
         }
-        .subtitle {
-            position: relative;
-            right: 10%;
-        }
-        .select {
-            position: absolute; 
-            left: 75%;
-            top: 37%;
-        }
+
+
         #piechart_3D {
             width: 1000%;
         }
@@ -112,57 +107,49 @@
     }
     </style>
 
-    <section style="height: 1090px;">
-        <div class="container">        
-            <!-- <h1 class="text-center mt-4 mb-4" style="color: #ce352c;"> Projets de l'année  <| 2020 |> <a href="#" style="font-size: smaller;"></h1> -->
-            <div class="title">
-                <div class="subtitle">
-                    <label for="bday-month"><h1 class="text-center mt-4" style="color: #ce352c;">Projets de l'année </h1></label>
-                </div>
-                <div class="select">
-                    <select name="select" class="form-control" id="dropdownYear" style="width: 120px; position: absolute; left: 56%; top: 30%;" onchange="getProjectReportFunc()"></select>
-                </div>                   
-            </div>
+    <section style="height: 800px;">
+
+        <div class="title  d-flex justify-content-between">
+            <h1>Projets de l'année</h1>
+            <select name="select" class="form-control" id="dropdownYear" style="position: absolute; top: 29%; left: 70%; width: 23%;" onchange="getProjectReportFunc()"></select>                 
         </div>
 
         <div class="chart">
-            <div id="piechart_3d" class="text-center mx-auto" style="width: 3125%; height: 500px;"></div>
-            <div id="myDiv" class="text-center mx-auto"   style="width: 3125%; height: 500px;">Projet des trois dernières années</div>
+            <div id="piechart_3d" class="text-center mx-auto" style="width: 4000%; height: 400px;"></div>
+            <div id="myDiv" class="text-center mx-auto"   style="width: 4000%; height: 400px;">Projet des trois dernières années</div>
         </div>            
-            <!--   <h4 class="text-center"><a><i class="fas fa-arrow-alt-circle-left"></i></a> <| 2020 |> <a href="#"><i class="fas fa-arrow-alt-circle-right"></i></a></h4>
--->
-        <div class="container">
-            <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
-                <thead>
-                    <tr class="table table-secondary">
-                        <th scope="col">TABLEAU DE BORD</th>
-                        <th scope="col" class="text-center">ID</th>
-                        <th scope="col" class="text-center">Equipe</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Nombre de projets de l'année en cours</th>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Nombre de projets de type CIR-CII</th>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Temps total passé en  heures</th>
-                        <td class="text-center">0</td>
-                        <td class="text-center">0</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+
+        <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
+            <thead>
+                <tr class="table table-secondary">
+                    <th scope="col">TABLEAU DE BORD</th>
+                    <th scope="col" class="text-center">ID</th>
+                    <th scope="col" class="text-center">Equipe</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Nombre de projets de l'année en cours</th>
+                    <td class="text-center">0</td>
+                    <td class="text-center">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Nombre de projets de type CIR-CII</th>
+                    <td class="text-center">0</td>
+                    <td class="text-center">0</td>
+                </tr>
+                <tr>
+                    <th scope="row">Temps total passé en  heures</th>
+                    <td class="text-center">0</td>
+                    <td class="text-center">0</td>
+                </tr>
+            </tbody>
+        </table>
 
         <div class="button text-center mb-5">
             <a href="fo-temps-01.php"><input type="button" class="btn btn-success" value="Mettre à jour votre feuille de temps"></a>
         </div>
+
     </section>
 
 {% endblock %}
@@ -173,8 +160,6 @@
 <script type="text/javascript">
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
-    // var monthControl = document.querySelector('input[type="year"]');
-    // monthControl.value = '2017';
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
         ['Statuts', 'Speakers (in pourcents)'],

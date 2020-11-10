@@ -7,6 +7,17 @@
 <h1>Inviter un nouvel utilisateur</h1>
 <h2>Saisir les informations</h2>
 
-{{ form(form) }}
+<div class="col-lg-6 mx-auto">
+    {{ form_start(form) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.role) }}
+
+      	<div class="text-center">
+        	{{ form_row(form.ajouter, { 'label' : bouton }) }}
+		</div>
+
+    {{ form_end(form) }}
+
+</div>
 
 {% endblock %}
