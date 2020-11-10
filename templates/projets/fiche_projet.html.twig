@@ -62,7 +62,7 @@
     </div>
     <div class="col-12 col-sm-6 col-lg-4">
         <a
-            href="{{ path('projet_participant', {'projetId': projet.id}) }}"
+            href="{{ path('projet_participant', {'id': projet.id}) }}"
             class="btn btn-rdi btn-block mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
             {% if not userCanEditProjet %}
                 title="Seul le chef de projet peut gérer les participants"

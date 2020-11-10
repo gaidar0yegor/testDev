@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Administration front: Modification des utilisateurs
 - Administration front: Désactiver ou réactiver un utilisateur
+- Projet: Un chef de projet peut inviter des nouveaux utilisateur sur RDI manager, sur son projet
 ### Modifié
 - Refactorisation des templates, suppression de duplications, utilise même template pour front et back office
 ### Déprécié

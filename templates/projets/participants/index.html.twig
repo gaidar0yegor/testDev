@@ -28,7 +28,31 @@
     id="btn-ajouter-participant"
     class="btn btn-outline-primary"
     style="display: none"
->Ajouter un participant</button>
+>
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    Ajouter un participant
+</button>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    Inviter un nouvel utilisateur
+                </h5>
+                <p class="card-text">
+                    Vous souhaitez inviter un utilisateur sur votre projet
+                    mais il n'a pas encore de compte sur RDI manager ?
+                </p>
+                <a
+                    href="{{ path('projet_participant_invite', {'id': projet.id}) }}"
+                    class="btn btn-primary"
+                >Inviter un nouvel utilisateur sur ce projet</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
 
