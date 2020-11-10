@@ -17,7 +17,8 @@ class FaitMarquantType extends AbstractType
             ->add('titre')
             ->add('description', TextareaType:: class, [
                 'attr' => [
-                    'rows' => 10,
+                    'class' => 'text-justify',
+                    'rows' => 15
                 ]
             ])
         ;

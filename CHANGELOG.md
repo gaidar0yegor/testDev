@@ -9,7 +9,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Administration front: Modification des utilisateurs
 - Administration front: Désactiver ou réactiver un utilisateur
 ### Modifié
-- Refactorisation des templates, suppression de duplications, utilise même template pour front et back office
+- Refactorisation des templates, suppression de duplications, utilise même template pour front et back office 
+- Agrandir la zone de saisie des faits marquants à 5lignes ou plus
+- texte du résumé justifié, items et descritpifs alignés sur deux colonnes
+- correspondances des tags mis à jour
 ### Déprécié
 ### Supprimé
 ### Réparé

@@ -59,6 +59,7 @@ class ProjetController extends AbstractController
 
         return $this->render('projets/saisie_infos_projet.html.twig', [
             'form' => $form->createView(),
+            'bouton' => "Soumettre",
         ]);
     }
 
@@ -86,6 +87,7 @@ class ProjetController extends AbstractController
 
         return $this->render('projets/edition_projet.html.twig', [
             'projet' => $projet,
+            'bouton' => "Modifier",
             'form' => $form->createView(),
         ]);
     }
