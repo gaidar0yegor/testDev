@@ -1,7 +1,5 @@
-
 /*********************** BODY *****************************/
-body
-{
+body {
     background-color: white;
     /* line-height: "3,2em"; */
     overflow-y: auto;
@@ -11,9 +9,22 @@ body
 
 
 /*****************************HTML*************************/
-html{
-    height:100% !important;
+html {
+    height: 100% !important;
 }
+
+h1, h2 {
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+h1 {
+    color: #ce352c;
+}
+
+.flash-messages {
+    margin-top: 1em;
+}  
 
 .main-container {
     padding-bottom: 6em;
@@ -23,6 +34,7 @@ html{
     display: flex;
     justify-content: space-around;
 }
+
 .form-inline-radio .form-check-input {
     position: relative;
     padding-left: 0;
@@ -55,99 +67,97 @@ table tbody a {
 }
 
 /**************************** NAV ************************/
-nav
-{
+nav {
     background-color: #ce352c;
-    position: fixed; 
+    position: fixed;
     height: 160px;
     width: 100%
 }
 
 .header-left {
-    width:  33%;
+    width: 33%;
     height: 100%;
     background-color: black;
 }
 
 .header-center {
-    width:  33%;
+    width: 33%;
     height: 100%;
     background-color: blue;
 }
 
 
 .header-right {
-    width:  33%;
+    width: 33%;
     height: 100%;
     background-color: yellow;
 }
 
-.logo-left{
+.logo-left {
     text-align: left;
 }
 
-.logo-center{
+.logo-center {
     text-align: center;
 }
 
-.logo-right{
+.logo-right {
     text-align: right;
 }
 
-.bg-light 
-{
-    margin-bottom: -1vh;
-}
+
+
+
 /*****************************HEADER **********************/
-header
-{
+header {
     display: flex;
     justify-content: center;
     background-color: #ce352c;
 }
 
-h1, h2 {
-    text-align: center;
-    margin: 0.5em 0;
-}
-h1 {
-    color: #ce352c;
-}
 
-.flash-messages {
-    margin-top: 1em;
-}
 
+
+
+h2{
+  
+        font-size: 1.8rem;
+        margin: 83px auto;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1vh;
+    }
+
+h5{
+    display: inline-block; 
+} 
 
 
 /**************************** FOOTER ********************************/
-footer
-    {
-        background-color:#ce352c;
-        display: flex;
-        justify-content: center;
-        position: fixed;
-        bottom: 0% !important;
-        width: 100%;
-    }
-   
- .logofooter
-    {
-       height: 4vh;
-       width: 4vh;
-       border-radius: 148%;
-       margin-top: 14px;
-       padding-left: 0vh;
-       margin-left: 30px;
-       margin-right: 6px;
-    }
+footer {
+    background-color: #ce352c;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0% !important;
+    width: 100%;
+}
 
-a button
-{
+.logofooter {
+    height: 4vh;
+    width: 4vh;
+    border-radius: 148%;
+    margin-top: 14px;
+    padding-left: 0vh;
+    margin-left: 30px;
+    margin-right: 6px;
+}
+
+a button {
     margin: 19px;
 }
-.copyright
-{ 
+
+.copyright {
     color: white;
     margin-top: 2vh;
     font-size: 1.05em;
@@ -160,6 +170,7 @@ a button
     max-width: 500px;
     margin: auto;
 }
+
 .calmonth-row {
     display: flex;
     justify-content: space-around;
@@ -170,12 +181,14 @@ a button
     padding: 0.4em;
     text-align: right;
 }
+
 .demi-journee {
     display: none;
     position: absolute;
     left: 0.25em;
     bottom: 0;
 }
+
 @media (min-width: 575px) {
     .btn-jour {
         margin: 0.2em;
@@ -183,11 +196,13 @@ a button
         text-align: right;
         font-size: 1.25em;
     }
+
     /* Affiche demi journee 1/2 seulement sur ecran sm et bouton demi journee */
     .btn-jour.btn-info .demi-journee {
         display: inline;
     }
 }
+
 .btn-jour span {
     font-weight: bold;
 }

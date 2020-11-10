@@ -29,6 +29,10 @@ class ProjetFormType extends AbstractType
             ->add('resume', TextareaType::class, [
                 'label' => 'Résumé',
                 'required' => false,
+                'attr' => [
+                    'class' => 'text-justify',
+                    'rows' => 15
+                ]
             ])
             ->add('dateDebut', DateType::class, [
                 'label' => 'Date de début',
@@ -38,15 +42,15 @@ class ProjetFormType extends AbstractType
                 'label' => 'Date de fin',
                 'data' => (new \DateTime())->modify('+2 years'),
             ])
-            ->add('projetInterne', CheckboxType::class, [
+            ->add('projetCollaboratif', CheckboxType::class, [
                 'label' => 'Projet en collaboration avec au moins un partenaire externe',
                 'required' => false,
             ])
-            ->add('projetCollaboratif', CheckboxType::class, [
+            ->add('projetPpp', CheckboxType::class, [
                 'label' => 'Projet en collaboration avec un partenaire universitaire',
                 'required' => false,
             ])
-            ->add('projetPpp', CheckboxType::class, [
+            ->add('projetInterne', CheckboxType::class, [
                 'label' => 'Projet réalisé en interne par la société (avec ou sans prestataires)',
                 'required' => false,
             ])
@@ -56,6 +60,9 @@ class ProjetFormType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre',
+                'attr' => [
+                    'class' => 'btn btn-success',
+                ]
             ])
         ;
     }
