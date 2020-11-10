@@ -1,27 +1,13 @@
-{% extends 'bo_base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %} Licences distribuées {% endblock %}
+{% block title %}Licences distribuées | {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .img_logo {position: absolute; left: 4%; top: 8%; }
-    .img_logo img {height: 50px; }
-    .container {margin-top: 40px; }
-    .table thead th {background-color: #ce352c; color: white; }
-    tr, td {background-color: #e6e6e6; }
-    .edit-delete1 {position: absolute; top: 42%; left: 83%; }
-    .edit-delete2 {position: absolute; top: 38%; left: 83%; }
-    .new_user {text-align: center; }
-    .edit-delete1, .edit-delete2 {display: flex; }
-    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-</style>
-
-<div class="container">
     <h1>Licences distribuées</h1>
 
-    <table class="table text-center mx-auto m-5"  style="max-width: 80%;">
+    <table class="table">
         <thead>
-            <tr class="table table-secondary">       
+            <tr>
                 <th scope="col" class="text-center">Société</th>
                 <th scope="col" class="text-center">Personne</th>
                 <th scope="col" class="text-center">Statut</th>
@@ -29,17 +15,16 @@
                 <th scope="col" class="text-center">Statut</th>
             </tr>
         </thead>
-        {% for licence in licences_distribuees %}
-            <tbody>
-                <tr>
-                    <td class="text-center">{{ licence.societe.raisonSociale }}</td>      
-                    <td class="text-center">{{ licence.personne }}</td>      
-                    <td class="text-center">{{ licence.statut }}</td>
-                    <td class="text-center">{{ licence.action }}</td>      
-                    <td class="text-center">{{ licence.statut }}</td>
-                </tr>
-            </tbody>
-        {% endfor %}
+        <tbody>
+            {% for licence in licences_distribuees %}
+                    <tr>
+                        <td class="text-center">{{ licence.societe.raisonSociale }}</td>
+                        <td class="text-center">{{ licence.personne }}</td>
+                        <td class="text-center">{{ licence.statut }}</td>
+                        <td class="text-center">{{ licence.action }}</td>
+                        <td class="text-center">{{ licence.statut }}</td>
+                    </tr>
+            {% endfor %}
+        </tbody>
     </table>
-</div>
 {% endblock %}

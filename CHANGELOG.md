@@ -9,9 +9,12 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Administration front: Modification des utilisateurs
 - Administration front: Désactiver ou réactiver un utilisateur
 ### Modifié
+- Refactorisation des templates, suppression de duplications, utilise même template pour front et back office
 ### Déprécié
 ### Supprimé
 ### Réparé
+- Embarque les css/js dans le projet, n'utilise plus de CDN tierces
+- Retire tous les css/js du html et centralise tout dans styles.css
 ### Sécurité
 - Liste utilisateurs: ne pas afficher les utilisateurs des autres sociétés
 

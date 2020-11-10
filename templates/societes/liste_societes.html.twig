@@ -1,21 +1,8 @@
-{% extends 'bo_base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}BACK OFFICE - Gestion des sociétés{% endblock %}
+{% block title %}Gestion des sociétés | {{ parent() }}{% endblock %}
 
 {% block body %}
-<style>
-    .img_logo {position: absolute; left: 4%; top: 8%; }
-    .img_logo img {height: 50px; }
-    .container {margin-top: 40px; }
-    .table thead th {background-color: #ce352c; color: white; }
-    tr, td {background-color: #e6e6e6; }
-    .edit-delete1 {position: absolute; top: 42%; left: 83%; }
-    .edit-delete2 {position: absolute; top: 38%; left: 83%; }
-    .new_user {text-align: center; }
-    .edit-delete1, .edit-delete2 {display: flex; }
-    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-</style>
-
 
     <h1>Liste des sociétés</h1>
 
@@ -45,11 +32,11 @@
                         <a href="{{ path('societes_modifier_', { id: societe.id }) }}">
                             <i class="fa fa-edit"></i>
                         </a>
-                    </td> 
+                    </td>
                     <td style="background: white; border: white;">
                         <a href="{{ path('societes_supprimer_', { id: societe.id }) }}">
                             <i class="fa fa-trash"></i>
-                        </a>                   
+                        </a>
                     </td>
                 </tr>
             {% endfor %}

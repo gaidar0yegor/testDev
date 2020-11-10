@@ -1,29 +1,10 @@
-{% extends 'bo_base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}BACK OFFICE - Ajouter une société{% endblock %}
 
 {% block body %}
-<style>
-    .img_logo {position: absolute; left: 4%; top: 8%; }
-    .img_logo img {height: 50px; }
-    .container {margin-top: 40px; }
-    .table thead th {background-color: #ce352c; color: white; }
-    tr, td {background-color: #e6e6e6; }
-    .edit-delete1 {position: absolute; top: 42%; left: 83%; }
-    .edit-delete2 {position: absolute; top: 38%; left: 83%; }
-    .new_user {text-align: center; }
-    .edit-delete1, .edit-delete2 {display: flex; }
-	.form-group.row {justify-content: space-around; }
-    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-</style>
 
-{% block h1 %}
-    {% if titre is defined %}
-        <h1 class="text-center mt-4 mb-4" style="color: #ce352c;"> {{ titre }} </h1>
-    {% else %}
-        <h1 class="text-center mt-4 mb-4" style="color: #ce352c;">Ajouter une société</h1>
-    {% endif %}
-{% endblock h1 %}
+<h1>Ajouter une société</h1>
 
 <div class="col-sm-6 mx-auto">
     {{ form_start(form) }}

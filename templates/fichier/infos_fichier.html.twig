@@ -3,18 +3,7 @@
 {% block title %}Ajouter un fichier{% endblock %}
 
 {% block body %}
-<style>
-    a:hover {text-decoration: none; color: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); }
-    h1, td a {color: black; }
-    .table thead th {background-color: #ce352c; color: white; }
-    .btn-success{color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-    tr, td {background-color: #e6e6e6; }  
-</style>
 
-<div class="container">
-    <div class="col-lg-8  mx-auto mt-5">
-        {{ form(form) }}
-    </div>
-</div>
+{{ form(form) }}
 
 {% endblock %}
