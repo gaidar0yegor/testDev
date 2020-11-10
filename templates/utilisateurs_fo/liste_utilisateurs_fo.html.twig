@@ -22,7 +22,7 @@
                 <td>{{ user.prenom }}</td>
                 <td class=" d-none d-md-table-cell">{{ user.email }}</td>
                 <td>{{ user.projetParticipants|length }}</td>
-                <td class="flex justify-content-around">
+                <td class="d-flex justify-content-around">
                     <a href="{{ path('users_fo_user', { 'id': user.id }) }}">
                         <i class="fa fa-lg fa-eye"></i>
                     </a>

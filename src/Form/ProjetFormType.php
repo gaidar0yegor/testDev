@@ -61,8 +61,8 @@ class ProjetFormType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre',
                 'attr' => [
-                    'class' => 'btn btn-success',
-                ]
+                    'class' => 'mt-5 btn-rdi',
+                    ]
             ])
         ;
     }
