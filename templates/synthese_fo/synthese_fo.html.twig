@@ -109,14 +109,15 @@
 
     <section style="height: 800px;">
 
-        <div class="title  d-flex justify-content-between">
+        <div class="title text-center">
             <h1>Projets de l'année</h1>
-            <select name="select" class="form-control" id="dropdownYear" style="position: absolute; top: 29%; left: 70%; width: 23%;" onchange="getProjectReportFunc()"></select>                 
         </div>
-
-        <div class="chart">
+        <div class="col-lg-3 mx-auto">
+            <select name="select" class="form-control" id="dropdownYear" onchange="getProjectReportFunc()"></select>                 
+        </div>
+        <div class="chart mt-5">
             <div id="piechart_3d" class="text-center mx-auto" style="width: 4000%; height: 400px;"></div>
-            <div id="myDiv" class="text-center mx-auto"   style="width: 4000%; height: 400px;">Projet des trois dernières années</div>
+            <div id="myDiv" class="text-center mx-auto"   style="width: 4000%; height: 400px;">Projets des trois dernières années</div>
         </div>            
 
         <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
@@ -124,7 +125,7 @@
                 <tr class="table table-secondary">
                     <th scope="col">TABLEAU DE BORD</th>
                     <th scope="col" class="text-center">ID</th>
-                    <th scope="col" class="text-center">Equipe</th>
+                    <th scope="col" class="text-center">Équipe</th>
                 </tr>
             </thead>
             <tbody>
@@ -170,7 +171,7 @@
         is3D: true,
         //   legend: 'none',
         pieSliceText: 'label',
-        slices: { 4: {offset: 0.2}, 12: {offset: 0.3}, 14: {offset: 0.4}, 15: {offset: 0.5},},
+        slices: { 4: {offset: 0.9}, 12: {offset: 0.3}, 14: {offset: 0.4}, 15: {offset: 0.5},},
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
