@@ -8,7 +8,7 @@
 <table class="table text-center">
     <thead>
         <tr>
-            <th>Nom</th>
+            <th style="text-align: start;">NOM</th>
             <th>Prénom</th>
             <th class="d-none d-md-table-cell">Email</th>
             <th>Nb projets</th>
@@ -18,7 +18,7 @@
     <tbody>
         {% for user in users %}
             <tr class="{{ user.enabled ? '' : 'text-muted' }}">
-                <td>{{ user.nom }}</td>
+                <td style="text-align: start;">{{ user.nom|capitalize }}</td>
                 <td>{{ user.prenom }}</td>
                 <td class=" d-none d-md-table-cell">{{ user.email }}</td>
                 <td>{{ user.projetParticipants|length }}</td>
