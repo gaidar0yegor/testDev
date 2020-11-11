@@ -16,6 +16,12 @@
     </a>
 </h2>
 
-{{ form(form) }}
+{{ form_start(form) }}
+    {{ form_row(form.tempsPasses) }}
+
+    <div class="text-center">
+        {{ form_row(form.submit) }}
+    </div>
+{{ form_end(form) }}
 
 {% endblock %}
