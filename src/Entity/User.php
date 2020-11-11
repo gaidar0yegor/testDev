@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -25,6 +26,8 @@ class User implements UserInterface, HasSocieteInterface
 
     /**
      * @ORM\Column(type="json")
+     *
+     * @Assert\NotBlank
      */
     private $roles = [];
 
@@ -46,6 +49,9 @@ class User implements UserInterface, HasSocieteInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank
+     * @Assert\Email
      */
     private $email;
 
@@ -54,6 +60,8 @@ class User implements UserInterface, HasSocieteInterface
      * à rejoindre la société et à finaliser la création de son compte.
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\NotBlank(groups={"invitation"})
      */
     private $invitationToken;
 
@@ -87,6 +95,8 @@ class User implements UserInterface, HasSocieteInterface
     /**
      * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=true)
+     *
+     * @Assert\NotBlank(groups={"invitation"})
      */
     private $societe;
 

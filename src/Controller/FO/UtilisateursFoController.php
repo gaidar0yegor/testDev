@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\InviteUserType;
 use App\Form\UtilisateursFormType;
 use App\Repository\UserRepository;
+use App\Service\Invitator;
 use App\Service\RdiMailer;
 use App\Service\TokenGenerator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -37,25 +38,17 @@ class UtilisateursFoController extends AbstractController
     public function invite(
         Request $request,
         EntityManagerInterface $em,
-        TokenGenerator $tokenGenerator,
-        RdiMailer $mailer
+        Invitator $invitator
     ): Response {
-        $user = new User();
-        $user->setSociete($this->getUser()->getSociete());
-
+        $user = $invitator->initUser();
         $form = $this->createForm(InviteUserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setInvitationToken($tokenGenerator->generateUrlToken());
-
-            $em->persist($user);
+            $invitator->check($user);
             $em->flush();
-
-            $mailer->sendInvitationEmail($user, $this->getUser());
-
-            $this->addFlash('success', sprintf('Un email avec un lien d\'invitation a été envoyé à "%s".', $user->getEmail()));
+            $invitator->sendInvitation($user);
 
             return $this->redirectToRoute('fo_user_invite');
         }

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inviter sur {{ projet.titre }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Inviter sur {{ projet.titre }}</h1>
+
+<p>
+    Vous pouvez inviter sur ce projet
+    un utilisateur pas encore inscrit sur RDI manager
+    à partir de son email.
+</p>
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+<div class="row">
+    <div class="col-md">
+        {{ form_row(form.email) }}
+    </div>
+    <div class="col-md">
+        {{ form_row(form.role) }}
+    </div>
+</div>
+{{ form_end(form) }}
+
+{% endblock %}

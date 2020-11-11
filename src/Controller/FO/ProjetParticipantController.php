@@ -2,11 +2,13 @@
 
 namespace App\Controller\FO;
 
+use App\DTO\InvitationUserSurProjet;
 use App\Entity\Projet;
+use App\Form\InviteUserSurProjetType;
 use App\Form\ListeProjetParticipantsType;
+use App\Service\Invitator;
 use App\Service\SocieteChecker;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjetParticipantController extends AbstractController
 {
     /**
-     * @Route("/projet/{projetId}/participants", name="projet_participant")
-     *
-     * @ParamConverter("projet", options={"id" = "projetId"})
+     * @Route("/projet/{id}/participants", name="projet_participant")
      */
     public function index(
         Request $request,
@@ -48,6 +48,42 @@ class ProjetParticipantController extends AbstractController
         }
 
         return $this->render('projets/participants/index.html.twig', [
+            'projet' => $projet,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/projet/{id}/participants/invite", name="projet_participant_invite")
+     */
+    public function invite(
+        Request $request,
+        Projet $projet,
+        Invitator $invitator,
+        EntityManagerInterface $em
+    ) {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        $user = $invitator->initUser();
+        $invitation = new InvitationUserSurProjet();
+        $form = $this->createForm(InviteUserSurProjetType::class, $invitation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setEmail($invitation->getEmail());
+            $invitator->addParticipation($user, $projet, $invitation->getRole());
+
+            $invitator->check($user);
+            $em->flush();
+            $invitator->sendInvitation($user);
+
+            return $this->redirectToRoute('projet_participant_invite', [
+                'id' => $projet->getId(),
+            ]);
+        }
+
+        return $this->render('projets/participants/invite.html.twig', [
             'projet' => $projet,
             'form' => $form->createView(),
         ]);
