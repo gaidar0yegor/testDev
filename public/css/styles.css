@@ -66,6 +66,10 @@ table tbody a {
     margin-top: 1em;
 }
 
+li.list-group-item {
+    background-color: lightgray;
+}
+
 /**************************** NAV ************************/
 nav {
     background-color: #ce352c;

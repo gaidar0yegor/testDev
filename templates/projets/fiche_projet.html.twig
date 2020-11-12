@@ -23,26 +23,23 @@
 
 <h2 class="text-center">{{ projet.titre }}</h2>
 
-<ul class="list-group col-lg-8 my-4 mx-auto">
-    <li class="list-group-item"><strong>Résumé : </strong> {{ projet.resume|nl2br }} </li>
-    <li class="list-group-item"><strong>Chef de projet : </strong> {{ projet.chefDeProjet.fullname }} </li>
-    <li class="list-group-item"><strong>Date de début : </strong> {{ projet.dateDebut|format_date }} </li>
-    {% if projet.dateFin %}
-        <li class="list-group-item"><strong>Date de fin : </strong> {{ projet.dateFin|format_date }} </li>
-    {% endif %}
-    <li class="list-group-item"><strong>Statut : </strong> {{ projet.statutProjet.libelle }} </li>
-</ul>
+    <ul class="list-group col-lg-8 my-4 mx-auto">
+        <li class="list-group-item" style="background-color: lightgray; border: none; text-align: justify;"><strong>Résumé : </strong> {{ projet.resume|nl2br }} </li>
+        <li class="list-group-item" style="background-color: lightgray;  border: none;"><strong>Chef de projet : </strong> {{ projet.chefDeProjet.fullname }} </li>
+        <li class="list-group-item" style="background-color: lightgray;  border: none;"><strong>Date de début : </strong> {{ projet.dateDebut|format_date }} </li>
+        {% if projet.dateFin %}
+            <li class="list-group-item" style="background-color: lightgray;  border: none;"><strong>Date de fin : </strong> {{ projet.dateFin|format_date }} </li>
+        {% endif %}
+        <li class="list-group-item" style="background-color: lightgray;  border: none;"><strong>Statut : </strong> {{ projet.statutProjet.libelle }} </li>
+    </ul>
 
 <div class="row">
     <div class="col-12 col-sm-6 col-lg-4">
         <a
             href="{{ path('liste_fichiers_') }}"
             class="btn btn-rdi btn-block mt-2"
-        >Fichiers joints</a>
-        <a
-            href=""
-            class="btn btn-rdi btn-block mt-2"
-        >Ajouter un fichier</a>
+        >Fichiers</a>
+
     </div>
     <div class="col-12 col-sm-6 col-lg-4">
         <a
@@ -51,14 +48,14 @@
             {% if not userCanEditProjet %}
                 title="Seul le chef de projet peut modifier"
             {% endif %}
-        >Modifier le projet</a>
+        >Modifier Projet</a>
         <a
             href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}"
             class="btn btn-rdi btn-block mt-2 {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
             {% if not userCanAddFaitMarquant %}
                 title="Seuls les contributeurs du projet peuvent ajouter un fait marquant"
             {% endif %}
-        >Ajouter un fait marquant</a>
+        >Fait marquant</a>
     </div>
     <div class="col-12 col-sm-6 col-lg-4">
         <a
@@ -67,7 +64,7 @@
             {% if not userCanEditProjet %}
                 title="Seul le chef de projet peut gérer les participants"
             {% endif %}
-        >Gestion des participants</a>
+        >Participants</a>
     </div>
 </div>
 
