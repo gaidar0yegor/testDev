@@ -215,6 +215,10 @@ a button {
     padding: 0.4em;
     text-align: right;
 }
+.btn-block + .btn-block {
+    /* Overrides bootstrap style to fix agenda alignment */
+    margin-top: 0.2em;
+}
 
 .demi-journee {
     display: none;
@@ -225,9 +229,7 @@ a button {
 
 @media (min-width: 575px) {
     .btn-jour {
-        margin: 0.2em;
         padding: 0.2em 0.4em 0.6em 0.4em;
-        text-align: right;
         font-size: 1.25em;
     }
 
