@@ -20,6 +20,9 @@ h1, h2 {
 
 h1 {
     color: #ce352c;
+}
+
+.acronyme {
     margin-top: 7.5%;
     margin-bottom: 5%;
 }
@@ -73,7 +76,9 @@ li.list-group-item {
     border: none;
 }
 
-.row {
+
+.row_projet {
+    display: flex;
     max-width: 92%;
     margin: 0 auto;
     padding-right: 1.5%;
@@ -98,6 +103,11 @@ section#timeline {
 section#timeline p {
     text-align: center; 
 }
+
+div.button.mb-4 {
+    text-align: end;
+}
+
 /**************************** NAV ************************/
 nav {
     background-color: #ce352c;

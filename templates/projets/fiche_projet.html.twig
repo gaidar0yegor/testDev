@@ -4,7 +4,9 @@
 
 {% block body %}
 
-<h1>Projet : {{ projet.acronyme }}</h1>
+<div class="acronyme">
+    <h1>Projet : {{ projet.acronyme }}</h1>
+</div>
 
 <p class="text-center">
     {% if projet.projetCollaboratif %}
@@ -34,7 +36,7 @@
         <li class="list-group-item" style="background-color: lightgray;  border: none;"><strong>Statut : </strong> {{ projet.statutProjet.libelle }} </li>
     </ul>
 
-<div class="row">
+<div class="row_projet">
     <div class="col-6 col-sm-6 col-lg-6">
         <a
             href="{{ path('liste_fichiers_') }}"

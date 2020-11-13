@@ -11,6 +11,8 @@
             <th style="text-align: start;">NOM</th>
             <th>Prénom</th>
             <th class="d-none d-md-table-cell">Email</th>
+            <th class="d-none d-md-table-cell">Rôle</th>
+            <th class="d-none d-md-table-cell">Statut</th>
             <th>Nb projets</th>
             <th></th>
         </tr>
@@ -21,6 +23,9 @@
                 <td style="text-align: start;">{{ user.nom|capitalize }}</td>
                 <td>{{ user.prenom }}</td>
                 <td class=" d-none d-md-table-cell">{{ user.email }}</td>
+                <td class=" d-none d-md-table-cell">{{ user.role|trans }}</td>
+                <td class=" d-none d-md-table-cell">{{ user.cadre }}</td>
+
                 <td>{{ user.projetParticipants|length }}</td>
                 <td class="d-flex justify-content-around">
                     <a href="{{ path('users_fo_user', { 'id': user.id }) }}">
