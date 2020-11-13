@@ -70,6 +70,7 @@ table tbody a {
 
 li.list-group-item {
     background-color: lightgray;
+    border: none;
 }
 
 .row {

@@ -24,7 +24,7 @@ class ProjetFormType extends AbstractType
                 'label' => 'Titre descriptif',
             ])
             ->add('acronyme', TextType::class, [
-                'label' => 'Titre réduit',
+                'label' => 'Titre réduit / Acronyme',
             ])
             ->add('resume', TextareaType::class, [
                 'label' => 'Résumé',
