@@ -12,13 +12,13 @@ Feature: Affichage de la liste des projets de l'utilisateur
     Scenario: Le chef de projet peut accéder à la gestion des participants.
         When I go to "/projets"
         And I follow "Projet de test"
-        And I follow "Gestion des participants"
-        Then I should see "Gestion des participants" in the "h1" element
+        And I follow "Participants"
+        Then I should see "Participants" in the "h1" element
 
     Scenario: Il doit être impossible de mettre 2 chefs de projet sur un même projet.
         When I go to "/projets"
         And I follow "Projet de test"
-        And I follow "Gestion des participants"
+        And I follow "Participants"
         And I fill in the following:
             | liste_projet_participants[projetParticipants][0][role] | CDP |
         And I press "Mettre à jour"
@@ -27,7 +27,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
     Scenario: Il doit être impossible de laisser un projet sans Chef de projet.
         When I go to "/projets"
         And I follow "Projet de test"
-        And I follow "Gestion des participants"
+        And I follow "Participants"
         And I fill in the following:
             | liste_projet_participants[projetParticipants][1][role] | CONTRIBUTEUR |
         And I press "Mettre à jour"

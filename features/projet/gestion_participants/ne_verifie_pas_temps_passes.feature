@@ -14,7 +14,7 @@ Feature: Vérifie que lors de la modification des rôles des participants
 
         When I go to "/projets"
         And I follow "Projet de test"
-        And I follow "Gestion des participants"
+        And I follow "Participants"
         And I press "Mettre à jour"
         Then I should not see "La somme des pourcentages doit être entre 0 et 100, 150 obtenu."
         And I should see "Les rôles des participants ont été mis à jour"
