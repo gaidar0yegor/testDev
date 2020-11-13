@@ -1,3 +1,10 @@
 .pdf-page {
     page-break-after: always;
 }
+@media screen {
+    .pdf-page {
+        border-bottom: 1em solid rgba(0, 0, 0, 0.1);
+        margin-bottom: 2em;
+        padding-bottom: 2em;
+    }
+}
