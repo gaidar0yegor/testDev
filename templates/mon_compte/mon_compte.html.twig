@@ -6,16 +6,16 @@
     <h1>Mon compte</h1>
 
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-8 offset-md-2 mb-5">
             <ul class="list-group">
-                <li class="list-group-item"><strong>Nom</strong> : {{ app.user.nom }}</li>
-                <li class="list-group-item"><strong>Prénom</strong> : {{ app.user.prenom }}</li>
-                <li class="list-group-item"><strong>Rôle</strong> : {{ app.user.role|trans }}</li>
-                <li class="list-group-item"><strong>E-mail / Identifiant</strong> : {{ app.user.email }}</li>
-                <li class="list-group-item"><strong>Téléphone</strong> : {{ app.user.telephone }}</li>
+                <li class="list-group-item list-group-item-secondary"><strong>Nom</strong> : {{ app.user.nom }}</li>
+                <li class="list-group-item list-group-item-secondary"><strong>Prénom</strong> : {{ app.user.prenom }}</li>
+                <li class="list-group-item list-group-item-secondary"><strong>Rôle</strong> : {{ app.user.role|trans }}</li>
+                <li class="list-group-item list-group-item-secondary"><strong>E-mail / Identifiant</strong> : {{ app.user.email }}</li>
+                <li class="list-group-item list-group-item-secondary"><strong>Téléphone</strong> : {{ app.user.telephone }}</li>
             </ul>
 
-            <div class="d-flex flex-column flex-md-row justify-content-md-between">
+            <div class="d-flex flex-column flex-md-row justify-content-md-between mt-5">
                 <a href="#" class="btn btn-success mt-2">Mettre à jour</a>
                 <a href="#" class="btn btn-warning mt-2">Modifier votre mot de passe</a>
             </div>

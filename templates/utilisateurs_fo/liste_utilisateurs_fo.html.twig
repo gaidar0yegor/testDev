@@ -8,11 +8,12 @@
 <table class="table text-center">
     <thead>
         <tr>
+            <th style="text-align: start;">N°</th>
             <th style="text-align: start;">NOM</th>
             <th>Prénom</th>
             <th class="d-none d-md-table-cell">Email</th>
             <th class="d-none d-md-table-cell">Rôle</th>
-            <th class="d-none d-md-table-cell">Statut</th>
+            {# <th class="d-none d-md-table-cell">Statut</th> #}
             <th>Nb projets</th>
             <th></th>
         </tr>
@@ -20,11 +21,12 @@
     <tbody>
         {% for user in users %}
             <tr class="{{ user.enabled ? '' : 'text-muted' }}">
-                <td style="text-align: start;">{{ user.nom|capitalize }}</td>
+                <td style="text-align: start;">{{ user.id }}</td>
+                <td style="text-align: start;">{{ user.nom }}</td>
                 <td>{{ user.prenom }}</td>
                 <td class=" d-none d-md-table-cell">{{ user.email }}</td>
                 <td class=" d-none d-md-table-cell">{{ user.role|trans }}</td>
-                <td class=" d-none d-md-table-cell">{{ user.cadre }}</td>
+                {# <td class=" d-none d-md-table-cell">{{ user.statutsUtilisateur }}</td> #}
 
                 <td>{{ user.projetParticipants|length }}</td>
                 <td class="d-flex justify-content-around">
