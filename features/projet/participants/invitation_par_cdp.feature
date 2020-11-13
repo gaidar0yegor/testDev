@@ -2,7 +2,7 @@ Feature: Le chef de projet doit pouvoir inviter un nouvel utilisateur
     sur RDI manager, et cet utilisateur aura déjà un accès sur son projet.
 
     Scenario: Chef de projet peut mettre à jour les contributeurs sans avoir l'erreur "Pourcentages > 100%"
-        Given I have loaded fixtures from "projet/gestion_participants/fixtures.yml"
+        Given I have loaded fixtures from "projet/participants/fixtures.yml"
 
         Given I am on "/connexion"
         And I fill in the following:
