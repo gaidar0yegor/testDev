@@ -107,12 +107,6 @@ class User implements UserInterface, HasSocieteInterface
     private $profils_utilisateur;
 
     /**
-     * @ORM\ManyToOne(targetEntity=BaseTempsParContrat::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $base_temps_par_contrat;
-
-    /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="user", orphanRemoval=true)
      */
     private $tempsPasses;
@@ -361,18 +355,6 @@ class User implements UserInterface, HasSocieteInterface
     public function setProfilsUtilisateur(?ProfilsUtilisateur $profils_utilisateur): self
     {
         $this->profils_utilisateur = $profils_utilisateur;
-
-        return $this;
-    }
-
-    public function getBaseTempsParContrat(): ?BaseTempsParContrat
-    {
-        return $this->base_temps_par_contrat;
-    }
-
-    public function setBaseTempsParContrat(?BaseTempsParContrat $base_temps_par_contrat): self
-    {
-        $this->base_temps_par_contrat = $base_temps_par_contrat;
 
         return $this;
     }
