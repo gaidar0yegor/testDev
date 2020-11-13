@@ -33,10 +33,11 @@ class UtilisateursFormType extends AbstractType
             'label' => 'Email',
         ])
         ->add('role',  ChoiceType::class, [
+            'label' => 'Rôle',
             'choices' => [
                 'Utilisateur' => 'ROLE_FO_USER',
                 'Chef de projet' => 'ROLE_FO_CDP',
-                'Référent' => 'ROLE_FO_ADMIN',
+                'Administrateur' => 'ROLE_FO_ADMIN',
             ],
         ])
         ->add('ajouter', SubmitType::class, [

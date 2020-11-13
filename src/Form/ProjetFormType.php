@@ -21,10 +21,10 @@ class ProjetFormType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [
-                'label' => 'Titre',
+                'label' => 'Titre descriptif',
             ])
             ->add('acronyme', TextType::class, [
-                'label' => 'Acronyme',
+                'label' => 'Titre réduit / Acronyme',
             ])
             ->add('resume', TextareaType::class, [
                 'label' => 'Résumé',

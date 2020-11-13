@@ -22,6 +22,11 @@ h1 {
     color: #ce352c;
 }
 
+.acronyme {
+    margin-top: 7.5%;
+    margin-bottom: 5%;
+}
+
 .flash-messages {
     margin-top: 1em;
 }  
@@ -64,6 +69,41 @@ table tbody a {
     color: white;
     padding: 0.25em 0 0.15em 0;
     margin-top: 1em;
+}
+
+li.list-group-item {
+    border: none; 
+}
+
+.row_projet {
+    display: flex;
+    max-width: 92%;
+    margin: 0 auto;
+    padding-right: 1.5%;
+    padding-left: 0.4%;
+}
+
+ul.list-group.col-lg-8.my-4.mx-auto {
+    max-width: 88.8%;
+    padding-left: 0.2%;
+}
+
+h2.facts {
+    margin-top: 5%;
+}
+
+section#timeline {
+    max-width: 88%;
+    margin: 0 auto;
+    padding-right: 1%;
+}
+
+section#timeline p {
+    text-align: center; 
+}
+
+div.button.mb-4 {
+    text-align: end;
 }
 
 /**************************** NAV ************************/
@@ -115,14 +155,8 @@ header {
     background-color: #ce352c;
 }
 
-
-
-
-
-h2{
-  
+h2{ 
         font-size: 1.8rem;
-        margin: 83px auto;
         display: flex;
         justify-content: center;
         margin-bottom: 1vh;
