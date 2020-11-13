@@ -19,7 +19,7 @@
             <dd class="col-9">{{ timesheet.cra.user.societe.raisonSociale }}</dd>
 
             <dt class="col-3">Heures/jour</dt>
-            <dd class="col-9">7.5h</dd>
+            <dd class="col-9">{{ timesheet.heuresParJours|round(2) }} h</dd>
         </dl>
     </div>
 </div>

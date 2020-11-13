@@ -70,11 +70,23 @@ final class RdiContext extends MinkContext
      */
     public function iShouldSeeTextInTheRow($text, $rowText)
     {
-        $rowSelector = sprintf('table tr:contains("%s")', $rowText);
+        $this->iShouldSeeTextInTheElementContainingText($text, 'table tr', $rowText);
+    }
+
+    /**
+     * Vérifie que la ligne du table qui contient un texte contient aussi un autre texte.
+     * Exemple:
+     *      Then I should see "Contributeur" in the "Projet 3" row
+     *
+     * @Then I should see :text in the :element element containing :textContainer
+     */
+    public function iShouldSeeTextInTheElementContainingText($text, $element, $textContainer)
+    {
+        $rowSelector = sprintf('%s:contains("%s")', $element, $textContainer);
         $row = $this->getSession()->getPage()->find('css', $rowSelector);
 
         if (!$row) {
-            throw new \Exception(sprintf('Cannot find any row on the page containing the text "%s"', $rowText));
+            throw new \Exception(sprintf('Cannot find any "%s" element containing the text "%s"', $element, $textContainer));
         }
 
         $this->assertElementContainsText($rowSelector, $text);

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier ma société | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Modifier ma société</h1>
+
+    {{ form(form) }}
+
+    <a href="{{ path('fo_societe_show') }}">Retour</a>
+{% endblock %}

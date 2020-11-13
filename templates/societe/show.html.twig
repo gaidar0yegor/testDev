@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ societe.raisonSociale }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1 class="mb-0">{{ societe.raisonSociale }}</h1>
+    <p class="text-center">
+        Siret : <span class="text-monospace">{{ societe.siret|formatSiret }}</span>
+        <br>
+        <a href="{{ path('fo_societe_edit') }}">Modifier les infos de ma société</a>
+    </p>
+
+    <div class="card-deck">
+        <div class="card text-center">
+            <i class="rdi-card-icon fa fa-users" aria-hidden="true"></i>
+            <div class="card-body">
+                <h5 class="card-title">Nombre d'utilisateurs</h5>
+                <h6 class="card-subtitle mb-2 text-muted">rattachés à ma société</h6>
+                <p class="card-text display-4 mb-0">
+                    {{ societe.users|length }}
+                </p>
+            </div>
+            <div class="card-footer">
+                <a href="{{ path ('utilisateurs_fo_') }}" class="card-link">Afficher la liste des utilisateurs</a>
+            </div>
+        </div>
+        <div class="card text-center">
+            <i class="rdi-card-icon fa fa-clock-o" aria-hidden="true"></i>
+            <div class="card-body">
+                <h5 class="card-title">Heures travaillées</h5>
+                <h6 class="card-subtitle mb-2 text-muted">par jours, par défaut.</h6>
+                <p class="card-text display-4 mb-0">
+                    {% if societe.heuresParJours %}
+                        {{ societe.heuresParJours }} h
+                    {% else %}
+                        <small class="text-warning">À définir</small>
+                    {% endif %}
+                </p>
+                <small class="text-muted">
+                    Valeur par défaut, utilisée lors de la génération des feuilles de temps.
+                </small>
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('fo_societe_edit') }}" class="card-link">Modifier le nombre d'heures</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -35,7 +35,7 @@ class TimesheetController extends AbstractController
      *      name="timesheet_sheet"
      * )
      */
-    public function sheet(string $format, Cra $cra, Pdf $pdf, TimesheetCalculator $timesheetCalculator, CraRepository $cr)
+    public function sheet(string $format, Pdf $pdf, TimesheetCalculator $timesheetCalculator, CraRepository $cr)
     {
         $sheetHtml = $this->renderView('timesheet/pdf/pdf.html.twig', [
             //'timesheet' => $timesheetCalculator->generateTimesheet($cra),
@@ -53,7 +53,7 @@ class TimesheetController extends AbstractController
             'margin-right'  => 15,
             'margin-bottom' => 15,
             'margin-left'   => 15,
-            'background'    => true,
+            'orientation'   => 'landscape',
         ];
 
         return new PdfResponse($pdf->getOutputFromHtml($sheetHtml, $options), 'timesheet.pdf');

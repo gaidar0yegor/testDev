@@ -71,6 +71,13 @@ class User implements UserInterface, HasSocieteInterface
     private $telephone;
 
     /**
+     * Heures travaillées par jours pour cet employé.
+     *
+     * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
+     */
+    private $heuresParJours;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -283,6 +290,18 @@ class User implements UserInterface, HasSocieteInterface
     public function setTelephone(?string $telephone): self
     {
         $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getHeuresParJours(): ?float
+    {
+        return $this->heuresParJours;
+    }
+
+    public function setHeuresParJours(?float $heuresParJours): self
+    {
+        $this->heuresParJours = $heuresParJours;
 
         return $this;
     }

@@ -31,6 +31,13 @@ class Societe implements HasSocieteInterface
     private $siret;
 
     /**
+     * Heures travaillées par jours par défaut par les employés.
+     *
+     * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
+     */
+    private $heuresParJours;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      */
     private $nb_licences;
@@ -96,6 +103,18 @@ class Societe implements HasSocieteInterface
     public function setSiret(string $siret): self
     {
         $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getHeuresParJours(): ?float
+    {
+        return $this->heuresParJours;
+    }
+
+    public function setHeuresParJours(float $heuresParJours): self
+    {
+        $this->heuresParJours = $heuresParJours;
 
         return $this;
     }

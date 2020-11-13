@@ -30,6 +30,7 @@ class TimesheetCalculator
 
         $timesheetProjets = [];
         $totalJours = array_sum($cra->getJours());
+        $heuresParJours = Timesheet::getUserHeuresParJours($cra->getUser());
 
         foreach ($participations as $participation) {
             $tempsPasse = $this->getTempsPassesOnProjet($cra->getUser(), $participation);
@@ -37,11 +38,11 @@ class TimesheetCalculator
             $totalWorkedHours = null;
 
             if (null !== $tempsPasse) {
-                $workedHours = array_map(function (float $presenceJour) use ($tempsPasse) {
-                    return (7.5 * $presenceJour * $tempsPasse->getPourcentage()) / 100.0;
+                $workedHours = array_map(function (float $presenceJour) use ($heuresParJours, $tempsPasse) {
+                    return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage()) / 100.0;
                 }, $cra->getJours());
 
-                $totalWorkedHours = (7.5 * $totalJours * $tempsPasse->getPourcentage()) / 100.0;
+                $totalWorkedHours = ($heuresParJours * $totalJours * $tempsPasse->getPourcentage()) / 100.0;
             }
 
             $timesheetProjets[] = new TimesheetProjet(

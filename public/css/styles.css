@@ -71,6 +71,14 @@ table tbody a {
     margin-top: 1em;
 }
 
+.rdi-card-icon {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    font-size: 8em;
+    color: rgba(0, 0, 0, 0.15);
+}
+
 li.list-group-item {
     border: none; 
 }
