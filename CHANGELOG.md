@@ -33,6 +33,20 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Affichage du message "Lien d'invitation invalide ou expiré" pour que l'utilisateur comprenne qu'il peut maintenant s'inscrire
 - Affichage d'un message clair lors d'une erreur 4xx général
 
+### Modifié
+- Fiche projet : Intitulé des boutons : Fichiers joints  --> Fichiers
+- Fiche projet : Gestion des participants --> Participants
+- Fiche projet : Ajouter un fait marquant --> Fait marquant
+- Fiche projet : Modifier le projet --> Modifier Projet
+- Fiche projet : Afficher titre descriptif selon la même mise en page que pour les         catégories "résumé" , Chef de projet..
+- Fiche projet : Justifier les informations générales du projet
+
+- Infos projet :  Dans le formulaire Remplacer Acronyme par Titre réduit 
+                  Remplacer Titre par Titre descriptif
+### Supprimé
+- Fiche projet : Retirer bouton "Ajouter un fichier"
+
+
 ## [0.1.0]  - 2020-11-01
 
 Version initiale de l'application.
