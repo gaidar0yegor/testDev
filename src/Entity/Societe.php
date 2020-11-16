@@ -14,6 +14,14 @@ use Doctrine\ORM\Mapping as ORM;
 class Societe implements HasSocieteInterface
 {
     /**
+     * Nombre d'heures par jours défini par défaut
+     * lorsque une société est créée.
+     *
+     * @param float
+     */
+    public const DEFAULT_HEURES_PAR_JOURS = 7.5;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -76,6 +84,7 @@ class Societe implements HasSocieteInterface
     {
         $this->Licences = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->heuresParJours = self::DEFAULT_HEURES_PAR_JOURS;
     }
 
     public function getId(): ?int
