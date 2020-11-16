@@ -121,7 +121,7 @@ class Societe implements HasSocieteInterface
         return $this->heuresParJours;
     }
 
-    public function setHeuresParJours(float $heuresParJours): self
+    public function setHeuresParJours(?float $heuresParJours): self
     {
         $this->heuresParJours = $heuresParJours;
 
