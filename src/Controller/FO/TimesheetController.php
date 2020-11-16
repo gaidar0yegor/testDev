@@ -114,7 +114,7 @@ class TimesheetController extends AbstractController
             'margin-right'  => 15,
             'margin-bottom' => 15,
             'margin-left'   => 15,
-            //'orientation'   => 'landscape',
+            'orientation'   => 'landscape',
         ];
 
         return new PdfResponse($this->pdf->getOutputFromHtml($htmlContent, $options), $filename);

@@ -61,7 +61,7 @@ class TimesheetCalculator
         foreach ($participations as $participation) {
             $tempsPasse = $this->getTempsPassesOnProjet($cra->getUser(), $participation);
             $workedHours = null;
-            $totalWorkedHours = null;
+            $totalWorkedHours = 0;
 
             if (null !== $tempsPasse) {
                 $workedHours = array_map(function (float $presenceJour) use ($heuresParJours, $tempsPasse) {

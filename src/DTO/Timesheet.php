@@ -95,4 +95,21 @@ class Timesheet
             .' Veuillez définir un nombre d\'heure par défaut pour la société'
         );
     }
+
+    public function getTotalPourcentage(): int
+    {
+        $total = 0;
+
+        foreach ($this->timesheetProjets as $timesheetProjet) {
+            $tempsPasse = $timesheetProjet->getTempsPasse();
+
+            if (null === $tempsPasse) {
+                continue;
+            }
+
+            $total += $tempsPasse->getPourcentage();
+        }
+
+        return $total;
+    }
 }

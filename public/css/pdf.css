@@ -8,3 +8,13 @@
         padding-bottom: 2em;
     }
 }
+
+.rdi-cra-col {
+    min-width: 2.3em;
+}
+.rdi-cra-value {
+    font-size: 0.9em;
+}
+.lead strong {
+    font-weight: bold;
+}
