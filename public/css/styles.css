@@ -92,6 +92,16 @@ div.container.table {
     margin-right: 6%;
 }
 
+div.container.compte {
+    background-color:#e9ecef;
+    text-align: justify;
+    padding: 25px;
+    border-radius: 2%;
+    max-width: 64.5%;
+    margin-right: 18%;
+
+}
+
 .col-4.bordure {
     text-align: end;
     max-width: 23.333333%;
