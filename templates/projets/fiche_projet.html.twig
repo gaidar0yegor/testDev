@@ -23,16 +23,34 @@
     {% endif %}
 </p>
 
-<ul class="list-group list-group-flush col-lg-8 my-4 mx-auto">
-    <li class="list-group-item list-group-item-secondary"><strong>Titre descriptif : </strong> {{ projet.titre }} </li>
-    <li class="list-group-item list-group-item-secondary text-justify"><strong>Résumé : </strong> {{ projet.resume|nl2br }} </li>
-    <li class="list-group-item list-group-item-secondary"><strong>Chef de projet : </strong> {{ projet.chefDeProjet.fullname }} </li>
-    <li class="list-group-item list-group-item-secondary"><strong>Date de début : </strong> {{ projet.dateDebut|format_date }} </li>
+<div class="container table">    
+    <div class="row">
+        <div class="col-4 bordure"><strong>Titre descriptif : </strong></div>
+        <div class="col-8 bordure"> {{ projet.titre }}</div>
+    </div></br>
+    <div class="row">
+        <div class="col-4 bordure"><strong>Résumé : </strong></div>
+        <div class="col-8 bordure"> {{ projet.resume|nl2br }}</div>        
+    </div></br>
+    <div class="row">
+        <div class="col-4 bordure"><strong>Chef de projet : </strong></div>
+        <div class="col-8 bordure"> {{ projet.chefDeProjet.fullname }}</div>
+    </div></br>
+    <div class="row">
+        <div class="col-4 bordure"><strong>Date de début : </strong></div>
+        <div class="col-8 bordure"> {{ projet.dateDebut|format_date }}</div>        
+    </div></br>
     {% if projet.dateFin %}
-        <li class="list-group-item list-group-item-secondary"><strong>Date de fin : </strong> {{ projet.dateFin|format_date }} </li>
+        <div class="row">
+            <div class="col-4 bordure"><strong>Date de fin : </strong></div>
+            <div class="col-8 bordure"> {{ projet.dateFin|format_date }}</div>
+        </div></br>
     {% endif %}
-    <li class="list-group-item list-group-item-secondary"><strong>Statut : </strong> {{ projet.statutProjet.libelle }} </li>
-</ul>
+    <div class="row">
+        <div class="col-4 bordure"><strong>Statut : </strong></div>
+        <div class="col-8 bordure"> {{ projet.statutProjet.libelle }}</div>        
+    </div></br> 
+</div>
 
 <div class="row_projet">
     <div class="col-6">
@@ -48,7 +66,7 @@
             {% endif %}
         >Participants</a>        
     </div>
-    <div class="col-6">
+    <div class="col-6 bis">
         <a
             href="{{ path('projet_edition', {'id': projet.id}) }}"
             class="btn btn-rdi btn-block mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
