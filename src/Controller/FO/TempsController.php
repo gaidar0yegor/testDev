@@ -76,6 +76,7 @@ class TempsController extends AbstractController
             'form' => $form->createView(),
             'next' => $dateMonthService->getNextMonth($mois),
             'prev' => $dateMonthService->getPrevMonth($mois),
+            'hasTempsPasses' => $listeTempsPasses->hasTempsPasses(),
         ]);
     }
 
