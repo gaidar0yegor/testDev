@@ -6,6 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
+- Ajoute tooltip en JS pour meilleur support mobile, et fonctionne aussi sur les elements disabled
 ### Modifié
 ### Réparé
 
