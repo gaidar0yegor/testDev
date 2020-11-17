@@ -44,6 +44,9 @@ class FilterTimesheetType extends AbstractType
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Générer',
+                'attr' => [
+                    'class' => 'mt-5 btn btn-primary',
+                ]
             ])
         ;
     }
