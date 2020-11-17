@@ -6,6 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
+### Modifié
+### Réparé
+
+## [0.2.1] - 2020-11-17
+### Ajouté
 - Ajoute tooltip en JS pour meilleur support mobile, et fonctionne aussi sur les elements disabled
 - Administration front: Génération des feuilles de temps
 - Saisie des congés : les jours fériés sont maintenant grisés par défaut
