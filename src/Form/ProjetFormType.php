@@ -36,11 +36,9 @@ class ProjetFormType extends AbstractType
             ])
             ->add('dateDebut', DateType::class, [
                 'label' => 'Date de début',
-                'data' => new \DateTime(),
             ])
             ->add('dateFin', DateType::class, [
                 'label' => 'Date de fin',
-                'data' => (new \DateTime())->modify('+2 years'),
             ])
             ->add('projetCollaboratif', CheckboxType::class, [
                 'label' => 'Projet en collaboration avec au moins un partenaire externe',

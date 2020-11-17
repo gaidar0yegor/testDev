@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Projet;
+use App\Entity\ProjetParticipant;
 use App\Entity\User;
 use App\Exception\RdiException;
 use App\Role;
@@ -34,6 +35,23 @@ class ParticipantService
         }
 
         return null;
+    }
+
+    /**
+     * @return ProjetParticipant[] Tous les projetParticipants de $user
+     *      qui ont au moins le rôle $requiredRole (ou plus).
+     */
+    public function getProjetParticipantsWithRole(iterable $projetParticipants, string $requiredRole): iterable
+    {
+        $projetParticipantsFiltered = [];
+
+        foreach ($projetParticipants as $projetParticipant) {
+            if ($this->hasRole($projetParticipant->getRole(), $requiredRole)) {
+                $projetParticipantsFiltered[] = $projetParticipant;
+            }
+        }
+
+        return $projetParticipantsFiltered;
     }
 
     /**

@@ -106,6 +106,8 @@ class Projet implements HasSocieteInterface
         $this->projetParticipants = new ArrayCollection();
         $this->faitMarquants = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
+        $this->dateDebut = new \DateTime();
+        $this->dateFin = (new \DateTime())->modify('+2 years');
     }
 
     public function getId(): ?int

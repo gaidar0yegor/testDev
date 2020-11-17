@@ -71,6 +71,13 @@ class User implements UserInterface, HasSocieteInterface
     private $telephone;
 
     /**
+     * Heures travaillées par jours pour cet employé.
+     *
+     * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
+     */
+    private $heuresParJours;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -105,12 +112,6 @@ class User implements UserInterface, HasSocieteInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $profils_utilisateur;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=BaseTempsParContrat::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $base_temps_par_contrat;
 
     /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="user", orphanRemoval=true)
@@ -293,6 +294,18 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
+    public function getHeuresParJours(): ?float
+    {
+        return $this->heuresParJours;
+    }
+
+    public function setHeuresParJours(?float $heuresParJours): self
+    {
+        $this->heuresParJours = $heuresParJours;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -361,18 +374,6 @@ class User implements UserInterface, HasSocieteInterface
     public function setProfilsUtilisateur(?ProfilsUtilisateur $profils_utilisateur): self
     {
         $this->profils_utilisateur = $profils_utilisateur;
-
-        return $this;
-    }
-
-    public function getBaseTempsParContrat(): ?BaseTempsParContrat
-    {
-        return $this->base_temps_par_contrat;
-    }
-
-    public function setBaseTempsParContrat(?BaseTempsParContrat $base_temps_par_contrat): self
-    {
-        $this->base_temps_par_contrat = $base_temps_par_contrat;
 
         return $this;
     }

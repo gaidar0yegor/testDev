@@ -39,6 +39,11 @@ class DateMonthService
         return $datetime;
     }
 
+    public function getMonthFromYearAndMonthString(string $year = null, string $month = null): \DateTime
+    {
+        return $this->getMonthFromYearAndMonth(intval($year), intval($month));
+    }
+
     /**
      * Set provided datetime day to first day.
      */

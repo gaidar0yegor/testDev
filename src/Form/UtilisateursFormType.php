@@ -40,6 +40,14 @@ class UtilisateursFormType extends AbstractType
                 'Administrateur' => 'ROLE_FO_ADMIN',
             ],
         ])
+        ->add('heuresParJours', NumberType::class, [
+            'label' => 'Nombre d\'heures travaillées par jour',
+            'help' => 'Pour cet utilisateur uniquement, vous pouvez remplacer ici le nombre d\'heure défini globalement au niveau de la société.',
+            'required' => false,
+            'attr' => [
+                'placeholder' => $this->getHeuresPlaceholder($builder),
+            ],
+        ])
         ->add('ajouter', SubmitType::class, [
             'label' => 'Mettre à jour',
             'attr' => [
@@ -53,5 +61,16 @@ class UtilisateursFormType extends AbstractType
         $resolver->setDefaults([
             'data_class' => User::class,
         ]);
+    }
+
+    private function getHeuresPlaceholder(FormBuilderInterface $builder): string
+    {
+        $defaultHeuresParJour = $builder->getData()->getSociete()->getHeuresParJours();
+
+        if (null === $defaultHeuresParJour) {
+            return '';
+        }
+
+        return sprintf('Par défaut : %.2f', $defaultHeuresParJour);
     }
 }
