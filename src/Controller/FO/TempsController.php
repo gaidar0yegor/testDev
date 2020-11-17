@@ -41,6 +41,7 @@ class TempsController extends AbstractController
         }
 
         $listeTempsPasses = $tempsPasseService->loadTempsPasses($this->getUser(), $mois);
+        $listeTempsPasses->getTempsPasses ();
         $form = $this->createForm(TempsPassesType::class, $listeTempsPasses);
 
         $form->handleRequest($request);
@@ -62,7 +63,7 @@ class TempsController extends AbstractController
             $this->addFlash('success', 'Temps passés mis à jour.');
             $this->addFlash(
                 'warning',
-                '<a href="'.$href.'" class="alert-link">Saisissez vos congés</a> si vous en avez pris ce mois ci.'
+                '<a href="'.$href.'" class="alert-link">Saisissez vos absences</a> si vous en avez pris ce mois ci.'
             );
 
             return $this->redirectToRoute('temps_', [

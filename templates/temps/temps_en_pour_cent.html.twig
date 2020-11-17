@@ -6,7 +6,8 @@
 
 <h1>Saisie de temps passé</h1>
 
-{% if hasTempsPasses is defined %}
+
+{% if hasTempsPasses %}
 
 <h2>
     <a href="{{ path('temps_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
