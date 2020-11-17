@@ -12,12 +12,12 @@
 			<tr>
 				<th style="text-align: start;">N°</th>
 				<th style="text-align: start;">NOM</th>
-				<th>Prénom</th>
+				<th class=" d-none d-md-table-cell">Prénom</th>
 				<th class="d-none d-md-table-cell">Email</th>
 				<th class="d-none d-md-table-cell">Rôle</th>
-				{# <th class="d-none d-md-table-cell">Statut</th> #}
+				<th class="d-none d-md-table-cell">Statut</th>
 				<th>Nb projets</th>
-				<th></th>
+				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -28,10 +28,10 @@
 						{{ numero }}</td>
 					{# <td style="text-align: start;">{{ user.id }}</td> #}
 					<td style="text-align: start;">{{ user.nom }}</td>
-					<td>{{ user.prenom }}</td>
+					<td class=" d-none d-md-table-cell">{{ user.prenom }}</td>
 					<td class=" d-none d-md-table-cell">{{ user.email }}</td>
 					<td class=" d-none d-md-table-cell">{{ user.role|trans }}</td>
-					{# <td class=" d-none d-md-table-cell">{{ user.statutsUtilisateur }}</td> #}
+					<td class=" d-none d-md-table-cell"></td>
 
 					<td>{{ user.projetParticipants|length }}</td>
 					<td class="d-flex justify-content-around">

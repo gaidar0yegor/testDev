@@ -19,6 +19,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Agrandir la zone de saisie des faits marquants à 5lignes ou plus
 - texte du résumé justifié, items et descritpifs alignés sur deux colonnes
 - correspondances des tags mis à jour
+- Remplacer le message "Saisissez vos congés si vous en avez pris ce mois ci" par  "Saisissez vos absences si vous en avez eu ce mois ci."
+
 ### Réparé
 - Embarque les css/js dans le projet, n'utilise plus de CDN tierces
 - Retire tous les css/js du html et centralise tout dans styles.css
