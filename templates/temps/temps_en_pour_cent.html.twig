@@ -6,6 +6,8 @@
 
 <h1>Saisie de temps passé</h1>
 
+{% if hasTempsPasses is defined %}
+
 <h2>
     <a href="{{ path('temps_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
         <i class="fa fa-arrow-left"></i>
@@ -31,5 +33,9 @@
         {{ form_row(form.submit) }}
     </div>
 {{ form_end(form) }}
+
+{% else %}
+   <h4 class="text-center">Vous n'êtes contributeur sur aucun projet, vous n'avez pas de temps à saisir</h4>
+{% endif %}
 
 {% endblock %}
