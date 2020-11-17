@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
 - Administration front: Génération des feuilles de temps
+- Saisie des congés : les jours fériés sont maintenant grisés par défaut
 ### Modifié
 - Saisie des temps passés : flèche grisée pour ne pas aller dans un mois futur
 - Saisie des temps passés : Affichage de l'acronyme plutôt que le titre descriptif pour réduire la taille du formulaire
