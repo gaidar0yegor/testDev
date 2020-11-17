@@ -2,26 +2,31 @@
 
 namespace App\Form;
 
-use App\Entity\ProjetParticipant;
 use App\Entity\Societe;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProjetParticipantType extends AbstractType
+class SocieteType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('user', SameSocieteUserType::class)
-            ->add('role', ParticipantRoleChoiceType::class)
+            ->add('raisonSociale')
+            ->add('siret')
+            ->add('heuresParJours')
+            ->add('submit', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-success'],
+                'label' => 'Mettre à jour',
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => ProjetParticipant::class,
+            'data_class' => Societe::class,
         ]);
     }
 }

@@ -3,7 +3,9 @@ App\Entity\Societe:
         raisonSociale: Société 1
         siret: 111111111
         statut: '@societe_active'
+        heuresParJours: 7.5
     societe2:
         raisonSociale: Société 2
         siret: 222222222
         statut: '@societe_active'
+        heuresParJours: 8
