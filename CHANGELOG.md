@@ -9,11 +9,24 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 ### Réparé
 
+## [0.2.1] - 2020-11-17
+### Ajouté
+- Ajoute tooltip en JS pour meilleur support mobile, et fonctionne aussi sur les elements disabled
+- Administration front: Génération des feuilles de temps
+- Saisie des congés : les jours fériés sont maintenant grisés par défaut
+
+### Modifié
+- Saisie des temps passés : flèche grisée pour ne pas aller dans un mois futur
+- Saisie des temps passés : Affichage de l'acronyme plutôt que le titre descriptif pour réduire la taille du formulaire
+### Réparé
+- Modification projet : Les dates de début et de fin ne se mettent plus à la date du jour toutes seules
+
 ## [0.2.0] - 2020-11-12
 ### Ajouté
 - Administration front: Modification des utilisateurs
 - Administration front: Désactiver ou réactiver un utilisateur
 - Projet: Un chef de projet peut inviter des nouveaux utilisateur sur RDI manager, sur son projet
+- Mettre un background pour le cadre (gris clair). Idée : harmoniser les contenus, les centrer sur la page web.
 ### Modifié
 - Refactorisation des templates, suppression de duplications, utilise même template pour front et back office
 - Agrandir la zone de saisie des faits marquants à 5lignes ou plus
@@ -21,6 +34,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - correspondances des tags mis à jour
 - Remplacer le message "Saisissez vos congés si vous en avez pris ce mois ci" par  "Saisissez vos absences si vous en avez eu ce mois ci."
 - Liste des utilisateurs(FO): ajouter les colonnes "Rôles" et "Statut", enlever "Prénom" et "Email" en mode responsive
+- Agencement des éléments : réduire ou agrandir le titre en fonction du cadre. Dans le cadre, items et respectifs doivent être
+  alignés (Idem pour la page Mon compte). Pareil pour la timeline "Faits marquants", elle doit être alignée sur le cadre.
+### Déprécié
+### Supprimé
 
 
 ### Réparé

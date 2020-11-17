@@ -10,6 +10,7 @@ Requires:
 - composer
 - a database
 - [Symfony CLI tool](https://symfony.com/doc/current/cloud/getting-started)
+- wkhtmltopdf pour la génération de feuilles de temps en PDF
 
 ``` bash
 # Clone the project
@@ -62,6 +63,17 @@ MAILER_FROM=rdi-manager@eurekaci.com
 
 ``` yaml
 DATABASE_URL=mysql://USER:PASS@HOST:PORT/DBNAME
+```
+
+- Configure **PDF generation**:
+
+Chemin vers votre wkhtmltopdf,
+utile pour la génération des feuilles de temps en PDF.
+wkhtmltoimage est en général dans le même dossier.
+
+```
+WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf
+WKHTMLTOIMAGE_PATH=/usr/local/bin/wkhtmltoimage
 ```
 
 Then go to <http://127.0.0.1:8000/projets>

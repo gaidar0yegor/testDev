@@ -5,6 +5,7 @@ namespace App\Tests\Unit\Service;
 use App\Repository\CraRepository;
 use App\Service\CraService;
 use App\Service\DateMonthService;
+use App\Service\JoursFeriesCalculator;
 use PHPUnit\Framework\TestCase;
 
 class CraServiceTest extends TestCase
@@ -21,15 +22,15 @@ class CraServiceTest extends TestCase
         $this->craRepositoryMock = $this->createMock(CraRepository::class);
     }
 
-    public function testCreateDefaultCraCreatesCraWithWeekends()
+    public function testCreateDefaultCraCreatesCraWithDaysOff()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock);
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, new JoursFeriesCalculator());
 
         $cra = $craService->createDefaultCra(\DateTime::createFromFormat('Y-m-d', '2020-11-09'));
         $expected = [
             0,
             1, 1, 1, 1, 1, 0, 0,
-            1, 1, 1, 1, 1, 0, 0,
+            1, 1, 0, 1, 1, 0, 0,
             1, 1, 1, 1, 1, 0, 0,
             1, 1, 1, 1, 1, 0, 0,
             1,
@@ -40,7 +41,7 @@ class CraServiceTest extends TestCase
 
     public function testCreateDefaultCraCreatesCraNormalizedMonth()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock);
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, new JoursFeriesCalculator());
 
         $cra = $craService->createDefaultCra(\DateTime::createFromFormat('Y-m-d', '2020-11-09'));
 

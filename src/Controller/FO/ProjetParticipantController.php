@@ -26,9 +26,7 @@ class ProjetParticipantController extends AbstractController
     ) {
         $this->denyAccessUnlessGranted('edit', $projet);
 
-        $form = $this->createForm(ListeProjetParticipantsType::class, $projet, [
-            'societe' => $projet->getSociete(),
-        ]);
+        $form = $this->createForm(ListeProjetParticipantsType::class, $projet);
 
         $form->handleRequest($request);
 

@@ -13,8 +13,6 @@ class TokenGeneratorTest extends TestCase
 
         $token = $tokenGenerator->generateUrlToken();
 
-        var_dump($token);
-
         $this->assertIsString($token);
         $this->assertTrue(strlen($token) > 20, 'Token is not long enough');
     }

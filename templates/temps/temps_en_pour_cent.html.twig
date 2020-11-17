@@ -6,14 +6,25 @@
 
 <h1>Saisie de temps passé</h1>
 
+
+{% if hasTempsPasses %}
+
 <h2>
     <a href="{{ path('temps_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
-        <img src="https://img.icons8.com/android/24/000000/arrow-pointing-left.png"/>
+        <i class="fa fa-arrow-left"></i>
     </a>
-    {{ mois|format_date(pattern='MMMM Y')|capitalize }}
-    <a href="{{ path('temps_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
-        <img src="https://img.icons8.com/android/24/000000/arrow.png"/>
-    </a>
+    <span class="mx-3">
+        {{ mois|format_date(pattern='MMMM Y')|capitalize }}
+    </span>
+    {% if next > date() %}
+        <span class="text-muted" title="Impossible de saisir les temps passés dans le futur.">
+            <i class="fa fa-arrow-right"></i>
+        </span>
+    {% else %}
+        <a href="{{ path('temps_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
+            <i class="fa fa-arrow-right"></i>
+        </a>
+    {% endif %}
 </h2>
 
 {{ form_start(form) }}
@@ -23,5 +34,9 @@
         {{ form_row(form.submit) }}
     </div>
 {{ form_end(form) }}
+
+{% else %}
+   <h4 class="text-center">Vous n'êtes contributeur sur aucun projet, vous n'avez pas de temps à saisir</h4>
+{% endif %}
 
 {% endblock %}

@@ -17,8 +17,10 @@
 		</ul>
 	</li>
 	{% if is_granted('ROLE_FO_ADMIN') %}
-	<li><a href="{{ path ('utilisateurs_fo_') }}">Administration</a>
+	<li><a href="{{ path ('fo_societe_show') }}">Administration</a>
 		<ul>
+			<li><a href="{{ path ('fo_societe_show') }}">Ma société</a></li>
+			<li><a href="{{ path ('timesheet_generate') }}">Feuilles de temps</a></li>
 			<li><a href="{{ path ('utilisateurs_fo_') }}">Liste des utilisateurs</a></li>
 			<li><a href="{{ path ('fo_user_invite') }}">Nouvel utilisateur</a></li>
 		</ul>
