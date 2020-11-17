@@ -25,8 +25,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Saisie des temps passés : flèche grisée pour ne pas aller dans un mois futur
 - Saisie des temps passés : Affichage de l'acronyme plutôt que le titre descriptif pour réduire la taille du formulaire
+- Mise à jour du logo header et page connexion
 ### Réparé
 - Modification projet : Les dates de début et de fin ne se mettent plus à la date du jour toutes seules
+- Responsive de la page de connexion
 
 ## [0.2.0] - 2020-11-12
 ### Ajouté

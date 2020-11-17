@@ -86,4 +86,12 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/reinitialiser-mot-de-passe", name="app_reset_password")
+     */
+    public function resetPassword()
+    {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
 }
