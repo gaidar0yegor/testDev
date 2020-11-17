@@ -36,6 +36,11 @@ class ListeTempsPasses
         return $this->tempsPasses;
     }
 
+    public function hasTempsPasses(): bool 
+    {
+        return count ($this->tempsPasses) > 0;
+    }
+
     public function setTempsPasses(array $tempsPasses): self
     {
         $this->tempsPasses = $tempsPasses;
