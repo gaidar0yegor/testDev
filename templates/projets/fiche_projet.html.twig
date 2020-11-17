@@ -94,7 +94,7 @@
             <li class="event">
                 <h4 style="font-size: 1em" data-date="{{ faitMarquant.date|format_date }}">{{ faitMarquant.date|format_date }} - <span>{{ faitMarquant.createdBy.prenom }} {{ faitMarquant.createdBy.nom }}</span></h4>
                 <h3>{{ faitMarquant.titre }}</h3>
-                <p>
+                <p class="text-justify">
                     {{ faitMarquant.description|nl2br }}
                 </p>
                 <div class="font-awesome" style="text-align: end;">
