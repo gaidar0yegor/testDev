@@ -18,5 +18,9 @@ return [
     Hautelook\AliceBundle\HautelookAliceBundle::class => ['dev' => true, 'test' => true],
     FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle::class => ['test' => true],
     Shivas\VersioningBundle\ShivasVersioningBundle::class => ['all' => true],
+<<<<<<< HEAD
     Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
+=======
+    Nzo\FileDownloaderBundle\NzoFileDownloaderBundle::class => ['all' => true],
+>>>>>>> test-upload_fichiers
 ];
