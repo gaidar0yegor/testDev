@@ -14,8 +14,8 @@
 				<th style="text-align: start;">NOM</th>
 				<th class=" d-none d-md-table-cell">Prénom</th>
 				<th class="d-none d-md-table-cell">Email</th>
-				<th class="d-none d-md-table-cell">Rôle</th>
-				<th class="d-none d-md-table-cell">Statut</th>
+				<th>Rôle</th>
+				<th>Statut</th>
 				<th>Nb projets</th>
 				<th>Actions</th>
 			</tr>
@@ -30,8 +30,8 @@
 					<td style="text-align: start;">{{ user.nom }}</td>
 					<td class=" d-none d-md-table-cell">{{ user.prenom }}</td>
 					<td class=" d-none d-md-table-cell">{{ user.email }}</td>
-					<td class=" d-none d-md-table-cell">{{ user.role|trans }}</td>
-					<td class=" d-none d-md-table-cell"></td>
+					<td>{{ user.role|trans }}</td>
+					<td></td>
 
 					<td>{{ user.projetParticipants|length }}</td>
 					<td class="d-flex justify-content-around">
