@@ -1,0 +1,16 @@
+App\Entity\TempsPasse:
+    temps_passe_user_projet1:
+        mois: '<(new DateTime("2020-11-01"))>'
+        pourcentage: 25
+        user: '@user'
+        projet: '@projet1'
+    temps_passe_cdp_projet1:
+        mois: '<(new DateTime("2020-11-01"))>'
+        pourcentage: 10
+        user: '@cdp'
+        projet: '@projet1'
+    temps_passe_cdp_projet2:
+        mois: '<(new DateTime("2020-11-01"))>'
+        pourcentage: 15
+        user: '@cdp'
+        projet: '@projet2'
