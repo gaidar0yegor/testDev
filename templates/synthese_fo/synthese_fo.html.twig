@@ -4,154 +4,92 @@
 
 {% block body %}
     
-    <style>        
-        a:hover {text-decoration: none;  }
-        .form-control col-sm-3 {position: absolute;}
-        .img_logo {position: absolute; left: 4%; top: 8%; }
-        .img_logo img {height: 50px; }
-
-        .title {position: relative; left: -2%; }
-        /* .title {display: flex; justify-content: space-around; } */
-        i {color: black; }
-        .table thead th {background-color: #ce352c; color: white; }
-        tr, td {background-color: #e6e6e6; }
-        .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
-        .chart {display: flex; justify-content: space-between; }
-
-    /**********************************************RESPONSIVE DESIGN**************************************************/
-    @media screen and (min-width: 1024px)
+<style>        
+    a:hover {text-decoration: none;  }
+    .form-control col-sm-3 {position: absolute;}
+    .img_logo {position: absolute; left: 4%; top: 8%; }
+    .img_logo img {height: 50px; }
+    .title {position: relative; left: -2%; }
+    /* .title {display: flex; justify-content: space-around; } */
+    i {color: black; }
+    .table thead th {background-color: #ce352c; color: white; }
+    tr, td {background-color: #e6e6e6; }
+    .btn-success {color: white; background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); border: none; }
+    .chart {display: flex; justify-content: space-between; }
+    {# .bordure {border: 1px solid black; } #}
+    {# #graph li
     {
-        /* .chart {display: flex; justify-content: space-between; } */
-    }
-    @media screen and (min-width: 970px)
-    {
-        body {
-            overflow-x: hidden;
-        }
-        .chart {
-            display: flex;
-            /* flex-direction: column;  */
-            /* flex-wrap: wrap;  */
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            position: relative;
-            left: 2.5%;
-            max-width: 50%;
-        }
-    }
-    @media screen and (max-width: 792px)
-    {
-        body {
-            overflow-x: hidden;
-            min-height: 300px; 
-        }
-        .select {
-            position: absolute; 
-            left: 10%;
-            top: 30%;
-        }
-        .chart {
-            flex-direction: column;
-        }
-    }
-    @media screen and (min-width: 650px)
-    {
-        body {
-            overflow-x: hidden;
-        }
-        .title {
-            text-align: center; 
-            position: relative; 
-            right: 10%;
-        }
+       position:absolute;	
+       list-style:none;
+       background:lightblue;
+       width:40px;
+       text-align:center;
+       border:1px solid black;
+       visibility: hidden;
+       background-image:url(bar-shaded.png);
+       background-repeat:repeat-y;
+    } #}
+</style>
 
 
-        #piechart_3D {
-            width: 1000%;
-        }
-    }
-    @media screen and (min-width: 540px) and (max-width: 650px)
-    {
-        body {
-            overflow-x: hidden;
-        }
-        .title {
-            text-align: center;
-        }
-        .select {
-            position: absolute;
-            bottom: 20%;
-        }
-        .personne {
-            display: none;
-        }
-    }
-    @media screen and (max-width: 540px)
-    {
-        #menu-demo2 {
-            display: flex; 
-            flex-direction: column;
-            flex-wrap: wrap;
-            justify-content: center;          
-        }
-        .personne {
-            display: none;
-        }
-        .select {
-            position: absolute;
-            left: 70%;
-            bottom: 20%;
-        }
-    }
-    </style>
+<div class="d-flex justify-content-center">
+    <h1>Projets de l'année</h1>
+</div>
+<div class="col-md-2 lg-2 mx-auto mb-5">
+    <select name="select" class="form-control" id="dropdownYear" onchange="getProjectReportFunc()"></select>
+</div>               
 
-    <section style="min-height: 900px;">
+<div class="button text-center mb-5">
+    <a href={{ path ('temps_') }}><input type="button" class="btn btn-success" value="Mettre à jour votre feuille de temps"></a>
+</div>
 
-        <div class="title text-center">
-            <h1>Projets de l'année</h1>
+<section style="min-height: 10vh;">
+    <div class="row">
+        <div class="col-md-4 bordure">
+            <h4 class="text-center">Heures travaillées par année sur un projet</h4>
+            <div id="columnchart_values" class="col-md-2" style="width: 100%; height: 400px; margin-top: 5%;"></div>
         </div>
-        <div class="col-lg-3 mx-auto">
-            <select name="select" class="form-control" id="dropdownYear" onchange="getProjectReportFunc()"></select>                 
+        <div class="col-md-4 bordure">
+            <h4 class="text-center">Projets réalisés en 2017</h4>
+            <div id="piechart_3d" style="width: 130%; height: 400px; margin-right: 70%;"></div>    
         </div>
-        <div class="chart mt-5">
-            <div id="piechart_3d" class="text-center mx-auto" style="width: 4000%; height: 400px;"></div>
-            <div id="myDiv" class="text-center mx-auto"   style="width: 4000%; height: 400px;">Projets des trois dernières années</div>
-        </div>            
-
-        <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
-            <thead>
-                <tr class="table table-secondary">
-                    <th scope="col">TABLEAU DE BORD</th>
-                    <th scope="col" class="text-center">ID</th>
-                    <th scope="col" class="text-center">Équipe</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Nombre de projets de l'année en cours</th>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Nombre de projets de type CIR-CII</th>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                </tr>
-                <tr>
-                    <th scope="row">Temps total passé en  heures</th>
-                    <td class="text-center">0</td>
-                    <td class="text-center">0</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <div class="button text-center mb-5">
-            <a href="fo-temps-01.php"><input type="button" class="btn btn-success" value="Mettre à jour votre feuille de temps"></a>
+        <div class="col-md-4 bordure">
+            <h4 class="text-center">Projets des trois dernières années</h4>
+            <div id="myDiv"  style="width: 100%; height: 400px;"></div>
         </div>
+    </div>
 
-    </section>
+    {# <div class="chart mt-5">
+        <div id="piechart_3d" class="text-center mx-auto" style="width: 4000%; height: 400px;"></div>
+        <div id="myDiv" class="text-center mx-auto"   style="width: 4000%; height: 400px;">Projets des trois dernières années</div>
+    </div>             #}
+    <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
+        <thead>
+            <tr class="table table-secondary">
+                <th scope="col">TABLEAU DE BORD</th>
+                <th scope="col" class="text-center">ID</th>
+                <th scope="col" class="text-center">Équipe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Nombre de projets de l'année en cours</th>
+                <td class="text-center">0</td>
+                <td class="text-center">0</td>
+            </tr>
+            <tr>
+                <th scope="row">Nombre de projets de type CIR-CII</th>
+                <td class="text-center">0</td>
+                <td class="text-center">0</td>
+            </tr>
+            <tr>
+                <th scope="row">Temps total passé en  heures</th>
+                <td class="text-center">0</td>
+                <td class="text-center">0</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
 
 {% endblock %}
 
@@ -167,7 +105,6 @@
         ['En cours',85], ['Terminé', 15], ['Suspendu', 4],
         ]);
         var options = {
-        title: 'Projets réalisés depuis 2017',
         is3D: true,
         //   legend: 'none',
         pieSliceText: 'label',
@@ -199,6 +136,54 @@
     ]
 
     Plotly.newPlot('myDiv', data)
+
+
+    {# var x = ["P1, P2, P3, P4"]
+    var y = ["300", "100", "150"]
+
+    var data = [
+        {
+        histfunc: "Projet",
+        y: y,
+        x: x,
+        type: "histogram",
+        name: "RDI"
+        },
+    ]
+
+    Plotly.newPlot('myDiv2', data) #}
+
+
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart2);
+    function drawChart2() {
+      var data = google.visualization.arrayToDataTable([
+        ["Element", "Density", { role: "style" } ],
+        ["P1", 8.94, "#b87333"],
+        ["P2", 10.49, "silver"],
+        ["P3", 19.30, "gold"],
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        
+        width: 300,
+        height: 400,
+        bar: {groupWidth: "95%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+    }   
+
+
 
     $('#dropdownYear').each(function() {
 
