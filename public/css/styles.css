@@ -84,7 +84,7 @@ li.list-group-item {
 }
 
 div.container.table {
-    background-color:#e9ecef;
+    background-color:#e9ece6;
     text-align: justify;
     padding: 25px;
     border-radius: 2%;
@@ -99,7 +99,6 @@ div.container.compte {
     border-radius: 2%;
     max-width: 64.5%;
     margin-right: 18%;
-
 }
 
 .col-4.bordure {
