@@ -1,10 +1,6 @@
 /*********************** BODY *****************************/
 body {
     background-color: white;
-    /* line-height: "3,2em"; */
-    overflow-y: auto;
-    /* height:100% !important; */
-    min-height: 135vh;
 }
 
 
@@ -250,12 +246,3 @@ a button {
 .btn-jour span {
     font-weight: bold;
 }
-
-/*************************************** INSCRIPTION ********************************/
-.form1 {
-    margin: 0 auto;
-    text-align: center;
-    height: 99vh;
-    width: 70vh;
-    padding-top: 0vh;
-} 
