@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
 ### Modifié
+- Refonte du menu de navigation du haut
 ### Réparé
 
 ## [0.3.0] - 2020-11-18

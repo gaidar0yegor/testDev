@@ -8,7 +8,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I follow "Liste des utilisateurs"
+        And I follow "Utilisateurs"
 
     Scenario: Le référent peut voir toutes les infos d'un utilisateur en particulier
         When I click on the 1st "[href='/utilisateurs/2']" element

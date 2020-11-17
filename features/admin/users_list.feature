@@ -10,12 +10,12 @@ Feature: Liste des utilisateurs visible par le référent.
         And I press "Connexion"
 
     Scenario: L'admin peut voir la liste de ses utilisateurs
-        When I follow "Liste des utilisateurs"
+        When I follow "Utilisateurs"
         Then I should see "Liste des utilisateurs" in the "h1" element
         And I should see "admin@societe.dev" in the "table" element
         And I should see "user@societe.dev" in the "table" element
 
     Scenario: L'admin ne doit pas voir les utilisateurs des autres sociétés
-        When I follow "Liste des utilisateurs"
+        When I follow "Utilisateurs"
         Then I should see "user@societe.dev" in the "table" element
         But I should not see "autre-user@societe.dev" in the "table" element
