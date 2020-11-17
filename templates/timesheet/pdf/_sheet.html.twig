@@ -1,0 +1,100 @@
+<h1>Feuille de temps</h1>
+
+<div class="row">
+    <div class="col-6">
+        <dl class="row">
+            <dt class="col-3">Nom</dt>
+            <dd class="col-9">{{ timesheet.cra.user.nom }}</dd>
+
+            <dt class="col-3">Prénom</dt>
+            <dd class="col-9">{{ timesheet.cra.user.prenom }}</dd>
+
+            <dt class="col-3">Email</dt>
+            <dd class="col-9">{{ timesheet.cra.user.email }}</dd>
+        </dl>
+    </div>
+    <div class="col-6">
+        <dl class="row">
+            <dt class="col-3">Société</dt>
+            <dd class="col-9">{{ timesheet.cra.user.societe.raisonSociale }}</dd>
+
+            <dt class="col-3">Heures/jour</dt>
+            <dd class="col-9">{{ timesheet.heuresParJours|round(2) }} h</dd>
+        </dl>
+    </div>
+</div>
+
+<h2>{{ timesheet.cra.mois|format_date(pattern='MMMM Y')|capitalize }}</h2>
+
+<table class="table table-sm table-bordered text-center">
+    <thead>
+        <tr>
+            <th></th>
+
+            {% for key, jour in timesheet.cra.jours %}
+                <th class="rdi-cra-col">
+                    {{ timesheet.cra.mois|date_modify('+'~key~' day')|format_date(pattern='ccccc d')|upper|replace({' ': '\n'})|nl2br }}
+                </th>
+            {% endfor %}
+
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for projet in timesheet.projets %}
+            <tr>
+                {# Projet #}
+                <th>
+                    {{ projet.participation.projet.acronyme }}
+                    <br>
+                    <small class="text-muted">{{ projet.participation.role|trans }}</small>
+                </th>
+
+                {# Détails par jour #}
+                {% for key, jour in timesheet.cra.jours %}
+                    {% if projet.hasValue %}
+                        <td class="rdi-cra-value">{{ projet.workedHours[key]|round(2) }}</td>
+                    {% else %}
+                        <td class="rdi-cra-value">-</td>
+                    {% endif %}
+                {% endfor %}
+
+                {# Total heures #}
+                <td>
+                    <strong>{{ projet.totalWorkedHours|round(2) }}&nbsp;h</strong>
+                    {% if projet.tempsPasse %}
+                        <br>
+                        <small class="text-muted">
+                            soit {{ projet.tempsPasse.pourcentage }} %
+                        </small>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        {# Présence #}
+        <tr>
+            <th>
+                Présence
+                <br>
+                <small class="text-muted">
+                    en jours
+                </small>
+            </th>
+            {% for jour in timesheet.cra.jours %}
+                <td class="rdi-cra-value"><strong>{{ jour }}</strong></td>
+            {% endfor %}
+
+            <td><strong>{{ timesheet.totalJours }}&nbsp;j</strong></td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="text-right lead">
+    Total des heures en
+    {{ timesheet.cra.mois|format_date(pattern='MMMM Y') }} :
+    <strong>{{ timesheet.totalWorkedHours|round(2) }} h</strong>
+</p>
+<p class="text-right text-muted">
+    soit {{ timesheet.totalPourcentage }} %
+</p>

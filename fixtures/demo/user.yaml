@@ -8,6 +8,7 @@ App\Entity\User:
         # password is 'user'
         roles: [ROLE_FO_USER]
         societe: '@societe'
+        heuresParJours: 8
     admin:
         nom: Eureka
         prenom: Admin

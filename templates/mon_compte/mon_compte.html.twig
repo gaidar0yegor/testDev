@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Mon compte</h1>
 
-    <div class="row">
+    <div class="col-md-8 offset-md-2 mb-5">
         <div class="col-md-8 offset-md-2 mb-5">
             <ul class="list-group">
                 <li class="list-group-item list-group-item-secondary"><strong>Nom</strong> : {{ app.user.nom }}</li>
@@ -14,6 +14,26 @@
                 <li class="list-group-item list-group-item-secondary"><strong>E-mail / Identifiant</strong> : {{ app.user.email }}</li>
                 <li class="list-group-item list-group-item-secondary"><strong>Téléphone</strong> : {{ app.user.telephone }}</li>
             </ul>
+        {# <div class="row">
+            <div class="col-4 bordure"><strong>Nom : </strong></div>
+            <div class="col-8 bordure"> {{ app.user.nom }}</div>
+        </div></br>
+        <div class="row">
+            <div class="col-4 bordure"><strong>Prénom : </strong></div>
+            <div class="col-8 bordure"> {{ app.user.prenom }}</div>        
+        </div></br>
+        <div class="row">
+            <div class="col-4 bordure"><strong>Rôle : </strong></div>
+            <div class="col-8 bordure"> {{ app.user.role|trans }}</div>
+        </div></br>
+        <div class="row">
+            <div class="col-4 bordure"><strong>E-mail / Identifiant : </strong></div>
+            <div class="col-8 bordure"> {{ app.user.email }}</div>        
+        </div></br>
+        <div class="row">
+            <div class="col-4 bordure"><strong>Téléphone : </strong></div>
+            <div class="col-8 bordure"> {{ app.user.telephone }}</div>        
+        </div></br> #}
 
             <div class="d-flex flex-column flex-md-row justify-content-md-between mt-5">
                 <a href="#" class="btn btn-success mt-2">Mettre à jour</a>
@@ -21,4 +41,5 @@
             </div>
         </div>
     </div>
+        {# </div> #}
 {% endblock %}

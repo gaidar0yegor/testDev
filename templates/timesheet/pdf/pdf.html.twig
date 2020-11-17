@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Feuille de temps | RDI Manager</title>
+
+        <link rel="stylesheet" href="{{ absolute_url(asset('dependences/bootstrap-4.5.0.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('dependences/font-awesome/css/font-awesome.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('css/pdf.css')) }}">
+    </head>
+    <body>
+        {% if timesheets is not defined %}
+            {% set timesheets = [timesheet] %}
+        {% endif %}
+
+        {% for timesheet in timesheets %}
+            <section class="pdf-page">
+                {% include 'timesheet/pdf/_sheet.html.twig' with {
+                    'timesheet': timesheet
+                } %}
+            </section>
+        {% endfor %}
+    </body>
+</html>

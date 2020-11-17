@@ -12,10 +12,16 @@ class CraService
 
     private $craRepository;
 
-    public function __construct(DateMonthService $dateMonthService, CraRepository $craRepository)
-    {
+    private $joursFeriesCalculator;
+
+    public function __construct(
+        DateMonthService $dateMonthService,
+        CraRepository $craRepository,
+        JoursFeriesCalculator $joursFeriesCalculator
+    ) {
         $this->dateMonthService = $dateMonthService;
         $this->craRepository = $craRepository;
+        $this->joursFeriesCalculator = $joursFeriesCalculator;
     }
 
     /**
@@ -28,16 +34,24 @@ class CraService
 
         $this->dateMonthService->normalize($month);
 
-        $currentYear = $month->format('Y');
-        $currentMonth = $month->format('m');
+        $currentYear = intval($month->format('Y'));
+        $currentMonth = intval($month->format('n'));
 
         $daysCount = intval($month->format('t'));
         $days = [];
 
         for ($i = 1; $i <= $daysCount; ++$i) {
-            $currentDate = \DateTime::createFromFormat('Y-m-j', "$currentYear-$currentMonth-$i");
+            $currentDate = \DateTime::createFromFormat('Y-n-j', "$currentYear-$currentMonth-$i");
 
-            $days[] = $this->isWorkingDay($currentDate) ? 1 : 0;
+            // Jour off si weekend
+            $days[] = intval($currentDate->format('N')) >= 6 ? 0 : 1;
+        }
+
+        // Met les jours férié à 0
+        $joursFeries = $this->joursFeriesCalculator->calcJoursFeries($currentYear, $currentMonth);
+
+        foreach ($joursFeries as $jourFerie) {
+            $days[intval($jourFerie->format('j')) - 1] = 0;
         }
 
         $cra
@@ -58,18 +72,5 @@ class CraService
         }
 
         return $cra;
-    }
-
-    /**
-     * Indique si $day est un jour ouvré.
-     */
-    public function isWorkingDay(\DateTime $day): bool
-    {
-        // Jour off si weekend
-        if (intval($day->format('N')) >= 6) {
-            return false;
-        }
-
-        return true;
     }
 }
