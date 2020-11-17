@@ -12,11 +12,24 @@ use App\Entity\Projet;
 use App\Repository\FichiersProjetRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Nzo\FileDownloaderBundle\FileDownloader\FileDownloader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class FichierController extends AbstractController
 {
+    private $fileDownloader;
+
+    public function __construct(FileDownloader $fileDownloader)
+    {
+        $this->fileDownloader = $fileDownloader;
+    
+        // without autowiring use: $this->get('nzo_file_downloader')
+    }
+   
+    
+    
+    
     /**
      * @Route("/fiche/projet/{id}/liste/fichiers", name="liste_fichiers_")
      */
@@ -73,13 +86,17 @@ class FichierController extends AbstractController
      * @Route("/fiche/projet/{projetId}/delete/fichier/{fichierProjetId}", name="efface_fichier_", methods={"DELETE"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
-     * @ParamConverter("fichierProjetId", options={"id" = "fichierProjetId"})
+     * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
      *
      * @IsGranted("ROLE_FO_CDP")
      */
     public function delete(Request $request, FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
     {
-        $this->denyAccessUnlessGranted('same_society', $fichierProjet);
+        $this->denyAccessUnlessGranted('same_societe', $fichierProjet);
+    
+        //path
+        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getNomMd5();
+        unlink($chemin);
 
         $em->remove($fichierProjet);
         $em->flush();
@@ -88,5 +105,38 @@ class FichierController extends AbstractController
             'id' => $projet->getid(),
         ]);
     }
+
+    
+     /**
+     * @Route("/fiche/projet/{projetId}/dowload/fichier/{fichierProjetId}", name="telecharge_fichier_", methods={"DOWNLOAD"})
+     *
+     * @ParamConverter("projet", options={"id" = "projetId"})
+     * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
+     *
+     * @IsGranted("ROLE_FO_CDP")
+     */
+    public function download(Request $request, FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
+    {
+        $this->denyAccessUnlessGranted('same_societe', $fichierProjet);
+        //path
+        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getNomMd5();
+        return $this->fileDownloader->downloadFile($chemin);
+        
+        
+       // return $fileDownloader1->downloadFileFromPublicFolder($chemin);
+        //return new BinaryFileResponse($chemin);
+
+    }
+
+    public function downloadFileFromPublicFolder()
+    {
+         return $this->fileDownloader->downloadFile('myfolder/myfile.pdf');
+
+       # change the name of the file when downloading:
+
+         return $this->fileDownloader->downloadFile('myfolder/myfile.pdf', 'newName.pdf');
+    }
+
+
 
 }

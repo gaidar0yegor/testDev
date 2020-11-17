@@ -192,6 +192,9 @@
     "nikolaposa/version": {
         "version": "3.2.0"
     },
+    "nzo/file-downloader-bundle": {
+        "version": "v4.0.1"
+    },
     "ocramius/proxy-manager": {
         "version": "2.8.0"
     },

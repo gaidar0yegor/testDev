@@ -18,4 +18,5 @@ return [
     Hautelook\AliceBundle\HautelookAliceBundle::class => ['dev' => true, 'test' => true],
     FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle::class => ['test' => true],
     Shivas\VersioningBundle\ShivasVersioningBundle::class => ['all' => true],
+    Nzo\FileDownloaderBundle\NzoFileDownloaderBundle::class => ['all' => true],
 ];

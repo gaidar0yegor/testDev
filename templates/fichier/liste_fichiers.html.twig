@@ -40,6 +40,17 @@
                     {# <a href="{{ path('fiche_projet_', {'id': projet.id},'delete_fichier_'), {'id': fichier.id} }}"><i class="fa fa-trash" aria-hidden="true"></i></a> #}
                 {# /fiche/projet/{id}/delete/fichier/{id} #}
                 </td>
+                <td class="text-center">
+                    <a href=""><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+                    
+                    <form action="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}" method="post">
+                        <input type="hidden" name="_method" value="DOWNLOAD"> 
+                        <input type="submit" class="btn btn-danger" value="Telecharger">
+                    </form>
+
+                </td>
+
+
             </tr>
         </tbody>
         {% endfor %}
