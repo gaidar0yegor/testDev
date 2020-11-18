@@ -19,5 +19,4 @@ return [
     FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle::class => ['test' => true],
     Shivas\VersioningBundle\ShivasVersioningBundle::class => ['all' => true],
     Knp\Bundle\SnappyBundle\KnpSnappyBundle::class => ['all' => true],
-    Nzo\FileDownloaderBundle\NzoFileDownloaderBundle::class => ['all' => true],
 ];

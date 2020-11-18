@@ -13,20 +13,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Nzo\FileDownloaderBundle\FileDownloader\FileDownloader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class FichierController extends AbstractController
 {
-    private FileDownloader $fileDownloader;
 
-    public function __construct(FileDownloader $fileDownloader)
+    public function __construct()
     {
-        $this->fileDownloader = $fileDownloader;
-    
-        // without autowiring use: $this->get('nzo_file_downloader')
+        
     }
    
     
