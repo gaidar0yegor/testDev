@@ -4,8 +4,8 @@
 
 {% block body %}
 
-<div class="acronyme">
-    <h1>Projet : {{ projet.acronyme }}</h1>
+<div>
+    <h1>Projet {{ projet.acronyme }}</h1>
 </div>
 
 <p class="text-center">
@@ -25,7 +25,7 @@
 
 <div class="container table">    
     <div class="row">
-        <div class="col-4 bordure"><strong>Titre descriptif : </strong></div>
+        <div class="col-4 bordure"><strong>Titre : </strong></div>
         <div class="col-8 bordure"> {{ projet.titre }}</div>
     </div></br>
     <div class="row">
