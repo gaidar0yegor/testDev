@@ -105,11 +105,6 @@ div.container.compte {
     margin-right: 18%;
 }
 
-.col-4.bordure {
-    text-align: end;
-    max-width: 23.333333%;
-}
-
 .col-6.bis {
     min-width: 50.5%;
 }
@@ -253,6 +248,8 @@ a button {
     bottom: 0;
 }
 
+/*********************************************** RESPONSIVE DESIGN *******************************************/
+
 @media (min-width: 575px) {
     .btn-jour {
         padding: 0.2em 0.4em 0.6em 0.4em;
@@ -265,6 +262,6 @@ a button {
     }
 }
 
-.btn-jour span {
-    font-weight: bold;
-}
+    .btn-jour span {
+        font-weight: bold;
+    }

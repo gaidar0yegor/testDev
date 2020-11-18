@@ -31,8 +31,11 @@
 					<td class=" d-none d-md-table-cell">{{ user.prenom }}</td>
 					<td class=" d-none d-md-table-cell">{{ user.email }}</td>
 					<td>{{ user.role|trans }}</td>
-					<td></td>
-
+					{% if user.enabled %}
+						<td>Actif</td>
+					{% else %}
+						<td>Inactif</td>
+					{% endif %}
 					<td>{{ user.projetParticipants|length }}</td>
 					<td class="d-flex justify-content-around">
 						<a href="{{ path('users_fo_user', { 'id': user.id }) }}">

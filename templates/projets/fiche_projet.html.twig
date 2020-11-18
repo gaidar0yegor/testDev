@@ -25,30 +25,30 @@
 
 <div class="container table">    
     <div class="row">
-        <div class="col-4 bordure"><strong>Titre : </strong></div>
-        <div class="col-8 bordure"> {{ projet.titre }}</div>
+        <div class="col-md-2 bordure"><strong>Titre : </strong></div>
+        <div class="col-md-10 bordure"> {{ projet.titre }}</div>
     </div></br>
     <div class="row">
-        <div class="col-4 bordure"><strong>Résumé : </strong></div>
-        <div class="col-8 bordure"> {{ projet.resume|nl2br }}</div>        
+        <div class="col-md-2 bordure"><strong>Résumé : </strong></div>
+        <div class="col-md-10 bordure"> {{ projet.resume|nl2br }}</div>        
     </div></br>
     <div class="row">
-        <div class="col-4 bordure"><strong>Chef de projet : </strong></div>
-        <div class="col-8 bordure"> {{ projet.chefDeProjet.fullname }}</div>
+        <div class="col-md-2 bordure"><strong>Chef de projet : </strong></div>
+        <div class="col-md-10 bordure"> {{ projet.chefDeProjet.fullname }}</div>
     </div></br>
     <div class="row">
-        <div class="col-4 bordure"><strong>Date de début : </strong></div>
-        <div class="col-8 bordure"> {{ projet.dateDebut|format_date }}</div>        
+        <div class="col-md-2 bordure"><strong>Date de début : </strong></div>
+        <div class="col-md-10 bordure"> {{ projet.dateDebut|format_date }}</div>        
     </div></br>
     {% if projet.dateFin %}
         <div class="row">
-            <div class="col-4 bordure"><strong>Date de fin : </strong></div>
-            <div class="col-8 bordure"> {{ projet.dateFin|format_date }}</div>
+            <div class="col-md-2 bordure"><strong>Date de fin : </strong></div>
+            <div class="col-md-10 bordure"> {{ projet.dateFin|format_date }}</div>
         </div></br>
     {% endif %}
     <div class="row">
-        <div class="col-4 bordure"><strong>Statut : </strong></div>
-        <div class="col-8 bordure"> {{ projet.statutProjet.libelle }}</div>        
+        <div class="col-md-2 bordure"><strong>Statut : </strong></div>
+        <div class="col-md-10 bordure"> {{ projet.statutProjet.libelle }}</div>        
     </div></br> 
 </div>
 
