@@ -2,23 +2,25 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use DateTime;
+use App\Entity\Projet;
 use App\Form\UploadType;
 use App\Entity\FichierProjet;
-use App\Entity\Projet;
-use App\Repository\FichiersProjetRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\FichiersProjetRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Nzo\FileDownloaderBundle\FileDownloader\FileDownloader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 class FichierController extends AbstractController
 {
-    private $fileDownloader;
+    private FileDownloader $fileDownloader;
 
     public function __construct(FileDownloader $fileDownloader)
     {
@@ -117,26 +119,13 @@ class FichierController extends AbstractController
      */
     public function download(Request $request, FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
     {
+        
         $this->denyAccessUnlessGranted('same_societe', $fichierProjet);
-        //path
         $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getNomMd5();
-        return $this->fileDownloader->downloadFile($chemin);
-        
-        
-       // return $fileDownloader1->downloadFileFromPublicFolder($chemin);
-        //return new BinaryFileResponse($chemin);
 
+        $response = new BinaryFileResponse($chemin);
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+        $fichierProjet->getNomFichier());
+        return $response;
     }
-
-    public function downloadFileFromPublicFolder()
-    {
-         return $this->fileDownloader->downloadFile('myfolder/myfile.pdf');
-
-       # change the name of the file when downloading:
-
-         return $this->fileDownloader->downloadFile('myfolder/myfile.pdf', 'newName.pdf');
-    }
-
-
-
 }
