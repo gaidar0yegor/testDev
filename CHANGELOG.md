@@ -7,6 +7,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version] - DATE
 - Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
 ### Ajouté
+### Modifié
+### Réparé
+
+## [0.3.0] - 2020-11-18
+### Ajouté
 - texte du résumé justifié, items et descritpifs alignés sur deux colonnes
 - correspondances des tags mis à jour
 - Remplacer le message "Saisissez vos congés si vous en avez pris ce mois ci" par  "Saisissez vos absences si vous en avez eu ce mois ci."
@@ -15,6 +20,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
   alignés (Idem pour la page Mon compte). Pareil pour la timeline "Faits marquants", elle doit être alignée sur le cadre.
 ### Modifié
 ### Réparé
+
 
 ## [0.2.1] - 2020-11-17
 ### Ajouté
