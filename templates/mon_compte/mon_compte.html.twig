@@ -5,15 +5,7 @@
 {% block body %}
     <h1>Mon compte</h1>
 
-    <div class="container compte">
-        {# <div class="col-md-8 offset-md-2 mb-5">
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-secondary"><strong>Nom</strong> : {{ app.user.nom }}</li>
-                <li class="list-group-item list-group-item-secondary"><strong>Prénom</strong> : {{ app.user.prenom }}</li>
-                <li class="list-group-item list-group-item-secondary"><strong>Rôle</strong> : {{ app.user.role|trans }}</li>
-                <li class="list-group-item list-group-item-secondary"><strong>E-mail</strong> : {{ app.user.email }}</li>
-                <li class="list-group-item list-group-item-secondary"><strong>Téléphone</strong> : {{ app.user.telephone }}</li>
-            </ul> #}
+    <div class="col-lg-7 mx-auto compte">
         <div class="row">
             <div class="col-md-2 bordure"><strong>Nom : </strong></div>
             <div class="col-md-10 bordure"> {{ app.user.nom }}</div>
@@ -39,7 +31,6 @@
             <a href="#" class="btn btn-success mt-2">Mettre à jour</a>
             <a href="#" class="btn btn-warning mt-2">Modifier votre mot de passe</a>
         </div>
-        {# </div> #}
     </div>
-        {# </div> #}
+
 {% endblock %}
