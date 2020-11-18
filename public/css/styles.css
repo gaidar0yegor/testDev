@@ -18,10 +18,6 @@ h1 {
     color: #ce352c;
 }
 
-.acronyme {
-    margin-top: 7.5%;
-    margin-bottom: 5%;
-}
 
 .flash-messages {
     margin-top: 1em;
@@ -96,18 +92,13 @@ div.container.table {
     margin-right: 6%;
 }
 
-div.container.compte {
+div.col-lg-7.mx-auto.compte {
     background-color:#e9ecef;
     text-align: justify;
     padding: 25px;
     border-radius: 2%;
     max-width: 64.5%;
     margin-right: 18%;
-}
-
-.col-4.bordure {
-    text-align: end;
-    max-width: 23.333333%;
 }
 
 .col-6.bis {
@@ -253,6 +244,8 @@ a button {
     bottom: 0;
 }
 
+/*********************************************** RESPONSIVE DESIGN *******************************************/
+
 @media (min-width: 575px) {
     .btn-jour {
         padding: 0.2em 0.4em 0.6em 0.4em;
@@ -265,6 +258,6 @@ a button {
     }
 }
 
-.btn-jour span {
-    font-weight: bold;
-}
+    .btn-jour span {
+        font-weight: bold;
+    }

@@ -6,13 +6,18 @@
 
 <h1>Modification de {{ user.fullname }}</h1>
 
-<div class="col-lg-6 mx-auto">
+<div class="col-lg-7 mx-auto">
     {{ form_start(form) }}
+    
+    {{ form_errors(form) }}
+
         {{ form_row(form.nom) }}
         {{ form_row(form.prenom) }}
         {{ form_row(form.telephone) }}
         {{ form_row(form.email) }}
         {{ form_row(form.role) }}
+        {{ form_row(form.heuresParJours) }}
+
 
         <div class="d-flex justify-content-around">
             <div class="form-group mt-5">

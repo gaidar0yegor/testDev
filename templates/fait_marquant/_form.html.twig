@@ -1,11 +1,18 @@
 
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <div class="text-center mt-5">
-        <button class="btn btn-rdi">
-            {{ button_label|default('Sauvegarder') }}
-        </button>
-    </div>
-{{ form_end(form) }}
+<div class="col-lg-7 mx-auto">
+
+    {{ form_start(form) }}
+     
+    {{ form_errors(form) }}
+      
+        {{ form_widget(form) }}
+        <div class="text-center mt-5">
+            <button class="btn btn-rdi">
+                {{ button_label|default('Sauvegarder') }}
+            </button>
+        </div>
+    {{ form_end(form) }}
+
+</div>
 
 
