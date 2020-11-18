@@ -5,8 +5,9 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version] - DATE
-- Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
 ### Ajouté
+- Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
+- Mot de passe oublié
 ### Modifié
 - Refonte du menu de navigation du haut
 ### Réparé

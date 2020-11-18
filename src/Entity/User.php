@@ -66,6 +66,18 @@ class User implements UserInterface, HasSocieteInterface
     private $invitationToken;
 
     /**
+     * Clé secrète créée lorsque cet user souhaite réinitialiser son mot de passe.
+     *
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetPasswordToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $resetPasswordTokenExpiresAt;
+
+    /**
      * @ORM\Column(type="string", length=45, nullable=true)
      */
     private $telephone;
@@ -174,6 +186,45 @@ class User implements UserInterface, HasSocieteInterface
     public function removeInvitationToken(): self
     {
         $this->invitationToken = null;
+
+        return $this;
+    }
+
+    public function getResetPasswordToken(): string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    public function setResetPasswordToken(string $resetPasswordToken): self
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+
+        return $this;
+    }
+
+    public function hasResetPasswordToken(): string
+    {
+        return null !== $this->resetPasswordToken
+            && new \DateTime() < $this->resetPasswordTokenExpiresAt
+        ;
+    }
+
+    public function removeResetPasswordToken(): self
+    {
+        $this->resetPasswordToken = null;
+        $this->resetPasswordTokenExpiresAt = null;
+
+        return $this;
+    }
+
+    public function getResetPasswordTokenExpiresAt(): \DateTime
+    {
+        return $this->resetPasswordTokenExpiresAt;
+    }
+
+    public function setResetPasswordTokenExpiresAt(\DateTime $resetPasswordTokenExpiresAt): self
+    {
+        $this->resetPasswordTokenExpiresAt = $resetPasswordTokenExpiresAt;
 
         return $this;
     }
