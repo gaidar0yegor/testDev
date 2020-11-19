@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
 ### Ajouté
 ### Modifié
+- Refonte du menu de navigation du haut
 ### Réparé
 
 ## [0.3.0] - 2020-11-18

@@ -1,29 +1,126 @@
-<ul id="menu-demo2">
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #ce352c">
+    <a class="navbar-brand" href="{{ path('app_home') }}">
+        <img src="{{ asset('img/Logo-RDI-blanc.png') }}" alt="RDI manager logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-	<li><a href="{{ path ('synthese_fo_') }}">Tableau de bord</a>	</li>
-	<li><a href="{{ path ('projets_') }}">Mes Projets</a>
+    {% if app.user %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item {{ activeOn('synthese_fo_') }}">
+                    <a class="nav-link" href="{{ path('synthese_fo_') }}">Tableau de bord</a>
+                </li>
+                <li class="nav-item dropdown {{ activeOn('projets_', 'infos_projet_') }}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Mes Projets
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('projets_') }}"
+                        >
+                            <i class="fa fa-list-ul" aria-hidden="true"></i>Liste des projets
+                        </a>
+                        <a
+                            class="dropdown-item {{ is_granted('ROLE_FO_CDP') ? '' : 'disabled' }}"
+                            href="{{ path('infos_projet_') }}"
+                            {% if not is_granted('ROLE_FO_CDP') %}
+                                title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
+                            {% endif %}
+                        >
+                            Créer un projet
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown {{ activeOn('temps_', 'absences_') }}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Suivi temps
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('temps_') }}"
+                        >
+                            <i class="fa fa-tasks" aria-hidden="true"></i>Temps passés
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('absences_') }}"
+                        >
+                            <i class="fa fa-calendar" aria-hidden="true"></i>Mes absences
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown {{ activeOn('fo_societe_show', 'timesheet_generate', 'utilisateurs_fo_', 'fo_user_invite') }}">
+                    <a
+                        class="nav-link dropdown-toggle {{ is_granted('ROLE_FO_ADMIN') ? '' : 'disabled' }}"
+                        {% if not is_granted('ROLE_FO_ADMIN') %}
+                            title="Menu réservé à l'administrateur de votre société."
+                        {% endif %}
+                        href="#"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                    >
+                        Administration
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('fo_societe_show') }}"
+                        >
+                            Ma société
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('timesheet_generate') }}"
+                        >
+                            <i class="fa fa-download" aria-hidden="true"></i>Export feuilles de temps
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('utilisateurs_fo_') }}"
+                        >
+                            <i class="fa fa-users" aria-hidden="true"></i>Utilisateurs
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('fo_user_invite') }}"
+                        >
+                            Inviter un nouvel utilisateur
+                        </a>
+                    </div>
+                </li>
+            </ul>
 
-		<ul>
-			<li><a href="{{ path ('projets_') }}"  class="menu-icon">Liste des projets</a></li>
-			{% if is_granted('ROLE_FO_CDP') %}
-			<li><a href="{{ path ('infos_projet_') }}" class="menu-icon">Nouveau projet</a></li>
-			{% endif %}
-		</ul>
-	</li>
-	<li><a href="{{ path ('temps_') }}">Suivi temps</a>
-		<ul>
-			<li><a href="{{ path ('temps_') }}">Feuille de temps</a></li>
-			<li><a href="{{ path ('absences_') }}">Mes absences</a></li>
-		</ul>
-	</li>
-	{% if is_granted('ROLE_FO_ADMIN') %}
-	<li><a href="{{ path ('fo_societe_show') }}">Administration</a>
-		<ul>
-			<li><a href="{{ path ('fo_societe_show') }}">Ma société</a></li>
-			<li><a href="{{ path ('timesheet_generate') }}">Feuilles de temps</a></li>
-			<li><a href="{{ path ('utilisateurs_fo_') }}">Liste des utilisateurs</a></li>
-			<li><a href="{{ path ('fo_user_invite') }}">Nouvel utilisateur</a></li>
-		</ul>
-	</li>
-	{% endif %}
-</ul>
+            <div class="btn-group user-menu">
+                <a href="#" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{ app.user.societe.raisonSociale }} | {{ app.user.prenom }}
+                    <i class="fa fa-lg fa-user-circle-o" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a
+                        class="dropdown-item"
+                        href="{{ path('mon_compte') }}"
+                    >
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        Mon Compte
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a
+                        class="dropdown-item"
+                        href="{{ path('app_logout') }}"
+                    >
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        Déconnexion
+                    </a>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</nav>

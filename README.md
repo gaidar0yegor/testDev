@@ -25,7 +25,7 @@ php bin/console doctrine:database:drop --force
 
 # Initialize database and fixtures
 php bin/console doctrine:database:create
-php bin/console doctrine:schema:update --force
+php bin/console doctrine:schema:update --force --complete
 FIXTURES=fixtures/demo php bin/console hautelook:fixtures:load --no-interaction
 
 # Charger les fixtures sur environnement de dev sous windows

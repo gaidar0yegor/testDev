@@ -11,7 +11,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | _password | admin              |
         And I press "Connexion"
 
-        When I follow "Nouvel utilisateur"
+        When I follow "Inviter un nouvel utilisateur"
         Then I should see "Inviter un nouvel utilisateur"
 
         When I fill in the following:
@@ -37,8 +37,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | _username | invite@societe.dev |
             | _password | m0nM0tdepass3      |
         And I press "Connexion"
-        Then I should see "Bienvenue"
-        And I should see "JeSuis LeNouveau"
+        Then I should see "SociétéTest | JeSuis"
 
         # Vérifie que le lien d'invitation ne fonctionne plus une fois la finalisation terminée.
         When I go to "/inscription/cV2bvNJg4e_zkzXis-rfKlih"

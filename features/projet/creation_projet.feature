@@ -11,7 +11,7 @@ Feature: Création de projet
 
     Scenario: Un chef de projet peut créer un projet
         Given I am on "/projets"
-        When I follow "Nouveau projet"
+        When I follow "Créer un projet"
         Then I should be on "/infos_projet"
         When I fill in the following:
             | projet_form[acronyme] | MPT           |

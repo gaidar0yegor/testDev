@@ -10,7 +10,7 @@ Feature: Génération d'une feuille de temps simple.
         And I press "Connexion"
 
     Scenario: L'admin peut générer une feuille de temps simple. Il a contribué sur un seul projet.
-        When I follow "Feuilles de temps"
+        When I follow "Export feuilles de temps"
         Then I should see "Générer une feuille de temps"
         And I should see "admin@societe.dev" in the "form" element
 

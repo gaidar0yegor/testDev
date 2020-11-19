@@ -12,8 +12,7 @@ Feature: Page de connexion
             | _username | user@societe.dev  |
             | _password | user              |
         And I press "Connexion"
-        And I should see "Bienvenue"
-        And I should see "User Eureka"
+        And I should see "Société | User"
 
     Scenario: Je reste sur la page de connexion si je me trompe de mot de passe
         Given I have loaded fixtures from "connexion/fixtures.yml"
@@ -23,8 +22,7 @@ Feature: Page de connexion
             | _password | MAUVAIS_MOT_DE_PASSE |
         And I press "Connexion"
         Then I should be on "/connexion"
-        And I should not see "Bienvenue"
-        And I should not see "User Eureka"
+        And I should not see "Société | User"
 
     Scenario: Je ne peux pas me connecter si mon compte a été désactivé par l'administrateur
         Given I have loaded fixtures from "connexion/fixtures.yml"
@@ -34,5 +32,5 @@ Feature: Page de connexion
             | _password | user-desactive |
         And I press "Connexion"
         Then I should be on "/connexion"
-        And I should not see "Bienvenue"
+        And I should not see "Société | User"
         And I should see "Le compte est désactivé"

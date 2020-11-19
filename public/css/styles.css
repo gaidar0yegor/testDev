@@ -124,46 +124,35 @@ div.button.mb-4 {
 }
 
 /**************************** NAV ************************/
-nav {
-    background-color: #ce352c;
-    position: fixed;
-    height: 160px;
-    width: 100%
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
 }
-
-.header-left {
-    width: 33%;
-    height: 100%;
-    background-color: black;
+.navbar-dark .navbar-nav .nav-link.disabled {
+    color: rgba(255, 255, 255, 0.5);
 }
-
-.header-center {
-    width: 33%;
-    height: 100%;
-    background-color: blue;
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
 }
-
-
-.header-right {
-    width: 33%;
-    height: 100%;
-    background-color: yellow;
+.navbar .navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
 }
-
-.logo-left {
-    text-align: left;
+.navbar .navbar-brand img {
+    max-height: 32px;
 }
-
-.logo-center {
-    text-align: center;
+.navbar .user-menu a {
+    cursor: pointer;
 }
-
-.logo-right {
-    text-align: right;
+.navbar .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.15);
 }
-
-
-
+.navbar .dropdown-menu a {
+    padding-left: 2.5rem;
+}
+.navbar .dropdown-menu a i {
+    margin-left: -1.5rem;
+    width: 1.5rem;
+}
 
 /*****************************HEADER **********************/
 header {
