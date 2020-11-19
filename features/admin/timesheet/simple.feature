@@ -16,7 +16,7 @@ Feature: Génération d'une feuille de temps simple.
 
         When I fill in the following:
             | filter_timesheet[format] | html |
-        And I press "Générer"
+        And I press "Exporter au format"
         Then I should see "Feuille de temps" in the "h1" element
         And I should see "Novembre 2020" in the "h2" element
         And I should see "P0 Chef de projet" in the "table" element

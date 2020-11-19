@@ -11,6 +11,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Changement mot de passe
 ### Modifié
 - Refonte du menu de navigation du haut
+- Sélecteur de mois de l'export des feuilles de temps refait
 ### Réparé
 
 ## [0.3.0] - 2020-11-18
