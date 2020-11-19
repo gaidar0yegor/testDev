@@ -21,6 +21,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Liste des utilisateurs(FO): ajouter les colonnes "Rôles" et "Statut", enlever "Prénom" et "Email" en mode responsive
 - Agencement des éléments : réduire ou agrandir le titre en fonction du cadre. Dans le cadre, items et respectifs doivent être
   alignés (Idem pour la page Mon compte). Pareil pour la timeline "Faits marquants", elle doit être alignée sur le cadre.
+- Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
+- Réorganisation en mode statique du tableau de bord 
 ### Modifié
 ### Réparé
 
