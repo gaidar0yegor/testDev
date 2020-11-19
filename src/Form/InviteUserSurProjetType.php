@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\DTO\InvitationUserSurProjet;
+use App\Form\Custom\ParticipantRoleChoiceType;
 use App\Role;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

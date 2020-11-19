@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
 - Mot de passe oublié
+- Changement mot de passe
 ### Modifié
 - Refonte du menu de navigation du haut
 ### Réparé

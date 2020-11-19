@@ -3,14 +3,13 @@
 namespace App\Controller;
 
 use App\Exception\ResetPasswordException;
+use App\Form\Custom\RepeatedPasswordType;
 use App\Form\FinalizeInscriptionType;
 use App\Repository\UserRepository;
 use App\Service\ResetPasswordService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -156,12 +155,7 @@ class SecurityController extends AbstractController
         }
 
         $form = $this->createFormBuilder()
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Erreur dans l\'un des deux mots de passe.',
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Répétez votre mot de passe'],
-            ])
+            ->add('password', RepeatedPasswordType::class)
             ->add('Valider mon mot de passe', SubmitType::class)
             ->getForm()
         ;
