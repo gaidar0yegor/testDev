@@ -10,7 +10,7 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
         And I press "Connexion"
 
     Scenario: L'utilisateur peut remplir ses temps passés, et doit pouvoir continuer sur ses absences.
-        When I follow "Feuille de temps"
+        When I follow "Temps passés"
         Then I should see "Saisie de temps passé"
 
         When I fill in the following:
