@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Custom;
 
 use App\Role;
 use Symfony\Component\Form\AbstractType;

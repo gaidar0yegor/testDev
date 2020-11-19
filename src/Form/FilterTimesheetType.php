@@ -3,10 +3,7 @@
 namespace App\Form;
 
 use App\DTO\FilterTimesheet;
-use App\Entity\User;
-use App\Repository\UserRepository;
-use DateTime;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Form\Custom\SameSocieteUserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;

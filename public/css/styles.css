@@ -92,13 +92,11 @@ div.container.table {
     margin-right: 6%;
 }
 
-div.col-lg-7.mx-auto.compte {
+.compte {
     background-color:#e9ecef;
     text-align: justify;
-    padding: 25px;
+    padding: 1em;
     border-radius: 2%;
-    max-width: 64.5%;
-    margin-right: 18%;
 }
 
 .col-6.bis {

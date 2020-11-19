@@ -5,31 +5,41 @@
 {% block body %}
     <h1>Mon compte</h1>
 
-    <div class="col-lg-7 mx-auto compte">
-        <div class="row">
-            <div class="col-md-2 bordure"><strong>Nom : </strong></div>
-            <div class="col-md-10 bordure"> {{ app.user.nom }}</div>
-        </div></br>
-        <div class="row">
-            <div class="col-md-2 bordure"><strong>Prénom : </strong></div>
-            <div class="col-md-10 bordure"> {{ app.user.prenom }}</div>        
-        </div></br>
-        <div class="row">
-            <div class="col-md-2 bordure"><strong>Rôle : </strong></div>
-            <div class="col-md-10 bordure"> {{ app.user.role|trans }}</div>
-        </div></br>
-        <div class="row">
-            <div class="col-md-2 bordure"><strong>E-mail : </strong></div>
-            <div class="col-md-10 bordure"> {{ app.user.email }}</div>        
-        </div></br>
-        <div class="row">
-            <div class="col-md-3 bordure"><strong>Téléphone : </strong></div>
-            <div class="col-md-9 bordure"> {{ app.user.telephone }}</div>        
-        </div></br>
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
+            <div class="compte">
+                <div class="row">
+                    <div class="col-md-2 bordure"><strong>Nom : </strong></div>
+                    <div class="col-md-10 bordure"> {{ app.user.nom }}</div>
+                </div></br>
+                <div class="row">
+                    <div class="col-md-2 bordure"><strong>Prénom : </strong></div>
+                    <div class="col-md-10 bordure"> {{ app.user.prenom }}</div>
+                </div></br>
+                <div class="row">
+                    <div class="col-md-2 bordure"><strong>Rôle : </strong></div>
+                    <div class="col-md-10 bordure"> {{ app.user.role|trans }}</div>
+                </div></br>
+                <div class="row">
+                    <div class="col-md-2 bordure"><strong>E-mail : </strong></div>
+                    <div class="col-md-10 bordure"> {{ app.user.email }}</div>
+                </div></br>
+                <div class="row">
+                    <div class="col-md-3 bordure"><strong>Téléphone : </strong></div>
+                    <div class="col-md-9 bordure"> {{ app.user.telephone }}</div>
+                </div></br>
 
-        <div class="d-flex flex-column flex-md-row justify-content-md-between mt-5">
-            <a href="#" class="btn btn-success mt-2">Mettre à jour</a>
-            <a href="#" class="btn btn-warning mt-2">Modifier votre mot de passe</a>
+                <div class="d-flex flex-column flex-md-row justify-content-md-between mt-5">
+                    <a
+                        href="#"
+                        class="btn btn-outline-success mt-2"
+                    >Mettre à jour</a>
+                    <a
+                        href="{{ path('app_fo_mon_compte_update_password') }}"
+                        class="btn btn-outline-primary mt-2"
+                    >Modifier votre mot de passe</a>
+                </div>
+            </div>
         </div>
     </div>
 

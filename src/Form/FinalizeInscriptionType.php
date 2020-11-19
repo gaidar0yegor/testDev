@@ -3,10 +3,9 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Custom\RepeatedPasswordType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,12 +22,7 @@ class FinalizeInscriptionType extends AbstractType
                 'disabled' => true,
                 'label' => 'Email / Nom d\'utilisateur',
             ])
-            ->add('password', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' => 'Erreur dans l\'un des deux mots de passe.',
-                'first_options'  => ['label' => 'Mot de passe'],
-                'second_options' => ['label' => 'Répétez votre mot de passe'],
-            ])
+            ->add('password', RepeatedPasswordType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Finir mon inscription !',
             ])
