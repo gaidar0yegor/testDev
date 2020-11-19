@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
+use App\HasSocieteInterface;
 use App\Repository\FichiersProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=FichiersProjetRepository::class)
  */
-class FichierProjet
+class FichierProjet implements HasSocieteInterface
 {
 
     /**
@@ -21,17 +23,28 @@ class FichierProjet
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $chemin_fichier;
+    private $nomMd5;
+
+    /**
+     * @var UploadedFile
+     */
+    private $file;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom_fichier;
+    private $nomFichier;
 
     /**
-     * @ORM\Column(type="string", length=45)
+     * @ORM\ManyToOne(targetEntity=User::class)
      */
-    private $nom_uploader;
+    private $uploadedBy;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dateUpload;
+
 
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="fichierProjets")
@@ -49,38 +62,38 @@ class FichierProjet
         return $this->id;
     }
 
-    public function getCheminFichier(): ?string
+    public function getNomMd5(): ?string
     {
-        return $this->chemin_fichier;
+        return $this->nomMd5;
     }
 
-    public function setCheminFichier(string $chemin_fichier): self
+    public function setNomMd5(string $nomMd5): self
     {
-        $this->chemin_fichier = $chemin_fichier;
+        $this->nomMd5 = $nomMd5;
 
         return $this;
     }
 
     public function getNomFichier()
     {
-        return $this->nom_fichier;
+        return $this->nomFichier;
     }
 
-    public function setNomFichier($nom_fichier): self
+    public function setNomFichier($nomFichier): self
     {
-        $this->nom_fichier = $nom_fichier;
+        $this->nomFichier = $nomFichier;
 
         return $this;
     }
 
-    public function getNomUploader(): ?string
+    public function getUploadedBy(): ?User
     {
-        return $this->nom_uploader;
+        return $this->uploadedBy;
     }
 
-    public function setNomUploader(string $nom_uploader): self
+    public function setUploadedBy(User $uploadedBy): self
     {
-        $this->nom_uploader = $nom_uploader;
+        $this->uploadedBy = $uploadedBy;
 
         return $this;
     }
@@ -108,4 +121,34 @@ class FichierProjet
 
         return $this;
     }
+
+    public function getDateUpload(): ?\DateTimeInterface
+    {
+        return $this->dateUpload;
+    }
+
+    public function setDateUpload(\DateTimeInterface $dateUpload): self
+    {
+        $this->dateUpload = $dateUpload;
+
+        return $this;
+    }
+
+    public function getFile(): ?UploadedFile
+    {
+        return $this->file;
+    }
+
+    public function setFile(?UploadedFile $file): self
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->getProjet()->getSociete();
+    }
+
 }

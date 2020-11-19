@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FichierProjet;
+use App\HasSocieteInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
