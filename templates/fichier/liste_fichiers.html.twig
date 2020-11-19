@@ -10,7 +10,7 @@
             <tr>
                 <th scope="col" class="">Fichier</th>
                 <th scope="col" class="">Uploadeur</th>
-                <th scope="col" class="">Date</th>
+                <th scope="col" class="d-none d-md-table-cell">Date</th>
                 <th scope="col" class="">Supprimer</th>
                 <th scope="col" class="">Downloader</th>
             </tr>
@@ -34,13 +34,13 @@
                 {# /fiche/projet/{id}/delete/fichier/{id} #}
                 </td>
                 <td class="text-center">
-                    {# <a href=""><i class="fa fa-cloud-download" aria-hidden="true"></i></a> #}
-                    
-                    <form action="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}" method="post">
-                        <input type="hidden" name="_method" value="DOWNLOAD"> 
-                        <input type="submit" class="btn btn-success" value="Telecharger">
-                    </form>
-
+                    <a
+                        href="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}"
+                        class="btn btn-success"
+                    >
+                        <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                        Télécharger
+                    </a>
                 </td>
             </tr>
         {% endfor %}

@@ -19,21 +19,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class FichierController extends AbstractController
 {
-
-    public function __construct()
-    {
-        
-    }
-   
-    
-    
-    
     /**
      * @Route("/fiche/projet/{id}/liste/fichiers", name="liste_fichiers_")
      */
     public function listeFichiers(FichiersProjetRepository $fr, Projet $projet)
     {
-        $liste_fichiers = $fr->findAll();
+        $this->denyAccessUnlessGranted('view', $projet); // Doit être observateur sur le projet pour voir les fichiers
+
+        $liste_fichiers = $fr->findByProjet($projet);
         return $this->render('fichier/liste_fichiers.html.twig', [
             'liste_fichiers' => $liste_fichiers,
             'projet' => $projet,
@@ -47,6 +40,8 @@ class FichierController extends AbstractController
      */
     public function uploadFichiers(Request $request, Projet $projet): Response
     {
+        $this->denyAccessUnlessGranted('create_fait_marquant', $projet); // Peut ajouter un fichier s'il peut créer un fait marquant
+
         $fichierProjet = new FichierProjet();
         $form = $this->createForm(UploadType::class, $fichierProjet);
 
@@ -58,8 +53,6 @@ class FichierController extends AbstractController
             $fichierProjet->setUploadedBy($this->getUser());
             $fichierProjet->setProjet($projet);
             $fichierProjet->setDateUpload(new DateTime());
-            
-            //dd($fichierProjet);
 
             $fileName = md5(uniqid()).'.'.$fichierProjet->getFile()->guessExtension(); // uniqid = faire un Id unique
             $fichierProjet->getFile()->move($this->getParameter('upload_directory'), $fileName);
@@ -91,6 +84,7 @@ class FichierController extends AbstractController
     public function delete(Request $request, FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
     {
         $this->denyAccessUnlessGranted('same_societe', $fichierProjet);
+        $this->denyAccessUnlessGranted('edit', $projet); // Doit avoir l'accès en écriture sur ce projet pour supprimer un fichier
     
         //path
         $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getNomMd5();
@@ -106,17 +100,16 @@ class FichierController extends AbstractController
 
     
      /**
-     * @Route("/fiche/projet/{projetId}/dowload/fichier/{fichierProjetId}", name="telecharge_fichier_", methods={"DOWNLOAD"})
+     * @Route("/fiche/projet/{projetId}/dowload/fichier/{fichierProjetId}", name="telecharge_fichier_", methods={"GET"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
-     *
-     * @IsGranted("ROLE_FO_CDP")
      */
     public function download(Request $request, FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
     {
-        
-        $this->denyAccessUnlessGranted('same_societe', $fichierProjet);
+        $this->denyAccessUnlessGranted('same_societe', $fichierProjet); // Bloque le téléchargement de fichier d'autres sociétés
+        $this->denyAccessUnlessGranted('view', $projet); // Bloque le téléchargement de fichiers des projets dont on n'est pas au mois observateur
+
         $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getNomMd5();
 
         $response = new BinaryFileResponse($chemin);

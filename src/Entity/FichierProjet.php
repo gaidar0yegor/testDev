@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Form\UploadType;
 use App\HasSocieteInterface;
 use App\Repository\FichiersProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -149,7 +148,7 @@ class FichierProjet implements HasSocieteInterface
 
     public function getSociete(): ?Societe
     {
-        return $this->getUploadedBy()->getSociete();
+        return $this->getProjet()->getSociete();
     }
 
 }
