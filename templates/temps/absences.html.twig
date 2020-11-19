@@ -8,13 +8,13 @@
 
 <h2>
     <a href="{{ path('absences_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
-        <i class="fa fa-arrow-left"></i>
+        <i class="fa fa-angle-left" style="font-size: 1.3em;"></i>
     </a>
     <span class="mx-3">
         {{ date|format_date(pattern='MMMM Y')|capitalize }}
     </span>
     <a href="{{ path('absences_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
-        <i class="fa fa-arrow-right"></i>
+        <i class="fa fa-angle-right" style="font-size: 1.3em;"></i>
     </a>
 </h2>
 

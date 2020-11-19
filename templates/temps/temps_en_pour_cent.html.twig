@@ -10,18 +10,18 @@
 
 <h2 class="mt-4 mb-4">
     <a href="{{ path('temps_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
-        <i class="fa fa-arrow-left"></i>
+        <i class="fa fa-angle-left" style="font-size: 1.3em;"></i>
     </a>
     <span class="mx-3">
         {{ mois|format_date(pattern='MMMM Y')|capitalize }}
     </span>
     {% if next > date() %}
         <span class="text-muted" title="Impossible de saisir les temps passés dans le futur.">
-            <i class="fa fa-arrow-right"></i>
+        <i class="fa fa-angle-right" style="font-size: 1.3em;"></i>
         </span>
     {% else %}
         <a href="{{ path('temps_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
-            <i class="fa fa-arrow-right"></i>
+        <i class="fa fa-angle-right" style="font-size: 1.3em;"></i>
         </a>
     {% endif %}
 </h2>
