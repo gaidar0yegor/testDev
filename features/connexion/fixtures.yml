@@ -14,6 +14,26 @@ App\Entity\User:
         password: user-desactive
         roles: [ROLE_FO_USER]
         societe: '@societe'
+    oubli:
+        nom: Eureka
+        prenom: Oubli
+        email: oubli@societe.dev
+        password: oubli
+        # Token généré dans les 12 dernières heures
+        resetPasswordToken: tokenSecr3t
+        resetPasswordTokenExpiresAt: '<dateTimeBetween("+12 hours", "+24 hours")>'
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    oubli_long:
+        nom: Eureka
+        prenom: Oubli Long
+        email: oubli_long@societe.dev
+        password: oubli_long
+        # Token (expiré) généré il y a entre 2 et 4 semaines
+        resetPasswordToken: tokenSecr3tExpired
+        resetPasswordTokenExpiresAt: '<dateTimeBetween("-28 days", "-14 days")>'
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
 
 App\Entity\Societe:
     societe:

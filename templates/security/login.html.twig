@@ -6,10 +6,6 @@
 
 {% block base_body %}
 
-{% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-
 <section class="container login-container">
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2 col-md-4 offset-md-0">
@@ -17,7 +13,9 @@
                 <img class="logofooter1" src="{{ asset('img/logosign.png') }}" alt="RDI Manager">
             </div>
 
-            <form method="post">
+            {% include '_flash_messages.html.twig' %}
+
+            <form method="post" class="mb-4">
                 <div class="form-group">
                     <label for="input-email">Email / Identifiant</label>
                     <input type="email" name="_username" class="form-control" id="input-email" aria-describedby="emailHelp" placeholder="Votre email">
@@ -29,6 +27,8 @@
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <input type="submit" class="btn btn-success" value="Connexion">
             </form>
+
+            <a href="{{ path('app_reset_password_request') }}" class="text-light"><small>Mot de passe oublié</small></a>
         </div>
         <div class="d-none col-8 d-md-block">
             <h1><img src="{{ asset('img/Logo-RDI-blanc.png') }}" alt="RDI Manager" class="rdi-manager-title"></h1>

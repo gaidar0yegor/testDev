@@ -58,7 +58,7 @@ class RdiMailer
 
         $email = $this->createDefaultEmail()
             ->to($invitedUser->getEmail())
-            ->subject(sprintf('%s vous invite sur RDI manager', $adminUser->getFullname()))
+            ->subject(sprintf('%s vous invite sur RDI Manager', $adminUser->getFullname()))
             ->text(sprintf(
                 '%s vous invite sur RDI manager dans la société %s en tant que %s.'
                 .' Finalisez votre inscription en suivant ce lien : %s',
@@ -73,6 +73,34 @@ class RdiMailer
                 'invitedUser' => $invitedUser,
                 'adminUser' => $adminUser,
                 'invitationLink' => $invitationLink,
+            ])
+        ;
+
+        $this->mailer->send($email);
+    }
+
+    public function sendResetPasswordEmail(User $user): void
+    {
+        if (!$user->hasResetPasswordToken()) {
+            throw new RdiException('Cannot send reset password email, this user has no reset password token.');
+        }
+
+        $resetPasswordLink = $this->urlGenerator->generate('app_reset_password', [
+            'token' => $user->getResetPasswordToken(),
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $email = $this->createDefaultEmail()
+            ->to($user->getEmail())
+            ->subject(sprintf('Réinitialisation de votre mot de passe RDI Manager'))
+            ->text(sprintf(
+                'Vous avez demandé un lien de réinitialisation de votre mot de passe. '
+                .'Suivez ce lien pour définir votre nouveau mot de passe : %s',
+                $resetPasswordLink
+            ))
+
+            ->htmlTemplate('mail/reset_password.html.twig')
+            ->context([
+                'resetPasswordLink' => $resetPasswordLink,
             ])
         ;
 
