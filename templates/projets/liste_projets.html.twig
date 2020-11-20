@@ -32,11 +32,15 @@
 
 
     <div class="button mb-4">
-        <a href="{{ path('infos_projet_') }}"><input type="button" class="btn btn-success new_project" value="Nouveau Projet"
+        <a
+            class="btn btn-outline-success {{ is_granted('ROLE_FO_CDP') ? '' : 'disabled' }}"
+            href="{{ path('infos_projet_') }}"
             {% if not is_granted('ROLE_FO_CDP') %}
-                disabled
                 title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
             {% endif %}
-        ></a>
+        >
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            Nouveau projet
+        </a>
     </div>
 {% endblock %}

@@ -25,6 +25,7 @@ class ProjetFormType extends AbstractType
             ])
             ->add('acronyme', TextType::class, [
                 'label' => 'Titre réduit / Acronyme',
+                'attr' => ['class' => 'form-control-lg'],
             ])
             ->add('resume', TextareaType::class, [
                 'label' => 'Résumé',
@@ -59,7 +60,7 @@ class ProjetFormType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre',
                 'attr' => [
-                    'class' => 'mt-5 btn-rdi',
+                    'class' => 'mt-5 btn btn-success',
                     ]
             ])
         ;

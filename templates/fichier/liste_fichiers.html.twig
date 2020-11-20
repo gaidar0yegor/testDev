@@ -11,8 +11,8 @@
                 <th scope="col" class="">Fichier</th>
                 <th scope="col" class="">Uploadeur</th>
                 <th scope="col" class="d-none d-md-table-cell">Date</th>
-                <th scope="col" class="">Supprimer</th>
                 <th scope="col" class="">Downloader</th>
+                <th scope="col" class="">Supprimer</th>
             </tr>
         </thead>
         <tbody>
@@ -21,18 +21,6 @@
                 <td class="text-center">{{ fichier.NomFichier }}</td>
                 <td class="text-center">{{ fichier.uploadedBy.fullname }}</td>
                 <td class="text-center d-none d-md-table-cell">{{ fichier.dateUpload ? fichier.dateUpload|date('d/m/Y') : '-' }}</td>            
-                {# <td class="text-center">{{ fichier.dateUpload }}</td> #}
-                <td class="text-center">
-                    {# <a href=""><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-                    <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>                     #}
-                    <form action="{{ path('efface_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}" method="post">
-                        <input type="hidden" name="_method" value="DELETE"> 
-                        <input type="submit" class="btn btn-danger" value="Supprimer">
-                    </form>
-
-                    {# <a href="{{ path('fiche_projet_', {'id': projet.id},'delete_fichier_'), {'id': fichier.id} }}"><i class="fa fa-trash" aria-hidden="true"></i></a> #}
-                {# /fiche/projet/{id}/delete/fichier/{id} #}
-                </td>
                 <td class="text-center">
                     <a
                         href="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}"
@@ -42,11 +30,23 @@
                         Télécharger
                     </a>
                 </td>
+                <td class="text-center">
+                    <form
+                        action="{{ path('efface_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}"
+                        method="post"
+                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');"
+                    >
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button class="btn btn-outline-danger">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
     <div class="text-center mx-auto">
-        <a href="{{ path('ajout_fichier_',{'id':projet.id}) }}"> <button class="btn btn-success">Ajouter un fichier <i class="fa fa-cloud-download" style="color: white;" aria-hidden="true"></i></button></a>
+        <a href="{{ path('ajout_fichier_',{'id':projet.id}) }}"> <button class="btn btn-outline-success">Ajouter un fichier <i class="fa fa-cloud-upload" aria-hidden="true"></i></button></a>
     </div>
 {% endblock %}

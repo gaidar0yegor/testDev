@@ -47,6 +47,7 @@ class FaitMarquantController extends AbstractController
 
         return $this->render('fait_marquant/new.html.twig', [
             'fait_marquant' => $faitMarquant,
+            'projet' => $projet,
             'form' => $form->createView(),
         ]);
     }
