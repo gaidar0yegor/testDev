@@ -6,6 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
+### Modifié
+### Réparé
+
+## [0.3.1] - 2020-11-20
+### Ajouté
 - Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
 - Mot de passe oublié
 - Changement mot de passe
@@ -26,17 +31,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Agencement des éléments : réduire ou agrandir le titre en fonction du cadre. Dans le cadre, items et respectifs doivent être
   alignés (Idem pour la page Mon compte). Pareil pour la timeline "Faits marquants", elle doit être alignée sur le cadre.
 - Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
-- Réorganisation en mode statique du tableau de bord 
-### Modifié
-### Réparé
-
+- Réorganisation en mode statique du tableau de bord
 
 ## [0.2.1] - 2020-11-17
 ### Ajouté
 - Ajoute tooltip en JS pour meilleur support mobile, et fonctionne aussi sur les elements disabled
 - Administration front: Génération des feuilles de temps
 - Saisie des congés : les jours fériés sont maintenant grisés par défaut
-- (Header) Ajouter le nom de la société doit etre affiché en dessous du nom de l'utilisateur. 
+- (Header) Ajouter le nom de la société doit etre affiché en dessous du nom de l'utilisateur.
 ### Modifié
 - Saisie des temps passés : flèche grisée pour ne pas aller dans un mois futur
 - Saisie des temps passés : Affichage de l'acronyme plutôt que le titre descriptif pour réduire la taille du formulaire
@@ -54,11 +56,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Refactorisation des templates, suppression de duplications, utilise même template pour front et back office
 - Agrandir la zone de saisie des faits marquants à 5lignes ou plus
-
-### Déprécié
-### Supprimé
-
-
 ### Réparé
 - Embarque les css/js dans le projet, n'utilise plus de CDN tierces
 - Retire tous les css/js du html et centralise tout dans styles.css
@@ -84,7 +81,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Fiche projet : Afficher titre descriptif selon la même mise en page que pour les         catégories "résumé" , Chef de projet..
 - Fiche projet : Justifier les informations générales du projet
 
-- Infos projet :  Dans le formulaire Remplacer Acronyme par Titre réduit 
+- Infos projet :  Dans le formulaire Remplacer Acronyme par Titre réduit
                   Remplacer Titre par Titre descriptif
 ### Supprimé
 - Fiche projet : Retirer bouton "Ajouter un fichier"
