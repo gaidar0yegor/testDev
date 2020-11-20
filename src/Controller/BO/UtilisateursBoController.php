@@ -8,15 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\User;
-use App\Entity\SocieteStatut;
 use App\Repository\UserRepository;
 use App\Form\UtilisateursFormType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-// use App\Repository\SocieteStatutRepository;
-
-
-
+/**
+ * @IsGranted("ROLE_BO_ADMIN")
+ */
 class UtilisateursBoController extends AbstractController
 {
     /**

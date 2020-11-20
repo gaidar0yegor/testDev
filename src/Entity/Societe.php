@@ -46,31 +46,6 @@ class Societe implements HasSocieteInterface
     private $heuresParJours;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $nb_licences;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $nb_licences_dispo;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $chemin_logo;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $nom_logo;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Licences::class, mappedBy="societes")
-     */
-    private $Licences;
-
-    /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="societe", orphanRemoval=true)
      */
     private $users;
@@ -128,85 +103,6 @@ class Societe implements HasSocieteInterface
         return $this;
     }
 
-    public function getNbLicences(): ?int
-    {
-        return $this->nb_licences;
-    }
-
-    public function setNbLicences(int $nb_licences): self
-    {
-        $this->nb_licences = $nb_licences;
-
-        return $this;
-    }
-
-    public function getNbLicencesDispo(): ?int
-    {
-        return $this->nb_licences_dispo;
-    }
-
-    public function setNbLicencesDispo(int $nb_licences_dispo): self
-    {
-        $this->nb_licences_dispo = $nb_licences_dispo;
-
-        return $this;
-    }
-
-    public function getCheminLogo(): ?string
-    {
-        return $this->chemin_logo;
-    }
-
-    public function setCheminLogo(?string $chemin_logo): self
-    {
-        $this->chemin_logo = $chemin_logo;
-
-        return $this;
-    }
-
-    public function getNomLogo(): ?string
-    {
-        return $this->nom_logo;
-    }
-
-    public function setNomLogo(?string $nom_logo): self
-    {
-        $this->nom_logo = $nom_logo;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Licences[]
-     */
-    public function getLicences(): Collection
-    {
-        return $this->Licences;
-    }
-
-    public function addLicence(Licences $licence): self
-    {
-        if (!$this->Licences->contains($licence)) {
-            $this->Licences[] = $licence;
-            $licence->setSocietes($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLicence(Licences $licence): self
-    {
-        if ($this->Licences->contains($licence)) {
-            $this->Licences->removeElement($licence);
-            // set the owning side to null (unless already changed)
-            if ($licence->getSocietes() === $this) {
-                $licence->setSocietes(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|User[]
      */
@@ -250,10 +146,8 @@ class Societe implements HasSocieteInterface
         return $this;
     }
 
-
     public function getSociete(): ?Societe
     {
         return $this;
     }
-
 }

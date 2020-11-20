@@ -2,23 +2,23 @@
 
 namespace App\Controller\BO;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\LicencesRepository;
-use App\Entity\Societe;
 
-
+/**
+ * @IsGranted("ROLE_BO_ADMIN")
+ */
 class LicencesController extends AbstractController
 {
     /**
      * @Route("/licences", name="licences_")
      */
-    public function licencesDistribuees(LicencesRepository $lr)
+    public function licencesDistribuees()
     {
-        $licences_distribuees = $lr ->findAll();
+        $licences_distribuees = [];
         return $this->render('licences/licences_distribuees.html.twig', [
             'licences_distribuees' => $licences_distribuees,
-            // 'controller_name' => 'LicencesController',
         ]);
     }
 }
