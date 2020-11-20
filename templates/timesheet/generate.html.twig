@@ -6,27 +6,37 @@
 
 <h1>Générer une feuille de temps</h1>
 
-<div class="col-lg-6 mx-auto">
-    
-    {{ form_start(form) }}
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
 
-        <div class="mt-2 d-flex justify-content-between">
-            {{ form_row(form.users) }}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.users) }}
+
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(form.from) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.to) }}
+            </div>
         </div>
 
-        <div class="d-flex justify-content-between">
-            {{ form_row(form.from) }}
-            {{ form_row(form.to) }}
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                        {{ form_widget(form.submit, {'label': 'Exporter au format'}) }}
+                    </div>
+                    {{ form_widget(form.format, {'attr': {'class': 'custom-select'}}) }}
+                </div>
+            </div>
         </div>
 
-        {{ form_row(form.format) }}
+        {{ form_end(form) }}
 
-        <div class="text-center">
-            {{ form_row(form.submit) }}
-        </div>
-        
-    {{ form_end(form) }}
-
+    </div>
 </div>
 
 {% endblock %}

@@ -3,10 +3,10 @@
 namespace App\Form;
 
 use App\DTO\FilterTimesheet;
+use App\Form\Custom\MonthType;
 use App\Form\Custom\SameSocieteUserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,15 +23,13 @@ class FilterTimesheetType extends AbstractType
                 'multiple' => true,
                 'label' => 'Feuilles de temps des utilisateurs :',
             ])
-            ->add('from', DateType::class, [
-                'days' => [1],
+            ->add('from', MonthType::class, [
                 'label' => 'À partir de',
-                'help' => 'inclus.'
+                'help' => 'inclus.',
             ])
-            ->add('to', DateType::class, [
-                'days' => [1],
+            ->add('to', MonthType::class, [
                 'label' => 'Jusqu\'au',
-                'help' => 'inclus.'
+                'help' => 'inclus.',
             ])
             ->add('format', ChoiceType::class, [
                 'choices' => [
@@ -42,8 +40,8 @@ class FilterTimesheetType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Générer',
                 'attr' => [
-                    'class' => 'mt-5 btn btn-primary',
-                ]
+                    'class' => 'btn btn-success',
+                ],
             ])
         ;
     }

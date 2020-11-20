@@ -10,6 +10,7 @@ use App\Form\FilterTimesheetType;
 use App\Repository\UserRepository;
 use App\Service\DateMonthService;
 use App\Service\TimesheetCalculator;
+use DateTime;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -44,7 +45,10 @@ class TimesheetController extends AbstractController
     ) {
         $users = $userRepository->findBySameSociete($this->getUser());
         $filter = new FilterTimesheet();
-        $filter->setUsers($users);
+        $filter
+            ->setUsers($users)
+            ->setFrom((new DateTime())->modify('-1 month'))
+        ;
         $form = $this->createForm(FilterTimesheetType::class, $filter);
 
         $form->handleRequest($request);
