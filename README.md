@@ -10,6 +10,7 @@ Requires:
 - composer
 - a database
 - [Symfony CLI tool](https://symfony.com/doc/current/cloud/getting-started)
+- Mailer DSN pour envoyer les emails
 - wkhtmltopdf pour la génération de feuilles de temps en PDF
 
 ``` bash
@@ -58,6 +59,14 @@ MAILER_DSN=smtp://USER:PASS@mail.eurekaci.com:465
 MAILER_FROM=rdi-manager@eurekaci.com
 # Pour changer l'email d'envoi. Par défaut celui ci dessus.
 ```
+
+Pour tester la configuration, utilisez la commande pour envoyer un email de test :
+
+``` bash
+php bin/console app:test-mail votre-email@eurekaci.com
+```
+
+Vérifiez si vous avez reçu l'email de test dans votre boîte.
 
 - Configure **database**:
 
