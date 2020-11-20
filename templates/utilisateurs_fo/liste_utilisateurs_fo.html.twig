@@ -1,8 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des utilisateurs |
-	{{ parent() }}
-{% endblock %}
+{% block title %}Liste des utilisateurs | {{ parent() }}{% endblock %}
 
 {% block body %}
 	<h1>Liste des utilisateurs</h1>
@@ -10,9 +8,9 @@
 	<table class="table text-center">
 		<thead>
 			<tr>
-				<th style="text-align: start;">N°</th>
-				<th style="text-align: start;">NOM</th>
-				<th class=" d-none d-md-table-cell">Prénom</th>
+				<th class="text-left d-none d-md-table-cell">N°</th>
+				<th class="text-left">NOM</th>
+				<th class="d-none d-md-table-cell">Prénom</th>
 				<th class="d-none d-md-table-cell">Email</th>
 				<th>Rôle</th>
 				<th>Statut</th>
@@ -21,15 +19,12 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% set numero = 1 %}
-			{% for user in users %}
+			{% for key, user in users %}
 				<tr class="{{ user.enabled ? '' : 'text-muted' }}">
-					<td style="text-align: start;">
-						{{ numero }}</td>
-					{# <td style="text-align: start;">{{ user.id }}</td> #}
-					<td style="text-align: start;">{{ user.nom }}</td>
-					<td class=" d-none d-md-table-cell">{{ user.prenom }}</td>
-					<td class=" d-none d-md-table-cell">{{ user.email }}</td>
+					<td class="text-left d-none d-md-table-cell">{{ key + 1 }}</td>
+					<td class="text-left">{{ user.nom }}</td>
+					<td class="d-none d-md-table-cell">{{ user.prenom }}</td>
+					<td class="d-none d-md-table-cell">{{ user.email }}</td>
 					<td>{{ user.role|trans }}</td>
 					{% if user.enabled %}
 						<td>Actif</td>
@@ -46,9 +41,13 @@
 						</a>
 					</td>
 				</tr>
-				{% set numero = numero + 1 %}
 			{% endfor %}
 		</tbody>
 	</table>
+
+	<a href="{{ path('fo_user_invite') }}" class="btn btn-outline-primary">
+		<i class="fa fa-user-plus" aria-hidden="true"></i>
+		Inviter un nouvel utilisateur
+	</a>
 
 {% endblock %}

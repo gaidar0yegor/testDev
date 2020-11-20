@@ -61,7 +61,7 @@ class ProjetController extends AbstractController
             'form' => $form->createView(),
             'bouton' => "Soumettre",
             'attr' => [
-                'class' =>'btn-rdi',
+                'class' =>'btn btn-success',
             ]
         ]);
     }

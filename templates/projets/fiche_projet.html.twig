@@ -92,13 +92,13 @@
     <ul class="timeline">
         {% for faitMarquant in projet.faitMarquants %}
             <li class="event">
-                <h4 style="font-size: 1em" data-date="{{ faitMarquant.date|format_date }}">{{ faitMarquant.date|format_date }} - <span>{{ faitMarquant.createdBy.prenom }} {{ faitMarquant.createdBy.nom }}</span></h4>
+                <h4 data-date="{{ faitMarquant.date|format_date }}">{{ faitMarquant.date|format_date }} - <span>{{ faitMarquant.createdBy.prenom }} {{ faitMarquant.createdBy.nom }}</span></h4>
                 <h3>{{ faitMarquant.titre }}</h3>
                 <p class="text-justify">
                     {{ faitMarquant.description|nl2br }}
                 </p>
-                <div class="font-awesome" style="text-align: end;">
-                    <a href="{{ path('fait_marquant_modifier', {'id': faitMarquant.id}) }}"><i class="fa fa-edit" style="font-size: 1.5em;"></i></a>
+                <div class="text-right">
+                    <a href="{{ path('fait_marquant_modifier', {'id': faitMarquant.id}) }}"><i class="fa fa-edit fa-lg"></i></a>
                 </div>
             </li>
         {% endfor %}

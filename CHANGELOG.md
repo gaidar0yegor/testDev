@@ -12,7 +12,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Refonte du menu de navigation du haut
 - Sélecteur de mois de l'export des feuilles de temps refait
+- Boutons bootstrap partout
 ### Réparé
+- Réaligne le footer
 
 ## [0.3.0] - 2020-11-18
 ### Ajouté

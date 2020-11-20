@@ -21,7 +21,7 @@ class TempsPassesType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',
                 'attr' => [
-                    'class' => 'mt-5 btn-rdi',
+                    'class' => 'mt-5 btn btn-success',
                 ]
             ])
         ;

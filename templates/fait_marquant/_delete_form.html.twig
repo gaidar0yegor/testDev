@@ -1,5 +1,12 @@
-<form method="post" action="{{ path('fait_marquant_delete', {'id': faitMarquant.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form
+    method="post"
+    action="{{ path('fait_marquant_delete', {'id': faitMarquant.id}) }}"
+    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fait marquant ?');"
+>
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ faitMarquant.id) }}">
-    <button class="btn btn-danger">Supprimer</button>
+    <button class="btn btn-outline-danger">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        Supprimer
+    </button>
 </form>

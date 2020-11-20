@@ -4,14 +4,17 @@
 
 {% block body %}
 
+<div class="row">
+    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <h1>Ajouter un fait marquant</h1>
 
-<h1>Ajouter un fait marquant</h1>
+        <a class="d-block mb-4" href="{{ path('fiche_projet_', {id: projet.id}) }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Annuler et retourner au projet
+        </a>
 
-    <div class="col-lg-7 mx-auto">
         {{ include('fait_marquant/_form.html.twig') }}
-
-        <a href="{{ path('fiche_projet_', {id: app.request.get('projetId')}) }}">Retour au projet</a>
     </div>
-
+</div>
 
 {% endblock %}

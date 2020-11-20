@@ -122,6 +122,9 @@ div.button.mb-4 {
 }
 
 /**************************** NAV ************************/
+.navbar-dark {
+    background-color: #ce352c;
+}
 .navbar-dark .navbar-nav .nav-link {
     color: white;
 }
@@ -176,29 +179,28 @@ footer {
     background-color: #ce352c;
     display: flex;
     justify-content: center;
+    align-items: center;
     position: fixed;
     bottom: 0% !important;
     width: 100%;
+    font-size: 0.85rem;
+    color: white;
+    padding: 0.75em 0;
+}
+
+footer > * {
+    margin: 0 0.5em;
+}
+
+footer a {
+    color: white;
+    text-decoration: underline;
 }
 
 .logofooter {
     height: 4vh;
     width: 4vh;
     border-radius: 148%;
-    margin-top: 14px;
-    padding-left: 0vh;
-    margin-left: 30px;
-    margin-right: 6px;
-}
-
-a button {
-    margin: 19px;
-}
-
-.copyright {
-    color: white;
-    margin-top: 2vh;
-    font-size: 1.05em;
 }
 
 /**

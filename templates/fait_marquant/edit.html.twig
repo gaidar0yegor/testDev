@@ -1,13 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit FaitMarquant{% endblock %}
+{% block title %}Modifiez votre fait marquant | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Modifiez votre fait marquant</h1>
-    <a href="{{ path('fiche_projet_', {id: faitMarquant.projet.id}) }}">Annuler et retourner au projet</a>
 
-    {{ include('fait_marquant/_form.html.twig', {'button_label': 'Modifier'}) }}
+<div class="row">
+    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+        <h1>Modifiez votre fait marquant</h1>
 
+        <div class="row">
+            <div class="col-sm-8">
+                <a class="d-block mb-4" href="{{ path('fiche_projet_', {id: faitMarquant.projet.id}) }}">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    Annuler et retourner au projet
+                </a>
+            </div>
+            <div class="col-sm-4 text-right">
+                {{ include('fait_marquant/_delete_form.html.twig') }}
+            </div>
+        </div>
 
-    {{ include('fait_marquant/_delete_form.html.twig') }}
+        {{ include('fait_marquant/_form.html.twig') }}
+    </div>
+</div>
+
 {% endblock %}

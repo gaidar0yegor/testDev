@@ -14,7 +14,9 @@ class FaitMarquantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre')
+            ->add('titre', null, [
+                'attr' => ['class' => 'form-control-lg'],
+            ])
             ->add('description', TextareaType:: class, [
                 'attr' => [
                     'class' => 'text-justify',
