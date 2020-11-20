@@ -42,6 +42,22 @@ class RdiMailer
         return $email;
     }
 
+    public function sendTestEmail(string $email): void
+    {
+        $email = $this->createDefaultEmail()
+            ->to($email)
+            ->subject('Email de test envoyé depuis RDI Manager')
+            ->text(
+                'Ceci est un email de test envoyé depuis RDI Manager. '
+                .'Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI Manager.'
+            )
+
+            ->htmlTemplate('mail/test_mail.html.twig')
+        ;
+
+        $this->mailer->send($email);
+    }
+
     /**
      * @param User $invitedUser User à inviter, doit avoir un token d'invitation
      * @param User $adminUser Référent qui invite l'user, utile pour afficher "XX vous invite..." dans l'email
