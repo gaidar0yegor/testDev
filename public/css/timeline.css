@@ -1,31 +1,4 @@
-/*——————————————
-Global
-———————————————*/
 
-body {
-    font-family: helvetica;
-  }
-  /*——————————————
-  TimeLine CSS
-  ———————————————*/
-  /* Base */
-  
-  #content {
-    margin-top: 50px;
-    text-align: center;
-  }
-  
-  section.timeline-outer {
-    width: 80%;
-    margin: 0 auto;
-  }
-  
-  h1.header {
-    font-size: 50px;
-    line-height: 70px;
-  }
-  /* Timeline */
-  
   .timeline {
     border-left: 8px solid brown;
     border-bottom-right-radius: 2px;
@@ -45,6 +18,9 @@ body {
   .timeline h2,
   .timeline h3 {
     font-size: 1.4em;
+  }
+  .timeline h4 {
+    font-size: 1em;
   }
   
   .timeline .event {
