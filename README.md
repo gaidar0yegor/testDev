@@ -138,3 +138,37 @@ Ou lancer les tests d'un seul fichier avec:
 ``` bash
 vendor/bin/behat features/projet/page_projet.feature
 ```
+
+### Migrations
+
+Ajouter une migrations à chaque modification du schéma des entités avec :
+
+``` bash
+php bin/console doctrine:migrations:diff
+```
+
+Vérifier que la migration ne fait potentiellement pas perdre de données,
+celle ci sera executée en production.
+
+## Production
+
+Déploiement :
+
+``` bash
+# Récupérer la version X.Y.Z du projet
+git clone -b X.Y.Z git@github.com:Sylvain78310/rdi_manager_01.git
+cd rdi_manager_01/
+
+# Créer un fichier .env.local avec la configuration nécessaire (voir readme ci dessus)
+# Ajouter dans le .env.local :
+APP_ENV=prod
+
+# Mettre à jour les dépendences
+composer install
+
+# Mettre à jour la base de données
+php bin/console doctrine:migrations:migrate
+
+# Vider le cache
+php bin/console cache:clear
+```
