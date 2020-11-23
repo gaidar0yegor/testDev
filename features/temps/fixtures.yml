@@ -6,6 +6,13 @@ App\Entity\User:
         password: user
         roles: [ROLE_FO_USER]
         societe: '@societe'
+    user_sans_projet:
+        nom: Eureka
+        prenom: User sans projet
+        email: user_sans_projet@societe.dev
+        password: user_sans_projet
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
 
 App\Entity\Projet:
     projet1:
