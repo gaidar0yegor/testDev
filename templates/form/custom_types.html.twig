@@ -1,7 +1,9 @@
 {% block temps_passe_row %}
     <div class="row mb-2 align-items-center">
         <div class="col text-right lead">
-            Projet {{ form.vars.data.projet.acronyme}}
+            <label for="{{ form.children.pourcentage.vars.id }}">
+                Projet {{ form.vars.data.projet.acronyme }}
+            </label>
         </div>
         <div class="col">
             {{ form_errors(form.children.pourcentage) }}

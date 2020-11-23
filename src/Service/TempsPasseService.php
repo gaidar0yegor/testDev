@@ -37,7 +37,7 @@ class TempsPasseService
     {
         $this->dateMonthService->normalize($mois);
 
-        $userProjets = $this->projetRepository->findAllForUser($user, Role::CONTRIBUTEUR);
+        $userProjets = $this->projetRepository->findAllForUser($user, Role::CONTRIBUTEUR, $mois);
         $tempsPasses = $this->tempsPasseRepository->findAllForUserAndMonth($user, $mois);
 
         foreach ($userProjets as $userProjet) {

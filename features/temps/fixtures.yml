@@ -9,30 +9,42 @@ App\Entity\User:
 
 App\Entity\Projet:
     projet1:
-        titre: 'Projet de test 1'
-        acronyme: 'P1'
+        titre: Projet de test 1
+        acronyme: P1
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
         statutProjet: '@projet_en_cours'
-        dateDebut: '<date_create()>'
+        dateDebut: <(new DateTime('2020-01-01'))>
     projet2:
-        titre: 'Projet de test 2'
-        acronyme: 'P2'
+        titre: Projet de test 2
+        acronyme: P2
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
         statutProjet: '@projet_en_cours'
-        dateDebut: '<date_create()>'
+        dateDebut: <(new DateTime('2020-01-01'))>
+    projet3:
+        titre: Projet de test 3
+        acronyme: P3
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateDebut: <(new DateTime('2020-03-15'))>
+    projet4:
+        titre: Projet de test 4
+        acronyme: P4
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateFin: <(new DateTime('2020-03-15'))>
 
 App\Entity\ProjetParticipant:
-    user_projet1:
+    user_projet{1..4}:
         user: '@user'
-        projet: '@projet1'
-        role: '<(App\Role::CONTRIBUTEUR)>'
-    user_projet2:
-        user: '@user'
-        projet: '@projet2'
+        projet: '@projet<current()>'
         role: '<(App\Role::CONTRIBUTEUR)>'
 
 App\Entity\StatutProjet:

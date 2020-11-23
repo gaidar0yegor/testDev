@@ -34,14 +34,19 @@ class ProjetController extends AbstractController
     public function creation(Request $rq) : Response
     {
         $projet = new Projet();
-        $form = $this->createForm(ProjetFormType::class, $projet);
-
         $participant = new ProjetParticipant();
-        $projet->addProjetParticipant($participant);
         $participant
             ->setUser($this->getUser())
             ->setRole(Role::CDP)
         ;
+
+        $projet
+            ->addProjetParticipant($participant)
+            ->setDateDebut(new \DateTime())
+            ->setDateFin((new \DateTime())->modify('+2 years'))
+        ;
+
+        $form = $this->createForm(ProjetFormType::class, $projet);
 
         $form->handleRequest($rq);
 
