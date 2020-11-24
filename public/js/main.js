@@ -31,4 +31,10 @@
         format: 'MM yyyy',
         immediateUpdates: true,
     });
+
+    $('.date-picker').datepicker({
+        language: 'fr',
+        format: 'dd MM yyyy',
+        immediateUpdates: true,
+    });
 })(jQuery);

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Projet;
 use App\Entity\StatutProjet;
+use App\Form\Custom\DatePickerType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 
 class ProjetFormType extends AbstractType
@@ -32,13 +32,15 @@ class ProjetFormType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'class' => 'text-justify',
-                    'rows' => 15
-                ]
+                    'rows' => 15,
+                ],
             ])
-            ->add('dateDebut', DateType::class, [
+            ->add('dateDebut', DatePickerType::class, [
+                'required' => false,
                 'label' => 'Date de début',
             ])
-            ->add('dateFin', DateType::class, [
+            ->add('dateFin', DatePickerType::class, [
+                'required' => false,
                 'label' => 'Date de fin',
             ])
             ->add('projetCollaboratif', CheckboxType::class, [
@@ -61,7 +63,7 @@ class ProjetFormType extends AbstractType
                 'label' => 'Soumettre',
                 'attr' => [
                     'class' => 'mt-5 btn btn-success',
-                    ]
+                ],
             ])
         ;
     }
