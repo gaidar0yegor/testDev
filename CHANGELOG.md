@@ -9,18 +9,25 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 ### Réparé
 
+
+
+## [0.4.0] - 2020-11-24
+### Ajouté
+- Ré-intégration des migrations doctrine pour mettre à jour la base de prod plus facilement
+### Modifié
+- Feuilles de temps : prend en compte date de début et de fin de projet
+- Saisis des temps : ne permet plus de saisir un temps sur un projet fini ou pas commencé
+### Réparé
+
 ## [0.3.1] - 2020-11-20
 ### Ajouté
 - Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
 - Mot de passe oublié
 - Changement mot de passe
-- Ré-intégration des migrations doctrine pour mettre à jour la base de prod plus facilement
 ### Modifié
 - Refonte du menu de navigation du haut
 - Sélecteur de mois de l'export des feuilles de temps refait
 - Boutons bootstrap partout
-- Feuilles de temps : prend en compte date de début et de fin de projet
-- Saisis des temps : ne permet plus de saisir un temps sur un projet fini ou pas commencé
 ### Réparé
 - Réaligne le footer
 
