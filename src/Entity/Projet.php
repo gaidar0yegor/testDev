@@ -148,7 +148,7 @@ class Projet implements HasSocieteInterface
 
         return $this;
     }
- 
+
     public function getDateFin(): ?\DateTimeInterface
     {
         return $this->dateFin;
@@ -159,6 +159,24 @@ class Projet implements HasSocieteInterface
         $this->dateFin = $dateFin;
 
         return $this;
+    }
+
+    /**
+     * @param \DateTimeInterface $datetime Jour à évaluer
+     *
+     * @return bool Si au moment $datetime, le projet est actif (entre date début et fin, inclus)
+     */
+    public function isProjetActiveInDate(\DateTimeInterface $datetime): bool
+    {
+        if (null !== $this->dateDebut && $datetime < $this->dateDebut) {
+            return false;
+        }
+
+        if (null !== $this->dateFin && $datetime > $this->dateFin) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getStatutRdi(): ?int

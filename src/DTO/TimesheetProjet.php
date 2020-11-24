@@ -2,10 +2,8 @@
 
 namespace App\DTO;
 
-use App\Entity\Cra;
 use App\Entity\ProjetParticipant;
 use App\Entity\TempsPasse;
-use ArrayAccess;
 
 /**
  * Value object qui représente une feuille de temps.
@@ -24,21 +22,14 @@ class TimesheetProjet
      */
     private ?array $workedHours;
 
-    /**
-     * Total d'heures passées sur ce projet dans le mois.
-     */
-    private ?float $totalWorkedHours;
-
     public function __construct(
         ProjetParticipant $projetParticipant,
-        ?TempsPasse $tempsPasse,
-        ?array $workedHours,
-        ?float $totalWorkedHours
+        ?TempsPasse $tempsPasse = null,
+        ?array $workedHours = null
     ) {
         $this->projetParticipant = $projetParticipant;
         $this->tempsPasse = $tempsPasse;
         $this->workedHours = $workedHours;
-        $this->totalWorkedHours = $totalWorkedHours;
     }
 
     public function getProjetParticipant(): ProjetParticipant
@@ -71,6 +62,6 @@ class TimesheetProjet
 
     public function getTotalWorkedHours(): ?float
     {
-        return $this->totalWorkedHours;
+        return array_sum($this->workedHours);
     }
 }

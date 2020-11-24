@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Cra;
 use App\Entity\User;
+use App\Service\Timesheet\UserMonthCraRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -13,14 +14,14 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Cra[]    findAll()
  * @method Cra[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CraRepository extends ServiceEntityRepository
+class CraRepository extends ServiceEntityRepository implements UserMonthCraRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Cra::class);
     }
 
-    public function findByUserAndMois(User $user, \DateTime $mois): ?Cra
+    public function findCraByUserAndMois(User $user, \DateTimeInterface $mois): ?Cra
     {
         return $this->findOneBy([
             'user' => $user,

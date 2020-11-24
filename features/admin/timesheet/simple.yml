@@ -15,7 +15,6 @@ App\Entity\Projet:
         projetPpp: false
         projetInterne: true
         statutProjet: '@projet_en_cours'
-        dateDebut: '<date_create()>'
 
 App\Entity\ProjetParticipant:
     admin_projet:

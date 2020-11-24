@@ -18,16 +18,10 @@ class Timesheet
      */
     private array $timesheetProjets;
 
-    /**
-     * Nombre de jours travaillés dans le mois.
-     */
-    private float $totalJours;
-
-    public function __construct(Cra $cra, array $timesheetProjets, float $totalJours)
+    public function __construct(Cra $cra, array $timesheetProjets)
     {
         $this->cra = $cra;
         $this->timesheetProjets = $timesheetProjets;
-        $this->totalJours = $totalJours;
     }
 
     public function getCra(): Cra
@@ -42,7 +36,7 @@ class Timesheet
 
     public function getTotalJours(): float
     {
-        return $this->totalJours;
+        return array_sum($this->cra->getJours());
     }
 
     /**
@@ -84,6 +78,13 @@ class Timesheet
     {
         if (null !== $user->getHeuresParJours()) {
             return $user->getHeuresParJours();
+        }
+
+        if (null === $user->getSociete()) {
+            throw new TimesheetException(
+                'Impossible de générer une feuille de temps : '.
+                'L\'utilisateur n\'a pas de nombre d\'heures par jours, est n\'est pas dans une société'
+            );
         }
 
         if (null !== $user->getSociete()->getHeuresParJours()) {

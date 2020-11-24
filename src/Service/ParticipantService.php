@@ -7,11 +7,12 @@ use App\Entity\ProjetParticipant;
 use App\Entity\User;
 use App\Exception\RdiException;
 use App\Role;
+use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
 
 /**
  * Service avec des fonctions convernant les roles des user sur les projets.
  */
-class ParticipantService
+class ParticipantService implements UserContributingProjetRepositoryInterface
 {
     /**
      * @return bool Si oui ou non $user est au moins observateur sur $projet
@@ -52,6 +53,17 @@ class ParticipantService
         }
 
         return $projetParticipantsFiltered;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findProjetsContributingUser(User $user): array
+    {
+        return $this->getProjetParticipantsWithRole(
+            $user->getProjetParticipants(),
+            Role::CONTRIBUTEUR
+        );
     }
 
     /**
