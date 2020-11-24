@@ -19,6 +19,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Refonte du menu de navigation du haut
 - Sélecteur de mois de l'export des feuilles de temps refait
 - Boutons bootstrap partout
+- Feuilles de temps : prend en compte date de début et de fin de projet
+- Saisis des temps : ne permet plus de saisir un temps sur un projet fini ou pas commencé
 ### Réparé
 - Réaligne le footer
 
