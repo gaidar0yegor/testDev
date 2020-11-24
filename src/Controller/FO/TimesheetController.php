@@ -9,7 +9,7 @@ use App\Exception\TimesheetException;
 use App\Form\FilterTimesheetType;
 use App\Repository\UserRepository;
 use App\Service\DateMonthService;
-use App\Service\TimesheetCalculator;
+use App\Service\Timesheet\TimesheetCalculator;
 use DateTime;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;

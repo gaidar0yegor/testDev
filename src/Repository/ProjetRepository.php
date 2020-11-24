@@ -31,10 +31,11 @@ class ProjetRepository extends ServiceEntityRepository
      *
      * @param User $user
      * @param null|string $roleMinimum Rôle minimum sur le projet
+     * @param null|\DateTime $month Mois pour lequel les projets doivent êtres actifs
      *
      * @return Projet[]
      */
-    public function findAllForUser(User $user, ?string $roleMinimum = null): array
+    public function findAllForUser(User $user, ?string $roleMinimum = null, \DateTime $month = null): array
     {
         $qb = $this
             ->createQueryBuilder('projet')
@@ -46,10 +47,20 @@ class ProjetRepository extends ServiceEntityRepository
         if (null !== $roleMinimum) {
             $qb
                 ->andWhere('projetParticipant.role in (:roles)')
-                ->setParameters([
-                    'user' => $user,
-                    'roles' => Role::getRoles($roleMinimum),
-                ])
+                ->setParameter('user', $user)
+                ->setParameter('roles', Role::getRoles($roleMinimum))
+            ;
+        }
+
+        if (null !== $month) {
+            $this->dateMonthService->normalize($month);
+            $nextMonth = $this->dateMonthService->getNextMonth($month);
+
+            $qb
+                ->andWhere('projet.dateDebut is null OR :nextMonth >= projet.dateDebut')
+                ->andWhere('projet.dateFin is null OR :currentMonth <= projet.dateFin')
+                ->setParameter('nextMonth', $nextMonth)
+                ->setParameter('currentMonth', $month)
             ;
         }
 

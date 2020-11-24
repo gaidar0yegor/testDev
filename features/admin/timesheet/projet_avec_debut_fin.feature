@@ -1,7 +1,7 @@
 Feature: Génération d'une feuille de temps simple.
 
     Background:
-        Given I have loaded fixtures from "admin/timesheet/simple.yml"
+        Given I have loaded fixtures from "admin/timesheet/projet_avec_debut_fin.yml"
 
         Given I am on "/connexion"
         And I fill in the following:
@@ -22,4 +22,4 @@ Feature: Génération d'une feuille de temps simple.
         Then I should see "Feuille de temps" in the "h1" element
         And I should see "Novembre 2020" in the "h2" element
         And I should see "P0 Chef de projet" in the "table" element
-        And I should see "Total des heures en novembre 2020 : 34.13 h"
+        And I should see "Total des heures en novembre 2020 : 15.75 h"

@@ -36,7 +36,7 @@ class ListeTempsPasses
         return $this->tempsPasses;
     }
 
-    public function hasTempsPasses(): bool 
+    public function hasTempsPasses(): bool
     {
         return count ($this->tempsPasses) > 0;
     }

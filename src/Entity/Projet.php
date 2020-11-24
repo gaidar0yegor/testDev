@@ -11,6 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetRepository::class)
@@ -35,7 +36,7 @@ class Projet implements HasSocieteInterface
     private $resume;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="date", nullable=true)
      */
     private $dateDebut;
 
@@ -106,8 +107,6 @@ class Projet implements HasSocieteInterface
         $this->projetParticipants = new ArrayCollection();
         $this->faitMarquants = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
-        $this->dateDebut = new \DateTime();
-        $this->dateFin = (new \DateTime())->modify('+2 years');
     }
 
     public function getId(): ?int
@@ -144,13 +143,13 @@ class Projet implements HasSocieteInterface
         return $this->dateDebut;
     }
 
-    public function setDateDebut(\DateTimeInterface $dateDebut): self
+    public function setDateDebut(?\DateTimeInterface $dateDebut): self
     {
         $this->dateDebut = $dateDebut;
 
         return $this;
     }
- 
+
     public function getDateFin(): ?\DateTimeInterface
     {
         return $this->dateFin;
@@ -161,6 +160,24 @@ class Projet implements HasSocieteInterface
         $this->dateFin = $dateFin;
 
         return $this;
+    }
+
+    /**
+     * @param \DateTimeInterface $datetime Jour à évaluer
+     *
+     * @return bool Si au moment $datetime, le projet est actif (entre date début et fin, inclus)
+     */
+    public function isProjetActiveInDate(\DateTimeInterface $datetime): bool
+    {
+        if (null !== $this->dateDebut && $datetime < $this->dateDebut) {
+            return false;
+        }
+
+        if (null !== $this->dateFin && $datetime > $this->dateFin) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getStatutRdi(): ?int
@@ -375,5 +392,23 @@ class Projet implements HasSocieteInterface
     public function getSociete(): ?Societe
     {
         return $this->getChefDeProjet()->getSociete();
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function validateDateDebutFin(ExecutionContextInterface $context, $payload)
+    {
+        if (null === $this->dateDebut || null === $this->dateFin) {
+            return;
+        }
+
+        if ($this->dateFin < $this->dateDebut) {
+            $context
+                ->buildViolation('La date de fin doit être égale ou après la date de début.')
+                ->atPath('dateFin')
+                ->addViolation()
+            ;
+        }
     }
 }

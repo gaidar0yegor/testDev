@@ -15,17 +15,19 @@ App\Entity\Projet:
         projetPpp: false
         projetInterne: true
         statutProjet: '@projet_en_cours'
+        dateDebut: <(new DateTime("2020-11-16"))>
+        dateFin: <(new DateTime("2020-11-26"))>
 
 App\Entity\ProjetParticipant:
     admin_projet:
         user: '@admin'
         projet: '@projet'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Role::CDP)>
 
 App\Entity\Cra:
     cra:
         user: '@admin'
-        mois: '<(new DateTime("2020-11-01"))>'
+        mois: <(new DateTime("2020-11-01"))>
         jours: [0,
             1, 1, 1, 1, 1, 0, 0,
             1, 1, 0, 1, 1, 0, 0,
@@ -37,7 +39,7 @@ App\Entity\Cra:
 App\Entity\TempsPasse:
     temps_passe:
         user: '@admin'
-        mois: '<(new DateTime("2020-11-01"))>'
+        mois: <(new DateTime("2020-11-01"))>
         pourcentage: 25
         projet: '@projet'
 

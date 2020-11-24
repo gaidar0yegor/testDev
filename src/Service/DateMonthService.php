@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Projet;
 use App\Exception\MonthOutOfRangeException;
 
 /**
@@ -99,5 +100,25 @@ class DateMonthService
         $this->normalize($nextDateTime);
 
         return $nextDateTime;
+    }
+
+    /**
+     * @return bool Si le projet est actif au moins un jour dans le mois $month
+     */
+    public function isProjetActiveInMonth(Projet $projet, \DateTimeInterface $month): bool
+    {
+        // Même logique que dans ProjetRepository::findAllForUser
+        $this->normalize($month);
+        $nextMonth = $this->getNextMonth($month);
+
+        if (null !== $projet->getDateDebut() && $nextMonth < $projet->getDateDebut()) {
+            return false;
+        }
+
+        if (null !== $projet->getDateFin() && $month > $projet->getDateFin()) {
+            return false;
+        }
+
+        return true;
     }
 }

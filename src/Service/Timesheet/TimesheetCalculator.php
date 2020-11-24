@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\Timesheet;
 
 use App\DTO\FilterTimesheet;
 use App\DTO\Timesheet;
@@ -10,35 +10,64 @@ use App\Entity\ProjetParticipant;
 use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Exception\TimesheetException;
-use App\Repository\CraRepository;
-use App\Role;
+use App\Service\DateMonthService;
 
 class TimesheetCalculator
 {
-    private ParticipantService $participantService;
+    private UserContributingProjetRepositoryInterface $participationRepository;
 
-    private CraRepository $craRepository;
+    private UserMonthCraRepositoryInterface $craRepository;
 
     private DateMonthService $dateMonthService;
 
     public function __construct(
-        ParticipantService $participantService,
-        CraRepository $craRepository,
+        UserContributingProjetRepositoryInterface $participationRepository,
+        UserMonthCraRepositoryInterface $craRepository,
         DateMonthService $dateMonthService
     ) {
-        $this->participantService = $participantService;
+        $this->participationRepository = $participationRepository;
         $this->craRepository = $craRepository;
         $this->dateMonthService = $dateMonthService;
+    }
+
+    public function generateTimesheetProjet(ProjetParticipant $participation, Cra $cra): TimesheetProjet
+    {
+        $tempsPasse = $this->getTempsPassesOnProjet($cra->getUser(), $participation);
+
+        if (null === $tempsPasse) {
+            return new TimesheetProjet($participation);
+        }
+
+        $heuresParJours = Timesheet::getUserHeuresParJours($cra->getUser());
+        $totalJours = 0;
+        $workedHours = array_map(
+            function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse, $totalJours, $participation, $cra) {
+                $projet = $participation->getProjet();
+                $day = (new \DateTime($cra->getMois()->format('d-m-Y')))->modify("+$key days");
+
+                if (!$projet->isProjetActiveInDate($day)) {
+                    return 0.0;
+                }
+
+                $totalJours += $presenceJour;
+                return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage()) / 100.0;
+            },
+            $cra->getJours(),
+            array_keys($cra->getJours())
+        );
+
+        return new TimesheetProjet(
+            $participation,
+            $tempsPasse,
+            $workedHours
+        );
     }
 
     public function generateTimesheet(User $user, \DateTime $month): Timesheet
     {
         $this->dateMonthService->normalize($month);
 
-        $cra = $this->craRepository->findOneBy([
-            'user' => $user,
-            'mois' => $month,
-        ]);
+        $cra = $this->craRepository->findCraByUserAndMois($user, $month);
 
         if (null === $cra) {
             throw new TimesheetException(sprintf(
@@ -49,40 +78,21 @@ class TimesheetCalculator
             ));
         }
 
-        $participations = $this->participantService->getProjetParticipantsWithRole(
-            $cra->getUser()->getProjetParticipants(),
-            Role::CONTRIBUTEUR
-        );
+        $participations = $this->participationRepository->findProjetsContributingUser($cra->getUser());
 
         $timesheetProjets = [];
-        $totalJours = array_sum($cra->getJours());
-        $heuresParJours = Timesheet::getUserHeuresParJours($cra->getUser());
 
         foreach ($participations as $participation) {
-            $tempsPasse = $this->getTempsPassesOnProjet($cra->getUser(), $participation);
-            $workedHours = null;
-            $totalWorkedHours = 0;
-
-            if (null !== $tempsPasse) {
-                $workedHours = array_map(function (float $presenceJour) use ($heuresParJours, $tempsPasse) {
-                    return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage()) / 100.0;
-                }, $cra->getJours());
-
-                $totalWorkedHours = ($heuresParJours * $totalJours * $tempsPasse->getPourcentage()) / 100.0;
+            if (!$this->dateMonthService->isProjetActiveInMonth($participation->getProjet(), $month)) {
+                continue;
             }
 
-            $timesheetProjets[] = new TimesheetProjet(
-                $participation,
-                $tempsPasse,
-                $workedHours,
-                $totalWorkedHours
-            );
+            $timesheetProjets[] = $this->generateTimesheetProjet($participation, $cra);
         }
 
         return new Timesheet(
             $cra,
-            $timesheetProjets,
-            $totalJours
+            $timesheetProjets
         );
     }
 

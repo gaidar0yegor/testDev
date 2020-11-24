@@ -41,7 +41,6 @@ class TempsController extends AbstractController
         }
 
         $listeTempsPasses = $tempsPasseService->loadTempsPasses($this->getUser(), $mois);
-        $listeTempsPasses->getTempsPasses ();
         $form = $this->createForm(TempsPassesType::class, $listeTempsPasses);
 
         $form->handleRequest($request);
