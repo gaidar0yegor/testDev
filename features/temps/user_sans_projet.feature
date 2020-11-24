@@ -11,7 +11,7 @@ Feature: Affichage de la saisie des temps pour un utilisateur qui n'a pas de pro
 
         When I am on "/temps/2020/01"
         Then I should see "Saisie de temps passé"
-        And I should see "Vous n'êtes contributeur sur aucun projet, vous n'avez pas de temps à saisir"
+        And I should see "Ce mois-ci, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet"
         And I should see "Janvier 2020"
         And I should see an "a[href='/temps/2020/02']" element
         And I should see an "a[href='/temps/2019/12']" element
