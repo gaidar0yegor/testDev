@@ -1,0 +1,59 @@
+App\Entity\User:
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: admin
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet:
+        titre: 'Projet 0'
+        acronyme: 'P0'
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateDebut: <(new DateTime("2020-11-16"))>
+        dateFin: <(new DateTime("2020-11-26"))>
+
+App\Entity\ProjetParticipant:
+    admin_projet:
+        user: '@admin'
+        projet: '@projet'
+        role: <(App\Role::CDP)>
+
+App\Entity\Cra:
+    cra:
+        user: '@admin'
+        mois: <(new DateTime("2020-11-01"))>
+        jours: [0,
+            1, 1, 1, 1, 1, 0, 0,
+            1, 1, 0, 1, 1, 0, 0,
+            1, 1, 1, 1, 1, 0, 0,
+            1, 1, 1, 1, 1, 0, 0,
+            0.5
+        ]
+
+App\Entity\TempsPasse:
+    temps_passe:
+        user: '@admin'
+        mois: <(new DateTime("2020-11-01"))>
+        pourcentage: 25
+        projet: '@projet'
+
+App\Entity\StatutProjet:
+    projet_en_cours:
+        libelle: En Cours
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: SociétéTest
+        siret: 111111111
+        statut: '@societe_active'
+        heuresParJours: 7
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée
