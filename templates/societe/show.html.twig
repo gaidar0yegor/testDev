@@ -13,10 +13,10 @@
     <div class="card-deck">
         <div class="card text-center">
             <i class="rdi-card-icon fa fa-users" aria-hidden="true"></i>
-            <div class="card-body">
-                <h5 class="card-title">Nombre d'utilisateurs</h5>
-                <h6 class="card-subtitle mb-2 text-muted">rattachés à ma société</h6>
-                <p class="card-text display-4 mb-0">
+            <div class="card-body users">
+                <h5 class="card-title deck">Nombre d'utilisateurs</h5>
+                <h6 class="card-subtitle deck mb-2 text-muted">rattachés à ma société</h6>
+                <p class="card-text deck display-4 mb-0">
                     {{ societe.users|length }}
                 </p>
             </div>
@@ -27,9 +27,9 @@
         <div class="card text-center">
             <i class="rdi-card-icon fa fa-clock-o" aria-hidden="true"></i>
             <div class="card-body">
-                <h5 class="card-title">Heures travaillées</h5>
-                <h6 class="card-subtitle mb-2 text-muted">par jours, par défaut.</h6>
-                <p class="card-text display-4 mb-0">
+                <h5 class="card-title deck">Heures travaillées</h5>
+                <h6 class="card-subtitle mb-2 deck text-muted">par jours, par défaut.</h6>
+                <p class="card-text deck display-4 mb-0">
                     {% if societe.heuresParJours %}
                         {{ societe.heuresParJours }} h
                     {% else %}

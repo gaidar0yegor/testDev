@@ -113,7 +113,9 @@ class SecurityController extends AbstractController
     ) {
         $form = $this->createFormBuilder()
             ->add('email', EmailType::class)
-            ->add('Demander un lien de réinitialisation', SubmitType::class)
+            ->add('Submit', SubmitType::class, [
+                'label' => 'Demander un lien de réinitialisation',
+            ])
             ->getForm()
         ;
 

@@ -55,30 +55,34 @@
 </div>
 
 <div class="row_projet">
-    <div class="col-6">
+    <div class="col-3">
         <a
             href="{{ path('liste_fichiers_', {'id': projet.id}) }}"
-            class="btn btn-rdi btn-block mt-2"
+            class="btn btn-outline-primary mt-2"
         >Fichiers</a>
+    </div>
+    <div class="col-3">
         <a
             href="{{ path('projet_participant', {'id': projet.id}) }}"
-            class="btn btn-rdi btn-block mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
+            class="btn btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
             {% if not userCanEditProjet %}
                 title="Seul le chef de projet peut gérer les participants"
             {% endif %}
         >Participants</a>        
     </div>
-    <div class="col-6 bis">
+    <div class="col-3">
         <a
             href="{{ path('projet_edition', {'id': projet.id}) }}"
-            class="btn btn-rdi btn-block mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
+            class="btn btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
             {% if not userCanEditProjet %}
                 title="Seul le chef de projet peut modifier"
             {% endif %}
-        >Modifier Projet</a>
+        >Projet</a>
+    </div>
+    <div class="col-3">
         <a
             href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}"
-            class="btn btn-rdi btn-block mt-2 {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
+            class="btn btn-outline-primary mt-2 {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
             {% if not userCanAddFaitMarquant %}
                 title="Seuls les contributeurs du projet peuvent ajouter un fait marquant"
             {% endif %}

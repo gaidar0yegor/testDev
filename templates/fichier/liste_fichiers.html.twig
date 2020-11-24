@@ -1,52 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des fichiers | {{ parent() }}{% endblock %}
+{% block title %}Liste des fichiers |
+	{{ parent() }}
+{% endblock %}
 
 {% block body %}
-    <h1>Liste des fichiers</h1>
+	<h1>Liste des fichiers</h1>
 
-    <table class="table text-center mx-auto m-5">
-        <thead>
-            <tr>
-                <th scope="col" class="">Fichier</th>
-                <th scope="col" class="">Uploadeur</th>
-                <th scope="col" class="d-none d-md-table-cell">Date</th>
-                <th scope="col" class="">Downloader</th>
-                <th scope="col" class="">Supprimer</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for fichier in liste_fichiers %}
-            <tr>
-                <td class="text-center">{{ fichier.NomFichier }}</td>
-                <td class="text-center">{{ fichier.uploadedBy.fullname }}</td>
-                <td class="text-center d-none d-md-table-cell">{{ fichier.dateUpload ? fichier.dateUpload|date('d/m/Y') : '-' }}</td>            
-                <td class="text-center">
-                    <a
-                        href="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}"
-                        class="btn btn-success"
-                    >
-                        <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                        Télécharger
-                    </a>
-                </td>
-                <td class="text-center">
-                    <form
-                        action="{{ path('efface_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}"
-                        method="post"
-                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');"
-                    >
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button class="btn btn-outline-danger">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="text-center mx-auto">
-        <a href="{{ path('ajout_fichier_',{'id':projet.id}) }}"> <button class="btn btn-outline-success">Ajouter un fichier <i class="fa fa-cloud-upload" aria-hidden="true"></i></button></a>
-    </div>
+	<table class="table text-center mx-auto m-5">
+		<thead>
+			<tr>
+				<th scope="col" class="">Fichier</th>
+				<th scope="col" class="">Uploadeur</th>
+				<th scope="col" class="d-none d-md-table-cell">Date</th>
+				<th scope="col" class="">Downloader</th>
+				<th scope="col" class="">Supprimer</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for fichier in liste_fichiers %}
+			<tr>
+				<td class="text-center">{{ fichier.NomFichier }}</td>
+				<td class="text-center">{{ fichier.uploadedBy.fullname }}</td>
+				<td class="text-center d-none d-md-table-cell">{{ fichier.dateUpload ? fichier.dateUpload|date('d/m/Y') : '-' }}</td>
+				{# <td class="text-center">{{ fichier.dateUpload }}</td> #}
+				<td class="text-center">
+					<a href="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}" class="btn btn-outline-success">
+						<i class="fa fa-cloud-download" aria-hidden="true"></i>
+						Télécharger
+					</a>
+				</td>
+				<td class="text-center">
+					<form action="{{ path('efface_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}" method="post" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');">
+						<input type="hidden" name="_method" value="DELETE">
+						<button class="btn btn-outline-danger">
+							<i class="fa fa-trash" aria-hidden="true"></i>
+						</button>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<div class="text-center mx-auto">
+		<a href="{{ path('ajout_fichier_',{'id':projet.id}) }}">
+			<button class="btn btn-outline-success">Ajouter un fichier<i class="fa fa-cloud-upload" aria-hidden="true"></i>
+			</button>
+		</a>
+	</div>
 {% endblock %}
