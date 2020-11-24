@@ -107,23 +107,12 @@ class User implements UserInterface, HasSocieteInterface
     private $cadre;
 
     /**
-     * @ORM\OneToOne(targetEntity=Licences::class, inversedBy="user", cascade={"persist", "remove"})
-     */
-    private $licences;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=true)
      *
      * @Assert\NotBlank(groups={"invitation"})
      */
     private $societe;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=ProfilsUtilisateur::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $profils_utilisateur;
 
     /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="user", orphanRemoval=true)
@@ -393,18 +382,6 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getLicences(): ?Licences
-    {
-        return $this->licences;
-    }
-
-    public function setLicences(?Licences $licences): self
-    {
-        $this->licences = $licences;
-
-        return $this;
-    }
-
     public function getSociete(): ?Societe
     {
         return $this->societe;
@@ -413,18 +390,6 @@ class User implements UserInterface, HasSocieteInterface
     public function setSociete(?Societe $societe): self
     {
         $this->societe = $societe;
-
-        return $this;
-    }
-
-    public function getProfilsUtilisateur(): ?ProfilsUtilisateur
-    {
-        return $this->profils_utilisateur;
-    }
-
-    public function setProfilsUtilisateur(?ProfilsUtilisateur $profils_utilisateur): self
-    {
-        $this->profils_utilisateur = $profils_utilisateur;
 
         return $this;
     }

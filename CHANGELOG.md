@@ -14,6 +14,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajout d'éléments "Actif" et "Inactif" dans la colonne "Statut" de la liste des utilisateurs
 - Mot de passe oublié
 - Changement mot de passe
+- Ré-intégration des migrations doctrine pour mettre à jour la base de prod plus facilement
 ### Modifié
 - Refonte du menu de navigation du haut
 - Sélecteur de mois de l'export des feuilles de temps refait
