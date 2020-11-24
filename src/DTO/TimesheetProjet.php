@@ -60,8 +60,15 @@ class TimesheetProjet
         return $this->workedHours;
     }
 
-    public function getTotalWorkedHours(): ?float
+    /**
+     * @return float Nombre d'heures total travaillées sur ce projet dans le mois.
+     */
+    public function getTotalWorkedHours(): float
     {
+        if (null === $this->workedHours) {
+            return 0.0;
+        }
+
         return array_sum($this->workedHours);
     }
 }

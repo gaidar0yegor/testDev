@@ -8,7 +8,7 @@ use App\Entity\User;
 interface UserContributingProjetRepositoryInterface
 {
     /**
-     * @return ProjetParticipant[]
+     * @return ProjetParticipant[] Tous les projets dont $user est au moins contributeur dessus
      */
     public function findProjetsContributingUser(User $user): array;
 }

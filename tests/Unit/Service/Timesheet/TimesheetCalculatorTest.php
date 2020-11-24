@@ -23,6 +23,7 @@ class TimesheetCalculatorTest extends TestCase
     private TempsPasse $tempsPasse;
     private ProjetParticipant $participation;
     private Cra $cra;
+    private \DateTimeInterface $mois;
 
     public function __construct()
     {
@@ -72,19 +73,23 @@ class TimesheetCalculatorTest extends TestCase
         ;
     }
 
-    private function createTimesheetCalculator()
+    private function createTimesheetCalculator(array $participations = null)
     {
+        if (null === $participations) {
+            $participations = [$this->participation];
+        }
+
         return new TimesheetCalculator(
-            new class ($this->projet) implements UserContributingProjetRepositoryInterface
+            new class ($participations) implements UserContributingProjetRepositoryInterface
             {
-                public function __construct(Projet $projet)
+                public function __construct(array $participations)
                 {
-                    $this->projet = $projet;
+                    $this->participations = $participations;
                 }
 
                 public function findProjetsContributingUser(User $user): array
                 {
-                    return [$this->projet];
+                    return $this->participations;
                 }
             },
             new class ($this->cra) implements UserMonthCraRepositoryInterface
@@ -241,6 +246,163 @@ class TimesheetCalculatorTest extends TestCase
             ],
             $timesheetProjet->getWorkedHours(),
             'Les heures de la feuille de temps sont les bonnes'
+        );
+    }
+
+    public function testGenerateTimesheet()
+    {
+        $this->prepareBasicSample();
+
+        $timesheetCalculator = $this->createTimesheetCalculator();
+
+        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+
+        $this->assertEquals(
+            1,
+            count($timesheet->getProjets()),
+            'La feuille de temps contient le seul projet'
+        );
+
+        $timesheetProjet = $timesheet->getProjets()[0];
+
+        $this->assertEquals(
+            31,
+            count($timesheetProjet->getWorkedHours()),
+            'Le cra contient les 31 jours de janvier'
+        );
+
+        $this->assertEquals(
+            21.5 * 8.0 * 0.5,
+            $timesheetProjet->getTotalWorkedHours(),
+            'User a travaillé au total 21.5 jours de 8 heures, à 50% sur le projet'
+        );
+
+        $this->assertEquals(
+            [
+                      0, 4, 4, 0, 0,
+                4, 4, 4, 4, 4, 0, 0,
+                4, 4, 4, 4, 4, 0, 0,
+                4, 4, 4, 4, 4, 0, 0,
+                4, 4, 4, 4, 2,
+            ],
+            $timesheetProjet->getWorkedHours(),
+            'Les heures de la feuille de temps sont les bonnes'
+        );
+    }
+
+    public function testGenerateTimesheetDoesNotDisplayProjetFinished()
+    {
+        $this->prepareBasicSample();
+
+        $projetEnded = new Projet();
+        $participationProjetEnded = new ProjetParticipant();
+
+        $projetEnded->setDateFin(new \DateTime('01-01-2018'));
+
+        $participationProjetEnded
+            ->setProjet($projetEnded)
+            ->setUser($this->user)
+            ->setRole(Role::CONTRIBUTEUR)
+        ;
+
+        $timesheetCalculator = $this->createTimesheetCalculator([
+            $this->participation,
+            $participationProjetEnded,
+        ]);
+
+        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+
+        $this->assertEquals(
+            1,
+            count($timesheet->getProjets()),
+            'La feuille de temps ne contient pas le projet terminé, seulement le projet actif'
+        );
+    }
+
+    public function testGenerateTimesheetDoesNotDisplayProjetNotYetStarted()
+    {
+        $this->prepareBasicSample();
+
+        $projetEnded = new Projet();
+        $participationProjetEnded = new ProjetParticipant();
+
+        $projetEnded->setDateDebut(new \DateTime('01-01-2022'));
+
+        $participationProjetEnded
+            ->setProjet($projetEnded)
+            ->setUser($this->user)
+            ->setRole(Role::CONTRIBUTEUR)
+        ;
+
+        $timesheetCalculator = $this->createTimesheetCalculator([
+            $this->participation,
+            $participationProjetEnded,
+        ]);
+
+        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+
+        $this->assertEquals(
+            1,
+            count($timesheet->getProjets()),
+            'La feuille de temps ne contient pas le projet pas encore commencé, seulement le projet actif'
+        );
+    }
+
+    public function testGenerateTimesheetDisplaysProjetStartingInCurrentMonth()
+    {
+        $this->prepareBasicSample();
+
+        $projetEnded = new Projet();
+        $participationProjetEnded = new ProjetParticipant();
+
+        $projetEnded->setDateDebut(new \DateTime('15-01-2020'));
+
+        $participationProjetEnded
+            ->setProjet($projetEnded)
+            ->setUser($this->user)
+            ->setRole(Role::CONTRIBUTEUR)
+        ;
+
+        $timesheetCalculator = $this->createTimesheetCalculator([
+            $this->participation,
+            $participationProjetEnded,
+        ]);
+
+        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+
+        $this->assertEquals(
+            2,
+            count($timesheet->getProjets()),
+            'La feuille de temps contient le projet qui commence le même mois'
+        );
+    }
+
+    public function testGenerateTimesheetDisplaysProjetFinishingThisMonth()
+    {
+        $this->prepareBasicSample();
+
+        $projetEnded = new Projet();
+        $participationProjetEnded = new ProjetParticipant();
+
+        $projetEnded->setDateFin(new \DateTime('15-01-2020'));
+
+        $participationProjetEnded
+            ->setProjet($projetEnded)
+            ->setUser($this->user)
+            ->setRole(Role::CONTRIBUTEUR)
+        ;
+
+        $timesheetCalculator = $this->createTimesheetCalculator([
+            $this->participation,
+            $participationProjetEnded,
+        ]);
+
+        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+
+        $this->assertEquals(
+            2,
+            count($timesheet->getProjets()),
+            'La feuille de temps contient le projet qui finit le même mois'
         );
     }
 }

@@ -83,6 +83,10 @@ class TimesheetCalculator
         $timesheetProjets = [];
 
         foreach ($participations as $participation) {
+            if (!$this->dateMonthService->isProjetActiveInMonth($participation->getProjet(), $month)) {
+                continue;
+            }
+
             $timesheetProjets[] = $this->generateTimesheetProjet($participation, $cra);
         }
 
