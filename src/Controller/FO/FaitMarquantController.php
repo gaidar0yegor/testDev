@@ -5,6 +5,7 @@ namespace App\Controller\FO;
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Form\FaitMarquantType;
+use App\ProjetResourceInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,7 @@ class FaitMarquantController extends AbstractController
      */
     public function new(Projet $projet, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('create_fait_marquant', $projet);
+        $this->denyAccessUnlessGranted(ProjetResourceInterface::CREATE, $projet);
 
         $faitMarquant = new FaitMarquant();
         $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
@@ -57,7 +58,7 @@ class FaitMarquantController extends AbstractController
      */
     public function edit(Request $request, FaitMarquant $faitMarquant): Response
     {
-        $this->denyAccessUnlessGranted('edit', $faitMarquant);
+        $this->denyAccessUnlessGranted(ProjetResourceInterface::EDIT, $faitMarquant);
 
         $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
         $form->handleRequest($request);
@@ -81,7 +82,7 @@ class FaitMarquantController extends AbstractController
      */
     public function delete(Request $request, FaitMarquant $faitMarquant): Response
     {
-        $this->denyAccessUnlessGranted('delete', $faitMarquant);
+        $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $faitMarquant);
 
         if ($this->isCsrfTokenValid('delete'.$faitMarquant->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();

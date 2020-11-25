@@ -5,6 +5,11 @@
 {% block body %}
     <h1>Liste des fichiers</h1>
 
+    <a class="d-block mb-4" href="{{ path('fiche_projet_', {id: projet.id}) }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Retourner au projet
+    </a>
+
     <table class="table text-center mx-auto m-5">
         <thead>
             <tr>
@@ -37,7 +42,13 @@
                         onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');"
                     >
                         <input type="hidden" name="_method" value="DELETE">
-                        <button class="btn btn-outline-danger">
+                        <button
+                            class="btn btn-outline-danger"
+                            {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), fichier) %}
+                                disabled
+                                title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
+                            {% endif %}
+                        >
                             <i class="fa fa-trash" aria-hidden="true"></i>
                         </button>
                     </form>
@@ -47,6 +58,15 @@
         </tbody>
     </table>
     <div class="text-center mx-auto">
-        <a href="{{ path('ajout_fichier_',{'id':projet.id}) }}"> <button class="btn btn-outline-success">Ajouter un fichier <i class="fa fa-cloud-upload" aria-hidden="true"></i></button></a>
+        <a
+            href="{{ path('ajout_fichier_',{'id':projet.id}) }}"
+            class="btn btn-outline-success {{ canUploadFile ? '' : 'disabled' }}"
+            {% if not canUploadFile %}
+                title="Seul les contributeurs de ce projet peuvent ajouter des fichiers"
+            {% endif %}
+        >
+            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
+            Ajouter un fichier
+        </a>
     </div>
 {% endblock %}

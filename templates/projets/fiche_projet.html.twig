@@ -100,13 +100,27 @@
             <ul class="timeline">
                 {% for faitMarquant in projet.faitMarquants %}
                     <li class="event">
-                        <h4 data-date="{{ faitMarquant.date|format_date }}">{{ faitMarquant.date|format_date }} - <span>{{ faitMarquant.createdBy.prenom }} {{ faitMarquant.createdBy.nom }}</span></h4>
+                        <h4 data-date="{{ faitMarquant.date|format_date }}">
+                            {{ faitMarquant.date|format_date }}
+                            -
+                            <span>{{ faitMarquant.createdBy.fullname }}</span>
+                        </h4>
                         <h3>{{ faitMarquant.titre }}</h3>
                         <p class="text-justify">
                             {{ faitMarquant.description|nl2br }}
                         </p>
                         <div class="text-right">
-                            <a href="{{ path('fait_marquant_modifier', {'id': faitMarquant.id}) }}"><i class="fa fa-edit fa-lg"></i></a>
+                            <a
+                                href="{{ path('fait_marquant_modifier', {'id': faitMarquant.id}) }}"
+                                class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                                {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
+                                    disabled
+                                    title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
+                                {% endif %}
+                            >
+                                <i class="fa fa-pencil"></i>
+                                Modifier
+                            </a>
                         </div>
                     </li>
                 {% endfor %}
