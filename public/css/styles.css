@@ -65,20 +65,8 @@ li.list-group-item {
     border: none; 
 }
 
-div.container.table {
-    background-color:#e9ece6;
-    text-align: justify;
-    padding: 25px;
-    border-radius: 2%;
-    max-width: 88.5%;
-    margin-right: 6%;
-}
-
-.compte {
-    background-color:#e9ecef;
-    text-align: justify;
-    padding: 1em;
-    border-radius: 2%;
+.card.bg-light-grey {
+    background-color: #e9ece6;
 }
 
 .col-4.bis {
@@ -87,12 +75,6 @@ div.container.table {
 
 h2.facts {
     margin-top: 5%;
-}
-
-section#timeline {
-    max-width: 88%;
-    margin: 0 auto;
-    padding-right: 1%;
 }
 
 section#timeline p {
