@@ -240,6 +240,21 @@ class Projet implements HasSocieteInterface
         return $this;
     }
 
+    public function getStatut(): string
+    {
+        $now = new \DateTime();
+
+        if ($now < $this->dateDebut) {
+            return 'À venir';
+        }
+
+        if ($now > $this->dateFin) {
+            return 'Terminé';
+        }
+
+        return 'En cours';
+    }
+
     /**
      * @return Collection|ProjetParticipant[]
      */
