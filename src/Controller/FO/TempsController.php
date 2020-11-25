@@ -4,6 +4,7 @@ namespace App\Controller\FO;
 
 use App\Exception\MonthOutOfRangeException;
 use App\Form\TempsPassesType;
+use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\Service\TempsPasseService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,6 +89,7 @@ class TempsController extends AbstractController
      * )
      */
     public function saisieAbsences(
+        CraService $craService,
         string $year = null,
         string $month = null,
         DateMonthService $dateMonthService
@@ -108,6 +110,7 @@ class TempsController extends AbstractController
             'prev' => $dateMonthService->getPrevMonth($date),
             'year' => $date->format('Y'),
             'month' => $date->format('m'),
+            'cra' => $craService->loadCraForUser($this->getUser(), $date),
         ]);
     }
 }

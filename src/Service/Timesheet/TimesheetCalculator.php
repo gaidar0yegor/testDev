@@ -65,7 +65,7 @@ class TimesheetCalculator
 
     public function generateTimesheet(User $user, \DateTime $month): Timesheet
     {
-        $this->dateMonthService->normalize($month);
+        $month = $this->dateMonthService->normalize($month);
 
         $cra = $this->craRepository->findCraByUserAndMois($user, $month);
 
@@ -101,11 +101,8 @@ class TimesheetCalculator
      */
     public function generateMultipleTimesheets(FilterTimesheet $filter): array
     {
-        $from = $filter->getFrom();
-        $to = $filter->getTo();
-
-        $this->dateMonthService->normalize($from);
-        $this->dateMonthService->normalize($to);
+        $from = $this->dateMonthService->normalize($filter->getFrom());
+        $to = $this->dateMonthService->normalize($filter->getTo());
 
         $timesheets = [];
 

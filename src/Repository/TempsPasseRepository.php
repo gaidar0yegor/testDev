@@ -27,15 +27,13 @@ class TempsPasseRepository extends ServiceEntityRepository
 
     public function findAllForUserAndMonth(User $user, \DateTime $mois): array
     {
-        $this->dateMonthService->normalize($mois);
-
         return $this
             ->createQueryBuilder('tempsPasse')
             ->where('tempsPasse.user = :user')
             ->andWhere('tempsPasse.mois = :mois')
             ->setParameters([
                 'user' => $user,
-                'mois' => $mois,
+                'mois' => $this->dateMonthService->normalize($mois),
             ])
             ->getQuery()
             ->getResult()

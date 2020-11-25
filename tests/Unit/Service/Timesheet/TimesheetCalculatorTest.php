@@ -38,8 +38,7 @@ class TimesheetCalculatorTest extends TestCase
         $this->projet = new Projet();
         $this->tempsPasse = new TempsPasse();
 
-        $this->mois = new \DateTime('01-01-2020');
-        $this->dateMonthService->normalize($this->mois);
+        $this->mois = $this->dateMonthService->normalize(new \DateTime('01-01-2020'));
 
         $this->participation = new ProjetParticipant();
         $this->participation

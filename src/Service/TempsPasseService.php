@@ -35,7 +35,7 @@ class TempsPasseService
      */
     public function loadTempsPasses(User $user, \DateTime $mois): ListeTempsPasses
     {
-        $this->dateMonthService->normalize($mois);
+        $mois = $this->dateMonthService->normalize($mois);
 
         $userProjets = $this->projetRepository->findAllForUser($user, Role::CONTRIBUTEUR, $mois);
         $tempsPasses = $this->tempsPasseRepository->findAllForUserAndMonth($user, $mois);

@@ -46,6 +46,16 @@ class Cra
      */
     private $jours = [];
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $modifiedAt;
+
+    public function __construct()
+    {
+        $this->modifiedAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +101,18 @@ class Cra
     public function setJours(?array $jours): self
     {
         $this->jours = $jours;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }

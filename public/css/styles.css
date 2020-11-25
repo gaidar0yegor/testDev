@@ -163,11 +163,6 @@ footer a {
 /**
  * Jours travaillés
  */
-.calmonth {
-    max-width: 500px;
-    margin: auto;
-}
-
 .calmonth-row {
     display: flex;
     justify-content: space-around;

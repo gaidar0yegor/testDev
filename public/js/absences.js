@@ -45,6 +45,7 @@
 
                     $btnSubmit.prop('disabled', false);
                     $btnSubmit.text('✓ Enregistré !');
+                    $('.message-validation .text-warning').remove();
                 })
             ;
         });

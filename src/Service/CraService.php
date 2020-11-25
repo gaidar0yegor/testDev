@@ -32,7 +32,7 @@ class CraService
     {
         $cra = new Cra();
 
-        $this->dateMonthService->normalize($month);
+        $month = $this->dateMonthService->normalize($month);
 
         $currentYear = intval($month->format('Y'));
         $currentMonth = intval($month->format('n'));
