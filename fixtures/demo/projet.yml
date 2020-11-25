@@ -7,7 +7,6 @@ App\Entity\Projet:
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
-        statutProjet: '@projet_en_cours'
         dateDebut: '<date_create()>'
     projet2:
         titre: 'Projet 2'
@@ -16,7 +15,6 @@ App\Entity\Projet:
         projetCollaboratif: false
         projetPpp: false
         projetInterne: true
-        statutProjet: '@projet_en_cours'
         dateDebut: '<date_create()>'
     projet3:
         titre: 'Projet 3'
@@ -25,7 +23,6 @@ App\Entity\Projet:
         projetCollaboratif: false
         projetPpp: false
         projetInterne: true
-        statutProjet: '@projet_en_cours'
         dateDebut: '<date_create()>'
 
     # Société 2
@@ -36,5 +33,4 @@ App\Entity\Projet:
         projetCollaboratif: false
         projetPpp: false
         projetInterne: true
-        statutProjet: '@projet_en_cours'
         dateDebut: '<date_create()>'

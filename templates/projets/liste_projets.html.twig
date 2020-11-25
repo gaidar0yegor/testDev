@@ -12,7 +12,6 @@
                 <th scope="col">Mon rôle</th>
                 <th scope="col" class="d-none d-md-table-cell">Début</th>
                 <th scope="col" class="d-none d-md-table-cell">Fin</th>
-                <th scope="col" class="d-none d-md-table-cell">Statut</th>
                 <th scope="col">Participants</th>
             </tr>
         </thead>
@@ -23,7 +22,6 @@
                     <td class="text-center">{{ participe.role|trans }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateDebut ? participe.projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateFin ? participe.projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.statutProjet.libelle }}</td>
                     <td class="text-center">{{ participe.projet.projetParticipants|length }}</td>
                 </tr>
             {% endfor %}

@@ -28,7 +28,6 @@ App\Entity\Projet:
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
-        statutProjet: '@projet_en_cours'
         dateDebut: '<date_create()>'
 
 App\Entity\ProjetParticipant:
@@ -40,10 +39,6 @@ App\Entity\ProjetParticipant:
         user: '@cdp'
         projet: '@projet'
         role: '<(App\Role::CDP)>'
-
-App\Entity\StatutProjet:
-    projet_en_cours:
-        libelle: En Cours
 
 App\Entity\Societe:
     societe:

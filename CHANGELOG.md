@@ -8,6 +8,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 ### Modifié
 ### Réparé
+### Supprimé
+- Le champ Projet->statut a été retiré car non utilisé et peut prêter à confusion
 
 
 

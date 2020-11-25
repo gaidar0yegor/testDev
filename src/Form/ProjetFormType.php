@@ -3,9 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Projet;
-use App\Entity\StatutProjet;
 use App\Form\Custom\DatePickerType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -54,10 +52,6 @@ class ProjetFormType extends AbstractType
             ->add('projetInterne', CheckboxType::class, [
                 'label' => 'Projet réalisé en interne par la société (avec ou sans prestataires)',
                 'required' => false,
-            ])
-            ->add('statutProjet', EntityType::class, [
-                'class' => StatutProjet::class,
-                'choice_label' => 'libelle',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre',

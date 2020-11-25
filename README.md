@@ -141,14 +141,41 @@ vendor/bin/behat features/projet/page_projet.feature
 
 ### Migrations
 
-Ajouter une migrations à chaque modification du schéma des entités avec :
+Lorsque le schéma des entités est modifié,
+il faut créer la migration qui sera jouée sur la base de données de production.
+
+Pour créer la migration, il faut mettre sa base locale à l'état des migrations,
+puis auto-générer la nouvelle migration par rapport aux différences du schéma :
 
 ``` bash
+# Supprimer le schéma et le migrations déjà jouées
+php bin/console doctrine:schema:drop --force --full-database
+
+# Lancer les anciennes migrations
+php bin/console doctrine:migrations:migrate
+
+# Générer la nouvelle migration automatiquement
 php bin/console doctrine:migrations:diff
 ```
 
-Vérifier que la migration ne fait potentiellement pas perdre de données,
+La nouvelle migration est créée dans le dossier `migrations/` :
+
+- Vérifier que celle ci ne fait potentiellement pas perdre de données,
 celle ci sera executée en production.
+- Lui donner une description dans `getDescription()`
+
+Ensuite lancer cette nouvelle migration avec :
+
+``` bash
+php bin/console doctrine:migrations:migrate
+```
+
+Pour vérifier une dèrnière fois si la migration a généré
+un schéma de base de données à jour, lancer :
+
+``` bash
+php bin/console doctrine:schema:up --dump-sql
+```
 
 ## Production
 
