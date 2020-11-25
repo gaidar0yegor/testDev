@@ -17,12 +17,6 @@ class FilterTimesheetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('users', SameSocieteUserType::class, [
-                'required' => false,
-                'expanded' => true,
-                'multiple' => true,
-                'label' => 'Feuilles de temps des utilisateurs :',
-            ])
             ->add('from', MonthType::class, [
                 'label' => 'À partir de',
                 'help' => 'inclus.',
@@ -36,6 +30,12 @@ class FilterTimesheetType extends AbstractType
                     'pdf' => 'pdf',
                     'html' => 'html',
                 ],
+            ])
+            ->add('users', SameSocieteUserType::class, [
+                'required' => false,
+                'expanded' => true,
+                'multiple' => true,
+                'label' => 'Feuilles de temps des utilisateurs :',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Générer',

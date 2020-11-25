@@ -12,8 +12,6 @@
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        {{ form_row(form.users) }}
-
         <div class="row">
             <div class="col-sm-6">
                 {{ form_row(form.from) }}
@@ -22,6 +20,8 @@
                 {{ form_row(form.to) }}
             </div>
         </div>
+
+        {{ form_row(form.users) }}
 
         <div class="row">
             <div class="col-md-6 offset-md-3">
