@@ -1,64 +1,73 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Participants sur le projet
-    {{ projet.titre }}
-{% endblock %}
+{% block title %}Participants sur le projet {{ projet.titre }}{% endblock %}
 
 {% block body %}
 
-    <h1>Gestion des participants</h1>
+<h1>Gestion des participants</h1>
 
-    <div class="row font-weight-bold">
-        <div class="col-sm"></div>
-        <div class="col-sm">
-            <div class="d-flex justify-content-around">
-                <p>Chef de projet</p>
-                <p>Contributeur</p>
-                <p>Observateur</p>
-            </div>
-        </div>
-        <div class="col-sm-2 text-center d-none d-sm-block">
-            <p>Enlever</p>
+<div class="row font-weight-bold">
+    <div class="col-sm">
+    </div>
+    <div class="col-sm">
+        <div class="d-flex justify-content-around">
+            <p>Chef de projet</p>
+            <p>Contributeur</p>
+            <p>Observateur</p>
         </div>
     </div>
+    <div class="col-sm-2 text-center d-none d-sm-block">
+        <p>Enlever</p>
+    </div>
+</div>
 
-    {{ form(form) }}
+{{ form(form) }}
 
-        <button type="button" id="btn-ajouter-participant" class="btn btn-outline-primary" style="display: none">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            Ajouter un participant
-        </button>
+<button
+    type="button"
+    id="btn-ajouter-participant"
+    class="btn btn-outline-primary"
+    style="display: none"
+>
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    Ajouter un participant
+</button>
 
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="card">
-                    <div class="card-body invite">
-                        <h5 class="card-title">
-                            <i class="fa fa-user-plus" aria-hidden="true"></i>
-                            Inviter un nouvel utilisateur
-                        </h5>
-                        <p class="card-text">
-                            Vous souhaitez inviter un utilisateur sur votre projet
-                                                mais il n'a pas encore de compte sur RDI manager ?
-                        </p>
-                        <a href="{{ path('projet_participant_invite', {'id': projet.id}) }}" class="btn btn-outline-primary user">Inviter un nouvel utilisateur sur ce projet</a>
-                    </div>
-                </div>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    Inviter un nouvel utilisateur
+                </h5>
+                <p class="card-text">
+                    Vous souhaitez inviter un utilisateur sur votre projet
+                    mais il n'a pas encore de compte sur RDI manager ?
+                </p>
+                <a
+                    href="{{ path('projet_participant_invite', {'id': projet.id}) }}"
+                    class="btn btn-primary"
+                >Inviter un nouvel utilisateur sur ce projet</a>
             </div>
         </div>
+    </div>
+</div>
 
-    {% endblock %}
+{% endblock %}
 
-    {% block javascripts %}
-        {{ parent() }}
+{% block javascripts %}
+    {{ parent() }}
 
-        <script type="text/javascript">
-            const $participants = $('#liste_projet_participants_projetParticipants');
+    <script type="text/javascript">
+        const $participants = $('#liste_projet_participants_projetParticipants');
 
-EmbedForm.init($participants, {$addButton: $('#btn-ajouter-participant')});
+        EmbedForm.init($participants, {
+            $addButton: $('#btn-ajouter-participant'),
+        });
 
-$participants.on('click', '.embed-form-remove', function () {
-$(this).closest('.projet-participant-row').remove();
-});
-        </script>
-    {% endblock %}
+        $participants.on('click', '.embed-form-remove', function () {
+            $(this).closest('.projet-participant-row').remove();
+        });
+    </script>
+{% endblock %}

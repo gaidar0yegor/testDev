@@ -13,12 +13,16 @@
     <div class="card-deck">
         <div class="card text-center">
             <i class="rdi-card-icon fa fa-users" aria-hidden="true"></i>
-            <div class="card-body users">
-                <h5 class="card-title deck">Nombre d'utilisateurs</h5>
-                <h6 class="card-subtitle deck mb-2 text-muted">rattachés à ma société</h6>
-                <p class="card-text deck display-4 mb-0">
-                    {{ societe.users|length }}
-                </p>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                        <h5 class="card-title">Nombre d'utilisateurs</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">rattachés à ma société</h6>
+                        <p class="card-text display-4 mb-0">
+                            {{ societe.users|length }}
+                        </p>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <a href="{{ path ('utilisateurs_fo_') }}" class="card-link">Afficher la liste des utilisateurs</a>
@@ -27,18 +31,22 @@
         <div class="card text-center">
             <i class="rdi-card-icon fa fa-clock-o" aria-hidden="true"></i>
             <div class="card-body">
-                <h5 class="card-title deck">Heures travaillées</h5>
-                <h6 class="card-subtitle mb-2 deck text-muted">par jours, par défaut.</h6>
-                <p class="card-text deck display-4 mb-0">
-                    {% if societe.heuresParJours %}
-                        {{ societe.heuresParJours }} h
-                    {% else %}
-                        <small class="text-warning">À définir</small>
-                    {% endif %}
-                </p>
-                <small class="text-muted">
-                    Valeur par défaut, utilisée lors de la génération des feuilles de temps.
-                </small>
+                <div class="row">
+                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                        <h5 class="card-title deck">Heures travaillées</h5>
+                        <h6 class="card-subtitle mb-2 deck text-muted">par jours, par défaut.</h6>
+                        <p class="card-text deck display-4 mb-0">
+                            {% if societe.heuresParJours %}
+                                {{ societe.heuresParJours }} h
+                            {% else %}
+                                <small class="text-warning">À définir</small>
+                            {% endif %}
+                        </p>
+                        <small class="text-muted">
+                            Valeur par défaut, utilisée lors de la génération des feuilles de temps.
+                        </small>
+                    </div>
+                </div>
             </div>
             <div class="card-footer">
                 <a href="{{ path('fo_societe_edit') }}" class="card-link">Modifier le nombre d'heures</a>

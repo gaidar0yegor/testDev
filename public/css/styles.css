@@ -9,8 +9,7 @@ html {
     height: 100% !important;
 }
 
-h1,
-h2 {
+h1, h2 {
     text-align: center;
     margin: 0.5em 0;
 }
@@ -22,7 +21,7 @@ h1 {
 
 .flash-messages {
     margin-top: 1em;
-}
+}  
 
 .main-container {
     padding-bottom: 6em;
@@ -39,21 +38,13 @@ h1 {
     margin-left: 0;
 }
 
-.btn-rdi {
-    color: white;
-    background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%);
-    border: none;
-}
-
 table thead tr {
     background-color: #ce352c;
     color: white;
 }
-
 table tbody tr {
     background-color: #e6e6e6;
 }
-
 table tbody a {
     color: black;
 }
@@ -75,7 +66,7 @@ table tbody a {
 }
 
 li.list-group-item {
-    border: none;
+    border: none; 
 }
 
 .row_projet {
@@ -87,7 +78,7 @@ li.list-group-item {
 }
 
 div.container.table {
-    background-color: #e9ece6;
+    background-color:#e9ece6;
     text-align: justify;
     padding: 25px;
     border-radius: 2%;
@@ -96,7 +87,7 @@ div.container.table {
 }
 
 .compte {
-    background-color: #e9ecef;
+    background-color:#e9ecef;
     text-align: justify;
     padding: 1em;
     border-radius: 2%;
@@ -121,7 +112,7 @@ section#timeline {
 }
 
 section#timeline p {
-    text-align: center;
+    text-align: center; 
 }
 
 div.button.mb-4 {
@@ -132,40 +123,31 @@ div.button.mb-4 {
 .navbar-dark {
     background-color: #ce352c;
 }
-
 .navbar-dark .navbar-nav .nav-link {
     color: white;
 }
-
 .navbar-dark .navbar-nav .nav-link.disabled {
     color: rgba(255, 255, 255, 0.5);
 }
-
 .navbar-dark .navbar-nav .nav-link:hover {
     color: rgba(255, 255, 255, 0.8);
 }
-
 .navbar .navbar-brand {
     padding-top: 0;
     padding-bottom: 0;
 }
-
 .navbar .navbar-brand img {
     max-height: 32px;
 }
-
 .navbar .user-menu a {
     cursor: pointer;
 }
-
 .navbar .nav-item.active {
     background-color: rgba(255, 255, 255, 0.15);
 }
-
 .navbar .dropdown-menu a {
     padding-left: 2.5rem;
 }
-
 .navbar .dropdown-menu a i {
     margin-left: -1.5rem;
     width: 1.5rem;
@@ -178,16 +160,16 @@ header {
     background-color: #ce352c;
 }
 
-h2 {
-    font-size: 1.8rem;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1vh;
-}
+h2{ 
+        font-size: 1.8rem;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1vh;
+    }
 
-h5 {
-    display: inline-block;
-}
+h5{
+    display: inline-block; 
+} 
 
 
 /**************************** FOOTER ********************************/
@@ -204,7 +186,7 @@ footer {
     padding: 0.75em 0;
 }
 
-footer>* {
+footer > * {
     margin: 0 0.5em;
 }
 
@@ -231,15 +213,13 @@ footer a {
     display: flex;
     justify-content: space-around;
 }
-
 .btn-jour {
     position: relative;
     margin: 0.2em;
     padding: 0.4em;
     text-align: right;
 }
-
-.btn-block+.btn-block {
+.btn-block + .btn-block {
     /* Overrides bootstrap style to fix agenda alignment */
     margin-top: 0.2em;
 }
@@ -271,11 +251,6 @@ footer a {
     a.btn.btn-outline-primary.mt-2 {
         width: 515%;
     }
-
-    .absences {
-        padding-right: 10px;
-        margin: 0 auto;
-    }
 }
 
 @media (min-width: 575px) {
@@ -290,25 +265,14 @@ footer a {
     }
 }
 
-.btn-jour span {
-    font-weight: bold;
-}
-
-@media (max-width: 575px) {
-    h5.card-title.deck,
-    h6.card-subtitle.deck,
-    p.card-text.deck {
-        margin-left: 143px;
+    .btn-jour span {
+        font-weight: bold;
     }
 
+@media (max-width: 575px) {
     div.row_projet {
         margin-left: 9%;
         margin-right: 1%;
-    }
-
-    div.card-body.invite {
-        margin-left: -7px;
-        text-align: justify;
     }
 
     div.button.mb-4.mt-5 {
