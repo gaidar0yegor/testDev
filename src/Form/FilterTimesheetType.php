@@ -17,33 +17,32 @@ class FilterTimesheetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('users', SameSocieteUserType::class, [
-                'required' => false,
-                'expanded' => true,
-                'multiple' => true,
-                'label' => 'Feuilles de temps des utilisateurs :',
-            ])
-            ->add('from', MonthType::class, [
-                'label' => 'À partir de',
-                'help' => 'inclus.',
-            ])
-            ->add('to', MonthType::class, [
-                'label' => 'Jusqu\'au',
-                'help' => 'inclus.',
-            ])
-            ->add('format', ChoiceType::class, [
-                'choices' => [
-                    'pdf' => 'pdf',
-                    'html' => 'html',
-                ],
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Générer',
-                'attr' => [
-                    'class' => 'btn btn-success',
-                ],
-            ])
-        ;
+        ->add('from', MonthType::class, [
+            'label' => 'À partir de',
+            'help' => 'inclus.',
+        ])
+        ->add('to', MonthType::class, [
+            'label' => 'Jusqu\'au',
+            'help' => 'inclus.',
+        ])
+        ->add('format', ChoiceType::class, [
+            'choices' => [
+                'pdf' => 'pdf',
+                'html' => 'html',
+            ],
+        ])
+        ->add('submit', SubmitType::class, [
+            'label' => 'Générer',
+            'attr' => [
+                'class' => 'btn btn-success',
+            ],
+        ])
+        ->add('users', SameSocieteUserType::class, [
+            'required' => false,
+            'expanded' => true,
+            'multiple' => true,
+            'label' => 'Feuilles de temps des utilisateurs :',
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

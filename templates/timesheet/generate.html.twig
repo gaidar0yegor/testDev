@@ -1,42 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Générer une feuille de temps | {{ parent() }}{% endblock %}
+{% block title %}Générer une feuille de temps |
+	{{ parent() }}
+{% endblock %}
 
 {% block body %}
 
-<h1>Générer une feuille de temps</h1>
+	<h1>Générer une feuille de temps</h1>
 
-<div class="row">
-    <div class="col-lg-8 offset-lg-2">
+	<div class="row">
+		<div class="col-lg-8 offset-lg-2">
+			{{ form_start(form) }}
+			{{ form_errors(form) }}
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
+			<div class="row">
+				<div class="col-sm-6">
+					{{ form_row(form.from) }}
+				</div>
+				<div class="col-sm-6">
+					{{ form_row(form.to) }}
+				</div>
+			</div>
 
-        {{ form_row(form.users) }}
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="input-group mt-3">
+						<div class="input-group-prepend">
+							{{ form_widget(form.submit, {'label': 'Exporter au format'}) }}
+						</div>
+						{{ form_widget(form.format, {'attr': {'class': 'custom-select'}}) }}
+					</div>
+				</div>
+			</div>
 
-        <div class="row">
-            <div class="col-sm-6">
-                {{ form_row(form.from) }}
-            </div>
-            <div class="col-sm-6">
-                {{ form_row(form.to) }}
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <div class="input-group mt-3">
-                    <div class="input-group-prepend">
-                        {{ form_widget(form.submit, {'label': 'Exporter au format'}) }}
-                    </div>
-                    {{ form_widget(form.format, {'attr': {'class': 'custom-select'}}) }}
-                </div>
-            </div>
-        </div>
-
-        {{ form_end(form) }}
-
-    </div>
-</div>
+			{{ form_row(form.users) }}
+			{{ form_end(form) }}
+		</div>
+	</div>
 
 {% endblock %}
