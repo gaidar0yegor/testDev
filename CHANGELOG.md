@@ -9,6 +9,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Modification de mes données personnelles
 ### Modifié
 ### Réparé
+- Pouvoir supprimer mon propre fichier même si je ne suis pas chef de projet
+- Dans la liste des fichiers, le bouton supprimer est grisé si je n'ai pas le droit de supprimer
+- Dans la liste des fichiers, le bouton "Ajouter un fichier" est grisé si on n'est pas contributeur
 ### Supprimé
 - Le champ Projet->statut a été retiré car non utilisé et peut prêter à confusion
 
