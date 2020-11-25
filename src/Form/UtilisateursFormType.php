@@ -36,7 +36,7 @@ class UtilisateursFormType extends AbstractType
             'label' => 'Rôle',
             'choices' => [
                 'Utilisateur' => 'ROLE_FO_USER',
-                'Chef de projet' => 'ROLE_FO_CDP',
+                'C. Projet' => 'ROLE_FO_CDP',
                 'Administrateur' => 'ROLE_FO_ADMIN',
             ],
         ])

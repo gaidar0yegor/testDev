@@ -38,12 +38,6 @@ h1 {
     margin-left: 0;
 }
 
-.btn-rdi {
-    color: white; 
-    background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%); 
-    border: none;
-}
-
 table thead tr {
     background-color: #ce352c;
     color: white;
@@ -99,12 +93,16 @@ div.container.table {
     border-radius: 2%;
 }
 
-.col-6.bis {
+.col-4.bis {
     min-width: 50.5%;
 }
 
 h2.facts {
     margin-top: 5%;
+}
+
+a.btn.btn-outline-primary.mt-2 {
+    width: 103%;
 }
 
 section#timeline {
@@ -235,6 +233,26 @@ footer a {
 
 /*********************************************** RESPONSIVE DESIGN *******************************************/
 
+@media (max-width: 992px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .row_projet {
+        flex-direction: column;
+    }
+
+    a.btn.btn-outline-primary.mt-2 {
+        width: 515%;
+    }
+}
+
 @media (min-width: 575px) {
     .btn-jour {
         padding: 0.2em 0.4em 0.6em 0.4em;
@@ -250,3 +268,30 @@ footer a {
     .btn-jour span {
         font-weight: bold;
     }
+
+@media (max-width: 575px) {
+    div.row_projet {
+        margin-left: 9%;
+        margin-right: 1%;
+    }
+
+    div.button.mb-4.mt-5 {
+        text-align: center;
+    }
+
+    div.row.mb-2.align-items-center {
+        margin-left: 1px;
+        margin-right: 43px;
+    }
+
+    a.btn.btn-outline-primary.user {
+        margin-left: -1px;
+        margin-right: -7px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 575px) {
+    div.row.projet {
+        max-width: 12%;
+    }
+}
