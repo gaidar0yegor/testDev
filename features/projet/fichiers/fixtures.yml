@@ -1,0 +1,79 @@
+App\Entity\User:
+    observateur:
+        nom: Eureka
+        prenom: Observateur
+        email: observateur@societe.dev
+        password: observateur
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    contributeur:
+        nom: Eureka
+        prenom: Contributeur
+        email: contributeur@societe.dev
+        password: contributeur
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    cdp:
+        nom: Eureka
+        prenom: Chef de projet
+        email: cdp@societe.dev
+        password: cdp
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    pas_acces:
+        nom: Eureka
+        prenom: Pas d'accès
+        email: pas_acces@societe.dev
+        password: pas_acces
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+
+App\Entity\FichierProjet:
+    fichier_de_contributeur:
+        nomMd5: xxx
+        nomFichier: fichier_de_contributeur.txt
+        uploadedBy: '@contributeur'
+        projet: '@projet'
+    fichier_de_cdp:
+        nomMd5: yyy
+        nomFichier: fichier_de_cdp.txt
+        uploadedBy: '@cdp'
+        projet: '@projet'
+
+App\Entity\Projet:
+    projet:
+        titre: Projet
+        acronyme: PTEST
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        statutProjet: '@projet_en_cours'
+        dateDebut: <date_create()>
+
+App\Entity\ProjetParticipant:
+    observateur_projet:
+        user: '@observateur'
+        projet: '@projet'
+        role: <(App\Role::OBSERVATEUR)>
+    contributeur_projet:
+        user: '@contributeur'
+        projet: '@projet'
+        role: <(App\Role::CONTRIBUTEUR)>
+    cdp_projet:
+        user: '@cdp'
+        projet: '@projet'
+        role: <(App\Role::CDP)>
+
+App\Entity\StatutProjet:
+    projet_en_cours:
+        libelle: En Cours
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société
+        siret: 111111111
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée

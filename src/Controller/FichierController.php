@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use DateTime;
 use App\Entity\Projet;
 use App\Form\UploadType;
 use App\Entity\FichierProjet;
@@ -55,7 +54,6 @@ class FichierController extends AbstractController
                 ->setNomFichier($fichierProjet->getFile()->getClientOriginalName())
                 ->setUploadedBy($this->getUser())
                 ->setProjet($projet)
-                ->setDateUpload(new DateTime())
                 ->setNomMd5($fileName)
             ;
 

@@ -58,6 +58,11 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
      */
     private $description;
 
+    public function __construct()
+    {
+        $this->dateUpload = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

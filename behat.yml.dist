@@ -14,6 +14,7 @@ default:
         Behat\MinkExtension:
             # To debug behat tests with "Then show last response", enable:
             #show_cmd: firefox %s
+            files_path: ./features/
             sessions:
                 symfony:
                     symfony: ~
