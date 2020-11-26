@@ -23,6 +23,19 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
         When I follow "Saisissez vos absences"
         Then I should see "Indiquez vos jours d'absence"
 
+    Scenario: L'utilisateur peut voir si il a déjà rempli et absences les temps ou pas
+        When I follow "Temps passés"
+        Then I should see "Vous devriez enregistrer vos temps passés de ce mois"
+
+        When I fill in the following:
+            | Projet P1 | 10 |
+            | Projet P2 | 20 |
+        And I press "Mettre à jour"
+        Then I should see "Vous avez enregistré ce mois le"
+
+        When I follow "Saisissez vos absences"
+        Then I should see "Vous devriez enregistrer vos absences de ce mois"
+
     Scenario: L'utilisateur ne peut pas saisir un pourcentage > 100%
         Given I am on "/temps"
 
