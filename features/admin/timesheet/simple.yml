@@ -25,6 +25,8 @@ App\Entity\Cra:
     cra:
         user: '@admin'
         mois: '<(new DateTime("2020-11-01"))>'
+        tempsPasses:
+            - '@temps_passe'
         jours: [0,
             1, 1, 1, 1, 1, 0, 0,
             1, 1, 0, 1, 1, 0, 0,
@@ -35,8 +37,6 @@ App\Entity\Cra:
 
 App\Entity\TempsPasse:
     temps_passe:
-        user: '@admin'
-        mois: '<(new DateTime("2020-11-01"))>'
         pourcentage: 25
         projet: '@projet'
 

@@ -6,7 +6,7 @@ use App\Exception\MonthOutOfRangeException;
 use App\Form\TempsPassesType;
 use App\Service\CraService;
 use App\Service\DateMonthService;
-use App\Service\TempsPasseService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +24,8 @@ class TempsController extends AbstractController
         Request $request,
         string $year = null,
         string $month = null,
-        TempsPasseService $tempsPasseService,
+        CraService $craService,
+        EntityManagerInterface $em,
         DateMonthService $dateMonthService
     ) {
         if ($year !== null && $month === null) {
@@ -41,18 +42,13 @@ class TempsController extends AbstractController
             throw $this->createNotFoundException('Impossible de saisir les temps passés dans le futur.');
         }
 
-        $listeTempsPasses = $tempsPasseService->loadTempsPasses($this->getUser(), $mois);
-        $form = $this->createForm(TempsPassesType::class, $listeTempsPasses);
+        $cra = $craService->loadCraForUser($this->getUser(), $mois);
+        $form = $this->createForm(TempsPassesType::class, $cra);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-
-            foreach ($listeTempsPasses->getTempsPasses() as $tempsPasse) {
-                $em->persist($tempsPasse);
-            }
-
+            $em->persist($cra);
             $em->flush();
 
             $href = $this->generateUrl('absences_', [
@@ -77,7 +73,7 @@ class TempsController extends AbstractController
             'form' => $form->createView(),
             'next' => $dateMonthService->getNextMonth($mois),
             'prev' => $dateMonthService->getPrevMonth($mois),
-            'hasTempsPasses' => $listeTempsPasses->hasTempsPasses(),
+            'hasTempsPasses' => $cra->hasTempsPasses(),
         ]);
     }
 

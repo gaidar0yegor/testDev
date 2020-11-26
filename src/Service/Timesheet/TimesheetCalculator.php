@@ -32,7 +32,7 @@ class TimesheetCalculator
 
     public function generateTimesheetProjet(ProjetParticipant $participation, Cra $cra): TimesheetProjet
     {
-        $tempsPasse = $this->getTempsPassesOnProjet($cra->getUser(), $participation);
+        $tempsPasse = $this->getTempsPassesOnProjet($cra, $participation);
 
         if (null === $tempsPasse) {
             return new TimesheetProjet($participation);
@@ -118,9 +118,9 @@ class TimesheetCalculator
         return $timesheets;
     }
 
-    private function getTempsPassesOnProjet(User $user, ProjetParticipant $projetParticipant): ?TempsPasse
+    private function getTempsPassesOnProjet(Cra $cra, ProjetParticipant $projetParticipant): ?TempsPasse
     {
-        $tempsPasses = $user->getTempsPasses()->filter(function (TempsPasse $tempsPasse) use ($projetParticipant) {
+        $tempsPasses = $cra->getTempsPasses()->filter(function (TempsPasse $tempsPasse) use ($projetParticipant) {
             return $tempsPasse->getProjet() === $projetParticipant->getProjet();
         });
 

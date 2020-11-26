@@ -2,6 +2,8 @@ App\Entity\Cra:
     cra0:
         user: '@user'
         mois: '<(new DateTime("2020-11-01"))>'
+        tempsPasses:
+            - '@temps_passe_user_projet1'
         jours: [0,
             1, 1, 1, 1, 1, 0, 0,
             1, 1, 0, 1, 1, 0, 0,
@@ -12,6 +14,9 @@ App\Entity\Cra:
     cra1:
         user: '@cdp'
         mois: '<(new DateTime("2020-11-01"))>'
+        tempsPasses:
+            - '@temps_passe_cdp_projet1'
+            - '@temps_passe_cdp_projet2'
         jours: [0,
             1, 1, 1, 1, 1, 0, 0,
             0, 0, 0, 0, 0, 0, 0,

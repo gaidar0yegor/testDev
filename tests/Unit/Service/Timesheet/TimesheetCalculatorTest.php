@@ -47,10 +47,16 @@ class TimesheetCalculatorTest extends TestCase
             ->setRole(Role::CONTRIBUTEUR)
         ;
 
+        $this->tempsPasse
+            ->setPourcentage(50)
+            ->setProjet($this->projet)
+        ;
+
         $this->cra = new Cra();
         $this->cra
             ->setUser($this->user)
             ->setMois($this->mois)
+            ->addTempsPass($this->tempsPasse)
             ->setJours([
                       0, 1, 1, 0, 0,
                 1, 1, 1, 1, 1, 0, 0,
@@ -60,14 +66,7 @@ class TimesheetCalculatorTest extends TestCase
             ])
         ;
 
-        $this->tempsPasse
-            ->setMois($this->mois)
-            ->setPourcentage(50)
-            ->setProjet($this->projet)
-        ;
-
         $this->user
-            ->addTempsPass($this->tempsPasse)
             ->setHeuresParJours(8.0)
         ;
     }

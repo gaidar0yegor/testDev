@@ -24,13 +24,6 @@ class TempsPasse
     private $id;
 
     /**
-     * Mois sur lequel le temps a ete passe sur le projet
-     *
-     * @ORM\Column(type="date")
-     */
-    private $mois;
-
-    /**
      * Pourcentage du temps passe sur le projet
      * De 0 a 100
      *
@@ -39,16 +32,16 @@ class TempsPasse
     private $pourcentage;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tempsPasses")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="tempsPasses")
      * @ORM\JoinColumn(nullable=false)
      */
     private $projet;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Cra::class, inversedBy="tempsPasses")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cra;
 
     public function getId(): ?int
     {
@@ -67,18 +60,6 @@ class TempsPasse
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     public function getProjet(): ?Projet
     {
         return $this->projet;
@@ -91,14 +72,14 @@ class TempsPasse
         return $this;
     }
 
-    public function getMois(): ?\DateTimeInterface
+    public function getCra(): ?Cra
     {
-        return $this->mois;
+        return $this->cra;
     }
 
-    public function setMois(\DateTimeInterface $mois): self
+    public function setCra(?Cra $cra): self
     {
-        $this->mois = $mois;
+        $this->cra = $cra;
 
         return $this;
     }
