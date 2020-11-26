@@ -8,6 +8,7 @@ use App\Entity\Projet;
 use App\Form\ProjetFormType;
 use App\Repository\ProjetParticipantRepository;
 use App\Entity\ProjetParticipant;
+use App\ProjetResourceInterface;
 use App\Role;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -110,18 +111,7 @@ class ProjetController extends AbstractController
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
             'userCanEditProjet' => $this->isGranted('edit', $projet),
-            'userCanAddFaitMarquant' => $this->isGranted('create_fait_marquant', $projet),
+            'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
         ]);
     }
-
-    /**
-     * @Route("/liste/fichiers", name="liste_fichiers_")
-     */
-    // public function listeFichiers()
-    // {
-    //     $fichier = new Fichier();
-    //     return $this->render('projets/liste_fichiers.html.twig', [
-    //         'fichier' => $fichier,
-    //     ]);
-    // }
 }

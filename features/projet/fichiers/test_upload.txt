@@ -1,0 +1,1 @@
+Fichier utilisé dans le test fonctionnel de l'upload.

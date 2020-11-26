@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\HasSocieteInterface;
+use App\ProjetResourceInterface;
 use App\Repository\FichiersProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * @ORM\Entity(repositoryClass=FichiersProjetRepository::class)
  */
-class FichierProjet implements HasSocieteInterface
+class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
 {
 
     /**
@@ -57,6 +58,11 @@ class FichierProjet implements HasSocieteInterface
      */
     private $description;
 
+    public function __construct()
+    {
+        $this->dateUpload = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -98,12 +104,12 @@ class FichierProjet implements HasSocieteInterface
         return $this;
     }
 
-    public function getProjet(): ?Projet
+    public function getProjet(): Projet
     {
         return $this->projet;
     }
 
-    public function setProjet(?Projet $projet): self
+    public function setProjet(Projet $projet): self
     {
         $this->projet = $projet;
 
@@ -151,4 +157,8 @@ class FichierProjet implements HasSocieteInterface
         return $this->getProjet()->getSociete();
     }
 
+    public function getOwner(): User
+    {
+        return $this->uploadedBy;
+    }
 }

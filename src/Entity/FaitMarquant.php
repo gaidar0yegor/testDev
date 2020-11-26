@@ -2,13 +2,14 @@
 
 namespace App\Entity;
 
+use App\ProjetResourceInterface;
 use App\Repository\FaitMarquantRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=FaitMarquantRepository::class)
  */
-class FaitMarquant
+class FaitMarquant implements ProjetResourceInterface
 {
     /**
      * @ORM\Id()
@@ -97,15 +98,20 @@ class FaitMarquant
         return $this;
     }
 
-    public function getProjet(): ?Projet
+    public function getProjet(): Projet
     {
         return $this->projet;
     }
 
-    public function setProjet(?Projet $projet): self
+    public function setProjet(Projet $projet): self
     {
         $this->projet = $projet;
 
         return $this;
+    }
+
+    public function getOwner(): User
+    {
+        return $this->createdBy;
     }
 }
