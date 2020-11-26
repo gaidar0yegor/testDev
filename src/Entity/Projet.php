@@ -66,12 +66,6 @@ class Projet implements HasSocieteInterface
     private $fichierProjets;
 
     /**
-     * @ORM\ManyToOne(targetEntity=StatutProjet::class, inversedBy="projets")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $statutProjet;
-
-    /**
      * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
      *
      * @Assert\Valid
@@ -246,17 +240,19 @@ class Projet implements HasSocieteInterface
         return $this;
     }
 
-    public function getStatutProjet(): ?StatutProjet
+    public function getStatut(): string
     {
-        return $this->statutProjet;
-    }
+        $now = new \DateTime();
 
-    public function setStatutProjet(?StatutProjet $statutProjet): self
-    {
-        $this->statutProjet = $statutProjet;
+        if ($now < $this->dateDebut) {
+            return 'À venir';
+        }
 
-        return 
-        $this;
+        if ($now > $this->dateFin) {
+            return 'Terminé';
+        }
+
+        return 'En cours';
     }
 
     /**

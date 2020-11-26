@@ -23,7 +23,7 @@
                     <td class="text-center">{{ participe.role|trans }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateDebut ? participe.projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateFin ? participe.projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.statutProjet.libelle }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.statut }}</td>
                     <td class="text-center">{{ participe.projet.projetParticipants|length }}</td>
                 </tr>
             {% endfor %}

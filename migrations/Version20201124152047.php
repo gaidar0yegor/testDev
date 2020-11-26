@@ -14,7 +14,7 @@ final class Version20201124152047 extends AbstractMigration
 {
     public function getDescription() : string
     {
-        return '';
+        return 'Rend les dates debut et fin de projet optionnelles';
     }
 
     public function up(Schema $schema) : void

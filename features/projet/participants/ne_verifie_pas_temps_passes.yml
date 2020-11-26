@@ -21,7 +21,6 @@ App\Entity\Projet:
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
-        statutProjet: '@projet_en_cours'
         dateDebut: '<date_create()>'
 
 App\Entity\ProjetParticipant:
@@ -45,10 +44,6 @@ App\Entity\TempsPasse:
         pourcentage: 75
         user: '@cdp'
         projet: '@projet'
-
-App\Entity\StatutProjet:
-    projet_en_cours:
-        libelle: En Cours
 
 App\Entity\Societe:
     societe:
