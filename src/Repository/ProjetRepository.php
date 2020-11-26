@@ -53,7 +53,7 @@ class ProjetRepository extends ServiceEntityRepository
         }
 
         if (null !== $month) {
-            $this->dateMonthService->normalize($month);
+            $month = $this->dateMonthService->normalize($month);
             $nextMonth = $this->dateMonthService->getNextMonth($month);
 
             $qb
@@ -65,27 +65,6 @@ class ProjetRepository extends ServiceEntityRepository
         }
 
         return $qb
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
-    /**
-     * Récupère les temps passés sur les projets auxquels participe $user, sur le $mois.
-     *
-     * @return Projet[]
-     */
-    public function findTempsPassesForUserAndMonth(User $user, \DateTime $mois): array
-    {
-        $this->dateMonthService->normalize($mois);
-
-        return $this
-            ->createQueryBuilder('projet')
-            ->leftJoin('projet.projetParticipants', 'projetParticipant')
-            ->leftJoin('projetParticipant.user', 'user')
-            ->leftJoin('user.tempsPasses', 'tempsPasse', 'with', 'tempsPasse.projet = projet')
-            ->where('projetParticipant.user = :user')
-            ->setParameter('user', $user)
             ->getQuery()
             ->getResult()
         ;

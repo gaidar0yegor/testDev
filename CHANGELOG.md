@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
 - Modification de mes données personnelles
+- Affiche les dernières dates de mise à jour des temps passés et absences
 ### Modifié
 ### Réparé
 - Pouvoir supprimer mon propre fichier même si je ne suis pas chef de projet

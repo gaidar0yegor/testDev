@@ -24,7 +24,21 @@
     {% endif %}
 </h2>
 
-{% if hasTempsPasses %}
+{% if cra.hasTempsPasses %}
+    <div class="message-validation text-center">
+        {% if cra.isTempsPassesSubmitted %}
+            <p class="text-success">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Vous avez enregistré ce mois le {{ cra.tempsPassesModifiedAt|format_date }}.
+            </p>
+        {% elseif currentOrPreviousMonth(cra.mois) %}
+            <p class="text-warning">
+                <i class="fa fa-exclamation" aria-hidden="true"></i>
+                Vous devriez enregistrer vos temps passés de ce mois.
+            </p>
+        {% endif %}
+    </div>
+
     {{ form_start(form) }}
         {{ form_errors(form) }}
         {{ form_row(form.tempsPasses) }}

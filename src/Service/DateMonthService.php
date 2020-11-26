@@ -4,6 +4,8 @@ namespace App\Service;
 
 use App\Entity\Projet;
 use App\Exception\MonthOutOfRangeException;
+use DateTime;
+use DateTimeInterface;
 
 /**
  * Service pour avoir des date type année/mois pour les temps saisis.
@@ -12,18 +14,14 @@ use App\Exception\MonthOutOfRangeException;
 class DateMonthService
 {
     /**
-     * @return \DateTime from $time (defaults to now) with day set to first day (i.e 2020-10-01)
+     * @return DateTime from $time (defaults to now) with day set to first day (i.e 2020-10-01)
      */
-    public function getCurrentMonth(string $time = 'now'): \DateTime
+    public function getCurrentMonth(string $time = 'now'): DateTime
     {
-        $month = new \DateTime($time);
-
-        $this->normalize($month);
-
-        return $month;
+        return $this->normalize(new DateTime($time));
     }
 
-    public function getMonthFromYearAndMonth(int $year = null, int $month = null): \DateTime
+    public function getMonthFromYearAndMonth(int $year = null, int $month = null): DateTime
     {
         if ($year === null || $month === null) {
             return $this->getCurrentMonth();
@@ -33,14 +31,14 @@ class DateMonthService
             throw new MonthOutOfRangeException($month);
         }
 
-        $datetime = new \DateTime();
+        $datetime = new DateTime();
 
         $datetime->setDate($year, $month, 1);
 
         return $datetime;
     }
 
-    public function getMonthFromYearAndMonthString(string $year = null, string $month = null): \DateTime
+    public function getMonthFromYearAndMonthString(string $year = null, string $month = null): DateTime
     {
         return $this->getMonthFromYearAndMonth(intval($year), intval($month));
     }
@@ -48,16 +46,25 @@ class DateMonthService
     /**
      * Set provided datetime day to first day.
      */
-    public function normalize(\DateTime $month): void
+    public function normalize(DateTime $month): DateTime
     {
-        $month->setDate($month->format('Y'), $month->format('m'), 1);
-        $month->setTime(0, 0, 0);
+        $normalizedMonth = clone $month;
+
+        $normalizedMonth->setDate(
+            $normalizedMonth->format('Y'),
+            $normalizedMonth->format('m'),
+            1
+        );
+
+        $normalizedMonth->setTime(0, 0, 0);
+
+        return $normalizedMonth;
     }
 
     /**
      * Retourne un nouveau datetime qui correspond au mois d'après.
      */
-    public function getNextMonth(\DateTime $datetime): \DateTime
+    public function getNextMonth(DateTime $datetime): DateTime
     {
         $year = (int) $datetime->format('Y');
         $month = (int) $datetime->format('m');
@@ -69,19 +76,17 @@ class DateMonthService
             $month = 1;
         }
 
-        $nextDateTime = new \DateTime();
+        $nextDateTime = new DateTime();
 
         $nextDateTime->setDate($year, $month, 1);
 
-        $this->normalize($nextDateTime);
-
-        return $nextDateTime;
+        return $this->normalize($nextDateTime);
     }
 
     /**
      * Retourne un nouveau datetime qui correspond au mois d'avant.
      */
-    public function getPrevMonth(\DateTime $datetime): \DateTime
+    public function getPrevMonth(DateTime $datetime): DateTime
     {
         $year = (int) $datetime->format('Y');
         $month = (int) $datetime->format('m');
@@ -93,22 +98,20 @@ class DateMonthService
             $month = 12;
         }
 
-        $nextDateTime = new \DateTime();
+        $nextDateTime = new DateTime();
 
         $nextDateTime->setDate($year, $month, 1);
 
-        $this->normalize($nextDateTime);
-
-        return $nextDateTime;
+        return $this->normalize($nextDateTime);
     }
 
     /**
      * @return bool Si le projet est actif au moins un jour dans le mois $month
      */
-    public function isProjetActiveInMonth(Projet $projet, \DateTimeInterface $month): bool
+    public function isProjetActiveInMonth(Projet $projet, DateTimeInterface $month): bool
     {
         // Même logique que dans ProjetRepository::findAllForUser
-        $this->normalize($month);
+        $month = $this->normalize($month);
         $nextMonth = $this->getNextMonth($month);
 
         if (null !== $projet->getDateDebut() && $nextMonth < $projet->getDateDebut()) {

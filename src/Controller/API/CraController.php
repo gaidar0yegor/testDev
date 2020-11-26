@@ -18,35 +18,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class CraController extends AbstractController
 {
     /**
-     * Retourne le cra mensuel pour l'utilisateur actuel,
-     * soit un cra par défaut si l'utilisateur n'a pas pas encore coché,
-     * soit le cra déjà rempli pour permettre de le modification.
-     *
-     * @Route(
-     *      "/cra/{year}/{month}",
-     *      methods={"GET"},
-     *      requirements={"year"="\d{4}", "month"="\d{2}"},
-     *      name="api_cra_get"
-     * )
-     */
-    public function getCra(
-        string $year,
-        string $month,
-        DateMonthService $dateMonthService,
-        CraService $craService
-    ) {
-        try {
-            $mois = $dateMonthService->getMonthFromYearAndMonth($year, $month);
-        } catch (MonthOutOfRangeException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        }
-
-        $cra = $craService->loadCraForUser($this->getUser(), $mois);
-
-        return new JsonResponse($cra->getJours());
-    }
-
-    /**
      * Créer ou met à jour un Cra.
      *
      * @Route(
@@ -72,7 +43,10 @@ class CraController extends AbstractController
 
         $cra = $craService->loadCraForUser($this->getUser(), $mois);
 
-        $cra->setJours($request->get('cra'));
+        $cra
+            ->setJours($request->get('cra'))
+            ->setCraModifiedAt(new \DateTime())
+        ;
 
         $em->persist($cra);
         $em->flush($cra);

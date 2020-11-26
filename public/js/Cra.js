@@ -1,6 +1,60 @@
 (function (_export, $) {
     'use strict';
 
+    const day0 = 'calmonth-day-0 btn-outline-secondary';
+    const day05 = 'calmonth-day-05 btn-info';
+    const day1 = 'calmonth-day-1 btn-success';
+
+    /**
+     * Init agenda page.
+     *
+     * @param {date} date Object with "year" and "month".
+     * @param {Number[]} craJours Array of 0, 0.5 or 1, the cra of the month.
+     */
+    function initAbsences(date, craJours) {
+        initCalMonth($('.calmonth'), date.year, date.month, craJours);
+
+        $('.calmonth').on('click', 'button', function () {
+            const $btn = $(this);
+            const dayNumber = parseInt($btn.data('daynumber'), 10);
+
+            craJours[dayNumber - 1] += 0.5;
+
+            if (craJours[dayNumber - 1] > 1) {
+                craJours[dayNumber - 1] = 0;
+            }
+
+            $btn.removeClass([day0, day05, day1].join(' ').split(' '));
+
+            if (craJours[dayNumber - 1] <= 0) {
+                $btn.addClass(day0);
+            } else if (craJours[dayNumber - 1] >= 1) {
+                $btn.addClass(day1);
+            } else {
+                $btn.addClass(day05);
+            }
+        });
+
+        const $btnSubmit = $('.btn-validate-cra');
+
+        $btnSubmit.click(function () {
+            $btnSubmit.prop('disabled', true);
+            $btnSubmit.text('Enregistrement...');
+
+            $.post(['/api/cra', date.year, date.month].join('/'), {
+                cra: craJours,
+            })
+                .done(function (result) {
+                    console.log({result});
+
+                    $btnSubmit.prop('disabled', false);
+                    $btnSubmit.text('✓ Enregistré !');
+                    $('.message-validation .text-warning').remove();
+                })
+            ;
+        });
+    }
+
     /**
      * Réinitialise le cra à partir du mois donné.
      *
@@ -55,11 +109,11 @@
                 const worked = cra[currentDate.getDate() - 1];
 
                 if (worked <= 0) {
-                    $dayButton.addClass('btn-secondary');
+                    $dayButton.addClass(day0);
                 } else if (worked >= 1) {
-                    $dayButton.addClass('btn-success');
+                    $dayButton.addClass(day1);
                 } else {
-                    $dayButton.addClass('btn-info');
+                    $dayButton.addClass(day05);
                 }
             }
 
@@ -97,5 +151,6 @@
         return $button;
     }
 
+    _export.initAbsences = initAbsences;
     _export.initCalMonth = initCalMonth;
 })(window, jQuery);

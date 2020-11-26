@@ -163,11 +163,6 @@ footer a {
 /**
  * Jours travaillés
  */
-.calmonth {
-    max-width: 500px;
-    margin: auto;
-}
-
 .calmonth-row {
     display: flex;
     justify-content: space-around;
@@ -209,14 +204,14 @@ footer a {
     }
 
     /* Affiche demi journee 1/2 seulement sur ecran sm et bouton demi journee */
-    .btn-jour.btn-info .demi-journee {
+    .btn-jour.calmonth-day-05 .demi-journee {
         display: inline;
     }
 }
 
-    .btn-jour span {
-        font-weight: bold;
-    }
+.btn-jour span {
+    font-weight: bold;
+}
 
 @media (max-width: 575px) {
     div.button.mb-4.mt-5 {

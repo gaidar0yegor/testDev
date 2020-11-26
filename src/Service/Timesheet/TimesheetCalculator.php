@@ -32,7 +32,7 @@ class TimesheetCalculator
 
     public function generateTimesheetProjet(ProjetParticipant $participation, Cra $cra): TimesheetProjet
     {
-        $tempsPasse = $this->getTempsPassesOnProjet($cra->getUser(), $participation);
+        $tempsPasse = $this->getTempsPassesOnProjet($cra, $participation);
 
         if (null === $tempsPasse) {
             return new TimesheetProjet($participation);
@@ -65,7 +65,7 @@ class TimesheetCalculator
 
     public function generateTimesheet(User $user, \DateTime $month): Timesheet
     {
-        $this->dateMonthService->normalize($month);
+        $month = $this->dateMonthService->normalize($month);
 
         $cra = $this->craRepository->findCraByUserAndMois($user, $month);
 
@@ -101,11 +101,8 @@ class TimesheetCalculator
      */
     public function generateMultipleTimesheets(FilterTimesheet $filter): array
     {
-        $from = $filter->getFrom();
-        $to = $filter->getTo();
-
-        $this->dateMonthService->normalize($from);
-        $this->dateMonthService->normalize($to);
+        $from = $this->dateMonthService->normalize($filter->getFrom());
+        $to = $this->dateMonthService->normalize($filter->getTo());
 
         $timesheets = [];
 
@@ -121,9 +118,9 @@ class TimesheetCalculator
         return $timesheets;
     }
 
-    private function getTempsPassesOnProjet(User $user, ProjetParticipant $projetParticipant): ?TempsPasse
+    private function getTempsPassesOnProjet(Cra $cra, ProjetParticipant $projetParticipant): ?TempsPasse
     {
-        $tempsPasses = $user->getTempsPasses()->filter(function (TempsPasse $tempsPasse) use ($projetParticipant) {
+        $tempsPasses = $cra->getTempsPasses()->filter(function (TempsPasse $tempsPasse) use ($projetParticipant) {
             return $tempsPasse->getProjet() === $projetParticipant->getProjet();
         });
 

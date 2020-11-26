@@ -3,8 +3,12 @@
 namespace App\Service;
 
 use App\Entity\Cra;
+use App\Entity\Projet;
+use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Repository\CraRepository;
+use App\Repository\ProjetRepository;
+use App\Role;
 
 class CraService
 {
@@ -12,15 +16,19 @@ class CraService
 
     private $craRepository;
 
+    private $projetRepository;
+
     private $joursFeriesCalculator;
 
     public function __construct(
         DateMonthService $dateMonthService,
         CraRepository $craRepository,
+        ProjetRepository $projetRepository,
         JoursFeriesCalculator $joursFeriesCalculator
     ) {
         $this->dateMonthService = $dateMonthService;
         $this->craRepository = $craRepository;
+        $this->projetRepository = $projetRepository;
         $this->joursFeriesCalculator = $joursFeriesCalculator;
     }
 
@@ -32,7 +40,7 @@ class CraService
     {
         $cra = new Cra();
 
-        $this->dateMonthService->normalize($month);
+        $month = $this->dateMonthService->normalize($month);
 
         $currentYear = intval($month->format('Y'));
         $currentMonth = intval($month->format('n'));
@@ -71,6 +79,48 @@ class CraService
             $cra->setUser($user);
         }
 
+        $this->prefillTempsPasses($cra);
+
         return $cra;
+    }
+
+    /**
+     * Initialize la liste des temps passés du Cra.
+     */
+    public function prefillTempsPasses(Cra $cra): void
+    {
+        $userProjets = $this->projetRepository->findAllForUser($cra->getUser(), Role::CONTRIBUTEUR, $cra->getMois());
+
+        foreach ($userProjets as $userProjet) {
+            if ($this->craContainsProjet($cra, $userProjet)) {
+                continue;
+            }
+
+            $tempsPasse = new TempsPasse();
+
+            $tempsPasse
+                ->setProjet($userProjet)
+                ->setPourcentage(0)
+            ;
+
+            $cra->addTempsPass($tempsPasse);
+        }
+    }
+
+    /**
+     * @param TempsPasse[] $tempsPasses Liste de temps passés à verifier si un est lié au $projet.
+     * @param Projet $projet
+     *
+     * @return bool Si Un des temps passé correspond au projet.
+     */
+    private function craContainsProjet(Cra $cra, Projet $projet): bool
+    {
+        foreach ($cra->getTempsPasses() as $tempsPasse) {
+            if ($tempsPasse->getProjet() === $projet) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

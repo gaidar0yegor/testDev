@@ -38,8 +38,7 @@ class TimesheetCalculatorTest extends TestCase
         $this->projet = new Projet();
         $this->tempsPasse = new TempsPasse();
 
-        $this->mois = new \DateTime('01-01-2020');
-        $this->dateMonthService->normalize($this->mois);
+        $this->mois = $this->dateMonthService->normalize(new \DateTime('01-01-2020'));
 
         $this->participation = new ProjetParticipant();
         $this->participation
@@ -48,10 +47,16 @@ class TimesheetCalculatorTest extends TestCase
             ->setRole(Role::CONTRIBUTEUR)
         ;
 
+        $this->tempsPasse
+            ->setPourcentage(50)
+            ->setProjet($this->projet)
+        ;
+
         $this->cra = new Cra();
         $this->cra
             ->setUser($this->user)
             ->setMois($this->mois)
+            ->addTempsPass($this->tempsPasse)
             ->setJours([
                       0, 1, 1, 0, 0,
                 1, 1, 1, 1, 1, 0, 0,
@@ -61,14 +66,7 @@ class TimesheetCalculatorTest extends TestCase
             ])
         ;
 
-        $this->tempsPasse
-            ->setMois($this->mois)
-            ->setPourcentage(50)
-            ->setProjet($this->projet)
-        ;
-
         $this->user
-            ->addTempsPass($this->tempsPasse)
             ->setHeuresParJours(8.0)
         ;
     }
