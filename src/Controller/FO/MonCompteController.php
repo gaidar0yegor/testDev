@@ -3,12 +3,10 @@
 namespace App\Controller\FO;
 
 use App\DTO\UpdatePassword;
-use App\Form\Custom\RepeatedPasswordType;
+use App\Form\MonCompteType;
 use App\Form\UpdatePasswordType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -21,6 +19,28 @@ class MonCompteController extends AbstractController
     public function monCompte()
     {
         return $this->render('mon_compte/mon_compte.html.twig');
+    }
+
+    /**
+     * @Route("/mon-compte/modifier", name="app_fo_mon_compte_modifier")
+     */
+    public function monCompteModifier(Request $request, EntityManagerInterface $em)
+    {
+        $form = $this->createForm(MonCompteType::class, $this->getUser());
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', 'Vos informations personnelles ont été mises à jour.');
+
+            return $this->redirectToRoute('mon_compte');
+        }
+
+        return $this->render('mon_compte/mon_compte_modifier.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

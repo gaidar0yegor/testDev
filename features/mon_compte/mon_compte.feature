@@ -40,3 +40,13 @@ Feature: Mon compte, voir et modifier mes données personnelles.
             | update_password[newPassword][second] | nouveauMotDePasse |
         And I press "Mettre à jour mon mot de passe"
         Then I should see " Votre ancien mot de passe saisis n'est pas le bon"
+
+    Scenario: Je peut modifier mes infos personnelles
+        Given I am on "/mon-compte"
+        When I follow "Mettre à jour"
+        Then I should see "Modification de mon compte"
+        When I fill in the following:
+            | Prenom | NouveauPrenom |
+        And I press "Mettre à jour"
+        Then I should see "Vos informations personnelles ont été mises à jour"
+        And I should see "Société | NouveauPrenom" in the "nav" element
