@@ -45,7 +45,7 @@ class CraController extends AbstractController
 
         $cra
             ->setJours($request->get('cra'))
-            ->setModifiedAt(new \DateTime())
+            ->setCraModifiedAt(new \DateTime())
         ;
 
         $em->persist($cra);

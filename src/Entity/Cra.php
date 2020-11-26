@@ -53,7 +53,12 @@ class Cra
     /**
      * @ORM\Column(type="date", nullable=true)
      */
-    private $modifiedAt;
+    private $craModifiedAt;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $tempsPassesModifiedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="cra", orphanRemoval=true, cascade={"persist"})
@@ -62,7 +67,6 @@ class Cra
 
     public function __construct()
     {
-        $this->modifiedAt = new \DateTime();
         $this->tempsPasses = new ArrayCollection();
     }
 
@@ -115,14 +119,26 @@ class Cra
         return $this;
     }
 
-    public function getModifiedAt(): ?\DateTimeInterface
+    public function getCraModifiedAt(): ?\DateTimeInterface
     {
-        return $this->modifiedAt;
+        return $this->craModifiedAt;
     }
 
-    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    public function setCraModifiedAt(\DateTimeInterface $craModifiedAt): self
     {
-        $this->modifiedAt = $modifiedAt;
+        $this->craModifiedAt = $craModifiedAt;
+
+        return $this;
+    }
+
+    public function getTempsPassesModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->tempsPassesModifiedAt;
+    }
+
+    public function setTempsPassesModifiedAt(\DateTimeInterface $tempsPassesModifiedAt): self
+    {
+        $this->tempsPassesModifiedAt = $tempsPassesModifiedAt;
 
         return $this;
     }
@@ -161,6 +177,26 @@ class Cra
         }
 
         return $this;
+    }
+
+    public function isCraSubmitted(): bool
+    {
+        if (null === $this->id) {
+            return false;
+        }
+
+        return null !== $this->craModifiedAt;
+    }
+
+    public function isTempsPassesSubmitted(): bool
+    {
+        foreach ($this->tempsPasses as $tempsPasse) {
+            if (null === $tempsPasse->getId()) {
+                return false;
+            }
+        }
+
+        return null !== $this->tempsPassesModifiedAt;
     }
 
     /**

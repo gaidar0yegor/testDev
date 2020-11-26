@@ -48,6 +48,8 @@ class TempsController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cra->setTempsPassesModifiedAt(new \DateTime());
+
             $em->persist($cra);
             $em->flush();
 
@@ -73,7 +75,7 @@ class TempsController extends AbstractController
             'form' => $form->createView(),
             'next' => $dateMonthService->getNextMonth($mois),
             'prev' => $dateMonthService->getPrevMonth($mois),
-            'hasTempsPasses' => $cra->hasTempsPasses(),
+            'cra' => $cra,
         ]);
     }
 
@@ -101,7 +103,6 @@ class TempsController extends AbstractController
         }
 
         return $this->render('temps/absences.html.twig', [
-            'date' => $date,
             'next' => $dateMonthService->getNextMonth($date),
             'prev' => $dateMonthService->getPrevMonth($date),
             'year' => $date->format('Y'),
