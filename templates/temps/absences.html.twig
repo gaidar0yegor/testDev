@@ -53,10 +53,11 @@
     {{ parent() }}
 
     <script src="{{ asset('js/Cra.js') }}"></script>
-    <script src="{{ asset('js/absences.js') }}"></script>
 
     <script type="text/javascript">
         const date = {{ {'year': year, 'month': month}|json_encode|raw }};
-        initAbsences(date);
+        const craJours = {{ cra.jours|json_encode|raw }};
+
+        initAbsences(date, craJours);
     </script>
 {% endblock %}
