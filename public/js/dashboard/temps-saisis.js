@@ -19,7 +19,7 @@
                     text += `
                         <p class="text-success">
                             <i class="fa fa-check" aria-hidden="true"></i>
-                            Vous avez enregistré ce mois le ${cra.tempsPassesModifiedAt}.
+                            Vous avez saisi vos temps passés le ${cra.tempsPassesModifiedAt}.
                         </p>
                     `;
                 } else {
@@ -27,7 +27,7 @@
                     text += `
                         <p class="text-warning">
                             <i class="fa fa-times" aria-hidden="true"></i>
-                            Vous devriez enregistrer vos temps passés de ce mois.
+                            Vous devriez enregistrer vos temps passés.
                         </p>
                     `;
                 }
@@ -38,7 +38,7 @@
                 text += `
                     <p class="text-success">
                         <i class="fa fa-check" aria-hidden="true"></i>
-                        Vous avez enregistré ce mois le ${cra.craModifiedAt}.
+                        Vous avez saisi vos absences le ${cra.craModifiedAt}.
                     </p>
                 `;
             } else {
@@ -46,7 +46,7 @@
                 text += `
                     <p class="text-warning">
                         <i class="fa fa-times" aria-hidden="true"></i>
-                        Vous devriez enregistrer vos absences de ce mois.
+                        Vous devriez enregistrer vos absences.
                     </p>
                 `;
             }

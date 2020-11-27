@@ -9,6 +9,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Modification de mes données personnelles
 - Affiche les dernières dates de mise à jour des temps passés et absences
 - Tableau de bord : Dire si l'utilisateur est à jour, ou doit encore faire une action pour se mettre à jour dans la saisie de ses temps et absences du mois courant.
+- Tableau de bord : Graphique des heures par projet
 ### Modifié
 ### Réparé
 - Pouvoir supprimer mon propre fichier même si je ne suis pas chef de projet
