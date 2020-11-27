@@ -46,4 +46,20 @@ class DashboardController extends AbstractController
             ,
         ]);
     }
+
+    /**
+     * Retourne le nombre d'heures passées par projet
+     * ayant été actif dans l'année.
+     *
+     * @Route(
+     *      "/heures-par-projet/{year}",
+     *      methods={"GET"},
+     *      requirements={"year"="\d{4}"},
+     *      name="api_dashboard_heures_passees_par_projet"
+     * )
+     */
+    public function getHeuresPasseesParProjet(int $year)
+    {
+        return new JsonResponse($year);
+    }
 }
