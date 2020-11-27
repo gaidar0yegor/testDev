@@ -4,9 +4,9 @@ namespace App\Controller\API;
 
 use App\Service\CraService;
 use App\Service\DateMonthService;
+use App\Service\StatisticsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -48,8 +48,7 @@ class DashboardController extends AbstractController
     }
 
     /**
-     * Retourne le nombre d'heures passées par projet
-     * ayant été actif dans l'année.
+     * Retourne le nombre d'heures passées par projet dans cette année.
      *
      * @Route(
      *      "/heures-par-projet/{year}",
@@ -58,8 +57,13 @@ class DashboardController extends AbstractController
      *      name="api_dashboard_heures_passees_par_projet"
      * )
      */
-    public function getHeuresPasseesParProjet(int $year)
+    public function getHeuresPasseesParProjet(int $year, StatisticsService $statisticsService)
     {
-        return new JsonResponse($year);
+        $heuresParProjet = $statisticsService->calculateHeuresParProjet(
+            $this->getUser()->getSociete(),
+            $year
+        );
+
+        return new JsonResponse($heuresParProjet);
     }
 }

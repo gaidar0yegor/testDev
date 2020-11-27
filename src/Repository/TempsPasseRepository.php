@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Societe;
 use App\Entity\TempsPasse;
 use App\Entity\User;
+use App\HasSocieteInterface;
 use App\Service\DateMonthService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -34,6 +36,28 @@ class TempsPasseRepository extends ServiceEntityRepository
             ->setParameters([
                 'user' => $user,
                 'mois' => $this->dateMonthService->normalize($mois),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * @return TempsPasse[]
+     */
+    public function findAllBySocieteAndProjet(Societe $societe, int $year): array
+    {
+        return $this
+            ->createQueryBuilder('tempsPasse')
+            ->leftJoin('tempsPasse.cra', 'cra')
+            ->leftJoin('cra.user', 'user')
+            ->where('user.societe = :societe')
+            ->andWhere('cra.mois >= :dateFrom')
+            ->andWhere('cra.mois <= :dateTo')
+            ->setParameters([
+                'societe' => $societe,
+                'dateFrom' => new \DateTime("$year-01-01"),
+                'dateTo' => new \DateTime("$year-12-31"),
             ])
             ->getQuery()
             ->getResult()
