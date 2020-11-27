@@ -67,12 +67,7 @@ li.list-group-item {
 
 .card.bg-light-grey {
     background-color: #e9ece6;
-}
-
-div.bordure.contributeurs {
-    position: absolute;
-    top: 57.59%;
-    left: 50%;
+    min-height: 100px;
 }
 
 .col-4.bis {

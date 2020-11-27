@@ -33,38 +33,42 @@
                     <div class="col-md-3"><strong>Résumé : </strong></div>
                     <div class="col-md-9 text-justify">{{ projet.resume|nl2br }}</div>
                 </div>
-                <div class="row mb-3">
-                    <div class="col-md-3"><strong>Chef de projet : </strong></div>
-                    <div class="col-md-9">{{ projet.chefDeProjet.fullname }}</div>
-                </div>
-                {% if projet.dateDebut %}
-                    <div class="row mb-3">
-                        <div class="col-md-3"><strong>Date de début : </strong></div>
-                        <div class="col-md-9">{{ projet.dateDebut|format_date }}</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Chef de projet : </strong></div>
+                            <div class="col-md-6">{{ projet.chefDeProjet.fullname }}</div>
+                        </div>
+                        {% if projet.dateDebut %}
+                            <div class="row mb-3">
+                                <div class="col-md-4"><strong>Date de début : </strong></div>
+                                <div class="col-md-6">{{ projet.dateDebut|format_date }}</div>
+                            </div>
+                        {% endif %}
+                        {% if projet.dateFin %}
+                            <div class="row mb-3">
+                                <div class="col-md-4"><strong>Date de fin : </strong></div>
+                                <div class="col-md-6">{{ projet.dateFin|format_date }}</div>
+                            </div>
+                        {% endif %}
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>Statut : </strong></div>
+                            <div class="col-md-6">{{ projet.statut }}</div>
+                        </div>
                     </div>
-                {% endif %}
-                {% if projet.dateFin %}
-                    <div class="row mb-3">
-                        <div class="col-md-3"><strong>Date de fin : </strong></div>
-                        <div class="col-md-9">{{ projet.dateFin|format_date }}</div>
+                    <div class="d-none d-md-block">
+                        <strong>Participants : </strong>
+                        {% if projet.projetParticipants() %}
+                            {% for projetParticipant in projet.projetParticipants %}
+                                <ul class="mt-3">
+                                    <li>{{ projetParticipant.user.fullname }} - {{ projetParticipant.role }}</li>
+                                </ul>
+                            {% endfor %}
+                        {% else %}
+                            <p>Pas de contributeurs à ce projet</p>
+                        {% endif %}
                     </div>
-                {% endif %}
-                <div class="row mb-3">
-                    <div class="col-md-3"><strong>Statut : </strong></div>
-                    <div class="col-md-9">{{ projet.statut }}</div>
                 </div>
-            </div>
-            <div class="col-md-6 bordure contributeurs">
-                <strong>Contributeurs : </strong>
-                {% if projet.projetParticipants() %}
-                    {% for projetParticipant in projet.projetParticipants %}
-                        <ul class="mt-3">
-                            <li>{{ projetParticipant.user.fullname }} - {{ projetParticipant.role }}</li>
-                        </ul>
-                    {% endfor %}
-                {% else %}
-                    <p>Pas de contributeurs à ce projet</p>
-                {% endif %}
             </div>
         </div>
 
