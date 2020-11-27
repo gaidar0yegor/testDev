@@ -69,6 +69,12 @@ li.list-group-item {
     background-color: #e9ece6;
 }
 
+div.bordure.contributeurs {
+    position: absolute;
+    top: 57.59%;
+    left: 50%;
+}
+
 .col-4.bis {
     min-width: 50.5%;
 }
@@ -197,6 +203,12 @@ footer a {
     }
 }
 
+@media (max-width: 992px) {
+    div.bordure.contributeurs {
+        display: none;
+    }
+}
+
 @media (min-width: 575px) {
     .btn-jour {
         padding: 0.2em 0.4em 0.6em 0.4em;
@@ -226,6 +238,10 @@ footer a {
     a.btn.btn-outline-primary.user {
         margin-left: -1px;
         margin-right: -7px;
+    }
+
+    div.bordure.contributeurs {
+        display: none;
     }
 }
 

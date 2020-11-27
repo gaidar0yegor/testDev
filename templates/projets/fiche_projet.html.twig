@@ -31,7 +31,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-3"><strong>Résumé : </strong></div>
-                    <div class="col-md-9">{{ projet.resume|nl2br }}</div>
+                    <div class="col-md-9 text-justify">{{ projet.resume|nl2br }}</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-3"><strong>Chef de projet : </strong></div>
@@ -54,9 +54,21 @@
                     <div class="col-md-9">{{ projet.statut }}</div>
                 </div>
             </div>
+            <div class="col-md-6 bordure contributeurs">
+                <strong>Contributeurs : </strong>
+                {% if projet.projetParticipants() %}
+                    {% for projetParticipant in projet.projetParticipants %}
+                        <ul class="mt-3">
+                            <li>{{ projetParticipant.user.fullname }} - {{ projetParticipant.role }}</li>
+                        </ul>
+                    {% endfor %}
+                {% else %}
+                    <p>Pas de contributeurs à ce projet</p>
+                {% endif %}
+            </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-4 mb-4">
             <div class="col-sm-6 col-md-3">
                 <a
                     href="{{ path('liste_fichiers_', {'id': projet.id}) }}"
