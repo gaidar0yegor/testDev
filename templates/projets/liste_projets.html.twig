@@ -17,6 +17,8 @@
             </tr>
         </thead>
         <tbody>
+            {{dump(participes)}}
+            
             {% for participe in participes %}
                 <tr>
                     <td scope="row" class="text-left"> <a href="{{ path('fiche_projet_', {'id': participe.projet.id}) }}">{{ participe.projet.acronyme }}</a> </td>

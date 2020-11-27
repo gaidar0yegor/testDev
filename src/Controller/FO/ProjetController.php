@@ -2,20 +2,44 @@
 
 namespace App\Controller\FO;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Role;
 use App\Entity\Projet;
 use App\Form\ProjetFormType;
-use App\Repository\ProjetParticipantRepository;
 use App\Entity\ProjetParticipant;
+<<<<<<< HEAD
 use App\ProjetResourceInterface;
 use App\Role;
+=======
+use App\Repository\ProjetRepository;
+>>>>>>> df47714 ( WIP ajout liste de tous les projets dans menu admin)
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ProjetParticipantRepository;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjetController extends AbstractController
 {
+
+    /**
+     * @Route("/projets", name="app_fo_projet_admin_projets_")
+     * 
+     * @IsGranted("ROLE_FO_ADMIN")
+     */
+    public function listerProjetAdmin(ProjetParticipantRepository $projetParticipantRepository, 
+                                        ProjetRepository $projetRepository)
+    {
+        // affichage de tous les projets de la société
+        $allProjectsOfSociete = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete());
+        //dd($allProjectsOfSociete);    
+        return $this->render('projets/liste_projets.html.twig', [
+            'participes'=> $allProjectsOfSociete,
+        ]);
+
+    }
+
+
     /**
      * @Route("/projets", name="projets_")
      */
@@ -26,6 +50,11 @@ class ProjetController extends AbstractController
         ]);
 
     }
+
+ 
+
+
+
 
     /**
      * @Route("/infos_projet", name="infos_projet_")

@@ -2,12 +2,13 @@
 
 namespace App\Repository;
 
-use App\Entity\Projet;
-use App\Entity\User;
 use App\Role;
+use App\Entity\User;
+use App\Entity\Projet;
+use App\Entity\Societe;
 use App\Service\DateMonthService;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Projet|null find($id, $lockMode = null, $lockVersion = null)
@@ -69,4 +70,25 @@ class ProjetRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Récupère tous les projets d'une même societe.
+     *
+     * @return Projet[]
+     */
+    public function findAllProjectsPerSociete( Societe $societe ): array
+    {
+
+        return $this
+            ->createQueryBuilder('projet')
+            ->leftJoin('projet.projetParticipants', 'projetParticipant')
+            ->leftJoin('projetParticipant.user', 'user')
+            ->where('user.societe = :societe')
+            ->setParameter('societe', $societe)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+
 }
