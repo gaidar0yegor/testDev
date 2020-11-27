@@ -60,12 +60,12 @@ class TempsPasse
         return $this;
     }
 
-    public function getProjet(): ?Projet
+    public function getProjet(): Projet
     {
         return $this->projet;
     }
 
-    public function setProjet(?Projet $projet): self
+    public function setProjet(Projet $projet): self
     {
         $this->projet = $projet;
 
