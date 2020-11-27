@@ -6,12 +6,8 @@ use App\Role;
 use App\Entity\Projet;
 use App\Form\ProjetFormType;
 use App\Entity\ProjetParticipant;
-<<<<<<< HEAD
 use App\ProjetResourceInterface;
-use App\Role;
-=======
 use App\Repository\ProjetRepository;
->>>>>>> df47714 ( WIP ajout liste de tous les projets dans menu admin)
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Repository\ProjetParticipantRepository;
