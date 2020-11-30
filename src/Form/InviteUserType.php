@@ -21,8 +21,8 @@ class InviteUserType extends AbstractType
             ->add('role',  ChoiceType::class, [
                 'choices' => [
                     'Utilisateur' => 'ROLE_FO_USER',
-                    'Chef de projet' => 'ROLE_FO_CDP',
-                    'Référent' => 'ROLE_FO_ADMIN',
+                    'C. Projet' => 'ROLE_FO_CDP',
+                    'Administrateur' => 'ROLE_FO_ADMIN',
                 ],
             ])
             ->add('ajouter', SubmitType::class, [
