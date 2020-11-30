@@ -59,11 +59,11 @@
                     <div class="d-none d-md-block">
                         <strong>Participants : </strong>
                         {% if projet.projetParticipants() %}
-                            {% for projetParticipant in projet.projetParticipants %}
-                                <ul class="mt-3">
-                                    <li>{{ projetParticipant.user.fullname }} - {{ projetParticipant.role }}</li>
-                                </ul>
-                            {% endfor %}
+                            <ul class="mt-3">
+                                {% for projetParticipant in projet.projetParticipants %}
+                                    <li>{{ projetParticipant.user.fullname }} - {{ projetParticipant.role|trans }}</li>
+                                {% endfor %}
+                            </ul>
                         {% else %}
                             <p>Pas de contributeurs à ce projet</p>
                         {% endif %}
