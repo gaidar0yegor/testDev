@@ -70,6 +70,7 @@ li.list-group-item {
 
 .card.bg-light-grey {
     background-color: #e9ece6;
+    min-height: 100px;
 }
 
 .col-4.bis {
@@ -200,6 +201,12 @@ footer a {
     }
 }
 
+@media (max-width: 992px) {
+    div.bordure.contributeurs {
+        display: none;
+    }
+}
+
 @media (min-width: 575px) {
     .btn-jour {
         padding: 0.2em 0.4em 0.6em 0.4em;
@@ -229,6 +236,10 @@ footer a {
     a.btn.btn-outline-primary.user {
         margin-left: -1px;
         margin-right: -7px;
+    }
+
+    div.bordure.contributeurs {
+        display: none;
     }
 }
 
