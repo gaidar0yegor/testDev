@@ -23,7 +23,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
     Scenario: L'utilisateur invité peut finaliser son inscription après avoir suivi le lien d'invitation qu'il a recu.
         Given I am on "/inscription/cV2bvNJg4e_zkzXis-rfKlih"
         Then I should see "Finalisation de votre inscription"
-        And I should see "vous inscrire sur RDI manager, et de rejoindre la société SociétéTest avec le rôle Chef de projet"
+        And I should see "vous inscrire sur RDI manager, et de rejoindre la société SociétéTest avec le rôle C. Projet"
         And I fill in the following:
             | finalize_inscription[prenom]           | JeSuis        |
             | finalize_inscription[nom]              | LeNouveau     |
