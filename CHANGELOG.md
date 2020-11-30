@@ -6,8 +6,18 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
+### Modifié
+### Réparé
+### Supprimé
+
+
+
+## [0.4.1] - 2020-11-27
+### Ajouté
 - Modification de mes données personnelles
 - Affiche les dernières dates de mise à jour des temps passés et absences
+- Tableau de bord : Dire si l'utilisateur est à jour, ou doit encore faire une action pour se mettre à jour dans la saisie de ses temps et absences du mois courant.
+- Tableau de bord : Graphique des heures par projet
 ### Modifié
 ### Réparé
 - Pouvoir supprimer mon propre fichier même si je ne suis pas chef de projet
@@ -15,8 +25,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans la liste des fichiers, le bouton "Ajouter un fichier" est grisé si on n'est pas contributeur
 ### Supprimé
 - Le champ Projet->statut a été retiré car non utilisé et peut prêter à confusion
-
-
 
 ## [0.4.0] - 2020-11-24
 ### Ajouté

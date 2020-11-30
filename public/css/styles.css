@@ -54,11 +54,14 @@ table tbody a {
 }
 
 .rdi-card-icon {
+    overflow: hidden;
+}
+.rdi-card-icon > i {
     position: absolute;
     left: 10%;
     top: 10%;
-    font-size: 8em;
-    color: rgba(0, 0, 0, 0.15);
+    font-size: 10em;
+    color: rgba(0, 0, 0, 0.08);
 }
 
 li.list-group-item {
@@ -67,6 +70,7 @@ li.list-group-item {
 
 .card.bg-light-grey {
     background-color: #e9ece6;
+    min-height: 100px;
 }
 
 .col-4.bis {
@@ -197,6 +201,12 @@ footer a {
     }
 }
 
+@media (max-width: 992px) {
+    div.bordure.contributeurs {
+        display: none;
+    }
+}
+
 @media (min-width: 575px) {
     .btn-jour {
         padding: 0.2em 0.4em 0.6em 0.4em;
@@ -227,11 +237,14 @@ footer a {
         margin-left: -1px;
         margin-right: -7px;
     }
-
 }
 
 @media (min-width: 300px) and (max-width: 575px) {
     div.row.projet {
         max-width: 12%;
     }
+}
+
+#mes-temps-rappel {
+    min-height: 12em;
 }
