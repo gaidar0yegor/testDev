@@ -49,6 +49,18 @@ symfony serve
 
 Then create `.env.local` file at the root directory, and:
 
+- Configure **application url**:
+
+``` yaml
+# Nom de domaine. Si le port n'est pas 80, mettre par exemple "rdimanager.com:8000".
+REQUEST_BASE_HOST=rdimanager.com
+
+# Vide, sauf si l'application est dans un dossier, mettre par exemple "/dossier/application"
+REQUEST_BASE_PATH=
+```
+
+*Used for mail generation from command, like notification mails.*
+
 - Configure **email smtp server**:
 
 ``` yaml

@@ -6,8 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
+- Commande pour notifier les utilisateurs d'ajouter leur faits marquants
+- `.env`: ajout de `REQUEST_BASE_HOST` à remplir avec le host de l'application pour mettre la bonne url dans les emails envoyés depuis la commande.
 ### Modifié
 - Tableau de bord : retire message indiquant de remplir ses absences du mois car non pertinent
+- Email de test : ajout de l'url de l'application pour vérifier si la config de `REQUEST_BASE_HOST` est bonne.
 ### Réparé
 ### Supprimé
 

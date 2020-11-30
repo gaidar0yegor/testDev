@@ -31,7 +31,7 @@ class RdiMailer
         $this->urlGenerator = $urlGenerator;
     }
 
-    private function createDefaultEmail(): TemplatedEmail
+    public function createDefaultEmail(): TemplatedEmail
     {
         $email = new TemplatedEmail();
 
@@ -44,13 +44,17 @@ class RdiMailer
 
     public function sendTestEmail(string $email): void
     {
+        $homeUrl = $this->urlGenerator->generate('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
         $email = $this->createDefaultEmail()
             ->to($email)
             ->subject('Email de test envoyé depuis RDI Manager')
-            ->text(
+            ->text(sprintf(
                 'Ceci est un email de test envoyé depuis RDI Manager. '
-                .'Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI Manager.'
-            )
+                .'Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI Manager. '
+                .'Url absolue de RDI Manager : %s',
+                $homeUrl
+            ))
 
             ->htmlTemplate('mail/test_mail.html.twig')
         ;
