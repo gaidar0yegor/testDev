@@ -33,24 +33,6 @@
                 }
             }
 
-
-            if (cra.isCraSubmitted) {
-                text += `
-                    <p class="text-success">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                        Vous avez saisi vos absences le ${cra.craModifiedAt}.
-                    </p>
-                `;
-            } else {
-                userValidated = false;
-                text += `
-                    <p class="text-warning">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                        Vous devriez enregistrer vos absences.
-                    </p>
-                `;
-            }
-
             const mesTempsRappel = window['mes-temps-rappel'];
 
             const icon = userValidated
