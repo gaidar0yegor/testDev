@@ -21,5 +21,5 @@ Feature: Génération d'une feuille de temps simple.
         And I press "Exporter au format"
         Then I should see "Feuille de temps" in the "h1" element
         And I should see "Novembre 2020" in the "h2" element
-        And I should see "P0 C. Projet" in the "table" element
+        And I should see "P0 Chef de Projet" in the "table" element
         And I should see "Total des heures en novembre 2020 : 15.75 h"
