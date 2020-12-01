@@ -9,6 +9,7 @@ use App\Entity\Cra;
 use App\Entity\ProjetParticipant;
 use App\Entity\TempsPasse;
 use App\Entity\User;
+use App\Exception\RdiException;
 use App\Exception\TimesheetException;
 use App\Service\DateMonthService;
 
@@ -38,23 +39,7 @@ class TimesheetCalculator
             return new TimesheetProjet($participation);
         }
 
-        $heuresParJours = Timesheet::getUserHeuresParJours($cra->getUser());
-        $totalJours = 0;
-        $workedHours = array_map(
-            function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse, $totalJours, $participation, $cra) {
-                $projet = $participation->getProjet();
-                $day = (new \DateTime($cra->getMois()->format('d-m-Y')))->modify("+$key days");
-
-                if (!$projet->isProjetActiveInDate($day)) {
-                    return 0.0;
-                }
-
-                $totalJours += $presenceJour;
-                return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage()) / 100.0;
-            },
-            $cra->getJours(),
-            array_keys($cra->getJours())
-        );
+        $workedHours = $this->calculateWorkedHoursPerDay($tempsPasse);
 
         return new TimesheetProjet(
             $participation,
@@ -116,6 +101,29 @@ class TimesheetCalculator
         }
 
         return $timesheets;
+    }
+
+    /**
+     * @return float[] Grille d'heure par jours sur un mois
+     */
+    public function calculateWorkedHoursPerDay(TempsPasse $tempsPasse): array
+    {
+        $cra = $tempsPasse->getCra();
+        $heuresParJours = Timesheet::getUserHeuresParJours($cra->getUser());
+
+        return array_map(
+            function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse) {
+                $day = (new \DateTime($tempsPasse->getCra()->getMois()->format('d-m-Y')))->modify("+$key days");
+
+                if (!$tempsPasse->getProjet()->isProjetActiveInDate($day)) {
+                    return 0.0;
+                }
+
+                return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage()) / 100.0;
+            },
+            $cra->getJours(),
+            array_keys($cra->getJours())
+        );
     }
 
     private function getTempsPassesOnProjet(Cra $cra, ProjetParticipant $projetParticipant): ?TempsPasse
