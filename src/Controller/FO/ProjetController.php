@@ -2,20 +2,36 @@
 
 namespace App\Controller\FO;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Role;
 use App\Entity\Projet;
 use App\Form\ProjetFormType;
-use App\Repository\ProjetParticipantRepository;
 use App\Entity\ProjetParticipant;
 use App\ProjetResourceInterface;
-use App\Role;
+use App\Repository\ProjetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ProjetParticipantRepository;
+use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjetController extends AbstractController
 {
+    /**
+     * Affichage de tous les projets de la société
+     * @Route("/tous-les-projets", name="app_fo_projet_admin_projets_")
+     * 
+     * @IsGranted("ROLE_FO_ADMIN")
+     */
+    public function listerProjetAdmin(ProjetParticipantRepository $projetParticipantRepository, 
+                                        ProjetRepository $projetRepository)
+    {
+        $allProjectsOfSociete = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete()); 
+        return $this->render('projets/admin_liste_projets.html.twig', [
+            'projets'=> $allProjectsOfSociete,
+        ]);
+    }
+
     /**
      * @Route("/projets", name="projets_")
      */
@@ -26,7 +42,7 @@ class ProjetController extends AbstractController
         ]);
 
     }
-
+ 
     /**
      * @Route("/infos_projet", name="infos_projet_")
      *

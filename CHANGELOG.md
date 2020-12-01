@@ -20,6 +20,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [0.4.1] - 2020-11-27
 ### Ajouté
+- Menu Administration : ajout du menu "Tous les projets" qui Liste de l'ensemble des projets de la societe  
 - Modification de mes données personnelles
 - Affiche les dernières dates de mise à jour des temps passés et absences
 - Tableau de bord : Dire si l'utilisateur est à jour, ou doit encore faire une action pour se mettre à jour dans la saisie de ses temps et absences du mois courant.
