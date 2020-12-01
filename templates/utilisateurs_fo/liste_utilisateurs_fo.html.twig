@@ -25,7 +25,10 @@
 					<td class="text-left">{{ user.nom }}</td>
 					<td class="d-none d-md-table-cell">{{ user.prenom }}</td>
 					<td class="d-none d-md-table-cell">{{ user.email }}</td>
-					<td>{{ user.role|trans }}</td>
+					<td>
+						<span class="d-none d-sm-block">{{ user.role|trans }}</span>
+						<span class="d-sm-none">{{ (user.role ~'.small')|trans }}</span>
+					</td>
 					{% if user.enabled %}
 						<td class="d-none d-md-table-cell">Actif</td>
 					{% else %}
