@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Renomination des rôles dans le fichier messages.fr/yaml, affichage en mode responsive de la liste des utilisateurs
 ### Ajouté
 - Commande pour notifier les utilisateurs d'ajouter leur faits marquants
+- Commande pour envoyer les nouveaux faits marquants de la semaine sur mes projets
 - `.env`: ajout de `REQUEST_BASE_HOST` à remplir avec le host de l'application pour mettre la bonne url dans les emails envoyés depuis la commande.
 ### Modifié
 - Tableau de bord : retire message indiquant de remplir ses absences du mois car non pertinent

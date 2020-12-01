@@ -1,0 +1,64 @@
+{% apply inky_to_html|inline_css(source('@css/foundation-emails.min.css')) %}
+<wrapper>
+    <container>
+        <row>
+            <columns>
+                <spacer size="8"></spacer>
+                <h1 class="text-center">Nouveaux faits marquants ajoutés à vos projets RDI Manager</h1>
+            </columns>
+        </row>
+        <row>
+            <columns>
+                <p>
+                    Les contributeurs ont ajouté
+                    <strong>{{ 'n_nouveaux_faits_marquants'|trans({'n': faitMarquants|length}) }}</strong>
+                    sur vos projets.
+                </p>
+
+                <spacer size="8"></spacer>
+
+                {% set currentProjet = null %}
+                {% for faitMarquant in faitMarquants %}
+                    {% if faitMarquant.projet != currentProjet %}
+                        {% set currentProjet = faitMarquant.projet %}
+                        <spacer size="8"></spacer>
+                        <h2 class="text-center">Projet {{ faitMarquant.projet.acronyme }}</h2>
+                    {% endif %}
+
+                    <h3>{{ faitMarquant.titre }}</h3>
+
+                    <p>
+                        <small>
+                            Ajouté le <strong>{{ faitMarquant.date|format_date }}</strong>
+                            par <strong>{{ faitMarquant.createdBy.fullname }}</strong>.
+                        </small>
+
+                        <br />
+
+                        {{ faitMarquant.description|nl2br }}
+
+                        <br />
+
+                        <small>
+                            <a href="{{ url('fiche_projet_', {id: faitMarquant.projet.id}) }}">Voir sur RDI Manager</a>.
+                        </small>
+                    </p>
+
+                    <spacer size="8"></spacer>
+                {% endfor %}
+            </columns>
+        </row>
+        <row class="footer">
+            <columns>
+                <p class="text-center">
+                    <small>© Copyright Eurêka C.I</small>
+                </p>
+                <center>
+                    <img src="{{ email.image('@images/logosign.png') }}" width="26" height="26" alt="Logo Eureka C.I">
+                </center>
+                <spacer size="8"></spacer>
+            </columns>
+        </row>
+    </container>
+</wrapper>
+{% endapply %}

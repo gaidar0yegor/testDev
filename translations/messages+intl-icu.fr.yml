@@ -1,0 +1,6 @@
+n_nouveaux_faits_marquants: >-
+    {n, plural,
+        =0    {aucun nouveau fait marquant}
+        one   {un nouveau fait marquant}
+        other {# nouveaux faits marquants}
+    }
