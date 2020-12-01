@@ -5,7 +5,7 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version] - 2020-12-01
-- Renomination des rôles, affichage en mode responsive de la liste des utilisateurs 
+- Renomination des rôles dans le fichier messages.fr/yaml, affichage en mode responsive de la liste des utilisateurs
 ### Ajouté
 - Modification de mes données personnelles
 - Affiche les dernières dates de mise à jour des temps passés et absences
