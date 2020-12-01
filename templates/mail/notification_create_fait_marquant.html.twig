@@ -4,17 +4,27 @@
         <row>
             <columns>
                 <spacer size="8"></spacer>
-                <h1 class="text-center">Email de test envoyé depuis RDI Manager</h1>
+                <h1 class="text-center">Rappel pour créer vos faits marquants sur RDI Manager</h1>
             </columns>
         </row>
         <row>
             <columns>
                 <p>
-                    Ceci est un email de test envoyé depuis RDI Manager.
-                    Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI Manager.
+                    Vous avez contribué à au moins un projet ce mois ci.
+                    Si vous avez un fait marquant à ajouter, vous êtes invité à le faire ici.
                 </p>
                 <p>
-                    Url absolue de RDI Manager : <a href="{{ url('app_home') }}">{{ url('app_home') }}</a>
+                    <strong>Ajouter un fait marquant sur :</strong>
+
+                    <ul>
+                        {% for projet in projets %}
+                            <li>
+                                <a href="{{ url('fait_marquant_ajouter', {projetId: projet.id}) }}">
+                                    Projet {{ projet.acronyme }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </p>
             </columns>
         </row>
