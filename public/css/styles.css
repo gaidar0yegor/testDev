@@ -237,10 +237,6 @@ footer a {
         margin-left: -1px;
         margin-right: -7px;
     }
-
-    div.bordure.contributeurs {
-        display: none;
-    }
 }
 
 @media (min-width: 300px) and (max-width: 575px) {

@@ -29,7 +29,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
             | utilisateurs_form[role]   | ROLE_FO_CDP   |
         And I press "Modifier"
         Then I should see "Compte de PrénomModifié NomModifié"
-        And I should see "Chef de projet" in the ".main-container" element
+        And I should see "Chef de Projet" in the ".main-container" element
 
     Scenario: Le référent ne peut pas modifier les infos des utilisateurs des autres société
         When I go to "/utilisateurs/3/modifier"

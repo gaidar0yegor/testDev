@@ -4,7 +4,8 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
-## [À venir dans la prochaine version] - DATE
+## [À venir dans la prochaine version] - 2020-12-01
+- Renomination des rôles dans le fichier messages.fr/yaml, affichage en mode responsive de la liste des utilisateurs
 ### Ajouté
 - Commande pour notifier les utilisateurs d'ajouter leur faits marquants
 - `.env`: ajout de `REQUEST_BASE_HOST` à remplir avec le host de l'application pour mettre la bonne url dans les emails envoyés depuis la commande.

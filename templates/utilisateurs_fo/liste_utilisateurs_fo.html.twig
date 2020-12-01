@@ -5,7 +5,7 @@
 {% block body %}
 	<h1>Liste des utilisateurs</h1>
 
-	<table class="table text-center">
+	<table class="table text-center mx-auto m-5">
 		<thead>
 			<tr>
 				<th class="text-left d-none d-md-table-cell">N°</th>
@@ -13,7 +13,7 @@
 				<th class="d-none d-md-table-cell">Prénom</th>
 				<th class="d-none d-md-table-cell">Email</th>
 				<th>Rôle</th>
-				<th>Statut</th>
+				<th class="d-none d-md-table-cell">Statut</th>
 				<th>Projets</th>
 				<th>Actions</th>
 			</tr>
@@ -25,11 +25,14 @@
 					<td class="text-left">{{ user.nom }}</td>
 					<td class="d-none d-md-table-cell">{{ user.prenom }}</td>
 					<td class="d-none d-md-table-cell">{{ user.email }}</td>
-					<td>{{ user.role|trans }}</td>
+					<td>
+						<span class="d-none d-sm-block">{{ user.role|trans }}</span>
+						<span class="d-sm-none">{{ (user.role ~'.small')|trans }}</span>
+					</td>
 					{% if user.enabled %}
-						<td>Actif</td>
+						<td class="d-none d-md-table-cell">Actif</td>
 					{% else %}
-						<td>Inactif</td>
+						<td class="d-none d-md-table-cell">Inactif</td>
 					{% endif %}
 					<td>{{ user.projetParticipants|length }}</td>
 					<td class="d-flex justify-content-around">
@@ -45,9 +48,11 @@
 		</tbody>
 	</table>
 
-	<a href="{{ path('fo_user_invite') }}" class="btn btn-outline-primary">
-		<i class="fa fa-user-plus" aria-hidden="true"></i>
-		Inviter un nouvel utilisateur
-	</a>
+	<div class="button mb-4">
+		<a href="{{ path('fo_user_invite') }}" class="btn btn-outline-primary">
+			<i class="fa fa-user-plus" aria-hidden="true"></i>
+			Inviter un nouvel utilisateur
+		</a>
+	</div>
 
 {% endblock %}
