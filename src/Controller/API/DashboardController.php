@@ -59,8 +59,8 @@ class DashboardController extends AbstractController
      */
     public function getHeuresPasseesParProjet(int $year, StatisticsService $statisticsService)
     {
-        $heuresParProjet = $statisticsService->calculateHeuresParProjet(
-            $this->getUser()->getSociete(),
+        $heuresParProjet = $statisticsService->calculateHeuresParProjetForUser(
+            $this->getUser(),
             $year
         );
 

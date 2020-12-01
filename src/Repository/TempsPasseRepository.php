@@ -45,7 +45,7 @@ class TempsPasseRepository extends ServiceEntityRepository
     /**
      * @return TempsPasse[]
      */
-    public function findAllBySocieteAndProjet(Societe $societe, int $year): array
+    public function findAllBySocieteInYear(Societe $societe, int $year): array
     {
         return $this
             ->createQueryBuilder('tempsPasse')
