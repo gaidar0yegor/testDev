@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des projets de la société{% endblock %}
+
+{% block body %}
+    <h1>Projets de la société</h1>
+    <table class="table  text-center mx-auto m-5">
+        <thead>
+            <tr>
+                <th scope="col" class="text-left">Projet</th>
+                <th scope="col">Ched de Projet</th>
+                <th scope="col" class="d-none d-md-table-cell">Début</th>
+                <th scope="col" class="d-none d-md-table-cell">Fin</th>
+                <th scope="col" class="d-none d-md-table-cell">Statut</th>
+                <th scope="col">Nb Participants</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            {% for projet in projets %}
+                <tr>
+                    <td scope="row" class="text-left"> <a href="{{ path('fiche_projet_', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
+                    <td class="text-center d-none d-md-table-cell">{{ projet.chefDeProjet.fullName }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ projet.statut }}</td>
+                    <td class="text-center">{{projet.projetParticipants|length}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

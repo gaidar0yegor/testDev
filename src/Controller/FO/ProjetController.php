@@ -17,9 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ProjetController extends AbstractController
 {
-
     /**
-     * @Route("/projets", name="app_fo_projet_admin_projets_")
+     * @Route("/tous-les-projets", name="app_fo_projet_admin_projets_")
      * 
      * @IsGranted("ROLE_FO_ADMIN")
      */
@@ -27,31 +26,29 @@ class ProjetController extends AbstractController
                                         ProjetRepository $projetRepository)
     {
         // affichage de tous les projets de la société
+        $testDumpTwig = "Toto";
         $allProjectsOfSociete = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete());
         //dd($allProjectsOfSociete);    
-        return $this->render('projets/liste_projets.html.twig', [
-            'participes'=> $allProjectsOfSociete,
+        return $this->render('projets/admin_liste_projets.html.twig', [
+            'projets'=> $allProjectsOfSociete,
+            'testDumpTwig' => $testDumpTwig,
         ]);
 
     }
-
 
     /**
      * @Route("/projets", name="projets_")
      */
     public function listerProjet(ProjetParticipantRepository $projetParticipantRepository)
     {
+        // temp
+        $resultat = $projetParticipantRepository->findAllForUser($this->getUser());
         return $this->render('projets/liste_projets.html.twig', [
             'participes'=> $projetParticipantRepository->findAllForUser($this->getUser()),
         ]);
 
     }
-
  
-
-
-
-
     /**
      * @Route("/infos_projet", name="infos_projet_")
      *
