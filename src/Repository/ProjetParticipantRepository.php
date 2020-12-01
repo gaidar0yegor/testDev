@@ -33,19 +33,4 @@ class ProjetParticipantRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-
-    /**
-     * Recupère tous les projet pour lesquels tous les users d'une société donnée participent.
-     */
-    public function findAllForUsersOfSociete(User $user): array
-    {
-        return $this
-            ->createQueryBuilder('projetParticipant')
-            ->where('projetParticipant.user = :user')  //!!!!!
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-
 }
