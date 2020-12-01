@@ -18,7 +18,6 @@
         },
         axis: {
             y: {
-                label: 'Heures',
                 tick: {
                     format: heures => Math.ceil(heures) + 'h',
                 },

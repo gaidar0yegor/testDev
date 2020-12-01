@@ -9,7 +9,6 @@ use App\Entity\Cra;
 use App\Entity\ProjetParticipant;
 use App\Entity\TempsPasse;
 use App\Entity\User;
-use App\Exception\RdiException;
 use App\Exception\TimesheetException;
 use App\Service\DateMonthService;
 
@@ -51,7 +50,6 @@ class TimesheetCalculator
     public function generateTimesheet(User $user, \DateTime $month): Timesheet
     {
         $month = $this->dateMonthService->normalize($month);
-
         $cra = $this->craRepository->findCraByUserAndMois($user, $month);
 
         if (null === $cra) {
@@ -64,7 +62,6 @@ class TimesheetCalculator
         }
 
         $participations = $this->participationRepository->findProjetsContributingUser($cra->getUser());
-
         $timesheetProjets = [];
 
         foreach ($participations as $participation) {

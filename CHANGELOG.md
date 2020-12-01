@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version] - DATE
 ### Ajouté
 ### Modifié
+- Tableau de bord : retire message indiquant de remplir ses absences du mois car non pertinent
 ### Réparé
 ### Supprimé
 
