@@ -2,37 +2,51 @@
 
 namespace App\Service;
 
+use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Entity\User;
+use App\Repository\FaitMarquantRepository;
 use App\Repository\ProjetRepository;
 use App\Repository\UserRepository;
 use App\Role;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
-class NotificationCreationFaitMarquants
+/**
+ * Service pour envoyer les notifications relatives aux faits marquants.
+ */
+class NotificationFaitMarquants
 {
     private UserRepository $userRepository;
 
     private ProjetRepository $projetRepository;
 
+    private FaitMarquantRepository $faitMarquantRepository;
+
     private UrlGeneratorInterface $urlGenerator;
 
     private RdiMailer $rdiMailer;
+
+    private TranslatorInterface $translator;
 
     private MailerInterface $mailer;
 
     public function __construct(
         UserRepository $userRepository,
         ProjetRepository $projetRepository,
+        FaitMarquantRepository $faitMarquantRepository,
         UrlGeneratorInterface $urlGenerator,
         RdiMailer $rdiMailer,
+        TranslatorInterface $translator,
         MailerInterface $mailer
     ) {
         $this->userRepository = $userRepository;
         $this->projetRepository = $projetRepository;
+        $this->faitMarquantRepository = $faitMarquantRepository;
         $this->urlGenerator = $urlGenerator;
         $this->rdiMailer = $rdiMailer;
+        $this->translator = $translator;
         $this->mailer = $mailer;
     }
 
@@ -89,13 +103,67 @@ class NotificationCreationFaitMarquants
     /**
      * @return int Nombre d'utilisateurs qui vont recevoir un email.
      */
-    public function notifyAllUsers(): int
+    public function remindCreateAllUsers(): int
     {
         $totalSent = 0;
         $users = $this->userRepository->findAllNotifiableUsers();
 
         foreach ($users as $user) {
             $sent = $this->sendReminderFaitMarquant($user);
+
+            if ($sent) {
+                ++$totalSent;
+            }
+        }
+
+        return $totalSent;
+    }
+
+    public function sendLatestFaitsMarquants(User $user): bool
+    {
+        $from = (new \DateTime())->modify('-7days');
+        $faitMarquants = $this->faitMarquantRepository->findLatestOnUserProjets($user, $from);
+
+        if (0 === count($faitMarquants)) {
+            return false;
+        }
+
+        $title = $this->translator->trans('n_nouveaux_faits_marquants', ['n' => count($faitMarquants)]);
+        $title .= ' ajoutés à vos projets RDI Manager';
+
+        $email = $this->rdiMailer
+            ->createDefaultEmail()
+            ->to($user->getEmail())
+            ->subject($title)
+            ->text(sprintf(
+                '%s : %s',
+                $title,
+                join(
+                    ', ',
+                    array_map(function (FaitMarquant $faitMarquant) {
+                        return $faitMarquant->getDate()->format('d/m/Y').' : '.$faitMarquant->getTitre();
+                    }, $faitMarquants)
+                )
+            ))
+
+            ->htmlTemplate('mail/notification_latest_faits_marquants.html.twig')
+            ->context([
+                'faitMarquants' => $faitMarquants,
+            ])
+        ;
+
+        $this->mailer->send($email);
+
+        return true;
+    }
+
+    public function sendLatestFaitsMarquantsToAllUsers(): int
+    {
+        $totalSent = 0;
+        $users = $this->userRepository->findAllNotifiableUsers();
+
+        foreach ($users as $user) {
+            $sent = $this->sendLatestFaitsMarquants($user);
 
             if ($sent) {
                 ++$totalSent;
