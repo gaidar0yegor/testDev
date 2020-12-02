@@ -12,6 +12,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Tableau de bord : les graphiques affichent les données seulement pour les projets dont je suis observateur, ou tous les projets si je suis admin
 - Tableau de bord : Réduit la taille de la notif des temps passés à jour en remplacant par une simple alerte
+### Réparé
+- Fix: Admin doit pouvoir créer des ressources sur tous les projets
 ### Supprimé
 - Suppression du champ en base de données `projet.statut_rdi` car non utilisé
 

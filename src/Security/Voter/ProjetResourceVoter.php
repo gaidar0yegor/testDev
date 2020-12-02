@@ -70,11 +70,16 @@ class ProjetResourceVoter extends Voter
         return $this->userCanDo($token->getUser(), $subject, $attribute);
     }
 
-    private function userCanCreateResourceOnProjet(User $user, Projet $projet): bool
+    public function userCanCreateResourceOnProjet(User $user, Projet $projet): bool
     {
-        // User ne peut pas créer de fait marquant sur un projet d'une société autre que la sienne
+        // User ne peut pas créer de ressource sur un projet d'une société autre que la sienne
         if (!$this->societeChecker->isSameSociete($projet, $user)) {
             return false;
+        }
+
+        // L'admin de la société peut créer des ressources sur tous les projets de sa propre société
+        if ($this->authChecker->isGranted('ROLE_FO_ADMIN')) {
+            return true;
         }
 
         // User doit être au moins contributeur sur ce projet
@@ -85,24 +90,26 @@ class ProjetResourceVoter extends Voter
         return true;
     }
 
-    private function userCanDo(User $user, ProjetResourceInterface $resource, string $action): bool
+    public function userCanDo(User $user, ProjetResourceInterface $resource, string $action): bool
     {
-        $userRole = $this->participantService->getRoleOfUserOnProjet($user, $resource->getProjet());
+        // User ne peut pas modifier les ressources sur un projet d'une société autre que la sienne
+        if (!$this->societeChecker->isSameSociete($resource->getProjet(), $user)) {
+            return false;
+        }
 
-        // L'admin de la société peut modifier tous les faits marquants des projets de sa propre société
-        if (
-            $this->authChecker->isGranted('ROLE_FO_ADMIN')
-            && $this->societeChecker->isSameSociete($user, $resource->getProjet())
-        ) {
+        // L'admin de la société peut modifier les ressources de tous les projets de sa propre société
+        if ($this->authChecker->isGranted('ROLE_FO_ADMIN')) {
             return true;
         }
 
-        // Le chef de projet peut tout faire sur les faits marquants de son propre projet
+        $userRole = $this->participantService->getRoleOfUserOnProjet($user, $resource->getProjet());
+
+        // Le chef de projet peut tout faire sur les ressources de son propre projet
         if ($this->participantService->hasRole($userRole, Role::CDP)) {
             return true;
         }
 
-        // Le contributeur qui a créé le fait marquant peut l'éditer
+        // Le contributeur qui a créé la ressource peut l'éditer
         if (
             $this->participantService->hasRole($userRole, Role::CONTRIBUTEUR)
             && $resource->getOwner() === $user
@@ -110,7 +117,7 @@ class ProjetResourceVoter extends Voter
             return true;
         }
 
-        // L'observateur peut voir les faits marquants
+        // L'observateur peut voir les ressources
         if (
             $this->participantService->hasRole($userRole, Role::OBSERVATEUR)
             && $action === ProjetResourceInterface::VIEW

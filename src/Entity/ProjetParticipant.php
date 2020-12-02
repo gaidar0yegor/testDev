@@ -51,6 +51,15 @@ class ProjetParticipant implements HasSocieteInterface
         $this->dateAjout = new \DateTime();
     }
 
+    public static function create(User $user, Projet $projet, string $role): self
+    {
+        return (new self())
+            ->setUser($user)
+            ->setProjet($projet)
+            ->setRole($role)
+        ;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
