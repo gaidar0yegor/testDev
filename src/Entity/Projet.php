@@ -96,6 +96,9 @@ class Projet implements HasSocieteInterface
         $this->projetParticipants = new ArrayCollection();
         $this->faitMarquants = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
+        $this->projetCollaboratif = false;
+        $this->projetPpp = false;
+        $this->projetInterne = false;
     }
 
     public function getId(): ?int

@@ -90,12 +90,18 @@ class DashboardController extends AbstractController
         $heuresParProjet = $statisticsService->calculateHeuresParProjet($this->getUser()->getSociete(), $year);
 
         $stats = [
-            'projets.moi' => 0,
-            'projets.equipe' => 0,
-            'projets-rdi.moi' => 0,
-            'projets-rdi.equipe' => 0,
-            'temps-total.moi' => 0,
-            'temps-total.equipe' => 0,
+            'projets' => [
+                'moi' => 0,
+                'equipe' => 0,
+            ],
+            'projetsRdi' => [
+                'moi' => 0,
+                'equipe' => 0,
+            ],
+            'tempsTotal' => [
+                'moi' => 0,
+                'equipe' => 0,
+            ],
         ];
 
         foreach ($projets as $projet) {
@@ -105,28 +111,26 @@ class DashboardController extends AbstractController
                 Role::CONTRIBUTEUR
             );
 
-            $stats['projets.equipe']++;
-            $stats['temps-total.equipe'] += $heuresParProjet[$projet->getAcronyme()] ?? 0.0;
+            $stats['projets']['equipe']++;
+            $stats['tempsTotal']['equipe'] += $heuresParProjet[$projet->getAcronyme()] ?? 0.0;
 
             if ($userIsContributing) {
-                $stats['projets.moi']++;
+                $stats['projets']['moi']++;
             }
 
             if ($projet->isRdi()) {
-                $stats['projets-rdi.equipe']++;
+                $stats['projetsRdi']['equipe']++;
 
                 if ($userIsContributing) {
-                    $stats['projets-rdi.moi']++;
+                    $stats['projetsRdi']['moi']++;
                 }
             }
         }
 
-        $userHoursOnprojets = $statisticsService->calculateHeuresForUser(
+        $stats['tempsTotal']['moi'] = $statisticsService->calculateHeuresForUser(
             $this->getUser(),
             $year
         );
-
-        $stats['temps-total.moi'] = $userHoursOnprojets;
 
         return new JsonResponse($stats);
     }
