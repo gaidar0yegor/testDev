@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Societe;
 use App\Entity\TempsPasse;
 use App\Entity\User;
-use App\HasSocieteInterface;
 use App\Service\DateMonthService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,15 +26,18 @@ class TempsPasseRepository extends ServiceEntityRepository
         $this->dateMonthService = $dateMonthService;
     }
 
-    public function findAllForUserAndMonth(User $user, \DateTime $mois): array
+    public function findAllForUserInYear(User $user, int $year): array
     {
         return $this
             ->createQueryBuilder('tempsPasse')
-            ->where('tempsPasse.user = :user')
-            ->andWhere('tempsPasse.mois = :mois')
+            ->leftJoin('tempsPasse.cra', 'cra')
+            ->where('cra.user = :user')
+            ->andWhere('cra.mois >= :dateFrom')
+            ->andWhere('cra.mois <= :dateTo')
             ->setParameters([
                 'user' => $user,
-                'mois' => $this->dateMonthService->normalize($mois),
+                'dateFrom' => new \DateTime("$year-01-01"),
+                'dateTo' => new \DateTime("$year-12-31"),
             ])
             ->getQuery()
             ->getResult()
@@ -45,7 +47,7 @@ class TempsPasseRepository extends ServiceEntityRepository
     /**
      * @return TempsPasse[]
      */
-    public function findAllBySocieteAndProjet(Societe $societe, int $year): array
+    public function findAllBySocieteInYear(Societe $societe, int $year): array
     {
         return $this
             ->createQueryBuilder('tempsPasse')

@@ -5,6 +5,12 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Tableau de bord : tableau "Moi VS Équipe"
+### Modifié
+- Tableau de bord : les graphiques affichent les données seulement pour les projets dont je suis observateur, ou tous les projets si je suis admin
+### Supprimé
+- Suppression du champ en base de données `projet.statut_rdi` car non utilisé
 
 
 

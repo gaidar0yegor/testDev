@@ -115,11 +115,6 @@ class User implements UserInterface, HasSocieteInterface
     private $societe;
 
     /**
-     * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $tempsPasses;
-
-    /**
      * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="user", orphanRemoval=true)
      */
     private $projetParticipants;
@@ -132,7 +127,6 @@ class User implements UserInterface, HasSocieteInterface
     public function __construct()
     {
         $this->enabled = true;
-        $this->tempsPasses = new ArrayCollection();
         $this->projetParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->cras = new ArrayCollection();
@@ -240,6 +234,11 @@ class User implements UserInterface, HasSocieteInterface
     public function getRole(): string
     {
         return $this->getRoles()[0];
+    }
+
+    public function isAdminFo(): bool
+    {
+        return 'ROLE_FO_ADMIN' === $this->getRole();
     }
 
     public function setRole(string $role): self
@@ -390,37 +389,6 @@ class User implements UserInterface, HasSocieteInterface
     public function setSociete(?Societe $societe): self
     {
         $this->societe = $societe;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|TempsPasse[]
-     */
-    public function getTempsPasses(): Collection
-    {
-        return $this->tempsPasses;
-    }
-
-    public function addTempsPass(TempsPasse $tempsPass): self
-    {
-        if (!$this->tempsPasses->contains($tempsPass)) {
-            $this->tempsPasses[] = $tempsPass;
-            $tempsPass->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTempsPass(TempsPasse $tempsPass): self
-    {
-        if ($this->tempsPasses->contains($tempsPass)) {
-            $this->tempsPasses->removeElement($tempsPass);
-            // set the owning side to null (unless already changed)
-            if ($tempsPass->getUser() === $this) {
-                $tempsPass->setUser(null);
-            }
-        }
 
         return $this;
     }
