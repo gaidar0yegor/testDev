@@ -1,8 +1,11 @@
 /* Pages accessibles en public (connexion, invitation, mot de passe oublié...) */
 
 body {
-    background-image: linear-gradient(to bottom, #729EBF 0%, #333A40 100%);
-    color: white;
+    background-image: url("../img/giorgio-trovato-H8X-2bchJI8-unsplash.jpg");
+    width: auto;
+    /* height: 100%; */
+    background-size: 1600px;
+    color: black;
 }
 
 .login-container {
@@ -18,7 +21,6 @@ body {
 .login-container h1 {
     margin: 0 0 1em 0;
 }
-
 
 .rdi-manager-title {
     width: 80%;
