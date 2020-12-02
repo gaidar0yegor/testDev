@@ -43,43 +43,34 @@
         <div id="heures-par-projet">
         </div>
     </div>
-    <div class="col-md-8">
-        <h4 class="text-center">Statistiques de mes visibilités de projets</h4>
-        <table class="table table-bordered mx-auto m-5"  style="max-width: 67.9%;">
+    <div class="offset-md-1 col-md-7">
+        <h4 class="text-center">Mes contributions</h4>
+        <table class="table text-center">
             <thead>
                 <tr>
-                    <th scope="col">Intitulés</th>
-                    <th scope="col" class="text-center">Données</th>
-                    {# <th scope="col" class="text-center">Équipe</th> #}
+                    <th></th>
+                    <th>Moi</th>
+                    <th>Équipe</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th scope="row">Projets visibles de l'année</th>
-                    <td class="text-center">3</td>
+                    <td class="text-left">Projets</td>
+                    <td class="moi-vs-equipe moi projet">…</td>
+                    <td class="moi-vs-equipe equipe projet">…</td>
                 </tr>
                 <tr>
-                    <th scope="row">- Dont visibles en contributeur</th>
-                    <td class="text-center">3</td>
+                    <td class="text-left">Projets de type RDI</td>
+                    <td class="moi-vs-equipe moi projet-rdi">…</td>
+                    <td class="moi-vs-equipe equipe projet-rdi">…</td>
                 </tr>
                 <tr>
-                    <th scope="row">Projets visibles de type RDI de l'année</th>
-                    <td class="text-center">50</td>
-                </tr>
-                <tr>
-                    <th scope="row">- Dont visibles en contributeur</th>
-                    <td class="text-center">3</td>
-                </tr>
-                <tr>
-                    <th scope="row">Temps total de contribution (h)</th>
-                    <td class="text-center">3</td>
-                </tr>
-                <tr>
-                    <th scope="row">Temps total des contributeurs (h)</th>
-                    <td class="text-center">3</td>
+                    <td class="text-left">Temps total de contribution</td>
+                    <td class="moi-vs-equipe moi temps-total">…</td>
+                    <td class="moi-vs-equipe equipe temps-total">…</td>
                 </tr>
             </tbody>
-        </table>   
+        </table>
     </div>
 </div>
 
@@ -115,8 +106,10 @@
 {% block javascripts %}
     <script src="{{ asset('dependences/d3.v5.min.js') }}"></script>
     <script src="{{ asset('dependences/c3.min.js') }}"></script>
+    <script src="{{ asset('js/dashboard/utils.js') }}"></script>
     <script src="{{ asset('js/dashboard/temps-saisis.js') }}"></script>
     <script src="{{ asset('js/dashboard/heures-par-projet.js') }}"></script>
+    <script src="{{ asset('js/dashboard/moi-vs-equipe.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
 
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>

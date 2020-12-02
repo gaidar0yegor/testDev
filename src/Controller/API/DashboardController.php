@@ -2,8 +2,11 @@
 
 namespace App\Controller\API;
 
+use App\Repository\ProjetRepository;
+use App\Role;
 use App\Service\CraService;
 use App\Service\DateMonthService;
+use App\Service\ParticipantService;
 use App\Service\StatisticsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -65,5 +68,66 @@ class DashboardController extends AbstractController
         );
 
         return new JsonResponse($heuresParProjet);
+    }
+
+    /**
+     * Retourne les stats "Moi" vs "Equipe"
+     *
+     * @Route(
+     *      "/moi-vs-equipe/{year}",
+     *      methods={"GET"},
+     *      requirements={"year"="\d{4}"},
+     *      name="api_dashboard_moi_vs_equipe"
+     * )
+     */
+    public function getMoiVsEquipe(
+        int $year,
+        ProjetRepository $projetRepository,
+        StatisticsService $statisticsService,
+        ParticipantService $participantService
+    ) {
+        $projets = $projetRepository->findAllForUserInYear($this->getUser(), Role::OBSERVATEUR, $year);
+        $heuresParProjet = $statisticsService->calculateHeuresParProjet($this->getUser()->getSociete(), $year);
+
+        $stats = [
+            'projets.moi' => 0,
+            'projets.equipe' => 0,
+            'projets-rdi.moi' => 0,
+            'projets-rdi.equipe' => 0,
+            'temps-total.moi' => 0,
+            'temps-total.equipe' => 0,
+        ];
+
+        foreach ($projets as $projet) {
+            $userIsContributing = $participantService->hasRoleOnProjet(
+                $this->getUser(),
+                $projet,
+                Role::CONTRIBUTEUR
+            );
+
+            $stats['projets.equipe']++;
+            $stats['temps-total.equipe'] += $heuresParProjet[$projet->getAcronyme()] ?? 0.0;
+
+            if ($userIsContributing) {
+                $stats['projets.moi']++;
+            }
+
+            if ($projet->isRdi()) {
+                $stats['projets-rdi.equipe']++;
+
+                if ($userIsContributing) {
+                    $stats['projets-rdi.moi']++;
+                }
+            }
+        }
+
+        $userHoursOnprojets = $statisticsService->calculateHeuresForUser(
+            $this->getUser(),
+            $year
+        );
+
+        $stats['temps-total.moi'] = $userHoursOnprojets;
+
+        return new JsonResponse($stats);
     }
 }

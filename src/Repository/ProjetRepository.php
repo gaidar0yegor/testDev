@@ -27,16 +27,7 @@ class ProjetRepository extends ServiceEntityRepository
         $this->dateMonthService = $dateMonthService;
     }
 
-    /**
-     * Recupère tous les projet auxquels $user participe.
-     *
-     * @param User $user
-     * @param null|string $roleMinimum Rôle minimum sur le projet
-     * @param null|\DateTime $month Mois pour lequel les projets doivent êtres actifs
-     *
-     * @return Projet[]
-     */
-    public function findAllForUser(User $user, ?string $roleMinimum = null, \DateTime $month = null): array
+    public function whereUserAndRole(User $user, ?string $roleMinimum = null)
     {
         $qb = $this
             ->createQueryBuilder('projet')
@@ -53,6 +44,22 @@ class ProjetRepository extends ServiceEntityRepository
             ;
         }
 
+        return $qb;
+    }
+
+    /**
+     * Recupère tous les projet auxquels $user participe.
+     *
+     * @param User $user
+     * @param null|string $roleMinimum Rôle minimum sur le projet
+     * @param null|\DateTime $month Mois pour lequel les projets doivent êtres actifs
+     *
+     * @return Projet[]
+     */
+    public function findAllForUser(User $user, ?string $roleMinimum = null, \DateTime $month = null): array
+    {
+        $qb = $this->whereUserAndRole($user, $roleMinimum);
+
         if (null !== $month) {
             $month = $this->dateMonthService->normalize($month);
             $nextMonth = $this->dateMonthService->getNextMonth($month);
@@ -62,6 +69,34 @@ class ProjetRepository extends ServiceEntityRepository
                 ->andWhere('projet.dateFin is null OR :currentMonth <= projet.dateFin')
                 ->setParameter('nextMonth', $nextMonth)
                 ->setParameter('currentMonth', $month)
+            ;
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Recupère tous les projet auxquels $user participe.
+     *
+     * @param User $user
+     * @param null|string $roleMinimum Rôle minimum sur le projet
+     * @param null|int $year Année pour laquelle les projets doivent êtres actifs
+     *
+     * @return Projet[]
+     */
+    public function findAllForUserInYear(User $user, ?string $roleMinimum = null, ?int $year = null): array
+    {
+        $qb = $this->whereUserAndRole($user, $roleMinimum);
+
+        if (null !== $year) {
+            $qb
+                ->andWhere('projet.dateDebut is null or projet.dateDebut <= :yearEnd')
+                ->andWhere('projet.dateFin is null or projet.dateFin >= :yearStart')
+                ->setParameter('yearStart', new \DateTime("$year-01-01"))
+                ->setParameter('yearEnd', new \DateTime("$year-12-31"))
             ;
         }
 

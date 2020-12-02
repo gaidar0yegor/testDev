@@ -46,11 +46,6 @@ class Projet implements HasSocieteInterface
     private $dateFin;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $statutRdi;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $projetCollaboratif;
@@ -172,18 +167,6 @@ class Projet implements HasSocieteInterface
         }
 
         return true;
-    }
-
-    public function getStatutRdi(): ?int
-    {
-        return $this->statutRdi;
-    }
-
-    public function setStatutRdi(int $statutRdi): self
-    {
-        $this->statutRdi = $statutRdi;
-
-        return $this;
     }
 
     public function getProjetCollaboratif(): ?bool
@@ -388,6 +371,11 @@ class Projet implements HasSocieteInterface
     public function getSociete(): ?Societe
     {
         return $this->getChefDeProjet()->getSociete();
+    }
+
+    public function isRdi(): bool
+    {
+        return $this->projetPpp;
     }
 
     /**

@@ -1,6 +1,8 @@
 (function (c3, fetch, window) {
     'use strict';
 
+    const {formatHours} = window;
+
     const chart = c3.generate({
         bindto: '#heures-par-projet',
         data: {
@@ -19,7 +21,7 @@
         axis: {
             y: {
                 tick: {
-                    format: heures => Math.ceil(heures) + 'h',
+                    format: formatHours,
                 },
             },
         },
