@@ -4,28 +4,28 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
-## [À venir dans la prochaine version] - 2020-12-01
-- Renomination des rôles dans le fichier messages.fr/yaml, affichage en mode responsive de la liste des utilisateurs
+## [À venir dans la prochaine version]
+
+
+
+
+## [0.5.0] - 2020-12-02
 ### Ajouté
 - Commande pour notifier les utilisateurs d'ajouter leur faits marquants
 - Commande pour envoyer les nouveaux faits marquants de la semaine sur mes projets
 - `.env`: ajout de `REQUEST_BASE_HOST` à remplir avec le host de l'application pour mettre la bonne url dans les emails envoyés depuis la commande.
 ### Modifié
+- Renomination des rôles dans le fichier messages.fr/yaml, affichage en mode responsive de la liste des utilisateurs
 - Tableau de bord : retire message indiquant de remplir ses absences du mois car non pertinent
 - Email de test : ajout de l'url de l'application pour vérifier si la config de `REQUEST_BASE_HOST` est bonne.
-### Réparé
-### Supprimé
-
-
 
 ## [0.4.1] - 2020-11-27
 ### Ajouté
-- Menu Administration : ajout du menu "Tous les projets" qui Liste de l'ensemble des projets de la societe  
+- Menu Administration : ajout du menu "Tous les projets" qui Liste de l'ensemble des projets de la societe
 - Modification de mes données personnelles
 - Affiche les dernières dates de mise à jour des temps passés et absences
 - Tableau de bord : Dire si l'utilisateur est à jour, ou doit encore faire une action pour se mettre à jour dans la saisie de ses temps et absences du mois courant.
 - Tableau de bord : Graphique des heures par projet
-### Modifié
 ### Réparé
 - Pouvoir supprimer mon propre fichier même si je ne suis pas chef de projet
 - Dans la liste des fichiers, le bouton supprimer est grisé si je n'ai pas le droit de supprimer
@@ -39,7 +39,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Feuilles de temps : prend en compte date de début et de fin de projet
 - Saisis des temps : ne permet plus de saisir un temps sur un projet fini ou pas commencé
-### Réparé
 
 ## [0.3.1] - 2020-11-20
 ### Ajouté
