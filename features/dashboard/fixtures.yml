@@ -8,10 +8,20 @@ App\Entity\User:
         societe: '@societe'
 
 App\Entity\Projet:
-    projet{1..3}:
-        titre: Projet <current()>
-        acronyme: P<current()>
+    projet1:
+        titre: Projet 1
+        acronyme: P1
+    projet2:
+        titre: Projet 2
+        acronyme: P2
         projetPpp: true
+    projet3:
+        titre: Projet 3
+        acronyme: P3
+    projet_fini:
+        titre: Projet fini
+        acronyme: P4
+        dateFin: <(new DateTime("2017-11-01"))>
 
 App\Entity\ProjetParticipant:
     user1_projet1:
@@ -25,6 +35,10 @@ App\Entity\ProjetParticipant:
     user1_projet3:
         user: '@user1'
         projet: '@projet3'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+    user1_projet_fini:
+        user: '@user1'
+        projet: '@projet_fini'
         role: '<(App\Role::CONTRIBUTEUR)>'
 
     user2_projet1:
