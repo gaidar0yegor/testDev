@@ -112,12 +112,23 @@
                     {% endif %}
                 >Fait marquant</a>
             </div>
+             {# ajout bouton Exporter #}
+             <div class="col-sm-6 col-md-3">
+                <a
+                    href="{{ path('preview_fiche_projet_', {'id': projet.id}) }}"
+                    class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
+                    {% if not userCanEditProjet %}
+                        title="Seul le chef de projet peut exporter"
+                    {% endif %}
+                >Export PDF</a>
+            </div>
         </div>
 
         <section id="timeline">
             <h2 class="facts">Faits marquants</h2>
 
             {% if projet.hasFaitMarquants() %}
+
             <ul class="timeline">
                 {% for faitMarquant in projet.faitMarquants %}
                     <li class="event">

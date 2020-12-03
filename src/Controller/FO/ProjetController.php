@@ -14,9 +14,19 @@ use App\Repository\ProjetParticipantRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
 
 class ProjetController extends AbstractController
 {
+    
+    private Pdf $pdf;
+
+    public function __construct(Pdf $pdf)
+    {
+        $this->pdf = $pdf;
+    }
+    
     /**
      * Affichage de tous les projets de la société
      * @Route("/tous-les-projets", name="app_fo_projet_admin_projets_")
@@ -129,4 +139,54 @@ class ProjetController extends AbstractController
             'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
         ]);
     }
+
+    /**
+     * @Route("/preview/projet/{id}", name="preview_fiche_projet_")
+     */
+    public function ficheProjetPreviewPdf(Projet $projet)
+    {
+        $this->denyAccessUnlessGranted('view', $projet);
+
+        return $this->render('projets/fiche_projet_preview_pdf.html.twig', [
+            'projet' => $projet,
+            'userCanEditProjet' => $this->isGranted('edit', $projet),
+            'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
+        ]);
+    }
+
+    /**
+     * @Route("/generate/projet/{id}", name="generate_fiche_projet_")
+     */
+    public function ficheProjetGeneratePdf(Projet $projet)
+    {
+        //$this->denyAccessUnlessGranted('view', $projet);
+
+        
+        $sheetHtml = $this->renderView('fait_marquant/pdf/fiche_projet_pdf.html.twig', [
+            'projet' => $projet,
+        ]);
+        //dd($sheetHtml);
+        return $this->createPdfResponse($sheetHtml);
+        
+        // return $this->render('projets/fiche_projet_preview_pdf.html.twig', [
+        //     'projet' => $projet,
+        //     'userCanEditProjet' => $this->isGranted('edit', $projet),
+        //     'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
+        // ]);
+    }
+
+    private function createPdfResponse(string $htmlContent, string $filename = 'projet.pdf'): PdfResponse
+    {
+        $options = [
+            'margin-top'    => 15,
+            'margin-right'  => 15,
+            'margin-bottom' => 15,
+            'margin-left'   => 15,
+            //'orientation'   => 'landscape',
+        ];
+        $result = $this->pdf->getOutputFromHtml($htmlContent, $options);
+        //dd($result);
+        return new PdfResponse($result, $filename);
+    }
+
 }
