@@ -6,24 +6,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <div id="mes-temps-rappel" class="card rdi-card-icon text-center">
-            <i class="fa fa-calendar-o" aria-hidden="true"></i>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title">Saisie de mes temps de {{ 'now'|format_date(pattern='MMMM') }}</h5>
-
-                        <div class="temps-messages">
-                            <p>&nbsp;</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card-footer">
-                <a
-                    href="{{ path ('temps_') }}"
-                >Mettre à jour votre feuille de temps</a>
-            </div>
+        <div id="mes-temps-rappel" data-url-temps-passes="{{ path('temps_') }}">
         </div>
     </div>
 </div>

@@ -1,47 +1,50 @@
 (function (window, fetch) {
     'use strict';
 
+    const mesTempsRappel = window['mes-temps-rappel'];
+    const urlTempsPasses = mesTempsRappel.getAttribute('data-url-temps-passes');
+
+    const clearAlerts = () => mesTempsRappel.innerHTML = '';
+
+    const addAlert = (type, icon, html) => {
+        mesTempsRappel.innerHTML += `
+            <div class="alert alert-${type}" role="alert">
+                <i class="fa fa-${icon}" aria-hidden="true"></i>
+                ${html}
+            </div>
+        `;
+    }
+
     fetch('/api/dashboard/temps-du-mois')
         .then(response => response.json())
         .then(cra => {
-            let text = '';
-            let userValidated = true;
+            clearAlerts();
 
             if (!cra.hasTempsPasses) {
-                text += `
-                    <p class="text-success">
-                        <i class="fa fa-check" aria-hidden="true"></i>
-                        Ce mois-ci, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.
-                    </p>
-                `;
-            } else {
-                if (cra.isTempsPassesSubmitted) {
-                    text += `
-                        <p class="text-success">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            Vous avez saisi vos temps passés le ${cra.tempsPassesModifiedAt}.
-                        </p>
-                    `;
-                } else {
-                    userValidated = false;
-                    text += `
-                        <p class="text-warning">
-                            <i class="fa fa-times" aria-hidden="true"></i>
-                            Vous devriez enregistrer vos temps passés.
-                        </p>
-                    `;
-                }
+                addAlert(
+                    'success',
+                    'check',
+                    'Ce mois-ci, vous n\'avez pas de temps à saisir car vous n\'étiez contributeur sur aucun projet.',
+                );
+
+                return;
             }
 
-            const mesTempsRappel = window['mes-temps-rappel'];
+            if (cra.isTempsPassesSubmitted) {
+                addAlert(
+                    'success',
+                    'calendar-check-o',
+                    `Vous avez saisi vos temps passés le ${cra.tempsPassesModifiedAt}.`,
+                );
 
-            const icon = userValidated
-                ? 'calendar-check-o'
-                : 'calendar-times-o'
-            ;
+                return;
+            }
 
-            mesTempsRappel.querySelector('.temps-messages').innerHTML = text;
-            mesTempsRappel.querySelector('i.fa').className = 'fa fa-'+icon;
+            addAlert(
+                'warning',
+                'calendar-times-o',
+                `Vous devriez <a href="${urlTempsPasses}" class="alert-link">enregistrer vos temps passés</a>.`,
+            );
         })
     ;
 })(window, fetch);
