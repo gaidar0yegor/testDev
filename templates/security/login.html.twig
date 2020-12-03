@@ -9,10 +9,8 @@
 <section class="container login-container">
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2 col-md-4 offset-md-0">
-            {# <div class="img-logo">
-                <img class="logofooter1" src="{{ asset('img/logosign.png') }}" alt="RDI Manager">
-            </div> #}
             <h1><img src="{{ asset('img/RDI Manager logo long-01.png') }}" alt="RDI Manager" class="rdi-manager-title"></h1>
+
             {% include '_flash_messages.html.twig' %}
 
             <form method="post" class="mb-4">
@@ -28,23 +26,56 @@
                 <input type="submit" class="btn btn-success" value="Connexion">
             </form>
 
-            <a href="{{ path('app_reset_password_request') }}" ><small>Mot de passe oublié</small></a>
+            <a href="{{ path('app_reset_password_request') }}"><small>Mot de passe oublié</small></a>
         </div>
-        <div class="d-none col-8 d-md-block">
-            {# <h1><img src="{{ asset('img/RDI Manager logo long-01.png') }}" alt="RDI Manager" class="rdi-manager-title"></h1> #}
-            <div class="text">
-            <br/><br/><br/>
-            </div>
-            <div class="text">
-                <p>Gérer son activité RDI de manière structurée peut s’avérer compliqué et contraignant.
-                 C’est pourquoi nos ingénieurs ont conçu pour vous RDI-Manager. 
-                 Une application simple, efficace, intelligente et collaborative pour le management de votre activité de RDI.
-                  <i style="color:#000080">RDI-Manager = Suivi des projets via leurs faits marquants + Simplification du suivi du temps des équipes + Gestion des documents projets + Engagement des collaborateurs via un tableau de bord personnalisé + Collaboration (interne & externe) dans le suivi des projets.</i> 
-                  <b>Bref, le management de l’innovation par des innovateurs pour des innovateurs.</b></p>
+        <div class="d-none col-7 offset-1 d-md-block">
+            <div class="mt-4">
+                <p class="mb-1 text-justify">
+                    Gérer son activité RDI de manière structurée peut s’avérer compliqué et contraignant.
+                    C’est pourquoi nos ingénieurs ont conçu pour vous : RDI-Manager.
+                    Une application simple, efficace, intelligente et collaborative pour le management de votre activité de RDI.
+                </p>
+                <ul class="list-unstyled mb-1">
+                    <li class="media mb-1">
+                        <i class="mr-3 mt-1 fa fa-flag-o"></i>
+                        <div class="media-body">
+                            Suivi des projets via leurs faits marquants
+                        </div>
+                    </li>
+                    <li class="media mb-1">
+                        <i class="mr-3 mt-1 fa fa-calendar-check-o"></i>
+                        <div class="media-body">
+                            Simplification du suivi du temps des équipes
+                        </div>
+                    </li>
+                    <li class="media mb-1">
+                        <i class="mr-3 mt-1 fa fa-files-o"></i>
+                        <div class="media-body">
+                            Gestion des documents projets
+                        </div>
+                    </li>
+                    <li class="media mb-1">
+                        <i class="mr-3 mt-1 fa fa-tachometer"></i>
+                        <div class="media-body">
+                            Engagement des collaborateurs via un tableau de bord personnalisé
+                        </div>
+                    </li>
+                    <li class="media mb-1">
+                        <i class="mr-3 mt-1 fa fa-users"></i>
+                        <div class="media-body">
+                            Collaboration (interne &amp; externe) dans le suivi des projets.
+                        </div>
+                    </li>
+                </ul>
+                <p>
+                    Bref, le management de l’innovation, par des innovateurs, pour des innovateurs.
+                </p>
             </div>
         </div>
     </div>
 </section>
+
+<div class="page-background"></div>
 
 {% include('_footer.html.twig') %}
 
