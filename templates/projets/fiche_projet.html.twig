@@ -26,12 +26,12 @@
         <div class="card bg-light-grey border-light">
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-md-3"><strong>Titre : </strong></div>
-                    <div class="col-md-9">{{ projet.titre }}</div>
+                    <div class="col-md-2"><strong>Titre : </strong></div>
+                    <div class="col-md-10">{{ projet.titre }}</div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-3"><strong>Résumé : </strong></div>
-                    <div class="col-md-9 text-justify">{{ projet.resume|nl2br }}</div>
+                    <div class="col-md-2"><strong>Résumé : </strong></div>
+                    <div class="col-md-10 text-justify">{{ projet.resume|nl2br }}</div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -56,6 +56,7 @@
                             <div class="col-md-6">{{ projet.statut }}</div>
                         </div>
                     </div>
+{# 
                     <div class="d-none d-md-block">
                         <strong>Participants : </strong>
                         {% if projet.projetParticipants() %}
@@ -63,11 +64,16 @@
                                 {% for projetParticipant in projet.projetParticipants %}
                                     <li>{{ projetParticipant.user.fullname }} - {{ projetParticipant.role|trans }}</li>
                                 {% endfor %}
+                                <span class="text-right">
+                                    <a href="{{ path('projet_participant', {'id': projet.id}) }}">
+                                        Lire les autres
+                                    </a>
+                                </span>
                             </ul>
                         {% else %}
                             <p>Pas de contributeurs à ce projet</p>
                         {% endif %}
-                    </div>
+                    </div> #}
                 </div>
             </div>
         </div>
@@ -107,7 +113,6 @@
                 >Fait marquant</a>
             </div>
         </div>
-
 
         <section id="timeline">
             <h2 class="facts">Faits marquants</h2>
