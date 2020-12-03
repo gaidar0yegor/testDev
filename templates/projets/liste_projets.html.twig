@@ -3,7 +3,18 @@
 {% block title %}Liste des projets{% endblock %}
 
 {% block body %}
-    <h1>Mes projets de l'année</h1>
+    <h1>Mes projets</h1>
+
+    {% if is_granted('ROLE_FO_ADMIN') %}
+        <p>
+            Liste des projets auxquels je participe.
+        </p>
+        <p>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            En tant qu'administrateur, je peux aussi
+            <a href="{{ path('app_fo_projet_admin_projets_') }}">accéder à tous les projets de la société</a>.
+        </p>
+    {% endif %}
 
     <table class="table  text-center mx-auto m-5">
         <thead>
@@ -17,7 +28,6 @@
             </tr>
         </thead>
         <tbody>
-            
             {% for participe in participes %}
                 <tr>
                     <td scope="row" class="text-left"> <a href="{{ path('fiche_projet_', {'id': participe.projet.id}) }}">{{ participe.projet.acronyme }}</a> </td>

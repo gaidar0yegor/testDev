@@ -230,11 +230,11 @@ class Projet implements HasSocieteInterface
     {
         $now = new \DateTime();
 
-        if ($now < $this->dateDebut) {
+        if (null !== $this->dateDebut && $now < $this->dateDebut) {
             return 'À venir';
         }
 
-        if ($now > $this->dateFin) {
+        if (null !== $this->dateFin && $now > $this->dateFin) {
             return 'Terminé';
         }
 
