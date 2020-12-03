@@ -9,9 +9,6 @@
             type: 'bar',
             x: '_projects_year',
             columns: [],
-            keys: {
-              value: ['ju']
-            }
         },
         bar: {
             width: {
