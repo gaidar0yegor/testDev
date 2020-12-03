@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Tableau de bord : tableau "Moi VS Équipe"
 - Tableau de bord : Camembert "Réalisation des projets"
+- Tableau de bord : Barres "Type de projets réalisés"
 ### Modifié
 - Tableau de bord : les graphiques affichent les données seulement pour les projets dont je suis observateur, ou tous les projets si je suis admin
 ### Supprimé

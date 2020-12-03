@@ -140,22 +140,20 @@ class DashboardController extends AbstractController
      * depuis une année N.
      *
      * @Route(
-     *      "/projets-statuts/since-{year}",
+     *      "/projets-statuts/since-{sinceYear}",
      *      methods={"GET"},
-     *      requirements={"year"="\d{4}"},
+     *      requirements={"sinceYear"="\d{4}"},
      *      name="api_dashboard_projets_statuts"
      * )
      */
     public function getProjetsStatuts(
-        int $year,
-        ProjetRepository $projetRepository,
-        StatisticsService $statisticsService,
-        ParticipantService $participantService
+        int $sinceYear,
+        ProjetRepository $projetRepository
     ) {
         $now = new \DateTime();
         $projets = $this->getUser()->isAdminFo()
-            ? $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete(), $year)
-            : $projetRepository->findAllForUserSinceYear($this->getUser(), Role::OBSERVATEUR, $year)
+            ? $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete(), $sinceYear)
+            : $projetRepository->findAllForUserSinceYear($this->getUser(), Role::OBSERVATEUR, $sinceYear)
         ;
 
         $stats = [
@@ -168,6 +166,73 @@ class DashboardController extends AbstractController
                 ++$stats['active'];
             } else {
                 ++$stats['finished'];
+            }
+        }
+
+        return new JsonResponse($stats);
+    }
+
+    /**
+     * Retourne le nombre de projet RDI/non-RDI par année
+     * depuis une année N.
+     *
+     * @return JsonResponse Sous la forme :
+     *      [
+     *          2015 => [
+     *              'projets' => 5,
+     *              'projetsRdi' => 2,
+     *          ],
+     *          2016 => [
+     *              'projets' => 7,
+     *              'projetsRdi' => 3,
+     *          ],
+     *          ...
+     *      ];
+     *
+     * @Route(
+     *      "/projets-type/since-{sinceYear}",
+     *      methods={"GET"},
+     *      requirements={"sinceYear"="\d{4}"},
+     *      name="api_dashboard_projets_type"
+     * )
+     */
+    public function getProjetsTypesSinceYear(
+        int $sinceYear,
+        ProjetRepository $projetRepository
+    ) {
+        $projets = $this->getUser()->isAdminFo()
+            ? $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete(), $sinceYear)
+            : $projetRepository->findAllForUserSinceYear($this->getUser(), Role::OBSERVATEUR, $sinceYear)
+        ;
+
+        $currentYear = intval((new \DateTime())->format('Y'));
+
+        $stats = [];
+
+        for ($i = $sinceYear; $i <= $currentYear; ++$i) {
+            $stats[$i] = [
+                'projets' => 0,
+                'projetsRdi' => 0,
+            ];
+        }
+
+        foreach ($projets as $projet) {
+            $isRdi = $projet->isRdi();
+            $projetYearStart = null === $projet->getDateDebut()
+                ? $sinceYear
+                : intval($projet->getDateDebut()->format('Y'))
+            ;
+            $projetYearEnd = null === $projet->getDateFin()
+                ? $currentYear
+                : intval($projet->getDateFin()->format('Y'))
+            ;
+
+            for ($i = $projetYearStart; $i <= $projetYearEnd; ++$i) {
+                ++$stats[$i]['projets'];
+
+                if ($isRdi) {
+                    ++$stats[$i]['projetsRdi'];
+                }
             }
         }
 
