@@ -107,23 +107,59 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     /**
-     * Récupère tous les projets d'une même societe.
+     * Recupère tous les projet auxquels $user participe depuis une année jusque maintenant.
+     *
+     * @param User $user
+     * @param null|string $roleMinimum Rôle minimum sur le projet
+     * @param null|int $year Année à partir de laquelle les projets doivent êtres actifs
      *
      * @return Projet[]
      */
-    public function findAllProjectsPerSociete( Societe $societe ): array
+    public function findAllForUserSinceYear(User $user, ?string $roleMinimum = null, ?int $year = null): array
     {
+        $qb = $this->whereUserAndRole($user, $roleMinimum);
 
-        return $this
-            ->createQueryBuilder('projet')
-            ->leftJoin('projet.projetParticipants', 'projetParticipant')
-            ->leftJoin('projetParticipant.user', 'user')
-            ->where('user.societe = :societe')
-            ->setParameter('societe', $societe)
+        if (null !== $year) {
+            $qb
+                ->andWhere('projet.dateFin is null or projet.dateFin >= :year')
+                ->setParameter('year', new \DateTime("$year-01-01"))
+            ;
+        }
+
+        return $qb
             ->getQuery()
             ->getResult()
         ;
     }
 
+    /**
+     * Récupère tous les projets d'une même societe.
+     *
+     * @param Societe $societe
+     * @param int $sinceYear Ne prend que les projets en cours entre $sinceYear et maintenant
+     *
+     * @return Projet[]
+     */
+    public function findAllProjectsPerSociete(Societe $societe, int $sinceYear = null): array
+    {
+        $qb = $this
+            ->createQueryBuilder('projet')
+            ->leftJoin('projet.projetParticipants', 'projetParticipant')
+            ->leftJoin('projetParticipant.user', 'user')
+            ->where('user.societe = :societe')
+            ->setParameter('societe', $societe)
+        ;
 
+        if (null !== $sinceYear) {
+            $qb
+                ->andWhere('projet.dateFin is null or projet.dateFin >= :year')
+                ->setParameter('year', new \DateTime("$sinceYear-01-01"))
+            ;
+        }
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

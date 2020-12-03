@@ -134,4 +134,43 @@ class DashboardController extends AbstractController
 
         return new JsonResponse($stats);
     }
+
+    /**
+     * Retourne les stats "Nb de projets en cours/terminés"
+     * depuis une année N.
+     *
+     * @Route(
+     *      "/projets-statuts/since-{year}",
+     *      methods={"GET"},
+     *      requirements={"year"="\d{4}"},
+     *      name="api_dashboard_projets_statuts"
+     * )
+     */
+    public function getProjetsStatuts(
+        int $year,
+        ProjetRepository $projetRepository,
+        StatisticsService $statisticsService,
+        ParticipantService $participantService
+    ) {
+        $now = new \DateTime();
+        $projets = $this->getUser()->isAdminFo()
+            ? $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete(), $year)
+            : $projetRepository->findAllForUserSinceYear($this->getUser(), Role::OBSERVATEUR, $year)
+        ;
+
+        $stats = [
+            'active' => 0,
+            'finished' => 0,
+        ];
+
+        foreach ($projets as $projet) {
+            if (null === $projet->getDateFin() || $projet->getDateFin() >= $now) {
+                ++$stats['active'];
+            } else {
+                ++$stats['finished'];
+            }
+        }
+
+        return new JsonResponse($stats);
+    }
 }

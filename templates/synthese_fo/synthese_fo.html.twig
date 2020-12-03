@@ -75,17 +75,19 @@
 </div>
 
 <div class="row my-4">
-	<div class="col-md-10 mx-auto bordure">
+	<div class="col-md-10 mx-auto">
         <h2>Analyse des projets depuis
-            <select name="select" class=" col-3" id="dropdownYearBis" style="font-size: 0.8em" onchange="getProjectReportFunc()"></select>
+            <select name="select" id="dropdownSinceYear" style="font-size: 0.8em"></select>
         </h2>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-md-4 bordure">
-        <h4 class="text-center">Réalisation des projets </h4>
-        <div id="piechart_3d" style="width: 140%; height: 400px; margin-right: 80%;"></div>    
+    <div class="col-md-4">
+        <h4 class="text-center">Réalisation des projets</h4>
+
+        <div id="projets-statuts">
+        </div>
     </div>
     <div class="col-md-8 bordure">
         <h4 class="text-center">Type de projets réalisés</h4>
@@ -110,28 +112,12 @@
     <script src="{{ asset('js/dashboard/temps-saisis.js') }}"></script>
     <script src="{{ asset('js/dashboard/heures-par-projet.js') }}"></script>
     <script src="{{ asset('js/dashboard/moi-vs-equipe.js') }}"></script>
+    <script src="{{ asset('js/dashboard/projets-statuts.js') }}"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
 
 <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-        ['Statuts', 'Speakers (in pourcents)'],
-        ['Projets en cours',85], ['Projets terminés', 15], ['Projets suspendus', 4],
-        ]);
-        var options = {
-        is3D: true,
-        //   legend: 'none',
-        pieSliceText: 'label',
-        slices: { 4: {offset: 0.9}, 12: {offset: 0.3}, 14: {offset: 0.4}, 15: {offset: 0.5},},
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-    }
 
     var x = ["2015","2015","2016","2016", "2017"]
     var y = ["1","O.5","3","10","23"]
@@ -154,35 +140,5 @@
     ]
 
     Plotly.newPlot('myDiv', data)
-
-
-    {# var x = ["P1, P2, P3, P4"]
-    var y = ["300", "100", "150"]
-
-    var data = [
-        {
-        histfunc: "Projet",
-        y: y,
-        x: x,
-        type: "histogram",
-        name: "RDI"
-        },
-    ]
-
-    Plotly.newPlot('myDiv2', data) #}
-
-
-    $('#dropdownYearBis').each(function() {
-
-        var year = (new Date()).getFullYear();
-        var current = year;
-        // year += 4;
-        for (var i = 0; i < 5; i++) {
-            if ((year+i) == current)
-            $(this).append('<option selected value="' + (year - i) + '">' + (year - i) + '</option>');
-            else
-            $(this).append('<option value="' + (year - i) + '">' + (year - i) + '</option>');
-        }
-    })
 </script>
 {% endblock %}
