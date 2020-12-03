@@ -20,13 +20,12 @@ class ProjetController extends AbstractController
     /**
      * Affichage de tous les projets de la société
      * @Route("/tous-les-projets", name="app_fo_projet_admin_projets_")
-     * 
+     *
      * @IsGranted("ROLE_FO_ADMIN")
      */
-    public function listerProjetAdmin(ProjetParticipantRepository $projetParticipantRepository, 
-                                        ProjetRepository $projetRepository)
+    public function listerProjetAdmin(ProjetRepository $projetRepository)
     {
-        $allProjectsOfSociete = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete()); 
+        $allProjectsOfSociete = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete());
         return $this->render('projets/admin_liste_projets.html.twig', [
             'projets'=> $allProjectsOfSociete,
         ]);

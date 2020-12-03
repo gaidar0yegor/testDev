@@ -1,7 +1,7 @@
 (function (_export, $) {
     'use strict';
 
-    const day0 = 'calmonth-day-0 btn-outline-secondary';
+    const day0 = 'calmonth-day-0 btn-secondary';
     const day05 = 'calmonth-day-05 btn-info';
     const day1 = 'calmonth-day-1 btn-success';
 
