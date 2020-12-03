@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.5.1] - 2020-12-03
 ### Ajouté
 - Tableau de bord : tableau "Moi VS Équipe"
 - Tableau de bord : Camembert "Réalisation des projets"
@@ -16,9 +21,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Fix: Admin doit pouvoir créer des ressources sur tous les projets
 ### Supprimé
 - Suppression du champ en base de données `projet.statut_rdi` car non utilisé
-
-
-
 
 ## [0.5.0] - 2020-12-02
 ### Ajouté
