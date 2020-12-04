@@ -21,14 +21,14 @@
             </tr>
         </thead>
         <tbody>
-        {% for fichier in liste_fichiers %}
+        {% for fichierProjet in liste_fichiers %}
             <tr>
-                <td class="text-center">{{ fichier.NomFichier }}</td>
-                <td class="text-center">{{ fichier.uploadedBy.fullname }}</td>
-                <td class="text-center d-none d-md-table-cell">{{ fichier.dateUpload ? fichier.dateUpload|date('d/m/Y') : '-' }}</td>            
+                <td class="text-center">{{ fichierProjet.fichier.nomFichier }}</td>
+                <td class="text-center">{{ fichierProjet.uploadedBy.fullname }}</td>
+                <td class="text-center d-none d-md-table-cell">{{ fichierProjet.fichier.dateUpload ? fichierProjet.fichier.dateUpload|date('d/m/Y') : '-' }}</td>
                 <td class="text-center">
                     <a
-                        href="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}"
+                        href="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
                         class="btn btn-success"
                     >
                         <i class="fa fa-cloud-download" aria-hidden="true"></i>
@@ -37,14 +37,14 @@
                 </td>
                 <td class="text-center">
                     <form
-                        action="{{ path('efface_fichier_', {'projetId': projet.id, 'fichierProjetId': fichier.id}) }}"
+                        action="{{ path('efface_fichier_', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
                         method="post"
                         onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');"
                     >
                         <input type="hidden" name="_method" value="DELETE">
                         <button
                             class="btn btn-outline-danger"
-                            {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), fichier) %}
+                            {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), fichierProjet) %}
                                 disabled
                                 title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
                             {% endif %}

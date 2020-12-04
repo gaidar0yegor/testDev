@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Projet;
-use App\Form\UploadType;
 use App\Entity\FichierProjet;
+use App\Form\FichierProjetType;
 use App\ProjetResourceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FichiersProjetRepository;
@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -43,29 +42,30 @@ class FichierController extends AbstractController
         $this->denyAccessUnlessGranted(ProjetResourceInterface::CREATE, $projet);
 
         $fichierProjet = new FichierProjet();
-        $form = $this->createForm(UploadType::class, $fichierProjet);
+        $form = $this->createForm(FichierProjetType::class, $fichierProjet);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $fileName = md5(uniqid()).'.'.$fichierProjet->getFile()->guessExtension(); // uniqid = faire un Id unique
+            $fichier = $fichierProjet->getFichier();
+            $fileName = md5(uniqid()).'.'.$fichier->getFile()->guessExtension(); // uniqid = faire un Id unique
 
-            $fichierProjet
-                ->setNomFichier($fichierProjet->getFile()->getClientOriginalName())
-                ->setUploadedBy($this->getUser())
-                ->setProjet($projet)
+            $fichier
+                ->setNomFichier($fichierProjet->getFichier()->getFile()->getClientOriginalName())
                 ->setNomMd5($fileName)
+                ->getFile()
+                ->move($this->getParameter('upload_directory'), $fileName)
             ;
 
             $fichierProjet
-                ->getFile()
-                ->move($this->getParameter('upload_directory'), $fileName)
+                ->setUploadedBy($this->getUser())
+                ->setProjet($projet)
             ;
 
             $em->persist($fichierProjet);
             $em->flush();
 
-            $this->addFlash('success', sprintf('Le fichier "%s" a été créé.', $fichierProjet->getNomFichier()));
+            $this->addFlash('success', sprintf('Le fichier "%s" a été créé.', $fichier->getNomFichier()));
 
             return $this->redirectToRoute('liste_fichiers_', [
                 'id' => $projet->getid(),
@@ -83,12 +83,12 @@ class FichierController extends AbstractController
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
      */
-    public function delete(Request $request, FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
+    public function delete(FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $fichierProjet);
 
         //path
-        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getNomMd5();
+        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getFichier()->getNomMd5();
         unlink($chemin);
 
         $em->remove($fichierProjet);
@@ -105,15 +105,15 @@ class FichierController extends AbstractController
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
      */
-    public function download(Request $request, FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
+    public function download(FichierProjet $fichierProjet): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::VIEW, $fichierProjet);
 
-        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getNomMd5();
+        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getFichier()->getNomMd5();
 
         $response = new BinaryFileResponse($chemin);
         $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        $fichierProjet->getNomFichier());
+        $fichierProjet->getFichier()->getNomFichier());
         return $response;
     }
 }

@@ -28,15 +28,21 @@ App\Entity\User:
         roles: [ROLE_FO_USER]
         societe: '@societe'
 
-App\Entity\FichierProjet:
-    fichier_de_contributeur:
+App\Entity\Fichier:
+    file_fichier_de_contributeur:
         nomMd5: xxx
         nomFichier: fichier_de_contributeur.txt
+    file_fichier_de_cdp:
+        nomMd5: yyy
+        nomFichier: fichier_de_cdp.txt
+
+App\Entity\FichierProjet:
+    fichier_de_contributeur:
+        fichier: '@file_fichier_de_contributeur'
         uploadedBy: '@contributeur'
         projet: '@projet'
     fichier_de_cdp:
-        nomMd5: yyy
-        nomFichier: fichier_de_cdp.txt
+        fichier: '@file_fichier_de_cdp'
         uploadedBy: '@cdp'
         projet: '@projet'
 
