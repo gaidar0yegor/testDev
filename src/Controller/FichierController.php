@@ -8,6 +8,7 @@ use App\Form\FichierProjetType;
 use App\ProjetResourceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\FichiersProjetRepository;
+use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,7 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FichierController extends AbstractController
 {
@@ -37,8 +39,12 @@ class FichierController extends AbstractController
      * @param Request $rq
      * @return Response
      */
-    public function uploadFichiers(Request $request, Projet $projet, EntityManagerInterface $em): Response
-    {
+    public function uploadFichiers(
+        Request $request,
+        Projet $projet,
+        FilesystemInterface $defaultStorage,
+        EntityManagerInterface $em
+    ): Response {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::CREATE, $projet);
 
         $fichierProjet = new FichierProjet();
@@ -48,14 +54,16 @@ class FichierController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $fichier = $fichierProjet->getFichier();
-            $fileName = md5(uniqid()).'.'.$fichier->getFile()->guessExtension(); // uniqid = faire un Id unique
+            $fileName = md5(uniqid()).'.'.$fichier->getFile()->guessExtension();
 
             $fichier
-                ->setNomFichier($fichierProjet->getFichier()->getFile()->getClientOriginalName())
+                ->setNomFichier($fichier->getFile()->getClientOriginalName())
                 ->setNomMd5($fileName)
-                ->getFile()
-                ->move($this->getParameter('upload_directory'), $fileName)
             ;
+
+            $stream = fopen($fichier->getFile()->getRealPath(), 'r+');
+            $defaultStorage->writeStream("uploads/$fileName", $stream);
+            fclose($stream);
 
             $fichierProjet
                 ->setUploadedBy($this->getUser())
@@ -83,13 +91,15 @@ class FichierController extends AbstractController
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
      */
-    public function delete(FichierProjet $fichierProjet, EntityManagerInterface $em, Projet $projet): Response
-    {
+    public function delete(
+        FichierProjet $fichierProjet,
+        FilesystemInterface $defaultStorage,
+        EntityManagerInterface $em,
+        Projet $projet
+    ): Response {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $fichierProjet);
 
-        //path
-        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getFichier()->getNomMd5();
-        unlink($chemin);
+        $defaultStorage->delete('uploads/'.$fichierProjet->getFichier()->getNomMd5());
 
         $em->remove($fichierProjet);
         $em->flush();
@@ -105,15 +115,22 @@ class FichierController extends AbstractController
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
      */
-    public function download(FichierProjet $fichierProjet): Response
+    public function download(FichierProjet $fichierProjet, FilesystemInterface $defaultStorage): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::VIEW, $fichierProjet);
 
-        $chemin = $this->getParameter('upload_directory').'/'.$fichierProjet->getFichier()->getNomMd5();
+        $stream = $defaultStorage->readStream('uploads/'.$fichierProjet->getFichier()->getNomMd5());
 
-        $response = new BinaryFileResponse($chemin);
-        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-        $fichierProjet->getFichier()->getNomFichier());
-        return $response;
+        return new StreamedResponse(function () use ($stream) {
+            echo stream_get_contents($stream);
+            flush();
+        }, 200, [
+            'Content-Transfer-Encoding', 'binary',
+            'Content-Disposition' => sprintf(
+                'attachment; filename="%s"',
+                $fichierProjet->getFichier()->getNomFichier()
+            ),
+            'Content-Length' => fstat($stream)['size'],
+        ]);
     }
 }

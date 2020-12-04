@@ -7,6 +7,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Modifié
 - Refactorise l'entité FichierProjet dans Fichier pour être plus flexible sur les fichiers
+- Utilise flysystem comme couche d'abstraction du système de fichier
+- Déplace `public/upload` vers `var/storage/default/upload` pour ne plus exposer les fichiers publiquement
 
 
 

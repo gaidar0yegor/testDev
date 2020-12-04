@@ -4,8 +4,6 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    upload_directory: '%kernel.project_dir%/public/uploads'
-
     # Default request context, used i.e to create url from commands
     router.request_context.host: '%env(REQUEST_BASE_HOST)%'
     router.request_context.base_url: '%env(REQUEST_BASE_PATH)%'
