@@ -1,12 +1,21 @@
-{% extends "base.html.twig" %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
 
-{% block title %}Preview Export PDF: Projet {{ projet.titre }} | {{ parent() }}{% endblock %}
+        <title>Projet | RDI Manager</title>
 
-{% block body %}
+        <link rel="stylesheet" href="{{ absolute_url(asset('dependences/bootstrap-4.5.0.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('dependences/font-awesome/css/font-awesome.min.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('css/pdf.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('css/timeline.css')) }}">
+        <link rel="stylesheet" href="{{ absolute_url(asset('css/styles.css')) }}">
 
-<h1>Export PDF : Projet {{ projet.acronyme }}</h1>
+    </head>
+    <body>
+    <h1>Export PDF : Projet {{ projet.acronyme }}</h1>
 
-<p class="text-center">
+    <p class="text-center">
     {% if projet.projetCollaboratif %}
         <span class="badge badge-success">Collaboratif</span>
     {% endif %}
@@ -19,7 +28,7 @@
     {# {% if projet.statutRdi %} #}
         {# <span class="badge badge-success">Elligible RDI</span> #}
     {# {% endif %} #}
-</p>
+  </p>
 
 <div class="row">
     <div class="col-lg-10 offset-lg-1">
@@ -56,7 +65,7 @@
                             <div class="col-md-6">{{ projet.statut }}</div>
                         </div>
                     </div>
-                    {# <div class="d-none d-md-block">
+                    <div class="d-none d-md-block">
                         <strong>Participants : </strong>
                         {% if projet.projetParticipants() %}
                             <ul class="mt-3">
@@ -67,7 +76,7 @@
                         {% else %}
                             <p>Pas de contributeurs à ce projet</p>
                         {% endif %}
-                    </div> #}
+                    </div>
                 </div>
             </div>
         </div>
@@ -77,16 +86,7 @@
 
         <section id="timeline">
             <h2 class="facts">Faits marquants</h2>
-             {# ajout bouton Générer PDF #}
-             <div class="col-sm-6 col-md-3">
-                <a
-                    href="{{ path('generate_fiche_projet_', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
-                    {% if not userCanEditProjet %}
-                        title="Seul le chef de projet peut exporter"
-                    {% endif %}
-                >Générer PDF</a>
-            </div>
+             
             {% if projet.hasFaitMarquants() %}
             <ul class="timeline">
                 {% for faitMarquant in projet.faitMarquants %}
@@ -108,7 +108,6 @@
             {% endif %}
         </section>
     </div>
-</div>
 
-{% endblock %}
-
+    </body>
+</html>

@@ -159,20 +159,11 @@ class ProjetController extends AbstractController
      */
     public function ficheProjetGeneratePdf(Projet $projet)
     {
-        //$this->denyAccessUnlessGranted('view', $projet);
-
-        
-        $sheetHtml = $this->renderView('fait_marquant/pdf/fiche_projet_pdf.html.twig', [
+        $this->denyAccessUnlessGranted('view', $projet);
+        $sheetHtml = $this->renderView('projets/pdf/pdf_fiche_projet.html.twig', [
             'projet' => $projet,
         ]);
-        //dd($sheetHtml);
         return $this->createPdfResponse($sheetHtml);
-        
-        // return $this->render('projets/fiche_projet_preview_pdf.html.twig', [
-        //     'projet' => $projet,
-        //     'userCanEditProjet' => $this->isGranted('edit', $projet),
-        //     'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
-        // ]);
     }
 
     private function createPdfResponse(string $htmlContent, string $filename = 'projet.pdf'): PdfResponse
@@ -185,8 +176,6 @@ class ProjetController extends AbstractController
             //'orientation'   => 'landscape',
         ];
         $result = $this->pdf->getOutputFromHtml($htmlContent, $options);
-        //dd($result);
         return new PdfResponse($result, $filename);
     }
-
 }

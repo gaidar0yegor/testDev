@@ -78,14 +78,14 @@
             </div>
         </div>
 
-        <div class="row mt-4 mb-4">
-            <div class="col-sm-6 col-md-3">
+        <div class="row mt-4 mb-4 justify-content-between">
+            <div class="col-sm-6 col-md-2">
                 <a
                     href="{{ path('liste_fichiers_', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2"
                 >Fichiers</a>
             </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-2">
                 <a
                     href="{{ path('projet_participant', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
@@ -94,7 +94,7 @@
                     {% endif %}
                 >Participants</a>
             </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-2">
                 <a
                     href="{{ path('projet_edition', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
@@ -103,7 +103,7 @@
                     {% endif %}
                 >Projet</a>
             </div>
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-2">
                 <a
                     href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
@@ -113,7 +113,7 @@
                 >Fait marquant</a>
             </div>
              {# ajout bouton Exporter #}
-             <div class="col-sm-6 col-md-3">
+             <div class="col-sm-6 col-md-2">
                 <a
                     href="{{ path('preview_fiche_projet_', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
