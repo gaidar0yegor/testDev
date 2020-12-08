@@ -17,8 +17,9 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         Then I should see "Liste des fichiers" in the "h1" element
         And I should see "fichier_de_contributeur.txt"
         And I should see "fichier_de_cdp.txt"
+        But I should not see "Ajouter un fichier"
 
-        When I follow "Télécharger"
+        When I follow "fichier_de_cdp.txt"
         Then the response status code should not be 403
 
     Scenario: Un utilisateur ne peut pas voir et télécharger les fichiers si il n'est pas au moins observateur sur le projet
@@ -40,9 +41,6 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _username | contributeur@societe.dev  |
             | _password | contributeur              |
         And I press "Connexion"
-        And I am on "/fiche/projet/1/liste/fichiers"
 
-        When I follow "Ajouter un fichier"
-        And I attach the file "projet/fichiers/test_upload.txt" to "Fichier"
-        And I press "Soumettre"
-        Then I should see "Le fichier \"test_upload.txt\" a été créé"
+        When I go to "/fiche/projet/1/liste/fichiers"
+        Then I should see "Ajouter un fichier"

@@ -37,3 +37,87 @@
         </div>
     </div>
 {% endblock %}
+
+{% block fichier_projets_row %}
+    {{ form_label(form) }}
+    {{ form_errors(form) }}
+    {{ form_help(form) }}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fichier</th>
+                <th>Auteur</th>
+                <th><span class="d-none d-sm-table-cell">Date</span></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="fichier-projets-container" data-prototype="{{ form_row(form.vars.prototype)|e }}">
+            {{ form_widget(form) }}
+
+            {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), form.vars.projet) %}
+                <tr class="add-file-btn">
+                    <td colspan="4">
+                        <button class="btn btn-outline-primary" type="button">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            Ajouter un fichier
+                        </button>
+                    </td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block fichier_projets_widget %}
+    {{- block('form_rows') -}}
+{% endblock %}
+
+{% block fichier_projet_row %}
+    <tr>
+        {% if form.vars.data %}
+            <td>
+                <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
+                <a
+                    href="{{ path('telecharge_fichier_', {
+                        'projetId': form.vars.data.projet.id,
+                        'fichierProjetId': form.vars.data.id
+                    }) }}"
+                >
+                    {{ form_row(form.children.fichier) }}
+                </a>
+            </td>
+            <td>{{ form.vars.data.uploadedBy.fullname }}</td>
+            <td><span class="d-none d-sm-table-cell">{{ form.vars.data.fichier.dateUpload|format_date }}</span></td>
+            <td>
+                <a
+                    href="{{ path('efface_fichier_', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
+                    class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
+                    {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}
+                        title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
+                    {% endif %}
+                >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </td>
+        {% else %}
+            <td colspan="3" class="input-group-sm">{{ form_row(form.children.fichier) }}</td>
+            <td>
+                <button type="button" class="btn btn-sm btn-outline-danger remove-file-btn">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </td>
+        {% endif %}
+    </tr>
+{% endblock %}
+
+{% block fichier_row %}
+    {% if form.vars.data %}
+        {{ form.vars.data.nomFichier }}
+        <div class="d-none">
+            {{ form_row(form) }}
+        </div>
+    {% else %}
+        {{ form_widget(form) }}
+    {% endif %}
+{% endblock %}

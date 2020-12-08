@@ -55,19 +55,3 @@
 </div>
 
 {% endblock %}
-
-{% block javascripts %}
-    {{ parent() }}
-
-    <script type="text/javascript">
-        const $participants = $('#liste_projet_participants_projetParticipants');
-
-        EmbedForm.init($participants, {
-            $addButton: $('#btn-ajouter-participant'),
-        });
-
-        $participants.on('click', '.embed-form-remove', function () {
-            $(this).closest('.projet-participant-row').remove();
-        });
-    </script>
-{% endblock %}

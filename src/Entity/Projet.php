@@ -56,7 +56,7 @@ class Projet implements HasSocieteInterface
     private $projetPpp;
 
     /**
-     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="projet", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
      */
     private $fichierProjets;
 

@@ -6,14 +6,12 @@ use App\HasSocieteInterface;
 use App\ProjetResourceInterface;
 use App\Repository\FichiersProjetRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=FichiersProjetRepository::class)
  */
 class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
 {
-
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -22,30 +20,10 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Fichier::class, cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $nomMd5;
-
-    /**
-     * @var UploadedFile
-     */
-    private $file;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $nomFichier;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     */
-    private $uploadedBy;
-
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $dateUpload;
-
+    private $fichier;
 
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="fichierProjets")
@@ -54,52 +32,34 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
     private $projet;
 
     /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $uploadedBy;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
-    public function __construct()
-    {
-        $this->dateUpload = new \DateTime();
-    }
+    /**
+     * @ORM\ManyToOne(targetEntity=FaitMarquant::class, inversedBy="fichierProjets")
+     */
+    private $faitMarquant;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomMd5(): ?string
+    public function getFichier(): ?Fichier
     {
-        return $this->nomMd5;
+        return $this->fichier;
     }
 
-    public function setNomMd5(string $nomMd5): self
+    public function setFichier(?Fichier $fichier): self
     {
-        $this->nomMd5 = $nomMd5;
-
-        return $this;
-    }
-
-    public function getNomFichier()
-    {
-        return $this->nomFichier;
-    }
-
-    public function setNomFichier($nomFichier): self
-    {
-        $this->nomFichier = $nomFichier;
-
-        return $this;
-    }
-
-    public function getUploadedBy(): ?User
-    {
-        return $this->uploadedBy;
-    }
-
-    public function setUploadedBy(User $uploadedBy): self
-    {
-        $this->uploadedBy = $uploadedBy;
+        $this->fichier = $fichier;
 
         return $this;
     }
@@ -116,6 +76,18 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
         return $this;
     }
 
+    public function getUploadedBy(): ?User
+    {
+        return $this->uploadedBy;
+    }
+
+    public function setUploadedBy(User $uploadedBy): self
+    {
+        $this->uploadedBy = $uploadedBy;
+
+        return $this;
+    }
+
     public function getDescription(): ?string
     {
         return $this->description;
@@ -128,30 +100,6 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
         return $this;
     }
 
-    public function getDateUpload(): ?\DateTimeInterface
-    {
-        return $this->dateUpload;
-    }
-
-    public function setDateUpload(\DateTimeInterface $dateUpload): self
-    {
-        $this->dateUpload = $dateUpload;
-
-        return $this;
-    }
-
-    public function getFile(): ?UploadedFile
-    {
-        return $this->file;
-    }
-
-    public function setFile(?UploadedFile $file): self
-    {
-        $this->file = $file;
-
-        return $this;
-    }
-
     public function getSociete(): ?Societe
     {
         return $this->getProjet()->getSociete();
@@ -160,5 +108,17 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
     public function getOwner(): User
     {
         return $this->uploadedBy;
+    }
+
+    public function getFaitMarquant(): ?FaitMarquant
+    {
+        return $this->faitMarquant;
+    }
+
+    public function setFaitMarquant(?FaitMarquant $faitMarquant): self
+    {
+        $this->faitMarquant = $faitMarquant;
+
+        return $this;
     }
 }

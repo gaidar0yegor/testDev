@@ -1,7 +1,7 @@
-(function ($) {
+(function ($, EmbedForm) {
     'use strict';
 
-    $('input.custom-file-input').on('change', function () {
+    $('form').on('change', 'input.custom-file-input', function () {
         const $input = $(this);
         const path = $input.val();
         const filename = path.split(/[\/\\]+/).pop();
@@ -37,4 +37,50 @@
         format: 'dd MM yyyy',
         immediateUpdates: true,
     });
-})(jQuery);
+
+    // form fait marquants
+    EmbedForm.init($('.fichier-projets-container'), {
+        $addButton: $('.fichier-projets-container .add-file-btn'),
+        newItemAppend: $newItem => $('.fichier-projets-container .add-file-btn').before($newItem),
+    });
+    $('.fichier-projets-container').on('click', '.remove-file-btn', function () {
+        $(this).closest('tr').remove();
+    });
+
+
+    // form gestion projets participants
+    const $participants = $('#liste_projet_participants_projetParticipants');
+    EmbedForm.init($participants, {
+        $addButton: $('#btn-ajouter-participant'),
+    });
+    $participants.on('click', '.embed-form-remove', function () {
+        $(this).closest('.projet-participant-row').remove();
+    });
+
+    // link-get-to-post
+    $('a.link-delete-file').click(function () {
+        if (!confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?')) {
+            return false;
+        }
+
+        const $a = $(this);
+
+        $.ajax({
+            url: $a.attr('href'),
+            method: 'DELETE',
+            success: function () {
+                $a.closest('tr').animate(
+                    {
+                        opacity: 0,
+                    },
+                    400,
+                    () => {
+                        $a.closest('tr').remove();
+                    },
+                );
+            },
+        });
+
+        return false;
+    });
+})(jQuery, EmbedForm);

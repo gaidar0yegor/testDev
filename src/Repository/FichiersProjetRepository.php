@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FichierProjet;
-use App\HasSocieteInterface;
+use App\Entity\Societe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,32 +20,23 @@ class FichiersProjetRepository extends ServiceEntityRepository
         parent::__construct($registry, FichierProjet::class);
     }
 
-    // /**
-    //  * @return FichiersProjet[] Returns an array of FichiersProjet objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function whereSociete(Societe $societe)
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+        return $this
+            ->createQueryBuilder('fichierProjet')
+            ->leftJoin('fichierProjet.uploadedBy', 'user')
+            ->where('user.societe = :societe')
+            ->setParameters([
+                'societe' => $societe,
+            ])
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?FichiersProjet
+    public function whereCanBeLinkedToFaitMarquant(Societe $societe)
     {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
+        return $this
+            ->whereSociete($societe)
+            ->andWhere('fichierProjet.faitMarquant is null')
         ;
     }
-    */
 }
