@@ -10,63 +10,18 @@
         Retourner au projet
     </a>
 
-    <table class="table text-center mx-auto m-5">
-        <thead>
-            <tr>
-                <th scope="col" class="">Fichier</th>
-                <th scope="col" class="">Uploadeur</th>
-                <th scope="col" class="d-none d-md-table-cell">Date</th>
-                <th scope="col" class="">Downloader</th>
-                <th scope="col" class="">Supprimer</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for fichierProjet in liste_fichiers %}
-            <tr>
-                <td class="text-center">{{ fichierProjet.fichier.nomFichier }}</td>
-                <td class="text-center">{{ fichierProjet.uploadedBy.fullname }}</td>
-                <td class="text-center d-none d-md-table-cell">{{ fichierProjet.fichier.dateUpload ? fichierProjet.fichier.dateUpload|date('d/m/Y') : '-' }}</td>
-                <td class="text-center">
-                    <a
-                        href="{{ path('telecharge_fichier_', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
-                        class="btn btn-success"
-                    >
-                        <i class="fa fa-cloud-download" aria-hidden="true"></i>
-                        Télécharger
-                    </a>
-                </td>
-                <td class="text-center">
-                    <form
-                        action="{{ path('efface_fichier_', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
-                        method="post"
-                        onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?');"
-                    >
-                        <input type="hidden" name="_method" value="DELETE">
-                        <button
-                            class="btn btn-outline-danger"
-                            {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), fichierProjet) %}
-                                disabled
-                                title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
-                            {% endif %}
-                        >
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div class="text-center mx-auto">
-        <a
-            href="{{ path('ajout_fichier_',{'id':projet.id}) }}"
-            class="btn btn-outline-success {{ canUploadFile ? '' : 'disabled' }}"
-            {% if not canUploadFile %}
-                title="Seul les contributeurs de ce projet peuvent ajouter des fichiers"
-            {% endif %}
-        >
-            <i class="fa fa-cloud-upload" aria-hidden="true"></i>
-            Ajouter un fichier
-        </a>
-    </div>
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.fichierProjets) }}
+
+    {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), projet) %}
+        <div class="text-center mt-5">
+            <button class="btn btn-success">
+                {{ button_label|default('Sauvegarder') }}
+            </button>
+        </div>
+    {% endif %}
+
+    {{ form_end(form) }}
 {% endblock %}

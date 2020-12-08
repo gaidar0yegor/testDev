@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\ProjetResourceInterface;
 use App\Repository\FaitMarquantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -44,6 +46,16 @@ class FaitMarquant implements ProjetResourceInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $projet;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="faitMarquant", cascade={"all"})
+     */
+    private $fichierProjets;
+
+    public function __construct()
+    {
+        $this->fichierProjets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -113,5 +125,47 @@ class FaitMarquant implements ProjetResourceInterface
     public function getOwner(): User
     {
         return $this->createdBy;
+    }
+
+    /**
+     * @return Collection|FichierProjet[]
+     */
+    public function getFichierProjets(): Collection
+    {
+        return $this->fichierProjets;
+    }
+
+    public function setFichierProjets($fichierProjets): self
+    {
+        $this->fichierProjets = $fichierProjets;
+
+        foreach ($fichierProjets as $fichierProjet) {
+            $fichierProjet->setFaitMarquant($this);
+        }
+
+        return $this;
+    }
+
+    public function addFichierProjet(FichierProjet $fichierProjet): self
+    {
+        if (!$this->fichierProjets->contains($fichierProjet)) {
+            $this->fichierProjets[] = $fichierProjet;
+            $fichierProjet->setFaitMarquant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichierProjet(FichierProjet $fichierProjet): self
+    {
+        if ($this->fichierProjets->contains($fichierProjet)) {
+            $this->fichierProjets->removeElement($fichierProjet);
+            // set the owning side to null (unless already changed)
+            if ($fichierProjet->getFaitMarquant() === $this) {
+                $fichierProjet->setFaitMarquant(null);
+            }
+        }
+
+        return $this;
     }
 }

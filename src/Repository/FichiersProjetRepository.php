@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FichierProjet;
-use App\HasSocieteInterface;
+use App\Entity\Societe;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,5 +18,25 @@ class FichiersProjetRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, FichierProjet::class);
+    }
+
+    public function whereSociete(Societe $societe)
+    {
+        return $this
+            ->createQueryBuilder('fichierProjet')
+            ->leftJoin('fichierProjet.uploadedBy', 'user')
+            ->where('user.societe = :societe')
+            ->setParameters([
+                'societe' => $societe,
+            ])
+        ;
+    }
+
+    public function whereCanBeLinkedToFaitMarquant(Societe $societe)
+    {
+        return $this
+            ->whereSociete($societe)
+            ->andWhere('fichierProjet.faitMarquant is null')
+        ;
     }
 }

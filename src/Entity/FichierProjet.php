@@ -42,6 +42,11 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
      */
     private $description;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=FaitMarquant::class, inversedBy="fichierProjets")
+     */
+    private $faitMarquant;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,5 +108,17 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
     public function getOwner(): User
     {
         return $this->uploadedBy;
+    }
+
+    public function getFaitMarquant(): ?FaitMarquant
+    {
+        return $this->faitMarquant;
+    }
+
+    public function setFaitMarquant(?FaitMarquant $faitMarquant): self
+    {
+        $this->faitMarquant = $faitMarquant;
+
+        return $this;
     }
 }
