@@ -124,4 +124,9 @@ class DateMonthService
 
         return true;
     }
+
+    public function isSameMonth(\DateTimeInterface $date0, \DateTimeInterface $date1): bool
+    {
+        return $date0->format('Y-m') === $date1->format('Y-m');
+    }
 }
