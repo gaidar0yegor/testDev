@@ -19,14 +19,13 @@ use Knp\Snappy\Pdf;
 
 class ProjetController extends AbstractController
 {
-    
     private Pdf $pdf;
 
     public function __construct(Pdf $pdf)
     {
         $this->pdf = $pdf;
     }
-    
+
     /**
      * Affichage de tous les projets de la société
      * @Route("/tous-les-projets", name="app_fo_projet_admin_projets_")
@@ -141,28 +140,16 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/preview/projet/{id}", name="preview_fiche_projet_")
-     */
-    public function ficheProjetPreviewPdf(Projet $projet)
-    {
-        $this->denyAccessUnlessGranted('view', $projet);
-
-        return $this->render('projets/fiche_projet_preview_pdf.html.twig', [
-            'projet' => $projet,
-            'userCanEditProjet' => $this->isGranted('edit', $projet),
-            'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
-        ]);
-    }
-
-    /**
      * @Route("/generate/projet/{id}", name="generate_fiche_projet_")
      */
     public function ficheProjetGeneratePdf(Projet $projet)
     {
         $this->denyAccessUnlessGranted('view', $projet);
+
         $sheetHtml = $this->renderView('projets/pdf/pdf_fiche_projet.html.twig', [
             'projet' => $projet,
         ]);
+
         return $this->createPdfResponse($sheetHtml);
     }
 
@@ -173,7 +160,6 @@ class ProjetController extends AbstractController
             'margin-right'  => 15,
             'margin-bottom' => 15,
             'margin-left'   => 15,
-            //'orientation'   => 'landscape',
         ];
         $result = $this->pdf->getOutputFromHtml($htmlContent, $options);
         return new PdfResponse($result, $filename);

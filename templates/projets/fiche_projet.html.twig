@@ -56,36 +56,18 @@
                             <div class="col-md-6">{{ projet.statut }}</div>
                         </div>
                     </div>
-{# 
-                    <div class="d-none d-md-block">
-                        <strong>Participants : </strong>
-                        {% if projet.projetParticipants() %}
-                            <ul class="mt-3">
-                                {% for projetParticipant in projet.projetParticipants %}
-                                    <li>{{ projetParticipant.user.fullname }} - {{ projetParticipant.role|trans }}</li>
-                                {% endfor %}
-                                <span class="text-right">
-                                    <a href="{{ path('projet_participant', {'id': projet.id}) }}">
-                                        Lire les autres
-                                    </a>
-                                </span>
-                            </ul>
-                        {% else %}
-                            <p>Pas de contributeurs à ce projet</p>
-                        {% endif %}
-                    </div> #}
                 </div>
             </div>
         </div>
 
-        <div class="row mt-4 mb-4 justify-content-between">
-            <div class="col-sm-6 col-md-2">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 my-4">
+            <div class="col">
                 <a
                     href="{{ path('liste_fichiers_', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2"
                 >Fichiers</a>
             </div>
-            <div class="col-sm-6 col-md-2">
+            <div class="col">
                 <a
                     href="{{ path('projet_participant', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
@@ -94,7 +76,7 @@
                     {% endif %}
                 >Participants</a>
             </div>
-            <div class="col-sm-6 col-md-2">
+            <div class="col">
                 <a
                     href="{{ path('projet_edition', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
@@ -103,7 +85,7 @@
                     {% endif %}
                 >Projet</a>
             </div>
-            <div class="col-sm-6 col-md-2">
+            <div class="col">
                 <a
                     href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
@@ -112,14 +94,10 @@
                     {% endif %}
                 >Fait marquant</a>
             </div>
-             {# ajout bouton Exporter #}
-             <div class="col-sm-6 col-md-2">
+             <div class="col">
                 <a
-                    href="{{ path('preview_fiche_projet_', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
-                    {% if not userCanEditProjet %}
-                        title="Seul le chef de projet peut exporter"
-                    {% endif %}
+                    href="{{ path('generate_fiche_projet_', {'id': projet.id}) }}"
+                    class="btn btn-block btn-outline-primary mt-2"
                 >Export PDF</a>
             </div>
         </div>
@@ -128,7 +106,6 @@
             <h2 class="facts">Faits marquants</h2>
 
             {% if projet.hasFaitMarquants() %}
-
             <ul class="timeline">
                 {% for faitMarquant in projet.faitMarquants %}
                     <li class="event">
