@@ -15,9 +15,11 @@ App\Entity\Projet:
         titre: Projet 2
         acronyme: P2
         projetPpp: true
+        dateDebut: <(new DateTime("2010-11-01"))>
     projet3:
         titre: Projet 3
         acronyme: P3
+        dateFin: <(new DateTime("2025-11-01"))>
     projet_fini:
         titre: Projet fini
         acronyme: P4

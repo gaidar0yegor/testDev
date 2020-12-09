@@ -1,10 +1,15 @@
 App\Entity\TempsPasse:
     temps_passe_user_projet1:
         pourcentage: 25
-        projet: '@projet1'
+        projet: '@projet__1'
     temps_passe_cdp_projet1:
         pourcentage: 10
-        projet: '@projet1'
+        projet: '@projet__1'
     temps_passe_cdp_projet2:
         pourcentage: 15
-        projet: '@projet2'
+        projet: '@projet__2'
+
+    tempspasse__{1..500}:
+        pourcentage: '<numberBetween(5, 25)>'
+        projet: '@projet__*'
+        cra: '@cra__*'

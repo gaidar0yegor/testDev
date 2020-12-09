@@ -227,7 +227,10 @@ class DashboardController extends AbstractController
                 : intval($projet->getDateFin()->format('Y'))
             ;
 
-            for ($i = $projetYearStart; $i <= $projetYearEnd; ++$i) {
+            $from = max($projetYearStart, $sinceYear);
+            $to = min($projetYearEnd, $currentYear);
+
+            for ($i = $from; $i <= $to; ++$i) {
                 ++$stats[$i]['projets'];
 
                 if ($isRdi) {

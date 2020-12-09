@@ -1,13 +1,74 @@
 App\Entity\FaitMarquant:
-    fait{1..3}:
-        titre: 'Fait <current()>'
-        description: 'Nous avons réalisé ce fait <current()> sur ce projet. <paragraphs(2, true)>'
+    faitmarquant__{1..100}:
+        projet: '@projet__*'
+        titre: <sentence()>
+        description: <paragraphs(2, true)>
+        date: '<dateTimeBetween("-4 years", "now")>'
+        createdBy: '@user*'
+
+    faitmarquant_1_projet1:
+        titre: Salon des entrepreneurs à Paris
+        description: Rencontre avec une agence locale située à Bordeaux lors du salon des entrepreneurs à Paris en avril 2019. Cette rencontre nous a permis d’accélérer et de concrétiser notre ambition d’étendre notre activité dans le Grand Ouest.
         date: '<date_create()>'
         createdBy: '@user'
-        projet: '@projet1'
-    fait4:
-        titre: 'Fait 4'
-        description: 'Nous avons réalisé ce fait 4 sur ce projet. <paragraphs(2, true)>'
+        projet: '@projet__1'
+    faitmarquant_2_projet1:
+        titre: Meeting avec notre partenaire à Bordeaux
+        description: Début juin 2019, nous avons rencontré notre nouveau partenaire à Bordeaux pour définir les termes de notre association. Plusieurs RDV ont été organisés avec certains de leurs partenaires locaux, ainsi que des PME locales.
         date: '<date_create()>'
-        createdBy: '@cdp'
-        projet: '@projet1'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_3_projet1:
+        titre: Prise de poste du responsable développement local
+        description: Au 1er octobre, prise de poste du responsable développement qui sera basé à Bordeaux pour gérer et déployer l’activité dans la région Grand Ouest.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_4_projet1:
+        titre: Installation et domiciliation du bureau Grand Ouest
+        description: Au 1er décembre, installation et choix de la domiciliation de notre bureau Grand Ouest dans le centre ville de Bordeaux.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_5_projet1:
+        titre: Signature de la société Start Up A (Bordeaux)
+        description: Signature d’un contrat d’accompagnement et de conseil en financement stratégique (forfait 8k€) avec la start-up A (Bordeaux) | Prospect qualifié | Mission confiée à notre consultant SR. La société développe une plateforme numérique de mise en relation B2B, avec de l’IA.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_6_projet1:
+        titre: Signature de la société Start Up B (Toulouse)
+        description: Signature d’un contrat d’accompagnement et de conseil en financement stratégique (forfait 10k€) avec la start-up B (Bordeaux) | Prospect qualifié rencontré par l’intermédiaire de notre partenaire local| Mission confiée à notre consultant KN. La société développe des logiciels informatiques BtoB.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_7_projet1:
+        titre: Kick-off Meeting, Plan de crise COVID 19
+        description: A l’annonce du confinement, nous avons réalisé une visioconférence pour mettre en place une stratégie afin d’accompagner nos clients suite à l’annonce du confinement. Mise en place d’une newsletter d’information, accompagnement de nos clients, poursuite de nos missions en cours et renforcement de nos partenariats locaux.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_8_projet1:
+        titre: Séminaire d’entreprise à Paris – Post confinement
+        description: Séminaire d’équipe pour faire le bilan suite au déconfinement et planifier la stratégie de rentrée. Bilan du lancement de l’activité sur le secteur Grand Ouest.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_9_projet1:
+        titre: Signature de la société Start Up C (Toulouse)
+        description: Signature d’un contrat d’accompagnement sur des appels d’offre et de conseil en financement stratégique (forfait 8k€) avec la start-up C (Bayonne) | Prospect qualifié et prospecté via Linkedin pendant le confinement| Mission confiée à notre consultant KN. La société développe des logiciels dans le domaine de la cybersécurité.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_10_projet1:
+        titre: Salon Innovation Food Hotel Tech - Nice 2020
+        description: Un premier salon ouvre enfin ses portes au public à Nice. Nous avons donc saisi cette opportunité pour élargir notre champ d’action. Ce salon a lieu en pleine période de covid-19 où l’industrie du tourisme en général fait face à la plus grande crise de son histoire et se doit de se réinventer. La part belle est donnée aux technologies numériques. Nous avons pu faire d’intéressants RDV en B2B, avec des entreprises également basé sur notre secteur Grand Ouest.
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
+    faitmarquant_11_projet1:
+        titre: Signature de la société Start Up D (Toulouse)
+        description: Signature d’un contrat d’implantation en France et de conseil en financement avec la start-up D (Madrid) rencontrée via notre partenaire local| Mission confiée à notre consultant SR. La société développe une plateforme Saas de gestion de programmes de fidélisation existants et propose une gestion intégrée de campagne et ROI
+        date: '<date_create()>'
+        createdBy: '@user'
+        projet: '@projet__1'
