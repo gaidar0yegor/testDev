@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.6.0] - 2020-12-09
 ### Ajouté
 - Permet de joindre un fichier à un fait marquant
 - Commande pour envoyer un mail aux utilisateurs pour leur rappeller de saisir leurs temps
@@ -13,9 +18,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Refactorise l'entité FichierProjet dans Fichier pour être plus flexible sur les fichiers
 - Utilise flysystem comme couche d'abstraction du système de fichier
 - Déplace `public/upload` vers `var/storage/default/upload` pour ne plus exposer les fichiers publiquement
-
-
-
 
 ## [0.5.2] - 2020-12-03
 ### Modifié
