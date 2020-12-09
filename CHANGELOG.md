@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Permet de joindre un fichier à un fait marquant
 - Commande pour envoyer un mail aux utilisateurs pour leur rappeller de saisir leurs temps
+- Possibilité d'exporter en Pdf la fiche d'un projet avec l'ensemble de ses faits marquants
 ### Modifié
 - Refactorise l'entité FichierProjet dans Fichier pour être plus flexible sur les fichiers
 - Utilise flysystem comme couche d'abstraction du système de fichier

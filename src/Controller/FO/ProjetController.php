@@ -14,9 +14,18 @@ use App\Repository\ProjetParticipantRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Knp\Snappy\Pdf;
 
 class ProjetController extends AbstractController
 {
+    private Pdf $pdf;
+
+    public function __construct(Pdf $pdf)
+    {
+        $this->pdf = $pdf;
+    }
+
     /**
      * Affichage de tous les projets de la société
      * @Route("/tous-les-projets", name="app_fo_projet_admin_projets_")
@@ -128,5 +137,31 @@ class ProjetController extends AbstractController
             'userCanEditProjet' => $this->isGranted('edit', $projet),
             'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
         ]);
+    }
+
+    /**
+     * @Route("/generate/projet/{id}", name="generate_fiche_projet_")
+     */
+    public function ficheProjetGeneratePdf(Projet $projet)
+    {
+        $this->denyAccessUnlessGranted('view', $projet);
+
+        $sheetHtml = $this->renderView('projets/pdf/pdf_fiche_projet.html.twig', [
+            'projet' => $projet,
+        ]);
+
+        return $this->createPdfResponse($sheetHtml);
+    }
+
+    private function createPdfResponse(string $htmlContent, string $filename = 'projet.pdf'): PdfResponse
+    {
+        $options = [
+            'margin-top'    => 15,
+            'margin-right'  => 15,
+            'margin-bottom' => 15,
+            'margin-left'   => 15,
+        ];
+        $result = $this->pdf->getOutputFromHtml($htmlContent, $options);
+        return new PdfResponse($result, $filename);
     }
 }
