@@ -1,0 +1,70 @@
+App\Entity\User:
+    observateur:
+        nom: Eureka
+        prenom: Observateur
+        email: observateur@societe.dev
+        password: observateur
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    contributeur:
+        nom: Eureka
+        prenom: Contributeur
+        email: contributeur@societe.dev
+        password: contributeur
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    contributeur2:
+        nom: Eureka
+        prenom: Contributeur2
+        email: contributeur2@societe.dev
+        password: contributeur2
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    cdp:
+        nom: Eureka
+        prenom: Chef de projet
+        email: cdp@societe.dev
+        password: cdp
+        roles: [ROLE_FO_CDP]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet:
+        titre: Projet
+        acronyme: PTEST
+
+App\Entity\FaitMarquant:
+    fait:
+        titre: Fait marquant déjà créé
+        description: Contenu du fait marquant déjà créé.
+        date: <date_create()>
+        createdBy: '@contributeur'
+        projet: '@projet'
+
+App\Entity\ProjetParticipant:
+    projet_observateur:
+        user: '@observateur'
+        projet: '@projet'
+        role: '<(App\Role::OBSERVATEUR)>'
+    projet_contributeur:
+        user: '@contributeur'
+        projet: '@projet'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+    projet_contributeur2:
+        user: '@contributeur2'
+        projet: '@projet'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+    projet_cdp:
+        user: '@cdp'
+        projet: '@projet'
+        role: '<(App\Role::CDP)>'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société
+        siret: 111111111
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée
