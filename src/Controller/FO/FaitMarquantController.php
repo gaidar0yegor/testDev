@@ -6,6 +6,7 @@ use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Form\FaitMarquantType;
 use App\ProjetResourceInterface;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,24 +23,28 @@ class FaitMarquantController extends AbstractController
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      */
-    public function new(Projet $projet, Request $request): Response
+    public function new(Projet $projet, Request $request, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::CREATE, $projet);
 
         $faitMarquant = new FaitMarquant();
+        $faitMarquant
+            ->setProjet($projet)
+            ->setCreatedBy($this->getUser())
+            ->setDate(new \DateTime())
+        ;
+
         $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $faitMarquant
-                ->setProjet($projet)
-                ->setCreatedBy($this->getUser())
-                ->setDate(new \DateTime())
-            ;
-
-            $em = $this->getDoctrine()->getManager();
             $em->persist($faitMarquant);
             $em->flush();
+
+            $this->addFlash('success', sprintf(
+                'Le fait marquant "%s" a été ajouté au projet.',
+                $faitMarquant->getTitre()
+            ));
 
             return $this->redirectToRoute('fiche_projet_', [
                 'id' => $projet->getId(),
@@ -56,7 +61,7 @@ class FaitMarquantController extends AbstractController
     /**
      * @Route("/fait-marquants/{id}/modifier", name="fait_marquant_modifier", methods={"GET","POST"})
      */
-    public function edit(Request $request, FaitMarquant $faitMarquant): Response
+    public function edit(Request $request, FaitMarquant $faitMarquant, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::EDIT, $faitMarquant);
 
@@ -64,7 +69,12 @@ class FaitMarquantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $em->flush();
+
+            $this->addFlash('success', sprintf(
+                'Le fait marquant "%s" a été modifié.',
+                $faitMarquant->getTitre()
+            ));
 
             return $this->redirectToRoute('fiche_projet_', [
                 'id' => $faitMarquant->getProjet()->getId(),
@@ -80,14 +90,18 @@ class FaitMarquantController extends AbstractController
     /**
      * @Route("/fait-marquants/{id}", name="fait_marquant_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, FaitMarquant $faitMarquant): Response
+    public function delete(Request $request, FaitMarquant $faitMarquant, EntityManagerInterface $em): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $faitMarquant);
 
         if ($this->isCsrfTokenValid('delete'.$faitMarquant->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($faitMarquant);
-            $entityManager->flush();
+            $em->remove($faitMarquant);
+            $em->flush();
+
+            $this->addFlash('warning', sprintf(
+                'Le fait marquant "%s" a été supprimé.',
+                $faitMarquant->getTitre()
+            ));
         }
 
         return $this->redirectToRoute('fiche_projet_', [

@@ -8,6 +8,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.6.1] - 2020-12-09
+### Réparé
+- La page de création des faits marquants fonctionne de nouveau
 
 ## [0.6.0] - 2020-12-09
 ### Ajouté
