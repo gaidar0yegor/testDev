@@ -1,0 +1,10 @@
+App\Entity\ProjetParticipant:
+    societe2_projetparticipant_user20_projet20:
+        user: '@societe2_user_user20'
+        projet: '@societe2_projet_projet20'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+
+    societe2_projetparticipant_cdp20_projet20:
+        user: '@societe2_user_cdp20'
+        projet: '@societe2_projet_projet20'
+        role: '<(App\Role::CDP)>'

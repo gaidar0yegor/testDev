@@ -1,38 +1,39 @@
 App\Entity\ProjetParticipant:
-    # Société 1
-    user_projet1:
+    projetparticipant_user_projet1:
         user: '@user'
-        projet: '@projet1'
+        projet: '@projet__1'
         role: '<(App\Role::CONTRIBUTEUR)>'
-    user_projet3:
+    projetparticipant_user_projet3:
         user: '@user'
-        projet: '@projet3'
+        projet: '@projet__3'
         role: '<(App\Role::OBSERVATEUR)>'
-    cdp_projet3:
-        user: '@cdp'
-        projet: '@projet3'
+    projetparticipant_cdp_projet3:
+        user: '@user_cdp'
+        projet: '@projet__3'
         role: '<(App\Role::OBSERVATEUR)>'
 
-    cdp_projet1:
-        user: '@cdp'
-        projet: '@projet1'
+    projetparticipant_cdp_projet1:
+        user: '@user_cdp'
+        projet: '@projet__1'
         role: '<(App\Role::CDP)>'
-    cdp_projet2:
-        user: '@cdp'
-        projet: '@projet2'
+    projetparticipant_cdp_projet2:
+        user: '@user_cdp'
+        projet: '@projet__2'
         role: '<(App\Role::CDP)>'
-    cdp2_projet3:
-        user: '@cdp2'
-        projet: '@projet3'
+    projetparticipant_cdp2_projet3:
+        user: '@user_cdp__*'
+        projet: '@projet__3'
         role: '<(App\Role::CDP)>'
 
-    # Société 2
-    user20_projet20:
-        user: '@user20'
-        projet: '@projet20'
+    projetparticipant__cdp{4..20}:
+        user: '@user_cdp__*'
+        projet: '@projet__<current()>'
+        role: '<(App\Role::CDP)>'
+    projetparticipant__contributeur{1..80}:
+        user: '@user*'
+        projet: '@projet__*'
         role: '<(App\Role::CONTRIBUTEUR)>'
-
-    cdp20_projet20:
-        user: '@cdp20'
-        projet: '@projet20'
-        role: '<(App\Role::CDP)>'
+    projetparticipant__observateur{1..120}:
+        user: '@user*'
+        projet: '@projet__*'
+        role: '<(App\Role::OBSERVATEUR)>'

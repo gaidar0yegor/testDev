@@ -140,7 +140,6 @@ footer {
     background-color: #ce352c;
     display: flex;
     justify-content: center;
-    align-items: center;
     position: fixed;
     bottom: 0% !important;
     width: 100%;
@@ -161,8 +160,7 @@ footer a:hover {
 }
 
 .logofooter {
-    height: 4vh;
-    width: 4vh;
+    max-height: 22px;
     border-radius: 148%;
 }
 

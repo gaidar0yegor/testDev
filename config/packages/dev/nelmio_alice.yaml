@@ -1,4 +1,6 @@
 nelmio_alice:
+    locale: fr_FR
+    seed: 1
     functions_blacklist:
         - 'current'
         - 'shuffle'
