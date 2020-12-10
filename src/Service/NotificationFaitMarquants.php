@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
+use App\Entity\Societe;
 use App\Entity\User;
 use App\Repository\FaitMarquantRepository;
 use App\Repository\ProjetRepository;
@@ -103,10 +104,10 @@ class NotificationFaitMarquants
     /**
      * @return int Nombre d'utilisateurs qui vont recevoir un email.
      */
-    public function remindCreateAllUsers(): int
+    public function remindCreateAllUsers(Societe $societe): int
     {
         $totalSent = 0;
-        $users = $this->userRepository->findAllNotifiableUsers();
+        $users = $this->userRepository->findAllNotifiableUsers($societe);
 
         foreach ($users as $user) {
             $sent = $this->sendReminderFaitMarquant($user);
@@ -157,10 +158,10 @@ class NotificationFaitMarquants
         return true;
     }
 
-    public function sendLatestFaitsMarquantsToAllUsers(): int
+    public function sendLatestFaitsMarquantsToAllUsers(Societe $societe): int
     {
         $totalSent = 0;
-        $users = $this->userRepository->findAllNotifiableUsers();
+        $users = $this->userRepository->findAllNotifiableUsers($societe);
 
         foreach ($users as $user) {
             $sent = $this->sendLatestFaitsMarquants($user);

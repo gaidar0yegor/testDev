@@ -37,13 +37,13 @@ class UserRepository extends ServiceEntityRepository
             'societe' => $entity->getSociete(),
         ]);
     }
-    public function findAllNotifiableUsers()
+
+    public function findAllNotifiableUsers(Societe $societe)
     {
         return $this
-            ->createQueryBuilder('user')
-            ->where('user.invitationToken is null')
+            ->whereSociete($societe)
+            ->andWhere('user.invitationToken is null')
             ->andWhere('user.enabled = true')
-            ->andWhere('user.societe is not null')
             ->getQuery()
             ->getResult()
         ;

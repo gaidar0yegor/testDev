@@ -53,7 +53,7 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item dropdown {{ activeOn('fo_societe_show', 'timesheet_generate', 'utilisateurs_fo_', 'fo_user_invite', 'app_fo_projet_admin_projets_') }}">
+                <li class="nav-item dropdown {{ activeOn('fo_societe_show', 'timesheet_generate', 'utilisateurs_fo_', 'fo_user_invite', 'app_fo_projet_admin_projets_', 'app_fo_notification') }}">
                     <a
                         class="nav-link dropdown-toggle {{ is_granted('ROLE_FO_ADMIN') ? '' : 'disabled' }}"
                         {% if not is_granted('ROLE_FO_ADMIN') %}
@@ -99,6 +99,13 @@
                             href="{{ path('app_fo_projet_admin_projets_') }}"
                         >
                             Tous les Projets
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('app_fo_notification') }}"
+                        >
+                            <i class="fa fa-bell-o" aria-hidden="true"></i>Paramètres des notifications
                         </a>
                     </div>
                 </li>

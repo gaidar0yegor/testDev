@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\NotificationCommand;
 
-use App\Entity\User;
 use App\Service\NotificationSaisieTemps;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class NotificationSaisieTempsCommand extends Command
+class NotificationSaisieTempsCommand extends AbstractNotificationCommand
 {
-    protected static $defaultName = 'app:notifie-saisie-temps';
+    public static $defaultName = 'app:notifie-saisie-temps';
 
     private NotificationSaisieTemps $notificationSaisieTemps;
 
@@ -25,6 +23,8 @@ class NotificationSaisieTempsCommand extends Command
 
     protected function configure()
     {
+        parent::configure();
+
         $this
             ->setDescription('Envoie une notification aux utilisateurs pour les rappeller de saisir leur temps.')
         ;
@@ -34,7 +34,10 @@ class NotificationSaisieTempsCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $totalSent = $this->notificationSaisieTemps->sendNotificationSaisieTempsAllUsers();
+        $totalSent = $this
+            ->notificationSaisieTemps
+            ->sendNotificationSaisieTempsAllUsers($this->findCommandSociete($input))
+        ;
 
         $io->success("$totalSent emails de notification ont été envoyés !");
 

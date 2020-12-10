@@ -244,3 +244,13 @@ footer a:hover {
         max-width: 12%;
     }
 }
+
+.cron-schedule-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+.cron-schedule-input select {
+    width: auto;
+    margin: 0 0.5em;
+}
