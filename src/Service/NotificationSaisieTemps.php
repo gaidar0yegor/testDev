@@ -85,7 +85,7 @@ class NotificationSaisieTemps
 
     public function sendNotificationSaisieTempsAllUsers(Societe $societe, \DateTimeInterface $month = null): int
     {
-        $users = $this->userRepository->findAllNotifiableUsers($societe);
+        $users = $this->userRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
         $totalMailSent = 0;
 
         foreach ($users as $user) {

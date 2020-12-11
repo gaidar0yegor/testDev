@@ -107,7 +107,7 @@ class NotificationFaitMarquants
     public function remindCreateAllUsers(Societe $societe): int
     {
         $totalSent = 0;
-        $users = $this->userRepository->findAllNotifiableUsers($societe);
+        $users = $this->userRepository->findAllNotifiableUsers($societe, 'notificationCreateFaitMarquantEnabled');
 
         foreach ($users as $user) {
             $sent = $this->sendReminderFaitMarquant($user);
@@ -161,7 +161,7 @@ class NotificationFaitMarquants
     public function sendLatestFaitsMarquantsToAllUsers(Societe $societe): int
     {
         $totalSent = 0;
-        $users = $this->userRepository->findAllNotifiableUsers($societe);
+        $users = $this->userRepository->findAllNotifiableUsers($societe, 'notificationLatestFaitMarquantEnabled');
 
         foreach ($users as $user) {
             $sent = $this->sendLatestFaitsMarquants($user);

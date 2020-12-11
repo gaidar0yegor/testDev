@@ -5,6 +5,7 @@ namespace App\Controller\FO;
 use App\DTO\UpdatePassword;
 use App\Form\MonCompteType;
 use App\Form\UpdatePasswordType;
+use App\Form\UserNotificationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +17,23 @@ class MonCompteController extends AbstractController
     /**
      * @Route("/mon-compte", name="mon_compte")
      */
-    public function monCompte()
+    public function monCompte(Request $request, EntityManagerInterface $em)
     {
-        return $this->render('mon_compte/mon_compte.html.twig');
+        $notificationForm = $this->createForm(UserNotificationType::class, $this->getUser());
+
+        $notificationForm->handleRequest($request);
+
+        if ($notificationForm->isSubmitted() && $notificationForm->isValid()) {
+            $em->flush();
+
+            $this->addFlash('success', 'Vos préférences de notifications ont été mises à jour.');
+
+            return $this->redirectToRoute('mon_compte');
+        }
+
+        return $this->render('mon_compte/mon_compte.html.twig', [
+            'notificationForm' => $notificationForm->createView(),
+        ]);
     }
 
     /**

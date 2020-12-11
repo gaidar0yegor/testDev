@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Societe;
 use App\Entity\User;
+use App\Exception\RdiException;
 use App\HasSocieteInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -38,12 +39,26 @@ class UserRepository extends ServiceEntityRepository
         ]);
     }
 
-    public function findAllNotifiableUsers(Societe $societe)
+    /**
+     * @param Societe $societe Société dans laquelle envoyer la notification aux utilisateurs
+     * @param string $notificationSetting Nom du flag (champ de l'entité User)
+     *                                    qui doit être à true pour envoyer la notification.
+     *                                    (Utiliser 'notificationEnabled' si pas de champ specifique.)
+     *
+     * @return User[] Liste des utilisateurs auxquels il est possible d'envoyer la notification
+     */
+    public function findAllNotifiableUsers(Societe $societe, string $notificationSetting)
     {
+        if (!preg_match('/^[a-zA-Z]+$/', $notificationSetting)) {
+            throw new RdiException(sprintf('"%s" seems not to be a valid field name', $notificationSetting));
+        }
+
         return $this
             ->whereSociete($societe)
             ->andWhere('user.invitationToken is null')
             ->andWhere('user.enabled = true')
+            ->andWhere('user.notificationEnabled = true')
+            ->andWhere("user.$notificationSetting = true")
             ->getQuery()
             ->getResult()
         ;
