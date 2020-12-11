@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dernières notifications envoyées | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Dernières notifications envoyées</h1>
+
+    <a class="d-block mb-4" href="{{ path('app_fo_notification') }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Retourner aux paramètres des notifications
+    </a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temps</th>
+                <th>Résultat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in cronJob.reports[0:10] %}
+                <tr>
+                    <td>{{ report.runAt|format_datetime }}</td>
+                    <td>{{ report.runTime|round(3) }}ms</td>
+                    <td class="text-monospace {{ report.exitCode ? 'text-danger' : 'text-success' }}">{{ report.output|trim }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center"><i>Aucune notification n'a encore été envoyée.</i></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

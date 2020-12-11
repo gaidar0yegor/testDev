@@ -2,10 +2,9 @@
 
 namespace App\Controller\FO;
 
-use App\DTO\SocieteNotifications;
 use App\Form\SocieteNotificationsType;
-use App\Repository\CronJobRepository;
 use App\Service\SocieteNotificationsService;
+use Cron\CronBundle\Entity\CronJob;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +42,23 @@ class NotificationController extends AbstractController
 
         return $this->render('notification/index.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/rapport/{id}", name="app_fo_notification_rapport")
+     */
+    public function report(CronJob $cronJob)
+    {
+        $tokens = explode('-', $cronJob->getName());
+        $societeId = intval(array_pop($tokens));
+
+        if ($societeId !== $this->getUser()->getSociete()->getId()) {
+            throw $this->createAccessDeniedException();
+        }
+
+        return $this->render('notification/rapport.html.twig', [
+            'cronJob' => $cronJob,
         ]);
     }
 }

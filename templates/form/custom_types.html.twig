@@ -145,10 +145,14 @@
         <div class="card-body">
             <h5 class="card-title">{{ form.vars.data.description }}</h5>
             <p>{{ form_help(form) }}</p>
-            <p class="card-text">
-                {{ form_widget(form) }}
-                {{ form_errors(form) }}
-            </p>
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+            <br>
+            {% if form.vars.data.id %}
+                <small class="card-text"><a href="{{ path('app_fo_notification_rapport', {'id': form.vars.data.id}) }}">Dernières notifications envoyées</a></small>
+            {% else %}
+                <small class="card-text text-muted">Notification encore jamais programmée</small>
+            {% endif %}
         </div>
     </div>
 {% endblock %}
