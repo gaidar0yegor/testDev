@@ -5,13 +5,15 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.6.2] - 2020-12-11
 ### Ajouté
 - L'administrateur peut paramétrer le jour et l'heure d'envoi des différentes notifications
 - Jeu de données aléatoire pour faire remonter des données en démo
 - Fixtures : projet Fake : Stat Planete : https://www.statsilk.com/timeline-and-release-notes#2015
-
-
-
 
 ## [0.6.1] - 2020-12-09
 ### Réparé
