@@ -1,0 +1,93 @@
+App\Entity\Projet:
+    projet__ouest:
+        titre: Développement du bureau Grand Ouest
+        acronyme: OUEST
+        resume: >
+            Le cabinet Eureka C.I a lancé en 2020 un plan de développement de son activité
+            et de renforcement de sa chaine de valeur dans le conseil en innovation.
+            Dans le cadre de ce programme baptisé ERK-2022, il est question d’ouvrir
+            un bureau dans le sud de la France dans la métropole Aix-Marseille-Provence.
+            Le but de ce projet est d’ouvrir le bureau Eurêka C.I Grand Sud,
+            constitué un portefeuille de clients puis monter une équipe locale d’ici à janvier 2023.
+            Notre cabinet a décidé d’étendre son activité dans la région du Grand OUEST de par son potentiel.
+            Dans le cadre de notre développement, nous allons ouvrir un bureau dans le secteur de Bordeaux,
+            de développer un portefeuille clients puis de monter une équipe locale d’ici 2022.
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        dateDebut: <(new DateTime("2019-04-05"))>
+        dateFin: <(new DateTime("2022-07-01"))>
+
+App\Entity\ProjetParticipant:
+    projetparticipant_user_projet_ouest:
+        user: '@user_cdp__*'
+        projet: '@projet__ouest'
+        role: '<(App\Role::CDP)>'
+
+App\Entity\FaitMarquant:
+    faitmarquant_1_projet_ouest:
+        titre: Salon des entrepreneurs à Paris
+        description: Rencontre avec une agence locale située à Bordeaux lors du salon des entrepreneurs à Paris en avril 2019. Cette rencontre nous a permis d’accélérer et de concrétiser notre ambition d’étendre notre activité dans le Grand Ouest.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_2_projet_ouest:
+        titre: Meeting avec notre partenaire à Bordeaux
+        description: Début juin 2019, nous avons rencontré notre nouveau partenaire à Bordeaux pour définir les termes de notre association. Plusieurs RDV ont été organisés avec certains de leurs partenaires locaux, ainsi que des PME locales.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_3_projet_ouest:
+        titre: Prise de poste du responsable développement local
+        description: Au 1er octobre, prise de poste du responsable développement qui sera basé à Bordeaux pour gérer et déployer l’activité dans la région Grand Ouest.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_4_projet_ouest:
+        titre: Installation et domiciliation du bureau Grand Ouest
+        description: Au 1er décembre, installation et choix de la domiciliation de notre bureau Grand Ouest dans le centre ville de Bordeaux.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_5_projet_ouest:
+        titre: Signature de la société Start Up A (Bordeaux)
+        description: Signature d’un contrat d’accompagnement et de conseil en financement stratégique (forfait 8k€) avec la start-up A (Bordeaux) | Prospect qualifié | Mission confiée à notre consultant SR. La société développe une plateforme numérique de mise en relation B2B, avec de l’IA.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_6_projet_ouest:
+        titre: Signature de la société Start Up B (Toulouse)
+        description: Signature d’un contrat d’accompagnement et de conseil en financement stratégique (forfait 10k€) avec la start-up B (Bordeaux) | Prospect qualifié rencontré par l’intermédiaire de notre partenaire local| Mission confiée à notre consultant KN. La société développe des logiciels informatiques BtoB.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_7_projet_ouest:
+        titre: Kick-off Meeting, Plan de crise COVID 19
+        description: A l’annonce du confinement, nous avons réalisé une visioconférence pour mettre en place une stratégie afin d’accompagner nos clients suite à l’annonce du confinement. Mise en place d’une newsletter d’information, accompagnement de nos clients, poursuite de nos missions en cours et renforcement de nos partenariats locaux.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_8_projet_ouest:
+        titre: Séminaire d’entreprise à Paris – Post confinement
+        description: Séminaire d’équipe pour faire le bilan suite au déconfinement et planifier la stratégie de rentrée. Bilan du lancement de l’activité sur le secteur Grand Ouest.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_9_projet_ouest:
+        titre: Signature de la société Start Up C (Toulouse)
+        description: Signature d’un contrat d’accompagnement sur des appels d’offre et de conseil en financement stratégique (forfait 8k€) avec la start-up C (Bayonne) | Prospect qualifié et prospecté via Linkedin pendant le confinement| Mission confiée à notre consultant KN. La société développe des logiciels dans le domaine de la cybersécurité.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_10_projet_ouest:
+        titre: Salon Innovation Food Hotel Tech - Nice 2020
+        description: Un premier salon ouvre enfin ses portes au public à Nice. Nous avons donc saisi cette opportunité pour élargir notre champ d’action. Ce salon a lieu en pleine période de covid-19 où l’industrie du tourisme en général fait face à la plus grande crise de son histoire et se doit de se réinventer. La part belle est donnée aux technologies numériques. Nous avons pu faire d’intéressants RDV en B2B, avec des entreprises également basé sur notre secteur Grand Ouest.
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'
+    faitmarquant_11_projet_ouest:
+        titre: Signature de la société Start Up D (Toulouse)
+        description: Signature d’un contrat d’implantation en France et de conseil en financement avec la start-up D (Madrid) rencontrée via notre partenaire local| Mission confiée à notre consultant SR. La société développe une plateforme Saas de gestion de programmes de fidélisation existants et propose une gestion intégrée de campagne et ROI
+        date: <dateTimeBetween("2019-04-05", "now")>
+        createdBy: '@user*'
+        projet: '@projet__ouest'

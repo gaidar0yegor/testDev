@@ -8,6 +8,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - L'administrateur peut paramétrer le jour et l'heure d'envoi des différentes notifications
 - Jeu de données aléatoire pour faire remonter des données en démo
+- Fixtures : projet Fake : Stat Planete : https://www.statsilk.com/timeline-and-release-notes#2015
+
 
 
 

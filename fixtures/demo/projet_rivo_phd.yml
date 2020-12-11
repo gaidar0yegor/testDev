@@ -1,0 +1,127 @@
+App\Entity\Projet:
+    projet__rivo_phd:
+        titre: Théorie des perturbations en matrice N-représentable
+        acronyme: PhD-Rivo
+        resume: Alors que les approches standards de résolution de la structure électronique présentent un coût de calcul à la puissance 3 par rapport à la complexité du problème, des solutions permettant d’atteindre un régime asymptotique linéaire, O(N), sont maintenant bien connues pour le calcul de l'état fondamental. Ces solutions sont basées sur la "myopie" de la matrice densité et le développement d'un cadre théorique permettant de contourner le problème aux valeurs propres. La théorie des purifications de la matrice densité constitue une branche de ce cadre théorique. Comme pour les approches de type O(N) appliquées à l'état fondamental, la théorie des perturbations nécessaire aux calculs des fonctions de réponse électronique doit être révisée pour contourner l'utilisation des routines coûteuses. L'objectif est de développer une méthode robuste basée uniquement sur la recherche de la matrice densité perturbée, pour laquelle seulement des multiplications de matrices creuses sont nécessaires. Dans une première partie, nous dérivons une méthode de purification canonique qui respecte les conditions de N-représentabilité de la matrice densité à une particule. Nous montrons que le polynôme de purification obtenu est auto-cohérent et converge systématiquement vers la bonne solution. Dans une seconde partie, en utilisant une approche de type Hartree-Fock, nous appliquons cette méthode aux calculs des tenseurs de réponses statiques non-linéaires pouvant être déterminés par spectroscopie optique. Au-delà des calculs à croissance linéaire réalisés, nous démontrons que les conditions N-représentabilité constituent un prérequis pour garantir la fiabilité des résultats.
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        dateDebut: <(new DateTime("2016-09-01"))>
+        dateFin: <(new DateTime("2019-12-07"))>
+
+App\Entity\ProjetParticipant:
+    projetparticipant_user_projet_rivo_phd:
+        user: '@user_cdp__*'
+        projet: '@projet__rivo_phd'
+        role: '<(App\Role::CDP)>'
+
+App\Entity\FaitMarquant:
+    faitmarquant_1_projet_rivo_phd:
+        titre: Implémentation des méthodes de matrices densité (DM).
+        description: >
+            La 1ère phase de ce travail de thèse consistait à appréhender les caractéristiques (définition des fonctions, algorithmes d’itérations, critère de convergence) de chacune des DM. Pour cela, il s’avérait nécessaire de programmer ces DM dans un code écrit en Fotran90. Ce code calcule les propriétés électroniques comme l’énergie des systèmes composés uniquement d’atomes de carbone.
+            Les DM avaient été appliquées sur les composés nanotubes de carbone. Cet exercice nous avait permis d’observer que, plus la taille du nanotube (nombre d’atomes de carbone) augmente, plus le temps de calcul de son énergie augmente aussi. Et précisément l’allure de ce temps de calcul en fonction de la taille est linéaire. Ce résultat nous confirmait bien l’appellation de ces méthodes « méthodes à croissance linéaire ».
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_2_projet_rivo_phd:
+        titre:  Développement d’une nouvelle DM
+        description: >
+            En appréhendant les DM qui avaient été développées par certains auteurs, on avait réalisé qu’elles présentaient de sérieux problèmes de convergence (évolution du système vers un état caractérisé par une certaine énergie) notamment dans des éventualités mal conditionnées :
+                • certaines DM font beaucoup d’itérations et donc prennent du temps à converger,
+                • et d’autres DM perdent le bon nombre d’atomes du système et conduisent à une mauvaise énergie.
+            Par conséquent, l’idée a été de développer une DM plus robuste et plus efficace. Cette DM conserve le bon nombre d’atomes du système et converge assez rapidement en faisant moins d’itérations. Ajoutée aux DM précédentes, notre DM développée est la 2ème DM la plus rapide en temps de calcul.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_3_projet_rivo_phd:
+        titre:  Optimisation de la convergence d’un calcul du code
+        description: >
+            L’implémentation des DM dans ce code écrit en Fortran90, a également nécessité d’améliorer et accélérer la convergence auto-cohérente d’un calcul d’énergie. En effet, un calcul d’énergie peut présenter des problèmes de convergence, quand le système peut se retrouver dans un état d’énergie instable, par conséquent peut conduire à une énergie erronée ou diverger. Le but était alors d’améliorer la convergence des calculs par des techniques dites « d’extrapolation » qui optimisent dynamiquement l’état du système. Les résultats de cette partie de travail étaient très impressionnants. En effet, le nombre d’itérations d’un calcul d’énergie était initialement d’environ 800 itérations. Grace aux techniques d’optimisation, le même calcul résultait en une vingtaine d’itérations.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_4_projet_rivo_phd:
+        titre: Publication de la nouvelle DM dans un journal scientifique
+        description: >
+            La DM que nous avions développée, et que nous avions prouvée plus robuste et plus efficace, par rapport aux DM préexistantes, a valu une publication dans le journal scientifique « The Journal of Chemical Physics ». L’article a pour référence suivante :  The Journal of Chemical Physics, Volume 144, Page 091102, Année 2016. Cette publication était tout à fait le 1er résultat principal de ce travail de thèse.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_5_projet_rivo_phd:
+        titre: Implémentation de la théorie de perturbation des méthodes de matrice densité (DMPT)
+        description: >
+            Cette phase de travail était l’objet de cette thèse. Après avoir assimilé d’abord les DM, il s’agissait maintenant d’appliquer la théorie de perturbation en matrice qui définissent ces DM (DMPT). Et plus précisément, observer aussi une croissance linéaire des DMPT. Cela a demandé bien sûr, d’appréhender également les différentes approches préexistantes des DMPT. Le 2ème aspect original de cette thèse, était d’appliquer la théorie de perturbation en matrice densité en utilisant la DM, que nous avions développée. Par ses caractéristiques robustes, notre DMPT s’est prouvée également plus efficace que celle des autres DMPT.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_6_projet_rivo_phd:
+        titre: Implémentation des méthodes de différences finies (FD)
+        description: >
+            Les DM permettent de calculer l’énergie d’un système. Les DMPT permettent de calculer les dérivées de l’énergie qui représentent des propriétés physiques d’un système telle que la polarisation, l’hyperpolarisation. Par ailleurs, la dérivée d’une fonction peut être approchée par une méthode numérique très connue dite « méthode de différence finie » (FD). Pour ainsi valider notre implémentation des DMPT, il était vraiment nécessaire de programmer aussi la FD. Cette étape constituait un complément intéressant.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_7_projet_rivo_phd:
+        titre: Validation des DMPT
+        description: >
+            Bien que n’étant pas dans le programme de ce travail de thèse, l’implémentation des FD s’était avérée nécessaire à la validation des DMPT. Deux articles expliquant clairement leurs algorithmes de FD, appliqués à des petits systèmes à carbone comme le benzène, nous avaient servi de référence. L’idée était alors de programmer la FD et retrouver les mèmes résultats de ces deux articles. Ceci a été brillamment réalisé. Ainsi, la parfaite conformité entre les résultats de la FD et ceux des DMPT sur ces petits systèmes à atomes de carbone, nous avait permis de valider l’implémentation des DMPT.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_8_projet_rivo_phd:
+        titre: Publication de la nouvelle DMPT dans un journal scientifique
+        description: >
+            Une fois rassuré de notre implémentation des DMPT, ces dernières avaient étaient ensuite appliquées sur les nanotubes de carbone. Cette application avait permis d’observer entre autres la croissance linéaire des DMPT. Un deuxième article présentant l’efficacité de notre DMPT comparée aux autres, avait été publié. Cette publication a pour référence : The Journal of Chemical Physics, Volume 153, Page 164105, Année 2020. Cette publication est le 2ème résultat principal de ce travail de thèse.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_9_projet_rivo_phd:
+        titre: Présentation d’un poster pour la journée des doctorants de Bordeaux
+        description: >
+            A la fin de la 1ère année de cette thèse, un poster avait été présenté pour la journée des doctorants. Ce poster était intitulé : « On finding density matrix using linear scaling methods ». Ce poster résumait les DM et leurs caractéristiques.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_10_projet_rivo_phd:
+        titre: Conférence Internationale sur les matériaux avancés (Bordeaux)
+        description: >
+            Une présentation orale de nos résultats était également faite par notre encadrant, lors de la conférence internationale sur la modélisation des matériaux avancés. Cette présentation s’intitulait : « N-representable density matrix purification ».
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_11_projet_rivo_phd:
+        titre:  7ème symposium européen sur les calculs des matériaux pi-conjugués (Bordeaux)
+        description: >
+            Nous avions également fait une présentation orale, lors du 7ème symposium européen sur la modélisation des matériaux pi-conjugués. Ces derniers sont formés principalement d’atomes de carbone.
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_12_projet_rivo_phd:
+        titre:  Séminaire sur l’avancement du projet de thèse à l’UCL (Londres, UK)
+        description: >
+            Un an et demi après le début de cette thèse, il était question de faire un point d’avancement de nos travaux, auprès de notre collaborateur britannique. Une invitation à Londres nous était alors adressée, pour un séminaire intitulé « Beyond the Standard : DFT Approaches for the Simulation of Next Generation ». Le titre de notre présentation orale était : « On Finding Density Matrix using Minimization and Purification algorithms ».
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_13_projet_rivo_phd:
+        titre: Invitation à Marseille pour une pré soutenance en Aout 2016
+        description: >
+            Notre maitre de stage de master, avec qui nous avions gardé de très bon contact, était ravi d’être examinateur de notre jury de thèse. Ce maitre de stage nous avait invité à Marseille pour une présentation. Ceci était une offre opportune qui constituait une prés soutenance à titre d’entrainement.  
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_14_projet_rivo_phd:
+        titre:  Soutenance de la thèse le 7 Décembre 2016
+        description: >
+            Après 3 ans, la soutenance de notre thèse a eu lieu le 7 Décembre 2016. Bien qu’aucun membre de famille ne fût pas présent, cette date mémorable est plus qu’un fait marquant…
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'
+    faitmarquant_15_projet_rivo_phd:
+        titre: L’expérience gagnée
+        description: >
+            Ces 3 ans de thèse ont été très édifiants. Hormis le coté recherche académique, cette thèse qui a nécessité une intense programmation d’algorithmes a développé en nous le gout pour le développement numérique. Ceci a beaucoup servi pour la suite à travers trois années de recherche postdoctorale.  
+        date: <dateTimeBetween("2016-09-01", "2019-12-07")>
+        createdBy: '@user*'
+        projet: '@projet__rivo_phd'

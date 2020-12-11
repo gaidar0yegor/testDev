@@ -1,39 +1,39 @@
 App\Entity\ProjetParticipant:
     projetparticipant_user_projet1:
         user: '@user'
-        projet: '@projet__1'
+        projet: '@projet__random_1'
         role: '<(App\Role::CONTRIBUTEUR)>'
     projetparticipant_user_projet3:
         user: '@user'
-        projet: '@projet__3'
+        projet: '@projet__random_3'
         role: '<(App\Role::OBSERVATEUR)>'
     projetparticipant_cdp_projet3:
         user: '@user_cdp'
-        projet: '@projet__3'
+        projet: '@projet__random_3'
         role: '<(App\Role::OBSERVATEUR)>'
 
     projetparticipant_cdp_projet1:
         user: '@user_cdp'
-        projet: '@projet__1'
+        projet: '@projet__random_1'
         role: '<(App\Role::CDP)>'
     projetparticipant_cdp_projet2:
         user: '@user_cdp'
-        projet: '@projet__2'
+        projet: '@projet__random_2'
         role: '<(App\Role::CDP)>'
     projetparticipant_cdp2_projet3:
         user: '@user_cdp__*'
-        projet: '@projet__3'
+        projet: '@projet__random_3'
         role: '<(App\Role::CDP)>'
 
-    projetparticipant__cdp{4..20}:
+    projetparticipant__cdp{1..20}:
         user: '@user_cdp__*'
-        projet: '@projet__<current()>'
+        projet: '@projet__random_<current()>'
         role: '<(App\Role::CDP)>'
     projetparticipant__contributeur{1..80}:
         user: '@user*'
-        projet: '@projet__*'
+        projet: '@projet__random_*'
         role: '<(App\Role::CONTRIBUTEUR)>'
     projetparticipant__observateur{1..120}:
         user: '@user*'
-        projet: '@projet__*'
+        projet: '@projet__random_*'
         role: '<(App\Role::OBSERVATEUR)>'

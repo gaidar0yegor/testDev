@@ -1,23 +1,5 @@
 App\Entity\Projet:
-    projet__1:
-        titre: Développement du bureau Grand Ouest
-        acronyme: OUEST
-        resume: >
-            Le cabinet Eureka C.I a lancé en 2020 un plan de développement de son activité
-            et de renforcement de sa chaine de valeur dans le conseil en innovation.
-            Dans le cadre de ce programme baptisé ERK-2022, il est question d’ouvrir
-            un bureau dans le sud de la France dans la métropole Aix-Marseille-Provence.
-            Le but de ce projet est d’ouvrir le bureau Eurêka C.I Grand Sud,
-            constitué un portefeuille de clients puis monter une équipe locale d’ici à janvier 2023.
-            Notre cabinet a décidé d’étendre son activité dans la région du Grand OUEST de par son potentiel.
-            Dans le cadre de notre développement, nous allons ouvrir un bureau dans le secteur de Bordeaux,
-            de développer un portefeuille clients puis de monter une équipe locale d’ici 2022.
-        projetCollaboratif: true
-        projetPpp: false
-        projetInterne: true
-        dateDebut: <(new DateTime("2019-04-05"))>
-        dateFin: <(new DateTime("2022-07-01"))>
-    projet__{2..20}:
+    projet__random_{1..20}:
         titre: <sentence()>
         acronyme: P<current()>
         resume: <paragraphs(5, true)>
