@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Cra;
+use App\Entity\Societe;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Symfony\Component\Mailer\MailerInterface;
@@ -82,9 +83,9 @@ class NotificationSaisieTemps
         return true;
     }
 
-    public function sendNotificationSaisieTempsAllUsers(\DateTimeInterface $month = null): int
+    public function sendNotificationSaisieTempsAllUsers(Societe $societe, \DateTimeInterface $month = null): int
     {
-        $users = $this->userRepository->findAllNotifiableUsers();
+        $users = $this->userRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
         $totalMailSent = 0;
 
         foreach ($users as $user) {

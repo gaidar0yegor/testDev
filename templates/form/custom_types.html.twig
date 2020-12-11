@@ -121,3 +121,38 @@
         {{ form_widget(form) }}
     {% endif %}
 {% endblock %}
+
+{% block cron_schedule_row %}
+    <div class="cron-schedule-input">
+        {% if form.dayOfWeek is defined %}
+            Le
+            {{ form_widget(form.dayOfWeek) }}
+        {% endif %}
+        {% if form.dayOfMonth is defined %}
+            Le
+            {{ form_widget(form.dayOfMonth) }}
+        {% endif %}
+        à
+        {{ form_widget(form.hour) }}
+        h
+        {{ form_widget(form.minute) }}
+        min
+    </div>
+{% endblock %}
+
+{% block cron_job_row %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ form.vars.data.description }}</h5>
+            <p>{{ form_help(form) }}</p>
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+            <br>
+            {% if form.vars.data.id %}
+                <small class="card-text"><a href="{{ path('app_fo_notification_rapport', {'id': form.vars.data.id}) }}">Dernières notifications envoyées</a></small>
+            {% else %}
+                <small class="card-text text-muted">Notification encore jamais programmée</small>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

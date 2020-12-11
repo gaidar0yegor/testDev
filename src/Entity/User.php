@@ -124,12 +124,36 @@ class User implements UserInterface, HasSocieteInterface
      */
     private $cras;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $notificationEnabled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $notificationCreateFaitMarquantEnabled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $notificationLatestFaitMarquantEnabled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $notificationSaisieTempsEnabled;
+
     public function __construct()
     {
         $this->enabled = true;
         $this->projetParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->cras = new ArrayCollection();
+        $this->notificationEnabled = true;
+        $this->notificationCreateFaitMarquantEnabled = true;
+        $this->notificationLatestFaitMarquantEnabled = true;
+        $this->notificationSaisieTempsEnabled = true;
     }
 
     public function getId(): ?string
@@ -451,6 +475,54 @@ class User implements UserInterface, HasSocieteInterface
                 $cra->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNotificationEnabled(): ?bool
+    {
+        return $this->notificationEnabled;
+    }
+
+    public function setNotificationEnabled(bool $notificationEnabled): self
+    {
+        $this->notificationEnabled = $notificationEnabled;
+
+        return $this;
+    }
+
+    public function getNotificationCreateFaitMarquantEnabled(): ?bool
+    {
+        return $this->notificationCreateFaitMarquantEnabled;
+    }
+
+    public function setNotificationCreateFaitMarquantEnabled(bool $notificationCreateFaitMarquantEnabled): self
+    {
+        $this->notificationCreateFaitMarquantEnabled = $notificationCreateFaitMarquantEnabled;
+
+        return $this;
+    }
+
+    public function getNotificationLatestFaitMarquantEnabled(): ?bool
+    {
+        return $this->notificationLatestFaitMarquantEnabled;
+    }
+
+    public function setNotificationLatestFaitMarquantEnabled(bool $notificationLatestFaitMarquantEnabled): self
+    {
+        $this->notificationLatestFaitMarquantEnabled = $notificationLatestFaitMarquantEnabled;
+
+        return $this;
+    }
+
+    public function getNotificationSaisieTempsEnabled(): ?bool
+    {
+        return $this->notificationSaisieTempsEnabled;
+    }
+
+    public function setNotificationSaisieTempsEnabled(bool $notificationSaisieTempsEnabled): self
+    {
+        $this->notificationSaisieTempsEnabled = $notificationSaisieTempsEnabled;
 
         return $this;
     }

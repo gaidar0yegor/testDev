@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\NotificationCommand;
 
 use App\Service\NotificationFaitMarquants;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class NotificationCreateFaitMarquantCommand extends Command
+class NotificationLatestFaitMarquantCommand extends AbstractNotificationCommand
 {
-    protected static $defaultName = 'app:notifie-creer-faits-marquants';
+    public static $defaultName = 'app:notifie-derniers-faits-marquants';
 
     private NotificationFaitMarquants $notificationFaitMarquants;
 
@@ -24,8 +23,10 @@ class NotificationCreateFaitMarquantCommand extends Command
 
     protected function configure()
     {
+        parent::configure();
+
         $this
-            ->setDescription('Envoie une notification aux utilisateurs pour les rappeller de créer leurs faits marquants.')
+            ->setDescription('Envoie une notification aux utilisateurs pour leur afficher les faits marquants dernièrement créés sur leurs projets.')
         ;
     }
 
@@ -33,7 +34,10 @@ class NotificationCreateFaitMarquantCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $totalSent = $this->notificationFaitMarquants->remindCreateAllUsers();
+        $totalSent = $this
+            ->notificationFaitMarquants
+            ->sendLatestFaitsMarquantsToAllUsers($this->findCommandSociete($input))
+        ;
 
         $io->success("$totalSent emails de notification ont été envoyés !");
 

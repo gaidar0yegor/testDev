@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paramètres des notifications | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Paramètres des notifications</h1>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="row row-cols-1 row-cols-lg-2">
+        <div class="col mb-3">{{ form_row(form.creerFaitsMarquants) }}</div>
+        <div class="col mb-3">{{ form_row(form.derniersFaitsMarquants) }}</div>
+        <div class="col mb-3">{{ form_row(form.saisieTemps) }}</div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}
