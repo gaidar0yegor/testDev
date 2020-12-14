@@ -79,6 +79,32 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     /**
+     * Retourne l'année minimum et l'année maximum auxquelles il existe des projets actifs.
+     *
+     * @return null|int[] Array with values: ["yearMin" => xxxx, "yearMax" => xxxx], or null if no projets.
+     */
+    public function findProjetsYearRangeFor(User $user, ?string $roleMinimum = null): ?array
+    {
+        $qb = $this->whereUserAndRole($user, $roleMinimum);
+
+        $qb
+            ->select('min(year(projet.dateDebut)) as yearMin')
+            ->addSelect('max(year(projet.dateFin)) as yearMax')
+        ;
+
+        $result = $qb
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+        if (null === $result['yearMin']) {
+            return null;
+        }
+
+        return array_map('intval', $result);
+    }
+
+    /**
      * Recupère tous les projet auxquels $user participe.
      *
      * @param User $user

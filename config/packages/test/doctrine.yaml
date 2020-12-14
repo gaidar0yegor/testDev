@@ -1,0 +1,6 @@
+doctrine:
+    orm:
+        dql:
+            string_functions:
+                MONTH: DoctrineExtensions\Query\Sqlite\Month
+                YEAR: DoctrineExtensions\Query\Sqlite\Year

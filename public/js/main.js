@@ -110,4 +110,13 @@
 
         $('[name="user_notification[notificationEnabled]"]').change(updateCheckboxes);
     }
+
+    if ($('#projets-year-filter')) {
+        $('#projets-year-filter').change(({currentTarget}) => {
+            const url = $('#projets-year-filter').data('url');
+            const year = currentTarget.value;
+
+            window.location.href = [url, year].join('/');
+        });
+    }
 })(jQuery, EmbedForm);

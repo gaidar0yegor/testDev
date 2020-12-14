@@ -19,18 +19,4 @@ class ProjetParticipantRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, ProjetParticipant::class);
     }
-
-    /**
-     * Recupère tous les projet auxquels $user participe.
-     */
-    public function findAllForUser(User $user): array
-    {
-        return $this
-            ->createQueryBuilder('projetParticipant')
-            ->where('projetParticipant.user = :user')
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
 }
