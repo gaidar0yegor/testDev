@@ -211,3 +211,12 @@ php bin/console doctrine:migrations:migrate
 # Vider le cache
 php bin/console cache:clear
 ```
+
+### Cron
+
+Programmer cron pour qu'il lance la commande cron de Symfony chaque minute,
+avec `crontab -e` par exemple :
+
+```
+* * * * * /usr/local/bin/php /absolute/path/to/rdi_manager_01/bin/console cron:run 1>> /dev/null 2>&1
+```
