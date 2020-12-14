@@ -10,7 +10,6 @@ use App\ProjetResourceInterface;
 use App\Repository\ProjetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Repository\ProjetParticipantRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,16 +40,45 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/projets", name="projets_")
+     * @Route(
+     *      "/projets/{year}",
+     *      name="projets_",
+     *      requirements={"year"="\d{4}|tous\-les\-projets"}
+     * )
      */
-    public function listerProjet(ProjetParticipantRepository $projetParticipantRepository)
-    {
-        return $this->render('projets/liste_projets.html.twig', [
-            'participes'=> $projetParticipantRepository->findAllForUser($this->getUser()),
-        ]);
+    public function listerProjet(
+        string $year = null,
+        ProjetRepository $projetRepository
+    ) {
+        $currentYear = date('Y');
 
+        if (null === $year) {
+            return $this->redirectToRoute('projets_', [
+                'year' => $currentYear,
+            ]);
+        }
+
+        $yearRange = $projetRepository->findProjetsYearRangeFor($this->getUser(), ROLE::OBSERVATEUR);
+        $projetsYears = null;
+
+        if (null !== $yearRange) {
+            $projetsYears = range(
+                min($currentYear, $yearRange['yearMin']),
+                max($currentYear, $yearRange['yearMax'])
+            );
+        }
+
+        return $this->render('projets/liste_projets.html.twig', [
+            'projets'=> $projetRepository->findAllForUserInYear(
+                $this->getUser(),
+                Role::OBSERVATEUR,
+                'tous-les-projets' === $year ? null : $year
+            ),
+            'projetsYears' => $projetsYears,
+            'selectedYear' => $year,
+        ]);
     }
- 
+
     /**
      * @Route("/infos_projet", name="infos_projet_")
      *

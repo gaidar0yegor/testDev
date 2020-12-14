@@ -3,7 +3,21 @@
 {% block title %}Liste des projets{% endblock %}
 
 {% block body %}
-    <h1>Mes projets</h1>
+    <h1>
+        Mes projets de l'année
+
+        {% if projetsYears %}
+            <select id="projets-year-filter" data-url="{{ url('projets_') }}">
+                <option value="tous-les-projets">toutes</option>
+                {% for year in projetsYears|reverse %}
+                    <option
+                        {% if year == selectedYear %}selected="selected"{% endif %}
+                        value="{{ year }}"
+                    >{{ year }}</option>
+                {% endfor %}
+            </select>
+        {% endif %}
+    </h1>
 
     {% if is_granted('ROLE_FO_ADMIN') %}
         <p>
@@ -28,14 +42,14 @@
             </tr>
         </thead>
         <tbody>
-            {% for participe in participes %}
+            {% for projet in projets %}
                 <tr>
-                    <td scope="row" class="text-left"> <a href="{{ path('fiche_projet_', {'id': participe.projet.id}) }}">{{ participe.projet.acronyme }}</a> </td>
-                    <td class="text-center">{{ participe.role|trans }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateDebut ? participe.projet.dateDebut|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.dateFin ? participe.projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ participe.projet.statut }}</td>
-                    <td class="text-center">{{ participe.projet.projetParticipants|length }}</td>
+                    <td scope="row" class="text-left"> <a href="{{ path('fiche_projet_', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
+                    <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center d-none d-md-table-cell">{{ projet.statut }}</td>
+                    <td class="text-center">{{ projet.projetParticipants|length }}</td>
                 </tr>
             {% endfor %}
         </tbody>
