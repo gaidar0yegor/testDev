@@ -7,7 +7,7 @@
     <p class="text-center">
         Siret : <span class="text-monospace">{{ societe.siret|formatSiret }}</span>
         <br>
-        <a href="{{ path('fo_societe_edit') }}">Modifier les infos de ma société</a>
+        <a href="{{ path('app_fo_admin_societe_edit') }}">Modifier les infos de ma société</a>
     </p>
 
     <div class="card-deck">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ path ('utilisateurs_fo_') }}" class="card-link">Afficher la liste des utilisateurs</a>
+                <a href="{{ path ('app_fo_admin_utilisateurs') }}" class="card-link">Afficher la liste des utilisateurs</a>
             </div>
         </div>
         <div class="card rdi-card-icon text-center">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ path('fo_societe_edit') }}" class="card-link">Modifier le nombre d'heures</a>
+                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">Modifier le nombre d'heures</a>
             </div>
         </div>
     </div>

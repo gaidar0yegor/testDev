@@ -7,8 +7,12 @@
         Mes projets de l'année
 
         {% if projetsYears %}
-            <select id="projets-year-filter" data-url="{{ url('projets_') }}">
-                <option value="tous-les-projets">toutes</option>
+            <select
+                id="projets-year-filter"
+                data-url-all="{{ url('app_fo_projets_all') }}"
+                data-url-by-year="{{ url('app_fo_projets_by_year', {"year": 2000}) }}"
+            >
+                <option value="all">toutes</option>
                 {% for year in projetsYears|reverse %}
                     <option
                         {% if year == selectedYear %}selected="selected"{% endif %}
@@ -26,7 +30,7 @@
         <p>
             <i class="fa fa-info-circle" aria-hidden="true"></i>
             En tant qu'administrateur, je peux aussi
-            <a href="{{ path('app_fo_projet_admin_projets_') }}">accéder à tous les projets de la société</a>.
+            <a href="{{ path('app_fo_admin_projets') }}">accéder à tous les projets de la société</a>.
         </p>
     {% endif %}
 
@@ -44,7 +48,7 @@
         <tbody>
             {% for projet in projets %}
                 <tr>
-                    <td scope="row" class="text-left"> <a href="{{ path('fiche_projet_', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
+                    <td scope="row" class="text-left"> <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
                     <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
@@ -58,7 +62,7 @@
     <div class="button mb-4">
         <a
             class="btn btn-outline-success {{ is_granted('ROLE_FO_CDP') ? '' : 'disabled' }}"
-            href="{{ path('infos_projet_') }}"
+            href="{{ path('app_fo_projet_creation') }}"
             {% if not is_granted('ROLE_FO_CDP') %}
                 title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
             {% endif %}

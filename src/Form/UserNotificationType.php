@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,7 +28,6 @@ class UserNotificationType extends AbstractType
                 'label' => 'Notification des derniers faits marquants ajoutés',
                 'help' => 'Notifications type newsletter pour me remonter les derniers faits marquants ajoutés sur mes projets par les autres contributeurs.',
             ])
-            ->add('enregistrer', SubmitType::class)
         ;
     }
 

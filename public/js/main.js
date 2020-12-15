@@ -87,23 +87,13 @@
     if ($('#user_notification')) {
         const updateCheckboxes = () => {
             const allNotifications = $('[name="user_notification[notificationEnabled]"]').is(':checked');
-            const inputNames = [
-                'user_notification[notificationSaisieTempsEnabled]',
-                'user_notification[notificationCreateFaitMarquantEnabled]',
-                'user_notification[notificationLatestFaitMarquantEnabled]',
-            ];
+            const $group = $('.notifications-group');
 
-            inputNames.forEach(inputName => {
-                const $element = $(`[name="${inputName}"]`)
-                    .closest('.form-group')
-                ;
-
-                if (allNotifications) {
-                    $element.show();
-                } else {
-                    $element.hide();
-                }
-            });
+            if (allNotifications) {
+                $group.show();
+            } else {
+                $group.hide();
+            }
         }
 
         updateCheckboxes();
@@ -116,7 +106,15 @@
             const url = $('#projets-year-filter').data('url');
             const year = currentTarget.value;
 
-            window.location.href = [url, year].join('/');
+            if ('all' === year) {
+                window.location.href = $('#projets-year-filter').data('urlAll');
+                return;
+            }
+
+            window.location.href = $('#projets-year-filter')
+                .data('urlByYear')
+                .replace('2000', year)
+            ;
         });
     }
 })(jQuery, EmbedForm);

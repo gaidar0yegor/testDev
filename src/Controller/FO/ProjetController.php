@@ -16,6 +16,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 
+/**
+ * @Route("/projets")
+ */
 class ProjetController extends AbstractController
 {
     private Pdf $pdf;
@@ -26,40 +29,37 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * Affichage de tous les projets de la société
-     * @Route("/tous-les-projets", name="app_fo_projet_admin_projets_")
-     *
-     * @IsGranted("ROLE_FO_ADMIN")
-     */
-    public function listerProjetAdmin(ProjetRepository $projetRepository)
-    {
-        $allProjectsOfSociete = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete());
-        return $this->render('projets/admin_liste_projets.html.twig', [
-            'projets'=> $allProjectsOfSociete,
-        ]);
-    }
-
-    /**
      * @Route(
-     *      "/projets/{year}",
-     *      name="projets_",
-     *      requirements={"year"="\d{4}|tous\-les\-projets"}
+     *      "",
+     *      name="app_fo_projets"
+     * )
+     * @Route(
+     *      "/tous-les-projets",
+     *      name="app_fo_projets_all",
+     *      defaults={"year": "all"}
+     * )
+     * @Route(
+     *      "/annee-{year}",
+     *      name="app_fo_projets_by_year",
+     *      requirements={"year"="\d{4}"},
      * )
      */
     public function listerProjet(
-        string $year = null,
+        string $year = 'current',
         ProjetRepository $projetRepository
     ) {
         $currentYear = date('Y');
 
-        if (null === $year) {
-            return $this->redirectToRoute('projets_', [
-                'year' => $currentYear,
-            ]);
+        if ($year === $currentYear) {
+            return $this->redirectToRoute('app_fo_projets');
         }
 
         $yearRange = $projetRepository->findProjetsYearRangeFor($this->getUser(), ROLE::OBSERVATEUR);
         $projetsYears = null;
+
+        if ('current' === $year) {
+            $year = $currentYear;
+        }
 
         if (null !== $yearRange) {
             $projetsYears = range(
@@ -72,7 +72,7 @@ class ProjetController extends AbstractController
             'projets'=> $projetRepository->findAllForUserInYear(
                 $this->getUser(),
                 Role::OBSERVATEUR,
-                'tous-les-projets' === $year ? null : $year
+                'all' === $year ? null : $year
             ),
             'projetsYears' => $projetsYears,
             'selectedYear' => $year,
@@ -80,7 +80,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/infos_projet", name="infos_projet_")
+     * @Route("/creation", name="app_fo_projet_creation")
      *
      * @IsGranted("ROLE_FO_CDP")
      */
@@ -110,7 +110,7 @@ class ProjetController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', sprintf('Le projet "%s" a été créé.', $projet->getTitre()));
-            return $this->redirectToRoute('fiche_projet_', [
+            return $this->redirectToRoute('app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -125,7 +125,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{id}/edition", name="projet_edition")
+     * @Route("/{id}/modifier", name="app_fo_projet_modifier")
      */
     public function edition(Request $request, Projet $projet): Response
     {
@@ -141,7 +141,7 @@ class ProjetController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', sprintf('Le projet "%s" a été modifié.', $projet->getTitre()));
-            return $this->redirectToRoute('fiche_projet_', [
+            return $this->redirectToRoute('app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -154,7 +154,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/fiche/projet/{id}", name="fiche_projet_")
+     * @Route("/{id}", name="app_fo_projet", requirements={"id"="\d+"})
      */
     public function ficheProjet(Projet $projet)
     {
@@ -168,7 +168,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/generate/projet/{id}", name="generate_fiche_projet_")
+     * @Route("/{id}.pdf", name="app_fo_projet_pdf")
      */
     public function ficheProjetGeneratePdf(Projet $projet)
     {

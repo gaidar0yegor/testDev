@@ -14,7 +14,7 @@ class HomeController extends AbstractController
     public function home(): Response
     {
         if ($this->isGranted('ROLE_FO_USER')) {
-            return $this->redirectToRoute('synthese_fo_');
+            return $this->redirectToRoute('app_fo_dashboard');
         }
 
         return $this->redirectToRoute('app_login');

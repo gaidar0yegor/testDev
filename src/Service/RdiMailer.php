@@ -72,7 +72,7 @@ class RdiMailer
             throw new RdiException('Cannot send invitation email, this user has no invitation token.');
         }
 
-        $invitationLink = $this->urlGenerator->generate('fo_user_finalize_inscription', [
+        $invitationLink = $this->urlGenerator->generate('app_fo_user_finalize_inscription', [
             'token' => $invitedUser->getInvitationToken(),
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -105,7 +105,7 @@ class RdiMailer
             throw new RdiException('Cannot send reset password email, this user has no reset password token.');
         }
 
-        $resetPasswordLink = $this->urlGenerator->generate('app_reset_password', [
+        $resetPasswordLink = $this->urlGenerator->generate('app_fo_reset_password', [
             'token' => $user->getResetPasswordToken(),
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 

@@ -79,7 +79,7 @@
             <td>
                 <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
                 <a
-                    href="{{ path('telecharge_fichier_', {
+                    href="{{ path('app_fo_projet_fichier', {
                         'projetId': form.vars.data.projet.id,
                         'fichierProjetId': form.vars.data.id
                     }) }}"
@@ -91,7 +91,7 @@
             <td><span class="d-none d-sm-table-cell">{{ form.vars.data.fichier.dateUpload|format_date }}</span></td>
             <td>
                 <a
-                    href="{{ path('efface_fichier_', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
+                    href="{{ path('app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
                     class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
                     {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}
                         title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
@@ -149,7 +149,7 @@
             {{ form_errors(form) }}
             <br>
             {% if form.vars.data.id %}
-                <small class="card-text"><a href="{{ path('app_fo_notification_rapport', {'id': form.vars.data.id}) }}">Dernières notifications envoyées</a></small>
+                <small class="card-text"><a href="{{ path('app_fo_admin_notification_rapport', {'id': form.vars.data.id}) }}">Dernières notifications envoyées</a></small>
             {% else %}
                 <small class="card-text text-muted">Notification encore jamais programmée</small>
             {% endif %}

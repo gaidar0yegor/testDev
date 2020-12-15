@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\FO;
 
 use App\Entity\Projet;
 use App\Entity\FichierProjet;
@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class FichierController extends AbstractController
 {
     /**
-     * @Route("/fiche/projet/{id}/liste/fichiers", name="liste_fichiers_")
+     * @Route("/projets/{id}/fichiers", name="app_fo_projet_fichiers")
      */
     public function listeFichiers(Request $request, Projet $projet, EntityManagerInterface $em)
     {
@@ -33,7 +33,7 @@ class FichierController extends AbstractController
             $em->persist($projet);
             $em->flush();
 
-            return $this->redirectToRoute('liste_fichiers_', [
+            return $this->redirectToRoute('app_fo_projet_fichiers', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -45,7 +45,7 @@ class FichierController extends AbstractController
     }
 
     /**
-     * @Route("/fiche/projet/{projetId}/delete/fichier/{fichierProjetId}", name="efface_fichier_", methods={"DELETE"})
+     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}", name="app_fo_projet_fichier_delete", methods={"DELETE"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
@@ -63,13 +63,13 @@ class FichierController extends AbstractController
         $em->remove($fichierProjet);
         $em->flush();
 
-        return $this->redirectToRoute('liste_fichiers_', [
+        return $this->redirectToRoute('app_fo_projet_fichiers', [
             'id' => $projet->getid(),
         ]);
     }
 
     /**
-     * @Route("/fiche/projet/{projetId}/dowload/fichier/{fichierProjetId}", name="telecharge_fichier_", methods={"GET"})
+     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}", name="app_fo_projet_fichier", methods={"GET"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})

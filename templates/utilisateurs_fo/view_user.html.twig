@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="d-flex flex-column flex-md-row justify-content-md-between mt-5">
-                        <a href="{{ path('utilisateur_fo_modifier_', { id: user.id }) }}" class="btn btn-outline-success mt-2">Mettre à jour</a>
+                        <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: user.id }) }}" class="btn btn-outline-success mt-2">Mettre à jour</a>
                         {% if user.enabled %}
                             <form
                                 action="{{ path('utilisateur_fo_disable', { id: user.id }) }}"

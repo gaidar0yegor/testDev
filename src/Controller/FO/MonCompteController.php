@@ -12,10 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * @Route("/mon-compte")
+ */
 class MonCompteController extends AbstractController
 {
     /**
-     * @Route("/mon-compte", name="mon_compte")
+     * @Route("", name="app_fo_mon_compte")
      */
     public function monCompte(Request $request, EntityManagerInterface $em)
     {
@@ -28,7 +31,7 @@ class MonCompteController extends AbstractController
 
             $this->addFlash('success', 'Vos préférences de notifications ont été mises à jour.');
 
-            return $this->redirectToRoute('mon_compte');
+            return $this->redirectToRoute('app_fo_mon_compte');
         }
 
         return $this->render('mon_compte/mon_compte.html.twig', [
@@ -37,7 +40,7 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("/mon-compte/modifier", name="app_fo_mon_compte_modifier")
+     * @Route("/modifier", name="app_fo_mon_compte_modifier")
      */
     public function monCompteModifier(Request $request, EntityManagerInterface $em)
     {
@@ -50,7 +53,7 @@ class MonCompteController extends AbstractController
 
             $this->addFlash('success', 'Vos informations personnelles ont été mises à jour.');
 
-            return $this->redirectToRoute('mon_compte');
+            return $this->redirectToRoute('app_fo_mon_compte');
         }
 
         return $this->render('mon_compte/mon_compte_modifier.html.twig', [
@@ -59,7 +62,7 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("/mon-compte/changer-mot-de-passe", name="app_fo_mon_compte_update_password")
+     * @Route("/changer-mot-de-passe", name="app_fo_mon_compte_update_password")
      */
     public function updatePassword(
         Request $request,
@@ -84,7 +87,7 @@ class MonCompteController extends AbstractController
 
                 $this->addFlash('success', 'Votre mot de passe a été mis à jour.');
 
-                return $this->redirectToRoute('mon_compte');
+                return $this->redirectToRoute('app_fo_mon_compte');
             }
 
             $this->addFlash('danger', 'Votre ancien mot de passe saisis n\'est pas le bon.');

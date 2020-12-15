@@ -1,3 +1,9 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+admin:
+    type: annotation
+    prefix: /admin/
+    resource: ../src/Controller/FO/Admin/
+
+back_office:
+    type: annotation
+    prefix: /back-office/
+    resource: ../src/Controller/BO/

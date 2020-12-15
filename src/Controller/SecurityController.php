@@ -27,7 +27,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $trans): Response
     {
         if ($this->isGranted('ROLE_FO_USER')) {
-            return $this->redirectToRoute('synthese_fo_');
+            return $this->redirectToRoute('app_fo_dashboard');
         }
 
         // get the login error if there is one
@@ -56,7 +56,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/inscription/{token}", name="fo_user_finalize_inscription")
+     * @Route("/inscription/{token}", name="app_fo_user_finalize_inscription")
      */
     public function finalizeInscription(
         Request $request,
@@ -94,7 +94,7 @@ class SecurityController extends AbstractController
 
             $this->addFlash('success', sprintf('Bienvenue à %s !', $user->getPrenom()));
 
-            return $this->redirectToRoute('projets_');
+            return $this->redirectToRoute('app_fo_projets');
         }
 
         return $this->render('utilisateurs_fo/finalize_inscription.html.twig', [
@@ -104,7 +104,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/reinitialiser-mot-de-passe", name="app_reset_password_request")
+     * @Route("/reinitialiser-mot-de-passe", name="app_fo_reset_password_request")
      */
     public function resetPasswordRequest(
         Request $request,
@@ -141,7 +141,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/reinitialiser-mot-de-passe/{token}", name="app_reset_password")
+     * @Route("/reinitialiser-mot-de-passe/{token}", name="app_fo_reset_password")
      */
     public function resetPassword(
         Request $request,

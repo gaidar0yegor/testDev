@@ -63,13 +63,13 @@
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 my-4">
             <div class="col">
                 <a
-                    href="{{ path('liste_fichiers_', {'id': projet.id}) }}"
+                    href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2"
                 >Fichiers</a>
             </div>
             <div class="col">
                 <a
-                    href="{{ path('projet_participant', {'id': projet.id}) }}"
+                    href="{{ path('app_fo_projet_participant', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
                     {% if not userCanEditProjet %}
                         title="Seul le chef de projet peut gérer les participants"
@@ -78,7 +78,7 @@
             </div>
             <div class="col">
                 <a
-                    href="{{ path('projet_edition', {'id': projet.id}) }}"
+                    href="{{ path('app_fo_projet_modifier', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
                     {% if not userCanEditProjet %}
                         title="Seul le chef de projet peut modifier"
@@ -87,7 +87,7 @@
             </div>
             <div class="col">
                 <a
-                    href="{{ path('fait_marquant_ajouter', {projetId: projet.id}) }}"
+                    href="{{ path('app_fo_fait_marquant_ajouter', {projetId: projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2 {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
                     {% if not userCanAddFaitMarquant %}
                         title="Seuls les contributeurs du projet peuvent ajouter un fait marquant"
@@ -96,7 +96,7 @@
             </div>
              <div class="col">
                 <a
-                    href="{{ path('generate_fiche_projet_', {'id': projet.id}) }}"
+                    href="{{ path('app_fo_projet_pdf', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2"
                 >Export PDF</a>
             </div>
@@ -123,7 +123,7 @@
                                 <li>
                                     <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
                                     <a
-                                        href="{{ path('telecharge_fichier_', {
+                                        href="{{ path('app_fo_projet_fichier', {
                                             'projetId': projet.id,
                                             'fichierProjetId': fichierProjet.id
                                         }) }}"
@@ -135,7 +135,7 @@
                         </ul>
                         <div class="text-right">
                             <a
-                                href="{{ path('fait_marquant_modifier', {'id': faitMarquant.id}) }}"
+                                href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
                                 class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
                                 {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
                                     disabled

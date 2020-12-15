@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Controller\FO;
+namespace App\Controller\FO\Admin;
 
 use App\Entity\User;
 use App\Form\InviteUserType;
 use App\Form\UtilisateursFormType;
 use App\Repository\UserRepository;
 use App\Service\Invitator;
-use App\Service\RdiMailer;
-use App\Service\TokenGenerator;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,12 +15,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 /**
- * @IsGranted("ROLE_FO_ADMIN")
+ * @Route("/utilisateurs")
  */
 class UtilisateursFoController extends AbstractController
 {
     /**
-     * @Route("/utilisateurs", name="utilisateurs_fo_")
+     * @Route("", name="app_fo_admin_utilisateurs")
      */
     public function listerUtilisateurs(UserRepository $ur)
     {
@@ -33,7 +30,7 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/invite", name="fo_user_invite")
+     * @Route("/invite", name="app_fo_admin_user_invite")
      */
     public function invite(
         Request $request,
@@ -50,7 +47,7 @@ class UtilisateursFoController extends AbstractController
             $em->flush();
             $invitator->sendInvitation($user);
 
-            return $this->redirectToRoute('fo_user_invite');
+            return $this->redirectToRoute('app_fo_admin_user_invite');
         }
 
         return $this->render('utilisateurs_fo/invite_user.html.twig', [
@@ -60,7 +57,7 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/{id}", name="users_fo_user")
+     * @Route("/{id}", name="users_fo_user")
      */
     public function compteUtilisateur(User $user)
     {
@@ -72,7 +69,7 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/{id}/modifier", name="utilisateur_fo_modifier_")
+     * @Route("/{id}/modifier", name="app_fo_admin_utilisateur_modifier")
      */
     public function modifier(Request $request, User $user, EntityManagerInterface $em)
     {
@@ -102,7 +99,7 @@ class UtilisateursFoController extends AbstractController
 
     /**
      * @Route(
-     *      "/utilisateurs/{id}/desactiver",
+     *      "/{id}/desactiver",
      *      name="utilisateur_fo_disable",
      *      methods={"POST"}
      * )
@@ -132,7 +129,7 @@ class UtilisateursFoController extends AbstractController
 
     /**
      * @Route(
-     *      "/utilisateurs/{id}/activer",
+     *      "/{id}/activer",
      *      name="utilisateur_fo_enable",
      *      methods={"POST"}
      * )

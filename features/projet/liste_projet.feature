@@ -26,6 +26,6 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I should see "P4"
         And I should see a "#projets-year-filter" element
 
-        When I go to "/projets/2020"
+        When I go to "/projets/annee-2020"
         Then I should see "P1"
         But I should not see "P4"
