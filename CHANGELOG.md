@@ -5,13 +5,15 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.7.0] - 2020-12-15
 ### Ajouté
 - Page de mes projets : ajout d'un filtre des projets actifs par année
 ### Réparé
 - Réparation du bug de noël
-
-
-
 
 ## [0.6.2] - 2020-12-11
 ### Ajouté
