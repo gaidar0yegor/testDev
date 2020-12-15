@@ -7,6 +7,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Page de mes projets : ajout d'un filtre des projets actifs par année
+### Réparé
+- Réparation du bug de noël
 
 
 
