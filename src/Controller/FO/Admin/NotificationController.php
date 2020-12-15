@@ -1,24 +1,22 @@
 <?php
 
-namespace App\Controller\FO;
+namespace App\Controller\FO\Admin;
 
 use App\Form\SocieteNotificationsType;
 use App\Service\SocieteNotificationsService;
 use Cron\CronBundle\Entity\CronJob;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/notifications")
- * @IsGranted("ROLE_FO_ADMIN")
  */
 class NotificationController extends AbstractController
 {
     /**
-     * @Route("/", name="app_fo_notification")
+     * @Route("", name="app_fo_admin_notification")
      */
     public function index(
         Request $request,
@@ -37,7 +35,7 @@ class NotificationController extends AbstractController
 
             $this->addFlash('success', 'Vos préférences de notifications ont été mises à jour.');
 
-            return $this->redirectToRoute('app_fo_notification');
+            return $this->redirectToRoute('app_fo_admin_notification');
         }
 
         return $this->render('notification/index.html.twig', [
@@ -46,7 +44,7 @@ class NotificationController extends AbstractController
     }
 
     /**
-     * @Route("/rapport/{id}", name="app_fo_notification_rapport")
+     * @Route("/rapport/{id}", name="app_fo_admin_notification_rapport")
      */
     public function report(CronJob $cronJob)
     {

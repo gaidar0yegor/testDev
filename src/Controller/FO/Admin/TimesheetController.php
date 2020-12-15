@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\FO;
+namespace App\Controller\FO\Admin;
 
 use App\DTO\FilterTimesheet;
 use App\Entity\User;
@@ -13,16 +13,12 @@ use App\Service\Timesheet\TimesheetCalculator;
 use DateTime;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @IsGranted("ROLE_FO_ADMIN")
- */
 class TimesheetController extends AbstractController
 {
     private Pdf $pdf;
@@ -35,7 +31,7 @@ class TimesheetController extends AbstractController
     /**
      * @Route(
      *      "/feuille-de-temps/generer",
-     *      name="timesheet_generate"
+     *      name="app_fo_admin_timesheet_generate"
      * )
      */
     public function generate(
@@ -78,7 +74,7 @@ class TimesheetController extends AbstractController
      * @Route(
      *      "/feuille-de-temps-{year}-{month}-{userId}.{format}",
      *      requirements={"format"="(html|pdf)"},
-     *      name="timesheet_sheet"
+     *      name="app_fo_admin_timesheet_sheet"
      * )
      *
      * @ParamConverter("user", options={"id" = "userId"})

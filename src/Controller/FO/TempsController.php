@@ -17,7 +17,7 @@ class TempsController extends AbstractController
      * @Route(
      * "/temps/{year}/{month}",
      * requirements={"year"="\d{4}", "month"="\d{2}"},
-     * name="temps_"
+     * name="app_fo_temps"
      * )
      */
     public function saisieTempsEnPourCent(
@@ -29,7 +29,7 @@ class TempsController extends AbstractController
         DateMonthService $dateMonthService
     ) {
         if ($year !== null && $month === null) {
-            return $this->redirectToRoute('temps_');
+            return $this->redirectToRoute('app_fo_temps');
         }
 
         try {
@@ -53,7 +53,7 @@ class TempsController extends AbstractController
             $em->persist($cra);
             $em->flush();
 
-            $href = $this->generateUrl('absences_', [
+            $href = $this->generateUrl('app_fo_absences', [
                 'year' => $year,
                 'month' => $month,
             ]);
@@ -64,7 +64,7 @@ class TempsController extends AbstractController
                 '<a href="'.$href.'" class="alert-link">Saisissez vos absences</a> si vous en avez pris ce mois ci.'
             );
 
-            return $this->redirectToRoute('temps_', [
+            return $this->redirectToRoute('app_fo_temps', [
                 'year' => $year,
                 'month' => $month,
             ]);
@@ -83,7 +83,7 @@ class TempsController extends AbstractController
      * @Route(
      *      "/absences/{year}/{month}",
      *      requirements={"year"="\d{4}", "month"="\d{2}"},
-     *      name="absences_"
+     *      name="app_fo_absences"
      * )
      */
     public function saisieAbsences(

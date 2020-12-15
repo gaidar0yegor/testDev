@@ -47,7 +47,7 @@ class NotificationSaisieTemps
     {
         $month = $this->dateMonthService->normalize($month ?? new \DateTime());
 
-        $link = $this->urlGenerator->generate('temps_', [
+        $link = $this->urlGenerator->generate('app_fo_temps', [
             'year' => $month->format('Y'),
             'month' => $month->format('m'),
         ], UrlGeneratorInterface::ABSOLUTE_URL);

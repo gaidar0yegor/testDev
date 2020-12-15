@@ -52,5 +52,6 @@ security:
         - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/inscription/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_BO }
+        - { path: ^/admin/, roles: ROLE_FO_ADMIN }
+        - { path: ^/back-office/, roles: ROLE_BO }
         - { path: ^/, roles: ROLE_USER }

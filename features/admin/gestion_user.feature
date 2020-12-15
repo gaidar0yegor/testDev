@@ -11,16 +11,16 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I follow "Utilisateurs"
 
     Scenario: Le référent peut voir toutes les infos d'un utilisateur en particulier
-        When I click on the 1st "[href='/utilisateurs/2']" element
+        When I click on the 1st "[href='/admin/utilisateurs/2']" element
         Then I should see "Compte de Utilisateur Eureka"
 
     Scenario: Le référent ne peut pas voir les infos des utilisateurs des autres société
-        When I go to "/utilisateurs/3"
+        When I go to "/admin/utilisateurs/3"
         Then the response status code should be 403
         And I should not see "Modification de Utilisateur Eureka"
 
     Scenario: Le référent peut modifier les infos d'un utilisateur en particulier
-        When I click on the 1st "[href='/utilisateurs/2/modifier']" element
+        When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
         Then I should see "Modification de Utilisateur Eureka"
 
         When I fill in the following:
@@ -32,12 +32,12 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I should see "Chef de Projet" in the ".main-container" element
 
     Scenario: Le référent ne peut pas modifier les infos des utilisateurs des autres société
-        When I go to "/utilisateurs/3/modifier"
+        When I go to "/admin/utilisateurs/3/modifier"
         Then the response status code should be 403
         And I should not see "AutreSociete"
 
     Scenario: Le référent peut désactiver et réactiver un utilisateur
-        When I click on the 1st "[href='/utilisateurs/2']" element
+        When I click on the 1st "[href='/admin/utilisateurs/2']" element
         Then I should see "Activé" in the ".badge" element
 
         When I press "Désactiver"
@@ -49,5 +49,5 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I should see "Activé" in the ".badge" element
 
     Scenario: Le référent ne peut pas désactiver les utilisateurs des autres société
-        When I send a POST request to "/utilisateurs/3/desactiver"
+        When I send a POST request to "/admin/utilisateurs/3/desactiver"
         Then the response status code should be 403

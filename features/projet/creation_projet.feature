@@ -12,11 +12,11 @@ Feature: Création de projet
     Scenario: Un chef de projet peut créer un projet
         Given I am on "/projets"
         When I follow "Créer un projet"
-        Then I should be on "/infos_projet"
+        Then I should be on "/projets/creation"
         When I fill in the following:
             | projet_form[acronyme] | MPT           |
             | projet_form[titre]    | MonProjetTest |
         And I press "Soumettre"
-        Then the url should match "/fiche/projet/"
+        Then the url should match "/projets/"
         And I should see "MPT" in the "h1" element
         And I should see "Le projet \"MonProjetTest\" a été créé"

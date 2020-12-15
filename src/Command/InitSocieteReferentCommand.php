@@ -88,7 +88,7 @@ class InitSocieteReferentCommand extends Command
 
         $admin->setInvitationToken($invitationToken);
 
-        $invitationLink = $this->urlGenerator->generate('fo_user_finalize_inscription', [
+        $invitationLink = $this->urlGenerator->generate('app_fo_user_finalize_inscription', [
             'token' => $invitationToken,
         ], UrlGeneratorInterface::RELATIVE_PATH);
 

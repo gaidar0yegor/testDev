@@ -7,13 +7,13 @@
 <h1>Indiquez vos jours d'absence</h1>
 
 <h2 class="mb-4 align-items-center">
-    <a href="{{ path('absences_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
+    <a href="{{ path('app_fo_absences', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
         <i class="fa fa-angle-left fa-lg"></i>
     </a>
     <span class="mx-3">
         {{ cra.mois|format_date(pattern='MMMM Y')|capitalize }}
     </span>
-    <a href="{{ path('absences_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
+    <a href="{{ path('app_fo_absences', {'year': next|date('Y'), 'month': next|date('m')}) }}">
         <i class="fa fa-angle-right fa-lg"></i>
     </a>
 </h2>

@@ -13,13 +13,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Route("/")
- */
 class FaitMarquantController extends AbstractController
 {
     /**
-     * @Route("/fiche/projet/{projetId}/fait-marquants/ajouter", name="fait_marquant_ajouter", methods={"GET","POST"})
+     * @Route("/projets/{projetId}/fait-marquants/ajouter", name="app_fo_fait_marquant_ajouter", methods={"GET","POST"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      */
@@ -46,7 +43,7 @@ class FaitMarquantController extends AbstractController
                 $faitMarquant->getTitre()
             ));
 
-            return $this->redirectToRoute('fiche_projet_', [
+            return $this->redirectToRoute('app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -59,7 +56,7 @@ class FaitMarquantController extends AbstractController
     }
 
     /**
-     * @Route("/fait-marquants/{id}/modifier", name="fait_marquant_modifier", methods={"GET","POST"})
+     * @Route("/fait-marquants/{id}/modifier", name="app_fo_fait_marquant_modifier", methods={"GET","POST"})
      */
     public function edit(Request $request, FaitMarquant $faitMarquant, EntityManagerInterface $em): Response
     {
@@ -76,7 +73,7 @@ class FaitMarquantController extends AbstractController
                 $faitMarquant->getTitre()
             ));
 
-            return $this->redirectToRoute('fiche_projet_', [
+            return $this->redirectToRoute('app_fo_projet', [
                 'id' => $faitMarquant->getProjet()->getId(),
             ]);
         }
@@ -88,7 +85,7 @@ class FaitMarquantController extends AbstractController
     }
 
     /**
-     * @Route("/fait-marquants/{id}", name="fait_marquant_delete", methods={"DELETE"})
+     * @Route("/fait-marquants/{id}", name="app_fo_fait_marquant_delete", methods={"DELETE"})
      */
     public function delete(Request $request, FaitMarquant $faitMarquant, EntityManagerInterface $em): Response
     {
@@ -104,7 +101,7 @@ class FaitMarquantController extends AbstractController
             ));
         }
 
-        return $this->redirectToRoute('fiche_projet_', [
+        return $this->redirectToRoute('app_fo_projet', [
             'id' => $faitMarquant->getProjet()->getId(),
         ]);
     }

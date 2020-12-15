@@ -39,7 +39,7 @@
 						<a href="{{ path('users_fo_user', { 'id': user.id }) }}">
 							<i class="fa fa-lg fa-eye"></i>
 						</a>
-						<a href="{{ path('utilisateur_fo_modifier_', { 'id': user.id }) }}">
+						<a href="{{ path('app_fo_admin_utilisateur_modifier', { 'id': user.id }) }}">
 							<i class="fa fa-lg fa-edit"></i>
 						</a>
 					</td>
@@ -49,7 +49,7 @@
 	</table>
 
 	<div class="button mb-4">
-		<a href="{{ path('fo_user_invite') }}" class="btn btn-outline-primary">
+		<a href="{{ path('app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
 			<i class="fa fa-user-plus" aria-hidden="true"></i>
 			Inviter un nouvel utilisateur
 		</a>

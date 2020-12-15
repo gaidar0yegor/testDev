@@ -7,7 +7,7 @@
 <h1>Saisie de temps passé</h1>
 
 <h2 class="mb-4 align-items-center">
-    <a href="{{ path('temps_', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
+    <a href="{{ path('app_fo_temps', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
         <i class="fa fa-angle-left fa-lg"></i>
     </a>
     <span class="mx-3">
@@ -18,7 +18,7 @@
             <i class="fa fa-angle-right fa-lg"></i>
         </span>
     {% else %}
-        <a href="{{ path('temps_', {'year': next|date('Y'), 'month': next|date('m')}) }}">
+        <a href="{{ path('app_fo_temps', {'year': next|date('Y'), 'month': next|date('m')}) }}">
             <i class="fa fa-angle-right fa-lg"></i>
         </a>
     {% endif %}

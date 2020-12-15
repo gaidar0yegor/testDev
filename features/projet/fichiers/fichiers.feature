@@ -29,10 +29,10 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | pas_acces              |
         And I press "Connexion"
 
-        When I go to "/fiche/projet/1/liste/fichiers"
+        When I go to "/projets/1/fichiers"
         Then the response status code should be 403
 
-        When I go to "/fiche/projet/1/dowload/fichier/1"
+        When I go to "/projets/1/fichiers/1"
         Then the response status code should be 403
 
     Scenario: Un contributeur peut téléverser un fichier
@@ -42,5 +42,5 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | contributeur              |
         And I press "Connexion"
 
-        When I go to "/fiche/projet/1/liste/fichiers"
+        When I go to "/projets/1/fichiers"
         Then I should see "Ajouter un fichier"

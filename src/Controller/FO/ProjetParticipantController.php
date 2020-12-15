@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProjetParticipantController extends AbstractController
 {
     /**
-     * @Route("/projet/{id}/participants", name="projet_participant")
+     * @Route("/projets/{id}/participants", name="app_fo_projet_participant")
      */
     public function index(
         Request $request,
@@ -40,7 +40,7 @@ class ProjetParticipantController extends AbstractController
 
             $this->addFlash('success', 'Les rôles des participants ont été mis à jour.');
 
-            return $this->redirectToRoute('fiche_projet_', [
+            return $this->redirectToRoute('app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -52,7 +52,7 @@ class ProjetParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/projet/{id}/participants/invite", name="projet_participant_invite")
+     * @Route("/projets/{id}/participants/invite", name="app_fo_projet_participant_invite")
      */
     public function invite(
         Request $request,
@@ -76,7 +76,7 @@ class ProjetParticipantController extends AbstractController
             $em->flush();
             $invitator->sendInvitation($user);
 
-            return $this->redirectToRoute('projet_participant_invite', [
+            return $this->redirectToRoute('app_fo_projet_participant_invite', [
                 'id' => $projet->getId(),
             ]);
         }

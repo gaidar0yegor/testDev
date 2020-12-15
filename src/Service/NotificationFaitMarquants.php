@@ -78,7 +78,7 @@ class NotificationFaitMarquants
                         function (Projet $projet) {
                             $acronyme = $projet->getAcronyme();
                             $link = $this->urlGenerator->generate(
-                                'fait_marquant_ajouter',
+                                'app_fo_fait_marquant_ajouter',
                                 ['projetId' => $projet->getId()],
                                 UrlGeneratorInterface::ABSOLUTE_URL
                             );

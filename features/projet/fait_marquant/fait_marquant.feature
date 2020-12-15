@@ -9,7 +9,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur@societe.dev  |
             | _password | contributeur              |
         And I press "Connexion"
-        And I am on "/fiche/projet/1"
+        And I am on "/projets/1"
 
         When I follow "Fait marquant"
         Then I should see "Ajouter un fait marquant" in the "h1" element
@@ -28,7 +28,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | observateur@societe.dev  |
             | _password | observateur              |
         And I press "Connexion"
-        And I am on "/fiche/projet/1"
+        And I am on "/projets/1"
 
         When I follow "Fait marquant"
         Then I should not see "Ajouter un fait marquant" in the "h1" element
@@ -39,7 +39,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur@societe.dev  |
             | _password | contributeur              |
         And I press "Connexion"
-        And I am on "/fiche/projet/1"
+        And I am on "/projets/1"
 
         When I click on the 1st ".timeline a:contains('Modifier')" element
         Then I should see "Modifiez votre fait marquant" in the "h1" element
@@ -57,7 +57,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur@societe.dev  |
             | _password | contributeur              |
         And I press "Connexion"
-        And I am on "/fiche/projet/1"
+        And I am on "/projets/1"
 
         Then I should see "Contenu du fait marquant déjà créé"
 
@@ -72,7 +72,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur2@societe.dev  |
             | _password | contributeur2              |
         And I press "Connexion"
-        And I am on "/fiche/projet/1"
+        And I am on "/projets/1"
 
         When I click on the 1st ".timeline a:contains('Modifier')" element
         Then I should not see "Modifiez votre fait marquant" in the "h1" element
@@ -83,7 +83,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | cdp@societe.dev  |
             | _password | cdp              |
         And I press "Connexion"
-        And I am on "/fiche/projet/1"
+        And I am on "/projets/1"
 
         When I click on the 1st ".timeline a:contains('Modifier')" element
         Then I should see "Modifiez votre fait marquant" in the "h1" element
