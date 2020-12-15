@@ -48,11 +48,11 @@ class RdiMailer
 
         $email = $this->createDefaultEmail()
             ->to($email)
-            ->subject('Email de test envoyé depuis RDI Manager')
+            ->subject('Email de test envoyé depuis RDI-Manager')
             ->text(sprintf(
-                'Ceci est un email de test envoyé depuis RDI Manager. '
-                .'Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI Manager. '
-                .'Url absolue de RDI Manager : %s',
+                'Ceci est un email de test envoyé depuis RDI-Manager. '
+                .'Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI-Manager. '
+                .'Url absolue de RDI-Manager : %s',
                 $homeUrl
             ))
 
@@ -78,9 +78,9 @@ class RdiMailer
 
         $email = $this->createDefaultEmail()
             ->to($invitedUser->getEmail())
-            ->subject(sprintf('%s vous invite sur RDI Manager', $adminUser->getFullname()))
+            ->subject(sprintf('%s vous invite sur RDI-Manager', $adminUser->getFullname()))
             ->text(sprintf(
-                '%s vous invite sur RDI manager dans la société %s en tant que %s.'
+                '%s vous invite sur RDI-Manager dans la société %s en tant que %s.'
                 .' Finalisez votre inscription en suivant ce lien : %s',
                 $adminUser->getFullname(),
                 $adminUser->getSociete()->getRaisonSociale(),
@@ -111,7 +111,7 @@ class RdiMailer
 
         $email = $this->createDefaultEmail()
             ->to($user->getEmail())
-            ->subject(sprintf('Réinitialisation de votre mot de passe RDI Manager'))
+            ->subject(sprintf('Réinitialisation de votre mot de passe RDI-Manager'))
             ->text(sprintf(
                 'Vous avez demandé un lien de réinitialisation de votre mot de passe. '
                 .'Suivez ce lien pour définir votre nouveau mot de passe : %s',
