@@ -47,7 +47,19 @@
 
             <div class="card bg-light-grey border-light">
                 <div class="card-body">
-                    {{ form(notificationForm) }}
+                    {{ form_start(notificationForm) }}
+                    {{ form_errors(notificationForm) }}
+
+                    {{ form_row(notificationForm.notificationEnabled) }}
+
+                    <div class="notifications-group">
+                        <hr />
+                        {{ form_rest(notificationForm) }}
+                    </div>
+
+                     <button type="submit" class="btn btn-primary btn-validate-cra my-3">Enregistrer</button>
+
+                    {{ form_end(notificationForm) }}
                 </div>
             </div>
         </div>

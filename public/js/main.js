@@ -87,23 +87,13 @@
     if ($('#user_notification')) {
         const updateCheckboxes = () => {
             const allNotifications = $('[name="user_notification[notificationEnabled]"]').is(':checked');
-            const inputNames = [
-                'user_notification[notificationSaisieTempsEnabled]',
-                'user_notification[notificationCreateFaitMarquantEnabled]',
-                'user_notification[notificationLatestFaitMarquantEnabled]',
-            ];
+            const $group = $('.notifications-group');
 
-            inputNames.forEach(inputName => {
-                const $element = $(`[name="${inputName}"]`)
-                    .closest('.form-group')
-                ;
-
-                if (allNotifications) {
-                    $element.show();
-                } else {
-                    $element.hide();
-                }
-            });
+            if (allNotifications) {
+                $group.show();
+            } else {
+                $group.hide();
+            }
         }
 
         updateCheckboxes();
