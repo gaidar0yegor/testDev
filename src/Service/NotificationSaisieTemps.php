@@ -63,9 +63,9 @@ class NotificationSaisieTemps
         $email = $this->rdiMailer
             ->createDefaultEmail()
             ->to($user->getEmail())
-            ->subject('Saisie de vos temps sur RDI Manager')
+            ->subject('Saisie de vos temps sur RDI-Manager')
             ->text(sprintf(
-                'Saisie de vos temps sur RDI Manager.'
+                'Saisie de vos temps sur RDI-Manager.'
                 .' Saisissez vos temps sur : %s',
                 $link
             ))

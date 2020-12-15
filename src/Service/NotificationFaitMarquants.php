@@ -68,7 +68,7 @@ class NotificationFaitMarquants
         $email = $this->rdiMailer
             ->createDefaultEmail()
             ->to($user->getEmail())
-            ->subject('Rappel pour créer vos faits marquants sur RDI Manager')
+            ->subject('Rappel pour créer vos faits marquants sur RDI-Manager')
             ->text(sprintf(
                 'Vous avez contribué à au moins un projet ce mois ci. '.
                 'Si vous avez un fait marquant à ajouter, vous êtes invité à le faire ici : %s',
@@ -130,7 +130,7 @@ class NotificationFaitMarquants
         }
 
         $title = $this->translator->trans('n_nouveaux_faits_marquants', ['n' => count($faitMarquants)]);
-        $title .= ' ajoutés à vos projets RDI Manager';
+        $title .= ' ajoutés à vos projets RDI-Manager';
 
         $email = $this->rdiMailer
             ->createDefaultEmail()

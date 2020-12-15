@@ -103,7 +103,7 @@ class InitSocieteReferentCommand extends Command
         ]);
 
         $io->note([
-            'Ajoutez ce code à la suite de l\'url de votre installation de RDI manager,',
+            'Ajoutez ce code à la suite de l\'url de votre installation de RDI-Manager,',
             'par exemple : http://example.tld/invitation/CODE',
         ]);
 

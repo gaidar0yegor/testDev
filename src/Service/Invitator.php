@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * Service qui s'occupe d'inviter des nouveaux utilisateurs
- * sur RDI manager, en leur envoyant un lien d'invitation.
+ * sur RDI-Manager, en leur envoyant un lien d'invitation.
  * Utilisation :
  *
  * // Init user instance
