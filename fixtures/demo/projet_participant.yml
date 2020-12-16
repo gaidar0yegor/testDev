@@ -25,6 +25,11 @@ App\Entity\ProjetParticipant:
         projet: '@projet__random_3'
         role: '<(App\Role::CDP)>'
 
+    projetparticipant_admin_projet{1..20}:
+        user: '@user_admin'
+        projet: '@projet__random_<current()>'
+        role: '<(App\Role::OBSERVATEUR)>'
+
     projetparticipant__cdp{1..20}:
         user: '@user_cdp__*'
         projet: '@projet__random_<current()>'

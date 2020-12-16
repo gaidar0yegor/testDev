@@ -14,6 +14,10 @@ App\Entity\ProjetParticipant:
         user: '@user_cdp__*'
         projet: '@projet__rivo_phd'
         role: '<(App\Role::CDP)>'
+    projetparticipant_admin_projet_rivo_phd:
+        user: '@user_admin'
+        projet: '@projet__rivo_phd'
+        role: '<(App\Role::OBSERVATEUR)>'
 
 App\Entity\FaitMarquant:
     faitmarquant_1_projet_rivo_phd:

@@ -15,6 +15,10 @@ App\Entity\ProjetParticipant:
         user: '@user_cdp__*'
         projet: '@projet__Sylvain__21'
         role: '<(App\Role::CDP)>'
+    projetparticipant_admin_projet_Sylvain__21:
+        user: '@user_admin'
+        projet: '@projet__Sylvain__21'
+        role: '<(App\Role::OBSERVATEUR)>'
 
 App\Entity\FaitMarquant:
     faitmarquant_1_projet21:
