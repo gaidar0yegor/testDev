@@ -1,0 +1,31 @@
+{% extends 'bo/base.html.twig' %}
+
+{% block body %}
+
+<h1>Sociétés</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Société</th>
+            <th>Administrateurs</th>
+            <th>Utilisateurs</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for societe in societes %}
+            <tr>
+                <td><a href="{{ path('app_bo_societe', {'id': societe.id}) }}">{{ societe.raisonSociale }}</a></td>
+                <td>{{ societe.admins|map(user => "#{user.fullnameOrEmail}")|join(', ') }}</td>
+                <td>{{ societe.users|length }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ path('app_bo_societes_creer') }}" class="btn btn-outline-primary">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    Créer une nouvelle société
+</a>
+
+{% endblock %}

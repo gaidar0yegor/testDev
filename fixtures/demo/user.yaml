@@ -40,5 +40,5 @@ App\Entity\User:
         email: admin@societe.dev
         password: \$argon2id\$v=19\$m=65536,t=4,p=1\$zn0eAhjYovsdtBEzSHCX+w\$Ze1du/PDQS45f9AhEfHbdVcBg/r15uS2V2Et5BSdrk0
         # password is 'admin'
-        roles: [ROLE_FO_ADMIN]
+        roles: [ROLE_FO_ADMIN, ROLE_BO_USER]
         societe: '@societe'

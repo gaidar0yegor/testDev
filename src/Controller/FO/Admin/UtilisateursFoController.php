@@ -37,15 +37,20 @@ class UtilisateursFoController extends AbstractController
         EntityManagerInterface $em,
         Invitator $invitator
     ): Response {
-        $user = $invitator->initUser();
+        $user = $invitator->initUser($this->getUser()->getSociete());
         $form = $this->createForm(InviteUserType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $invitator->check($user);
+            $invitator->sendInvitation($user, $this->getUser());
             $em->flush();
-            $invitator->sendInvitation($user);
+
+            $this->addFlash('success', sprintf(
+                'Un email avec un lien d\'invitation a été envoyé à "%s".',
+                $user->getEmail()
+            ));
 
             return $this->redirectToRoute('app_fo_admin_user_invite');
         }

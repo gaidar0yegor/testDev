@@ -2,15 +2,15 @@
 
 namespace App\Service;
 
+use App\DTO\InitSociete;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
+use App\Entity\Societe;
 use App\Entity\User;
 use App\Exception\RdiException;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * Utilisation :
  *
  * // Init user instance
- * $user = $invitator->initUser();
+ * $user = $invitator->initUser($this->getUser()->getSociete());
  *
  * // Set mail (or set by form)
  * $user->setEmail($invitation->getEmail());
@@ -30,56 +30,57 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * // Check $user instance before finish
  * $invitator->check($user);
  *
+ * // Send invitation link
+ * $invitator->sendInvitation($user, $this->getUser());
+ *
  * // Flush all entities persisted by invitator
  * $em->flush();
- *
- * // Send invitation link
- * $invitator->sendInvitation($user);
  */
 class Invitator
 {
-    private TokenStorageInterface $tokenStorage;
-
     private TokenGenerator $tokenGenerator;
 
     private ValidatorInterface $validator;
 
     private EntityManagerInterface $em;
 
+    private SocieteInitializer $societeInitializer;
+
     private RdiMailer $mailer;
 
-    private FlashBagInterface $flash;
-
     public function __construct(
-        TokenStorageInterface $tokenStorage,
         TokenGenerator $tokenGenerator,
         ValidatorInterface $validator,
         EntityManagerInterface $em,
-        RdiMailer $mailer,
-        FlashBagInterface $flash
+        SocieteInitializer $societeInitializer,
+        RdiMailer $mailer
     ) {
-        $this->tokenStorage = $tokenStorage;
         $this->tokenGenerator = $tokenGenerator;
         $this->validator = $validator;
         $this->em = $em;
+        $this->societeInitializer = $societeInitializer;
         $this->mailer = $mailer;
-        $this->flash = $flash;
     }
 
     /**
      * Initialise l'utilisateur qui va être invité.
      */
-    public function initUser(): User
+    public function initUser(Societe $societe): User
     {
         $user = new User();
 
         $this->em->persist($user);
 
         return $user
-            ->setSociete($this->getLoggedInUser()->getSociete())
+            ->setSociete($societe)
             ->setRole('ROLE_FO_USER')
             ->setInvitationToken($this->tokenGenerator->generateUrlToken())
         ;
+    }
+
+    public function initSociete(InitSociete $initSociete): Societe
+    {
+        return $this->societeInitializer->initializeSociete($initSociete);
     }
 
     /**
@@ -100,13 +101,25 @@ class Invitator
 
     /**
      * Vérifie que les champs d'un user sont bien remplis
+     * ou que l'email est bien unique
      * avant de terminer l'invitation et d'envoyer l'email.
+     *
+     * @param mixed $entity Entity to check (User, Societe...)
+     * @param FormInterface $form (Optional) Form where to add errors, if not, errors will by thrown.
      *
      * @throws RdiException Si $user n'est pas valide.
      */
-    public function check(User $user): void
+    public function check($entity, FormInterface $form = null): void
     {
-        $errors = $this->validator->validate($user, null, ['invitation']);
+        $errors = $this->validator->validate($entity, null, ['invitation']);
+
+        if (null !== $form) {
+            foreach ($errors as $error) {
+                $form->addError(new FormError($error->getMessage()));
+            }
+
+            return;
+        }
 
         if ($errors->count() > 0) {
             $errorMessages = [];
@@ -116,24 +129,17 @@ class Invitator
             }
 
             throw new RdiException(sprintf(
-                'Erreur lors de l\'invitation, l\'instance User a des champs maquants: %s',
+                'Erreur lors de l\'invitation, l\'instance a des champs maquants: %s',
                 join(', ', $errorMessages)
             ));
         }
     }
 
-    public function sendInvitation(User $user): void
+    public function sendInvitation(User $user, User $from): void
     {
-        $this->mailer->sendInvitationEmail($user, $this->getLoggedInUser());
+        $this->mailer->sendInvitationEmail($user, $from);
 
-        $this->flash->add('success', sprintf(
-            'Un email avec un lien d\'invitation a été envoyé à "%s".',
-            $user->getEmail()
-        ));
-    }
-
-    private function getLoggedInUser(): User
-    {
-        return $this->tokenStorage->getToken()->getUser();
+        $user->setInvitationSentAt(new \DateTime());
+        $this->em->persist($user);
     }
 }

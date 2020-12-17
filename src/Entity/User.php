@@ -13,7 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(
+ *      fields={"email"},
+ *      groups={"Default", "invitation"},
+ *      message="There is already an account with this email"
+ * )
  */
 class User implements UserInterface, HasSocieteInterface
 {
@@ -64,6 +68,11 @@ class User implements UserInterface, HasSocieteInterface
      * @Assert\NotBlank(groups={"invitation"})
      */
     private $invitationToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $invitationSentAt;
 
     /**
      * Clé secrète créée lorsque cet user souhaite réinitialiser son mot de passe.
@@ -178,7 +187,7 @@ class User implements UserInterface, HasSocieteInterface
         return $this->email;
     }
 
-    public function getInvitationToken(): string
+    public function getInvitationToken(): ?string
     {
         return $this->invitationToken;
     }
@@ -190,9 +199,22 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
+    public function getInvitationSentAt(): ?\DateTimeInterface
+    {
+        return $this->invitationSentAt;
+    }
+
+    public function setInvitationSentAt(?\DateTimeInterface $invitationSentAt): self
+    {
+        $this->invitationSentAt = $invitationSentAt;
+
+        return $this;
+    }
+
     public function removeInvitationToken(): self
     {
         $this->invitationToken = null;
+        $this->invitationSentAt = null;
 
         return $this;
     }
@@ -255,14 +277,25 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getRole(): string
+    /**
+     * @return string Role front office de l'utilisateur
+     */
+    public function getRole(): ?string
     {
-        return $this->getRoles()[0];
+        $foRoles = array_filter($this->roles, function (string $role) {
+            return 'ROLE_FO_' === substr($role, 0, 8);
+        });
+
+        if (count($foRoles) > 0) {
+            return array_pop($foRoles);
+        }
+
+        return null;
     }
 
     public function isAdminFo(): bool
     {
-        return 'ROLE_FO_ADMIN' === $this->getRole();
+        return in_array('ROLE_FO_ADMIN', $this->roles);
     }
 
     public function setRole(string $role): self
@@ -330,7 +363,20 @@ class User implements UserInterface, HasSocieteInterface
 
     public function getFullname(): string
     {
-        return $this->getPrenom() . ' ' . $this->getNom();
+        if (null === $this->prenom && null === $this->nom) {
+            return '-';
+        }
+
+        return $this->prenom . ' ' . $this->nom;
+    }
+
+    public function getFullnameOrEmail(): string
+    {
+        if (null === $this->prenom && null === $this->nom) {
+            return $this->email;
+        }
+
+        return $this->prenom . ' ' . $this->nom;
     }
 
     public function getEmail(): ?string

@@ -10,9 +10,6 @@ security:
         App\Entity\User: sodium
 
     role_hierarchy:
-        ROLE_BO_ADMIN: ROLE_BO_CONSULTANT
-        ROLE_BO_CONSULTANT: ROLE_BO_OBSERVATEUR
-        ROLE_BO_OBSERVATEUR: ROLE_BO_USER
         ROLE_BO_USER: ROLE_USER
 
         ROLE_FO_ADMIN: ROLE_FO_CDP
@@ -53,5 +50,6 @@ security:
         - { path: ^/inscription/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, roles: ROLE_FO_ADMIN }
-        - { path: ^/back-office/, roles: ROLE_BO }
-        - { path: ^/, roles: ROLE_USER }
+        - { path: ^/back-office, roles: ROLE_BO_USER }
+        - { path: ^/$, roles: ROLE_USER }
+        - { path: ^/, roles: ROLE_FO_USER }

@@ -30,6 +30,10 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_fo_dashboard');
         }
 
+        if ($this->isGranted('ROLE_BO_USER')) {
+            return $this->redirectToRoute('app_bo_home');
+        }
+
         // get the login error if there is one
         if ($error = $authenticationUtils->getLastAuthenticationError()) {
             $this->addFlash('danger', $trans->trans(

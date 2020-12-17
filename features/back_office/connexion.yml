@@ -1,0 +1,7 @@
+App\Entity\User:
+    bo_user:
+        nom: Eureka
+        prenom: User
+        email: user@bo.dev
+        password: user
+        roles: [ROLE_BO_USER]

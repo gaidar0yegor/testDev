@@ -2,9 +2,10 @@
 
 namespace App\Command;
 
-use App\Entity\Societe;
+use App\DTO\InitSociete;
 use App\Entity\User;
-use App\Service\TokenGenerator;
+use App\Service\Invitator;
+use App\Service\SocieteInitializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -16,21 +17,25 @@ class InitSocieteReferentCommand extends Command
 {
     protected static $defaultName = 'app:init-societe-referent';
 
-    private $em;
+    private EntityManagerInterface $em;
 
-    private $tokenGenerator;
+    private Invitator $invitator;
 
-    private $urlGenerator;
+    private SocieteInitializer $societeInitializer;
+
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         EntityManagerInterface $em,
-        TokenGenerator $tokenGenerator,
+        Invitator $invitator,
+        SocieteInitializer $societeInitializer,
         UrlGeneratorInterface $urlGenerator
     ) {
         parent::__construct();
 
         $this->em = $em;
-        $this->tokenGenerator = $tokenGenerator;
+        $this->invitator = $invitator;
+        $this->societeInitializer = $societeInitializer;
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -43,12 +48,15 @@ class InitSocieteReferentCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $fromUser = new User();
+        $fromUser->setPrenom('Eurêka C.I');
+
         $io = new SymfonyStyle($input, $output);
 
-        $io->title('Création de votre société et de votre accès référent');
+        $io->title('Création de la société et de l\'administrateur');
 
         $societeRaisonSociale = $io->ask(
-            'Nom de votre société',
+            'Nom de la société',
             null,
             function ($s) {
                 if (0 === strlen($s)) {
@@ -60,7 +68,7 @@ class InitSocieteReferentCommand extends Command
         );
 
         $adminEmail = $io->ask(
-            'Votre email, ou l\'email du référent (cet email sera utilisé comme nom d\'utilisateur)',
+            'Email de l\'administrateur de la société (cet email sera utilisé comme nom d\'utilisateur)',
             null,
             function ($s) {
                 if (!preg_match('/.+@.+/', $s)) {
@@ -72,40 +80,42 @@ class InitSocieteReferentCommand extends Command
         );
 
         // Initialisation de la société et du référent
-        $societe = new Societe();
-        $admin = new User();
-
-        $societe->setRaisonSociale($societeRaisonSociale);
-
-        $admin
-            ->setEmail($adminEmail)
-            ->setSociete($societe)
-            ->setRole('ROLE_FO_ADMIN')
+        $initSociete = new InitSociete();
+        $initSociete
+            ->setRaisonSociale($societeRaisonSociale)
+            ->setAdminEmail($adminEmail)
         ;
 
-        // Création du lien d'invitation pour que le référent finalise son compte
-        $invitationToken = $this->tokenGenerator->generateUrlToken();
+        $societe = $this->invitator->initSociete($initSociete);
+        $this->invitator->check($societe);
+        $admin = $societe->getAdmins()->first();
 
-        $admin->setInvitationToken($invitationToken);
+        $send = $io->confirm('Envoyer un email avec le lien d\'invitation à l\'administrateur ?');
 
-        $invitationLink = $this->urlGenerator->generate('app_fo_user_finalize_inscription', [
-            'token' => $invitationToken,
-        ], UrlGeneratorInterface::RELATIVE_PATH);
+        if ($send) {
+            $this->invitator->sendInvitation($admin, $fromUser);
+        }
 
-        $this->em->persist($admin);
         $this->em->persist($societe);
         $this->em->flush();
 
-        $io->success([
-            'Votre accès a été initialisé.',
-            'Utilisez ce code d\'invitation pour finaliser votre compte :',
-            $invitationLink,
-        ]);
+        $this->societeInitializer->initializeCronJobs($societe);
+        $this->em->flush();
 
-        $io->note([
-            'Ajoutez ce code à la suite de l\'url de votre installation de RDI-Manager,',
-            'par exemple : http://example.tld/invitation/CODE',
-        ]);
+        $message = [
+            'La société et son administrateur ont été initialisés.',
+        ];
+
+        if ($send) {
+            $message[] = 'Un email a été envoyé à l\'administrateur.';
+        } else {
+            $message[] = 'Le nouvel administrateur peut aller sur le lien suivant pour finaliser son inscription :';
+            $message[] = $this->urlGenerator->generate('app_fo_user_finalize_inscription', [
+                'token' => $admin->getInvitationToken(),
+            ], UrlGeneratorInterface::ABSOLUTE_URL);
+        }
+
+        $io->success($message);
 
         return 0;
     }
