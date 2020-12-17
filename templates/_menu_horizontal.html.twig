@@ -14,10 +14,10 @@
                     <a class="nav-link" href="{{ path('app_fo_dashboard') }}">Tableau de bord</a>
                 </li>
                 <li class="nav-item dropdown {{ activeOn('app_fo_projets', 'app_fo_projets_all', 'app_fo_projets_by_year', 'app_fo_projet_creation') }}">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Mes Projets
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu">
                         <a
                             class="dropdown-item"
                             href="{{ path('app_fo_projets') }}"
@@ -36,10 +36,10 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown {{ activeOn('app_fo_temps', 'app_fo_absences') }}">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Suivi temps
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu">
                         <a
                             class="dropdown-item"
                             href="{{ path('app_fo_temps') }}"
@@ -61,7 +61,6 @@
                             title="Menu réservé à l'administrateur de votre société."
                         {% endif %}
                         href="#"
-                        id="navbarDropdown"
                         role="button"
                         data-toggle="dropdown"
                         aria-haspopup="true"
@@ -69,7 +68,7 @@
                     >
                         Administration
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <div class="dropdown-menu">
                         <a
                             class="dropdown-item"
                             href="{{ path('app_fo_admin_societe_show') }}"

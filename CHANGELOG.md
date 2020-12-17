@@ -6,6 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+- Intégration de Matomo pour suivre les actions des visiteurs sur le site
 - Back office : Initialiser une nouvelle société avec son administrateur
 ### Modifié
 - Migration vers Symfony 5

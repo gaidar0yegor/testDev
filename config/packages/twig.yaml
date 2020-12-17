@@ -9,3 +9,8 @@ twig:
     form_themes:
         - 'bootstrap_4_layout.html.twig'
         - 'form/custom_types.html.twig'
+    globals:
+        matomoConfig:
+            enabled: '%env(bool:MATOMO_ENABLED)%'
+            host: '%env(MATOMO_HOST)%'
+            siteId: '%env(MATOMO_SITE_ID)%'
