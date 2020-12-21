@@ -25,10 +25,8 @@ class TimesheetCalculatorTest extends TestCase
     private Cra $cra;
     private \DateTimeInterface $mois;
 
-    public function __construct()
+    protected function setUp(): void
     {
-        parent::__construct();
-
         $this->dateMonthService = new DateMonthService();
     }
 
