@@ -7,6 +7,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Back office : Initialiser une nouvelle société avec son administrateur
+### Modifié
+- Migration vers Symfony 5
 
 
 
