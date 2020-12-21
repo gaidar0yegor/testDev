@@ -2,11 +2,12 @@
     <a class="navbar-brand" href="{{ path('app_home') }}">
         <img src="{{ asset('img/Logo-RDI-blanc.png') }}" alt="RDI-Manager logo">
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
     {% if app.user %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item {{ activeOn('app_fo_dashboard') }}">
@@ -113,10 +114,23 @@
 
             <div class="btn-group user-menu">
                 <a href="#" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {{ app.user.societe.raisonSociale }} | {{ app.user.prenom }}
+                    {% if app.user.societe %}
+                        {{ app.user.societe.raisonSociale }}
+                        |
+                    {% endif %}
+                    {{ app.user.prenom }}
                     <i class="fa fa-lg fa-user-circle-o" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu">
+                    {% if is_granted('ROLE_BO_USER') %}
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('app_bo_home') }}"
+                        >
+                            <i class="fa fa-rocket" aria-hidden="true"></i>Back Office
+                        </a>
+                        <div class="dropdown-divider"></div>
+                    {% endif %}
                     <a
                         class="dropdown-item"
                         href="{{ path('app_fo_mon_compte') }}"

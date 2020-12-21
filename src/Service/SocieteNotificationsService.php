@@ -36,7 +36,7 @@ class SocieteNotificationsService
                 ->setCommand(NotificationCreateFaitMarquantCommand::$defaultName.' --societe '.$societeId)
                 ->setName(SocieteNotifications::CREER_FAITS_MARQUANTS.'-societe-'.$societeId)
                 ->setEnabled(false)
-                ->setSchedule(CronSchedule::everyWeek(5, 16, 0)->__toString())
+                ->setSchedule(CronSchedule::everyWeek(5, 12, 0)->__toString())
         );
 
         $societeNotifications->setDerniersFaitsMarquants(
@@ -45,7 +45,7 @@ class SocieteNotificationsService
                 ->setCommand(NotificationLatestFaitMarquantCommand::$defaultName.' --societe '.$societeId)
                 ->setName(SocieteNotifications::DERNIERS_FAITS_MARQUANTS.'-societe-'.$societeId)
                 ->setEnabled(false)
-                ->setSchedule(CronSchedule::everyWeek(1, 10, 0)->__toString())
+                ->setSchedule(CronSchedule::everyWeek(1, 12, 0)->__toString())
         );
 
         $societeNotifications->setSaisieTemps(
@@ -54,7 +54,7 @@ class SocieteNotificationsService
                 ->setCommand(NotificationSaisieTempsCommand::$defaultName.' --societe '.$societeId)
                 ->setName(SocieteNotifications::SAISIE_TEMPS.'-societe-'.$societeId)
                 ->setEnabled(false)
-                ->setSchedule(CronSchedule::everyMonth(25, 17, 0)->__toString())
+                ->setSchedule(CronSchedule::everyMonth(28, 12, 0)->__toString())
         );
 
         return $societeNotifications;

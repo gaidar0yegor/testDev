@@ -1,0 +1,20 @@
+{% extends 'base_html.html.twig' %}
+
+{% block title %}Back office {{ parent() }}{% endblock %}
+
+{% block base_body %}
+    {% include('bo/_menu_horizontal.html.twig') %}
+
+    <div class="container main-container">
+        {% include '_flash_messages.html.twig' %}
+
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    {% include('_footer.html.twig') %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/back-office.css') }}">
+{% endblock %}

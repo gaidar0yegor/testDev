@@ -54,4 +54,13 @@ class SocieteNotifications
 
         return $this;
     }
+
+    public function enableAll(): self
+    {
+        $this->creerFaitsMarquants->setEnabled(true);
+        $this->derniersFaitsMarquants->setEnabled(true);
+        $this->saisieTemps->setEnabled(true);
+
+        return $this;
+    }
 }

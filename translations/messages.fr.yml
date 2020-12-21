@@ -2,9 +2,6 @@ CDP: Chef de Projet
 CONTRIBUTEUR: Contributeur
 OBSERVATEUR: Observateur
 
-ROLE_BO_ADMIN: Administrateur back-office
-ROLE_BO_CONSULTANT: Consultant back-office
-ROLE_BO_OBSERVATEUR: Observateur back-office
 ROLE_BO_USER: Utilisateur back-office
 ROLE_FO_ADMIN: Administrateur
 ROLE_FO_CDP: Chef de Projet

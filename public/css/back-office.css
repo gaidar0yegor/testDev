@@ -1,0 +1,10 @@
+.navbar-brand {
+    position: relative;
+}
+.bo-title {
+    position: absolute;
+    right: 0;
+    bottom: -1em;
+    font-size: 0.6em;
+    font-weight: bold;
+}

@@ -66,7 +66,7 @@ class RdiMailer
      * @param User $invitedUser User à inviter, doit avoir un token d'invitation
      * @param User $adminUser Référent qui invite l'user, utile pour afficher "XX vous invite..." dans l'email
      */
-    public function sendInvitationEmail(User $invitedUser, User $adminUser): void
+    public function sendInvitationEmail(User $invitedUser, User $fromUser): void
     {
         if (null === $invitedUser->getInvitationToken()) {
             throw new RdiException('Cannot send invitation email, this user has no invitation token.');
@@ -78,12 +78,12 @@ class RdiMailer
 
         $email = $this->createDefaultEmail()
             ->to($invitedUser->getEmail())
-            ->subject(sprintf('%s vous invite sur RDI-Manager', $adminUser->getFullname()))
+            ->subject(sprintf('%s vous invite sur RDI-Manager', $fromUser->getFullname()))
             ->text(sprintf(
                 '%s vous invite sur RDI-Manager dans la société %s en tant que %s.'
                 .' Finalisez votre inscription en suivant ce lien : %s',
-                $adminUser->getFullname(),
-                $adminUser->getSociete()->getRaisonSociale(),
+                $fromUser->getFullname(),
+                $invitedUser->getSociete()->getRaisonSociale(),
                 $this->translator->trans($invitedUser->getRole()),
                 $invitationLink
             ))
@@ -91,7 +91,7 @@ class RdiMailer
             ->htmlTemplate('mail/invite.html.twig')
             ->context([
                 'invitedUser' => $invitedUser,
-                'adminUser' => $adminUser,
+                'fromUser' => $fromUser,
                 'invitationLink' => $invitationLink,
             ])
         ;

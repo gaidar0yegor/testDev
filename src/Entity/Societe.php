@@ -7,6 +7,7 @@ use App\Repository\SocieteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SocieteRepository::class)
@@ -46,7 +47,9 @@ class Societe implements HasSocieteInterface
     private $heuresParJours;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="societe", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=User::class, mappedBy="societe", orphanRemoval=true, cascade={"persist"})
+     *
+     * @Assert\Valid(groups={"Default", "invitation"})
      */
     private $users;
 
@@ -57,7 +60,6 @@ class Societe implements HasSocieteInterface
 
     public function __construct()
     {
-        $this->Licences = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->heuresParJours = self::DEFAULT_HEURES_PAR_JOURS;
     }
@@ -132,6 +134,13 @@ class Societe implements HasSocieteInterface
         }
 
         return $this;
+    }
+
+    public function getAdmins(): ArrayCollection
+    {
+        return $this->users->filter(function (User $user) {
+            return $user->isAdminFo();
+        });
     }
 
     public function getStatut(): ?SocieteStatut

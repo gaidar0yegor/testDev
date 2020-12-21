@@ -62,7 +62,7 @@ class ProjetParticipantController extends AbstractController
     ) {
         $this->denyAccessUnlessGranted('edit', $projet);
 
-        $user = $invitator->initUser();
+        $user = $invitator->initUser($this->getUser()->getSociete());
         $invitation = new InvitationUserSurProjet();
         $form = $this->createForm(InviteUserSurProjetType::class, $invitation);
 
@@ -73,8 +73,13 @@ class ProjetParticipantController extends AbstractController
             $invitator->addParticipation($user, $projet, $invitation->getRole());
 
             $invitator->check($user);
+            $invitator->sendInvitation($user, $this->getUser());
             $em->flush();
-            $invitator->sendInvitation($user);
+
+            $this->addFlash('success', sprintf(
+                'Un email avec un lien d\'invitation a été envoyé à "%s".',
+                $user->getEmail()
+            ));
 
             return $this->redirectToRoute('app_fo_projet_participant_invite', [
                 'id' => $projet->getId(),
