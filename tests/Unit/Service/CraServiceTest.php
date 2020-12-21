@@ -21,10 +21,8 @@ class CraServiceTest extends TestCase
      */
     private $projetRepositoryMock;
 
-    public function __construct()
+    protected function setUp(): void
     {
-        parent::__construct();
-
         $this->craRepositoryMock = $this->createMock(CraRepository::class);
         $this->projetRepositoryMock = $this->createMock(ProjetRepository::class);
     }
