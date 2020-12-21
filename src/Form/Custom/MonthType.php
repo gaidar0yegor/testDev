@@ -11,6 +11,7 @@ class MonthType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
+            'html5' => false,
             'widget' => 'single_text',
             'format' => 'MMMM yyyy',
             'attr' => ['class' => 'month-picker'],

@@ -11,7 +11,8 @@ default:
                     screenshotDir: var
 
     extensions:
-        FriendsOfBehat\SymfonyExtension: null
+        FriendsOfBehat\SymfonyExtension:
+            bootstrap: tests/bootstrap.php
         Behat\MinkExtension:
             # To debug behat tests with "Then show last response", enable:
             #show_cmd: firefox %s

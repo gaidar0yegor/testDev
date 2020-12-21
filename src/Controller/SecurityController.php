@@ -162,7 +162,9 @@ class SecurityController extends AbstractController
 
         $form = $this->createFormBuilder()
             ->add('password', RepeatedPasswordType::class)
-            ->add('Valider mon mot de passe', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'label' => 'Valider mon mot de passe',
+            ])
             ->getForm()
         ;
 
