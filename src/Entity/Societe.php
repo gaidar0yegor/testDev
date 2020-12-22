@@ -58,10 +58,18 @@ class Societe implements HasSocieteInterface
      */
     private $statut;
 
+    /**
+     * Utilise ou non les SMS pour les notifications importantes.
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $smsEnabled;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->heuresParJours = self::DEFAULT_HEURES_PAR_JOURS;
+        $this->smsEnabled = true;
     }
 
     public function getId(): ?int
@@ -151,6 +159,18 @@ class Societe implements HasSocieteInterface
     public function setStatut(?SocieteStatut $statut): self
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getSmsEnabled(): ?bool
+    {
+        return $this->smsEnabled;
+    }
+
+    public function setSmsEnabled(bool $smsEnabled): self
+    {
+        $this->smsEnabled = $smsEnabled;
 
         return $this;
     }

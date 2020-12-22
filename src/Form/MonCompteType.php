@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Custom\RdiPhoneNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -16,9 +17,7 @@ class MonCompteType extends AbstractType
         $builder
             ->add('prenom', TextType::class)
             ->add('nom', TextType::class)
-            ->add('telephone', TextType::class, [
-                'required' => false,
-            ])
+            ->add('telephone', RdiPhoneNumberType::class)
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',
                 'attr' => ['class' => 'btn btn-success'],

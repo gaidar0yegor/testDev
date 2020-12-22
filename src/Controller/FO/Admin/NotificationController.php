@@ -23,14 +23,15 @@ class NotificationController extends AbstractController
         EntityManagerInterface $em,
         SocieteNotificationsService $societeNotificationsService
     ) {
-        $societeNotifications = $societeNotificationsService->loadForSociete($this->getUser());
+        $societe = $this->getUser()->getSociete();
+        $societeNotifications = $societeNotificationsService->loadForSociete($societe);
 
         $form = $this->createForm(SocieteNotificationsType::class, $societeNotifications);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $societeNotificationsService->persistAll($societeNotifications);
+            $societeNotificationsService->persistAll($societe, $societeNotifications);
             $em->flush();
 
             $this->addFlash('success', 'Vos préférences de notifications ont été mises à jour.');

@@ -19,6 +19,8 @@ class SocieteNotifications
 
     private CronJob $saisieTemps;
 
+    private bool $smsEnabled = false;
+
     public function getCreerFaitsMarquants(): CronJob
     {
         return $this->creerFaitsMarquants;
@@ -51,6 +53,18 @@ class SocieteNotifications
     public function setSaisieTemps(CronJob $cronJob): self
     {
         $this->saisieTemps = $cronJob;
+
+        return $this;
+    }
+
+    public function getSmsEnabled(): bool
+    {
+        return $this->smsEnabled;
+    }
+
+    public function setSmsEnabled(bool $smsEnabled): self
+    {
+        $this->smsEnabled = $smsEnabled;
 
         return $this;
     }

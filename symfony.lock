@@ -144,6 +144,12 @@
             "tests/Behat/DemoContext.php"
         ]
     },
+    "giggsey/libphonenumber-for-php": {
+        "version": "8.12.15"
+    },
+    "giggsey/locale": {
+        "version": "1.9"
+    },
     "hautelook/alice-bundle": {
         "version": "2.1",
         "recipe": {
@@ -234,6 +240,18 @@
     },
     "ocramius/proxy-manager": {
         "version": "2.8.0"
+    },
+    "odolbeau/phone-number-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "4388686329b81291918a948cd42891829fb1de71"
+        },
+        "files": [
+            "config/packages/misd_phone_number.yaml"
+        ]
     },
     "php": {
         "version": "7.4"
@@ -461,6 +479,18 @@
             "./config/packages/test/monolog.yaml"
         ]
     },
+    "symfony/notifier": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "c31585e252b32fe0e1f30b1f256af553f4a06eb9"
+        },
+        "files": [
+            "config/packages/notifier.yaml"
+        ]
+    },
     "symfony/options-resolver": {
         "version": "v4.4.15"
     },
@@ -612,6 +642,15 @@
     },
     "symfony/twig-pack": {
         "version": "v1.0.0"
+    },
+    "symfony/twilio-notifier": {
+        "version": "5.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "5.0",
+            "ref": "eb697fe6a90b4972a4a544b4f7ea56520d29d9e9"
+        }
     },
     "symfony/validator": {
         "version": "4.3",

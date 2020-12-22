@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\DTO\SocieteNotifications;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,6 +25,11 @@ class SocieteNotificationsType extends AbstractType
             ->add('saisieTemps', CronJobType::class, [
                 'dayOfMonth' => true,
                 'help' => 'L\'utilisateur recoit une notification avec un lien vers le formulaire de saisie de ses temps passés sur les projets dont il contribue.',
+            ])
+            ->add('smsEnabled', CheckboxType::class, [
+                'required' => false,
+                'label' => 'Utiliser les notifications SMS',
+                'help' => 'Un SMS sera également envoyé aux utilisateurs ayant saisi leurs numéro de téléphone portable, pour certaines notifications importantes (comme le rappel de saisi des temps).',
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',

@@ -3,9 +3,8 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Custom\RdiPhoneNumberType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -25,10 +24,7 @@ class UtilisateursFormType extends AbstractType
         ->add('prenom', TextType::class, [
             'label' => 'Prénom',
         ])
-        ->add('telephone', TextType::class, [
-            'label' => 'Mobile',
-            'required' => false,
-        ])
+        ->add('telephone', RdiPhoneNumberType::class)
         ->add('email', EmailType::class, [
             'label' => 'Email',
         ])
