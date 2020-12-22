@@ -36,8 +36,8 @@ class StatisticsService
     {
         $heuresPassees = $this->calculateHeuresParProjet($user->getSociete(), $year);
         $userProjets = $user->isAdminFo()
-            ? $this->projetRepository->findAllProjectsPerSociete($user->getSociete())
-            : $this->projetRepository->findAllForUser($user, $roleMinimum)
+            ? $this->projetRepository->findAllProjectsPerSociete($user->getSociete(), $year, $year)
+            : $this->projetRepository->findAllForUserInYear($user, $roleMinimum, $year)
         ;
 
         $userProjetsHeuresPassees = [];

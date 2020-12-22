@@ -86,7 +86,14 @@ class DashboardController extends AbstractController
         StatisticsService $statisticsService,
         ParticipantService $participantService
     ) {
-        $projets = $projetRepository->findAllForUserInYear($this->getUser(), Role::OBSERVATEUR, $year);
+        $projets = $projetRepository->findAllForUserInYear(
+            $this->getUser(),
+            $this->getUser()->isAdminFo()
+                ? null
+                : Role::OBSERVATEUR
+            ,
+            $year
+        );
         $heuresParProjet = $statisticsService->calculateHeuresParProjet($this->getUser()->getSociete(), $year);
 
         $stats = [

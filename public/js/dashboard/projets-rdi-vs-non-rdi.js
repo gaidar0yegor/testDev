@@ -40,7 +40,7 @@
             .then(response => response.json())
             .then(projetsType => {
                 const nbProjets = ['Projets'];
-                const nbProjetsRdi = ['Projets RDI'];
+                const nbProjetsRdi = ['dont projets RDI'];
 
                 for (let i = year; i <= currentYear; ++i) {
                     nbProjets.push(projetsType[i].projets);

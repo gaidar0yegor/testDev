@@ -34,12 +34,12 @@ class ProjetRepository extends ServiceEntityRepository
             ->leftJoin('projet.projetParticipants', 'projetParticipant')
             ->leftJoin('projetParticipant.user', 'user')
             ->where('projetParticipant.user = :user')
+            ->setParameter('user', $user)
         ;
 
         if (null !== $roleMinimum) {
             $qb
                 ->andWhere('projetParticipant.role in (:roles)')
-                ->setParameter('user', $user)
                 ->setParameter('roles', Role::getRoles($roleMinimum))
             ;
         }
@@ -148,7 +148,9 @@ class ProjetRepository extends ServiceEntityRepository
         if (null !== $year) {
             $qb
                 ->andWhere('projet.dateFin is null or projet.dateFin >= :year')
+                ->andWhere('projet.dateDebut is null or projet.dateDebut <= :currentYear')
                 ->setParameter('year', new \DateTime("$year-01-01"))
+                ->setParameter('currentYear', new \DateTime(date('Y').'-12-31'))
             ;
         }
 
@@ -166,7 +168,7 @@ class ProjetRepository extends ServiceEntityRepository
      *
      * @return Projet[]
      */
-    public function findAllProjectsPerSociete(Societe $societe, int $sinceYear = null): array
+    public function findAllProjectsPerSociete(Societe $societe, int $sinceYear = null, int $toYear = null): array
     {
         $qb = $this
             ->createQueryBuilder('projet')
@@ -180,6 +182,15 @@ class ProjetRepository extends ServiceEntityRepository
             $qb
                 ->andWhere('projet.dateFin is null or projet.dateFin >= :year')
                 ->setParameter('year', new \DateTime("$sinceYear-01-01"))
+            ;
+
+            if (null === $toYear) {
+                $toYear = date('Y');
+            }
+
+            $qb
+                ->andWhere('projet.dateDebut is null or projet.dateDebut <= :currentYear')
+                ->setParameter('currentYear', new \DateTime("$toYear-12-31"))
             ;
         }
 
