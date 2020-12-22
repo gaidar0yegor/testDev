@@ -39,7 +39,7 @@ class NotificationSaisieTempsCommand extends AbstractNotificationCommand
             ->sendNotificationSaisieTempsAllUsers($this->findCommandSociete($input))
         ;
 
-        $io->success("$totalSent emails de notification ont été envoyés !");
+        $io->success("$totalSent notifications ont été envoyés !");
 
         return 0;
     }

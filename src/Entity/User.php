@@ -7,6 +7,8 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use libphonenumber\PhoneNumber;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -87,7 +89,9 @@ class User implements UserInterface, HasSocieteInterface
     private $resetPasswordTokenExpiresAt;
 
     /**
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(type="phone_number", nullable=true)
+     *
+     * @AssertPhoneNumber(type="mobile", defaultRegion="FR")
      */
     private $telephone;
 
@@ -391,12 +395,12 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getTelephone(): ?string
+    public function getTelephone(): ?PhoneNumber
     {
         return $this->telephone;
     }
 
-    public function setTelephone(?string $telephone): self
+    public function setTelephone(?PhoneNumber $telephone): self
     {
         $this->telephone = $telephone;
 

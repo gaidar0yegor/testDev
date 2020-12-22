@@ -36,6 +36,9 @@ services:
         calls:
             - setSocieteRepository: ['@App\Repository\SocieteRepository']
 
+    App\Command\TestSmsCommand:
+        $smsDsn: '%env(SMS_DSN)%'
+
     Twig\Extensions\IntlExtension: ~
 
     App\Service\RdiMailer:
