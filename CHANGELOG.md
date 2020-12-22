@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.8.0] - 2020-12-22 🎅
 ### Ajouté
 - Intégration de Matomo pour suivre les actions des visiteurs sur le site
 - Back office : Initialiser une nouvelle société avec son administrateur
@@ -15,9 +20,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Migration vers Symfony 5
 ### Réparé
 - Les données des graphiques du tableau de bord sont maintenant plus cohérentes
-
-
-
 
 ## [0.7.0] - 2020-12-15
 ### Ajouté
