@@ -14,3 +14,4 @@ twig:
             enabled: '%env(bool:MATOMO_ENABLED)%'
             host: '%env(MATOMO_HOST)%'
             siteId: '%env(MATOMO_SITE_ID)%'
+        rdiManagerDemoUrl: '%env(RDI_DEMO_URL)%'
