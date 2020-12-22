@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\DTO\RecommandationMessage;
 use App\Entity\User;
 use App\Exception\RdiException;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -57,6 +58,21 @@ class RdiMailer
             ))
 
             ->htmlTemplate('mail/test_mail.html.twig')
+        ;
+
+        $this->mailer->send($email);
+    }
+
+    public function sendRecommandationEmail(RecommandationMessage $recommandationMessage): void
+    {
+        $email = $this->createDefaultEmail()
+            ->from($recommandationMessage->getFrom())
+            ->to($recommandationMessage->getTo())
+            ->addBcc($this->mailFrom)
+            ->subject($recommandationMessage->getSubject())
+            ->textTemplate('mail/_recommandation-content.txt.twig')
+
+            ->htmlTemplate('mail/recommandation.html.twig')
         ;
 
         $this->mailer->send($email);

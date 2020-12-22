@@ -7,6 +7,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Back office : Initialiser une nouvelle société avec son administrateur
+- Ajout des liens vers twitter, linkedin, fb, eurekaci.com dans le footer
+- Permettre aux utilisateurs de recommander RDI-Manager
 ### Modifié
 - Migration vers Symfony 5
 

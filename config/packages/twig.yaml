@@ -9,3 +9,5 @@ twig:
     form_themes:
         - 'bootstrap_4_layout.html.twig'
         - 'form/custom_types.html.twig'
+    globals:
+        rdiManagerDemoUrl: '%env(RDI_DEMO_URL)%'
