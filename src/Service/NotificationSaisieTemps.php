@@ -126,7 +126,7 @@ class NotificationSaisieTemps
         $totalNotificationSent = 0;
 
         foreach ($users as $user) {
-            if (null !== $user->getTelephone()) {
+            if ($societe->getSmsEnabled() && null !== $user->getTelephone()) {
                 $notificationSent = $this->sendNotificationSaisieTempsSms($user, $month);
             }
 

@@ -83,13 +83,18 @@ class SocieteNotificationsService
             }
         }
 
+        $societeNotifications->setSmsEnabled($societe->getSmsEnabled());
+
         return $societeNotifications;
     }
 
-    public function persistAll(SocieteNotifications $societeNotifications)
+    public function persistAll(Societe $societe, SocieteNotifications $societeNotifications)
     {
         $this->em->persist($societeNotifications->getCreerFaitsMarquants());
         $this->em->persist($societeNotifications->getDerniersFaitsMarquants());
         $this->em->persist($societeNotifications->getSaisieTemps());
+
+        $societe->setSmsEnabled($societeNotifications->getSmsEnabled());
+        $this->em->persist($societe);
     }
 }

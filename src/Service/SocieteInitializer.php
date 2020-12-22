@@ -51,7 +51,8 @@ class SocieteInitializer
         $notifications = $this->societeNotificationsService->createInitialSocieteNotifications($societe);
 
         $notifications->enableAll();
+        $notifications->setSmsEnabled(true);
 
-        $this->societeNotificationsService->persistAll($notifications);
+        $this->societeNotificationsService->persistAll($societe, $notifications);
     }
 }
