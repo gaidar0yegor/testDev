@@ -6,6 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+- Intégration de Matomo pour suivre les actions des visiteurs sur le site
 - Back office : Initialiser une nouvelle société avec son administrateur
 - Ajout des liens vers twitter, linkedin, fb, eurekaci.com dans le footer
 - Permettre aux utilisateurs de recommander RDI-Manager
