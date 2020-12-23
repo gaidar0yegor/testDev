@@ -9,9 +9,9 @@ use App\Exception\TimesheetException;
 use App\Form\FilterTimesheetType;
 use App\Repository\UserRepository;
 use App\Service\DateMonthService;
+use App\Service\Timesheet\Export\TimesheetExporter;
 use App\Service\Timesheet\TimesheetCalculator;
 use DateTime;
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,6 +37,7 @@ class TimesheetController extends AbstractController
     public function generate(
         Request $request,
         TimesheetCalculator $timesheetCalculator,
+        TimesheetExporter $timesheetExporter,
         UserRepository $userRepository
     ) {
         $users = $userRepository->findBySameSociete($this->getUser());
@@ -52,15 +53,7 @@ class TimesheetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $timesheets = $timesheetCalculator->generateMultipleTimesheets($filter);
 
-            $sheetHtml = $this->renderView('timesheet/pdf/pdf.html.twig', [
-                'timesheets' => $timesheets,
-            ]);
-
-            if ('html' === $filter->getFormat()) {
-                return new Response($sheetHtml);
-            }
-
-            return $this->createPdfResponse($sheetHtml);
+            return $timesheetExporter->export($timesheets, $filter->getFormat());
         }
 
         return $this->render('timesheet/generate.html.twig', [
@@ -105,18 +98,5 @@ class TimesheetController extends AbstractController
         }
 
         return $this->createPdfResponse($sheetHtml);
-    }
-
-    private function createPdfResponse(string $htmlContent, string $filename = 'feuille-de-temps.pdf'): PdfResponse
-    {
-        $options = [
-            'margin-top'    => 15,
-            'margin-right'  => 15,
-            'margin-bottom' => 15,
-            'margin-left'   => 15,
-            'orientation'   => 'landscape',
-        ];
-
-        return new PdfResponse($this->pdf->getOutputFromHtml($htmlContent, $options), $filename);
     }
 }
