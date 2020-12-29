@@ -9,6 +9,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Admin : affiche les projets dont un utilisateur participe
 - Exporter les feuilles de temps au format Excel
 - Vue admin des temps saisis de tous les collaborateurs pour vérifier si tout le monde est à jour
+### Modifié
+- Dashboard, demande de mettre à jour les temps passés avec un délai de 20 jours
 
 
 

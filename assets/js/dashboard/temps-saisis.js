@@ -6,6 +6,9 @@ $(() => {
 
     const clearAlerts = () => mesTempsRappel.innerHTML = '';
 
+    const monthName = n => ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][n];
+    const craMonthName = cra => monthName(parseInt(cra.month.split('-')[1], 10) - 1);
+
     const addAlert = (type, icon, html) => {
         mesTempsRappel.innerHTML += `
             <div class="alert alert-${type}" role="alert">
@@ -13,38 +16,46 @@ $(() => {
                 ${html}
             </div>
         `;
-    }
+    };
 
-    fetch('/api/dashboard/temps-du-mois')
+    const addAlertForCra = cra => {
+        if (!cra.hasTempsPasses) {
+            addAlert(
+                'success',
+                'check',
+                `Pour ${craMonthName(cra)}, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.`,
+            );
+
+            return;
+        }
+
+        if (cra.isTempsPassesSubmitted) {
+            addAlert(
+                'success',
+                'calendar-check-o',
+                `Vous avez saisi vos temps passés de ${craMonthName(cra)} le ${cra.tempsPassesModifiedAt}.`,
+            );
+
+            return;
+        }
+
+        addAlert(
+            'warning',
+            'calendar-times-o',
+            `Vous devriez <a href="${urlTempsPasses}/${cra.month.replace('-', '/')}" class="alert-link">enregistrer vos temps passés de ${craMonthName(cra)}</a>.`,
+        );
+    };
+
+    const date = new Date();
+
+    // Affiche la notification pour le mois d'avant jusque 20 jours après
+    date.setDate(date.getDate() - 20);
+
+    fetch(`/api/dashboard/temps-du-mois/${date.getFullYear()}-${date.getMonth() + 1}`)
         .then(response => response.json())
         .then(cra => {
             clearAlerts();
-
-            if (!cra.hasTempsPasses) {
-                addAlert(
-                    'success',
-                    'check',
-                    'Ce mois-ci, vous n\'avez pas de temps à saisir car vous n\'étiez contributeur sur aucun projet.',
-                );
-
-                return;
-            }
-
-            if (cra.isTempsPassesSubmitted) {
-                addAlert(
-                    'success',
-                    'calendar-check-o',
-                    `Vous avez saisi vos temps passés le ${cra.tempsPassesModifiedAt}.`,
-                );
-
-                return;
-            }
-
-            addAlert(
-                'warning',
-                'calendar-times-o',
-                `Vous devriez <a href="${urlTempsPasses}" class="alert-link">enregistrer vos temps passés</a>.`,
-            );
+            addAlertForCra(cra);
         })
     ;
 });
