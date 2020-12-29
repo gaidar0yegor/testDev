@@ -27,8 +27,13 @@ class FilterTimesheetType extends AbstractType
             ])
             ->add('format', ChoiceType::class, [
                 'choices' => [
-                    'pdf' => 'pdf',
-                    'html' => 'html',
+                    '.pdf' => 'pdf',
+                    // Disabled .ods because spreadsheet library badly supports this format:
+                    // exporting in .xlsx then open it with Libreoffice leads to better results
+                    //'.ods (LibreOffice)' => 'ods',
+                    '.xlsx (Excel, LibreOffice)' => 'xlsx',
+                    '.xls (Excel 2003)' => 'xls',
+                    'Page html' => 'html',
                 ],
             ])
             ->add('users', SameSocieteUserType::class, [

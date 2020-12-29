@@ -51,6 +51,11 @@ services:
         resource: '../src/Service/Timesheet/Export/Format/'
         tags: ['app.timesheet_export.format']
 
+    App\Service\Timesheet\Export\Format\SpreadsheetExport:
+        tags: ['app.timesheet_export.format']
+        arguments:
+            $tmpDir: '%kernel.cache_dir%/timesheets-export-tmp'
+
     App\Controller\RecommanderController:
         $defaultMailFrom: '%env(MAILER_FROM)%'
 

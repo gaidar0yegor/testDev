@@ -11,9 +11,12 @@ class FichierService
 {
     private FilesystemInterface $storage;
 
-    public function __construct(FilesystemInterface $defaultStorage)
+    private FileResponseFactory $fileResponseFactory;
+
+    public function __construct(FilesystemInterface $defaultStorage, FileResponseFactory $fileResponseFactory)
     {
         $this->storage = $defaultStorage;
+        $this->fileResponseFactory = $fileResponseFactory;
     }
 
     public function upload(Fichier $fichier): void
@@ -32,19 +35,10 @@ class FichierService
 
     public function createDownloadResponse(Fichier $fichier): Response
     {
-        $stream = $this->storage->readStream('uploads/'.$fichier->getNomMd5());
-
-        return new StreamedResponse(function () use ($stream) {
-            echo stream_get_contents($stream);
-            flush();
-        }, 200, [
-            'Content-Transfer-Encoding', 'binary',
-            'Content-Disposition' => sprintf(
-                'attachment; filename="%s"',
-                $fichier->getNomFichier()
-            ),
-            'Content-Length' => fstat($stream)['size'],
-        ]);
+        return $this->fileResponseFactory->createFileResponse(
+            $this->storage->readStream('uploads/'.$fichier->getNomMd5()),
+            $fichier->getNomFichier()
+        );
     }
 
     public function delete(Fichier $fichier): void

@@ -33,7 +33,7 @@ class TimesheetExporter
                 continue;
             }
 
-            return $exportFormat->createExportResponse($timesheets);
+            return $exportFormat->createExportResponse($timesheets, $format);
         }
 
         throw new UnsupportedTimesheetExportFormatException($format);

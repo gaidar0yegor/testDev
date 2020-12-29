@@ -60,43 +60,4 @@ class TimesheetController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    /**
-     * Génère une unique feuille de temps.
-     *
-     * @Route(
-     *      "/feuille-de-temps-{year}-{month}-{userId}.{format}",
-     *      requirements={"format"="(html|pdf)"},
-     *      name="app_fo_admin_timesheet_sheet"
-     * )
-     *
-     * @ParamConverter("user", options={"id" = "userId"})
-     */
-    public function sheet(
-        string $year,
-        string $month,
-        User $user,
-        string $format,
-        DateMonthService $dateMonthService,
-        TimesheetCalculator $timesheetCalculator
-    ) {
-        try {
-            $date = $dateMonthService->getMonthFromYearAndMonth($year, $month);
-            $timesheet = $timesheetCalculator->generateTimesheet($user, $date);
-        } catch (MonthOutOfRangeException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        } catch (TimesheetException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        }
-
-        $sheetHtml = $this->renderView('timesheet/pdf/pdf.html.twig', [
-            'timesheet' => $timesheet,
-        ]);
-
-        if ('html' === $format) {
-            return new Response($sheetHtml);
-        }
-
-        return $this->createPdfResponse($sheetHtml);
-    }
 }

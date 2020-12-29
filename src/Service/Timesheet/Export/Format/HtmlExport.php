@@ -26,7 +26,7 @@ class HtmlExport implements FormatInterface
      *
      * @return Response The Http Response that should be sent with the export
      */
-    public function createExportResponse(array $timesheets): Response
+    public function createExportResponse(array $timesheets, string $format): Response
     {
         return new Response($this->renderTimesheets($timesheets));
     }
