@@ -67,10 +67,6 @@ table tbody a {
     color: rgba(0, 0, 0, 0.08);
 }
 
-li.list-group-item {
-    border: none; 
-}
-
 .card.bg-light-grey {
     background-color: #e9ece6;
     min-height: 100px;

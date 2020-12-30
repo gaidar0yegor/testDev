@@ -51,3 +51,8 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
     Scenario: Le référent ne peut pas désactiver les utilisateurs des autres société
         When I send a POST request to "/admin/utilisateurs/3/desactiver"
         Then the response status code should be 403
+
+    Scenario: L'admin peut voir les projets dont l'utilisateur participe
+        When I click on the 1st "[href='/admin/utilisateurs/2']" element
+        Then I should see "Projets dont il participe"
+        And I should see "Contributeur sur le projet PT"
