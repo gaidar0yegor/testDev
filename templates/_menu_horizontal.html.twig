@@ -90,15 +90,22 @@
                         </a>
                         <a
                             class="dropdown-item"
-                            href="{{ path('app_fo_admin_timesheet_generate') }}"
-                        >
-                            <i class="fa fa-download" aria-hidden="true"></i>Export feuilles de temps
-                        </a>
-                        <a
-                            class="dropdown-item"
                             href="{{ path('app_fo_admin_user_invite') }}"
                         >
                             <i class="fa fa-user-plus" aria-hidden="true"></i>Inviter un nouvel utilisateur
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('app_fo_admin_cra_validation') }}"
+                        >
+                            <i class="fa fa-calendar-check-o" aria-hidden="true"></i>Validation des temps
+                        </a>
+                        <a
+                            class="dropdown-item"
+                            href="{{ path('app_fo_admin_timesheet_generate') }}"
+                        >
+                            <i class="fa fa-download" aria-hidden="true"></i>Export feuilles de temps
                         </a>
                         <div class="dropdown-divider"></div>
                         <a

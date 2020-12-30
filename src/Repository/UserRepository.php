@@ -39,6 +39,23 @@ class UserRepository extends ServiceEntityRepository
         ]);
     }
 
+    public function findWithCra(Societe $societe, int $year)
+    {
+        return $this->whereSociete($societe)
+            ->addSelect('cra')
+            ->addSelect('tempsPasse')
+            ->leftJoin('user.cras', 'cra', 'WITH', 'user = cra.user and YEAR(cra.mois) = :year')
+            ->leftJoin('cra.tempsPasses', 'tempsPasse')
+            ->andWhere('user.invitationToken is null')
+            ->addOrderBy('user.prenom')
+            ->addOrderBy('user.nom')
+            ->addOrderBy('cra.mois')
+            ->setParameter('year', $year)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     /**
      * @param Societe $societe Société dans laquelle envoyer la notification aux utilisateurs
      * @param string $notificationSetting Nom du flag (champ de l'entité User)
