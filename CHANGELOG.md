@@ -6,7 +6,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
 - Admin : affiche les projets dont un utilisateur participe
+- Exporter les feuilles de temps au format Excel
 
 
 
