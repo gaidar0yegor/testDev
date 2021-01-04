@@ -29,7 +29,10 @@ class Timesheet
         return $this->cra;
     }
 
-    public function getTimesheetProjet(): array
+    /**
+     * @return TimesheetProjet[]
+     */
+    public function getTimesheetProjets(): array
     {
         return $this->timesheetProjets;
     }
@@ -37,6 +40,26 @@ class Timesheet
     public function getTotalJours(): float
     {
         return array_sum($this->cra->getJours());
+    }
+
+    public function getSumJourPresence(): int
+    {
+        return count(array_filter(
+            $this->cra->getJours(),
+            function (float $n) {
+                return $n >= 1;
+            }
+        ));
+    }
+
+    public function getSumJourDemiJournees(): float
+    {
+        return count(array_filter(
+            $this->cra->getJours(),
+            function (float $n) {
+                return $n > 0 && $n < 1;
+            }
+        ));
     }
 
     /**

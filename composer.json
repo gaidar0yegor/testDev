@@ -19,6 +19,7 @@
         "league/flysystem-bundle": "^1.5",
         "odolbeau/phone-number-bundle": "^3.2",
         "phpdocumentor/reflection-docblock": "^5.2",
+        "phpoffice/phpspreadsheet": "^1.15",
         "sensio/framework-extra-bundle": "^5.1",
         "shivas/versioning-bundle": "^3.2",
         "symfony/asset": "5.2.*",

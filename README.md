@@ -41,6 +41,8 @@ php bin/console hautelook:fixtures:load --no-interaction
 ;extension=xsl
 # pour la gestion des dates décommenter la ligne 
 ;extension=sodium
+# pour l'export au format excel/ods, décommenter la ligne
+;extension=zip
 #Puis relancer le serveur
 
 # Run application
