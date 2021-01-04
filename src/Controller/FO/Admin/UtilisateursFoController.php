@@ -62,7 +62,7 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="users_fo_user")
+     * @Route("/{id}", name="app_fo_admin_user")
      */
     public function compteUtilisateur(User $user)
     {
@@ -90,7 +90,7 @@ class UtilisateursFoController extends AbstractController
 
             $this->addFlash('success', 'Les informations de l\'utilisateur ont été modifiées');
 
-            return $this->redirectToRoute('users_fo_user', [
+            return $this->redirectToRoute('app_fo_admin_user', [
                 'id' => $user->getId(),
             ]);
         }
@@ -127,7 +127,7 @@ class UtilisateursFoController extends AbstractController
             $user->getFullname()
         ));
 
-        return $this->redirectToRoute('users_fo_user', [
+        return $this->redirectToRoute('app_fo_admin_user', [
             'id' => $user->getId(),
         ]);
     }
@@ -157,7 +157,7 @@ class UtilisateursFoController extends AbstractController
             $user->getFullname()
         ));
 
-        return $this->redirectToRoute('users_fo_user', [
+        return $this->redirectToRoute('app_fo_admin_user', [
             'id' => $user->getId(),
         ]);
     }

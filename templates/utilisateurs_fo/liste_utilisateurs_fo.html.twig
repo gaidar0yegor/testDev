@@ -36,7 +36,7 @@
 					{% endif %}
 					<td>{{ user.projetParticipants|length }}</td>
 					<td class="d-flex justify-content-around">
-						<a href="{{ path('users_fo_user', { 'id': user.id }) }}">
+						<a href="{{ path('app_fo_admin_user', { 'id': user.id }) }}">
 							<i class="fa fa-lg fa-eye"></i>
 						</a>
 						<a href="{{ path('app_fo_admin_utilisateur_modifier', { 'id': user.id }) }}">

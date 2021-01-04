@@ -34,3 +34,14 @@ App\Entity\Societe:
 App\Entity\SocieteStatut:
     societe_active:
         libelle: Activée
+
+App\Entity\Projet:
+    projet:
+        titre: ProjetTest
+        acronyme: PT
+
+App\Entity\ProjetParticipant:
+    user_projet:
+        user: '@user'
+        projet: '@projet'
+        role: '<(App\Role::CONTRIBUTEUR)>'

@@ -71,4 +71,28 @@
             </div>
         </div>
     </div>
+
+    <h2>Projets dont il participe</h2>
+
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
+            <ul class="list-group list-group-flush">
+                {% for participation in user.projetParticipants|sortByRole %}
+                    <li class="list-group-item">
+                        <strong>{{ participation.role|trans }}</strong>
+                        sur le projet
+                        <a href="{{ path('app_fo_projet', {'id': participation.projet.id}) }}">
+                            {{ participation.projet.acronyme }}
+                        </a>
+
+                        <div class="float-right">
+                            <a href="{{ path('app_fo_projet_participant', {'id': participation.projet.id}) }}">
+                                modifier
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
 {% endblock %}

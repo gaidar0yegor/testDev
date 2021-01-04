@@ -3,11 +3,14 @@
 namespace App\Twig;
 
 use App\Entity\Projet;
+use App\Entity\ProjetParticipant;
 use App\Entity\User;
 use App\Exception\RdiException;
+use App\Role;
 use App\Service\ParticipantService;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class ParticipantExtension extends AbstractExtension
@@ -25,6 +28,7 @@ class ParticipantExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
+            new TwigFilter('sortByRole', [$this, 'sortByRole']),
         ];
     }
 
@@ -50,5 +54,34 @@ class ParticipantExtension extends AbstractExtension
         }
 
         return $this->participantService->getRoleOfUserOnProjet($user, $projet);
+    }
+
+    /**
+     * Sort projetParticipants list by role (Chef de projet, then Contributeur, then Observateur)
+     *
+     * @param iterable $projetParticipants
+     * @param string $order "asc" or "desc"
+     *
+     * @return ProjetParticipant[]
+     */
+    public function sortByRole(iterable $projetParticipants, string $ascOrDesc = 'desc'): array
+    {
+        $roleOrder = [
+            Role::CDP => 3,
+            Role::CONTRIBUTEUR => 2,
+            Role::OBSERVATEUR => 1,
+        ];
+
+        $order = 'desc' === strtolower($ascOrDesc) ? 1 : -1;
+        $sorted = iterator_to_array($projetParticipants);
+
+        usort(
+            $sorted,
+            function (ProjetParticipant $a, ProjetParticipant $b) use ($order, $roleOrder) {
+                return ($roleOrder[$b->getRole()] - $roleOrder[$a->getRole()]) * $order;
+            }
+        );
+
+        return $sorted;
     }
 }
