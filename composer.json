@@ -44,6 +44,7 @@
         "symfony/twilio-notifier": "5.2.*",
         "symfony/validator": "5.2.*",
         "symfony/web-link": "5.2.*",
+        "symfony/webpack-encore-bundle": "^1.8",
         "symfony/yaml": "5.2.*",
         "twig/cssinliner-extra": "^3.1",
         "twig/extra-bundle": "^3.1",

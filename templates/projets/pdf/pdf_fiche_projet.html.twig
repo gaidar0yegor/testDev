@@ -5,12 +5,12 @@
 
     <title>Projet {{ projet.acronyme }} | RDI-Manager</title>
 
-    <link rel="stylesheet" href="{{ absolute_url(asset('dependences/bootstrap-4.5.0.min.css')) }}">
-    <link rel="stylesheet" href="{{ absolute_url(asset('dependences/font-awesome/css/font-awesome.min.css')) }}">
-    <link rel="stylesheet" href="{{ absolute_url(asset('css/pdf.css')) }}">
-    <link rel="stylesheet" href="{{ absolute_url(asset('css/timeline.css')) }}">
-    <link rel="stylesheet" href="{{ absolute_url(asset('css/styles.css')) }}">
-
+    {% for file in encore_entry_css_files('base') %}
+        <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet" />
+    {% endfor %}
+    {% for file in encore_entry_css_files('app') %}
+        <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet" />
+    {% endfor %}
 </head>
 <body>
     <h1>Projet {{ projet.acronyme }}</h1>
@@ -90,4 +90,3 @@
 
 </body>
 </html>
-*

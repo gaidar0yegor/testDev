@@ -1,6 +1,4 @@
 {% if matomoConfig.enabled %}
-    <script src="{{ asset('js/matomo.js') }}"></script>
-
     <script type="text/javascript">
         initMatomo({{ matomoConfig|json_encode|raw }});
     </script>

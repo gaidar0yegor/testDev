@@ -4,8 +4,8 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     paths:
-        '%kernel.project_dir%/public/img': images
-        '%kernel.project_dir%/public/css': css
+        '%kernel.project_dir%/public': public
+        '%kernel.project_dir%/node_modules/foundation-emails/dist': foundation
     form_themes:
         - 'bootstrap_4_layout.html.twig'
         - 'form/custom_types.html.twig'
