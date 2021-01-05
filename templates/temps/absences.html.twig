@@ -52,8 +52,6 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <script src="{{ asset('js/Cra.js') }}"></script>
-
     <script type="text/javascript">
         const date = {{ {'year': year, 'month': month}|json_encode|raw }};
         const craJours = {{ cra.jours|json_encode|raw }};

@@ -82,17 +82,11 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('dependences/c3.min.css') }}">
+    {{ parent() }}
+    {{ encore_entry_link_tags('dashboard') }}
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('dependences/d3.v5.min.js') }}"></script>
-    <script src="{{ asset('dependences/c3.min.js') }}"></script>
-    <script src="{{ asset('js/dashboard/utils.js') }}"></script>
-    <script src="{{ asset('js/dashboard/temps-saisis.js') }}"></script>
-    <script src="{{ asset('js/dashboard/heures-par-projet.js') }}"></script>
-    <script src="{{ asset('js/dashboard/moi-vs-equipe.js') }}"></script>
-    <script src="{{ asset('js/dashboard/projets-statuts.js') }}"></script>
-    <script src="{{ asset('js/dashboard/projets-rdi-vs-non-rdi.js') }}"></script>
-    <script src="{{ asset('js/dashboard.js') }}"></script>
+    {{ parent() }}
+    {{ encore_entry_script_tags('dashboard') }}
 {% endblock %}

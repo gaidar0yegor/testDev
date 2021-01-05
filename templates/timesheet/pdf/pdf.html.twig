@@ -5,9 +5,9 @@
 
         <title>Feuille de temps | RDI-Manager</title>
 
-        <link rel="stylesheet" href="{{ absolute_url(asset('dependences/bootstrap-4.5.0.min.css')) }}">
-        <link rel="stylesheet" href="{{ absolute_url(asset('dependences/font-awesome/css/font-awesome.min.css')) }}">
-        <link rel="stylesheet" href="{{ absolute_url(asset('css/pdf.css')) }}">
+        {% for file in encore_entry_css_files('timesheet-pdf') %}
+            <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet" />
+        {% endfor %}
     </head>
     <body>
         {% if timesheets is not defined %}

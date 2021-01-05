@@ -6,30 +6,18 @@
 
         <title>{% block title %}RDI-Manager{% endblock %}</title>
 
-		<link rel="icon" type="image/png" href="{{ asset('img/logosign.png') }}" />
-
-        <link rel="stylesheet" href="{{ asset('dependences/bootstrap-4.5.0.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('dependences/font-awesome/css/font-awesome.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('dependences/bootstrap-datepicker.min.css') }}" />
-        <link rel="stylesheet" href="{{ asset('css/timeline.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+		<link rel="icon" type="image/png" href="{{ asset('build/assets/img/logosign.png') }}" />
 
         {% block stylesheets %}
+            {{ encore_entry_link_tags('base') }}
         {% endblock %}
     </head>
     <body>
         {% block base_body %}
         {% endblock %}
 
-        <script src="{{ asset('dependences/jquery-3.5.1.min.js') }}"></script>
-        <script src="{{ asset('dependences/popper-1.14.3.min.js') }}"></script>
-        <script src="{{ asset('dependences/bootstrap-4.5.0.min.js') }}"></script>
-        <script src="{{ asset('dependences/bootstrap-datepicker.min.js') }}"></script>
-        <script src="{{ asset('js/popper.js') }}"></script>
-        <script src="{{ asset('js/EmbedForm.js') }}"></script>
-        <script src="{{ asset('js/main.js') }}"></script>
-
         {% block javascripts %}
+            {{ encore_entry_script_tags('base') }}
         {% endblock %}
 
         {% include '_matomo.html.twig' %}

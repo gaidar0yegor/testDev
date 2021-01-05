@@ -8,6 +8,8 @@ Requires:
 
 - php
 - composer
+- nodejs
+- yarn
 - a database
 - [Symfony CLI tool](https://symfony.com/doc/current/cloud/getting-started)
 - Mailer DSN pour envoyer les emails
@@ -35,7 +37,10 @@ FIXTURES=fixtures/demo php bin/console hautelook:fixtures:load --no-interaction
 # par ces 2 lignes (commande sous windows à lancer avant pour pouvoir installer les fixtures de test)
 set FIXTURES=fixtures/demo 
 php bin/console hautelook:fixtures:load --no-interaction
- 
+
+# Install js dependencies
+yarn
+
 ### PHP Activation des extensions : les fichiers suivants :  php.ini / php.ini-development /php.ini-production
 # pour l'envoi des invitations décommenter la ligne 
 ;extension=xsl
@@ -47,6 +52,9 @@ php bin/console hautelook:fixtures:load --no-interaction
 
 # Run application
 symfony serve
+
+# Watch assets
+yarn watch
 ```
 
 Then create `.env.local` file at the root directory, and:
@@ -212,6 +220,10 @@ php bin/console doctrine:migrations:migrate
 
 # Vider le cache
 php bin/console cache:clear
+
+# Build assets
+yarn
+yarn build
 ```
 
 ### Cron

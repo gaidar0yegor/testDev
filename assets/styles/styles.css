@@ -1,0 +1,229 @@
+/*********************** BODY *****************************/
+body {
+    background-color: white;
+}
+
+
+/*****************************HTML*************************/
+h1, h2 {
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+h1 {
+    color: #ce352c;
+}
+h1 select {
+    color: #ce352c;
+}
+
+
+.flash-messages {
+    margin-top: 1em;
+}  
+
+.main-container {
+    padding-bottom: 6em;
+}
+
+.form-inline-radio {
+    display: flex;
+    justify-content: space-around;
+}
+
+.form-inline-radio .form-check-input {
+    position: relative;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+table thead tr {
+    background-color: #ce352c;
+    color: white;
+}
+table tbody tr {
+    background-color: #e6e6e6;
+}
+table tbody a {
+    color: black;
+}
+
+.facts {
+    border-radius: 2em;
+    background-color: #ce352c;
+    color: white;
+    padding: 0.25em 0 0.15em 0;
+    margin-top: 1em;
+}
+
+.rdi-card-icon {
+    overflow: hidden;
+}
+.rdi-card-icon > i {
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    font-size: 10em;
+    color: rgba(0, 0, 0, 0.08);
+}
+
+.card.bg-light-grey {
+    background-color: #e9ece6;
+    min-height: 100px;
+}
+
+.col-4.bis {
+    min-width: 50.5%;
+}
+
+h2.facts {
+    margin-top: 5%;
+}
+
+section#timeline p {
+    text-align: center; 
+}
+
+div.button.mb-4 {
+    text-align: end;
+}
+
+/**************************** NAV ************************/
+.navbar-dark {
+    background-color: #ce352c;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: white;
+}
+.navbar-dark .navbar-nav .nav-link.disabled {
+    color: rgba(255, 255, 255, 0.5);
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: rgba(255, 255, 255, 0.8);
+}
+.navbar .navbar-brand {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.navbar .navbar-brand img {
+    max-height: 32px;
+}
+.navbar .user-menu a {
+    cursor: pointer;
+}
+.navbar .nav-item.active {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+.navbar .dropdown-menu a {
+    padding-left: 2.5rem;
+}
+.navbar .dropdown-menu a i {
+    margin-left: -1.5rem;
+    width: 1.5rem;
+}
+
+/*****************************HEADER **********************/
+header {
+    display: flex;
+    justify-content: center;
+    background-color: #ce352c;
+}
+
+h5 {
+    display: inline-block;
+}
+
+/**
+ * Jours travaillés
+ */
+.calmonth-row {
+    display: flex;
+    justify-content: space-around;
+}
+.btn-jour {
+    position: relative;
+    margin: 0.2em;
+    padding: 0.4em;
+    text-align: right;
+}
+.btn-block + .btn-block {
+    /* Overrides bootstrap style to fix agenda alignment */
+    margin-top: 0.2em;
+}
+
+.demi-journee {
+    display: none;
+    position: absolute;
+    left: 0.25em;
+    bottom: 0;
+}
+
+/*********************************************** RESPONSIVE DESIGN *******************************************/
+
+@media (max-width: 992px) {
+    h1 {
+        font-size: 2em;
+    }
+
+    h2 {
+        font-size: 1.5em;
+    }
+}
+
+@media (max-width: 992px) {
+    div.bordure.contributeurs {
+        display: none;
+    }
+}
+
+@media (min-width: 575px) {
+    .btn-jour {
+        padding: 0.2em 0.4em 0.6em 0.4em;
+        font-size: 1.25em;
+    }
+
+    /* Affiche demi journee 1/2 seulement sur ecran sm et bouton demi journee */
+    .btn-jour.calmonth-day-05 .demi-journee {
+        display: inline;
+    }
+}
+
+.btn-jour span {
+    font-weight: bold;
+}
+
+@media (max-width: 575px) {
+    div.button.mb-4.mt-5 {
+        text-align: center;
+    }
+
+    div.row.mb-2.align-items-center {
+        margin-left: 1px;
+        margin-right: 43px;
+    }
+
+    a.btn.btn-outline-primary.user {
+        margin-left: -1px;
+        margin-right: -7px;
+    }
+}
+
+@media (min-width: 300px) and (max-width: 575px) {
+    div.row.projet {
+        max-width: 12%;
+    }
+}
+
+.cron-schedule-input {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+.cron-schedule-input select {
+    width: auto;
+    margin: 0 0.5em;
+}
+
+.datepicker td, .datepicker th {
+    border-radius: 0;
+}

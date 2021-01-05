@@ -16,5 +16,13 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/back-office.css') }}">
+    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('back-office') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('back-office') }}
 {% endblock %}

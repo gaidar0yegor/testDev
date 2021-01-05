@@ -22,4 +22,5 @@ return [
     League\FlysystemBundle\FlysystemBundle::class => ['all' => true],
     Cron\CronBundle\CronCronBundle::class => ['all' => true],
     Misd\PhoneNumberBundle\MisdPhoneNumberBundle::class => ['all' => true],
+    Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
 ];
