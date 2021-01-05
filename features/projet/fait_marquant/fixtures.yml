@@ -37,7 +37,7 @@ App\Entity\FaitMarquant:
     fait:
         titre: Fait marquant déjà créé
         description: Contenu du fait marquant déjà créé.
-        date: <date_create()>
+        date: <(new DateTime("2020-11-09"))>
         createdBy: '@contributeur'
         projet: '@projet'
 
