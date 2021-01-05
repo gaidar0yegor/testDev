@@ -21,19 +21,24 @@ class DashboardController extends AbstractController
      * Retourne si l'utilisateur est à jour dans la saisie de ses temps.
      *
      * @Route(
-     *      "/temps-du-mois",
+     *      "/temps-du-mois/{month}",
      *      methods={"GET"},
+     *      requirements={"month"="\d{4}-\d{2}"},
      *      name="api_dashboard_temps_du_mois"
      * )
      */
-    public function getTempsDuMois(CraService $craService, DateMonthService $dateMonthService)
-    {
+    public function getTempsDuMois(
+        string $month = null,
+        CraService $craService,
+        DateMonthService $dateMonthService
+    ) {
         $cra = $craService->loadCraForUser(
             $this->getUser(),
-            $dateMonthService->getCurrentMonth()
+            $dateMonthService->getCurrentMonth(null === $month ? 'now' : $month)
         );
 
         return new JsonResponse([
+            'month' => $cra->getMois()->format('Y-m'),
             'isCraSubmitted' => $cra->isCraSubmitted(),
             'isTempsPassesSubmitted' => $cra->isTempsPassesSubmitted(),
             'hasTempsPasses' => $cra->hasTempsPasses(),
