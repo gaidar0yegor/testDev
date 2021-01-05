@@ -5,15 +5,17 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.9.0] - 2021-01-05 ⛄
 ### Ajouté
 - Admin : affiche les projets dont un utilisateur participe
 - Exporter les feuilles de temps au format Excel
 - Vue admin des temps saisis de tous les collaborateurs pour vérifier si tout le monde est à jour
 ### Modifié
 - Dashboard, demande de mettre à jour les temps passés avec un délai de 20 jours
-
-
-
 
 ## [0.8.0] - 2020-12-22 🎅
 ### Ajouté
