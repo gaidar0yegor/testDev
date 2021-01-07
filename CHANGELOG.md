@@ -5,6 +5,10 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Mail de recommandation :
+    - zone de texte personnalisée dans l'email
+    - ajout du lien vers la vidéo de présentation sur youtube
 
 
 

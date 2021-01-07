@@ -5,6 +5,7 @@ namespace App\Form;
 use App\DTO\RecommandationMessage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -24,6 +25,10 @@ class RecommandationMessageType extends AbstractType
             ->add('subject', null, [
                 'label' => 'Sujet',
                 'required' => true,
+            ])
+            ->add('customText', TextareaType::class, [
+                'label' => 'Texte personnalisé',
+                'required' => false,
             ])
         ;
     }
