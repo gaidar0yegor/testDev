@@ -9,6 +9,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Mail de recommandation :
     - zone de texte personnalisée dans l'email
     - ajout du lien vers la vidéo de présentation sur youtube
+### Modifié
+- Page d'invitation sur projet : affiche l'acronyme du projet dans le titre au lieu du titre
 ### Réparé
 - Ré-affiche les icônes sur la page de login
 
