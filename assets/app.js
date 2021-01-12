@@ -9,4 +9,5 @@ import 'bootstrap';
 import 'bootstrap-datepicker';
 
 import './js/Cra';
+import './js/recommandation-text-preview';
 import './js/main';

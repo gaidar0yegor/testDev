@@ -18,6 +18,8 @@ class RecommandationMessage
 
     private string $subject = 'Je vous recommande RDI-Manager';
 
+    private ?string $customText = null;
+
     public function getFrom(): string
     {
         return $this->from;
@@ -50,6 +52,18 @@ class RecommandationMessage
     public function setSubject(string $subject): self
     {
         $this->subject = $subject;
+
+        return $this;
+    }
+
+    public function getCustomText(): ?string
+    {
+        return $this->customText;
+    }
+
+    public function setCustomText(?string $customText): self
+    {
+        $this->customText = $customText;
 
         return $this;
     }

@@ -70,6 +70,9 @@ class RdiMailer
             ->to($recommandationMessage->getTo())
             ->addBcc($this->mailFrom)
             ->subject($recommandationMessage->getSubject())
+            ->context([
+                'customText' => $recommandationMessage->getCustomText(),
+            ])
             ->textTemplate('mail/_recommandation-content.txt.twig')
 
             ->htmlTemplate('mail/recommandation.html.twig')
