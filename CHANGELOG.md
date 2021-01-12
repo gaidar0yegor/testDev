@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.10.0] - 2021-01-12 🍫
 ### Ajouté
 - Mail de recommandation :
     - zone de texte personnalisée dans l'email
@@ -13,9 +18,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Page d'invitation sur projet : affiche l'acronyme du projet dans le titre au lieu du titre
 ### Réparé
 - Ré-affiche les icônes sur la page de login
-
-
-
 
 ## [0.9.0] - 2021-01-05 ⛄
 ### Ajouté
