@@ -90,6 +90,11 @@ class Projet implements HasSocieteInterface
      */
     private $projetInterne;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetActivity::class, mappedBy="projet", orphanRemoval=true)
+     */
+    private $projetActivities;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -99,6 +104,7 @@ class Projet implements HasSocieteInterface
         $this->projetCollaboratif = false;
         $this->projetPpp = false;
         $this->projetInterne = false;
+        $this->projetActivities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -397,5 +403,35 @@ class Projet implements HasSocieteInterface
                 ->addViolation()
             ;
         }
+    }
+
+    /**
+     * @return Collection|ProjetActivity[]
+     */
+    public function getProjetActivities(): Collection
+    {
+        return $this->projetActivities;
+    }
+
+    public function addProjetActivity(ProjetActivity $projetActivity): self
+    {
+        if (!$this->projetActivities->contains($projetActivity)) {
+            $this->projetActivities[] = $projetActivity;
+            $projetActivity->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetActivity(ProjetActivity $projetActivity): self
+    {
+        if ($this->projetActivities->removeElement($projetActivity)) {
+            // set the owning side to null (unless already changed)
+            if ($projetActivity->getProjet() === $this) {
+                $projetActivity->setProjet(null);
+            }
+        }
+
+        return $this;
     }
 }

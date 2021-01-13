@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Compte de {{ user.fullname }} | {{ parent() }}{% endblock %}
+{% block title %}{{ user.fullname }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Compte de {{ user.fullname }}</h1>
+    <h1>{{ user.fullname }}</h1>
 
     <div class="row">
         <div class="col-sm-10 mx-auto offset-sm-1 col-lg-8 offset-lg-2">
@@ -21,76 +21,85 @@
                         <div class="col-md-3"><strong>Rôle : </strong></div>
                         <div class="col-md-9">{{ user.role|trans }}</div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-3"><strong>E-mail : </strong></div>
-                        <div class="col-md-9">{{ user.email }}</div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-3"><strong>Téléphone : </strong></div>
-                        <div class="col-md-9">
-                            {% if user.telephone %}
-                                {{ user.telephone|phone_number_format('NATIONAL') }}
-                            {% else %}
-                                <i>Non renseigné</i>
-                            {% endif %}
+                    {% if is_granted('ROLE_FO_ADMIN') %}
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>E-mail : </strong></div>
+                            <div class="col-md-9">{{ user.email }}</div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-md-3"><strong>Statut : </strong></div>
-                        <div class="col-md-9">
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>Téléphone : </strong></div>
+                            <div class="col-md-9">
+                                {% if user.telephone %}
+                                    {{ user.telephone|phone_number_format('NATIONAL') }}
+                                {% else %}
+                                    <i>Non renseigné</i>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>Statut : </strong></div>
+                            <div class="col-md-9">
+                                {% if user.enabled %}
+                                    <span class="badge badge-success">Activé</span>
+                                {% else %}
+                                    <span class="badge badge-warning">Désactivé</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_FO_ADMIN') %}
+                        <div class="mt-5">
+                            <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: user.id }) }}" class="btn btn-outline-success mt-2">Mettre à jour</a>
+                            <a href="{{ path('app_fo_admin_utilisateur_activity', { id: user.id }) }}" class="btn btn-outline-primary mt-2">Activité</a>
+
                             {% if user.enabled %}
-                                <span class="badge badge-success">Activé</span>
+                                <form
+                                    action="{{ path('utilisateur_fo_disable', { id: user.id }) }}"
+                                    method="POST"
+                                    class="form float-right"
+                                >
+                                    <input type="submit" value="Désactiver" class="btn btn-outline-warning mt-2" style="width: 100%;"/>
+                                </form>
                             {% else %}
-                                <span class="badge badge-warning">Désactivé</span>
+                                <form
+                                    action="{{ path('utilisateur_fo_enable', { id: user.id }) }}"
+                                    method="POST"
+                                    class="form float-right"
+                                >
+                                    <input type="submit" value="Ré-activer" class="btn btn-warning mt-2" />
+                                </form>
                             {% endif %}
                         </div>
-                    </div>
-
-                    <div class="d-flex flex-column flex-md-row justify-content-md-between mt-5">
-                        <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: user.id }) }}" class="btn btn-outline-success mt-2">Mettre à jour</a>
-                        {% if user.enabled %}
-                            <form
-                                action="{{ path('utilisateur_fo_disable', { id: user.id }) }}"
-                                method="POST"
-                                class="form"
-                            >
-                            <input type="submit" value="Désactiver" class="btn btn-outline-warning mt-2" style="width: 100%;"/>
-                            </form>
-                        {% else %}
-
-                            <form
-                                action="{{ path('utilisateur_fo_enable', { id: user.id }) }}"
-                                method="POST"
-                                class="form"
-                            >
-                                <input type="submit" value="Ré-activer" class="btn btn-warning mt-2" />
-                            </form>
-                        {% endif %}
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
 
-    <h2>Projets dont il participe</h2>
+    <h2>Ses projets</h2>
 
     <div class="row">
         <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
             <ul class="list-group list-group-flush">
                 {% for participation in user.projetParticipants|sortByRole %}
-                    <li class="list-group-item">
-                        <strong>{{ participation.role|trans }}</strong>
-                        sur le projet
-                        <a href="{{ path('app_fo_projet', {'id': participation.projet.id}) }}">
-                            {{ participation.projet.acronyme }}
-                        </a>
-
-                        <div class="float-right">
-                            <a href="{{ path('app_fo_projet_participant', {'id': participation.projet.id}) }}">
-                                modifier
+                    {% if is_granted('view', participation.projet) %}
+                        <li class="list-group-item">
+                            <strong>{{ participation.role|trans }}</strong>
+                            sur le projet
+                            <a href="{{ path('app_fo_projet', {'id': participation.projet.id}) }}">
+                                {{ participation.projet.acronyme }}
                             </a>
-                        </div>
-                    </li>
+
+                            {% if is_granted('edit', participation.projet) %}
+                                <div class="float-right">
+                                    <a href="{{ path('app_fo_projet_participant', {'id': participation.projet.id}) }}">
+                                        modifier
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </li>
+                    {% endif %}
                 {% endfor %}
             </ul>
         </div>

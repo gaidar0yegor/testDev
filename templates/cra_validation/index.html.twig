@@ -38,7 +38,7 @@
     <tbody>
         {% for user in users %}
             <tr {% if not user.enabled %}class="table-secondary"{% endif %}>
-                <td><a href="{{ path('app_fo_admin_user', {'id': user.id}) }}">{{ user.fullname }}</a></td>
+                <td><a href="{{ path('app_fo_user', {'id': user.id}) }}">{{ user.fullname }}</a></td>
                 {% for mois in 1..12 %}
                     {% include 'cra_validation/_cra-info.html.twig' with {'yearMonth': [year, '%02d'|format(mois)]|join('-')} %}
                 {% endfor %}

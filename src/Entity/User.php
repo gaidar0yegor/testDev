@@ -157,6 +157,11 @@ class User implements UserInterface, HasSocieteInterface
      */
     private $notificationSaisieTempsEnabled;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserActivity::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $userActivities;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -167,6 +172,7 @@ class User implements UserInterface, HasSocieteInterface
         $this->notificationCreateFaitMarquantEnabled = true;
         $this->notificationLatestFaitMarquantEnabled = true;
         $this->notificationSaisieTempsEnabled = true;
+        $this->userActivities = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -573,6 +579,36 @@ class User implements UserInterface, HasSocieteInterface
     public function setNotificationSaisieTempsEnabled(bool $notificationSaisieTempsEnabled): self
     {
         $this->notificationSaisieTempsEnabled = $notificationSaisieTempsEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserActivity[]
+     */
+    public function getUserActivities(): Collection
+    {
+        return $this->userActivities;
+    }
+
+    public function addUserActivity(UserActivity $userActivity): self
+    {
+        if (!$this->userActivities->contains($userActivity)) {
+            $this->userActivities[] = $userActivity;
+            $userActivity->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserActivity(UserActivity $userActivity): self
+    {
+        if ($this->userActivities->removeElement($userActivity)) {
+            // set the owning side to null (unless already changed)
+            if ($userActivity->getUser() === $this) {
+                $userActivity->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -59,5 +59,21 @@ services:
     App\Controller\RecommanderController:
         $defaultMailFrom: '%env(MAILER_FROM)%'
 
+    App\Activity\Type\:
+        resource: '../src/Activity/Type/'
+        tags: ['app.activity_handler']
+
+    App\Activity\ActivityService:
+        arguments:
+            $activityHandlers: !tagged_iterator { tag: 'app.activity_handler', default_index_method: 'getType' }
+        tags: ['doctrine.event_subscriber']
+
+    App\Service\EntityLink\EntityLinkGenerator\:
+        resource: '../src/Service/EntityLink/EntityLinkGenerator/'
+        tags: ['app.entity_link_generator']
+
+    App\Service\EntityLink\EntityLinkService:
+        $linkGenerators: !tagged_iterator { tag: 'app.entity_link_generator', default_index_method: 'supportsEntity' }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

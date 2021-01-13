@@ -5,6 +5,7 @@ namespace App\Controller\FO\Admin;
 use App\Entity\User;
 use App\Form\InviteUserType;
 use App\Form\UtilisateursFormType;
+use App\Repository\UserActivityRepository;
 use App\Repository\UserRepository;
 use App\Service\Invitator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -62,18 +63,6 @@ class UtilisateursFoController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_fo_admin_user")
-     */
-    public function compteUtilisateur(User $user)
-    {
-        $this->denyAccessUnlessGranted('same_societe', $user);
-
-        return $this->render('utilisateurs_fo/view_user.html.twig', [
-            'user' => $user,
-        ]);
-    }
-
-    /**
      * @Route("/{id}/modifier", name="app_fo_admin_utilisateur_modifier")
      */
     public function modifier(Request $request, User $user, EntityManagerInterface $em)
@@ -90,7 +79,7 @@ class UtilisateursFoController extends AbstractController
 
             $this->addFlash('success', 'Les informations de l\'utilisateur ont été modifiées');
 
-            return $this->redirectToRoute('app_fo_admin_user', [
+            return $this->redirectToRoute('app_fo_user', [
                 'id' => $user->getId(),
             ]);
         }
@@ -127,7 +116,7 @@ class UtilisateursFoController extends AbstractController
             $user->getFullname()
         ));
 
-        return $this->redirectToRoute('app_fo_admin_user', [
+        return $this->redirectToRoute('app_fo_user', [
             'id' => $user->getId(),
         ]);
     }
@@ -157,8 +146,24 @@ class UtilisateursFoController extends AbstractController
             $user->getFullname()
         ));
 
-        return $this->redirectToRoute('app_fo_admin_user', [
+        return $this->redirectToRoute('app_fo_user', [
             'id' => $user->getId(),
+        ]);
+    }
+
+    /**
+     * @Route(
+     *      "/{id}/activite",
+     *      name="app_fo_admin_utilisateur_activity"
+     * )
+     */
+    public function activity(User $user, UserActivityRepository $userActivityRepository)
+    {
+        $this->denyAccessUnlessGranted('same_societe', $user);
+
+        return $this->render('utilisateurs_fo/user_activity.html.twig', [
+            'user' => $user,
+            'activities' => $userActivityRepository->findByUser($user),
         ]);
     }
 }
