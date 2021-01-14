@@ -1,18 +1,20 @@
 {% extends "base_html.html.twig" %}
 
+{% block title %}Suivi de temps sur vos projets innovants - {{ parent() }}{% endblock %}
+
 {% block base_body %}
 
 <section class="container login-container">
     <div class="row">
         <div class="col-12 col-sm-8 offset-sm-2 col-md-4 offset-md-0">
-            <h1><img src="{{ asset('build/assets/img/RDI Manager logo long-01.png') }}" alt="RDI-Manager" class="rdi-manager-title"></h1>
+            <h1><img src="{{ asset('build/assets/img/Logo-RDI-rouge.png') }}" alt="RDI-Manager" class="rdi-manager-title"></h1>
 
             {% include '_flash_messages.html.twig' %}
 
             <form method="post" class="mb-4">
                 <div class="form-group">
                     <label for="input-email">Identifiant</label>
-                    <input type="email" name="_username" class="form-control" id="input-email" aria-describedby="emailHelp" placeholder="Votre email">
+                    <input type="email" name="_username" class="form-control" id="input-email" placeholder="Votre email">
                 </div>
                 <div class="form-group">
                     <label for="input-password">Mot de passe</label>
@@ -85,4 +87,48 @@
 {% block javascripts %}
     {{ parent() }}
     {{ encore_entry_script_tags('login') }}
+{% endblock %}
+
+{% block meta %}
+<meta name="title" content="RDI-Manager">
+<meta name="description" content="Suivez vos projets, les temps passés, générez les feuilles de temps et invitez des collaborateurs externe.">
+<meta name="keywords" content="recherche, innovation, rdi, cir, projet, feuilles de temps">
+<meta name="robots" content="index, nofollow">
+<meta name="language" content="French">
+<meta name="author" content="Eurêka C.I">
+
+<link rel="base" href="https://app.rdimanager.com/"/>
+<link rel="canonical" href="https://app.rdimanager.com/"/>
+<meta rel="sitemap" type="application/xml" content="https://app.rdimanager.com/sitemap.xml"/>
+<meta name="googlebot" content="index/nofollow"/>
+<meta name="theme-color" content="#ce352c"/>
+<meta name="msapplication-navbutton-color" content="#ce352c"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="#ce352c"/>
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="RDI-Manager"/>
+<meta itemprop="description" content="Application de suivi de temps passés sur vos projets de recherche et d'innovation."/>
+<meta itemprop="image" content="https://rdi-manager.github.io/images/logo.png"/>
+<!-- markup for facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="RDI-Manager"/>
+<meta property="og:url" content="https://app.rdimanager.com/"/>
+<meta property="og:site_name" content="RDI-Manager"/>
+<meta property="og:image" content="https://rdi-manager.github.io/images/logo.png"/>
+<meta property="og:description" content="Application de suivi de temps passés sur vos projets de recherche et d'innovation."/>
+<meta property="og:locale" content="fr"/>
+<!-- markup for twitter -->
+<meta name="twitter:card" content="App"/>
+<meta name="twitter:title" content="RDI-Manager"/>
+<meta name="twitter:description" content="Application de suivi de temps passés sur vos projets de recherche et d'innovation."/>
+<meta name="twitter:creator" content="Eurêka C.I"/>
+<meta name="twitter:image" content="https://rdi-manager.github.io/images/logo.png"/>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "WebSite",
+  "name": "RDI-Manager",
+  "url": "https://app.rdimanager.com/"
+}
+</script>
 {% endblock %}
