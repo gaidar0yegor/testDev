@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+Disallow: /cgi-bin/
+Sitemap: https://app.rdimanager.com/sitemap.xml

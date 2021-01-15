@@ -5,6 +5,12 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- SEO sur la page de login :
+    - Ajout des meta sur la page de login
+    - Ne pas indexer les autres pages (mot de passe oublié, recommander rdi manager)
+    - ajout des données opengraph, twitter card, json+ld...
+    - Fix html invalide
 
 
 
