@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.10.2] - 2021-01-15
 ### Ajouté
 - SEO sur la page de login :
     - Ajout des meta sur la page de login
@@ -15,8 +20,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - X a ajouté le fait marquant Y sur le projet Z
     - X a créé le projet Y
 
-
-
+## [0.10.1] - 2021-01-14
+*Rien de nouveau, test du script de déploiement*
 
 ## [0.10.0] - 2021-01-12 🍫
 ### Ajouté
