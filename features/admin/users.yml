@@ -45,3 +45,7 @@ App\Entity\ProjetParticipant:
         user: '@user'
         projet: '@projet'
         role: '<(App\Role::CONTRIBUTEUR)>'
+    admin_projet:
+        user: '@admin'
+        projet: '@projet'
+        role: '<(App\Role::CDP)>'

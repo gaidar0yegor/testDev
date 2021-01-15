@@ -11,6 +11,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Ne pas indexer les autres pages (mot de passe oublié, recommander rdi manager)
     - ajout des données opengraph, twitter card, json+ld...
     - Fix html invalide
+- Historique d'activité sur les projets et utilisateurs :
+    - X a ajouté le fait marquant Y sur le projet Z
+    - X a créé le projet Y
 
 
 

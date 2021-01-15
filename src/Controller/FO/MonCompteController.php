@@ -6,6 +6,7 @@ use App\DTO\UpdatePassword;
 use App\Form\MonCompteType;
 use App\Form\UpdatePasswordType;
 use App\Form\UserNotificationType;
+use App\Repository\UserActivityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -95,6 +96,16 @@ class MonCompteController extends AbstractController
 
         return $this->render('mon_compte/update_password.html.twig', [
             'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/activite", name="app_fo_mon_compte_activite")
+     */
+    public function activite(UserActivityRepository $userActivityRepository)
+    {
+        return $this->render('mon_compte/activity.html.twig', [
+            'activities' => $userActivityRepository->findByUser($this->getUser()),
         ]);
     }
 }

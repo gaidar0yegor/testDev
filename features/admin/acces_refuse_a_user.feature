@@ -15,10 +15,13 @@ Feature: Il faut être référent pour pouvoir gérer les utilisateurs.
         Then the response status code should be 403
         And I should not see "Liste des utilisateurs"
 
-    Scenario: L'utilisateur ne doit pas avoir accès aux données d'un utilisateur
-        When I go to "/admin/utilisateurs/1"
-        Then the response status code should be 403
-        And I should not see "Compte de"
+    Scenario: L'utilisateur peut accéder à la page publique d'un autre utilisateur
+        When I go to "/utilisateur/1"
+        Then the response status code should be 200
+        And I should see "Admin Eureka" in the "h1" element
+        And I should see "Rôle"
+        But I should not see "Mettre à jour"
+        And I should not see "Téléphone"
 
     Scenario: L'utilisateur ne doit pas pouvoir modifier les infos d'un utilisateur
         When I go to "/admin/utilisateurs/1/modifier"

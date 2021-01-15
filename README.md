@@ -6,7 +6,8 @@ Projet RDI Manager.
 
 Requires:
 
-- php
+- php 7.1+
+- MySQL 8.0+
 - composer
 - nodejs
 - yarn

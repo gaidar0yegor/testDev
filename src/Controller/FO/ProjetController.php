@@ -7,6 +7,7 @@ use App\Entity\Projet;
 use App\Form\ProjetFormType;
 use App\Entity\ProjetParticipant;
 use App\ProjetResourceInterface;
+use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -164,6 +165,19 @@ class ProjetController extends AbstractController
             'projet' => $projet,
             'userCanEditProjet' => $this->isGranted('edit', $projet),
             'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/activite", name="app_fo_projet_activity", requirements={"id"="\d+"})
+     */
+    public function projetActivity(Projet $projet, ProjetActivityRepository $projetActivityRepository)
+    {
+        $this->denyAccessUnlessGranted('view', $projet);
+
+        return $this->render('projets/projet_activity.html.twig', [
+            'projet' => $projet,
+            'activities' => $projetActivityRepository->findByProjet($projet),
         ]);
     }
 

@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-5 my-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 my-4">
             <div class="col">
                 <a
                     href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}"
@@ -94,11 +94,17 @@
                     {% endif %}
                 >Fait marquant</a>
             </div>
-             <div class="col">
+            <div class="col">
                 <a
                     href="{{ path('app_fo_projet_pdf', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2"
                 >Export PDF</a>
+            </div>
+            <div class="col">
+                <a
+                    href="{{ path('app_fo_projet_activity', {'id': projet.id}) }}"
+                    class="btn btn-block btn-outline-primary mt-2"
+                >Activité</a>
             </div>
         </div>
 
