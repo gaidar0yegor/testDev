@@ -15,6 +15,7 @@
         "doctrine/doctrine-bundle": "^2.1",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.7",
+        "elasticsearch/elasticsearch": "^7.10",
         "knplabs/knp-snappy-bundle": "^1.7",
         "league/flysystem-bundle": "^1.5",
         "odolbeau/phone-number-bundle": "^3.2",

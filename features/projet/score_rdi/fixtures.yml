@@ -1,0 +1,49 @@
+App\Entity\User:
+    cdp:
+        nom: Eureka
+        prenom: CDP
+        email: cdp@societe.dev
+        password: cdp
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet_null:
+        titre: Projet null
+        acronyme: P_null
+        rdi_score: ~
+        rdi_score_reliability: ~
+    projet_rdi:
+        titre: Projet rdi
+        acronyme: P_rdi
+        rdi_score: 0.75
+        rdi_score_reliability: 0.98
+    projet_unreliable:
+        titre: Projet unreliable
+        acronyme: P_unreliable
+        rdi_score: 0.75
+        rdi_score_reliability: 0.05
+
+App\Entity\ProjetParticipant:
+    projet_cdp_null:
+        user: '@cdp'
+        projet: '@projet_null'
+        role: '<(App\Role::CDP)>'
+    projet_cdp_rdi:
+        user: '@cdp'
+        projet: '@projet_rdi'
+        role: '<(App\Role::CDP)>'
+    projet_cdp_unreliable:
+        user: '@cdp'
+        projet: '@projet_unreliable'
+        role: '<(App\Role::CDP)>'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société
+        siret: 111111111
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée

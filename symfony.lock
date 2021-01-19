@@ -117,6 +117,18 @@
     "egulias/email-validator": {
         "version": "2.1.22"
     },
+    "elasticsearch/elasticsearch": {
+        "version": "v7.10.0"
+    },
+    "ezimuel/guzzlestreams": {
+        "version": "3.0.1"
+    },
+    "ezimuel/ringphp": {
+        "version": "1.1.2"
+    },
+    "ezyang/htmlpurifier": {
+        "version": "v4.13.0"
+    },
     "fakerphp/faker": {
         "version": "v1.12.1"
     },
@@ -306,6 +318,9 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "react/promise": {
+        "version": "v2.8.0"
     },
     "sebastian/comparator": {
         "version": "4.0.5"

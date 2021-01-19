@@ -12,6 +12,8 @@ Feature: Recommandation
         Then I should see "Un email de recommandation a bien été envoyé à \"mon-contact@test.fr\""
 
     Scenario: Un utilisateur connecté peut recommander RDI-Manager à ses propres contacts
+        Given I have loaded fixtures from "recommandation/fixtures.yml"
+
         Given I am on "/connexion"
         And I fill in the following:
             | _username | user@societe.dev |

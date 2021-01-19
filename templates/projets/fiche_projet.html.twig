@@ -56,6 +56,33 @@
                             <div class="col-md-6">{{ projet.statut }}</div>
                         </div>
                     </div>
+                    {% if projet.rdiScore is not null %}
+                        <div class="col-md-4">
+                            <h5>Score RDI</h5>
+                            {% if projet.rdiScoreReliability > 0.5 %}
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ (projet.rdiScore * 100)|round }}%" aria-valuenow="{{ (projet.rdiScore * 100)|round }}" aria-valuemin="0" aria-valuemax="100">
+                                        {{ (projet.rdiScore * 100)|round }}
+                                    </div>
+                                </div>
+                                <small class="text-muted">
+                                    Score fiable à {{ (projet.rdiScoreReliability * 100)|round }} %.
+                                </small>
+                                <br>
+                                <a href="#" id="rdi-highlight">Détails de l'analyse</a>
+                            {% else %}
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                        Indéterminé
+                                    </div>
+                                </div>
+                                <small class="text-muted">
+                                    Ce projet ne contient pas encore assez de texte et de faits marquants
+                                    pour calculer un score précis.
+                                </small>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

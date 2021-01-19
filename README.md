@@ -123,6 +123,36 @@ La commande vous demandera le nom de la société et l'email du référent.
 Un accès sera initialisé et un lien d'invitation sera créé
 pour finaliser la création de compte du référent.
 
+### Elastic search pour calculer le score RDI
+
+Le score RDI d'un projet est un coefficient entre 0 et 1.
+En théorie il tend vers 1 quand un projet tend à être elligible RDI,
+et donc potentiellement pourra recevoir des aides style CIR/CII...
+
+[Installer Elastic search](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/install-elasticsearch.html), ou lancer une instance directement avec Docker avec:
+
+``` bash
+docker run \
+    -p 9200:9200 \
+    -p 9300:9300 \
+    -e "http.cors.enabled=true" \
+    -e "http.cors.allow-origin=https://app.elasticvue.com" \
+    -e "discovery.type=single-node" \
+    docker.elastic.co/elasticsearch/elasticsearch:7.10.2
+```
+
+Ajouter le host dans votre `.env.local`:
+
+```
+ELASTIC_SEARCH_HOST=127.0.0.1:9200
+```
+
+Puis lancer la commander pour mettre à jour les scores de tous les projets :
+
+``` bash
+php bin/console app:update-projets-rdi-score
+```
+
 ## Development
 
 ### Run unit tests

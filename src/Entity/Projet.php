@@ -95,6 +95,16 @@ class Projet implements HasSocieteInterface
      */
     private $projetActivities;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $rdiScore;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $rdiScoreReliability;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -431,6 +441,30 @@ class Projet implements HasSocieteInterface
                 $projetActivity->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRdiScore(): ?float
+    {
+        return $this->rdiScore;
+    }
+
+    public function setRdiScore(?float $rdiScore): self
+    {
+        $this->rdiScore = $rdiScore;
+
+        return $this;
+    }
+
+    public function getRdiScoreReliability(): ?float
+    {
+        return $this->rdiScoreReliability;
+    }
+
+    public function setRdiScoreReliability(?float $rdiScoreReliability): self
+    {
+        $this->rdiScoreReliability = $rdiScoreReliability;
 
         return $this;
     }
