@@ -5,11 +5,13 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.11.0] - 2021-01-19
 ### Ajouté
 - Affichage du score RDI d'un projet
-
-
-
 
 ## [0.10.2] - 2021-01-15
 ### Ajouté
