@@ -71,6 +71,9 @@ table tbody a {
     background-color: #e9ece6;
     min-height: 100px;
 }
+.card.bg-light-grey .progress {
+    background-color: white;
+}
 
 .col-4.bis {
     min-width: 50.5%;
@@ -226,4 +229,35 @@ h5 {
 
 .datepicker td, .datepicker th {
     border-radius: 0;
+}
+
+.rdi-keyword {
+    position: relative;
+    z-index: 1;
+    padding: 0 0.25em;
+    margin: 0 -0.25em;
+}
+.rdi-keyword::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to top, #28a745a0 40%, transparent 40%);
+    animation-name: 'highlight';
+    animation-duration: 0.75s;
+}
+
+@keyframes highlight {
+    0% {
+        width: 0;
+        opacity: 0;
+    }
+    50% {
+        width: 100%;
+        opacity: 1;
+    }
 }
