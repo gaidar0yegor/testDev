@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<h2>{{ timesheet.cra.mois|format_date(pattern='MMMM Y')|capitalize }}</h2>
+<h2>{{ timesheet.cra.mois|format_date(pattern='MMMM yyyy')|capitalize }}</h2>
 
 <table class="table table-sm table-bordered text-center">
     <thead>
@@ -92,7 +92,7 @@
 
 <p class="text-right lead">
     Total des heures en
-    {{ timesheet.cra.mois|format_date(pattern='MMMM Y') }} :
+    {{ timesheet.cra.mois|format_date(pattern='MMMM yyyy') }} :
     <strong>{{ timesheet.totalWorkedHours|round(2) }} h</strong>
 </p>
 <p class="text-right text-muted">

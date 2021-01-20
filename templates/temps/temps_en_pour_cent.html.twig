@@ -11,7 +11,7 @@
         <i class="fa fa-angle-left fa-lg"></i>
     </a>
     <span class="mx-3">
-        {{ mois|format_date(pattern='MMMM Y')|capitalize }}
+        {{ mois|format_date(pattern='MMMM yyyy')|capitalize }}
     </span>
     {% if next > date() %}
         <span class="text-muted" title="Impossible de saisir les temps passés dans le futur.">
