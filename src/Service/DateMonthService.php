@@ -35,7 +35,7 @@ class DateMonthService
 
         $datetime->setDate($year, $month, 1);
 
-        return $datetime;
+        return $this->normalize($datetime);
     }
 
     public function getMonthFromYearAndMonthString(string $year = null, string $month = null): DateTime

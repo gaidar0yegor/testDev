@@ -2,10 +2,10 @@
 
 namespace App\Controller\FO;
 
-use App\Exception\MonthOutOfRangeException;
 use App\Form\TempsPassesType;
 use App\Service\CraService;
 use App\Service\DateMonthService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,32 +17,22 @@ class TempsController extends AbstractController
      * @Route(
      * "/temps/{year}/{month}",
      * requirements={"year"="\d{4}", "month"="\d{2}"},
+     * defaults={"year"=null, "month"=null},
      * name="app_fo_temps"
      * )
      */
     public function saisieTempsEnPourCent(
         Request $request,
-        string $year = null,
-        string $month = null,
+        DateTime $month,
         CraService $craService,
         EntityManagerInterface $em,
         DateMonthService $dateMonthService
     ) {
-        if ($year !== null && $month === null) {
-            return $this->redirectToRoute('app_fo_temps');
-        }
-
-        try {
-            $mois = $dateMonthService->getMonthFromYearAndMonth($year, $month);
-        } catch (MonthOutOfRangeException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        }
-
-        if ($mois > new \DateTime()) {
+        if ($month > new \DateTime()) {
             throw $this->createNotFoundException('Impossible de saisir les temps passés dans le futur.');
         }
 
-        $cra = $craService->loadCraForUser($this->getUser(), $mois);
+        $cra = $craService->loadCraForUser($this->getUser(), $month);
         $form = $this->createForm(TempsPassesType::class, $cra);
 
         $form->handleRequest($request);
@@ -54,8 +44,8 @@ class TempsController extends AbstractController
             $em->flush();
 
             $href = $this->generateUrl('app_fo_absences', [
-                'year' => $year,
-                'month' => $month,
+                'year' => $month->format('Y'),
+                'month' => $month->format('m'),
             ]);
 
             $this->addFlash('success', 'Temps passés mis à jour.');
@@ -65,16 +55,16 @@ class TempsController extends AbstractController
             );
 
             return $this->redirectToRoute('app_fo_temps', [
-                'year' => $year,
-                'month' => $month,
+                'year' => $month->format('Y'),
+                'month' => $month->format('m'),
             ]);
         }
 
         return $this->render('temps/temps_en_pour_cent.html.twig', [
-            'mois' => $mois,
+            'mois' => $month,
             'form' => $form->createView(),
-            'next' => $dateMonthService->getNextMonth($mois),
-            'prev' => $dateMonthService->getPrevMonth($mois),
+            'next' => $dateMonthService->getNextMonth($month),
+            'prev' => $dateMonthService->getPrevMonth($month),
             'cra' => $cra,
         ]);
     }
@@ -83,31 +73,20 @@ class TempsController extends AbstractController
      * @Route(
      *      "/absences/{year}/{month}",
      *      requirements={"year"="\d{4}", "month"="\d{2}"},
+     *      defaults={"year"=null, "month"=null},
      *      name="app_fo_absences"
      * )
      */
     public function saisieAbsences(
         CraService $craService,
-        string $year = null,
-        string $month = null,
+        DateTime $month,
         DateMonthService $dateMonthService
     ) {
-        if ((null === $year) xor (null === $month)) {
-            throw $this->createNotFoundException('Year and month must be set.');
-        }
-
-        try {
-            $date = $dateMonthService->getMonthFromYearAndMonth($year, $month);
-        } catch (MonthOutOfRangeException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        }
-
         return $this->render('temps/absences.html.twig', [
-            'next' => $dateMonthService->getNextMonth($date),
-            'prev' => $dateMonthService->getPrevMonth($date),
-            'year' => $date->format('Y'),
-            'month' => $date->format('m'),
-            'cra' => $craService->loadCraForUser($this->getUser(), $date),
+            'next' => $dateMonthService->getNextMonth($month),
+            'prev' => $dateMonthService->getPrevMonth($month),
+            'month' => $month,
+            'cra' => $craService->loadCraForUser($this->getUser(), $month),
         ]);
     }
 }

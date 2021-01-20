@@ -53,7 +53,7 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        const date = {{ {'year': year, 'month': month}|json_encode|raw }};
+        const date = {{ {'year': month|date('Y'), 'month': month|date('m')}|json_encode|raw }};
         const craJours = {{ cra.jours|json_encode|raw }};
 
         initAbsences(date, craJours);
