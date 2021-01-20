@@ -76,6 +76,7 @@ services:
         $linkGenerators: !tagged_iterator { tag: 'app.entity_link_generator', default_index_method: 'supportsEntity' }
 
     Elasticsearch\Client:
+        lazy: true
         factory: ['App\Service\RdiScore\ElasticSearchClientFactory', 'createClient']
         arguments:
             - '%env(ELASTIC_SEARCH_HOST)%'

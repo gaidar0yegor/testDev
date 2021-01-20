@@ -7,6 +7,8 @@ Projet RDI Manager.
 Requires:
 
 - php 7.1+
+- PHP extensions: zip, gd, xsl, intl, mysql (`sudo apt install php7.4-zip php7.4-gd php7.4-xsl php7.4-intl php7.4-mysql php7.4-sqlite3`)
+- PHP extension for development: sqlite3 (`sudo apt install php7.4-sqlite3`)
 - MySQL 8.0+
 - composer
 - nodejs
@@ -23,6 +25,8 @@ cd rdi_manager_01/
 
 # Install php dependencies
 composer install
+
+# - Editez votre .env.local (base de données, ... voir plus bas)
 
 # Si la base de données existe déjà
 php bin/console doctrine:database:drop --force
@@ -58,9 +62,28 @@ symfony serve
 yarn watch
 ```
 
-Then create `.env.local` file at the root directory, and:
+You can now open RDI-Manager: <http://127.0.0.1:8000>
+
+And login with:
+
+- Admin: `admin@societe.dev` / `admin`
+- Chef de projet: `cdp@societe.dev` / `cdp`
+- User: `user@societe.dev` / `user`
+
+### `.env.local`
+
+Create `.env.local` file at the root directory, and:
+
+- Configure **database**:
+
+``` yaml
+DATABASE_URL=mysql://USER:PASS@HOST:PORT/DBNAME
+```
 
 - Configure **application url**:
+
+Used to know application url while using command line.
+If not provided, absolute links will be resolved to `localhost` when sending email from command line.
 
 ``` yaml
 # Nom de domaine. Si le port n'est pas 80, mettre par exemple "rdimanager.com:8000".
@@ -69,8 +92,6 @@ REQUEST_BASE_HOST=rdimanager.com
 # Vide, sauf si l'application est dans un dossier, mettre par exemple "/dossier/application"
 REQUEST_BASE_PATH=
 ```
-
-*Used for mail generation from command, like notification mails.*
 
 - Configure **email smtp server**:
 
@@ -91,12 +112,6 @@ php bin/console app:test-mail votre-email@eurekaci.com
 
 Vérifiez si vous avez reçu l'email de test dans votre boîte.
 
-- Configure **database**:
-
-``` yaml
-DATABASE_URL=mysql://USER:PASS@HOST:PORT/DBNAME
-```
-
 - Configure **PDF generation**:
 
 Chemin vers votre wkhtmltopdf,
@@ -107,8 +122,6 @@ wkhtmltoimage est en général dans le même dossier.
 WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf
 WKHTMLTOIMAGE_PATH=/usr/local/bin/wkhtmltoimage
 ```
-
-Then go to <http://127.0.0.1:8000/projets>
 
 ### Initialiser une société et un accès référent
 
@@ -201,7 +214,7 @@ Pour créer la migration, il faut mettre sa base locale à l'état des migration
 puis auto-générer la nouvelle migration par rapport aux différences du schéma :
 
 ``` bash
-# Supprimer le schéma et le migrations déjà jouées
+# Supprimer le schéma et les migrations déjà jouées
 php bin/console doctrine:schema:drop --force --full-database
 
 # Lancer les anciennes migrations
