@@ -11,10 +11,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetRepository::class)
+ * @AppAssert\DatesOrdered(
+ *      start="dateDebut",
+ *      end="dateFin"
+ * )
  */
 class Projet implements HasSocieteInterface
 {
@@ -395,24 +398,6 @@ class Projet implements HasSocieteInterface
     public function isRdi(): bool
     {
         return $this->projetPpp;
-    }
-
-    /**
-     * @Assert\Callback
-     */
-    public function validateDateDebutFin(ExecutionContextInterface $context, $payload)
-    {
-        if (null === $this->dateDebut || null === $this->dateFin) {
-            return;
-        }
-
-        if ($this->dateFin < $this->dateDebut) {
-            $context
-                ->buildViolation('La date de fin doit être égale ou après la date de début.')
-                ->atPath('dateFin')
-                ->addViolation()
-            ;
-        }
     }
 
     /**
