@@ -9,6 +9,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajout de la date d'entrée et de sortie d'un collaborateur
     - L'admin peut définir les dates
     - Saisie des absences : les jours où l'user n'est pas dans la société sont décochés par défaut
+    - Les feuilles de temps affichent 0 heures les jours où l'user n'est pas dans la société
 ### Réparé
 - Certaines années affichées (saisie temps/absences) n'étaient pas la bonne en janvier
 
