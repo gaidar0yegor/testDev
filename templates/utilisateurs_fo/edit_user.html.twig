@@ -6,25 +6,44 @@
 
 <h1>Modification de {{ user.fullname }}</h1>
 
-<div class="col-lg-7 mx-auto">
+<div class="col-lg-10 offset-lg-1">
     {{ form_start(form) }}
-    
+
     {{ form_errors(form) }}
 
-        {{ form_row(form.nom) }}
-        {{ form_row(form.prenom) }}
-        {{ form_row(form.telephone) }}
-        {{ form_row(form.email) }}
-        {{ form_row(form.role) }}
-        {{ form_row(form.heuresParJours) }}
-
-
-        <div class="d-flex justify-content-around">
-            <div class="form-group mt-5">
-                <a href="{{ path('app_fo_admin_utilisateurs') }}" class="btn btn-danger">Annuler</a>
-            </div>
-            {{ form_row(form.ajouter, { 'label' : bouton }) }}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(form.nom) }}
         </div>
+        <div class="col-sm-6">
+            {{ form_row(form.prenom) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.telephone) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.role) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.heuresParJours) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.dateEntree) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.dateSortie) }}
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-around">
+        <div class="form-group mt-5">
+            <a href="{{ path('app_fo_admin_utilisateurs') }}" class="btn btn-outline-warning">Annuler</a>
+        </div>
+        {{ form_row(form.ajouter, { 'label' : 'Valider les modifications' }) }}
+    </div>
     {{ form_end(form) }}
 </div>
 

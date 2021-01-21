@@ -27,7 +27,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
             | utilisateurs_form[nom]    | NomModifié    |
             | utilisateurs_form[prenom] | PrénomModifié |
             | utilisateurs_form[role]   | ROLE_FO_CDP   |
-        And I press "Modifier"
+        And I press "Valider les modifications"
         Then I should see "PrénomModifié NomModifié" in the "h1" element
         And I should see "Chef de Projet" in the ".main-container" element
 

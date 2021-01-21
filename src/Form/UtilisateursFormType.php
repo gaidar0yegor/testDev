@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Custom\DatePickerType;
 use App\Form\Custom\RdiPhoneNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -32,7 +33,7 @@ class UtilisateursFormType extends AbstractType
             'label' => 'Rôle',
             'choices' => [
                 'Utilisateur' => 'ROLE_FO_USER',
-                'C. Projet' => 'ROLE_FO_CDP',
+                'Chef de Projet' => 'ROLE_FO_CDP',
                 'Administrateur' => 'ROLE_FO_ADMIN',
             ],
         ])
@@ -43,6 +44,14 @@ class UtilisateursFormType extends AbstractType
             'attr' => [
                 'placeholder' => $this->getHeuresPlaceholder($builder),
             ],
+        ])
+        ->add('dateEntree', DatePickerType::class, [
+            'label' => 'Date d\'entrée',
+            'required' => false,
+        ])
+        ->add('dateSortie', DatePickerType::class, [
+            'label' => 'Date de sortie',
+            'required' => false,
         ])
         ->add('ajouter', SubmitType::class, [
             'label' => 'Mettre à jour',

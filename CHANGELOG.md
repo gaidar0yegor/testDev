@@ -5,6 +5,10 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Ajout de la date d'entrée et de sortie d'un collaborateur
+    - L'admin peut définir les dates
+    - Saisie des absences : les jours où l'user n'est pas dans la société sont décochés par défaut
 ### Réparé
 - Certaines années affichées (saisie temps/absences) n'étaient pas la bonne en janvier
 
