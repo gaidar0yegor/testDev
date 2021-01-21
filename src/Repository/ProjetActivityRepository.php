@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Projet;
 use App\Entity\ProjetActivity;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -26,8 +27,10 @@ class ProjetActivityRepository extends ServiceEntityRepository
             ->createQueryBuilder('projetActivity')
             ->leftJoin('projetActivity.activity', 'activity')
             ->where('projetActivity.projet = :projet')
+            ->andWhere('activity.datetime <= :now')
             ->setParameters([
                 'projet' => $projet,
+                'now' => new DateTime(),
             ])
             ->orderBy('activity.datetime', 'desc')
             ->getQuery()

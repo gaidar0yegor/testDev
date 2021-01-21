@@ -56,3 +56,48 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         When I click on the 1st "[href='/utilisateur/2']" element
         Then I should see "Ses projets" in the "h2" element
         And I should see "Contributeur sur le projet PT"
+
+    Scenario: L'admin peut définir une date d'entrée d'un user
+        When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
+        And I fill in the following:
+            | utilisateurs_form[dateEntree] | 01 janvier 2021 |
+        And I press "Valider les modifications"
+        Then I should see "Les informations de l'utilisateur ont été modifiées"
+        And I should see "Date d'entrée : 1 janv. 2021"
+
+        When I follow "Activité"
+        Then I should see "Utilisateur Eureka a rejoint la société. le 1 janv. 2021"
+
+    Scenario: L'admin peut définir une date de sortie d'un user
+        When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
+        And I fill in the following:
+            | utilisateurs_form[dateSortie] | 20 janvier 2021 |
+        And I press "Valider les modifications"
+        Then I should see "Les informations de l'utilisateur ont été modifiées"
+        And I should see "Date de sortie : 20 janv. 2021"
+
+        When I follow "Activité"
+        Then I should see "Utilisateur Eureka a quitté la société. le 20 janv. 2021"
+
+    Scenario: Je ne vois pas l'activité future
+        When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
+        And I fill in the following:
+            | utilisateurs_form[dateEntree] | 1 janvier 2020 |
+            | utilisateurs_form[dateSortie] | 20 janvier 2050 |
+        And I press "Valider les modifications"
+        When I follow "Activité"
+        Then I should see "Utilisateur Eureka a rejoint la société. le 1 janv. 2020"
+        But I should not see "Utilisateur Eureka a quitté la société. le 20 janvier 2050"
+
+    Scenario: L'activité 'a rejoint la société' est bien remplacée (et non dupliquée) lorsque je modifie la date d'entrée
+        When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
+        And I fill in the following:
+            | utilisateurs_form[dateSortie] | 1 janvier 2021 |
+        And I press "Valider les modifications"
+        And I follow "Mettre à jour"
+        And I fill in the following:
+            | utilisateurs_form[dateSortie] | 2 janvier 2021 |
+        And I press "Valider les modifications"
+        And I follow "Activité"
+        Then I should see "Utilisateur Eureka a quitté la société. le 2 janv. 2021"
+        And I should not see "Utilisateur Eureka a quitté la société. le 1 janv. 2021"
