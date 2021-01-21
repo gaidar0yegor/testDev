@@ -11,7 +11,7 @@
         <i class="fa fa-angle-left fa-lg"></i>
     </a>
     <span class="mx-3">
-        {{ cra.mois|format_date(pattern='MMMM Y')|capitalize }}
+        {{ cra.mois|format_date(pattern='MMMM yyyy')|capitalize }}
     </span>
     <a href="{{ path('app_fo_absences', {'year': next|date('Y'), 'month': next|date('m')}) }}">
         <i class="fa fa-angle-right fa-lg"></i>
@@ -53,7 +53,7 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        const date = {{ {'year': year, 'month': month}|json_encode|raw }};
+        const date = {{ {'year': month|date('Y'), 'month': month|date('m')}|json_encode|raw }};
         const craJours = {{ cra.jours|json_encode|raw }};
 
         initAbsences(date, craJours);

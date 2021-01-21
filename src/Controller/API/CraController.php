@@ -2,14 +2,12 @@
 
 namespace App\Controller\API;
 
-use App\Exception\MonthOutOfRangeException;
 use App\Service\CraService;
-use App\Service\DateMonthService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -29,19 +27,11 @@ class CraController extends AbstractController
      */
     public function patchCra(
         Request $request,
-        string $year,
-        string $month,
-        DateMonthService $dateMonthService,
+        DateTime $month,
         CraService $craService,
         EntityManagerInterface $em
     ) {
-        try {
-            $mois = $dateMonthService->getMonthFromYearAndMonth($year, $month);
-        } catch (MonthOutOfRangeException $e) {
-            throw $this->createNotFoundException($e->getMessage());
-        }
-
-        $cra = $craService->loadCraForUser($this->getUser(), $mois);
+        $cra = $craService->loadCraForUser($this->getUser(), $month);
 
         $cra
             ->setJours($request->get('cra'))
