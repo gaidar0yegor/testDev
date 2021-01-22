@@ -38,6 +38,10 @@ if ($('#rdi-highlight')) {
         e.preventDefault();
         highlightWords();
 
+        if (0 === $('.rdi-keyword').length) {
+            throw new Error('Impossible to explain RDI score: no RDI keywords in current projet.');
+        }
+
         $('.rdi-keyword')[0].scrollIntoView({
             behavior: 'smooth',
             block: 'center',

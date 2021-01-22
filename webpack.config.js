@@ -32,7 +32,8 @@ Encore
     //.enableStimulusBridge('./assets/controllers.json')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
-    .splitEntryChunks()
+    // RDI-Manager: disabled because breaks emails template generation because of foundation.css
+    //.splitEntryChunks()
 
     // will require an extra script tag for runtime.js
     // but, you probably want this, unless you're building a single-page app
@@ -63,7 +64,7 @@ Encore
 
     // Follow same directories structure for images
     .configureFilenames({
-        images: '[path][name].[hash:8].[ext]',
+        images: '[path][name].[ext]',
     })
 
     // enables Sass/SCSS support

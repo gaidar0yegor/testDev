@@ -1,3 +1,6 @@
+# Ignore dynamic template, but not .dist ones
+/templates/dynamic_templates/*.twig
+
 ###> symfony/framework-bundle ###
 /.env.local
 /.env.local.php
