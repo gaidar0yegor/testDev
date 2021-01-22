@@ -6,6 +6,15 @@ App\Entity\User:
         password: user
         roles: [ROLE_FO_USER]
         societe: '@societe'
+    user_entree_sortie:
+        nom: Eureka
+        prenom: User2
+        email: user2@societe.dev
+        password: user2
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+        dateEntree: <(new DateTime('2020-04-15'))>
+        dateSortie: <(new DateTime('2020-08-15'))>
     user_sans_projet:
         nom: Eureka
         prenom: User sans projet
@@ -48,6 +57,10 @@ App\Entity\ProjetParticipant:
     user_projet{1..4}:
         user: '@user'
         projet: '@projet<current()>'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+    user_entree_sortie_projet1:
+        user: '@user_entree_sortie'
+        projet: '@projet1'
         role: '<(App\Role::CONTRIBUTEUR)>'
 
 App\Entity\Societe:

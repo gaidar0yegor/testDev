@@ -61,6 +61,15 @@ class DateMonthService
         return $normalizedMonth;
     }
 
+    public function normalizeOrNull(?DateTime $month): ?DateTime
+    {
+        if (null === $month) {
+            return null;
+        }
+
+        return $this->normalize($month);
+    }
+
     /**
      * Retourne un nouveau datetime qui correspond au mois d'après.
      */
