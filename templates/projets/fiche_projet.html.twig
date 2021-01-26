@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Projet {{ projet.titre }} | {{ parent() }}{% endblock %}
+{% block title %}Projet {{ projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
@@ -68,8 +68,6 @@
                                 <small class="text-muted">
                                     Score fiable à {{ (projet.rdiScoreReliability * 100)|round }} %.
                                 </small>
-                                <br>
-                                <a href="#" id="rdi-highlight">Détails de l'analyse</a>
                             {% else %}
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">

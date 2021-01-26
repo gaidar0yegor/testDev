@@ -11,8 +11,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Saisie des absences : les jours où l'user n'est pas dans la société sont décochés par défaut
     - Les feuilles de temps affichent 0 heures les jours où l'user n'est pas dans la société
     - L'entrée et la sortie d'un user sont affichées dans son activité
+- Permet d'ajouter du HTML configurable sur la page de login pour afficher les logins de démo
 ### Réparé
 - Certaines années affichées (saisie temps/absences) n'étaient pas la bonne en janvier
+### Supprimé
+- Retire le lien d'explication du score RDI
 
 
 
