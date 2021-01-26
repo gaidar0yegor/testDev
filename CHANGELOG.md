@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.12.0] - 2021-01-26 ⛵
 ### Ajouté
 - Ajout de la date d'entrée et de sortie d'un collaborateur
     - L'admin peut définir les dates
@@ -16,9 +21,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Certaines années affichées (saisie temps/absences) n'étaient pas la bonne en janvier
 ### Supprimé
 - Retire le lien d'explication du score RDI
-
-
-
 
 ## [0.11.0] - 2021-01-19
 ### Ajouté
