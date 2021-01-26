@@ -7,11 +7,16 @@ use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\TempsPasse;
 use App\Entity\User;
+use App\Repository\CraRepository;
+use App\Repository\ProjetRepository;
 use App\Role;
+use App\Service\CraService;
 use App\Service\DateMonthService;
+use App\Service\JoursFeriesCalculator;
 use App\Service\Timesheet\TimesheetCalculator;
 use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
 use App\Service\Timesheet\UserMonthCraRepositoryInterface;
+use DateTime;
 use PHPUnit\Framework\TestCase;
 
 class TimesheetCalculatorTest extends TestCase
@@ -100,6 +105,12 @@ class TimesheetCalculatorTest extends TestCase
                     return $this->cra;
                 }
             },
+            new CraService(
+                new DateMonthService(),
+                $this->createMock(CraRepository::class),
+                $this->createMock(ProjetRepository::class),
+                new JoursFeriesCalculator()
+            ),
             $this->dateMonthService
         );
     }
@@ -399,6 +410,70 @@ class TimesheetCalculatorTest extends TestCase
             2,
             count($timesheet->getProjets()),
             'La feuille de temps contient le projet qui finit le même mois'
+        );
+    }
+
+    public function testGenerateTimesheetTakesAccountUserDateEntree()
+    {
+        $this->prepareBasicSample();
+
+        $this->user->setDateEntree(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
+
+        $timesheetCalculator = $this->createTimesheetCalculator();
+
+        $timesheet = $timesheetCalculator->generateTimesheet(
+            $this->user,
+            $this->mois
+        );
+
+        $this->assertEquals(
+            [
+                      0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 1, 1, 1, 0, 0,
+                1, 1, 1, 1, 1, 0, 0,
+                1, 1, 1, 1, 0.5,
+            ],
+            $timesheet->getCra()->getJours(),
+            'Les jours de présence prennent en compte la date d\'arrivée, même si il a coché des jours avant'
+        );
+
+        $this->assertEquals(
+            12.5 * 8.0 * 0.5,
+            $timesheet->getTotalWorkedHours(),
+            'User a travaillé seulement à partir du moment où il est arrivé, même si il a coché des jours avant'
+        );
+    }
+
+    public function testGenerateTimesheetTakesAccountUserDateSortie()
+    {
+        $this->prepareBasicSample();
+
+        $this->user->setDateSortie(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
+
+        $timesheetCalculator = $this->createTimesheetCalculator();
+
+        $timesheet = $timesheetCalculator->generateTimesheet(
+            $this->user,
+            $this->mois
+        );
+
+        $this->assertEquals(
+            [
+                      0, 1, 1, 0, 0,
+                1, 1, 1, 1, 1, 0, 0,
+                1, 1, 1, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0,
+            ],
+            $timesheet->getCra()->getJours(),
+            'Les jours de présence prennent en compte la date de sortie, même si il a coché des jours après'
+        );
+
+        $this->assertEquals(
+            10 * 8.0 * 0.5,
+            $timesheet->getTotalWorkedHours(),
+            'User a travaillé jusqu\'au jour est parti, même si il a coché des jours après'
         );
     }
 }

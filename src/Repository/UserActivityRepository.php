@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\User;
 use App\Entity\UserActivity;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -26,8 +27,10 @@ class UserActivityRepository extends ServiceEntityRepository
             ->createQueryBuilder('userActivity')
             ->leftJoin('userActivity.activity', 'activity')
             ->where('userActivity.user = :user')
+            ->andWhere('activity.datetime <= :now')
             ->setParameters([
                 'user' => $user,
+                'now' => new DateTime(),
             ])
             ->orderBy('activity.datetime', 'desc')
             ->getQuery()

@@ -10,6 +10,7 @@ use App\Entity\ProjetParticipant;
 use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Exception\TimesheetException;
+use App\Service\CraService;
 use App\Service\DateMonthService;
 
 class TimesheetCalculator
@@ -18,15 +19,19 @@ class TimesheetCalculator
 
     private UserMonthCraRepositoryInterface $craRepository;
 
+    private CraService $craService;
+
     private DateMonthService $dateMonthService;
 
     public function __construct(
         UserContributingProjetRepositoryInterface $participationRepository,
         UserMonthCraRepositoryInterface $craRepository,
+        CraService $craService,
         DateMonthService $dateMonthService
     ) {
         $this->participationRepository = $participationRepository;
         $this->craRepository = $craRepository;
+        $this->craService = $craService;
         $this->dateMonthService = $dateMonthService;
     }
 
@@ -106,7 +111,11 @@ class TimesheetCalculator
     public function calculateWorkedHoursPerDay(TempsPasse $tempsPasse): array
     {
         $cra = $tempsPasse->getCra();
-        $heuresParJours = Timesheet::getUserHeuresParJours($cra->getUser());
+        $user = $cra->getUser();
+        $heuresParJours = Timesheet::getUserHeuresParJours($user);
+
+        $this->craService->uncheckJoursAvantDateEntree($cra, $user);
+        $this->craService->uncheckJoursApresDateSortie($cra, $user);
 
         return array_map(
             function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse) {

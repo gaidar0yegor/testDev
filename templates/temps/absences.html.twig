@@ -20,19 +20,10 @@
 
 <div class="row">
     <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-        <div class="message-validation text-center">
-            {% if cra.isCraSubmitted %}
-                <p class="text-success">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Vous avez enregistré ce mois le {{ cra.craModifiedAt|format_date }}.
-                </p>
-            {% elseif currentOrPreviousMonth(cra.mois) %}
-                <p class="text-warning">
-                    <i class="fa fa-exclamation" aria-hidden="true"></i>
-                    Vous devriez enregistrer vos absences de ce mois.
-                </p>
-            {% endif %}
-        </div>
+        {% include 'temps/_info-validation.html.twig' with {
+            'submitted': cra.isCraSubmitted,
+            'modifiedAt': cra.craModifiedAt
+        } %}
 
         {#
             Calendrier affiché temporairement en attendant le chargement des données
@@ -53,7 +44,7 @@
     {{ parent() }}
 
     <script type="text/javascript">
-        const date = {{ {'year': month|date('Y'), 'month': month|date('m')}|json_encode|raw }};
+        const date = {{ {'year': mois|date('Y'), 'month': mois|date('m')}|json_encode|raw }};
         const craJours = {{ cra.jours|json_encode|raw }};
 
         initAbsences(date, craJours);

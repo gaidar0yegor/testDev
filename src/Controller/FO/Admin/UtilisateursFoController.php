@@ -87,7 +87,6 @@ class UtilisateursFoController extends AbstractController
         return $this->render('utilisateurs_fo/edit_user.html.twig', [
             'form' => $form->createView(),
             'user' => $user,
-            'bouton' => 'Modifier',
         ]);
     }
 

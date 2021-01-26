@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\HasSocieteInterface;
 use App\Repository\UserRepository;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,6 +20,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      fields={"email"},
  *      groups={"Default", "invitation"},
  *      message="There is already an account with this email"
+ * )
+ * @AppAssert\DatesOrdered(
+ *      start="dateEntree",
+ *      end="dateSortie"
  * )
  */
 class User implements UserInterface, HasSocieteInterface
@@ -101,6 +106,16 @@ class User implements UserInterface, HasSocieteInterface
      * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
      */
     private $heuresParJours;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateEntree;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $dateSortie;
 
     /**
      * @ORM\Column(type="datetime")
@@ -421,6 +436,30 @@ class User implements UserInterface, HasSocieteInterface
     public function setHeuresParJours(?float $heuresParJours): self
     {
         $this->heuresParJours = $heuresParJours;
+
+        return $this;
+    }
+
+    public function getDateEntree(): ?\DateTimeInterface
+    {
+        return $this->dateEntree;
+    }
+
+    public function setDateEntree(?\DateTimeInterface $dateEntree): self
+    {
+        $this->dateEntree = $dateEntree;
+
+        return $this;
+    }
+
+    public function getDateSortie(): ?\DateTimeInterface
+    {
+        return $this->dateSortie;
+    }
+
+    public function setDateSortie(?\DateTimeInterface $dateSortie): self
+    {
+        $this->dateSortie = $dateSortie;
 
         return $this;
     }

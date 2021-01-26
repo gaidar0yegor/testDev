@@ -2,13 +2,17 @@
 
 namespace App\DTO;
 
+use App\Validator as AppAssert;
 use DateTime;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Classe utilisée pour stocker les filtres
  * lors d'une génération de feuilles de temps.
+ *
+ * @AppAssert\DatesOrdered(
+ *      start="from",
+ *      end="to"
+ * )
  */
 class FilterTimesheet
 {
@@ -77,19 +81,5 @@ class FilterTimesheet
         $this->format = $format;
 
         return $this;
-    }
-
-    /**
-     * @Assert\Callback
-     */
-    public function validate(ExecutionContextInterface $context, $payload)
-    {
-        if ($this->to < $this->from) {
-            $context
-                ->buildViolation('La date de fin doit être égale ou après la date de début.')
-                ->atPath('to')
-                ->addViolation()
-            ;
-        }
     }
 }

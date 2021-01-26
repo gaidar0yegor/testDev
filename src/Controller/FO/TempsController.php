@@ -62,6 +62,8 @@ class TempsController extends AbstractController
 
         return $this->render('temps/temps_en_pour_cent.html.twig', [
             'mois' => $month,
+            'moisEntree' => $dateMonthService->normalizeOrNull($this->getUser()->getDateEntree()),
+            'moisSortie' => $dateMonthService->normalizeOrNull($this->getUser()->getDateSortie()),
             'form' => $form->createView(),
             'next' => $dateMonthService->getNextMonth($month),
             'prev' => $dateMonthService->getPrevMonth($month),
@@ -85,7 +87,9 @@ class TempsController extends AbstractController
         return $this->render('temps/absences.html.twig', [
             'next' => $dateMonthService->getNextMonth($month),
             'prev' => $dateMonthService->getPrevMonth($month),
-            'month' => $month,
+            'mois' => $month,
+            'moisEntree' => $dateMonthService->normalizeOrNull($this->getUser()->getDateEntree()),
+            'moisSortie' => $dateMonthService->normalizeOrNull($this->getUser()->getDateSortie()),
             'cra' => $craService->loadCraForUser($this->getUser(), $month),
         ]);
     }

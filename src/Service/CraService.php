@@ -41,31 +41,15 @@ class CraService
         $cra = new Cra();
 
         $month = $this->dateMonthService->normalize($month);
-
-        $currentYear = intval($month->format('Y'));
-        $currentMonth = intval($month->format('n'));
-
-        $daysCount = intval($month->format('t'));
-        $days = [];
-
-        for ($i = 1; $i <= $daysCount; ++$i) {
-            $currentDate = \DateTime::createFromFormat('Y-n-j', "$currentYear-$currentMonth-$i");
-
-            // Jour off si weekend
-            $days[] = intval($currentDate->format('N')) >= 6 ? 0 : 1;
-        }
-
-        // Met les jours férié à 0
-        $joursFeries = $this->joursFeriesCalculator->calcJoursFeries($currentYear, $currentMonth);
-
-        foreach ($joursFeries as $jourFerie) {
-            $days[intval($jourFerie->format('j')) - 1] = 0;
-        }
+        $days = array_fill(0, $month->format('t'), 1);
 
         $cra
             ->setMois($month)
             ->setJours($days)
         ;
+
+        $this->uncheckWeekEnds($cra);
+        $this->uncheckJoursFeries($cra);
 
         return $cra;
     }
@@ -77,6 +61,9 @@ class CraService
         if (null === $cra) {
             $cra = $this->createDefaultCra($month);
             $cra->setUser($user);
+
+            $this->uncheckJoursAvantDateEntree($cra, $user);
+            $this->uncheckJoursApresDateSortie($cra, $user);
         }
 
         $this->prefillTempsPasses($cra);
@@ -105,6 +92,105 @@ class CraService
 
             $cra->addTempsPass($tempsPasse);
         }
+    }
+
+    /**
+     * Décoche les week end.
+     */
+    public function uncheckWeekEnds(Cra $cra): void
+    {
+        $craYear = $cra->getMois()->format('Y');
+        $craMonth = $cra->getMois()->format('m');
+        $days = $cra->getJours();
+
+        for ($i = 0; $i < count($cra->getJours()); ++$i) {
+            $currentDate = \DateTime::createFromFormat('Y-n-j', "$craYear-$craMonth-".($i + 1));
+
+            if (intval($currentDate->format('N')) >= 6) {
+                $days[$i] = 0;
+            }
+        }
+
+        $cra->setJours($days);
+    }
+
+    /**
+     * Décoche les jours fériés.
+     */
+    public function uncheckJoursFeries(Cra $cra): void
+    {
+        $craYear = $cra->getMois()->format('Y');
+        $craMonth = $cra->getMois()->format('m');
+        $joursFeries = $this->joursFeriesCalculator->calcJoursFeries($craYear, $craMonth);
+        $days = $cra->getJours();
+
+        foreach ($joursFeries as $jourFerie) {
+            $days[intval($jourFerie->format('j')) - 1] = 0;
+        }
+
+        $cra->setJours($days);
+    }
+
+    /**
+     * Décoche les jours où $user n'est pas encore dans la société.
+     */
+    public function uncheckJoursAvantDateEntree(Cra $cra, User $user): void
+    {
+        if (null === $user->getDateEntree()) {
+            return;
+        }
+
+        $userMonth = $this->dateMonthService->normalize($user->getDateEntree());
+        $craMonth = $this->dateMonthService->normalize($cra->getMois());
+
+        if ($craMonth > $userMonth) {
+            return;
+        }
+
+        if ($craMonth < $userMonth) {
+            $cra->setJours(array_fill(0, count($cra->getJours()), 0));
+            return;
+        }
+
+        $jours = $cra->getJours();
+        $to = intval($user->getDateEntree()->format('j')) - 1;
+
+        for ($i = 0; $i < $to; ++$i) {
+            $jours[$i] = 0;
+        }
+
+        $cra->setJours($jours);
+    }
+
+    /**
+     * Décoche les jours où $user n'est plus dans la société.
+     */
+    public function uncheckJoursApresDateSortie(Cra $cra, User $user): void
+    {
+        if (null === $user->getDateSortie()) {
+            return;
+        }
+
+        $userMonth = $this->dateMonthService->normalize($user->getDateSortie());
+        $craMonth = $this->dateMonthService->normalize($cra->getMois());
+
+        if ($craMonth < $userMonth) {
+            return;
+        }
+
+        if ($craMonth > $userMonth) {
+            $cra->setJours(array_fill(0, count($cra->getJours()), 0));
+            return;
+        }
+
+        $jours = $cra->getJours();
+        $from = intval($user->getDateSortie()->format('j'));
+
+        for ($i = $from; $i < count($jours); ++$i) {
+            $jours[$i] = 0;
+        }
+
+        $cra->setJours($jours);
     }
 
     /**
