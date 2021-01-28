@@ -3,21 +3,17 @@
 namespace App\Controller\FO\Admin;
 
 use App\DTO\FilterTimesheet;
-use App\Entity\User;
-use App\Exception\MonthOutOfRangeException;
-use App\Exception\TimesheetException;
 use App\Form\FilterTimesheetType;
 use App\Repository\UserRepository;
-use App\Service\DateMonthService;
+use App\Service\Timesheet\Event\TimesheetEvent;
 use App\Service\Timesheet\Export\TimesheetExporter;
 use App\Service\Timesheet\TimesheetCalculator;
 use DateTime;
 use Knp\Snappy\Pdf;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class TimesheetController extends AbstractController
 {
@@ -38,6 +34,7 @@ class TimesheetController extends AbstractController
         Request $request,
         TimesheetCalculator $timesheetCalculator,
         TimesheetExporter $timesheetExporter,
+        EventDispatcherInterface $dispatcher,
         UserRepository $userRepository
     ) {
         $users = $userRepository->findBySameSociete($this->getUser());
@@ -52,6 +49,8 @@ class TimesheetController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $timesheets = $timesheetCalculator->generateMultipleTimesheets($filter);
+
+            $dispatcher->dispatch(new TimesheetEvent($this->getUser()), TimesheetEvent::GENERATED);
 
             return $timesheetExporter->export($timesheets, $filter->getFormat());
         }

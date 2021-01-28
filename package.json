@@ -14,12 +14,15 @@
         "font-awesome": "4.7.0",
         "foundation-emails": "^2.3.1",
         "jquery": "3.5.1",
-        "popper.js": "1.14.3"
+        "popper.js": "1.14.3",
+        "smartwizard": "^5.1.1"
     },
     "devDependencies": {
         "@symfony/webpack-encore": "^0.32.0",
         "core-js": "^3.0.0",
+        "node-sass": "^4.14.1",
         "regenerator-runtime": "^0.13.2",
+        "sass-loader": "^9.0.1",
         "webpack-notifier": "^1.6.0"
     }
 }
