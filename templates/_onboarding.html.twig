@@ -1,0 +1,55 @@
+{% set steps = app.session.get('onboardingSteps') %}
+{% set _ = app.session.set('onboardingSteps', null) %}
+
+{% if steps|length > 0 %}
+    {% set nextStep = true %}
+
+    <div class="onboarding-messages mt-3 card">
+        <div class="card-body p-2">
+            <div class="onboarding-head">
+                <small class="float-right">
+                    <a href="#" class="close-onboarding">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Ignorer et ne pas faire ces étapes
+                    </a>
+                </small>
+
+                <h4>
+                    <i class="fa fa-rocket" aria-hidden="true"></i>
+                    Prise en main de RDI-Manager
+                </h4>
+            </div>
+
+            <div class="smartwizard sw sw-rdi sw-small sw-theme-dots sw-justified">
+                <ul class="nav m-0">
+                    {% for step in steps %}
+                        <li class="nav-item">
+                            {% if step.completed %}
+                                <p class="nav-link done">
+                                    {{ step.text }}
+                                </p>
+                            {% else %}
+                                <p
+                                    class="nav-link
+                                        {% if nextStep %}
+                                            active
+                                            {% set nextStep = false %}
+                                        {% else %}
+                                            disabled
+                                        {% endif %}
+                                    "
+                                >
+                                    {% if step.link is defined %}
+                                        <a href="{{ step.link }}">{{ step.text }}</a>
+                                    {% else %}
+                                        {{ step.text }}
+                                    {% endif %}
+                                </p>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endif %}

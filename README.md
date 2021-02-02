@@ -112,6 +112,14 @@ php bin/console app:test-mail votre-email@eurekaci.com
 
 Vérifiez si vous avez reçu l'email de test dans votre boîte.
 
+**Developpement** : Pour recevoir les emails dans une boîte fictive et locale,
+utiliser [mailhog](https://github.com/mailhog/MailHog).
+
+Avec Docker : `docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog`,
+puis ajouter dans `.env.local` : `MAILER_DSN=smtp://0.0.0.0:1025`.
+Ouvrir <http://0.0.0.0:8025/> dans le navigateur pour voir les mails recus.
+
+
 - Configure **PDF generation**:
 
 Chemin vers votre wkhtmltopdf,

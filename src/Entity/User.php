@@ -177,6 +177,16 @@ class User implements UserInterface, HasSocieteInterface
      */
     private $userActivities;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $onboardingEnabled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $onboardingTimesheetCompleted;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -188,6 +198,8 @@ class User implements UserInterface, HasSocieteInterface
         $this->notificationLatestFaitMarquantEnabled = true;
         $this->notificationSaisieTempsEnabled = true;
         $this->userActivities = new ArrayCollection();
+        $this->onboardingEnabled = true;
+        $this->onboardingTimesheetCompleted = false;
     }
 
     public function getId(): ?string
@@ -648,6 +660,30 @@ class User implements UserInterface, HasSocieteInterface
                 $userActivity->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOnboardingEnabled(): ?bool
+    {
+        return $this->onboardingEnabled;
+    }
+
+    public function setOnboardingEnabled(bool $onboardingEnabled): self
+    {
+        $this->onboardingEnabled = $onboardingEnabled;
+
+        return $this;
+    }
+
+    public function getOnboardingTimesheetCompleted(): ?bool
+    {
+        return $this->onboardingTimesheetCompleted;
+    }
+
+    public function setOnboardingTimesheetCompleted(bool $onboardingTimesheetCompleted): self
+    {
+        $this->onboardingTimesheetCompleted = $onboardingTimesheetCompleted;
 
         return $this;
     }

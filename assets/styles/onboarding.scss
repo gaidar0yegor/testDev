@@ -1,0 +1,69 @@
+.sw-theme-dots.sw-rdi > .nav {
+    @media (max-width: 640px) {
+        &::before {
+            content: none;
+        }
+
+        .nav-item {
+            margin-bottom: 1em;
+        }
+    }
+
+    .nav-link {
+        margin-bottom: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+
+        &.done {
+            cursor: default;
+        }
+
+        &.disabled a {
+            color: grey;
+            pointer-events: all;
+        }
+    }
+}
+
+.sw-small.sw-theme-dots > .nav {
+    &::before {
+        top: 7px;
+    }
+
+    .nav-link {
+        margin-top: 20px;
+
+        &::before {
+            width: 20px;
+            height: 20px;
+            top: -21px;
+        }
+        &::after {
+            width: 12px;
+            height: 12px;
+            top: -17px;
+        }
+    }
+}
+
+.onboarding-messages {
+    font-size: 0.9em;
+
+    .onboarding-head {
+        margin-bottom: 1em;
+    }
+
+    .close-onboarding {
+        display: none;
+    }
+
+    @media (min-width: 640px) {
+        &:hover .close-onboarding {
+            display: block;
+        }
+    }
+
+    h4 {
+        font-size: 1.2em;
+    }
+}
