@@ -57,6 +57,10 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         Then I should see "Ses projets" in the "h2" element
         And I should see "Contributeur sur le projet PT"
 
+    Scenario: L'admin peut voir le graphique des temps passés de l'utilisateurs sur ses projets
+        When I click on the 1st "[href='/utilisateur/2']" element
+        Then I should see "Temps passés en %" in the "h3" element
+
     Scenario: L'admin peut définir une date d'entrée d'un user
         When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
         And I fill in the following:
