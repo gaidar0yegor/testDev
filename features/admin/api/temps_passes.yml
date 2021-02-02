@@ -1,0 +1,40 @@
+App\Entity\User:
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: admin
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: SociétéTest
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée
+
+App\Entity\Projet:
+    projet:
+        titre: ProjetTest
+        acronyme: PT
+
+App\Entity\ProjetParticipant:
+    admin_projet:
+        user: '@admin'
+        projet: '@projet'
+        role: <(App\Role::CDP)>
+
+App\Entity\Cra:
+    cra_admin:
+        user: '@admin'
+        mois: <(new DateTime("2020-11-01"))>
+        tempsPassesModifiedAt: <(new DateTime("2020-11-01"))>
+
+App\Entity\TempsPasse:
+    temps_passe:
+        cra: '@cra_admin'
+        projet: '@projet'
+        pourcentage: 80

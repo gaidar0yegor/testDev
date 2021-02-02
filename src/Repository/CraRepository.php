@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Cra;
 use App\Entity\User;
 use App\Service\Timesheet\UserMonthCraRepositoryInterface;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -27,5 +28,23 @@ class CraRepository extends ServiceEntityRepository implements UserMonthCraRepos
             'user' => $user,
             'mois' => $mois,
         ]);
+    }
+
+    /**
+     * @return Cra[]
+     */
+    public function findCrasByUserAndYear(User $user, int $year): array
+    {
+        return $this->createQueryBuilder('cra')
+            ->where('cra.user = :user')
+            ->andWhere('YEAR(cra.mois) = :year')
+            ->orderBy('cra.mois')
+            ->setParameters([
+                'user' => $user,
+                'year' => $year,
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
     }
 }

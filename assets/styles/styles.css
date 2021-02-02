@@ -5,7 +5,7 @@ body {
 
 
 /*****************************HTML*************************/
-h1, h2 {
+h1, h2, h3 {
     text-align: center;
     margin: 0.5em 0;
 }
@@ -170,6 +170,10 @@ h5 {
 
     h2 {
         font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.25em;
     }
 }
 

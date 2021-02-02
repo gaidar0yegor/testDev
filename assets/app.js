@@ -8,7 +8,9 @@ import 'bootstrap';
 import 'bootstrap-datepicker';
 
 import './js/Cra';
+import './js/yearSwitch';
 import './js/recommandation-text-preview';
 import './js/rdiScore';
 import './js/onboarding';
+import './js/admin-user-chart-temps-projets';
 import './js/main';
