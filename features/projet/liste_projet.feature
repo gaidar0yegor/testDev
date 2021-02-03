@@ -10,22 +10,16 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I press "Connexion"
 
     Scenario: Un utilisateur peut voir les projets sur lesquels il participe
-        When I go to "/projets/tous-les-projets"
+        When I go to "/projets"
         Then I should see "P1"
         And I should see "P3"
         But I should not see "P2"
 
     Scenario: Un utilisateur peut voir quels rôle il a sur ses projets
-        When I go to "/projets/tous-les-projets"
+        When I go to "/projets"
         Then I should see "Contributeur" in the "P1" row
         Then I should see "Observateur" in the "P3" row
 
-    Scenario: Un utilisateur peut afficher les projets actifs seulement une année précise
-        When I go to "/projets/tous-les-projets"
-        Then I should see "P1"
-        And I should see "P4"
-        And I should see a "#projets-year-filter" element
-
-        When I go to "/projets/annee-2020"
-        Then I should see "P1"
-        But I should not see "P4"
+    Scenario: L'utilisateur voit le selecteur d'année
+        When I go to "/projets"
+        Then I should see a ".year-switch" element

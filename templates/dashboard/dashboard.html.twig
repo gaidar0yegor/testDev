@@ -14,7 +14,10 @@
 <div class="row my-4">
 	<div class="col-md-10 mx-auto bordure">
         <h2>Analyse des projets de l'année
-            <select name="select" id="dropdownYear" style="font-size: 0.8em"></select>
+            <span
+                class="year-switch"
+                data-event-name="loadYearlyCharts"
+            ></span>
         </h2>
     </div>
 </div>
@@ -60,7 +63,11 @@
 <div class="row my-4">
 	<div class="col-md-10 mx-auto">
         <h2>Analyse des projets depuis
-            <select name="select" id="dropdownSinceYear" style="font-size: 0.8em"></select>
+            <span
+                class="year-switch"
+                data-event-name="loadSinceYearCharts"
+                data-year-selected="{{ '-3 years'|date('Y') }}"
+            ></span>
         </h2>
     </div>
 </div>
