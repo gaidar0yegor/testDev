@@ -20,7 +20,7 @@ Requires:
 
 ``` bash
 # Clone the project
-git clone git@github.com:Sylvain78310/rdi_manager_01.git
+git clone git@github.com:RDI-Manager/rdi_manager_01.git
 cd rdi_manager_01/
 
 # Install php dependencies

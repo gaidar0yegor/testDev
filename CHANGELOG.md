@@ -6,7 +6,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
-
+### Modifié
+- Eclaircissement du formulaire d'inscription
 
 
 ## [0.13.0] - 2021-02-02 🤵
