@@ -14,7 +14,7 @@ class RepeatedPasswordType extends AbstractType
         $resolver->setDefaults([
             'type' => PasswordType::class,
             'invalid_message' => 'Erreur dans l\'un des deux mots de passe.',
-            'first_options'  => ['label' => 'Mot de passe'],
+            'first_options'  => ['label' => 'Définissez votre mot de passe'],
             'second_options' => ['label' => 'Répétez votre mot de passe'],
         ]);
     }
