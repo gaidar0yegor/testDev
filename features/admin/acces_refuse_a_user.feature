@@ -27,3 +27,7 @@ Feature: Il faut être référent pour pouvoir gérer les utilisateurs.
         When I go to "/admin/utilisateurs/1/modifier"
         Then the response status code should be 403
         And I should not see "Modification de"
+
+    Scenario: L'utilisateur peut accéder à la page publique d'un autre utilisateur
+        When I go to "/utilisateur/1"
+        Then I should not see "Temps passés en %"
