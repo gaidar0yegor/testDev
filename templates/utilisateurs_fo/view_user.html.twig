@@ -116,18 +116,20 @@
             </ul>
         </div>
 
-        <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
-            <h3>Temps passés en %</h3>
+        {% if is_granted('ROLE_FO_ADMIN') %}
+            <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
+                <h3>Temps passés en %</h3>
 
-            <div
-                class="year-switch text-center"
-                data-event-name="user-chart-year-changed"
-                {% if user.dateEntree %}
-                    data-year-from="{{ user.dateEntree|date('Y') }}"
-                {% endif %}
-            ></div>
+                <div
+                    class="year-switch text-center"
+                    data-event-name="user-chart-year-changed"
+                    {% if user.dateEntree %}
+                        data-year-from="{{ user.dateEntree|date('Y') }}"
+                    {% endif %}
+                ></div>
 
-            <div id="chart-user-projets-temps" data-user-id="{{ user.id }}"></div>
-        </div>
+                <div id="chart-user-projets-temps" data-user-id="{{ user.id }}"></div>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
