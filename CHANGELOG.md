@@ -11,9 +11,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Admin : ajout du boutton tout séléctionner/déselectionner lors de la génération des feuilles de temps
 - Alignement des flèches pour le suivi des temps.
+- Textes d'aide pour les nouveaux utilisateurs
 
 ### Modifié
 - Eclaircissement du formulaire d'inscription
+- Onboarding :
+    - Rend les 2 dernières étapes optionnelles
+    - Ré-affiche l'onboarding dés la reconnexion si les 3 premières étapes ne sont pas faîtes
+    - Affiche l'onboarding également pour les chefs de projets
 
 
 ## [0.13.0] - 2021-02-02 🤵

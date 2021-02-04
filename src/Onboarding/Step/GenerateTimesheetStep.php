@@ -20,7 +20,7 @@ class GenerateTimesheetStep implements OnboardingStepInterface, EventSubscriberI
 
     public function getText(): string
     {
-        return 'Générez les feuilles de temps';
+        return 'Génération de feuilles de temps';
     }
 
     public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string
@@ -30,6 +30,11 @@ class GenerateTimesheetStep implements OnboardingStepInterface, EventSubscriberI
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
+    }
+
+    public function isImportant(): bool
+    {
+        return false;
     }
 
     public function isCompleted(User $user): bool

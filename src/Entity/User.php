@@ -187,6 +187,15 @@ class User implements UserInterface, HasSocieteInterface
      */
     private $onboardingTimesheetCompleted;
 
+    /**
+     * Help texts to display, not yet acknowlegded.
+     * Null means user not yet logged in, so display all.
+     * Empty array means all help texts have been acknowledged.
+     *
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $helpTexts;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -684,6 +693,24 @@ class User implements UserInterface, HasSocieteInterface
     public function setOnboardingTimesheetCompleted(bool $onboardingTimesheetCompleted): self
     {
         $this->onboardingTimesheetCompleted = $onboardingTimesheetCompleted;
+
+        return $this;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getHelpTexts(): ?array
+    {
+        return $this->helpTexts;
+    }
+
+    /**
+     * @param string[] $helpTexts
+     */
+    public function setHelpTexts(?array $helpTexts): self
+    {
+        $this->helpTexts = $helpTexts;
 
         return $this;
     }

@@ -10,6 +10,8 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
+use Symfony\Component\Security\Http\SecurityEvents;
 
 class OnboardingListener implements EventSubscriberInterface
 {
@@ -41,6 +43,7 @@ class OnboardingListener implements EventSubscriberInterface
     {
         return [
             KernelEvents::REQUEST => 'addOnboardingMessage',
+            SecurityEvents::INTERACTIVE_LOGIN => 'onLogin',
         ];
     }
 
@@ -66,10 +69,38 @@ class OnboardingListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Re-enables onboarding for user on login
+     * if he still has important steps to complete.
+     */
+    public function onLogin(InteractiveLoginEvent $event): void
+    {
+        $user = $event->getAuthenticationToken()->getUser();
+
+        if (!$user instanceof User) {
+            return;
+        }
+
+        if (!$this->authChecker->isGranted('ROLE_FO_CDP', $user)) {
+            return;
+        }
+
+        if ($user->getOnboardingEnabled()) {
+            return;
+        }
+
+        $steps = $this->onboarding->getStepsFor($user);
+
+        if (!$this->onboarding->allImportantCompleted($steps)) {
+            $user->setOnboardingEnabled(true);
+            $this->em->flush();
+        }
+    }
+
     private function shouldDisplayOnboarding(User $user): bool
     {
-        // Only display to admins
-        if (!$this->authChecker->isGranted('ROLE_FO_ADMIN', $user)) {
+        // Only display to admins and chefs de projet
+        if (!$this->authChecker->isGranted('ROLE_FO_CDP', $user)) {
             return false;
         }
 

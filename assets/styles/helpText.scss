@@ -1,0 +1,13 @@
+.rdi-help-text {
+    max-height: 500px;
+    transition-property: max-height, opacity, margin, border-width, padding;
+    transition-duration: 400ms;
+
+    &.ack {
+        max-height: 0;
+        margin: 0 !important;
+        border-width: 0 !important;
+        padding: 0 !important;
+        opacity: 0;
+    }
+}
