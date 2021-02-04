@@ -14,3 +14,4 @@ import './js/rdiScore';
 import './js/onboarding';
 import './js/admin-user-chart-temps-projets';
 import './js/main';
+import './js/checkbox.js';
