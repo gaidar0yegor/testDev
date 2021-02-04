@@ -6,6 +6,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
+### Ajouté
+- Admin : ajout du boutton tout séléctionner/déselectionner lors de la génération des feuilles de temps
+
 ### Modifié
 - Eclaircissement du formulaire d'inscription
 
@@ -14,6 +17,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Onboarding des nouveaux administrateurs
 - Admin : Graphique des % de temps passés sur les projets
+
 ### Réparé
 - Ré-affiche les notifications de saisie de temps sur le dashboard
 
