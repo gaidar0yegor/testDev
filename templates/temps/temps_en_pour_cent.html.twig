@@ -10,7 +10,7 @@
     <a href="{{ path('app_fo_temps', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
         <i class="fa fa-angle-left fa-lg"></i>
     </a>
-    <span class="mx-3">
+    <span class="mx-3 text-month">
         {{ mois|format_date(pattern='MMMM yyyy')|capitalize }}
     </span>
     {% if next > date() %}
