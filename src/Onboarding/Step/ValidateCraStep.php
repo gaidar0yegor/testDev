@@ -18,7 +18,7 @@ class ValidateCraStep implements OnboardingStepInterface
 
     public function getText(): string
     {
-        return 'Saisissez vos temps passés sur vos projets';
+        return 'Suivi de temps';
     }
 
     public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string
@@ -28,6 +28,11 @@ class ValidateCraStep implements OnboardingStepInterface
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
+    }
+
+    public function isImportant(): bool
+    {
+        return false;
     }
 
     public function isCompleted(User $user): bool

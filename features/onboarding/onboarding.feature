@@ -13,7 +13,7 @@ Feature: L'onboarding doit aider les nouveaux utilisateurs
 
     Scenario: Je dois voir les étapes de prise en main
         Then I should see "Prise en main de RDI-Manager" in the ".onboarding-messages" element
-        And I should see "Saisissez vos temps passés sur vos projets" in the ".onboarding-messages" element
+        And I should see "Suivi de temps" in the ".onboarding-messages" element
 
     Scenario: Je peux suivre et valider l'étape de création de mon premier projet
         Then I should not see a ".onboarding-messages .nav-link.done:contains('Ajoutez vos projets')" element

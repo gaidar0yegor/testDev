@@ -91,5 +91,8 @@ services:
     App\Onboarding\Onboarding:
         $onboardingSteps: !tagged_iterator { tag: 'app.onboarding_step', default_priority_method: getPriority }
 
+    App\HelpText\HelpText:
+        $templatesDir: '%twig.default_path%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

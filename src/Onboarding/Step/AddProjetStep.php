@@ -30,6 +30,11 @@ class AddProjetStep implements OnboardingStepInterface
         );
     }
 
+    public function isImportant(): bool
+    {
+        return true;
+    }
+
     public function isCompleted(User $user): bool
     {
         $projets = $this
