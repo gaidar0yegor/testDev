@@ -37,18 +37,26 @@
                     </div>
 
                     <div class="mt-5">
-                        <a
+                        {% if app.user.role =="ROLE_FO_ADMIN" %}
+
+                            <a href= "{{ path('app_fo_admin_utilisateur_modifier', { id: app.user.id }) }}"
+                                class="btn btn-outline-success mt-2">Mettre à jour</a>
+
+                            {% else %}
+                                <a
                             href="{{ path('app_fo_mon_compte_modifier') }}"
                             class="btn btn-outline-success mt-2"
-                        >Mettre à jour</a>
-                        <a
-                            href="{{ path('app_fo_mon_compte_activite') }}"
-                            class="btn btn-outline-primary mt-2"
-                        >Mon activité</a>
-                        <a
-                            href="{{ path('app_fo_mon_compte_update_password') }}"
-                            class="btn btn-outline-warning mt-2"
-                        >Modifier votre mot de passe</a>
+                            >Mettre à jour</a>
+
+                            {% endif %}
+                            <a
+                                href="{{ path('app_fo_mon_compte_activite') }}"
+                                class="btn btn-outline-primary mt-2"
+                            >Mon activité</a>
+                            <a
+                                href="{{ path('app_fo_mon_compte_update_password') }}"
+                                class="btn btn-outline-warning mt-2"
+                            >Modifier votre mot de passe</a>
                     </div>
                 </div>
             </div>
