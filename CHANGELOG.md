@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ### Ajouté
 - Admin : ajout du boutton tout séléctionner/déselectionner lors de la génération des feuilles de temps
+- Alignement des flèches pour le suivi des temps.
 
 ### Modifié
 - Eclaircissement du formulaire d'inscription
