@@ -30,53 +30,17 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route(
-     *      "",
-     *      name="app_fo_projets"
-     * )
-     * @Route(
-     *      "/tous-les-projets",
-     *      name="app_fo_projets_all",
-     *      defaults={"year": "all"}
-     * )
-     * @Route(
-     *      "/annee-{year}",
-     *      name="app_fo_projets_by_year",
-     *      requirements={"year"="\d{4}"},
-     * )
+     * @Route("", name="app_fo_projets")
      */
-    public function listerProjet(
-        string $year = 'current',
-        ProjetRepository $projetRepository
-    ) {
-        $currentYear = date('Y');
-
-        if ($year === $currentYear) {
-            return $this->redirectToRoute('app_fo_projets');
-        }
-
+    public function listerProjet(ProjetRepository $projetRepository)
+    {
+        $projets = $projetRepository->findAllForUserInYear($this->getUser(), Role::OBSERVATEUR);
         $yearRange = $projetRepository->findProjetsYearRangeFor($this->getUser(), ROLE::OBSERVATEUR);
-        $projetsYears = null;
-
-        if ('current' === $year) {
-            $year = $currentYear;
-        }
-
-        if (null !== $yearRange) {
-            $projetsYears = range(
-                min($currentYear, $yearRange['yearMin']),
-                max($currentYear, $yearRange['yearMax'])
-            );
-        }
 
         return $this->render('projets/liste_projets.html.twig', [
-            'projets'=> $projetRepository->findAllForUserInYear(
-                $this->getUser(),
-                Role::OBSERVATEUR,
-                'all' === $year ? null : $year
-            ),
-            'projetsYears' => $projetsYears,
-            'selectedYear' => $year,
+            'projets'=> $projets,
+            'yearMin' => $yearRange['yearMin'] ?? date('Y'),
+            'yearMax' => $yearRange['yearMax'] ?? date('Y'),
         ]);
     }
 

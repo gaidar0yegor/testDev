@@ -5,22 +5,12 @@
 {% block body %}
     <h1>
         Mes projets de l'année
-
-        {% if projetsYears %}
-            <select
-                id="projets-year-filter"
-                data-url-all="{{ url('app_fo_projets_all') }}"
-                data-url-by-year="{{ url('app_fo_projets_by_year', {"year": 2000}) }}"
-            >
-                <option value="all">toutes</option>
-                {% for year in projetsYears|reverse %}
-                    <option
-                        {% if year == selectedYear %}selected="selected"{% endif %}
-                        value="{{ year }}"
-                    >{{ year }}</option>
-                {% endfor %}
-            </select>
-        {% endif %}
+        <span
+            class="year-switch"
+            data-event-name="year-changed"
+            data-year-from="{{ yearMin }}"
+            data-year-to="{{ yearMax }}"
+        ></span>
     </h1>
 
     {% if is_granted('ROLE_FO_ADMIN') %}
@@ -45,9 +35,12 @@
                 <th scope="col">Participants</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="filter-projets-by-selected-year">
             {% for projet in projets %}
-                <tr>
+                <tr
+                    data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
+                    data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
+                >
                     <td scope="row" class="text-left"> <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
                     <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>

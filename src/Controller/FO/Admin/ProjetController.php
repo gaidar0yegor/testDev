@@ -15,9 +15,13 @@ class ProjetController extends AbstractController
      */
     public function listerProjetAdmin(ProjetRepository $projetRepository)
     {
-        $allProjectsOfSociete = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete());
+        $projets = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete());
+        $yearRange = $projetRepository->findProjetsYearRangeFor($this->getUser());
+
         return $this->render('projets/admin_liste_projets.html.twig', [
-            'projets'=> $allProjectsOfSociete,
+            'projets'=> $projets,
+            'yearMin' => $yearRange['yearMin'] ?? date('Y'),
+            'yearMax' => $yearRange['yearMax'] ?? date('Y'),
         ]);
     }
 }

@@ -3,23 +3,34 @@
 {% block title %}Liste des projets de la société{% endblock %}
 
 {% block body %}
-    <h1>Projets de la société</h1>
-    <table class="table  text-center mx-auto m-5">
+    <h1>
+        Projets de la société
+        <span
+            class="year-switch"
+            data-event-name="year-changed"
+            data-year-from="{{ yearMin }}"
+            data-year-to="{{ yearMax }}"
+        ></span>
+    </h1>
+
+    <table class="table text-center mx-auto m-5">
         <thead>
             <tr>
-                <th scope="col" class="text-left">Projet</th>
-                <th scope="col">Chef de Projet</th>
-                <th scope="col" class="d-none d-md-table-cell">Début</th>
-                <th scope="col" class="d-none d-md-table-cell">Fin</th>
-                <th scope="col" class="d-none d-md-table-cell">Statut</th>
-                <th scope="col">Nb Participants</th>
+                <th class="text-left">Projet</th>
+                <th>Chef de Projet</th>
+                <th class="d-none d-md-table-cell">Début</th>
+                <th class="d-none d-md-table-cell">Fin</th>
+                <th class="d-none d-md-table-cell">Statut</th>
+                <th>Nb Participants</th>
             </tr>
         </thead>
-        <tbody>
-          
+        <tbody class="filter-projets-by-selected-year">
             {% for projet in projets %}
-                <tr>
-                    <td scope="row" class="text-left"> <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
+                <tr
+                    data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
+                    data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
+                >
+                    <td class="text-left"> <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
                     <td class=>{{ projet.chefDeProjet.fullName }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
