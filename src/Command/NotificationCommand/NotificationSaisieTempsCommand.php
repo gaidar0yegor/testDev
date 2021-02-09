@@ -2,10 +2,12 @@
 
 namespace App\Command\NotificationCommand;
 
+use App\Notification\RappelSaisieTempsNotification;
 use App\Service\NotificationSaisieTemps;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class NotificationSaisieTempsCommand extends AbstractNotificationCommand
 {
@@ -13,12 +15,16 @@ class NotificationSaisieTempsCommand extends AbstractNotificationCommand
 
     private NotificationSaisieTemps $notificationSaisieTemps;
 
+    private EventDispatcherInterface $dispatcher;
+
     public function __construct(
-        NotificationSaisieTemps $notificationSaisieTemps
+        NotificationSaisieTemps $notificationSaisieTemps,
+        EventDispatcherInterface $dispatcher
     ) {
         parent::__construct();
 
         $this->notificationSaisieTemps = $notificationSaisieTemps;
+        $this->dispatcher = $dispatcher;
     }
 
     protected function configure()
@@ -33,10 +39,13 @@ class NotificationSaisieTempsCommand extends AbstractNotificationCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
+        $societe = $this->findCommandSociete($input);
+
+        $this->dispatcher->dispatch(new RappelSaisieTempsNotification($societe));
 
         $totalSent = $this
             ->notificationSaisieTemps
-            ->sendNotificationSaisieTempsAllUsers($this->findCommandSociete($input))
+            ->sendNotificationSaisieTempsAllUsers($societe)
         ;
 
         $io->success("$totalSent notifications ont été envoyés !");

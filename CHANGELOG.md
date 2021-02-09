@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Ajout de la selection des dates pour l'export des faits marquants
+- Permettre à l'admin de connecter RDI-Manager à Slack pour envoyer les notifications de rappel de saisie des temps sur une chaîne Slack.
 
 
 

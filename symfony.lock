@@ -14,6 +14,9 @@
     "behatch/contexts": {
         "version": "3.3.0"
     },
+    "clue/stream-filter": {
+        "version": "v1.5.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.11.99"
     },
@@ -176,6 +179,15 @@
             "fixtures/.gitignore"
         ]
     },
+    "jane-php/json-schema-runtime": {
+        "version": "v6.3.2"
+    },
+    "jane-php/open-api-runtime": {
+        "version": "v6.3.2"
+    },
+    "jolicode/slack-php-api": {
+        "version": "v4.0.0"
+    },
     "justinrainbow/json-schema": {
         "version": "5.2.10"
     },
@@ -222,6 +234,12 @@
     "league/mime-type-detection": {
         "version": "1.5.1"
     },
+    "league/uri": {
+        "version": "6.4.0"
+    },
+    "league/uri-interfaces": {
+        "version": "2.2.0"
+    },
     "lorenzo/pinky": {
         "version": "1.0.5"
     },
@@ -262,6 +280,18 @@
     "nikolaposa/version": {
         "version": "3.2.0"
     },
+    "nyholm/psr7": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "7c0a9352a57376f04f5444e74565102c3a23d0c7"
+        },
+        "files": [
+            "config/packages/nyholm_psr7.yaml"
+        ]
+    },
     "ocramius/proxy-manager": {
         "version": "2.8.0"
     },
@@ -279,6 +309,30 @@
     },
     "php": {
         "version": "7.4"
+    },
+    "php-http/client-common": {
+        "version": "2.3.0"
+    },
+    "php-http/discovery": {
+        "version": "1.13.0"
+    },
+    "php-http/httplug": {
+        "version": "2.2.0"
+    },
+    "php-http/message": {
+        "version": "1.11.0"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/multipart-stream-builder": {
+        "version": "1.1.2"
+    },
+    "php-http/promise": {
+        "version": "1.1.0"
+    },
+    "php-jsonpointer/php-jsonpointer": {
+        "version": "v3.0.2"
     },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
