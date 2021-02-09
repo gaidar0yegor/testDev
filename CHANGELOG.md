@@ -5,22 +5,25 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.14.0] - 2021-02-09
 ### Ajouté
 - Admin : filtre tous les projets par année
-
-### Ajouté
 - Admin : ajout du boutton tout séléctionner/déselectionner lors de la génération des feuilles de temps
 - Alignement des flèches pour le suivi des temps.
 - Textes d'aide pour les nouveaux utilisateurs
 - Ajout des modifications complètes pour l'administrateur
-
 ### Modifié
 - Eclaircissement du formulaire d'inscription
 - Onboarding :
     - Rend les 2 dernières étapes optionnelles
     - Ré-affiche l'onboarding dés la reconnexion si les 3 premières étapes ne sont pas faîtes
     - Affiche l'onboarding également pour les chefs de projets
-
+### Réparé
+- Bug quand on va sur la page de modification du nombre d'heures de la société
 
 ## [0.13.0] - 2021-02-02 🤵
 ### Ajouté
