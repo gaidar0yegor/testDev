@@ -72,7 +72,7 @@
         {% if projet.hasFaitMarquants() %}
         <ul class="timeline">
             {% for faitMarquant in projet.faitMarquants %}
-                {% if faitMarquant.date >= (customTime.dateDebut|default(date())) and faitMarquant.date <= (customTime.dateFin|default(date())) %}
+                {% if faitMarquant.date >= customTime.dateDebut and faitMarquant.date <= customTime.dateFin  or faitMarquant.date == customTime.dateFin %}
                     <li class="event">
                         <h4 data-date="{{ faitMarquant.date|format_date }}">
                             {{ faitMarquant.date|format_date }}
