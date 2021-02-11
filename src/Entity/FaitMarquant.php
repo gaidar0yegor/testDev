@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\ProjetResourceInterface;
 use App\Repository\FaitMarquantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -27,6 +28,10 @@ class FaitMarquant implements ProjetResourceInterface
 
     /**
      * @ORM\Column(type="text")
+     *  @Assert\Length(
+     *      max = 750,
+     *      maxMessage = "Votre faits marquants ne peut avoir plus de 750 caractères"
+     * )
      */
     private $description;
 
