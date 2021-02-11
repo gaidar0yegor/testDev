@@ -15,6 +15,10 @@ class FinalizeInscriptionStep implements OnboardingStepInterface
 
     public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string
     {
+        if (null === $user->getInvitationToken()) {
+            return null;
+        }
+
         return $urlGenerator->generate(
             'app_fo_user_finalize_inscription',
             [
@@ -22,6 +26,11 @@ class FinalizeInscriptionStep implements OnboardingStepInterface
             ],
             UrlGeneratorInterface::ABSOLUTE_URL
         );
+    }
+
+    public function isImportant(): bool
+    {
+        return true;
     }
 
     public function isCompleted(User $user): bool

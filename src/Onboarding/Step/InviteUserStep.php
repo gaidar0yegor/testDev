@@ -30,6 +30,11 @@ class InviteUserStep implements OnboardingStepInterface
         );
     }
 
+    public function isImportant(): bool
+    {
+        return true;
+    }
+
     public function isCompleted(User $user): bool
     {
         return count($this->userRepository->findBySameSociete($user)) > 1;

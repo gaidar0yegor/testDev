@@ -1,0 +1,33 @@
+App\Entity\User:
+    user:
+        nom: Eureka
+        prenom: User
+        email: user@societe.dev
+        password: user
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet1:
+        titre: Projet de test 1
+        acronyme: P1
+        projetCollaboratif: true
+        projetPpp: false
+        projetInterne: true
+        dateDebut: <(new DateTime('2020-01-01'))>
+
+App\Entity\ProjetParticipant:
+    user_projet1:
+        user: '@user'
+        projet: '@projet1'
+        role: '<(App\Role::CONTRIBUTEUR)>'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société
+        siret: 111111111
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée

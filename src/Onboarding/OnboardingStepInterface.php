@@ -14,9 +14,13 @@ interface OnboardingStepInterface
 
     /**
      * @return string|null Optional absolute url (absolute is required for mails) to complete this step.
-     *                     Should not be called if the step is completed.
      */
     public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string;
+
+    /**
+     * Whether this step should be display again while not completed.
+     */
+    public function isImportant(): bool;
 
     /**
      * @return bool Whether this onboarding step has been done already for this user

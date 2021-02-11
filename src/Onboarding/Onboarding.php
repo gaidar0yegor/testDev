@@ -30,16 +30,12 @@ class Onboarding
     public function getStepsFor(User $user): array
     {
         return array_map(function (OnboardingStepInterface $step) use ($user) {
-            $stepParams = [
+            return [
                 'text' => $step->getText(),
+                'link' => $step->getLink($this->urlGenerator, $user),
                 'completed' => $step->isCompleted($user),
+                'important' => $step->isImportant(),
             ];
-
-            if (!$stepParams['completed']) {
-                $stepParams['link'] = $step->getLink($this->urlGenerator, $user);
-            }
-
-            return $stepParams;
         }, $this->onboardingSteps);
     }
 
@@ -47,6 +43,17 @@ class Onboarding
     {
         foreach ($steps as $step) {
             if (!$step['completed']) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function allImportantCompleted(array $steps): bool
+    {
+        foreach ($steps as $step) {
+            if ($step['important'] && !$step['completed']) {
                 return false;
             }
         }
