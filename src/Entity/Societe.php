@@ -54,11 +54,6 @@ class Societe implements HasSocieteInterface
     private $users;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SocieteStatut::class, inversedBy="societes")
-     */
-    private $statut;
-
-    /**
      * Utilise ou non les SMS pour les notifications importantes.
      *
      * @ORM\Column(type="boolean")
@@ -155,18 +150,6 @@ class Societe implements HasSocieteInterface
         return $this->users->filter(function (User $user) {
             return $user->isAdminFo();
         });
-    }
-
-    public function getStatut(): ?SocieteStatut
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(?SocieteStatut $statut): self
-    {
-        $this->statut = $statut;
-
-        return $this;
     }
 
     public function getSmsEnabled(): ?bool

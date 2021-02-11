@@ -44,9 +44,4 @@ App\Entity\Societe:
     societe:
         raisonSociale: SociétéTest
         siret: 111111111
-        statut: '@societe_active'
         heuresParJours: 7
-
-App\Entity\SocieteStatut:
-    societe_active:
-        libelle: Activée

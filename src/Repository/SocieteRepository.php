@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Societe;
-use App\Entity\StatutsSociete;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,74 +18,4 @@ class SocieteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Societe::class);
     }
-
-    // /**
-    //  * @return Societe[] Returns an array of Societe objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Societe
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
-  public function testFindOneBySomeField($value): ?Societe
-  {
-      return $this->createQueryBuilder('s')
-          ->andWhere('s.id = :val')
-          ->setParameter('val', $value)
-          ->getQuery()
-          ->getOneOrNullResult()
-      ;
-  }
-
-
-    public function afficheInfosSociete(): ?Societe
-    {
-            $qb = $this
-                ->createQueryBuilder('s')
-                ->leftJoin('s.statuts_societe', 'app')
-                ->addSelect('statutssociete');
-
-            return $qb
-                ->getQuery()
-                ->getResult();
-
-    }
-
-    public function listeRaisonSocialeSociete(): ?Societe
-    {
-        $qb = $this
-            ->createQueryBuilder('s')
-            ->select('s','statuts')
-            ->from(Societe::class, 'statuts')
-            ->innerJoin ('s.StatutsSociete','statuts');
-
-        return $qb
-            ->getQuery()
-            ->getResult();
-
-    }
-
-
-
 }

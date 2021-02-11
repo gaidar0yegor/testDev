@@ -130,11 +130,6 @@ class User implements UserInterface, HasSocieteInterface
     private $enabled;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $cadre;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=true)
      *
@@ -505,18 +500,6 @@ class User implements UserInterface, HasSocieteInterface
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    public function getCadre(): ?bool
-    {
-        return $this->cadre;
-    }
-
-    public function setCadre(bool $cadre): self
-    {
-        $this->cadre = $cadre;
 
         return $this;
     }

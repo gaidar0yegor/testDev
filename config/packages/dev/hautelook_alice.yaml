@@ -1,7 +1,2 @@
-parameters:
-    fixtures_base_folder: fixtures/base
-
 hautelook_alice:
-    fixtures_path:
-        - fixtures/base
-        - '%env(string:default:fixtures_base_folder:FIXTURES)%'
+    fixtures_path: fixtures
