@@ -4,6 +4,7 @@ namespace App\Controller\FO\Admin;
 
 use App\Form\SocieteNotificationsType;
 use App\Service\SocieteNotificationsService;
+use App\Slack\Slack;
 use Cron\CronBundle\Entity\CronJob;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,6 +21,7 @@ class NotificationController extends AbstractController
      */
     public function index(
         Request $request,
+        Slack $slack,
         EntityManagerInterface $em,
         SocieteNotificationsService $societeNotificationsService
     ) {
@@ -41,6 +43,7 @@ class NotificationController extends AbstractController
 
         return $this->render('notification/index.html.twig', [
             'form' => $form->createView(),
+            'slackRedirectUri' => $slack->generateRedirectUri(),
         ]);
     }
 

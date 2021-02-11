@@ -94,5 +94,9 @@ services:
     App\HelpText\HelpText:
         $templatesDir: '%twig.default_path%'
 
+    App\Slack\Slack:
+        $slackClientId: '%env(SLACK_APP_CLIENT_ID)%'
+        $slackClientSecret: '%env(SLACK_APP_CLIENT_SECRET)%'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -1,0 +1,25 @@
+App\Entity\User:
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: admin
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
+
+App\Entity\SlackAccessToken:
+    channel:
+        societe: '@societe'
+        teamName: Mon-Espace-Slack
+        incomingWebhookChannel: '#general'
+        scope: ['scope']
+        accessToken: xxx
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: SociétéTest
+        statut: '@societe_active'
+
+App\Entity\SocieteStatut:
+    societe_active:
+        libelle: Activée

@@ -13,6 +13,7 @@ import './js/recommandation-text-preview';
 import './js/rdiScore';
 import './js/onboarding';
 import './js/helpText';
+import './js/slack';
 import './js/admin-user-chart-temps-projets';
 import './js/filter-projets-by-selected-year';
 import './js/main';
