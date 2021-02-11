@@ -18,10 +18,12 @@ App\Entity\Projet:
     projet{1..3}:
         titre: 'Projet <current()>'
         acronyme: 'P<current()>'
+        societe: '@societe'
         dateDebut: <(new DateTime("2020-11-09"))>
     projet4:
         titre: Projet 4
         acronyme: P4
+        societe: '@societe'
         dateDebut: <(new DateTime("2016-11-16"))>
         dateFin: <(new DateTime("2019-11-16"))>
 

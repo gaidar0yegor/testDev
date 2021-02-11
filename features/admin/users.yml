@@ -33,6 +33,7 @@ App\Entity\Projet:
     projet:
         titre: ProjetTest
         acronyme: PT
+        societe: '@societe'
 
 App\Entity\ProjetParticipant:
     user_projet:

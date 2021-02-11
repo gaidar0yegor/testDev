@@ -27,6 +27,7 @@ App\Entity\Projet:
     projet1:
         titre: Projet de test 1
         acronyme: P1
+        societe: '@societe'
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
@@ -34,6 +35,7 @@ App\Entity\Projet:
     projet2:
         titre: Projet de test 2
         acronyme: P2
+        societe: '@societe'
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
@@ -41,6 +43,7 @@ App\Entity\Projet:
     projet3:
         titre: Projet de test 3
         acronyme: P3
+        societe: '@societe'
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true
@@ -48,6 +51,7 @@ App\Entity\Projet:
     projet4:
         titre: Projet de test 4
         acronyme: P4
+        societe: '@societe'
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true

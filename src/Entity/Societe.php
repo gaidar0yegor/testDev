@@ -65,12 +65,18 @@ class Societe implements HasSocieteInterface
      */
     private $slackAccessTokens;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Projet::class, mappedBy="societe")
+     */
+    private $projets;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->heuresParJours = self::DEFAULT_HEURES_PAR_JOURS;
         $this->smsEnabled = true;
         $this->slackAccessTokens = new ArrayCollection();
+        $this->projets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -193,6 +199,36 @@ class Societe implements HasSocieteInterface
             // set the owning side to null (unless already changed)
             if ($slackAccessToken->getSociete() === $this) {
                 $slackAccessToken->setSociete(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getProjets(): Collection
+    {
+        return $this->projets;
+    }
+
+    public function addProjet(Projet $projet): self
+    {
+        if (!$this->projets->contains($projet)) {
+            $this->projets[] = $projet;
+            $projet->setSociete($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjet(Projet $projet): self
+    {
+        if ($this->projets->removeElement($projet)) {
+            // set the owning side to null (unless already changed)
+            if ($projet->getSociete() === $this) {
+                $projet->setSociete(null);
             }
         }
 

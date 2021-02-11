@@ -2,6 +2,7 @@ App\Entity\Projet:
     projet__ouest:
         titre: Développement du bureau Grand Ouest
         acronyme: OUEST
+        societe: '@societe'
         resume: >
             Le cabinet Eureka C.I a lancé en 2020 un plan de développement de son activité
             et de renforcement de sa chaine de valeur dans le conseil en innovation.

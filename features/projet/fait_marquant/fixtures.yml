@@ -32,6 +32,7 @@ App\Entity\Projet:
     projet:
         titre: Projet
         acronyme: PTEST
+        societe: '@societe'
 
 App\Entity\FaitMarquant:
     fait:

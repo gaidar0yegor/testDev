@@ -2,6 +2,7 @@ App\Entity\Projet:
     projet__Sylvain__21:
         titre: Cloud solution to transform a spreadsheet or database into an interactive dashboard
         acronyme: StatPlanet
+        societe: '@societe'
         resume: >
             StatPlanet Cloud is an out-of-the box solution to rapidly transform a spreadsheet or database into an interactive dashboard. With its intuitive interface, even new users can instantly explore the interactive graphs and maps, and filter down to indicators and areas of interest. It comes with an open-source, Excel-based Data Manager, which has been used in over 60 countries for importing and consolidating a wide range of data.
         projetCollaboratif: true

@@ -11,6 +11,7 @@ App\Entity\Projet:
     projet:
         titre: 'Projet 0'
         acronyme: 'P0'
+        societe: '@societe'
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true

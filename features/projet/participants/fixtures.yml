@@ -25,6 +25,7 @@ App\Entity\Projet:
     projet:
         titre: 'Projet de test'
         acronyme: 'P'
+        societe: '@societe'
         projetCollaboratif: true
         projetPpp: false
         projetInterne: true

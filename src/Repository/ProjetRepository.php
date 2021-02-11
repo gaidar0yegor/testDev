@@ -172,9 +172,7 @@ class ProjetRepository extends ServiceEntityRepository
     {
         $qb = $this
             ->createQueryBuilder('projet')
-            ->leftJoin('projet.projetParticipants', 'projetParticipant')
-            ->leftJoin('projetParticipant.user', 'user')
-            ->where('user.societe = :societe')
+            ->where('projet.societe = :societe')
             ->setParameter('societe', $societe)
         ;
 
