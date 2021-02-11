@@ -16,6 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
+use App\DTO\ProjetExportParameters;
+use App\Form\ProjetExportType;
 
 /**
  * @Route("/projets")
@@ -169,5 +171,33 @@ class ProjetController extends AbstractController
         ];
         $result = $this->pdf->getOutputFromHtml($htmlContent, $options);
         return new PdfResponse($result, $filename);
+    }
+
+    /**
+     * @Route("/{id}/custom", name="app_fo_projet_custom")
+     */
+    public function ficheProjetGenerateCustom(Projet $projet, Request $request)
+    {
+        $this->denyAccessUnlessGranted('view', $projet);
+        $customTime = new ProjetExportParameters ();
+        $customTime
+            ->setdateDebut($projet->getDateDebut())
+            ->setdateFin($projet->getDateFin())
+            ;
+        $form = $this->createForm(ProjetExportType::class, $customTime);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $customTime = $form->getData();
+            $sheetHtml = $this->renderView('projets/pdf/pdf_fiche_projet.html.twig', [
+                'customTime' => $customTime,
+                'projet' => $projet,
+            ]);
+            return $this->createPdfResponse($sheetHtml);
+        }
+        return $this->render('projets/generer_fait_marquant.html.twig', [
+            'form' => $form->createView(),
+            'projet' => $projet
+        ]);
     }
 }

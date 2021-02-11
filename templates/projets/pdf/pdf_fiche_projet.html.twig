@@ -63,24 +63,25 @@
             </div>
         </div>
     </div>
-
     <section id="timeline">
         <h2 class="facts">Faits marquants</h2>
 
         {% if projet.hasFaitMarquants() %}
         <ul class="timeline">
             {% for faitMarquant in projet.faitMarquants %}
-                <li class="event">
-                    <h4 data-date="{{ faitMarquant.date|format_date }}">
-                        {{ faitMarquant.date|format_date }}
-                        -
-                        <span>{{ faitMarquant.createdBy.fullname }}</span>
-                    </h4>
-                    <h3>{{ faitMarquant.titre }}</h3>
-                    <p class="text-justify">
-                        {{ faitMarquant.description|nl2br }}
-                    </p>
-                </li>
+                {% if faitMarquant.date >= customTime.dateDebut and faitMarquant.date <= customTime.dateFin  %}
+                    <li class="event">
+                        <h4 data-date="{{ faitMarquant.date|format_date }}">
+                            {{ faitMarquant.date|format_date }}
+                            -
+                            <span>{{ faitMarquant.createdBy.fullname }}</span>
+                        </h4>
+                        <h3>{{ faitMarquant.titre }}</h3>
+                        <p class="text-justify">
+                            {{ faitMarquant.description|nl2br }}
+                        </p>
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
         {% else %}
