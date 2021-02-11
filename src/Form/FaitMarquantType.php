@@ -30,7 +30,8 @@ class FaitMarquantType extends AbstractType
             ->add('description', TextareaType:: class, [
                 'attr' => [
                     'class' => 'text-justify',
-                    'rows' => 9
+                    'rows' => 9,
+                    'maxlength' =>  800
                 ]
             ])
             ->add('fichierProjets', FichierProjetsType::class, [
