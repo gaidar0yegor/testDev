@@ -31,7 +31,6 @@ class FaitMarquantType extends AbstractType
                 'attr' => [
                     'class' => 'text-justify',
                     'rows' => 9
-                    // 'maxlength' => 8
                 ]
             ])
             ->add('fichierProjets', FichierProjetsType::class, [
