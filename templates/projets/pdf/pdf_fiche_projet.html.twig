@@ -63,16 +63,13 @@
             </div>
         </div>
     </div>
-<div>
-
-</div>
     <section id="timeline">
         <h2 class="facts">Faits marquants</h2>
 
         {% if projet.hasFaitMarquants() %}
         <ul class="timeline">
             {% for faitMarquant in projet.faitMarquants %}
-                {% if faitMarquant.date >= customTime.dateDebut and faitMarquant.date <= customTime.dateFin  or faitMarquant.date == customTime.dateFin %}
+                {% if faitMarquant.date >= customTime.dateDebut and faitMarquant.date <= customTime.dateFin  %}
                     <li class="event">
                         <h4 data-date="{{ faitMarquant.date|format_date }}">
                             {{ faitMarquant.date|format_date }}

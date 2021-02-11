@@ -9,7 +9,7 @@ use DateTime;
  * qui sert à inviter un nouvel utilisateur sur un projet donné
  * à partir d'un email.
  */
-class PdfCustomTime
+class ProjetExportParameters
 {
     private ?DateTime $dateDebut;
 
@@ -17,24 +17,24 @@ class PdfCustomTime
 
     public function getdateDebut(): DateTime
     {
-        return $this->from;
+        return $this->dateDebut;
     }
 
     public function setdateDebut(?DateTime $from): self
     {
-        $this->from = $from;
+        $this->dateDebut = $from;
 
         return $this;
     }
 
     public function getdateFin(): DateTime
     {
-        return $this->to;
+        return $this->dateFin;
     }
 
     public function setdateFin(?DateTime $to): self
     {
-        $this->to = $to;
+        $this->dateFin = $to;
 
         return $this;
     }

@@ -41,19 +41,6 @@
                                 </li>
                             {% endfor %}
                         </ul>
-                        <div class="text-right">
-                            <a
-                                href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
-                                class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
-                                {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
-                                    disabled
-                                    title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
-                                {% endif %}
-                            >
-                                <i class="fa fa-pencil"></i>
-                                Modifier
-                            </a>
-                        </div>
                     </li>
                 {% endfor %}
             </ul>
