@@ -56,36 +56,11 @@
                             <div class="col-md-6">{{ projet.statut }}</div>
                         </div>
                     </div>
-                    {% if projet.rdiScore is not null %}
-                        <div class="col-md-4">
-                            <h5>Score RDI</h5>
-                            {% if projet.rdiScoreReliability > 0.5 %}
-                                <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ (projet.rdiScore * 100)|round }}%" aria-valuenow="{{ (projet.rdiScore * 100)|round }}" aria-valuemin="0" aria-valuemax="100">
-                                        {{ (projet.rdiScore * 100)|round }}
-                                    </div>
-                                </div>
-                                <small class="text-muted">
-                                    Score fiable à {{ (projet.rdiScoreReliability * 100)|round }} %.
-                                </small>
-                            {% else %}
-                                <div class="progress">
-                                    <div class="progress-bar progress-bar-striped bg-secondary" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-                                        Indéterminé
-                                    </div>
-                                </div>
-                                <small class="text-muted">
-                                    Ce projet ne contient pas encore assez de texte et de faits marquants
-                                    pour calculer un score précis.
-                                </small>
-                            {% endif %}
-                        </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
 
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 my-4">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 my-4">
             <div class="col">
                 <a
                     href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}"
@@ -130,6 +105,15 @@
                     href="{{ path('app_fo_projet_activity', {'id': projet.id}) }}"
                     class="btn btn-block btn-outline-primary mt-2"
                 >Activité</a>
+            </div>
+            <div class="col">
+                <a
+                    href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}"
+                    class="btn btn-block btn-outline-primary mt-2 {{ is_granted('ROLE_FO_ADMIN') ? '' : 'disabled' }}"
+                    {% if not is_granted('ROLE_FO_ADMIN') %}
+                        title="Seuls les administrateurs ont accès aux métriques du projet"
+                    {% endif %}
+                >Statistiques</a>
             </div>
         </div>
 

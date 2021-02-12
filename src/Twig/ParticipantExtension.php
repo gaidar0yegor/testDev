@@ -29,6 +29,7 @@ class ParticipantExtension extends AbstractExtension
     {
         return [
             new TwigFilter('sortByRole', [$this, 'sortByRole']),
+            new TwigFilter('filterByRoleExactly', [$this, 'filterByRoleExactly']),
         ];
     }
 
@@ -83,5 +84,18 @@ class ParticipantExtension extends AbstractExtension
         );
 
         return $sorted;
+    }
+
+    /**
+     * Filter by exact role (does not return CDP if we filter CONTRIBUTEUR).
+     *
+     * @param iterable $projetParticipants
+     * @param string $role
+     *
+     * @return ProjetParticipant[]
+     */
+    public function filterByRoleExactly(iterable $projetParticipants, string $role): array
+    {
+        return $this->participantService->getProjetParticipantsWithRoleExactly($projetParticipants, $role);
     }
 }

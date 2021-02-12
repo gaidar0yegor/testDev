@@ -4,6 +4,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../node_modules/font-awesome/css/font-awesome.css';
 import './styles/footer.css';
 
+import './js/popper';
 import './js/matomo';
 
 // Import all images so that we can use them in twig templates

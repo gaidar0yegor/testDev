@@ -262,3 +262,8 @@ h5 {
         opacity: 1;
     }
 }
+
+.rdi-percent sup {
+    font-size: 0.3em;
+    top: 0;
+}

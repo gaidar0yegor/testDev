@@ -2,6 +2,7 @@
 
 namespace App\Controller\FO\Admin;
 
+use App\Entity\Projet;
 use App\Repository\ProjetRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +23,18 @@ class ProjetController extends AbstractController
             'projets'=> $projets,
             'yearMin' => $yearRange['yearMin'] ?? date('Y'),
             'yearMax' => $yearRange['yearMax'] ?? date('Y'),
+        ]);
+    }
+
+    /**
+     * Page admin d'un projet.
+     *
+     * @Route("/projets/{id}", name="app_fo_admin_projet")
+     */
+    public function projetManage(Projet $projet)
+    {
+        return $this->render('projets/admin_manage.html.twig', [
+            'projet'=> $projet,
         ]);
     }
 }

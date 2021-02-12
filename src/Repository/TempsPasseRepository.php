@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Projet;
 use App\Entity\Societe;
 use App\Entity\TempsPasse;
 use App\Entity\User;
@@ -60,6 +61,26 @@ class TempsPasseRepository extends ServiceEntityRepository
                 'societe' => $societe,
                 'dateFrom' => new \DateTime("$year-01-01"),
                 'dateTo' => new \DateTime("$year-12-31"),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllByProjetAndYear(Projet $projet, int $year): array
+    {
+        return $this
+            ->createQueryBuilder('tempsPasse')
+            ->leftJoin('tempsPasse.cra', 'cra')
+            ->leftJoin('cra.user', 'user')
+            ->addSelect('cra')
+            ->addSelect('user')
+            ->where('YEAR(cra.mois) = :year')
+            ->andWhere('tempsPasse.projet = :projet')
+            ->andWhere('tempsPasse.pourcentage > 0')
+            ->setParameters([
+                'projet' => $projet,
+                'year' => $year,
             ])
             ->getQuery()
             ->getResult()

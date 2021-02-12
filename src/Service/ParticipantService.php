@@ -56,6 +56,23 @@ class ParticipantService implements UserContributingProjetRepositoryInterface
     }
 
     /**
+     * @return ProjetParticipant[] Tous les projetParticipants de $user
+     *      qui ont exactement le role $role
+     */
+    public function getProjetParticipantsWithRoleExactly(iterable $projetParticipants, string $role): iterable
+    {
+        $projetParticipantsFiltered = [];
+
+        foreach ($projetParticipants as $projetParticipant) {
+            if ($projetParticipant->getRole() === $role) {
+                $projetParticipantsFiltered[] = $projetParticipant;
+            }
+        }
+
+        return $projetParticipantsFiltered;
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function findProjetsContributingUser(User $user): array
