@@ -22,11 +22,6 @@ class ProjetExportType extends AbstractType
             'required' => true,
             'label' => 'Date de fin',
         ])
-        ->add('submit', SubmitType::class, [
-            'label' => 'Générer',
-            'attr' => [
-                'class' => 'btn btn-success',]
-                ])
         ;
     }
 
