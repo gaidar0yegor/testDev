@@ -1,0 +1,52 @@
+<div class="col-sm-8 offset-sm-2 col-md-4 offset-md-0">
+    <div id="loginpaste" class="alert alert-info mt-3">
+        <div>
+            <strong>Accès adminitrateur</strong>
+            <br>
+            login : <code>admin@societe.dev</code>
+            <br>
+            mot de passe : <code>admin</code>
+            <br>
+            <a href="#">Utiliser ces identifiants</a>
+        </div>
+        <div class="my-4">
+            <strong>Accès chef de projet</strong>
+            <br>
+            login : <code>cdp@societe.dev</code>
+            <br>
+            mot de passe : <code>cdp</code>
+            <br>
+            <a href="#">Utiliser ces identifiants</a>
+        </div>
+        <div>
+            <strong>Accès utilisateur</strong>
+            <br>
+            login : <code>user@societe.dev</code>
+            <br>
+            mot de passe : <code>user</code>
+            <br>
+            <a href="#">Utiliser ces identifiants</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Auto-fill login form with demo username and password
+    var logins = window.loginpaste.querySelectorAll('div');
+
+    logins.forEach(function (login) {
+        var link = login.querySelector('a');
+        var username = login.querySelectorAll('code')[0].innerText;
+        var password = login.querySelectorAll('code')[1].innerText;
+
+        link.onclick = function (e) {
+            e.preventDefault();
+
+            window['input-email'].value = username;
+            window['input-password'].value = password;
+            document.querySelector('form input[type="submit"]').focus();
+        };
+    });
+
+    logins[0].querySelector('a').click();
+</script>
