@@ -25,8 +25,7 @@
 
         {{ form_row(form.titre) }}
 
-        {{ form_row(form.description) }}
-        <p class="text-muted" id="counterBlock"></p>
+        {{ form_row(form.description, {'help': 'h'})}}
         {{ form_row(form.fichierProjets) }}
         <div class="text-center mt-5">
             <button class="btn btn-success">

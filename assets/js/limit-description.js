@@ -1,6 +1,6 @@
 // On selectionne l'element textarea et l'élement p#counterBlock
 var textarea = document.querySelector('#fait_marquant_description');
-var blockCount = document.getElementById('counterBlock');
+var blockCount = document.getElementById('fait_marquant_description_help');
 
 function count() {
     // la fonction count calcule la longueur de la chaîne de caractère contenue dans le textarea
