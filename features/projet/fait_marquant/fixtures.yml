@@ -32,6 +32,7 @@ App\Entity\Projet:
     projet:
         titre: Projet
         acronyme: PTEST
+        societe: '@societe'
 
 App\Entity\FaitMarquant:
     fait:
@@ -63,8 +64,3 @@ App\Entity\Societe:
     societe:
         raisonSociale: Société
         siret: 111111111
-        statut: '@societe_active'
-
-App\Entity\SocieteStatut:
-    societe_active:
-        libelle: Activée

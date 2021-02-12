@@ -72,13 +72,13 @@ class ProjetCreatedActivity implements ActivityHandlerInterface
             ->setType(self::TYPE)
             ->setParameters([
                 'projet' => intval($projet->getId()),
-                'createdBy' => intval($projet->getChefDeProjet()->getId()),
+                'createdBy' => intval($chefDeProjet->getId()),
             ])
         ;
 
         $userActivity = new UserActivity();
         $userActivity
-            ->setUser($projet->getChefDeProjet())
+            ->setUser($chefDeProjet)
             ->setActivity($activity)
         ;
 

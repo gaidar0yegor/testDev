@@ -18,8 +18,3 @@ App\Entity\SlackAccessToken:
 App\Entity\Societe:
     societe:
         raisonSociale: SociétéTest
-        statut: '@societe_active'
-
-App\Entity\SocieteStatut:
-    societe_active:
-        libelle: Activée

@@ -11,18 +11,22 @@ App\Entity\Projet:
     projet1:
         titre: Projet 1
         acronyme: P1
+        societe: '@societe'
     projet2:
         titre: Projet 2
         acronyme: P2
+        societe: '@societe'
         projetPpp: true
         dateDebut: <(new DateTime("2010-11-01"))>
     projet3:
         titre: Projet 3
         acronyme: P3
+        societe: '@societe'
         dateFin: <(new DateTime("2025-11-01"))>
     projet_fini:
         titre: Projet fini
         acronyme: P4
+        societe: '@societe'
         dateFin: <(new DateTime("2017-11-01"))>
 
 App\Entity\ProjetParticipant:
@@ -101,9 +105,4 @@ App\Entity\Societe:
     societe:
         raisonSociale: SociétéTest
         siret: 111111111
-        statut: '@societe_active'
         heuresParJours: 7
-
-App\Entity\SocieteStatut:
-    societe_active:
-        libelle: Activée

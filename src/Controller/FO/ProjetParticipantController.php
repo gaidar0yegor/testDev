@@ -32,7 +32,7 @@ class ProjetParticipantController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             // Empêche de faire basculer le projet dans une autre société
-            if (!$societeChecker->isSameSociete($projet->getChefDeProjet(), $this->getUser())) {
+            if (!$societeChecker->isSameSociete($projet->getSociete(), $this->getUser())) {
                 throw $this->createAccessDeniedException();
             }
 

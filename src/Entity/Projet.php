@@ -49,6 +49,12 @@ class Projet implements HasSocieteInterface
     private $dateFin;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="projets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $societe;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $projetCollaboratif;
@@ -169,6 +175,18 @@ class Projet implements HasSocieteInterface
     public function setDateFin(?\DateTimeInterface $dateFin): self
     {
         $this->dateFin = $dateFin;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->societe;
+    }
+
+    public function setSociete(?Societe $societe): self
+    {
+        $this->societe = $societe;
 
         return $this;
     }
@@ -388,11 +406,6 @@ class Projet implements HasSocieteInterface
         }
 
         throw new RdiException('This projet has no Chef de Projet');
-    }
-
-    public function getSociete(): ?Societe
-    {
-        return $this->getChefDeProjet()->getSociete();
     }
 
     public function isRdi(): bool

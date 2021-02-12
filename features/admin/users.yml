@@ -24,21 +24,16 @@ App\Entity\Societe:
     societe:
         raisonSociale: SociétéTest
         siret: 111111111
-        statut: '@societe_active'
         heuresParJours: ~
     societe2:
         raisonSociale: AutreSociété
         siret: 222222222
-        statut: '@societe_active'
-
-App\Entity\SocieteStatut:
-    societe_active:
-        libelle: Activée
 
 App\Entity\Projet:
     projet:
         titre: ProjetTest
         acronyme: PT
+        societe: '@societe'
 
 App\Entity\ProjetParticipant:
     user_projet:

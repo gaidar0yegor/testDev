@@ -34,26 +34,10 @@ php bin/console doctrine:database:drop --force
 # Initialize database and fixtures
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force --complete
-FIXTURES=fixtures/demo php bin/console hautelook:fixtures:load --no-interaction
-
-# Charger les fixtures sur environnement de dev sous windows
-#remplacer la ligne suivante : 
-FIXTURES=fixtures/demo php bin/console hautelook:fixtures:load --no-interaction
-# par ces 2 lignes (commande sous windows à lancer avant pour pouvoir installer les fixtures de test)
-set FIXTURES=fixtures/demo 
 php bin/console hautelook:fixtures:load --no-interaction
 
 # Install js dependencies
 yarn
-
-### PHP Activation des extensions : les fichiers suivants :  php.ini / php.ini-development /php.ini-production
-# pour l'envoi des invitations décommenter la ligne 
-;extension=xsl
-# pour la gestion des dates décommenter la ligne 
-;extension=sodium
-# pour l'export au format excel/ods, décommenter la ligne
-;extension=zip
-#Puis relancer le serveur
 
 # Run application
 symfony serve
@@ -69,6 +53,24 @@ And login with:
 - Admin: `admin@societe.dev` / `admin`
 - Chef de projet: `cdp@societe.dev` / `cdp`
 - User: `user@societe.dev` / `user`
+
+### Activation des extensions sous windows
+
+PHP Activation des extensions modifier les fichiers suivants :
+
+- php.ini
+- php.ini-development
+- php.ini-production
+
+et décommenter :
+
+```
+extension=xsl
+extension=sodium
+extension=zip
+```
+
+Puis relancer le serveur
 
 ### `.env.local`
 

@@ -45,6 +45,7 @@ class ProjetResourceVoterTest extends TestCase
 
         $projet = new Projet();
         $projet
+            ->setSociete($societe)
             ->addProjetParticipant(ProjetParticipant::create($cdp, $projet, Role::CDP))
         ;
 

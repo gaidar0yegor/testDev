@@ -3,6 +3,7 @@ App\Entity\Projet:
         titre: <sentence()>
         acronyme: P<current()>
         resume: <paragraphs(5, true)>
+        societe: '@societe'
         projetCollaboratif: <boolean()>
         projetPpp: <boolean()>
         projetInterne: <boolean()>
