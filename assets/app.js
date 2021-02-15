@@ -18,3 +18,4 @@ import './js/admin-user-chart-temps-projets';
 import './js/filter-projets-by-selected-year';
 import './js/main';
 import './js/checkbox.js';
+import './js/limit-description'

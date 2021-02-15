@@ -1,12 +1,15 @@
-{{ form_start(form) }}
-{{ form_errors(form) }}
+ {{ form_start(form) }}
+        {{ form_errors(form) }}
 
-{{ form_widget(form) }}
+        {{ form_row(form.titre) }}
 
-<div class="text-center mt-5">
-    <button class="btn btn-success">
-        {{ button_label|default('Sauvegarder') }}
-    </button>
-</div>
+        {{ form_row(form.description)}}
+        <small><p class="text-muted">Texte: <span id="count-carac"></span></p></small>
+        {{ form_row(form.fichierProjets) }}
+        <div class="text-center mt-5">
+            <button class="btn btn-success">
+                {{ button_label|default('Sauvegarder') }}
+            </button>
+        </div>
 
 {{ form_end(form) }}

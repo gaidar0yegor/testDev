@@ -28,6 +28,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Réparé
 - Bug quand on va sur la page de modification du nombre d'heures de la société
 
+- Limitation dans l'ajout et la modification des faits marquants à 750 caractères. Blocage à 800 et ajout d'un compteur
+
+
 ## [0.13.0] - 2021-02-02 🤵
 ### Ajouté
 - Onboarding des nouveaux administrateurs
