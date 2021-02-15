@@ -1,6 +1,6 @@
 // On selectionne l'element textarea et l'élement p#counterBlock
 var textarea = document.querySelector('#fait_marquant_description');
-var blockCount = document.getElementById('fait_marquant_description_help');
+var blockCount = document.getElementById('count-carac');
 
 function count() {
     // la fonction count calcule la longueur de la chaîne de caractère contenue dans le textarea
@@ -10,10 +10,10 @@ function count() {
 
    // si le count descend sous 0 on ajoute la class red à la balise p#counterBlock
    if(count<0) {
-    	blockCount.classList.add("red");
+    	blockCount.classList.add("text-danger");
    }
    else if(count>=0) {
-     	blockCount.classList.remove("red");
+     	blockCount.classList.remove("text-danger");
    }
    else{}
 }

@@ -16,21 +16,7 @@
             Annuler et retourner au projet
         </a>
 
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-
-        {{ form_row(form.titre) }}
-
-        {{ form_row(form.description, {'help': 'h'}) }}
-        {{ form_row(form.fichierProjets) }}
-        <div class="text-center mt-5">
-            <button class="btn btn-success">
-                {{ button_label|default('Sauvegarder') }}
-            </button>
-        </div>
-
-        {{ form_end(form) }}
-
+       {{ include('fait_marquant/_form.html.twig') }}
     </div>
 </div>
 
