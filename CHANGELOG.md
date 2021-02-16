@@ -9,7 +9,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajout de la selection des dates pour l'export des faits marquants
 - Permettre à l'admin de connecter RDI-Manager à Slack pour envoyer les notifications de rappel de saisie des temps sur une chaîne Slack.
 
+- Fait Marquant limité a 750 caractères (ajout d'un compteur)
 
+### Modifié
+- Modification de la vue pour le filtre de tout les projets par années (boutton, alignement du choid des dates)
 
 
 ## [0.14.0] - 2021-02-09
