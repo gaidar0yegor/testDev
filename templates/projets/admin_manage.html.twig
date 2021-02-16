@@ -1,0 +1,96 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Projet {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>
+    Projet {{ projet.acronyme }}<br>
+    <small class="text-muted">Chef de projet : {{ projet.chefDeProjet|entityLink }}</small>
+</h1>
+
+<a class="d-block mb-4 text-center" href="{{ path('app_fo_projet', {'id': projet.id}) }}">
+    Aller sur le projet
+</a>
+
+<div class="row">
+    <div class="col-lg-10 offset-lg-1">
+        <a class="d-block mb-4" href="{{ path('app_fo_admin_projets') }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            Liste de tous les projets
+        </a>
+
+        <div class="card-deck mb-4">
+            <div class="card rdi-card-icon text-center">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title">Contributeurs</h5>
+                            <p class="card-text display-4 mb-0">
+                                {{ projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CONTRIBUTEUR'))|length }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card rdi-card-icon text-center">
+                <i class="fa fa-road" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title">Faits marquants</h5>
+                            <p class="card-text display-4 mb-0">
+                                {{ projet.faitMarquants|length }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if projet.rdiScore is not null %}
+                <div class="card rdi-card-icon text-center">
+                    <i class="fa fa-flask" aria-hidden="true"></i>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                                <h5 class="card-title">Score RDI</h5>
+                                <h6 class="card-subtitle mb-2 deck text-muted">elligibilité RDI évaluée par l'algorithme RDI-Manager</h6>
+                                <p class="card-text display-4 mb-0">
+                                    {% if projet.rdiScoreReliability > 0.5 %}
+                                        <span class="rdi-percent text-success">{{ (projet.rdiScore * 100)|round }}<sup>/ 100</sup></span>
+                                    {% else %}
+                                        <span class="rdi-percent text-muted">N/A</span>
+                                    {% endif %}
+                                </p>
+                                {% if projet.rdiScoreReliability > 0.5 %}
+                                    <small class="text-muted">
+                                        Score fiable à {{ (projet.rdiScoreReliability * 100)|round }} %.
+                                    </small>
+                                {% else %}
+                                    <small class="text-muted">
+                                        Ce projet ne contient pas encore assez de texte et de faits marquants
+                                        pour calculer un score précis.
+                                    </small>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <h3 class="text-center">Temps passés en %</h3>
+
+        <div
+            class="year-switch text-center"
+            data-event-name="projet-chart-year-changed"
+            {% if projet.dateDebut %}
+                data-year-from="{{ projet.dateDebut|date('Y') }}"
+            {% endif %}
+        ></div>
+
+        <div id="chart-projet-users-temps" data-projet-id="{{ projet.id }}"></div>
+    </div>
+</div>
+
+{% endblock %}

@@ -54,7 +54,7 @@
                         </a>
                     </div>
                 </li>
-                <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_admin_utilisateurs', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_notification') }}">
+                <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_admin_utilisateurs', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_projet', 'app_fo_admin_notification') }}">
                     <a
                         class="nav-link dropdown-toggle {{ is_granted('ROLE_FO_ADMIN') ? '' : 'disabled' }}"
                         {% if not is_granted('ROLE_FO_ADMIN') %}

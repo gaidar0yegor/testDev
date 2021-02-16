@@ -22,6 +22,7 @@
                 <th class="d-none d-md-table-cell">Fin</th>
                 <th class="d-none d-md-table-cell">Statut</th>
                 <th>Nb Participants</th>
+                <th></th>
             </tr>
         </thead>
         <tbody class="filter-projets-by-selected-year">
@@ -36,6 +37,11 @@
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.statut }}</td>
                     <td class="text-center">{{projet.projetParticipants|length}}</td>
+                    <td class="text-center">
+                        <a href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}">
+                            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

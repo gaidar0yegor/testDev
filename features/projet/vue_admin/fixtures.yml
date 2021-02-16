@@ -1,0 +1,24 @@
+App\Entity\User:
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: admin
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet:
+        titre: Projet
+        acronyme: PTEST
+        societe: '@societe'
+
+App\Entity\ProjetParticipant:
+    projet_cdp:
+        user: '@admin'
+        projet: '@projet'
+        role: '<(App\Role::CDP)>'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société
