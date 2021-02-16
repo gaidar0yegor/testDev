@@ -56,7 +56,30 @@
                             <div class="col-md-6">{{ projet.statut }}</div>
                         </div>
                     </div>
+                    <div>
+                    <!-- Scroll bar present and enabled when more contents -->
+                    <strong>Participants :</strong>
+                            <div style="width: 450px; height: 100px; overflow-y: scroll;background-color:white;" class="col-sm ">
+
+                            {% if projet.ProjetParticipants() %}
+
+                {% for ProjetParticipant in projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CONTRIBUTEUR'))%}
+
+
+                        <li>{{ ProjetParticipant.user.fullname }} &#x2794; {{ ProjetParticipant.role|trans }}</li>
+
+                {% endfor %}
+
+    
+
+            {% else %}
+                <p>Ce projet n'a pas encore de contributeur.</p>
+            {% endif %}
+
+                            </div>
+                    </div>
                 </div>
+
             </div>
         </div>
 
