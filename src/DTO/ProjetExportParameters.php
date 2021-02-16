@@ -15,7 +15,7 @@ class ProjetExportParameters
 
     private ?DateTime $dateFin;
 
-    public function getdateDebut(): DateTime
+    public function getdateDebut(): ?DateTime
     {
         return $this->dateDebut;
     }
@@ -27,7 +27,7 @@ class ProjetExportParameters
         return $this;
     }
 
-    public function getdateFin(): DateTime
+    public function getdateFin(): ?DateTime
     {
         return $this->dateFin;
     }

@@ -61,7 +61,6 @@ class ProjetController extends AbstractController
         ;
 
         $projet
-            ->setSociete($this->getUser()->getSociete())
             ->addProjetParticipant($participant)
             ->setDateDebut(new \DateTime())
             ->setDateFin((new \DateTime())->modify('+2 years'))
