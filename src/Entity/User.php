@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  *      fields={"email"},
- *      groups={"Default", "invitation"},
+ *      groups={"Default", "invitation", "registration"},
  *      message="There is already an account with this email"
  * )
  * @AppAssert\DatesOrdered(
@@ -50,11 +50,15 @@ class User implements UserInterface, HasSocieteInterface
 
     /**
      * @ORM\Column(type="string", length=63, nullable=true)
+     *
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=63, nullable=true)
+     *
+     * @Assert\NotBlank(groups={"registration"})
      */
     private $prenom;
 

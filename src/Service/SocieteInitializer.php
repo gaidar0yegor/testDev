@@ -6,8 +6,10 @@ use App\DTO\InitSociete;
 use App\Entity\Societe;
 use App\Entity\User;
 use App\Exception\RdiException;
+use Doctrine\Common\EventSubscriber;
+use Doctrine\ORM\Events;
 
-class SocieteInitializer
+class SocieteInitializer implements EventSubscriber
 {
     private TokenGenerator $tokenGenerator;
 
@@ -54,5 +56,17 @@ class SocieteInitializer
         $notifications->setSmsEnabled(true);
 
         $this->societeNotificationsService->persistAll($societe, $notifications);
+    }
+
+    public function getSubscribedEvents(): array
+    {
+        return [
+            Events::postPersist,
+        ];
+    }
+
+    public function postPersist(Societe $societe): void
+    {
+        $this->initializeCronJobs($societe);
     }
 }

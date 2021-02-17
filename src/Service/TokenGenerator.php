@@ -14,4 +14,9 @@ class TokenGenerator
 
         return sodium_bin2base64($bytes, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
     }
+
+    public function generate6DigitVerificationCode(): string
+    {
+        return str_pad(''.rand(100, 999999), 6, '0', STR_PAD_LEFT);
+    }
 }

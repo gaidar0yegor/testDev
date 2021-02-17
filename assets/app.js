@@ -1,8 +1,10 @@
 // Entrypoint for all logged in parts of application (requires base)
 
 import '../node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker.css';
+import './styles/form-card-choice.scss';
 import './styles/styles.css';
 import './styles/timeline.css';
+import './styles/register.scss';
 
 import 'bootstrap';
 import 'bootstrap-datepicker';

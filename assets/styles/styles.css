@@ -267,3 +267,9 @@ h5 {
     font-size: 0.3em;
     top: 0;
 }
+
+.rdi-verification-code {
+    letter-spacing: 0.25em;
+    font-size: 1.5em;
+    font-family: monospace;
+}

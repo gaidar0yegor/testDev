@@ -36,6 +36,13 @@ services:
         calls:
             - setSocieteRepository: ['@App\Repository\SocieteRepository']
 
+    App\Service\SocieteInitializer:
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\Societe'
+
     App\Command\TestSmsCommand:
         $smsDsn: '%env(SMS_DSN)%'
 
