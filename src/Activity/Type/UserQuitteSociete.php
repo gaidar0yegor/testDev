@@ -2,19 +2,16 @@
 
 namespace App\Activity\Type;
 
-use App\Activity\ActivityEvent;
-use App\Activity\ActivityHandlerInterface;
+use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\User;
 use App\Entity\UserActivity;
 use App\Service\EntityLink\EntityLinkService;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class UserQuitteSociete implements ActivityHandlerInterface
+class UserQuitteSociete implements ActivityInterface
 {
-    public const TYPE = 'user_quitte_societe';
-
     private EntityLinkService $entityLinkService;
 
     public function __construct(EntityLinkService $entityLinkService)
@@ -24,7 +21,7 @@ class UserQuitteSociete implements ActivityHandlerInterface
 
     public static function getType(): string
     {
-        return self::TYPE;
+        return 'user_quitte_societe';
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -36,7 +33,7 @@ class UserQuitteSociete implements ActivityHandlerInterface
         $resolver->setAllowedTypes('user', 'integer');
     }
 
-    public function render(array $activityParameters): string
+    public function render(array $activityParameters, string $activityType): string
     {
         return sprintf(
             '%s %s a quitté la société.',
@@ -45,16 +42,10 @@ class UserQuitteSociete implements ActivityHandlerInterface
         );
     }
 
-    public function getSubscribedEvent(): array
+    public function postUpdate(User $user, LifecycleEventArgs $args): ?Activity
     {
-        return [User::class, ActivityEvent::UPDATED];
-    }
+        $em = $args->getEntityManager();
 
-    /**
-     * @param User $user
-     */
-    public function onEvent($user, EntityManagerInterface $em): ?Activity
-    {
         $oldUserActivities = $em
             ->createQueryBuilder()
             ->from(UserActivity::class, 'userActivity')
@@ -64,7 +55,7 @@ class UserQuitteSociete implements ActivityHandlerInterface
             ->andWhere('activity.type = :type')
             ->setParameters([
                 'user' => $user,
-                'type' => self::TYPE,
+                'type' => self::getType(),
             ])
             ->getQuery()
             ->getResult()
@@ -82,7 +73,7 @@ class UserQuitteSociete implements ActivityHandlerInterface
 
         $activity = new Activity();
         $activity
-            ->setType(self::TYPE)
+            ->setType(self::getType())
             ->setDatetime($user->getDateSortie())
             ->setParameters([
                 'user' => intval($user->getId()),

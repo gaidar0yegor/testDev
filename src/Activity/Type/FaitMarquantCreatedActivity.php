@@ -2,8 +2,7 @@
 
 namespace App\Activity\Type;
 
-use App\Activity\ActivityEvent;
-use App\Activity\ActivityHandlerInterface;
+use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
@@ -11,13 +10,11 @@ use App\Entity\ProjetActivity;
 use App\Entity\User;
 use App\Entity\UserActivity;
 use App\Service\EntityLink\EntityLinkService;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FaitMarquantCreatedActivity implements ActivityHandlerInterface
+class FaitMarquantCreatedActivity implements ActivityInterface
 {
-    public const TYPE = 'fait_marquant_created';
-
     private EntityLinkService $entityLinkService;
 
     public function __construct(EntityLinkService $entityLinkService)
@@ -27,7 +24,7 @@ class FaitMarquantCreatedActivity implements ActivityHandlerInterface
 
     public static function getType(): string
     {
-        return self::TYPE;
+        return 'fait_marquant_created';
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -43,7 +40,7 @@ class FaitMarquantCreatedActivity implements ActivityHandlerInterface
         $resolver->setAllowedTypes('faitMarquant', 'integer');
     }
 
-    public function render(array $activityParameters): string
+    public function render(array $activityParameters, string $activityType): string
     {
         return sprintf(
             '%s %s a ajouté le fait marquant %s sur le projet %s.',
@@ -54,19 +51,11 @@ class FaitMarquantCreatedActivity implements ActivityHandlerInterface
         );
     }
 
-    public function getSubscribedEvent(): array
-    {
-        return [FaitMarquant::class, ActivityEvent::CREATED];
-    }
-
-    /**
-     * @param FaitMarquant $faitMarquant
-     */
-    public function onEvent($faitMarquant, EntityManagerInterface $em): ?Activity
+    public function postPersist(FaitMarquant $faitMarquant, LifecycleEventArgs $args): ?Activity
     {
         $activity = new Activity();
         $activity
-            ->setType(self::TYPE)
+            ->setType(self::getType())
             ->setParameters([
                 'projet' => intval($faitMarquant->getProjet()->getId()),
                 'createdBy' => intval($faitMarquant->getCreatedBy()->getId()),
@@ -85,6 +74,8 @@ class FaitMarquantCreatedActivity implements ActivityHandlerInterface
             ->setProjet($faitMarquant->getProjet())
             ->setActivity($activity)
         ;
+
+        $em = $args->getEntityManager();
 
         $em->persist($activity);
         $em->persist($userActivity);

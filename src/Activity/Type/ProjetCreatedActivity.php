@@ -2,8 +2,7 @@
 
 namespace App\Activity\Type;
 
-use App\Activity\ActivityEvent;
-use App\Activity\ActivityHandlerInterface;
+use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\Projet;
 use App\Entity\ProjetActivity;
@@ -12,12 +11,11 @@ use App\Entity\UserActivity;
 use App\Exception\RdiException;
 use App\Service\EntityLink\EntityLinkService;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProjetCreatedActivity implements ActivityHandlerInterface
+class ProjetCreatedActivity implements ActivityInterface
 {
-    public const TYPE = 'projet_created';
-
     private EntityLinkService $entityLinkService;
 
     public function __construct(EntityLinkService $entityLinkService)
@@ -27,7 +25,7 @@ class ProjetCreatedActivity implements ActivityHandlerInterface
 
     public static function getType(): string
     {
-        return self::TYPE;
+        return 'projet_created';
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -41,7 +39,7 @@ class ProjetCreatedActivity implements ActivityHandlerInterface
         $resolver->setAllowedTypes('createdBy', 'integer');
     }
 
-    public function render(array $activityParameters): string
+    public function render(array $activityParameters, string $activityType): string
     {
         return sprintf(
             '%s %s a créé le projet %s.',
@@ -51,15 +49,7 @@ class ProjetCreatedActivity implements ActivityHandlerInterface
         );
     }
 
-    public function getSubscribedEvent(): array
-    {
-        return [Projet::class, ActivityEvent::CREATED];
-    }
-
-    /**
-     * @param Projet $projet
-     */
-    public function onEvent($projet, EntityManagerInterface $em): ?Activity
+    public function postPersist(Projet $projet, LifecycleEventArgs $args): ?Activity
     {
         try {
             $chefDeProjet = $projet->getChefDeProjet();
@@ -69,7 +59,7 @@ class ProjetCreatedActivity implements ActivityHandlerInterface
 
         $activity = new Activity();
         $activity
-            ->setType(self::TYPE)
+            ->setType(self::getType())
             ->setParameters([
                 'projet' => intval($projet->getId()),
                 'createdBy' => intval($chefDeProjet->getId()),
@@ -87,6 +77,8 @@ class ProjetCreatedActivity implements ActivityHandlerInterface
             ->setProjet($projet)
             ->setActivity($activity)
         ;
+
+        $em = $args->getEntityManager();
 
         $em->persist($activity);
         $em->persist($userActivity);
