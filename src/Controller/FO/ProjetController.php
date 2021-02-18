@@ -151,7 +151,7 @@ class ProjetController extends AbstractController
     /**
      * @Route("/{id}.pdf", name="app_fo_projet_pdf")
      */
-    public function ficheProjetGeneratePdf(Projet $projet)
+    public function ficheProjetGeneratformatePdf(Projet $projet)
     {
         $this->denyAccessUnlessGranted('view', $projet);
 
@@ -190,6 +190,14 @@ class ProjetController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $customTime = $form->getData();
+            if ($customTime->getformat() == 'html') {
+
+                return $this->render('projets/pdf/pdf_fiche_projet.html.twig', [
+                    'customTime' => $customTime,
+                    'projet' => $projet,
+                ]);
+            }
+
             $sheetHtml = $this->renderView('projets/pdf/pdf_fiche_projet.html.twig', [
                 'customTime' => $customTime,
                 'projet' => $projet,
