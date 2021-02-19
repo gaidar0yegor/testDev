@@ -1,0 +1,9 @@
+{% extends 'register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-3">Inscription terminée !</h1>
+
+    <p class="lead">Votre compte RDI-Manager est maintenant créé.</p>
+
+    <a class="btn btn-lg btn-success" href="{{ path('app_home') }}">Aller sur mon espace</a>
+{% endblock %}

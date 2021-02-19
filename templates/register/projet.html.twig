@@ -1,0 +1,22 @@
+{% extends 'register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-1">Créer mon projet</h1>
+
+    <p>
+        Vos collaborateurs pourront saisir leurs temps passé sur ce projet,
+        ou encore ajouter les faits marquants.
+    </p>
+    <p class="mb-4">
+        <a href="{{ path('app_register_collaborators') }}" class="btn btn-sm btn-outline-primary">Passer cette étape</a>
+        <small class="text-muted">Vous pourrez toujours créer votre projet plus tard.</small>
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-lg btn-primary">Continuer</button>
+
+    {{ form_end(form) }}
+{% endblock %}
