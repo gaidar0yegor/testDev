@@ -17,9 +17,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use App\DTO\ProjetExportParameters;
+use App\Entity\Societe;
 use App\Form\ProjetExportType;
 use App\Repository\UserRepository;
-use App\Service\UserHasActivate;
+use App\Service\UserHasActivateService;
+use ContainerIFqfzog\getUserHasActivateService;
 
 /**
  * @Route("/projets")
@@ -126,18 +128,14 @@ class ProjetController extends AbstractController
     /**
      * @Route("/{id}", name="app_fo_projet", requirements={"id"="\d+"})
      */
-    public function ficheProjet(Projet $projet, UserHasActivate $userToken, UserRepository $userRepo)
+    public function ficheProjet(Projet $projet)
     {
         $this->denyAccessUnlessGranted('view', $projet);
 
-        
-        $userToken = $userToken->getIfThereIsToken($userRepo);
-        dd($userToken);
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
             'userCanEditProjet' => $this->isGranted('edit', $projet),
             'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
-            'userToken' =>$userToken,
         ]);
     }
 

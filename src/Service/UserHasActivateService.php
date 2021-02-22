@@ -2,16 +2,14 @@
 
 namespace App\Service;
 
-
+use App\Entity\Societe;
 use App\Repository\UserRepository;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
-
-class UserHasActivate
+class UserHasActivateService
 {
-    public function getIfThereIsToken(UserRepository $userRepo) {
+    public function getIfThereIsToken() {
 
-        $userToken = $userRepo->findBy(['invitationToken' => 'null']);
-
-        return $userToken;
+    
     }
 }
