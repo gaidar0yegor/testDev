@@ -65,7 +65,6 @@
     </div>
     <section id="timeline">
         <h2 class="facts">Faits marquants</h2>
-{{dump(customTime)}}
         {% if projet.hasFaitMarquants() %}
         <ul class="timeline">
             {% for faitMarquant in projet.faitMarquants %}

@@ -17,19 +17,19 @@ App\Entity\FaitMarquant:
     fait0:
         titre: Fait marquant un
         description: Contenu du fait marquant déjà créé.
-        date: <(new DateTime("2021-02-09"))>
+        date: <(new DateTime("2021-01-09"))>
         createdBy: '@cdp'
         projet: '@projet'
     fait1:
         titre: Fait marquant deux
         description: Contenu du fait marquant déjà créé.
-        date: <(new DateTime("2021-03-09"))>
+        date: <(new DateTime("2021-02-09"))>
         createdBy: '@cdp'
         projet: '@projet'
     fait2:
         titre: Fait marquant trois
         description: Contenu du fait marquant déjà créé.
-        date: <(new DateTime("2021-01-09"))>
+        date: <(new DateTime("2021-03-09"))>
         createdBy: '@cdp'
         projet: '@projet'
 
