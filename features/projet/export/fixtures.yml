@@ -1,25 +1,4 @@
 App\Entity\User:
-    observateur:
-        nom: Eureka
-        prenom: Observateur
-        email: observateur@societe.dev
-        password: observateur
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    contributeur:
-        nom: Eureka
-        prenom: Contributeur
-        email: contributeur@societe.dev
-        password: contributeur
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    contributeur2:
-        nom: Eureka
-        prenom: Contributeur2
-        email: contributeur2@societe.dev
-        password: contributeur2
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
     cdp:
         nom: Eureka
         prenom: Chef de projet
@@ -35,26 +14,26 @@ App\Entity\Projet:
         societe: '@societe'
 
 App\Entity\FaitMarquant:
-    fait:
-        titre: Fait marquant déjà créé
+    fait0:
+        titre: Fait marquant un
         description: Contenu du fait marquant déjà créé.
-        date: <(new DateTime("2020-11-09"))>
-        createdBy: '@contributeur'
+        date: <(new DateTime("2021-02-09"))>
+        createdBy: '@cdp'
+        projet: '@projet'
+    fait1:
+        titre: Fait marquant deux
+        description: Contenu du fait marquant déjà créé.
+        date: <(new DateTime("2021-03-09"))>
+        createdBy: '@cdp'
+        projet: '@projet'
+    fait2:
+        titre: Fait marquant trois
+        description: Contenu du fait marquant déjà créé.
+        date: <(new DateTime("2021-01-09"))>
+        createdBy: '@cdp'
         projet: '@projet'
 
 App\Entity\ProjetParticipant:
-    projet_observateur:
-        user: '@observateur'
-        projet: '@projet'
-        role: '<(App\Role::OBSERVATEUR)>'
-    projet_contributeur:
-        user: '@contributeur'
-        projet: '@projet'
-        role: '<(App\Role::CONTRIBUTEUR)>'
-    projet_contributeur2:
-        user: '@contributeur2'
-        projet: '@projet'
-        role: '<(App\Role::CONTRIBUTEUR)>'
     projet_cdp:
         user: '@cdp'
         projet: '@projet'
@@ -63,4 +42,3 @@ App\Entity\ProjetParticipant:
 App\Entity\Societe:
     societe:
         raisonSociale: Société
-        siret: 111111111
