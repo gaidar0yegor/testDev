@@ -11,7 +11,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Nouvelle vue admin d'un projet : affichage des temps passés par les contributeurs sur un projet
 
 
+- Ajout de la génération du HTML pour l'export des faits marquants
 
+### Modifié
+- Rectification bug, dans les choix des dates d'export (un des deux, où les deux)
 
 ## [0.14.0] - 2021-02-09
 ### Ajouté
