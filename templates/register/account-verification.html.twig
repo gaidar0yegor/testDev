@@ -1,0 +1,23 @@
+{% extends 'register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-2">Créer mon compte</h1>
+
+    <p class="lead">
+        Vous avez reçu un code de vérification à 6 chiffres
+        sur votre boîte email. Veuillez le saisir ici.
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-lg btn-primary">Continuer</button>
+
+    {{ form_end(form) }}
+
+    <p class="mt-4"><small>
+        Code de vérification non reçu ?
+        <a href="{{ path('app_register_account') }}">Revérifier mon adresse email</a>.
+    </small></p>
+{% endblock %}

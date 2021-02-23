@@ -1,0 +1,32 @@
+{% extends 'register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-1">Inviter mes collaborateurs</h1>
+
+    <p>
+        Vous pouvez inviter vos deux premiers collaborateurs
+        qui travaillent sur votre projets et qui pourront saisir
+        du temps passé dessus.
+    </p>
+    <p class="mb-4">
+        <a href="{{ path('app_register_finish') }}" class="btn btn-sm btn-outline-primary">Passer cette étape</a>
+        <small class="text-muted">Vous pourrez toujours inviter vos collaborateurs plus tard.</small>
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <h3 class="mb-4">Premier collaborateur</h3>
+
+    {{ form_row(form.email0) }}
+    {{ form_row(form.role0) }}
+
+    <h3 class="mb-4 mt-5">Deuxième collaborateur</h3>
+
+    {{ form_row(form.email1) }}
+    {{ form_row(form.role1) }}
+
+    <button type="submit" class="btn btn-lg btn-primary">Continuer</button>
+
+    {{ form_end(form) }}
+{% endblock %}

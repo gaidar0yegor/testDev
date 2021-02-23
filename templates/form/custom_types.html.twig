@@ -156,3 +156,19 @@
         </div>
     </div>
 {% endblock %}
+
+{% block card_choice_widget %}
+    <div class="card-group">
+        {% for childForm in form.children %}
+            <div class="card rdi-card-choice">
+                <div class="card-body">
+                    {% if faIcons[childForm.vars.value] is defined %}
+                        <i class="fa {{ faIcons[childForm.vars.value] }}" aria-hidden="true"></i>
+                    {% endif %}
+
+                    {{ form_row(childForm) }}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -31,8 +31,8 @@ class TwigExtension extends AbstractExtension
     public function renderActivity(Activity $activity): string
     {
         return $this->activityService
-            ->loadActivityHandler($activity->getType())
-            ->render($activity->getParameters())
+            ->loadActivityType($activity->getType())
+            ->render($activity->getParameters(), $activity->getType())
         ;
     }
 }

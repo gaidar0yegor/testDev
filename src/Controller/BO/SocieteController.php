@@ -8,7 +8,6 @@ use App\Entity\User;
 use App\Form\InitSocieteType;
 use App\Repository\SocieteRepository;
 use App\Service\Invitator;
-use App\Service\SocieteInitializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -91,7 +90,6 @@ class SocieteController extends AbstractController
     public function create(
         Request $request,
         Invitator $invitator,
-        SocieteInitializer $societeInitializer,
         EntityManagerInterface $em
     ) {
         $initSociete = new InitSociete();
@@ -106,9 +104,6 @@ class SocieteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($societe);
-            $em->flush();
-
-            $societeInitializer->initializeCronJobs($societe);
             $em->flush();
 
             $this->addFlash('success', sprintf(

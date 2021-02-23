@@ -11,20 +11,25 @@ use App\Entity\User;
 use App\Entity\UserActivity;
 use App\Service\EntityLink\EntityLinkService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
-class FaitMarquantCreatedActivity implements ActivityInterface
+class FaitMarquantModifiedActivity implements ActivityInterface
 {
     private EntityLinkService $entityLinkService;
 
-    public function __construct(EntityLinkService $entityLinkService)
+    private Security $security;
+
+    public function __construct(EntityLinkService $entityLinkService, Security $security)
     {
         $this->entityLinkService = $entityLinkService;
+        $this->security = $security;
     }
 
     public static function getType(): string
     {
-        return 'fait_marquant_created';
+        return 'fait_marquant_modified';
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -32,40 +37,60 @@ class FaitMarquantCreatedActivity implements ActivityInterface
         $resolver->setRequired([
             'projet',
             'createdBy',
+            'modifiedBy',
             'faitMarquant',
         ]);
 
         $resolver->setAllowedTypes('projet', 'integer');
-        $resolver->setAllowedTypes('createdBy', 'integer');
+        $resolver->setAllowedTypes('createdByBy', 'integer');
+        $resolver->setAllowedTypes('modifiedBy', 'integer');
         $resolver->setAllowedTypes('faitMarquant', 'integer');
     }
 
     public function render(array $activityParameters, string $activityType): string
     {
+        if ($activityParameters['createdBy'] === $activityParameters['modifiedBy']) {
+            return sprintf(
+                '%s %s a modifié son fait marquant %s sur le projet %s.',
+                '<i class="fa fa-edit" aria-hidden="true"></i>',
+                $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
+                $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
+                $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
+            );
+        }
+
         return sprintf(
-            '%s %s a ajouté le fait marquant %s sur le projet %s.',
-            '<i class="fa fa-map-marker" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['createdBy']),
+            '%s %s a modifié le fait marquant %s créé par %s sur le projet %s.',
+            '<i class="fa fa-edit" aria-hidden="true"></i>',
+            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
             $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
+            $this->entityLinkService->generateLink(User::class, $activityParameters['createdBy']),
             $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
         );
     }
 
-    public function postPersist(FaitMarquant $faitMarquant, LifecycleEventArgs $args): ?Activity
+    public function postUpdate(FaitMarquant $faitMarquant, LifecycleEventArgs $args): ?Activity
     {
+        $modifiedBy = $this->security->getUser();
+
+        if (!$modifiedBy instanceof User) {
+            throw new RuntimeException('Impossible to get current user to determine who modified FaitMarquant');
+        }
+
         $activity = new Activity();
         $activity
             ->setType(self::getType())
             ->setParameters([
                 'projet' => intval($faitMarquant->getProjet()->getId()),
                 'createdBy' => intval($faitMarquant->getCreatedBy()->getId()),
+                'modifiedBy' => intval($modifiedBy->getId()),
                 'faitMarquant' => intval($faitMarquant->getId()),
             ])
         ;
 
         $userActivity = new UserActivity();
         $userActivity
-            ->setUser($faitMarquant->getCreatedBy())
+            ->setUser($modifiedBy)
             ->setActivity($activity)
         ;
 

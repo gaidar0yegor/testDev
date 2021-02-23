@@ -1,0 +1,12 @@
+App\Entity\User:
+    admin:
+        nom: NomAdmin
+        prenom: PrénomAdmin
+        email: admin@societe.dev
+        password: admin
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: MaSociétéTest

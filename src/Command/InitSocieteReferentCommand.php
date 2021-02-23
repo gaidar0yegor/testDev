@@ -5,7 +5,6 @@ namespace App\Command;
 use App\DTO\InitSociete;
 use App\Entity\User;
 use App\Service\Invitator;
-use App\Service\SocieteInitializer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,21 +20,17 @@ class InitSocieteReferentCommand extends Command
 
     private Invitator $invitator;
 
-    private SocieteInitializer $societeInitializer;
-
     private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         EntityManagerInterface $em,
         Invitator $invitator,
-        SocieteInitializer $societeInitializer,
         UrlGeneratorInterface $urlGenerator
     ) {
         parent::__construct();
 
         $this->em = $em;
         $this->invitator = $invitator;
-        $this->societeInitializer = $societeInitializer;
         $this->urlGenerator = $urlGenerator;
     }
 
@@ -97,9 +92,6 @@ class InitSocieteReferentCommand extends Command
         }
 
         $this->em->persist($societe);
-        $this->em->flush();
-
-        $this->societeInitializer->initializeCronJobs($societe);
         $this->em->flush();
 
         $message = [

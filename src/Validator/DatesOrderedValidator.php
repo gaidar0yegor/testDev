@@ -3,6 +3,8 @@
 namespace App\Validator;
 
 use ReflectionClass;
+use ReflectionException;
+use ReflectionProperty;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
@@ -20,8 +22,8 @@ class DatesOrderedValidator extends ConstraintValidator
         }
 
         $class = new ReflectionClass(get_class($entity));
-        $propertyDateStart = $class->getProperty($constraint->start);
-        $propertyDateEnd = $class->getProperty($constraint->end);
+        $propertyDateStart = self::getProperty($class, $constraint->start);
+        $propertyDateEnd = self::getProperty($class, $constraint->end);
 
         $propertyDateStart->setAccessible(true);
         $propertyDateEnd->setAccessible(true);
@@ -39,6 +41,28 @@ class DatesOrderedValidator extends ConstraintValidator
                 ->atPath($constraint->end)
                 ->addViolation()
             ;
+        }
+    }
+
+    /**
+     * Return reflection property of a class, or its parents.
+     */
+    private static function getProperty(ReflectionClass $class, string $propertyName, ReflectionException $rootException = null): ReflectionProperty
+    {
+        try {
+            return $class->getProperty($propertyName);
+        } catch (ReflectionException $e) {
+            $parent = $class->getParentClass();
+
+            if (null === $rootException) {
+                $rootException = $e;
+            }
+
+            if (!$parent) {
+                throw $rootException;
+            }
+
+            return self::getProperty($parent, $propertyName, $rootException);
         }
     }
 }

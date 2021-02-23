@@ -2,112 +2,58 @@
 
 namespace App\Activity;
 
-use App\Activity\Exception\UnimplementedActivityHandlerException;
+use App\Activity\Exception\UnimplementedActivityTypeException;
 use App\Entity\Activity;
-use Doctrine\Common\EventSubscriber;
-use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Events;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActivityService implements EventSubscriber
+class ActivityService
 {
     /**
-     * @var ActivityHandlerInterface[]
+     * @var ActivityInterface[]
      */
-    private iterable $activityHandlers;
+    private iterable $activityTypes;
 
-    private ?ActivityHandlerInterface $fallbackActivityHandler;
+    private ?ActivityInterface $fallbackActivityType;
 
-    public function __construct(iterable $activityHandlers)
+    public function __construct(iterable $activityTypes)
     {
-        $this->activityHandlers = $activityHandlers;
-        $this->fallbackActivityHandler = null;
+        $this->activityTypes = $activityTypes;
+        $this->fallbackActivityType = null;
+    }
+
+    public function setFallbackActivityType(ActivityInterface $activityType): void
+    {
+        $this->fallbackActivityType = $activityType;
     }
 
     public function checkActivity(Activity $activity): void
     {
-        $activityHandler = $this->loadActivityHandler($activity->getType());
+        $activityType = $this->loadActivityType($activity->getType());
 
-        $this->checkParameters($activity->getParameters(), $activityHandler);
+        $this->checkParameters($activity->getParameters(), $activityType);
     }
 
-    public function checkParameters(array $parameters, ActivityHandlerInterface $activityHandler): void
+    public function checkParameters(array $parameters, ActivityInterface $activityType): void
     {
         $optionsResolver = new OptionsResolver();
 
-        $activityHandler->configureOptions($optionsResolver);
+        $activityType->configureOptions($optionsResolver);
 
         $optionsResolver->resolve($parameters);
     }
 
-    public function setFallbackActivityHandler(ActivityHandlerInterface $activityHandler): void
+    public function loadActivityType(string $type): ActivityInterface
     {
-        $this->fallbackActivityHandler = $activityHandler;
-    }
-
-    public function loadActivityHandler(string $type): ActivityHandlerInterface
-    {
-        foreach ($this->activityHandlers as $key => $activityHandler) {
+        foreach ($this->activityTypes as $key => $activityType) {
             if ($key === $type) {
-                return $activityHandler;
+                return $activityType;
             }
         }
 
-        if (null === $this->fallbackActivityHandler) {
-            throw new UnimplementedActivityHandlerException($type);
+        if (null === $this->fallbackActivityType) {
+            throw new UnimplementedActivityTypeException($type);
         }
 
-        return $this->fallbackActivityHandler;
-    }
-
-    public function getSubscribedEvents(): array
-    {
-        return [
-            Events::postPersist,
-            Events::postUpdate,
-            Events::postRemove,
-        ];
-    }
-
-    public function postPersist(LifecycleEventArgs $args): void
-    {
-        $this->entityEvent(ActivityEvent::CREATED, $args);
-    }
-
-    public function postUpdate(LifecycleEventArgs $args): void
-    {
-        $this->entityEvent(ActivityEvent::UPDATED, $args);
-    }
-
-    public function postRemove(LifecycleEventArgs $args): void
-    {
-        $this->entityEvent(ActivityEvent::REMOVED, $args);
-    }
-
-    public function entityEvent(string $eventType, LifecycleEventArgs $args): void
-    {
-        $entity = $args->getEntity();
-        $entityClass = get_class($entity);
-        $em = $args->getEntityManager();
-
-        foreach ($this->activityHandlers as $activityHandler) {
-            list($listenerEntityType, $listenerEventType) = $activityHandler->getSubscribedEvent();
-
-            if ($listenerEventType !== $eventType) {
-                continue;
-            }
-
-            if ($listenerEntityType !== $entityClass) {
-                continue;
-            }
-
-            $activity = $activityHandler->onEvent($entity, $em);
-
-            if (null === $activity) {
-                continue;
-            }
-
-            $this->checkParameters($activity->getParameters(), $activityHandler);
-        }
+        return $this->fallbackActivityType;
     }
 }

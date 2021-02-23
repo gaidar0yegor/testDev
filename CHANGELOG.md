@@ -5,16 +5,24 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+- Fait Marquant limité a 750 caractères (ajout d'un compteur)
+
+### Modifié
+- Modification de la vue pour le filtre de tout les projets par années (boutton, alignement du choid des dates)
+### Réparé
+- Rectification bug, dans les choix des dates d'export (un des deux, où les deux)
+
+## [0.15.1] - 2021-02-19
+### Ajouté
+- Permettre à de nouveaux administrateurs de s'inscrire et d'ajouter leur société
+- Ajout de l'activité "X à modifié le fait marquant Y sur le projet Z"
+
+## [0.15.0] - 2021-02-17
 ### Ajouté
 - Ajout de la selection des dates pour l'export des faits marquants
 - Permettre à l'admin de connecter RDI-Manager à Slack pour envoyer les notifications de rappel de saisie des temps sur une chaîne Slack.
 - Nouvelle vue admin d'un projet : affichage des temps passés par les contributeurs sur un projet
-
-
-- Ajout de la génération du HTML pour l'export des faits marquants
-
-### Modifié
-- Rectification bug, dans les choix des dates d'export (un des deux, où les deux)
 
 ## [0.14.0] - 2021-02-09
 ### Ajouté
@@ -33,7 +41,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Bug quand on va sur la page de modification du nombre d'heures de la société
 
 - Limitation dans l'ajout et la modification des faits marquants à 750 caractères. Blocage à 800 et ajout d'un compteur
-
 
 ## [0.13.0] - 2021-02-02 🤵
 ### Ajouté

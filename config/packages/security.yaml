@@ -48,6 +48,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/creer-ma-societe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/inscription/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/recommander-rdi-manager, roles: IS_AUTHENTICATED_ANONYMOUSLY }

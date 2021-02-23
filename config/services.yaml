@@ -36,6 +36,13 @@ services:
         calls:
             - setSocieteRepository: ['@App\Repository\SocieteRepository']
 
+    App\Service\SocieteInitializer:
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\Societe'
+
     App\Command\TestSmsCommand:
         $smsDsn: '%env(SMS_DSN)%'
 
@@ -59,14 +66,40 @@ services:
     App\Controller\RecommanderController:
         $defaultMailFrom: '%env(MAILER_FROM)%'
 
-    App\Activity\Type\:
-        resource: '../src/Activity/Type/'
-        tags: ['app.activity_handler']
-
     App\Activity\ActivityService:
         arguments:
-            $activityHandlers: !tagged_iterator { tag: 'app.activity_handler', default_index_method: 'getType' }
-        tags: ['doctrine.event_subscriber']
+            $activityTypes: !tagged_iterator { tag: 'app.activity_type', default_index_method: 'getType' }
+        calls:
+            - setFallbackActivityType: ['@App\Activity\FallbackActivityType']
+
+    App\Activity\Type\:
+        resource: '../src/Activity/Type/'
+        tags: ['app.activity_type']
+
+    App\Activity\Type\FaitMarquantCreatedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
+
+    App\Activity\Type\FaitMarquantModifiedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\FaitMarquant }
+
+    App\Activity\Type\ProjetCreatedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Projet }
+
+    App\Activity\Type\UserQuitteSociete:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\User }
+
+    App\Activity\Type\UserRejointSociete:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\User }
 
     App\Service\EntityLink\EntityLinkGenerator\:
         resource: '../src/Service/EntityLink/EntityLinkGenerator/'
