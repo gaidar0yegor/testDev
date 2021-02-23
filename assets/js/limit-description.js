@@ -4,7 +4,8 @@ var blockCount = document.getElementById('count-carac');
 
 function count() {
     // la fonction count calcule la longueur de la chaîne de caractère contenue dans le textarea
-    var count = 750-textarea.value.length;
+    var count = 750-textarea.value.replace(/\n/g, '  ').length;
+
     // et affche cette valeur dans la balise p#counterBlock grâce à innerHTML
     blockCount.innerHTML= count;
 
