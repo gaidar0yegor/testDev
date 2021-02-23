@@ -5,7 +5,7 @@ namespace App\Form;
 use App\DTO\ProjetExportParameters;
 use App\Form\Custom\DatePickerType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,12 +15,18 @@ class ProjetExportType extends AbstractType
     {
         $builder
         ->add('dateDebut', DatePickerType::class, [
-            'required' => true,
+            'required' => false,
             'label' => 'Date de début',
         ])
         ->add('dateFin', DatePickerType::class, [
-            'required' => true,
+            'required' => false,
             'label' => 'Date de fin',
+        ])
+        ->add('format', ChoiceType::class, [
+            'choices' => [
+                '.pdf' => 'pdf',
+                'Page html' => 'html',
+            ],
         ])
         ;
     }

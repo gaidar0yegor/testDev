@@ -1,0 +1,44 @@
+App\Entity\User:
+    cdp:
+        nom: Eureka
+        prenom: Chef de projet
+        email: cdp@societe.dev
+        password: cdp
+        roles: [ROLE_FO_CDP]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet:
+        titre: Projet
+        acronyme: PTEST
+        societe: '@societe'
+
+App\Entity\FaitMarquant:
+    fait0:
+        titre: Fait marquant un
+        description: Contenu du fait marquant déjà créé.
+        date: <(new DateTime("2021-01-09"))>
+        createdBy: '@cdp'
+        projet: '@projet'
+    fait1:
+        titre: Fait marquant deux
+        description: Contenu du fait marquant déjà créé.
+        date: <(new DateTime("2021-02-09"))>
+        createdBy: '@cdp'
+        projet: '@projet'
+    fait2:
+        titre: Fait marquant trois
+        description: Contenu du fait marquant déjà créé.
+        date: <(new DateTime("2021-03-09"))>
+        createdBy: '@cdp'
+        projet: '@projet'
+
+App\Entity\ProjetParticipant:
+    projet_cdp:
+        user: '@cdp'
+        projet: '@projet'
+        role: '<(App\Role::CDP)>'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société

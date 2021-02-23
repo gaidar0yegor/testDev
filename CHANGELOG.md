@@ -10,7 +10,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ### Modifié
 - Modification de la vue pour le filtre de tout les projets par années (boutton, alignement du choid des dates)
-
+### Réparé
+- Rectification bug, dans les choix des dates d'export (un des deux, où les deux)
 
 ## [0.15.1] - 2021-02-19
 ### Ajouté

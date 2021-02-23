@@ -20,7 +20,17 @@
         </div>
 
     </div>
-    <button type="submit" class="btn btn-success btn-lg btn-block">Générer</button>
+      <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                       <button type="submit" class="btn btn-success">Générer</button>
+                    </div>
+                    {{ form_widget(form.format, {'attr': {'class': 'custom-select'}}) }}
+                </div>
+            </div>
+        </div>
+
     {{ form_end(form) }}
 </div>
 <section id="timeline">

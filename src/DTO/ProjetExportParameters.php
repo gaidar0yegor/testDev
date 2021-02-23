@@ -15,7 +15,18 @@ class ProjetExportParameters
 
     private ?DateTime $dateFin;
 
-    public function getdateDebut(): DateTime
+    /**
+     * "pdf" or "html"
+     */
+    private string $format;
+
+    public function __construct()
+    {
+        $this->format = 'pdf';
+    }
+
+
+    public function getdateDebut(): ?DateTime
     {
         return $this->dateDebut;
     }
@@ -27,7 +38,7 @@ class ProjetExportParameters
         return $this;
     }
 
-    public function getdateFin(): DateTime
+    public function getdateFin(): ?DateTime
     {
         return $this->dateFin;
     }
@@ -35,6 +46,18 @@ class ProjetExportParameters
     public function setdateFin(?DateTime $to): self
     {
         $this->dateFin = $to;
+
+        return $this;
+    }
+
+    public function getFormat(): string
+    {
+        return $this->format;
+    }
+
+    public function setFormat(string $format): self
+    {
+        $this->format = $format;
 
         return $this;
     }
