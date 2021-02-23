@@ -3,6 +3,7 @@
 {% block title %}Liste des projets{% endblock %}
 
 {% block body %}
+
     <h1>
         Mes projets de l'année
         <span
@@ -24,8 +25,8 @@
         </p>
     {% endif %}
 
-    <table class="table  text-center mx-auto m-5">
-        <thead>
+    <table class="table table-hover text-center mx-auto m-5">
+        <thead >
             <tr>
                 <th scope="col" class="text-left">Projet</th>
                 <th scope="col">Mon rôle</th>
@@ -36,12 +37,15 @@
             </tr>
         </thead>
         <tbody class="filter-projets-by-selected-year">
+
             {% for projet in projets %}
                 <tr
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
+                    onclick="location.href='{{ path('app_fo_projet', {'id': projet.id}) }}';"
+                    style="cursor: pointer;"
                 >
-                    <td scope="row" class="text-left"> <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ projet.acronyme }}</a> </td>
+                    <td title="{{ projet.titre }}" scope="row" class="text-left">{{ projet.acronyme }}</td>
                     <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
