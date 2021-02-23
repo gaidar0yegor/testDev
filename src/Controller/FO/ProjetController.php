@@ -17,11 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use App\DTO\ProjetExportParameters;
-use App\Entity\Societe;
 use App\Form\ProjetExportType;
-use App\Repository\UserRepository;
-use App\Service\UserHasActivateService;
-use ContainerIFqfzog\getUserHasActivateService;
 
 /**
  * @Route("/projets")
