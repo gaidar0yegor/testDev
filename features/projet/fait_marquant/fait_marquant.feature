@@ -87,3 +87,16 @@ Feature: Gestion des faits marquants d'un projet
 
         When I click on the 1st ".timeline a:contains('Modifier')" element
         Then I should see "Modifiez votre fait marquant" in the "h1" element
+
+     Scenario: Un collaborateur peut voir les contributeur du projet
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | cdp@societe.dev  |
+            | _password | cdp              |
+        And I press "Connexion"
+        And I am on "/projets/1"
+
+        Then I should see "Participants"
+        And I should see "Contributeur"
+        And I should see "Contributeur2"
+        And I should see "Observateur"
