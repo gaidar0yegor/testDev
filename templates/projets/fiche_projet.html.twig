@@ -66,7 +66,6 @@
 
                         {% for ProjetParticipant in projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CONTRIBUTEUR'))%}
                             {% if ProjetParticipant.user.invitationToken == null %}
-                            
 
                                 <li>{{ ProjetParticipant.user.fullname }} &#x2794; {{ ProjetParticipant.role|trans }}</li>
                             {% endif %}
@@ -74,16 +73,17 @@
                                                 <div>Il n'y a pas de contributeur pour l'instant</div>
                         {% endfor %}
                                         <!-- Button trigger modal -->
-                                <button type="button" class="mt-3 btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                <button type="button" class="mt-3 btn-block btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 Voir les observateurs
                                 </button>
 
                                 <!-- Modal -->
+
                                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Financeurs</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">{{ 'n_observateur'|trans({'n': projet.projetParticipants|filterByRoleExactly(constant('App\\Role::OBSERVATEUR'))|length}) }}</h5>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             </button>
