@@ -3,6 +3,7 @@ default:
         default:
             contexts:
                 - App\Tests\Behat\RdiContext
+                - App\Tests\Behat\RdiLicenseContext
                 - behatch:context:browser
                 - behatch:context:rest
                 - behatch:context:json

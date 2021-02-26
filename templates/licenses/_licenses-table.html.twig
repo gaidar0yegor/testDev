@@ -1,0 +1,45 @@
+<table class="table mx-auto m-5">
+    <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Valable jusqu'au</th>
+            <th>Quotas</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for filename, license in licenses %}
+            {% if not isLicenseSameSociete(license, entity) %}
+                <tr>
+                    <td colspan="4" class="text-muted">
+                        Cette license n'est pas liée à votre société.
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="{{ isLicenseExpired(license) ? 'text-muted' : 'text-success' }}">
+                    <td>{{ license.name }}</td>
+                    <td>
+                        {% if isLicenseExpired(license) %}
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        {% else %}
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        {% endif %}
+
+                        {{ license.expirationDate|format_date(pattern='d MMMM yyyy') }}
+                    </td>
+                    <td>
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><strong>{{ license.quotas.contributeurs }}</strong> contributeurs,</li>
+                            <li class="list-inline-item"><strong>{{ license.quotas.activeProjet }}</strong> projets</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="{{ path(downloadRoute|default('app_fo_admin_license_download'), {'filename': filename}) }}">
+                            <i class="fa fa-download"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>

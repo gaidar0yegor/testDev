@@ -7,7 +7,7 @@ Projet RDI Manager.
 Requires:
 
 - php 7.1+
-- PHP extensions: zip, gd, xsl, intl, mysql (`sudo apt install php7.4-zip php7.4-gd php7.4-xsl php7.4-intl php7.4-mysql php7.4-sqlite3`)
+- PHP extensions: zip, gd, xsl, intl, mysql, openssl (`sudo apt install php7.4-zip php7.4-gd php7.4-xsl php7.4-intl php7.4-mysql php7.4-sqlite3`)
 - PHP extension for development: sqlite3 (`sudo apt install php7.4-sqlite3`)
 - MySQL 8.0+
 - composer
@@ -53,6 +53,31 @@ And login with:
 - Admin: `admin@societe.dev` / `admin`
 - Chef de projet: `cdp@societe.dev` / `cdp`
 - User: `user@societe.dev` / `user`
+
+### Licenses
+
+Pour générer des licenses illimitées pour le dev, ajouter dans votre `.env.local`:
+
+``` yaml
+LICENSE_GENERATION_PRIVATE_KEY=%kernel.project_dir%/var/license-generation/private.pem
+LICENSE_GENERATION_PUBLIC_KEY=%kernel.project_dir%/public/license/public-key.pem
+
+LICENSE_PUBLIC_KEY_FILENAME=%kernel.project_dir%/public/license/public-key.pem
+```
+
+Puis lancer les commandes :
+
+``` bash
+# Créer votre propre clé privée pour générer des licenses
+php bin/console app:license-generation:generate-private
+
+# Créer des licenses illimitées pour chacune de vos sociétés en local
+php bin/console app:license-generation:generate-dev-licenses
+```
+
+Pour en savoir plus sur les licenses, voir:
+- [License, côté client](src/License/README.md)
+- [LicenseGeneration côté serveur de licenses](src/LicenseGeneration/README.md)
 
 ### Activation des extensions sous windows
 

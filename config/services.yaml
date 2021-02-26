@@ -136,5 +136,51 @@ services:
         $slackClientId: '%env(SLACK_APP_CLIENT_ID)%'
         $slackClientSecret: '%env(SLACK_APP_CLIENT_SECRET)%'
 
+    App\License\Decryption:
+        arguments:
+            $licensePublicKeyUrl: '%env(LICENSE_PUBLIC_KEY_URL)%'
+            $licensePublicKeyFilename: '%env(resolve:LICENSE_PUBLIC_KEY_FILENAME)%'
+
+    App\License\QuotaService:
+        $licenseQuotas: !tagged_iterator app.license_quota
+
+    App\License\Quota\:
+        resource: '../src/License/Quota/'
+        lazy: true
+        tags:
+            - { name: app.license_quota }
+
+    App\License\Quota\ActiveProjetQuota:
+        lazy: true
+        tags:
+            - { name: app.license_quota }
+            - { name: doctrine.orm.entity_listener, event: prePersist, entity: App\Entity\Projet }
+            - { name: doctrine.orm.entity_listener, event: preUpdate, entity: App\Entity\Projet }
+
+    App\License\Quota\ContributeurQuota:
+        lazy: true
+        tags:
+            - { name: app.license_quota }
+            - { name: doctrine.orm.entity_listener, event: preUpdate, entity: App\Entity\ProjetParticipant }
+
+    App\License\Listener\LicenseExpiredListener:
+        tags:
+            - { name: 'doctrine.event_subscriber' }
+
+    App\LicenseGeneration\Listener\SocieteCreatedListener:
+        tags:
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Societe }
+
+    App\LicenseGeneration\Command\GeneratePrivateKeyCommand:
+        $privateKeyFile: '%env(resolve:LICENSE_GENERATION_PRIVATE_KEY)%'
+        $publicKeyFile: '%env(resolve:LICENSE_GENERATION_PUBLIC_KEY)%'
+
+    App\LicenseGeneration\Encryption:
+        $privateKeyFile: '%env(resolve:LICENSE_GENERATION_PRIVATE_KEY)%'
+        $publicKeyFile: '%env(resolve:LICENSE_GENERATION_PUBLIC_KEY)%'
+
+    App\LicenseGeneration\Form\QuotaType:
+        $licenseQuotas: !tagged_iterator app.license_quota
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

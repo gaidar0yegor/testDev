@@ -6,6 +6,7 @@ use App\Entity\Societe;
 use App\Entity\User;
 use App\Exception\RdiException;
 use App\HasSocieteInterface;
+use App\Role;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -76,6 +77,28 @@ class UserRepository extends ServiceEntityRepository
             ->andWhere('user.enabled = true')
             ->andWhere('user.notificationEnabled = true')
             ->andWhere("user.$notificationSetting = true")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Find all active users having the role $role or more at least once on any projet of $societe.
+     *
+     * @return User[]
+     */
+    public function findUsersWithAtLeastOneRoleOnProjets(Societe $societe, string $role): array
+    {
+        return $this->createQueryBuilder('user')
+            ->leftJoin('user.projetParticipants', 'projetParticipant')
+            ->leftJoin('projetParticipant.projet', 'projet')
+            ->where('projet.societe = :societe')
+            ->andWhere('projetParticipant.role in (:role)')
+            ->andWhere('user.enabled = true')
+            ->setParameters([
+                'societe' => $societe,
+                'role' => Role::getRoles($role),
+            ])
             ->getQuery()
             ->getResult()
         ;

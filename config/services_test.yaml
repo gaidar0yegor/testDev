@@ -10,3 +10,9 @@ services:
         arguments:
             $loader: '@fidry_alice_data_fixtures.doctrine.purger_loader'
             $fixturesBasePath: 'features/'
+
+    App\LicenseGeneration\Listener\SocieteCreatedListener:
+        tags:
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Societe }
+        calls:
+            - setDefaultLicenseFactory: ['@App\LicenseGeneration\DefaultLicense\TestingLicenseFactory']
