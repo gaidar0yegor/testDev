@@ -59,7 +59,7 @@
                     <div>
 
                     <!-- Scroll bar present and enabled when more contents -->
-                    <strong>Participants :</strong>
+                    <strong>Contributeurs :</strong>
                             <div style="width: 450px; height: 120px; overflow-y: scroll;background-color:white;" class="mt-3 col-sm">
 
                             {% if projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CONTRIBUTEUR'))|length >0 %}
@@ -67,7 +67,7 @@
                         {% for ProjetParticipant in projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CONTRIBUTEUR'))%}
                             {% if ProjetParticipant.user.invitationToken == null %}
 
-                                <li>{{ ProjetParticipant.user.fullname }} &#x2794; {{ ProjetParticipant.role|trans }}</li>
+                                <li>{{ ProjetParticipant.user.fullname }}</li>
                             {% endif %}
                         {% else %}
                                                 <div>Il n'y a pas de contributeur pour l'instant</div>
@@ -91,7 +91,7 @@
                                         <div class="modal-body">
                                             {% for ProjetParticipant in projet.projetParticipants|filterByRoleExactly(constant('App\\Role::OBSERVATEUR'))%}
                                             {% if ProjetParticipant.user.invitationToken == null %}
-                                            <li>{{ ProjetParticipant.user.fullname }} &#x2794; {{ ProjetParticipant.role|trans }}</li>
+                                            <li>{{ ProjetParticipant.user.fullname }} </li>
 
                                             {% endif %}
 
