@@ -6,8 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
-- Fait Marquant limité a 750 caractères (ajout d'un compteur)
 
+
+
+## [0.16.0] - 2021-02-24
+- Fait Marquant limité a 750 caractères (ajout d'un compteur)
 ### Modifié
 - Modification de la vue pour le filtre de tout les projets par années (boutton, alignement du choid des dates)
 ### Réparé
