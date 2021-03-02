@@ -4,3 +4,11 @@ n_nouveaux_faits_marquants: >-
         one   {un nouveau fait marquant}
         other {# nouveaux faits marquants}
     }
+
+n_observateur: >-
+    {n, plural,
+        =0 {Observateur}
+        one {Observateur}
+        other {Observateurs}
+
+    }

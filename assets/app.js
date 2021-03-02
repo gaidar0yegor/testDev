@@ -21,4 +21,5 @@ import './js/admin-projet-chart-temps-users';
 import './js/filter-projets-by-selected-year';
 import './js/main';
 import './js/checkbox.js';
-import './js/limit-description'
+import './js/limit-description' 
+import './js/modal' 
