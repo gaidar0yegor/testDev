@@ -16,10 +16,11 @@ function count() {
    else if(count>=0) {
      	blockCount.classList.remove("text-danger");
    }
-   else{}
 }
 
-// on pose un écouteur d'évènement keyup sur le textarea.
-// On déclenche la fonction count quand l'évènement se produit et au chargement de la page
-textarea.addEventListener('keyup', count);
-count();
+if (textarea) {
+    // on pose un écouteur d'évènement keyup sur le textarea.
+    // On déclenche la fonction count quand l'évènement se produit et au chargement de la page
+    textarea.addEventListener('keyup', count);
+    count();
+}
