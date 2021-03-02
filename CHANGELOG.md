@@ -9,9 +9,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.17.0] - 2021-03-02
 ### Ajouté
 - Affichage des observateurs ainsi que des contributeurs.
-
+- Maj du footer
+- Ajout du hover sur les tables Mes projets et Mes utilisateurs
 
 ## [0.16.0] - 2021-02-24
 - Fait Marquant limité a 750 caractères (ajout d'un compteur)
