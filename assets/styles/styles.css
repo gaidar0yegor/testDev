@@ -97,6 +97,10 @@ div.button.mb-4 {
     text-align: end;
 }
 
+.table-hover {
+    background-color: rgb(173, 166, 166);
+}
+
 /**************************** NAV ************************/
 .navbar-dark {
     background-color: #ce352c;
