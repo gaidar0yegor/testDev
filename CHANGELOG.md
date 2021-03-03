@@ -6,7 +6,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
-
+### Ajouté
+- Ajout des notifications d'activité, "désactiver" et "activer" les utilisateurs
 
 
 ## [0.16.0] - 2021-02-24

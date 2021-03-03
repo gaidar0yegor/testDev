@@ -61,7 +61,7 @@ class AdminEjectUser implements ActivityInterface
 
             if ($stateOfUser['enabled']['0'] == false){
                 if (!$modifiedBy instanceof User) {
-                    throw new RuntimeException('Impossible to get current user to determine who modified FaitMarquant');
+                    throw new RuntimeException('Impossible to get current user to determine who modified the status');
                 }
                 $activity = new Activity();
                 $activity
@@ -85,7 +85,7 @@ class AdminEjectUser implements ActivityInterface
 
             } else {
                 if (!$modifiedBy instanceof User) {
-                    throw new RuntimeException('Impossible to get current user to determine who modified FaitMarquant');
+                    throw new RuntimeException('Impossible to get current user to determine who modified the status');
                 }
                 $activity = new Activity();
                 $activity
