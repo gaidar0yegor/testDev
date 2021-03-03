@@ -13,6 +13,13 @@ App\Entity\User:
         password: cdp
         roles: [ROLE_FO_CDP]
         societe: '@societe'
+    admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: admin
+        roles: [ROLE_FO_ADMIN]
+        societe: '@societe'
 
 App\Entity\Projet:
     projet:

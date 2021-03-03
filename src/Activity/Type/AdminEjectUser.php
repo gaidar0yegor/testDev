@@ -6,8 +6,7 @@ use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\User;
 use App\Entity\UserActivity;
-// use App\Service\EntityLink\EntityLinkService;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\EntityLink\EntityLinkService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,18 +14,15 @@ use Symfony\Component\Security\Core\Security;
 
 class AdminEjectUser implements ActivityInterface
 {
-    // private EntityLinkService $entityLinkService;
+    private EntityLinkService $entityLinkService;
 
-    // public function __construct(EntityLinkService $entityLinkService)
-    // {
-    //     $this->entityLinkService = $entityLinkService;
-    // }
     private Security $security;
-    public function __construct(Security $security)
+
+    public function __construct(EntityLinkService $entityLinkService, Security $security)
     {
+        $this->entityLinkService = $entityLinkService;
         $this->security = $security;
     }
-
     public static function getType(): string
     {
         return 'admin_eject_user';
@@ -43,12 +39,17 @@ class AdminEjectUser implements ActivityInterface
 
     public function render(array $activityParameters, string $activityType): string
     {
-        return "L'admin a desactivé votre compte";
-        // return sprintf(
-        //     '%s %s a desactivé votre compte.',
-        //     '<i class="fa fa-user-plus" aria-hidden="true"></i>',
-        //     $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
-        // );
+        if($activityParameters['statOfUser'] == false) {
+            return sprintf("%s %s a ré-activé votre compte",
+            '<i class="fa fa-user-plus" aria-hidden="true"></i>',
+            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy'])
+        );
+        }
+
+        return sprintf("%s %s a desactivé votre compte",
+        '<i class="fa fa-close" aria-hidden="true"></i>',
+        $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy'])
+        );
     }
 
     public function postUpdate(User $user, LifecycleEventArgs $args): void
@@ -56,53 +57,56 @@ class AdminEjectUser implements ActivityInterface
         $em = $args->getEntityManager();
         $modifiedBy = $this->security->getUser();
 
-        //if($args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($user)
-        //dd($modifiedBy);
-        // $oldUserActivities = $em
-        //     ->createQueryBuilder()
-        //     ->from(UserActivity::class, 'userActivity')
-        //     ->select('userActivity')
-        //     ->leftJoin('userActivity.activity', 'activity')
-        //     ->where('userActivity.user = :user')
-        //     ->andWhere('activity.type = :type')
-        //     ->setParameters([
-        //         'user' => $user,
-        //         'type' => self::getType(),
-        //     ])
-        //     ->getQuery()
-        //     ->getResult()
-        // ;
+        $stateOfUser = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($user);
 
-        // foreach ($oldUserActivities as $oldUserActivity) {
-        //     $em->remove($oldUserActivity->getActivity());
-        //     $em->remove($oldUserActivity);
-        // }
+            if ($stateOfUser['enabled']['0'] == false){
+                if (!$modifiedBy instanceof User) {
+                    throw new RuntimeException('Impossible to get current user to determine who modified FaitMarquant');
+                }
+                $activity = new Activity();
+                $activity
+                    ->setType(self::getType())
+                    ->setParameters([
+                        'user' => intval($user->getId()),
+                        'modifiedBy' => intval($modifiedBy->getId()),
+                        'statOfUser' => false,
+                    ])
+                ;
 
-        // if (null === $user->getDateEntree()) {
-        //     $em->flush();
-        //     return null;
-        // }
-        //dd($user);
-        if (!$modifiedBy instanceof User) {
-            throw new RuntimeException('Impossible to get current user to determine who modified FaitMarquant');
-        }
-        $activity = new Activity();
-        $activity
-            ->setType(self::getType())
-            ->setParameters([
-                'user' => intval($user->getId()),
-                'modifiedBy' => intval($modifiedBy->getId()),
-            ])
-        ;
+                $userActivity = new UserActivity();
+                $userActivity
+                    ->setUser($user)
+                    ->setActivity($activity)
+                ;
 
-        $userActivity = new UserActivity();
-        $userActivity
-            ->setUser($user)
-            ->setActivity($activity)
-        ;
+                $em->persist($activity);
+                $em->persist($userActivity);
+                $em->flush();
 
-        $em->persist($activity);
-        $em->persist($userActivity);
-        $em->flush();
+            } else {
+                if (!$modifiedBy instanceof User) {
+                    throw new RuntimeException('Impossible to get current user to determine who modified FaitMarquant');
+                }
+                $activity = new Activity();
+                $activity
+                    ->setType(self::getType())
+                    ->setParameters([
+                        'user' => intval($user->getId()),
+                        'modifiedBy' => intval($modifiedBy->getId()),
+                        'statOfUser' => true,
+                    ])
+                ;
+
+                $userActivity = new UserActivity();
+                $userActivity
+                    ->setUser($user)
+                    ->setActivity($activity)
+                ;
+
+                $em->persist($activity);
+                $em->persist($userActivity);
+                $em->flush();
+
+            }
     }
 }
