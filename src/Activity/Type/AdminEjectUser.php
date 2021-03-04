@@ -50,7 +50,9 @@ class AdminEjectUser implements ActivityInterface
                 $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
                 $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
         );}
-        return sprintf("%s %s a desactivé le compte de %s",
+
+        return sprintf(
+            "%s %s a desactivé le compte de %s",
             '<i class="fa fa-ban" aria-hidden="true"></i>',
             $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
             $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
@@ -59,7 +61,6 @@ class AdminEjectUser implements ActivityInterface
 
     public function postUpdate(User $user, LifecycleEventArgs $args): void
     {
-        $em = $args->getEntityManager();
         $modifiedBy = $this->security->getUser();
         $userEnabled = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($user);
 
@@ -90,6 +91,7 @@ class AdminEjectUser implements ActivityInterface
                 ->setActivity($activity)
             ;
 
+            $em = $args->getEntityManager();
             $em->persist($activity);
             $em->persist($userActivity);
             $em->persist($adminActivity);
