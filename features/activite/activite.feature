@@ -100,11 +100,11 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/2"
+        And I am on "/utilisateur/1"
         And I press "Désactiver"
 
-        When I go to "/admin/utilisateurs/2/activite"
-        Then I should see "Admin Eureka a desactivé votre compte"
+        When I go to "/admin/utilisateurs/1/activite"
+        Then I should see "Admin Eureka a desactivé le compte de User Eureka"
 
     Scenario: L'administrateur réactive un utilisateur
         Given I am on "/connexion"
@@ -112,9 +112,9 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/2"
+        And I am on "/utilisateur/1"
         And I press "Désactiver"
         And I press "Ré-activer"
 
-        When I go to "/admin/utilisateurs/2/activite"
-        Then I should see "Admin Eureka a ré-activé votre compte"
+        When I go to "/admin/utilisateurs/1/activite"
+        Then I should see "Admin Eureka a ré-activé le compte de User Eureka"

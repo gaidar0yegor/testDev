@@ -39,30 +39,31 @@ class AdminEjectUser implements ActivityInterface
 
     public function render(array $activityParameters, string $activityType): string
     {
-        if($activityParameters['statOfUser'] == false) {
-            return sprintf("%s %s a ré-activé votre compte",
-            '<i class="fa fa-user-plus" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy'])
-        );
-        }
+        if($activityParameters['statOfUser'] === false) {
+            return sprintf("%s %s a ré-activé le compte de %s",
+                '<i class="fa fa-check-circle-o" aria-hidden="true"></i>',
+                $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
+                $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
+        );}
 
-        return sprintf("%s %s a desactivé votre compte",
-        '<i class="fa fa-close" aria-hidden="true"></i>',
-        $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy'])
-        );
+        return sprintf("%s %s a desactivé le compte de %s",
+            '<i class="fa fa-ban" aria-hidden="true"></i>',
+            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
+            $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
+            );
     }
 
     public function postUpdate(User $user, LifecycleEventArgs $args): void
     {
         $em = $args->getEntityManager();
         $modifiedBy = $this->security->getUser();
-
         $stateOfUser = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($user);
 
-            if ($stateOfUser['enabled']['0'] == false){
-                if (!$modifiedBy instanceof User) {
-                    throw new RuntimeException('Impossible to get current user to determine who modified the status');
-                }
+        if (!$modifiedBy instanceof User) {
+            throw new RuntimeException('Impossible to get current user to determine who modified the status');
+        }
+
+            if ($stateOfUser['enabled']['0'] === false){
                 $activity = new Activity();
                 $activity
                     ->setType(self::getType())
@@ -70,23 +71,8 @@ class AdminEjectUser implements ActivityInterface
                         'user' => intval($user->getId()),
                         'modifiedBy' => intval($modifiedBy->getId()),
                         'statOfUser' => false,
-                    ])
-                ;
-
-                $userActivity = new UserActivity();
-                $userActivity
-                    ->setUser($user)
-                    ->setActivity($activity)
-                ;
-
-                $em->persist($activity);
-                $em->persist($userActivity);
-                $em->flush();
-
+                    ]);
             } else {
-                if (!$modifiedBy instanceof User) {
-                    throw new RuntimeException('Impossible to get current user to determine who modified the status');
-                }
                 $activity = new Activity();
                 $activity
                     ->setType(self::getType())
@@ -94,19 +80,24 @@ class AdminEjectUser implements ActivityInterface
                         'user' => intval($user->getId()),
                         'modifiedBy' => intval($modifiedBy->getId()),
                         'statOfUser' => true,
-                    ])
-                ;
-
-                $userActivity = new UserActivity();
-                $userActivity
-                    ->setUser($user)
-                    ->setActivity($activity)
-                ;
-
-                $em->persist($activity);
-                $em->persist($userActivity);
-                $em->flush();
-
+                    ]);
             }
+            $userActivity = new UserActivity();
+            $userActivity
+                ->setUser($user)
+                ->setActivity($activity)
+            ;
+
+            $adminActivity = new UserActivity();
+            $adminActivity
+                ->setUser($modifiedBy)
+                ->setActivity($activity)
+            ;
+
+            $em->persist($activity);
+            $em->persist($userActivity);
+            $em->persist($adminActivity);
+            $em->flush();
+
     }
 }
