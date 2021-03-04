@@ -39,18 +39,19 @@ class AdminEjectUser implements ActivityInterface
 
     public function render(array $activityParameters, string $activityType): string
     {
-        if($activityParameters['statOfUser'] === false) {
-            return sprintf("%s %s a ré-activé le compte de %s",
-                '<i class="fa fa-check-circle-o" aria-hidden="true"></i>',
-                $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
-                $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
-        );}
-
-        return sprintf("%s %s a desactivé le compte de %s",
+        if($activityParameters['statOfUser'] === true) {
+            return sprintf("%s %s a desactivé le compte de %s",
             '<i class="fa fa-ban" aria-hidden="true"></i>',
             $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
             $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
-            );
+
+        );
+        }
+        return sprintf("%s %s a ré-activé le compte de %s",
+            '<i class="fa fa-check-circle-o" aria-hidden="true"></i>',
+            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
+            $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
+         );
     }
 
     public function postUpdate(User $user, LifecycleEventArgs $args): void
@@ -63,41 +64,31 @@ class AdminEjectUser implements ActivityInterface
             throw new RuntimeException('Impossible to get current user to determine who modified the status');
         }
 
-            if ($stateOfUser['enabled']['0'] === false){
-                $activity = new Activity();
-                $activity
-                    ->setType(self::getType())
-                    ->setParameters([
-                        'user' => intval($user->getId()),
-                        'modifiedBy' => intval($modifiedBy->getId()),
-                        'statOfUser' => false,
-                    ]);
-            } else {
-                $activity = new Activity();
-                $activity
-                    ->setType(self::getType())
-                    ->setParameters([
-                        'user' => intval($user->getId()),
-                        'modifiedBy' => intval($modifiedBy->getId()),
-                        'statOfUser' => true,
-                    ]);
-            }
-            $userActivity = new UserActivity();
-            $userActivity
-                ->setUser($user)
-                ->setActivity($activity)
-            ;
 
-            $adminActivity = new UserActivity();
-            $adminActivity
-                ->setUser($modifiedBy)
-                ->setActivity($activity)
-            ;
+        $activity = new Activity();
+         $activity
+            ->setType(self::getType())
+            ->setParameters([
+                'user' => intval($user->getId()),
+                'modifiedBy' => intval($modifiedBy->getId()),
+                'statOfUser' => $stateOfUser['enabled']['0'],
+            ]);
 
-            $em->persist($activity);
-            $em->persist($userActivity);
-            $em->persist($adminActivity);
-            $em->flush();
+        $userActivity = new UserActivity();
+        $userActivity
+            ->setUser($user)
+            ->setActivity($activity)
+        ;
 
+        $adminActivity = new UserActivity();
+        $adminActivity
+            ->setUser($modifiedBy)
+            ->setActivity($activity)
+        ;
+
+        $em->persist($activity);
+        $em->persist($userActivity);
+        $em->persist($adminActivity);
+        $em->flush();
     }
 }
