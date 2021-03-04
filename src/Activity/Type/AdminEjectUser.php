@@ -32,23 +32,26 @@ class AdminEjectUser implements ActivityInterface
     {
         $resolver->setRequired([
             'user',
+            'modifiedBy',
+            'userEnabled',
         ]);
 
         $resolver->setAllowedTypes('user', 'integer');
+        $resolver->setAllowedTypes('modifiedBy', 'integer');
+        $resolver->setAllowedTypes('userEnabled', 'boolean');
     }
 
     public function render(array $activityParameters, string $activityType): string
     {
         if($activityParameters['userEnabled'] === true) {
-            return sprintf("%s %s a desactivé le compte de %s",
+            return sprintf(
+                "%s %s a ré-activé le compte de %s",
+                '<i class="fa fa-check-circle-o" aria-hidden="true"></i>',
+                $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
+                $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
+        );}
+        return sprintf("%s %s a desactivé le compte de %s",
             '<i class="fa fa-ban" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
-            $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
-
-        );
-        }
-        return sprintf("%s %s a ré-activé le compte de %s",
-            '<i class="fa fa-check-circle-o" aria-hidden="true"></i>',
             $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
             $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
          );
@@ -59,6 +62,7 @@ class AdminEjectUser implements ActivityInterface
         $em = $args->getEntityManager();
         $modifiedBy = $this->security->getUser();
         $userEnabled = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($user);
+
         if(isset($userEnabled['enabled']))
         {
             if (!$modifiedBy instanceof User) {
@@ -66,12 +70,12 @@ class AdminEjectUser implements ActivityInterface
             }
 
             $activity = new Activity();
-             $activity
+            $activity
                 ->setType(self::getType())
                 ->setParameters([
                     'user' => intval($user->getId()),
                     'modifiedBy' => intval($modifiedBy->getId()),
-                    'userEnabled' => $userEnabled['enabled']['0'],
+                    'userEnabled' => $userEnabled['enabled'][1],
                 ]);
 
             $userActivity = new UserActivity();
