@@ -35,7 +35,7 @@ class SocieteController extends AbstractController
         $adminReceivedInvitation = false;
 
         foreach ($societe->getAdmins() as $admin) {
-            if (null !== $admin->getInvitationSentAt()) {
+            if (null !== $admin->getInvitationSentAt() || null === $admin->getInvitationToken()) {
                 $adminReceivedInvitation = true;
                 break;
             }
