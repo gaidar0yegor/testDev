@@ -93,3 +93,40 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
         When I go to "/admin/utilisateurs/2/activite"
         Then the response status code should be 403
         And I should not see "Activité de Admin Eureka" in the "h1" element
+
+    Scenario: L'administrateur désactive un utilisateur
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | admin@societe.dev  |
+            | _password | admin              |
+        And I press "Connexion"
+        And I am on "/utilisateur/1"
+        And I press "Désactiver"
+
+        When I go to "/admin/utilisateurs/1/activite"
+        Then I should see "Admin Eureka a desactivé le compte de User Eureka"
+
+    Scenario: L'administrateur réactive un utilisateur
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | admin@societe.dev  |
+            | _password | admin              |
+        And I press "Connexion"
+        And I am on "/utilisateur/1"
+        And I press "Désactiver"
+        And I press "Ré-activer"
+
+        When I go to "/admin/utilisateurs/1/activite"
+        Then I should see "Admin Eureka a ré-activé le compte de User Eureka"
+
+    Scenario: L'administrateur désactive un utilisateur
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | admin@societe.dev  |
+            | _password | admin              |
+        And I press "Connexion"
+        And I am on "/utilisateur/1"
+        And I press "Désactiver"
+
+        When I go to "/admin/utilisateurs/3/activite"
+        Then I should see "Admin Eureka a desactivé le compte de User Eureka"
