@@ -8,6 +8,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ### Ajouté
 - Ajout des notifications d'activité, "désactiver" et "activer" les utilisateurs
+- Back-office: Permettre d'ajouter un autre admin à une société
+### Réparé
+- Ne plus afficher "Aucun admin n'a encore recu de mail d'invitation..." quand un admin à déjà finalisé son inscription
 
 
 ## [0.17.0] - 2021-03-02

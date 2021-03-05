@@ -6,6 +6,7 @@ use App\DTO\InitSociete;
 use App\Entity\Societe;
 use App\Entity\User;
 use App\Form\InitSocieteType;
+use App\Form\UserEmailType;
 use App\Repository\SocieteRepository;
 use App\Service\Invitator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,28 +31,53 @@ class SocieteController extends AbstractController
     /**
      * @Route("/societes/{id}", name="app_bo_societe", requirements={"id"="\d+"})
      */
-    public function societe(Societe $societe)
+    public function societe(Request $request, Societe $societe, Invitator $invitator, EntityManagerInterface $em)
     {
-        $adminReceivedInvitation = false;
+        $admin = $invitator->initUser($societe, 'ROLE_FO_ADMIN');
+        $form = $this->createForm(UserEmailType::class, $admin);
 
-        foreach ($societe->getAdmins() as $admin) {
-            if (null !== $admin->getInvitationSentAt() || null === $admin->getInvitationToken()) {
-                $adminReceivedInvitation = true;
-                break;
-            }
-        }
+        $form->handleRequest($request);
 
-        if (!$adminReceivedInvitation) {
-            $this->addFlash('warning', "
-                Aucun administrateur de cette société n'a encore pas reçu de notifications.
-                Envoyez un email d'invitation depuis cette page
-                afin qu'il puisse finaliser son inscription !
+        if ($form->isSubmitted() && $form->isValid()) {
+            $invitator->check($admin, $form);
+
+            $em->persist($admin);
+            $em->flush();
+
+            $this->addFlash('success', "
+                L'administrateur a été ajouté !
+                Vous pouvez lui envoyer un email d'invitation
+                afin qu'il finalise son inscription.
             ");
+
+            return $this->redirectToRoute('app_bo_societe', [
+                'id' => $societe->getId(),
+            ]);
         }
+
+        $this->addWarningIfNotInvitationSent($societe);
 
         return $this->render('bo/societes/societe.html.twig', [
             'societe' => $societe,
+            'form' => $form->createView(),
         ]);
+    }
+
+    private function addWarningIfNotInvitationSent(Societe $societe): void
+    {
+        foreach ($societe->getAdmins() as $admin) {
+            if (null !== $admin->getInvitationSentAt() || null === $admin->getInvitationToken()) {
+                return;
+            }
+        }
+
+        $raisonSociale = $societe->getRaisonSociale();
+
+        $this->addFlash('warning', "
+            Aucun administrateur de la société $raisonSociale n'a encore pas reçu de notifications.
+            Envoyez un email d'invitation depuis cette page
+            afin qu'il puisse finaliser son inscription !
+        ");
     }
 
     /**

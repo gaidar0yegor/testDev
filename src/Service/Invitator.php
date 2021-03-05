@@ -65,7 +65,7 @@ class Invitator
     /**
      * Initialise l'utilisateur qui va être invité.
      */
-    public function initUser(Societe $societe): User
+    public function initUser(Societe $societe, string $role = 'ROLE_FO_USER'): User
     {
         $user = new User();
 
@@ -73,7 +73,7 @@ class Invitator
 
         return $user
             ->setSociete($societe)
-            ->setRole('ROLE_FO_USER')
+            ->setRole($role)
             ->setInvitationToken($this->tokenGenerator->generateUrlToken())
         ;
     }

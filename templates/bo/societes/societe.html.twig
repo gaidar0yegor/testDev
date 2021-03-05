@@ -28,6 +28,10 @@
                 <td>
                     {% if admin.invitationToken %}
                         En attente de finalisation d'inscription
+                        <small class="d-block">
+                            Url d'invitation :
+                            <strong class="d-block"><code>{{ url('app_fo_user_finalize_inscription', {'token': admin.invitationToken}) }}</code></strong>
+                        </small>
                     {% else %}
                         Actif
                     {% endif %}
@@ -56,5 +60,29 @@
         {% endfor %}
     </tbody>
 </table>
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="input-group">
+            {{ form_widget(form.email, {
+                'attr': {
+                    'placeholder': 'Email de l\'administrateur'
+                }
+            }) }}
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    Inviter
+                    <span class="d-none d-sm-inline">un autre administrateur</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ form_end(form) }}
 
 {% endblock %}
