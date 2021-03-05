@@ -67,6 +67,9 @@ class TempsPasseRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return TempsPasse[]
+     */
     public function findAllByProjetAndYear(Projet $projet, int $year): array
     {
         return $this
