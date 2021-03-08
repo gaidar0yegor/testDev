@@ -28,7 +28,7 @@
                         <div class="col-9 offset-3 col-sm-12 offset-sm-0">
                             <h5 class="card-title">Contributeurs</h5>
                             <p class="card-text display-4 mb-0">
-                                {{ projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CONTRIBUTEUR'))|length }}
+                                {{ projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CONTRIBUTEUR'))|length + projet.projetParticipants|filterByRoleExactly(constant('App\\Role::CDP'))|length }}
                             </p>
                         </div>
                     </div>
