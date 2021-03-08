@@ -9,6 +9,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Ajout des notifications d'activité, "désactiver" et "activer" les utilisateurs
 
+### Modifié
+- Ajout du CDP sur le nombre "Contributeurs" sur la vue admin d'un projet
+
 
 ## [0.17.0] - 2021-03-02
 ### Ajouté
