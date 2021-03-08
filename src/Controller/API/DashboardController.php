@@ -2,15 +2,19 @@
 
 namespace App\Controller\API;
 
+use App\Activity\ActivityService;
+use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
 use App\Role;
 use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\Service\ParticipantService;
+use App\Service\ProjetLastActionService;
 use App\Service\StatisticsService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @Route("/api/dashboard")
@@ -53,6 +57,40 @@ class DashboardController extends AbstractController
                 : $cra->getTempsPassesModifiedAt()->format('d M Y')
             ,
         ]);
+    }
+
+    /**
+     * Retourne les derniers projets accédés.
+     *
+     * @Route(
+     *      "/recents-projets",
+     *      methods={"GET"},
+     *      name="api_dashboard_projets_recents"
+     * )
+     */
+    public function getRecentsProjets(
+        ProjetLastActionService $projetLastActionService,
+        ProjetActivityRepository $projetActivityRepository,
+        ActivityService $activityService,
+        NormalizerInterface $normalizer
+    ): JsonResponse {
+        $recentProjets = $projetLastActionService->findRecentProjetsForUser();
+        $normalizedProjets = $normalizer->normalize($recentProjets, null, [
+            'groups' => 'recentProjets',
+        ]);
+
+        foreach ($recentProjets as $key => $projet) {
+            $projetActivities = $projetActivityRepository->findByProjet($projet, 1);
+            $normalizedProjets[$key]['activities'] = [];
+
+            foreach ($projetActivities as $projetActivity) {
+                $normalizedProjets[$key]['activities'][] = [
+                    'text' => $activityService->render($projetActivity->getActivity()),
+                ];
+            }
+        }
+
+        return new JsonResponse(['recentsProjets' => $normalizedProjets]);
     }
 
     /**

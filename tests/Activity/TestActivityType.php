@@ -1,22 +1,25 @@
 <?php
 
-namespace App\Activity;
+namespace App\Tests\Activity;
 
+use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FallbackActivityType implements ActivityInterface
+/**
+ * Activity type used for testing.
+ * Just displays "activity_{id}" to run simple asserts.
+ */
+class TestActivityType implements ActivityInterface
 {
     public static function getType(): string
     {
-        return '_fallback';
+        return '_test';
     }
 
     public function render(array $activityParameters, Activity $activity): string
     {
-        $activityType = $activity->getType();
-
-        return "Unexpected activity type: '$activityType', parameters: ".print_r($activityParameters, true);
+        return 'activity_'.$activity->getId();
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -56,4 +56,15 @@ class ActivityService
 
         return $this->fallbackActivityType;
     }
+
+    /**
+     * Returns a displayable text from an Activity
+     */
+    public function render(Activity $activity): string
+    {
+        return $this
+            ->loadActivityType($activity->getType())
+            ->render($activity->getParameters(), $activity)
+        ;
+    }
 }

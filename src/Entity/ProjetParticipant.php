@@ -46,6 +46,13 @@ class ProjetParticipant implements HasSocieteInterface
      */
     private $role;
 
+    /**
+     * The datetime of the last action $user did on $projet (view, update...)
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastActionAt;
+
     public function __construct()
     {
         $this->dateAjout = new \DateTime();
@@ -120,5 +127,24 @@ class ProjetParticipant implements HasSocieteInterface
         }
 
         return $this->user->getSociete();
+    }
+
+    public function getLastActionAt(): ?\DateTimeInterface
+    {
+        return $this->lastActionAt;
+    }
+
+    public function setLastActionAt(?\DateTimeInterface $lastActionAt): self
+    {
+        $this->lastActionAt = $lastActionAt;
+
+        return $this;
+    }
+
+    public function setLastActionAtNow(): self
+    {
+        $this->lastActionAt = new \DateTime();
+
+        return $this;
     }
 }

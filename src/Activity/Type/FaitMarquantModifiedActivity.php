@@ -47,7 +47,7 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         $resolver->setAllowedTypes('faitMarquant', 'integer');
     }
 
-    public function render(array $activityParameters, string $activityType): string
+    public function render(array $activityParameters, Activity $activity): string
     {
         if ($activityParameters['createdBy'] === $activityParameters['modifiedBy']) {
             return sprintf(

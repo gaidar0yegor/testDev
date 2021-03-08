@@ -40,7 +40,7 @@ class FaitMarquantCreatedActivity implements ActivityInterface
         $resolver->setAllowedTypes('faitMarquant', 'integer');
     }
 
-    public function render(array $activityParameters, string $activityType): string
+    public function render(array $activityParameters, Activity $activity): string
     {
         return sprintf(
             '%s %s a ajouté le fait marquant %s sur le projet %s.',

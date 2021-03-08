@@ -2,6 +2,7 @@
 
 namespace App\Activity;
 
+use App\Entity\Activity;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 interface ActivityInterface
@@ -16,9 +17,12 @@ interface ActivityInterface
     /**
      * Returns displayable text for this activity.
      *
+     * @param array $activityParameters Parameters stored in Activity::$parameters
+     * @param Activity $activity The Activity instance in case other fields are needed for rendering.
+     *
      * @return string
      */
-    public function render(array $activityParameters, string $activityType): string;
+    public function render(array $activityParameters, Activity $activity): string;
 
     /**
      * Add constraints on activity parameters.
