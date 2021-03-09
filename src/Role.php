@@ -25,10 +25,21 @@ class Role
     public const OBSERVATEUR = 'OBSERVATEUR';
 
     /**
+     * @var string[]
+     */
+    public static $allRoles = [
+        self::OBSERVATEUR,
+        self::CONTRIBUTEUR,
+        self::CDP,
+    ];
+
+    /**
      * @param string $roleMinimum Si fourni, retourne tous les rôles avec $role minimum
      */
     public static function getRoles(string $roleMinimum = self::OBSERVATEUR): array
     {
+        self::checkRole($roleMinimum);
+
         $roles = [];
 
         switch ($roleMinimum) {
@@ -50,5 +61,32 @@ class Role
         }
 
         return $roles;
+    }
+
+    public static function checkRole(?string $role): void
+    {
+        if (null === $role) {
+            return;
+        }
+
+        if (!in_array($role, self::$allRoles)) {
+            throw new RdiException(sprintf(
+                'Role expected to be one of: "%s".',
+                join('", "', self::$allRoles)
+            ));
+        }
+    }
+
+    /**
+     * Checks if $actualRole has the role $expectedRole.
+     * Example: Role::hasRole($entity->getRole(), Role::CONTRIBUTEUR);
+     *              returns true if $entity has role contributeur or chef de projet.
+     */
+    public static function hasRole(string $actualRole, string $expectedRole): bool
+    {
+        self::checkRole($actualRole);
+        self::checkRole($expectedRole);
+
+        return in_array($actualRole, self::getRoles($expectedRole), true);
     }
 }

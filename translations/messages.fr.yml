@@ -12,3 +12,10 @@ ROLE_FO_CDP.small: CdP
 ROLE_FO_ADMIN.small: Admin
 ROLE_FO_USER.small: Utilisateur
 
+quota:
+    activeProjet:
+        name: Projets actifs
+        description: Projet en cours en prennant en compte ses dates de début et de fin.
+    contributeurs:
+        name: Contributeurs
+        description: Utilisateur non désactivé, et contributeur (ou chef de projet) sur au moins un projet de la société.

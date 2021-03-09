@@ -1,0 +1,20 @@
+{% extends 'bo/base.html.twig' %}
+
+{% block body %}
+
+<h1>Générer une license pour {{ societe.raisonSociale }}</h1>
+
+<a class="d-block mb-4" href="{{ path('app_bo_societes') }}">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    Retourner à la liste des sociétés
+</a>
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+{{ form_rest(form) }}
+
+<button type="submit" class="btn btn-success">Générer la license</button>
+
+{{ form_end(form) }}
+
+{% endblock %}

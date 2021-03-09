@@ -48,6 +48,25 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     /**
+     * @return Projet[]
+     */
+    public function findActiveProjetForSociete(Societe $societe): array
+    {
+        return $this
+            ->createQueryBuilder('projet')
+            ->where('projet.societe = :societe')
+            ->andWhere('projet.dateDebut is null OR :now >= projet.dateDebut')
+            ->andWhere('projet.dateFin is null OR :now <= projet.dateFin')
+            ->setParameters([
+                'societe' => $societe,
+                'now' => new \DateTime(),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * Recupère tous les projet auxquels $user participe.
      *
      * @param User $user

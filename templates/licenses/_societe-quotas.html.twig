@@ -1,0 +1,18 @@
+{% for quotaName, quota in usedQuotas(societe) %}
+    {% set percent = quota.percentage %}
+
+        <p class="mb-0">{{ ('quota.' ~ quotaName ~ '.name')|trans }}</p>
+
+        <div class="progress" style="height: 1.5em; font-size:1em">
+            <div
+                class="progress-bar {{ percent < 70 ? 'bg-success' : percent < 100 ? 'bg-warning' : 'bg-danger' }}"
+                role="progressbar"
+                style="width: {{ percent }}%"
+                aria-valuenow="{{ percent }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+            >{{ quota.current }} / {{ quota.limit }}</div>
+        </div>
+
+        <p class="text-muted mb-4"><small>{{ ('quota.' ~ quotaName ~ '.description')|trans }}</small></p>
+{% endfor %}

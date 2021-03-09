@@ -10,6 +10,7 @@
             <th>Société</th>
             <th>Administrateurs</th>
             <th>Utilisateurs</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,14 @@
                 <td><a href="{{ path('app_bo_societe', {'id': societe.id}) }}">{{ societe.raisonSociale }}</a></td>
                 <td>{{ societe.admins|map(user => "#{user.fullnameOrEmail}")|join(', ') }}</td>
                 <td>{{ societe.users|length }}</td>
+                <td>
+                    {% if not hasActiveLicense(societe) or hasQuotaOverflow(societe) %}
+                        <span class="text-warning" title="Cette société n'a pas de license active, ou les quotas sont dépassés.">
+                            <i class="fa fa-warning" aria-hidden="true"></i>
+                            License
+                        </span>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
     </tbody>

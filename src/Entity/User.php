@@ -264,19 +264,19 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getResetPasswordToken(): string
+    public function getResetPasswordToken(): ?string
     {
         return $this->resetPasswordToken;
     }
 
-    public function setResetPasswordToken(string $resetPasswordToken): self
+    public function setResetPasswordToken(?string $resetPasswordToken): self
     {
         $this->resetPasswordToken = $resetPasswordToken;
 
         return $this;
     }
 
-    public function hasResetPasswordToken(): string
+    public function hasResetPasswordToken(): bool
     {
         return null !== $this->resetPasswordToken
             && new \DateTime() < $this->resetPasswordTokenExpiresAt
@@ -291,12 +291,12 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getResetPasswordTokenExpiresAt(): \DateTime
+    public function getResetPasswordTokenExpiresAt(): ?\DateTime
     {
         return $this->resetPasswordTokenExpiresAt;
     }
 
-    public function setResetPasswordTokenExpiresAt(\DateTime $resetPasswordTokenExpiresAt): self
+    public function setResetPasswordTokenExpiresAt(?\DateTime $resetPasswordTokenExpiresAt): self
     {
         $this->resetPasswordTokenExpiresAt = $resetPasswordTokenExpiresAt;
 

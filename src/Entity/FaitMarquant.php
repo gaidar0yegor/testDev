@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\HasSocieteInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\ProjetResourceInterface;
 use App\Repository\FaitMarquantRepository;
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=FaitMarquantRepository::class)
  */
-class FaitMarquant implements ProjetResourceInterface
+class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
 {
     /**
      * @ORM\Id()
@@ -172,5 +173,10 @@ class FaitMarquant implements ProjetResourceInterface
         }
 
         return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->projet->getSociete();
     }
 }

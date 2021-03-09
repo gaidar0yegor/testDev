@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\HasSocieteInterface;
 use App\Repository\TempsPasseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -14,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *     message="Cet utilisateur ne peut pas créer un deuxième pourcentage sur ce projet et ce mois. Il faut modifier l'autre pourcentage plutôt."
  * )
  */
-class TempsPasse
+class TempsPasse implements HasSocieteInterface
 {
     /**
      * @ORM\Id()
@@ -82,5 +83,10 @@ class TempsPasse
         $this->cra = $cra;
 
         return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->projet->getSociete();
     }
 }

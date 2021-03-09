@@ -5,15 +5,25 @@ namespace App\Controller\BO;
 use App\DTO\InitSociete;
 use App\Entity\Societe;
 use App\Entity\User;
+use App\Exception\UnexpectedUserException;
 use App\Form\InitSocieteType;
 use App\Form\UserEmailType;
+use App\License\DTO\License;
+use App\License\LicenseService;
+use App\LicenseGeneration\Exception\EncryptionKeysException;
+use App\LicenseGeneration\Form\GenerateLicenseType;
+use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
+use App\Service\FileResponseFactory;
 use App\Service\Invitator;
 use Doctrine\ORM\EntityManagerInterface;
+use League\Flysystem\FilesystemInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SocieteController extends AbstractController
@@ -31,8 +41,13 @@ class SocieteController extends AbstractController
     /**
      * @Route("/societes/{id}", name="app_bo_societe", requirements={"id"="\d+"})
      */
-    public function societe(Request $request, Societe $societe, Invitator $invitator, EntityManagerInterface $em)
-    {
+    public function societe(
+        Request $request,
+        Societe $societe,
+        Invitator $invitator,
+        EntityManagerInterface $em,
+        LicenseService $licenseService
+    ): Response {
         $admin = $invitator->initUser($societe, 'ROLE_FO_ADMIN');
         $form = $this->createForm(UserEmailType::class, $admin);
 
@@ -60,6 +75,49 @@ class SocieteController extends AbstractController
         return $this->render('bo/societes/societe.html.twig', [
             'societe' => $societe,
             'form' => $form->createView(),
+            'licenses' => $licenseService->retrieveAllLicenses($societe),
+        ]);
+    }
+
+    /**
+     * @Route("/societes/{id}/generer-license", name="app_bo_societe_generate_license", requirements={"id"="\d+"})
+     */
+    public function societeGenerateLicense(
+        Request $request,
+        Societe $societe,
+        LicenseGeneration $licenseGeneration,
+        LicenseService $licenseService
+    ) {
+        $license = License::createFreeLicenseFor($societe);
+        $form = $this->createForm(GenerateLicenseType::class, $license);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $licenseContent = $licenseGeneration->generateLicenseFile($license);
+                $licenseService->storeLicense($licenseContent);
+            } catch (EncryptionKeysException $e) {
+                throw new HttpException(
+                    Response::HTTP_NOT_IMPLEMENTED,
+                    'La génération de licenses semble ne pas être configurée.',
+                    $e
+                );
+            }
+
+            $this->addFlash(
+                'success',
+                'Une nouvelle license a été générée et ajoutée à la société '.$societe->getRaisonSociale()
+            );
+
+            return $this->redirectToRoute('app_bo_societe', [
+                'id' => $societe->getId(),
+            ]);
+        }
+
+        return $this->render('bo/societes/generate-license.html.twig', [
+            'form' => $form->createView(),
+            'societe' => $societe,
         ]);
     }
 
@@ -145,5 +203,26 @@ class SocieteController extends AbstractController
         return $this->render('bo/societes/new.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route(
+     *      "/telecharger/{filename}",
+     *      name="app_bo_license_download",
+     *      requirements={"filename"=".*"}
+     * )
+     */
+    public function download(
+        string $filename,
+        LicenseService $licenseService,
+        FileResponseFactory $fileResponseFactory
+    ): Response {
+        $licenseContent = $licenseService->readLicenseFile($filename);
+
+        return $fileResponseFactory->createFileResponseFromString(
+            $licenseContent,
+            basename($filename),
+            'text/plain'
+        );
     }
 }

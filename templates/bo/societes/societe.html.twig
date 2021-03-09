@@ -61,28 +61,20 @@
     </tbody>
 </table>
 
-{{ form_start(form) }}
-{{ form_errors(form) }}
+{% include 'bo/societes/_form-add-admin.html.twig' %}
 
-<div class="row">
-    <div class="col-lg-8">
-        <div class="input-group">
-            {{ form_widget(form.email, {
-                'attr': {
-                    'placeholder': 'Email de l\'administrateur'
-                }
-            }) }}
-            <div class="input-group-append">
-                <button type="submit" class="btn btn-success">
-                    <i class="fa fa-user-plus" aria-hidden="true"></i>
-                    Inviter
-                    <span class="d-none d-sm-inline">un autre administrateur</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
+<h3>Licenses</h3>
 
-{{ form_end(form) }}
+{% include 'licenses/_societe-quotas.html.twig' %}
+
+{% include 'licenses/_licenses-table.html.twig' with {
+    'entity': societe,
+    'downloadRoute': 'app_bo_license_download',
+} %}
+
+<a
+    href="{{ path('app_bo_societe_generate_license', {'id': societe.id}) }}"
+    class="btn btn-outline-primary"
+>Générer une license</a>
 
 {% endblock %}

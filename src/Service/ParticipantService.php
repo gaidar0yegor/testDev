@@ -93,25 +93,15 @@ class ParticipantService implements UserContributingProjetRepositoryInterface
         return $this->hasRole($userRole, $requiredRole);
     }
 
+    /**
+     * @deprecated Use Role::hasRole() instead.
+     */
     public function hasRole(?string $role, string $requiredRole): bool
     {
         if (null === $role) {
             return false;
         }
 
-        $roles = [
-            Role::OBSERVATEUR,
-            Role::CONTRIBUTEUR,
-            Role::CDP,
-        ];
-
-        if (!in_array($role, $roles) || !in_array($requiredRole, $roles)) {
-            throw new RdiException(sprintf(
-                'checkRole() expects $role and $requiredRole be one of: "%s".',
-                join('", "', $roles)
-            ));
-        }
-
-        return array_search($role, $roles) >= array_search($requiredRole, $roles);
+        return Role::hasRole($role, $requiredRole);
     }
 }

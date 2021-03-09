@@ -31,4 +31,28 @@ class FileResponseFactory
             $headers
         );
     }
+    public function createFileResponseFromString(string $content, string $filename, string $contentType = null): Response
+    {
+        $headers = [
+            'Content-Transfer-Encoding', 'binary',
+            'Content-Disposition' => sprintf(
+                'attachment; filename="%s"',
+                $filename
+            ),
+            'Content-Length' => strlen($content),
+        ];
+
+        if (null !== $contentType) {
+            $headers['Content-Type'] = $contentType;
+        }
+
+        return new StreamedResponse(
+            function () use ($content) {
+                echo $content;
+                flush();
+            },
+            200,
+            $headers
+        );
+    }
 }

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes licenses | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>Mes licenses</h1>
+
+    <h2>Quotas</h2>
+
+    {% include 'licenses/_societe-quotas.html.twig' with {
+        'societe': app.user.societe,
+    } %}
+
+    <h2>Licenses</h2>
+
+    {% include 'licenses/_licenses-table.html.twig' with {
+        'entity': app.user,
+    } %}
+{% endblock %}

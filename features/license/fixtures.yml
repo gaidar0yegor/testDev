@@ -1,0 +1,35 @@
+App\Entity\User:
+    user:
+        nom: Eureka
+        prenom: User
+        email: user@societe.dev
+        password: user
+        roles: [ROLE_FO_USER]
+        societe: '@societe'
+    cdp:
+        nom: Eureka
+        prenom: Chef de projet
+        email: cdp@societe.dev
+        password: cdp
+        roles: [ROLE_FO_CDP]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet:
+        titre: Projet
+        acronyme: PTEST
+        societe: '@societe'
+
+App\Entity\ProjetParticipant:
+    cdp_projet:
+        user: '@cdp'
+        projet: '@projet'
+        role: '<(App\Role::CDP)>'
+    user_projet:
+        user: '@user'
+        projet: '@projet'
+        role: '<(App\Role::OBSERVATEUR)>'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société

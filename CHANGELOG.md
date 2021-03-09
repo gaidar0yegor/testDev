@@ -5,6 +5,13 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Systeme de licenses
+    - Pouvoir en générer depuis le back-office pour des sociétés SaaS
+    - Les licenses limitent le nombre de projets actif et de contributeurs dans une société
+    - Les sociétés ont par défaut une license gratuite
+    - L'admin peut voir ses licenses actuellement actives
+    - Accès en lecture seule si la license est expirée
 
 ### Ajouté
 - Ajout des notifications d'activité, "désactiver" et "activer" les utilisateurs
