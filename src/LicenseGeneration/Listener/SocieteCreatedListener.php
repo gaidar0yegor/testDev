@@ -3,9 +3,9 @@
 namespace App\LicenseGeneration\Listener;
 
 use App\Entity\Societe;
+use App\License\Factory\LicenseFactoryInterface;
+use App\License\Factory\TryOfferLicenseFactory;
 use App\License\LicenseService;
-use App\LicenseGeneration\DefaultLicense\DefaultLicenseFactoryInterface;
-use App\LicenseGeneration\DefaultLicense\FreeLicenseFactory;
 use App\LicenseGeneration\Exception\EncryptionKeysException;
 use App\LicenseGeneration\LicenseGeneration;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -20,7 +20,7 @@ class SocieteCreatedListener
 
     private LicenseGeneration $licenseGeneration;
 
-    private DefaultLicenseFactoryInterface $defaultLicenseFactory;
+    private LicenseFactoryInterface $licenseFactory;
 
     private FlashBagInterface $flashBag;
 
@@ -33,21 +33,21 @@ class SocieteCreatedListener
         $this->licenseGeneration = $licenseGeneration;
         $this->flashBag = $flashBag;
 
-        $this->defaultLicenseFactory = new FreeLicenseFactory();
+        $this->licenseFactory = new TryOfferLicenseFactory();
     }
 
     /**
      * Optionnal dependency injection setter for default license factory.
      */
-    public function setDefaultLicenseFactory(DefaultLicenseFactoryInterface $defaultLicenseFactory): void
+    public function setDefaultLicenseFactory(LicenseFactoryInterface $licenseFactory): void
     {
-        $this->defaultLicenseFactory = $defaultLicenseFactory;
+        $this->licenseFactory = $licenseFactory;
     }
 
     public function postPersist(Societe $societe, LifecycleEventArgs $args): void
     {
         try {
-            $license = $this->defaultLicenseFactory->createDefaultLicense($societe);
+            $license = $this->licenseFactory->createLicense($societe);
 
             $licenseContent = $this->licenseGeneration->generateLicenseFile($license);
 

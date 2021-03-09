@@ -72,7 +72,7 @@ Puis lancer les commandes :
 php bin/console app:license-generation:generate-private
 
 # Créer des licenses illimitées pour chacune de vos sociétés en local
-php bin/console app:license-generation:generate-dev-licenses
+php bin/console app:license-generation:generate:unlimited
 ```
 
 Pour en savoir plus sur les licenses, voir:

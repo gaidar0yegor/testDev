@@ -24,7 +24,7 @@ Commandes :
 app:license-generation:generate-private
 # Pour pouvoir générer des licenses : génère une paire de clés privée/publique.
 
-app:license-generation:generate-dev-licenses
+app:license-generation:generate:unlimited
 # Pour le développement : génère des licenses illimitées pour chaque société.
 ```
 
@@ -45,7 +45,8 @@ use App\License\LicenseService;
 use App\LicenseGeneration\LicenseGeneration;
 
 // Créer une instance de License
-$license = License::createFreeLicense($societe);
+$license = new License();
+$license->setQuotas([/* ... */]);
 
 // Signe une license
 $licenseContent = $licenseGeneration->generateLicenseFile($license);

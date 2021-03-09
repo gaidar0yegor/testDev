@@ -2,19 +2,18 @@
 
 namespace App\LicenseGeneration\Command;
 
-use App\License\DTO\License;
+use App\License\Factory\LicenseFactoryInterface;
 use App\License\LicenseService;
 use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
-use DateTime;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-class GenerateDevLicensesCommand extends Command
+class GenerateLicensesCommand extends Command
 {
-    protected static $defaultName = 'app:license-generation:generate-dev-licenses';
+    private LicenseFactoryInterface $licenseFactory;
 
     private SocieteRepository $societeRepository;
 
@@ -23,12 +22,14 @@ class GenerateDevLicensesCommand extends Command
     private LicenseService $licenseService;
 
     public function __construct(
+        LicenseFactoryInterface $licenseFactory,
         SocieteRepository $societeRepository,
         LicenseGeneration $licenseGeneration,
         LicenseService $licenseService
     ) {
         parent::__construct();
 
+        $this->licenseFactory = $licenseFactory;
         $this->societeRepository = $societeRepository;
         $this->licenseGeneration = $licenseGeneration;
         $this->licenseService = $licenseService;
@@ -37,7 +38,7 @@ class GenerateDevLicensesCommand extends Command
     protected function configure()
     {
         $this
-            ->setDescription('Génère des licenses illimitées pour toutes les sociétés.')
+            ->setDescription('Génère des licenses pour toutes les sociétés.')
         ;
     }
 
@@ -45,16 +46,17 @@ class GenerateDevLicensesCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $societes = $this->societeRepository->findAll();
-        $expirationDate = (new DateTime())->modify('+6 months');
 
         foreach ($societes as $societe) {
+            $license = $this->licenseFactory->createLicense($societe);
+
             $io->info(sprintf(
-                'Generating license for %s (%s)...',
+                'Generating license "%s" for %s (%s)...',
+                $license->getName(),
                 $societe->getRaisonSociale(),
                 $societe->getUuid()
             ));
 
-            $license = License::createUnlimitedLicense($societe, $expirationDate);
             $licenseContent = $this->licenseGeneration->generateLicenseFile($license);
 
             $this->licenseService->storeLicense($licenseContent);
