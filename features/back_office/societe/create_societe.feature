@@ -1,7 +1,7 @@
 Feature: Création d'une nouvelle société
 
     Background:
-        Given I have loaded fixtures from "back_office/connexion.yml"
+        Given I have loaded fixtures from "back_office/societe/create_societe.yml"
         And I am on "/connexion"
         When I fill in the following:
             | _username | user@bo.dev |
@@ -20,7 +20,3 @@ Feature: Création d'une nouvelle société
         Then I should see "La société \"SociétéTest\" a bien été créée"
         And I should see "En attente de finalisation d'inscription"
         And I should see "Invitation pas encore envoyée"
-
-        When I press "Envoyer un email d'invitation"
-        Then I should see "Un email avec un lien d'invitation a été envoyé à l'administrateur \"test@societetest.com\""
-        And I should see "Dernière invitation envoyée le"
