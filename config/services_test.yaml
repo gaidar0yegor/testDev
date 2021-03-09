@@ -15,7 +15,7 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Societe }
         calls:
-            - setDefaultLicenseFactory: ['@App\LicenseGeneration\DefaultLicense\TestingLicenseFactory']
+            - setDefaultLicenseFactory: ['@App\License\Factory\UnlimitedLicenseFactory']
 
     App\Tests\Activity\:
         resource: '../tests/Activity/'

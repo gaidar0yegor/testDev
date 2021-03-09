@@ -9,6 +9,7 @@ use App\Exception\UnexpectedUserException;
 use App\Form\InitSocieteType;
 use App\Form\UserEmailType;
 use App\License\DTO\License;
+use App\License\Factory\OffreStarterLicenseFactory;
 use App\License\LicenseService;
 use App\LicenseGeneration\Exception\EncryptionKeysException;
 use App\LicenseGeneration\Form\GenerateLicenseType;
@@ -86,9 +87,10 @@ class SocieteController extends AbstractController
         Request $request,
         Societe $societe,
         LicenseGeneration $licenseGeneration,
+        OffreStarterLicenseFactory $licenseFactory,
         LicenseService $licenseService
     ) {
-        $license = License::createFreeLicenseFor($societe);
+        $license = $licenseFactory->createLicense($societe);
         $form = $this->createForm(GenerateLicenseType::class, $license);
 
         $form->handleRequest($request);

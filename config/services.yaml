@@ -171,6 +171,30 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Societe }
 
+    App\LicenseGeneration\Command\GenerateLicensesCommand:
+        autoconfigure: false
+
+    app.license_generation.command.generate_license.offre_starter:
+        class: App\LicenseGeneration\Command\GenerateLicensesCommand
+        arguments:
+            $licenseFactory: '@App\License\Factory\OffreStarterLicenseFactory'
+        tags:
+            - { name: console.command, command: app:license-generation:generate:starter-offer }
+
+    app.license_generation.command.generate_license.try_offer:
+        class: App\LicenseGeneration\Command\GenerateLicensesCommand
+        arguments:
+            $licenseFactory: '@App\License\Factory\TryOfferLicenseFactory'
+        tags:
+            - { name: console.command, command: app:license-generation:generate:try-offer }
+
+    app.license_generation.command.generate_license.unlimited:
+        class: App\LicenseGeneration\Command\GenerateLicensesCommand
+        arguments:
+            $licenseFactory: '@App\License\Factory\UnlimitedLicenseFactory'
+        tags:
+            - { name: console.command, command: app:license-generation:generate:unlimited }
+
     App\LicenseGeneration\Command\GeneratePrivateKeyCommand:
         $privateKeyFile: '%env(resolve:LICENSE_GENERATION_PRIVATE_KEY)%'
         $publicKeyFile: '%env(resolve:LICENSE_GENERATION_PUBLIC_KEY)%'
