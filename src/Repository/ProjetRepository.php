@@ -216,4 +216,27 @@ class ProjetRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * Returns recently used projet for an user,
+     * based on ProjetParticipant::lastActionAt.
+     *
+     * @return Projet[]
+     */
+    public function findRecentsForUser(User $user, int $limit = 2): array
+    {
+        return $this
+            ->createQueryBuilder('projet')
+            ->leftJoin('projet.projetParticipants', 'projetParticipant')
+            ->where('projetParticipant.user = :user')
+            ->andWhere('projetParticipant.lastActionAt is not null')
+            ->orderBy('projetParticipant.lastActionAt', 'desc')
+            ->setMaxResults($limit)
+            ->setParameters([
+                'user' => $user,
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

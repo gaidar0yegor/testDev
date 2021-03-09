@@ -1,0 +1,71 @@
+App\Entity\User:
+    cdp:
+        nom: Eureka
+        prenom: Cdp
+        email: cdp@societe.dev
+        password: cdp
+        roles: [ROLE_FO_CDP]
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet1:
+        titre: Projet 1
+        acronyme: P1
+        societe: '@societe'
+    projet2:
+        titre: Projet 2
+        acronyme: P2
+        societe: '@societe'
+    projet3:
+        titre: Projet 3
+        acronyme: P3
+        societe: '@societe'
+    projet4:
+        titre: Projet 4
+        acronyme: P4
+        societe: '@societe'
+
+App\Entity\ProjetParticipant:
+    cdp_projet1:
+        user: '@cdp'
+        projet: '@projet1'
+        role: '<(App\Role::CDP)>'
+        lastActionAt: <(new DateTime("2020-10-09"))>
+    cdp_projet2:
+        user: '@cdp'
+        projet: '@projet2'
+        role: '<(App\Role::CDP)>'
+        lastActionAt: ~
+    cdp_projet3:
+        user: '@cdp'
+        projet: '@projet3'
+        role: '<(App\Role::CDP)>'
+        lastActionAt: <(new DateTime("2020-12-09"))>
+    cdp_projet4:
+        user: '@cdp'
+        projet: '@projet4'
+        role: '<(App\Role::CDP)>'
+        lastActionAt: <(new DateTime("2020-11-09"))>
+
+App\Entity\Activity:
+    activity{1..4}:
+        datetime: <(new DateTime("2020-11-0$current"))>
+        type: any_type
+
+App\Entity\ProjetActivity:
+    projet_activity0:
+        projet: '@projet3'
+        activity: '@activity1'
+    projet_activity1:
+        projet: '@projet3'
+        activity: '@activity2'
+    projet_activity2:
+        projet: '@projet4'
+        activity: '@activity3'
+    projet_activity3:
+        projet: '@projet1'
+        activity: '@activity4'
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: SociétéTest

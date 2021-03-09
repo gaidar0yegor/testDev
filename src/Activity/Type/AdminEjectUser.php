@@ -41,7 +41,7 @@ class AdminEjectUser implements ActivityInterface
         $resolver->setAllowedTypes('userEnabled', 'boolean');
     }
 
-    public function render(array $activityParameters, string $activityType): string
+    public function render(array $activityParameters, Activity $activity): string
     {
         if($activityParameters['userEnabled'] === true) {
             return sprintf(

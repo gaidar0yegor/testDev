@@ -1,0 +1,13 @@
+#recents-projets {
+    .card {
+        cursor: pointer;
+
+        &:hover {
+            background-color: #eee;
+        }
+
+        ul {
+            font-size: 0.8em;
+        }
+    }
+}

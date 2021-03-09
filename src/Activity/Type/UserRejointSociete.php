@@ -34,7 +34,7 @@ class UserRejointSociete implements ActivityInterface
         $resolver->setAllowedTypes('user', 'integer');
     }
 
-    public function render(array $activityParameters, string $activityType): string
+    public function render(array $activityParameters, Activity $activity): string
     {
         return sprintf(
             '%s %s a rejoint la société.',
