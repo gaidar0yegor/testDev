@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.18.0] - 2021-03-09
 ### Ajouté
 - Systeme de licenses
     - Pouvoir en générer depuis le back-office pour des sociétés SaaS
@@ -12,18 +17,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Les sociétés ont par défaut une license gratuite
     - L'admin peut voir ses licenses actuellement actives
     - Accès en lecture seule si la license est expirée
-
-### Ajouté
 - Ajout des notifications d'activité, "désactiver" et "activer" les utilisateurs
 - Back-office: Permettre d'ajouter un autre admin à une société
 - Tableau de bord : raccourcis vers mes projets recents
-### Réparé
-- Ne plus afficher "Aucun admin n'a encore recu de mail d'invitation..." quand un admin à déjà finalisé son inscription
-
 ### Modifié
 - Ajout du CDP sur le nombre "Contributeurs" sur la vue admin d'un projet
 - Statistiques d'un projet : le graphique des temps passé par users affiche maintenant un nom abrégé "P. Nom" au lieu de "Prénom Nom"
-
+### Réparé
+- Ne plus afficher "Aucun admin n'a encore recu de mail d'invitation..." quand un admin à déjà finalisé son inscription
 
 ## [0.17.0] - 2021-03-02
 ### Ajouté
