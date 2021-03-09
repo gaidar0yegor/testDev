@@ -104,16 +104,16 @@ class AdminStatsController extends AbstractController
     ) {
         $this->denyAccessUnlessGranted('same_societe', $projet);
 
-        $tempsPasse = $tempsPasseRepository->findAllByProjetAndYear($projet, $year);
+        $tempsPasses = $tempsPasseRepository->findAllByProjetAndYear($projet, $year);
         $months = [];
 
         for ($i = 0; $i < 12; ++$i) {
             $months[$i] = [];
         }
 
-        foreach ($tempsPasse as $tempsPasse) {
+        foreach ($tempsPasses as $tempsPasse) {
             $month = intval($tempsPasse->getCra()->getMois()->format('m')) - 1;
-            $user = $tempsPasse->getCra()->getUser()->getFullname();
+            $user = $tempsPasse->getCra()->getUser()->getShortname();
             $percentage = $tempsPasse->getPourcentage();
 
             $months[$month][$user] = $percentage;

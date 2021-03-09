@@ -415,6 +415,18 @@ class User implements UserInterface, HasSocieteInterface
         return $this->prenom . ' ' . $this->nom;
     }
 
+    /**
+     * Get user name abbreviated, like "T. Durden"
+     */
+    public function getShortname(): string
+    {
+        if (null === $this->prenom && null === $this->nom) {
+            return '-';
+        }
+
+        return strtoupper($this->prenom[0]).'. '.$this->nom;
+    }
+
     public function getFullnameOrEmail(): string
     {
         if (null === $this->prenom && null === $this->nom) {

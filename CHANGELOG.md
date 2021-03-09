@@ -22,6 +22,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ### Modifié
 - Ajout du CDP sur le nombre "Contributeurs" sur la vue admin d'un projet
+- Statistiques d'un projet : le graphique des temps passé par users affiche maintenant un nom abrégé "P. Nom" au lieu de "Prénom Nom"
 
 
 ## [0.17.0] - 2021-03-02

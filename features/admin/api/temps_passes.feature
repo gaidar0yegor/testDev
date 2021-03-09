@@ -15,3 +15,28 @@ Feature: API qui donne les pourcentages des temps passés
         When I am on "/api/stats/admin/temps-par-projet/1/2020"
         Then the response should be in JSON
         And the JSON node "months[10].PT" should be equal to "80"
+
+    Scenario: Le référent peut voir toutes les infos d'un projet en particulier
+        When I am on "/api/stats/admin/temps-par-user/1/2020"
+        Then the response should be in JSON
+        And the JSON should be equal to:
+            """
+                {
+                    "months": [
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        [],
+                        {
+                            "A. Eureka": 80
+                        },
+                        []
+                    ]
+                }
+            """
