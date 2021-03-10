@@ -4,7 +4,9 @@
         <row>
             <columns>
                 <spacer size="8"></spacer>
-                <h1 class="text-center">Nouveaux faits marquants ajoutés à vos projets RDI-Manager</h1>
+                <center><img src="{{ email.image('@public' ~ asset('build/assets/img/Logo-RDI-rouge.png')) }}" width="60" height="40" alt="RDI-Manager logo"></center>
+                 
+                <h4 class="pt text-center color-title" >Nouveaux faits marquants ajoutés à vos projets</h4>
             </columns>
         </row>
         <row>
@@ -22,7 +24,7 @@
                     {% if faitMarquant.projet != currentProjet %}
                         {% set currentProjet = faitMarquant.projet %}
                         <spacer size="8"></spacer>
-                        <h2 class="text-center">Projet {{ faitMarquant.projet.acronyme }}</h2>
+                        <h2 class="text-center color-title">Projet {{ faitMarquant.projet.acronyme }}</h2>
                     {% endif %}
 
                     <h3>{{ faitMarquant.titre }}</h3>
