@@ -1,13 +1,9 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+    {% block title %}Email de test envoyé depuis RDI-Manager{% endblock %}
+    {% block body %}
         <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Email de test envoyé depuis RDI-Manager</h1>
-            </columns>
-        </row>
-        <row>
+                <h1 class="text-center"></h1>
             <columns>
                 <p>
                     Ceci est un email de test envoyé depuis RDI-Manager.
@@ -18,7 +14,4 @@
                 </p>
             </columns>
         </row>
-        {% include('mail/layouts/_footer.html.twig') %}
-    </container>
-</wrapper>
-{% endapply %}
+    {% endblock %}

@@ -1,13 +1,14 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+    {% block title %}Nouveaux faits marquants ajoutés à vos projets{% endblock %}
+    {% block body %}
+        {# <row>
             <columns>
                 <spacer size="8"></spacer>
                 <center><img src="{{ email.image('@public' ~ asset('build/assets/img/Logo-RDI-rouge.png')) }}" width="60" height="40" alt="RDI-Manager logo"></center>
                 <h4 class="pt text-center color-title" >Nouveaux faits marquants ajoutés à vos projets</h4>
             </columns>
-        </row>
+        </row> #}
         <row>
             <columns>
                 <p>
@@ -49,7 +50,4 @@
                 {% endfor %}
             </columns>
         </row>
-         {% include('mail/layouts/_footer.html.twig') %}
-    </container>
-</wrapper>
-{% endapply %}
+    {% endblock %}
