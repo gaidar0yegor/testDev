@@ -1,18 +1,10 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Je vous recommande RDI-Manager</h1>
-            </columns>
-        </row>
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+    {% block title %}Je vous recommande RDI-Manager{% endblock %}
+    {% block body %}
         <row>
             <columns>
                 {% include 'mail/_recommandation-content.html.twig' %}
             </columns>
         </row>
-        {% include('mail/layouts/_footer.html.twig') %}
-    </container>
-</wrapper>
-{% endapply %}
+{% endblock %}

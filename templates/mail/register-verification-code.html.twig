@@ -1,12 +1,7 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Inscription sur RDI-Manager</h1>
-            </columns>
-        </row>
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+    {% block title %}Inscription sur RDI-Manager{% endblock %}
+    {% block body %}
         <row>
             <columns>
                 <p>
@@ -16,7 +11,4 @@
                 </p>
             </columns>
         </row>
-        {% include('mail/layouts/_footer.html.twig') %}
-    </container>
-</wrapper>
-{% endapply %}
+{% endblock %}

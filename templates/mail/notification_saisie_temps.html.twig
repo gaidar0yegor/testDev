@@ -1,12 +1,8 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Saisie de vos temps sur RDI-Manager</h1>
-            </columns>
-        </row>
+
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+    {% block title %}Saisie de vos temps sur RDI-Manager{% endblock %}
+    {% block body %}
         <row>
             <columns>
                 {% if cra and cra.isTempsPassesSubmitted %}
@@ -22,8 +18,4 @@
                     </p>
                 {% endif %}
             </columns>
-        </row>
-        {% include('mail/layouts/_footer.html.twig') %}
-    </container>
-</wrapper>
-{% endapply %}
+{% endblock %}
