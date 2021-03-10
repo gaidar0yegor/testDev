@@ -65,6 +65,11 @@ class LicenseExpiredListener implements EventSubscriber
 
         $societe = $entity->getSociete();
 
+        // New societe, don't check quotas because cannot retrieve quotas
+        if (null === $societe->getId()) {
+            return;
+        }
+
         if (null === $societe) {
             throw new RuntimeException('Cannot retrieve societe from HasSocieteInterface: returned null.');
         }
