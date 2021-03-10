@@ -26,6 +26,21 @@ class Societe implements HasSocieteInterface
     public const DEFAULT_HEURES_PAR_JOURS = 7.5;
 
     /**
+     * This societe has been created by someone who followed
+     * the inscription tunnel (/creer-ma-societe).
+     *
+     * @param string
+     */
+    public const CREATED_FROM_INSCRIPTION = 'INSCRIPTION';
+
+    /**
+     * This societe has been created by a back office user.
+     *
+     * @param string
+     */
+    public const CREATED_FROM_BACK_OFFICE = 'BACK_OFFICE';
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -78,6 +93,25 @@ class Societe implements HasSocieteInterface
      */
     private $projets;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * How this Societe has been created (back office, inscription, ...)
+     *
+     * @ORM\Column(type="string", length=31, nullable=true)
+     */
+    private $createdFrom;
+
+    /**
+     * Who created this Societe (admin, back office user, ...)
+     *
+     * @ORM\ManyToOne(targetEntity=User::class)
+     */
+    private $createdBy;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -86,6 +120,7 @@ class Societe implements HasSocieteInterface
         $this->smsEnabled = true;
         $this->slackAccessTokens = new ArrayCollection();
         $this->projets = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -252,6 +287,42 @@ class Societe implements HasSocieteInterface
                 $projet->setSociete(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCreatedFrom(): ?string
+    {
+        return $this->createdFrom;
+    }
+
+    public function setCreatedFrom(?string $createdFrom): self
+    {
+        $this->createdFrom = $createdFrom;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): self
+    {
+        $this->createdBy = $createdBy;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\RegisterSociete;
 
+use App\Entity\Societe;
 use App\RegisterSociete\DTO\Registration;
 use App\Service\Invitator;
 use App\Service\TokenGenerator;
@@ -81,7 +82,12 @@ class RegisterSociete
         $societe = $registration->societe;
         $admin = $registration->admin;
 
-        $societe->addUser($admin);
+        $societe
+            ->addUser($admin)
+            ->setCreatedFrom(Societe::CREATED_FROM_INSCRIPTION)
+            ->setCreatedBy($admin)
+        ;
+
         $admin
             ->setPassword($this->passwordEncoder->encodePassword($admin, $admin->getPassword()))
             ->setRole('ROLE_FO_ADMIN')

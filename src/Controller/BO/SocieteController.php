@@ -185,6 +185,12 @@ class SocieteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $societe = $invitator->initSociete($initSociete);
+
+            $societe
+                ->setCreatedFrom(Societe::CREATED_FROM_BACK_OFFICE)
+                ->setCreatedBy($this->getUser())
+            ;
+
             $invitator->check($societe, $form);
         }
 

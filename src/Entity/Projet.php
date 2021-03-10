@@ -119,6 +119,11 @@ class Projet implements HasSocieteInterface
      */
     private $rdiScoreReliability;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -129,6 +134,7 @@ class Projet implements HasSocieteInterface
         $this->projetPpp = false;
         $this->projetInterne = false;
         $this->projetActivities = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -468,6 +474,18 @@ class Projet implements HasSocieteInterface
     public function setRdiScoreReliability(?float $rdiScoreReliability): self
     {
         $this->rdiScoreReliability = $rdiScoreReliability;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

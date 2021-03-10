@@ -19,3 +19,6 @@ quota:
     contributeurs:
         name: Contributeurs
         description: Utilisateur non désactivé, et contributeur (ou chef de projet) sur au moins un projet de la société.
+
+BACK_OFFICE: Back-Office
+INSCRIPTION: Formulaire d'inscription

@@ -37,9 +37,16 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     private $description;
 
     /**
+     * Date du fait marquant
+     *
      * @ORM\Column(type="datetime")
      */
     private $date;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class)
@@ -61,6 +68,7 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -100,6 +108,18 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }
