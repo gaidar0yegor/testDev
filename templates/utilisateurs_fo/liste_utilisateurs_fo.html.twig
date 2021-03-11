@@ -5,27 +5,29 @@
 {% block body %}
 	<h1>Liste des utilisateurs</h1>
 
-	<table class="table table-hover text-center mx-auto m-5">
+	<table
+		class="table table-hover text-center"
+        data-toggle="table"
+        data-search="true"
+	>
 		<thead>
 			<tr>
-				<th class="text-left d-none d-md-table-cell">N°</th>
-				<th class="text-left">NOM</th>
-				<th class="d-none d-md-table-cell">Prénom</th>
+				<th data-sortable="true" class="text-left">NOM</th>
+				<th data-sortable="true" class="d-none d-md-table-cell">Prénom</th>
 				<th class="d-none d-md-table-cell">Email</th>
-				<th>Rôle</th>
-				<th class="d-none d-md-table-cell">Statut</th>
-				<th>Projets</th>
+				<th data-sortable="true" data-sorter="bySorterValue">Rôle</th>
+				<th data-sortable="true" class="d-none d-md-table-cell">Statut</th>
+				<th data-sortable="true">Projets</th>
 				<th>Actions</th>
 			</tr>
 		</thead>
 		<tbody>
-			{% for key, user in users %}
+			{% for user in users %}
 				<tr class="{{ user.enabled ? '' : 'text-muted' }}">
-					<td class="text-left d-none d-md-table-cell">{{ key + 1 }}</td>
 					<td class="text-left">{{ user.nom }}</td>
 					<td class="d-none d-md-table-cell">{{ user.prenom }}</td>
 					<td class="d-none d-md-table-cell">{{ user.email }}</td>
-					<td>
+					<td data-sorter-value="{{ user.role }}">
 						<span class="d-none d-sm-block">{{ user.role|trans }}</span>
 						<span class="d-sm-none">{{ (user.role ~'.small')|trans }}</span>
 					</td>
@@ -48,7 +50,7 @@
 		</tbody>
 	</table>
 
-	<div class="button mb-4">
+	<div class="my-3 text-right">
 		<a href="{{ path('app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
 			<i class="fa fa-user-plus" aria-hidden="true"></i>
 			Inviter un nouvel utilisateur

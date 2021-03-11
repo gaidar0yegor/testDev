@@ -9,6 +9,7 @@ import './styles/register.scss';
 import 'bootstrap';
 import 'bootstrap-datepicker';
 
+import './js/bootstrap-table';
 import './js/Cra';
 import './js/yearSwitch';
 import './js/recommandation-text-preview';

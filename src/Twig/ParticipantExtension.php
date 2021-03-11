@@ -37,6 +37,7 @@ class ParticipantExtension extends AbstractExtension
     {
         return [
             new TwigFunction('userRoleOn', [$this, 'userRoleOn']),
+            new TwigFunction('roleSortValue', [$this, 'roleSortValue']),
         ];
     }
 
@@ -97,5 +98,13 @@ class ParticipantExtension extends AbstractExtension
     public function filterByRoleExactly(iterable $projetParticipants, string $role): array
     {
         return $this->participantService->getProjetParticipantsWithRoleExactly($projetParticipants, $role);
+    }
+
+    /**
+     * Get role as number. Used to sort.
+     */
+    public function roleSortValue(string $role): int
+    {
+        return array_search($role, Role::$allRoles);
     }
 }

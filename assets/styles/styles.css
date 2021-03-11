@@ -93,10 +93,6 @@ section#timeline p {
     text-align: center; 
 }
 
-div.button.mb-4 {
-    text-align: end;
-}
-
 .table-hover {
     background-color: rgb(173, 166, 166);
 }

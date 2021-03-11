@@ -25,15 +25,19 @@
         </p>
     {% endif %}
 
-    <table class="table table-hover text-center mx-auto m-5">
-        <thead >
+    <table
+        class="table table-hover text-center"
+        data-toggle="table"
+        data-search="true"
+    >
+        <thead>
             <tr>
-                <th scope="col" class="text-left">Projet</th>
-                <th scope="col">Mon rôle</th>
-                <th scope="col" class="d-none d-md-table-cell">Début</th>
-                <th scope="col" class="d-none d-md-table-cell">Fin</th>
-                <th scope="col" class="d-none d-md-table-cell">Statut</th>
-                <th scope="col">Participants</th>
+                <th data-sortable="true" data-sorter="bySorterValue" class="text-left">Projet</th>
+                <th data-sortable="true" data-sorter="bySorterValue">Mon rôle</th>
+                <th class="d-none d-md-table-cell">Début</th>
+                <th class="d-none d-md-table-cell">Fin</th>
+                <th class="d-none d-md-table-cell">Statut</th>
+                <th data-sortable="true">Participants</th>
             </tr>
         </thead>
         <tbody class="filter-projets-by-selected-year">
@@ -45,8 +49,8 @@
                     onclick="location.href='{{ path('app_fo_projet', {'id': projet.id}) }}';"
                     style="cursor: pointer;"
                 >
-                    <td title="{{ projet.titre }}" scope="row" class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ projet.acronyme }}</a></td>
-                    <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
+                    <td title="{{ projet.titre }}" class="text-left" data-sorter-value="{{ projet.acronyme }}"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ projet.acronyme }}</a></td>
+                    <td class="text-center" data-sorter-value="{{ roleSortValue(userRoleOn(projet)) }}">{{ userRoleOn(projet)|trans }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.statut }}</td>
@@ -56,7 +60,7 @@
         </tbody>
     </table>
 
-    <div class="button mb-4">
+    <div class="my-3 text-right">
         <a
             class="btn btn-outline-success {{ is_granted('ROLE_FO_CDP') ? '' : 'disabled' }}"
             href="{{ path('app_fo_projet_creation') }}"
