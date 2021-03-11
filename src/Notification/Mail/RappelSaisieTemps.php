@@ -1,23 +1,20 @@
 <?php
 
-namespace App\Mailer;
+namespace App\Notification\Mail;
 
 use App\Entity\Cra;
 use App\Entity\User;
-use App\Notification\RappelSaisieTempsNotification;
+use App\Notification\Event\RappelSaisieTempsNotification;
 use App\Repository\UserRepository;
 use App\Service\DateMonthService;
 use DateTimeInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class NotificationListener implements EventSubscriberInterface
+class RappelSaisieTemps implements EventSubscriberInterface
 {
     private UserRepository $userRepository;
-
-    private UrlGeneratorInterface $urlGenerator;
 
     private DateMonthService $dateMonthService;
 
@@ -25,12 +22,10 @@ class NotificationListener implements EventSubscriberInterface
 
     public function __construct(
         UserRepository $userRepository,
-        UrlGeneratorInterface $urlGenerator,
         DateMonthService $dateMonthService,
         MailerInterface $mailer
     ) {
         $this->userRepository = $userRepository;
-        $this->urlGenerator = $urlGenerator;
         $this->dateMonthService = $dateMonthService;
         $this->mailer = $mailer;
     }
@@ -55,11 +50,6 @@ class NotificationListener implements EventSubscriberInterface
 
     private function sendNotificationSaisieTempsEmail(User $user, DateTimeInterface $month): void
     {
-        $link = $this->urlGenerator->generate('app_fo_temps', [
-            'year' => $month->format('Y'),
-            'month' => $month->format('m'),
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
-
         $cra = $user
             ->getCras()
             ->filter(function (Cra $cra) use ($month) {
@@ -74,7 +64,6 @@ class NotificationListener implements EventSubscriberInterface
             ->textTemplate('mail/notification_saisie_temps.txt.twig')
             ->htmlTemplate('mail/notification_saisie_temps.html.twig')
             ->context([
-                'link' => $link,
                 'month' => $month,
                 'cra' => $cra,
             ])

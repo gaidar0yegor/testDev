@@ -1,22 +1,19 @@
 <?php
 
-namespace App\Service;
+namespace App\Notification\Sms;
 
 use App\Entity\Cra;
 use App\Entity\Societe;
 use App\Entity\User;
+use App\Notification\Event\RappelSaisieTempsNotification;
 use App\Repository\UserRepository;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use App\Service\DateMonthService;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Twig\Environment as TwigEnvironment;
 
-/**
- * Service pour envoyer les notifications pour rappeller de remplir ses temps.
- */
-class NotificationSaisieTemps
+class RappelSaisieTemps implements EventSubscriberInterface
 {
     private UserRepository $userRepository;
-
-    private UrlGeneratorInterface $urlGenerator;
 
     private DateMonthService $dateMonthService;
 
@@ -26,16 +23,21 @@ class NotificationSaisieTemps
 
     public function __construct(
         UserRepository $userRepository,
-        UrlGeneratorInterface $urlGenerator,
         DateMonthService $dateMonthService,
         TwigEnvironment $twig,
         SmsSender $smsSender
     ) {
         $this->userRepository = $userRepository;
-        $this->urlGenerator = $urlGenerator;
         $this->dateMonthService = $dateMonthService;
         $this->twig = $twig;
         $this->smsSender = $smsSender;
+    }
+
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            RappelSaisieTempsNotification::class => 'sendNotificationSaisieTempsAllUsers',
+        ];
     }
 
     /**
@@ -47,11 +49,6 @@ class NotificationSaisieTemps
     {
         $month = $this->dateMonthService->normalize($month ?? new \DateTime());
 
-        $link = $this->urlGenerator->generate('app_fo_temps', [
-            'year' => $month->format('Y'),
-            'month' => $month->format('m'),
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
-
         $cra = $user
             ->getCras()
             ->filter(function (Cra $cra) use ($month) {
@@ -61,7 +58,6 @@ class NotificationSaisieTemps
         ;
 
         $message = $this->twig->render('mail/notification_saisie_temps.txt.twig', [
-            'link' => $link,
             'month' => $month,
             'cra' => $cra,
         ]);
@@ -69,8 +65,10 @@ class NotificationSaisieTemps
         $this->smsSender->sendSms($user, $message);
     }
 
-    public function sendNotificationSaisieTempsAllUsers(Societe $societe, \DateTimeInterface $month = null): void
+    public function sendNotificationSaisieTempsAllUsers(RappelSaisieTempsNotification $event): void
     {
+        $societe = $event->getSociete();
+        $month = $event->getMonth();
         $users = $this->userRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
 
         foreach ($users as $user) {
