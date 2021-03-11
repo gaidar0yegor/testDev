@@ -4,6 +4,16 @@
 
 <h1>Société {{ societe.raisonSociale }}</h1>
 
+<ul>
+    <li>Créée le <strong>{{ societe.createdAt|format_datetime }}</strong></li>
+    {% if societe.createdFrom %}
+        <li>Créée depuis : <strong>{{ societe.createdFrom|trans }}</strong></li>
+    {% endif %}
+    {% if societe.createdBy %}
+        <li>Créée par <strong>{{ societe.createdBy.fullname }}</strong></li>
+    {% endif %}
+</ul>
+
 <a class="d-block mb-4" href="{{ path('app_bo_societes') }}">
     <i class="fa fa-chevron-left" aria-hidden="true"></i>
     Retourner à la liste des sociétés
