@@ -4,6 +4,7 @@ namespace App\Activity;
 
 use App\Activity\Exception\UnimplementedActivityTypeException;
 use App\Entity\Activity;
+use Symfony\Component\OptionsResolver\Exception\ExceptionInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ActivityService
@@ -26,6 +27,11 @@ class ActivityService
         $this->fallbackActivityType = $activityType;
     }
 
+    /**
+     * Checks an activity.
+     *
+     * @throws ExceptionInterface When parameters of activity are wrong (missing, invalid type...)
+     */
     public function checkActivity(Activity $activity): void
     {
         $activityType = $this->loadActivityType($activity->getType());
@@ -33,6 +39,11 @@ class ActivityService
         $this->checkParameters($activity->getParameters(), $activityType);
     }
 
+    /**
+     * Checks an array of parameters using a specific $activityType.
+     *
+     * @throws ExceptionInterface When parameters of activity are wrong (missing, invalid type...)
+     */
     public function checkParameters(array $parameters, ActivityInterface $activityType): void
     {
         $optionsResolver = new OptionsResolver();
@@ -42,6 +53,9 @@ class ActivityService
         $optionsResolver->resolve($parameters);
     }
 
+    /**
+     * Returns the ActivityInterface that can handle the specified $type.
+     */
     public function loadActivityType(string $type): ActivityInterface
     {
         foreach ($this->activityTypes as $key => $activityType) {

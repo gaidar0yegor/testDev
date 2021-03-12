@@ -54,4 +54,3 @@ App\Entity\ProjetParticipant:
 App\Entity\Societe:
     societe:
         raisonSociale: Société
-        siret: 111111111

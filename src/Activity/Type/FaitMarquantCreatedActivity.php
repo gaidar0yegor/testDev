@@ -9,7 +9,10 @@ use App\Entity\Projet;
 use App\Entity\ProjetActivity;
 use App\Entity\User;
 use App\Entity\UserActivity;
+use App\Entity\UserNotification;
+use App\Role;
 use App\Service\EntityLink\EntityLinkService;
+use App\Service\ParticipantService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,9 +20,12 @@ class FaitMarquantCreatedActivity implements ActivityInterface
 {
     private EntityLinkService $entityLinkService;
 
-    public function __construct(EntityLinkService $entityLinkService)
+    private ParticipantService $participantService;
+
+    public function __construct(EntityLinkService $entityLinkService, ParticipantService $participantService)
     {
         $this->entityLinkService = $entityLinkService;
+        $this->participantService = $participantService;
     }
 
     public static function getType(): string
@@ -76,6 +82,19 @@ class FaitMarquantCreatedActivity implements ActivityInterface
         ;
 
         $em = $args->getEntityManager();
+
+        $observateurs = $this->participantService->getProjetParticipantsWithRole(
+            $faitMarquant->getProjet()->getProjetParticipants(),
+            Role::OBSERVATEUR
+        );
+
+        foreach ($observateurs as $observateur) {
+            if ($observateur->getUser() === $faitMarquant->getCreatedBy()) {
+                continue;
+            }
+
+            $em->persist(UserNotification::create($activity, $observateur->getUser()));
+        }
 
         $em->persist($activity);
         $em->persist($userActivity);
