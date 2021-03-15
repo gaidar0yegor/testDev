@@ -6,7 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
-
+- Stylisation des mails fait marquants
 
 
 ## [0.18.0] - 2021-03-09
@@ -25,7 +25,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Statistiques d'un projet : le graphique des temps passé par users affiche maintenant un nom abrégé "P. Nom" au lieu de "Prénom Nom"
 ### Réparé
 - Ne plus afficher "Aucun admin n'a encore recu de mail d'invitation..." quand un admin à déjà finalisé son inscription
-- Stylisation des mails fait marquants
 
 ## [0.17.0] - 2021-03-02
 ### Ajouté
