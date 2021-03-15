@@ -8,7 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Back-Office : connaitre la date de création, qui et comment une société a été créée
 
-
+- Stylisation des mails fait marquants
 
 
 ## [0.18.0] - 2021-03-09

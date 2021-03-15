@@ -1,39 +1,22 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Saisie de vos temps sur RDI-Manager</h1>
-            </columns>
-        </row>
-        <row>
-            <columns>
-                {% if cra and cra.isTempsPassesSubmitted %}
-                    <p>
-                        Vous avez déjà saisi vos temps le {{ cra.tempsPassesModifiedAt|format_date(pattern='d MMMM') }}.
-                        <br>
-                        Vous pouvez toujours <a href="{{ link }}">revérifier vos temps de {{ month|format_date(pattern='MMMM') }}</a>.
-                    </p>
-                {% else %}
-                    <p>
-                        Vous n'avez pas encore saisi vos temps pour le mois de {{ month|format_date(pattern='MMMM') }}.
-                        <button href="{{ link }}" class="large expanded">Saisir mes temps de {{ month|format_date(pattern='MMMM') }}</button>
-                    </p>
-                {% endif %}
-            </columns>
-        </row>
-        <row class="footer">
-            <columns>
-                <p class="text-center">
-                    <small>© Copyright Eurêka C.I</small>
+
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Saisie de vos temps sur RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            {% if cra and cra.isTempsPassesSubmitted %}
+                <p>
+                    Vous avez déjà saisi vos temps le {{ cra.tempsPassesModifiedAt|format_date(pattern='d MMMM') }}.
+                    <br>
+                    Vous pouvez toujours <a href="{{ link }}">revérifier vos temps de {{ month|format_date(pattern='MMMM') }}</a>.
                 </p>
-                <center>
-                    <img src="{{ email.image('@public' ~ asset('build/assets/img/logosign.png')) }}" width="26" height="26" alt="Logo Eureka C.I">
-                </center>
-                <spacer size="8"></spacer>
-            </columns>
-        </row>
-    </container>
-</wrapper>
-{% endapply %}
+            {% else %}
+                <p>
+                    Vous n'avez pas encore saisi vos temps pour le mois de {{ month|format_date(pattern='MMMM') }}.
+                    <button href="{{ link }}" class="large expanded">Saisir mes temps de {{ month|format_date(pattern='MMMM') }}</button>
+                </p>
+            {% endif %}
+        </columns>
+    </row>
+{% endblock %}

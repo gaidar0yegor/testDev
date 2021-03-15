@@ -1,28 +1,10 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Je vous recommande RDI-Manager</h1>
-            </columns>
-        </row>
-        <row>
-            <columns>
-                {% include 'mail/_recommandation-content.html.twig' %}
-            </columns>
-        </row>
-        <row class="footer">
-            <columns>
-                <p class="text-center">
-                    <small>© Copyright Eurêka C.I</small>
-                </p>
-                <center>
-                    <img src="{{ email.image('@public' ~ asset('build/assets/img/logosign.png')) }}" width="26" height="26" alt="Logo Eureka C.I">
-                </center>
-                <spacer size="8"></spacer>
-            </columns>
-        </row>
-    </container>
-</wrapper>
-{% endapply %}
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Je vous recommande RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            {% include 'mail/_recommandation-content.html.twig' %}
+        </columns>
+    </row>
+{% endblock %}

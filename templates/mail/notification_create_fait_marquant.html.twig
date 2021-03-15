@@ -1,44 +1,26 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Rappel pour créer vos faits marquants sur RDI-Manager</h1>
-            </columns>
-        </row>
-        <row>
-            <columns>
-                <p>
-                    Vous avez contribué à au moins un projet ce mois ci.
-                    Si vous avez un fait marquant à ajouter, vous êtes invité à le faire ici.
-                </p>
-                <p>
-                    <strong>Ajouter un fait marquant sur :</strong>
+{% extends 'mail/layouts/base_mail.html.twig' %}
 
-                    <ul>
-                        {% for projet in projets %}
-                            <li>
-                                <a href="{{ url('app_fo_fait_marquant_ajouter', {projetId: projet.id}) }}">
-                                    Projet {{ projet.acronyme }}
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </p>
-            </columns>
-        </row>
-        <row class="footer">
-            <columns>
-                <p class="text-center">
-                    <small>© Copyright Eurêka C.I</small>
-                </p>
-                <center>
-                    <img src="{{ email.image('@public' ~ asset('build/assets/img/logosign.png')) }}" width="26" height="26" alt="Logo Eureka C.I">
-                </center>
-                <spacer size="8"></spacer>
-            </columns>
-        </row>
-    </container>
-</wrapper>
-{% endapply %}
+{% block title %}Rappel pour créer vos faits marquants sur RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Vous avez contribué à au moins un projet ce mois ci.
+                Si vous avez un fait marquant à ajouter, vous êtes invité à le faire ici.
+            </p>
+            <p>
+                <strong>Ajouter un fait marquant sur :</strong>
+
+                <ul>
+                    {% for projet in projets %}
+                        <li>
+                            <a href="{{ url('app_fo_fait_marquant_ajouter', {projetId: projet.id}) }}">
+                                Projet {{ projet.acronyme }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+        </columns>
+    </row>
+{% endblock %}

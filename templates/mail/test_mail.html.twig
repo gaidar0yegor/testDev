@@ -1,34 +1,16 @@
-{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
-<wrapper>
-    <container>
-        <row>
-            <columns>
-                <spacer size="8"></spacer>
-                <h1 class="text-center">Email de test envoyé depuis RDI-Manager</h1>
-            </columns>
-        </row>
-        <row>
-            <columns>
-                <p>
-                    Ceci est un email de test envoyé depuis RDI-Manager.
-                    Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI-Manager.
-                </p>
-                <p>
-                    Url absolue de RDI-Manager : <a href="{{ url('app_home') }}">{{ url('app_home') }}</a>
-                </p>
-            </columns>
-        </row>
-        <row class="footer">
-            <columns>
-                <p class="text-center">
-                    <small>© Copyright Eurêka C.I</small>
-                </p>
-                <center>
-                    <img src="{{ email.image('@public' ~ asset('build/assets/img/logosign.png')) }}" width="26" height="26" alt="Logo Eureka C.I">
-                </center>
-                <spacer size="8"></spacer>
-            </columns>
-        </row>
-    </container>
-</wrapper>
-{% endapply %}
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Email de test envoyé depuis RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Ceci est un email de test envoyé depuis RDI-Manager.
+                Si vous le recevez, le serveur est bien configuré pour envoyer les emails RDI-Manager.
+            </p>
+            <p>
+                Url absolue de RDI-Manager : <a href="{{ url('app_home') }}">{{ url('app_home') }}</a>
+            </p>
+        </columns>
+    </row>
+{% endblock %}

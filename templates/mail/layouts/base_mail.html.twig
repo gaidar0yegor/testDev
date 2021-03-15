@@ -1,0 +1,17 @@
+{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
+<wrapper>
+    <container>
+     <row>
+            <columns>
+                <spacer size="8"></spacer>
+                <center><img src="{{ email.image('@public' ~ asset('build/assets/img/Logo-RDI-rouge.png')) }}" width="60" height="40" alt="RDI-Manager logo"></center>
+                <h4 class="pt text-center color-title" >{% block title %}RDI-Manager{% endblock %}</h4>
+            </columns>
+        </row>
+    {% block body %}
+
+    {% endblock %}
+    {% include('mail/layouts/_footer_mail.html.twig') %}
+    </container>
+</wrapper>
+{% endapply %}
