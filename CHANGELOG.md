@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Back-Office : connaitre la date de création, qui et comment une société a été créée
+- Pouvoir filtrer et trier la liste des projets, et des utilisateurs
 
 - Stylisation des mails fait marquants
 
