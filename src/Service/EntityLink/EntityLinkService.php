@@ -38,6 +38,10 @@ class EntityLinkService
             $entity = $entityOrClassname;
         }
 
+        if (null === $entity) {
+            return new NullEntityLink();
+        }
+
         $entityClass = ClassUtils::getRealClass(get_class($entity));
 
         if (!array_key_exists($entityClass, $this->linkGenerators)) {
