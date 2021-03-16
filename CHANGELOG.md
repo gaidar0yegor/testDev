@@ -8,6 +8,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Back-Office : connaitre la date de création, qui et comment une société a été créée
 - Pouvoir filtrer et trier la liste des projets, et des utilisateurs
+- Ajoute les notifications utilisateurs (icone alarme en haut à droite) pour faire remonter dernières activités importante à l'utilisateur
+    - Lorsqu'un fait marquant vient d'être créé sur un de ses projet
+    - Lorsqu'il devrait mettre à jour ses temps
 
 - Stylisation des mails fait marquants
 

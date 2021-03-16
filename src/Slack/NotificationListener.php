@@ -2,7 +2,7 @@
 
 namespace App\Slack;
 
-use App\Notification\RappelSaisieTempsNotification;
+use App\Notification\Event\RappelSaisieTempsNotification;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

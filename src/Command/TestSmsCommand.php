@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Entity\User;
-use App\Service\SmsSender;
+use App\Notification\Sms\SmsSender;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberUtil;
 use Symfony\Component\Console\Command\Command;

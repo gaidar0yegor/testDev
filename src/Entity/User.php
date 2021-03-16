@@ -195,6 +195,11 @@ class User implements UserInterface, HasSocieteInterface
      */
     private $helpTexts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserNotification::class, mappedBy="user")
+     */
+    private $userNotifications;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -208,6 +213,7 @@ class User implements UserInterface, HasSocieteInterface
         $this->userActivities = new ArrayCollection();
         $this->onboardingEnabled = true;
         $this->onboardingTimesheetCompleted = false;
+        $this->userNotifications = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -710,6 +716,36 @@ class User implements UserInterface, HasSocieteInterface
     public function setHelpTexts(?array $helpTexts): self
     {
         $this->helpTexts = $helpTexts;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserNotification[]
+     */
+    public function getUserNotifications(): Collection
+    {
+        return $this->userNotifications;
+    }
+
+    public function addUserNotification(UserNotification $userNotification): self
+    {
+        if (!$this->userNotifications->contains($userNotification)) {
+            $this->userNotifications[] = $userNotification;
+            $userNotification->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserNotification(UserNotification $userNotification): self
+    {
+        if ($this->userNotifications->removeElement($userNotification)) {
+            // set the owning side to null (unless already changed)
+            if ($userNotification->getUser() === $this) {
+                $userNotification->setUser(null);
+            }
+        }
 
         return $this;
     }

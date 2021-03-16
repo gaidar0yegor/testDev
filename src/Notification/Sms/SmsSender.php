@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Notification\Sms;
 
 use App\Entity\User;
 use libphonenumber\PhoneNumberFormat;

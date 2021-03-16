@@ -2,23 +2,22 @@
 
 namespace App\Command\NotificationCommand;
 
-use App\Service\NotificationFaitMarquants;
+use App\Notification\Event\RappelCreationFaitMarquantsNotification;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class NotificationCreateFaitMarquantCommand extends AbstractNotificationCommand
 {
     public static $defaultName = 'app:notifie-creer-faits-marquants';
 
-    private NotificationFaitMarquants $notificationFaitMarquants;
+    private EventDispatcherInterface $dispatcher;
 
-    public function __construct(
-        NotificationFaitMarquants $notificationFaitMarquants
-    ) {
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
         parent::__construct();
 
-        $this->notificationFaitMarquants = $notificationFaitMarquants;
+        $this->dispatcher = $dispatcher;
     }
 
     protected function configure()
@@ -32,11 +31,7 @@ class NotificationCreateFaitMarquantCommand extends AbstractNotificationCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $io = new SymfonyStyle($input, $output);
-
-        $totalSent = $this->notificationFaitMarquants->remindCreateAllUsers($this->findCommandSociete($input));
-
-        $io->success("$totalSent emails de notification ont été envoyés !");
+        $this->dispatcher->dispatch(new RappelCreationFaitMarquantsNotification($this->findCommandSociete($input)));
 
         return 0;
     }
