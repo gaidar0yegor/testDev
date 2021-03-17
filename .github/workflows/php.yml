@@ -79,3 +79,4 @@ jobs:
       with:
         name: build
         path: public/build/
+        retention-days: 7
