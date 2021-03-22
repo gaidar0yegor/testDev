@@ -3,7 +3,7 @@
 namespace App\Slack;
 
 use App\Entity\User;
-use App\Exception\UnexpectedUserException;
+use App\Security\Exception\UnexpectedUserException;
 use Doctrine\ORM\EntityManagerInterface;
 use JoliCode\Slack\Exception\SlackErrorResponse;
 use Symfony\Component\HttpFoundation\Request;

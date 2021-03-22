@@ -20,6 +20,6 @@ Feature: Création d'une nouvelle société
 
     Scenario: Je peux ajouter un autre administrateur sur une société déjà créée
         When I fill in the following:
-            | user_email[email] | autre_admin@societe.dev |
+            | user_email[invitationEmail] | autre_admin@societe.dev |
         And I press "Inviter un autre administrateur"
         Then I should see "L'administrateur a été ajouté ! Vous pouvez lui envoyer un email d'invitation afin qu'il finalise son inscription"

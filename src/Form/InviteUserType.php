@@ -2,7 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
+use App\Security\Role\RoleSociete;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -15,14 +16,14 @@ class InviteUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, [
+            ->add('invitationEmail', EmailType::class, [
                 'label' => 'Email',
             ])
             ->add('role',  ChoiceType::class, [
                 'choices' => [
-                    'Utilisateur' => 'ROLE_FO_USER',
-                    'Chef de Projet' => 'ROLE_FO_CDP',
-                    'Administrateur' => 'ROLE_FO_ADMIN',
+                    RoleSociete::USER => RoleSociete::USER,
+                    RoleSociete::CDP => RoleSociete::CDP,
+                    RoleSociete::ADMIN => RoleSociete::ADMIN,
                 ],
             ])
             ->add('ajouter', SubmitType::class, [
@@ -34,7 +35,7 @@ class InviteUserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => SocieteUser::class,
         ]);
     }
 }

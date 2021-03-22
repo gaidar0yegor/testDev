@@ -4,8 +4,7 @@ namespace App\Controller\BO;
 
 use App\DTO\InitSociete;
 use App\Entity\Societe;
-use App\Entity\User;
-use App\Exception\UnexpectedUserException;
+use App\Entity\SocieteUser;
 use App\Form\InitSocieteType;
 use App\Form\UserEmailType;
 use App\License\DTO\License;
@@ -15,6 +14,7 @@ use App\LicenseGeneration\Exception\EncryptionKeysException;
 use App\LicenseGeneration\Form\GenerateLicenseType;
 use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
+use App\Security\Role\RoleSociete;
 use App\Service\FileResponseFactory;
 use App\Service\Invitator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -49,7 +49,7 @@ class SocieteController extends AbstractController
         EntityManagerInterface $em,
         LicenseService $licenseService
     ): Response {
-        $admin = $invitator->initUser($societe, 'ROLE_FO_ADMIN');
+        $admin = $invitator->initUser($societe, RoleSociete::ADMIN);
         $form = $this->createForm(UserEmailType::class, $admin);
 
         $form->handleRequest($request);
@@ -142,27 +142,32 @@ class SocieteController extends AbstractController
 
     /**
      * @Route(
-     *      "/societes/{societeId}/envoi-invitation/{userId}",
+     *      "/societes/{societeId}/envoi-invitation/{societeUserId}",
      *      name="app_bo_societe_invite",
      *      methods={"POST"},
      *      requirements={"id"="\d+"}
      * )
      *
      * @ParamConverter("societe", options={"id" = "societeId"})
-     * @ParamConverter("user", options={"id" = "userId"})
+     * @ParamConverter("societeUser", options={"id" = "societeUserId"})
      */
-    public function societeSendInvitation(Request $request, Societe $societe, User $user, Invitator $invitator, EntityManagerInterface $em)
-    {
+    public function societeSendInvitation(
+        Request $request,
+        Societe $societe,
+        SocieteUser $societeUser,
+        Invitator $invitator,
+        EntityManagerInterface $em
+    ) {
         if (!$this->isCsrfTokenValid('send-invitation-admin', $request->get('token'))) {
             throw new BadRequestHttpException('Csrf token invalid');
         }
 
-        $invitator->sendInvitation($user, $this->getUser());
+        $invitator->sendInvitation($societeUser, $this->getUser());
         $em->flush();
 
         $this->addFlash('success', sprintf(
             'Un email avec un lien d\'invitation a été envoyé à l\'administrateur "%s".',
-            $user->getEmail()
+            $societeUser->getInvitationEmail()
         ));
 
         return $this->redirectToRoute('app_bo_societe', [

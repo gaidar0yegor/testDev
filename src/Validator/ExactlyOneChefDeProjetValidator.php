@@ -4,6 +4,7 @@ namespace App\Validator;
 
 use App\Entity\ProjetParticipant;
 use App\Role;
+use App\Security\Role\RoleProjet;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedValueException;
@@ -23,7 +24,7 @@ class ExactlyOneChefDeProjetValidator extends ConstraintValidator
                 throw new UnexpectedValueException($projetParticipants, 'ProjetParticipant[]');
             }
 
-            if ($projetParticipant->getRole() === Role::CDP) {
+            if ($projetParticipant->getRole() === RoleProjet::CDP) {
                 ++$numberOfChefDeProjet;
 
                 if ($numberOfChefDeProjet > 1) {

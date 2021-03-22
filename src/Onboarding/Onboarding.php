@@ -2,7 +2,7 @@
 
 namespace App\Onboarding;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Onboarding
@@ -27,13 +27,13 @@ class Onboarding
      *        ['text' => 'Invitez vos users', 'completed' => false]
      *      ]
      */
-    public function getStepsFor(User $user): array
+    public function getStepsFor(SocieteUser $societeUser): array
     {
-        return array_map(function (OnboardingStepInterface $step) use ($user) {
+        return array_map(function (OnboardingStepInterface $step) use ($societeUser) {
             return [
                 'text' => $step->getText(),
-                'link' => $step->getLink($this->urlGenerator, $user),
-                'completed' => $step->isCompleted($user),
+                'link' => $step->getLink($this->urlGenerator, $societeUser),
+                'completed' => $step->isCompleted($societeUser),
                 'important' => $step->isImportant(),
             ];
         }, $this->onboardingSteps);

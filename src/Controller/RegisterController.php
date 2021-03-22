@@ -6,7 +6,6 @@ use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\Societe;
 use App\Entity\User;
-use App\Exception\UnexpectedUserException;
 use App\RegisterSociete\DTO\InviteCollaborators;
 use App\RegisterSociete\Form\AccountType;
 use App\RegisterSociete\Form\AccountVerificationType;
@@ -15,23 +14,28 @@ use App\RegisterSociete\Form\ProjetType;
 use App\RegisterSociete\Form\SocieteType;
 use App\RegisterSociete\InviteCollaboratorsService;
 use App\RegisterSociete\RegisterSociete;
-use App\Role;
+use App\Security\Role\RoleProjet;
+use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 class RegisterController extends AbstractController
 {
     private RegisterSociete $registerSociete;
 
-    public function __construct(RegisterSociete $registerSociete)
+    private UserContext $userContext;
+
+    public function __construct(RegisterSociete $registerSociete, UserContext $userContext)
     {
         $this->registerSociete = $registerSociete;
+        $this->userContext = $userContext;
     }
 
     /**
@@ -47,10 +51,6 @@ class RegisterController extends AbstractController
      */
     public function societe(Request $request): Response
     {
-        if (null !== $redirectResponse = $this->shouldRedirect($request)) {
-            return $redirectResponse;
-        }
-
         $societe = $this->registerSociete->getCurrentRegistration()->societe ?? new Societe();
         $form = $this->createForm(SocieteType::class, $societe);
 
@@ -72,12 +72,19 @@ class RegisterController extends AbstractController
     /**
      * @Route("/creer-ma-societe/mon-compte", name="app_register_account")
      */
-    public function account(Request $request, MailerInterface $mailer): Response
+    public function account(): Response
     {
-        if (null !== $redirectResponse = $this->shouldRedirect($request)) {
-            return $redirectResponse;
-        }
+        return $this->render('register/account.html.twig', [
+            'step' => 2,
+            'societe' => $this->registerSociete->getCurrentRegistration()->societe,
+        ]);
+    }
 
+    /**
+     * @Route("/creer-ma-societe/mon-compte/creer", name="app_register_account_creation")
+     */
+    public function accountCreation(Request $request, MailerInterface $mailer): Response
+    {
         $admin = $this->registerSociete->getCurrentRegistration()->admin ?? new User();
         $form = $this->createForm(AccountType::class, $admin);
 
@@ -95,7 +102,7 @@ class RegisterController extends AbstractController
             return $this->redirectToRoute('app_register_account_verification');
         }
 
-        return $this->render('register/account.html.twig', [
+        return $this->render('register/account-creation.html.twig', [
             'step' => 2,
             'form' => $form->createView(),
             'societe' => $this->registerSociete->getCurrentRegistration()->societe,
@@ -108,12 +115,8 @@ class RegisterController extends AbstractController
     public function accountVerification(
         Request $request,
         EntityManagerInterface $em,
-        TokenStorageInterface $tokenStorage
+        GuardAuthenticatorHandler $authenticator
     ): Response {
-        if (null !== $redirectResponse = $this->shouldRedirect($request)) {
-            return $redirectResponse;
-        }
-
         $form = $this->createForm(AccountVerificationType::class);
 
         $form->handleRequest($request);
@@ -128,7 +131,8 @@ class RegisterController extends AbstractController
 
                 $admin = $registration->admin;
                 $token = new UsernamePasswordToken($admin, $admin->getPassword(), 'fo', $admin->getRoles());
-                $tokenStorage->setToken($token);
+
+                $authenticator->authenticateWithToken($token, $request);
 
                 $this->addFlash('success', 'Votre compte a été créée avec succès !');
 
@@ -145,21 +149,55 @@ class RegisterController extends AbstractController
     }
 
     /**
-     * @Route("/creer-ma-societe/mon-projet", name="app_register_projet")
+     * @Route("/creer-ma-societe/mon-compte/rejoindre", name="app_register_account_join")
+     *
+     * @IsGranted("ROLE_FO_USER")
      */
-    public function projet(Request $request, EntityManagerInterface $em): Response
-    {
-        if (null !== $redirectResponse = $this->shouldRedirect($request)) {
-            return $redirectResponse;
+    public function accountJoin(
+        Request $request,
+        UserContext $userContext,
+        EntityManagerInterface $em
+    ): Response {
+        $registration = $this->registerSociete->getCurrentRegistration();
+
+        if ($request->isMethod('POST')) {
+            if (!$this->isCsrfTokenValid('register_join_societe', $request->get('csrf_token'))) {
+                $this->addFlash('danger', 'Erreur, il semblerai que le bouton ait expiré, veuillez réessayer.');
+
+                return $this->redirectToRoute('app_register_account_join');
+            }
+
+            $registration->admin = $userContext->getUser();
+            $societeUser = $this->registerSociete->persistRegistration($registration);
+
+            $userContext->switchSociete($societeUser);
+            $em->flush();
+
+            $this->registerSociete->initializeCurrentRegistration();
+
+            return $this->redirectToRoute('app_register_projet');
         }
 
+        return $this->render('register/account-join.html.twig', [
+            'step' => 2,
+            'societe' => $registration->societe,
+        ]);
+    }
+
+    /**
+     * @Route("/creer-ma-societe/mon-projet", name="app_register_projet")
+     *
+     * @IsGranted("SOCIETE_ADMIN")
+     */
+    public function projet(Request $request, EntityManagerInterface $em, UserContext $userContext): Response
+    {
         $projet = (new Projet())
-            ->setSociete($this->getUser()->getSociete())
+            ->setSociete($userContext->getSocieteUser()->getSociete())
         ;
         $participant = (new ProjetParticipant())
             ->setProjet($projet)
-            ->setUser($this->getUser())
-            ->setRole(Role::CDP)
+            ->setSocieteUser($userContext->getSocieteUser())
+            ->setRole(RoleProjet::CDP)
         ;
 
         $form = $this->createForm(ProjetType::class, $projet);
@@ -184,28 +222,27 @@ class RegisterController extends AbstractController
 
     /**
      * @Route("/creer-ma-societe/inviter-mes-collaborateurs", name="app_register_collaborators")
+     *
+     * @IsGranted("SOCIETE_ADMIN")
      */
     public function collaborators(
         Request $request,
         InviteCollaboratorsService $inviteCollaboratorsService,
+        UserContext $userContext,
         EntityManagerInterface $em
     ): Response {
-        if (null !== $redirectResponse = $this->shouldRedirect($request)) {
-            return $redirectResponse;
-        }
-
         $inviteCollaborators = new InviteCollaborators();
         $form = $this->createForm(CollaboratorsType::class, $inviteCollaborators);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $projets = $this->getUser()->getSociete()->getProjets();
+            $projets = $userContext->getSocieteUser()->getSociete()->getProjets();
             $projet = count($projets) > 0 ? $projets[0] : null;
 
             $inviteCollaboratorsService->inviteCollaborators(
                 $inviteCollaborators,
-                $this->getUser(),
+                $userContext->getSocieteUser(),
                 $projet
             );
 
@@ -222,101 +259,13 @@ class RegisterController extends AbstractController
 
     /**
      * @Route("/creer-ma-societe/inscription-terminee", name="app_register_finish")
+     *
+     * @IsGranted("SOCIETE_ADMIN")
      */
-    public function finish(Request $request): Response
+    public function finish(): Response
     {
-        if (null !== $redirectResponse = $this->shouldRedirect($request)) {
-            return $redirectResponse;
-        }
-
         return $this->render('register/finish.html.twig', [
             'step' => 5,
         ]);
-    }
-
-    /**
-     * Returns possible steps from current registration state.
-     *
-     * @return string[]
-     */
-    private function getExpectedRoutes(): array
-    {
-        if (null === $this->getUser()) {
-            if (!$this->registerSociete->hasCurrentRegistration()) {
-                $this->registerSociete->initializeCurrentRegistration();
-            }
-
-            $registration = $this->registerSociete->getCurrentRegistration();
-
-            if (null === $registration->societe) {
-                return ['app_register_societe'];
-            }
-
-            if (null === $registration->admin || null === $registration->verificationCode) {
-                return ['app_register_account'];
-            }
-
-            return ['app_register_account', 'app_register_account_verification'];
-        }
-
-        if (!$this->isGranted('ROLE_FO_ADMIN')) {
-            return ['app_home'];
-        }
-
-        $admin = $this->getUser();
-
-        if (!$admin instanceof User) {
-            throw new UnexpectedUserException($admin);
-        }
-
-        $routes = [];
-
-        if (0 === count($admin->getSociete()->getProjets())) {
-            $routes[] = 'app_register_projet';
-        }
-
-        if (count($admin->getSociete()->getUsers()) < 2) {
-            $routes[] = 'app_register_collaborators';
-        }
-
-        $routes[] = 'app_register_finish';
-
-        return $routes;
-    }
-
-    /**
-     * Returns a redirect response to another step if current step is not yet
-     * available or already completed.
-     */
-    private function shouldRedirect(Request $request): ?Response
-    {
-        $expectedRoutes = $this->getExpectedRoutes();
-        $actualRoute = $request->attributes->get('_route');
-
-        // Stay on this step if expected
-        if (in_array($actualRoute, $expectedRoutes)) {
-            return null;
-        }
-
-        $workflow = [
-            'app_register_societe',
-            'app_register_account',
-            'app_register_account_verification',
-            'app_register_projet',
-            'app_register_collaborators',
-            'app_register_finish',
-        ];
-
-        $current = array_search($actualRoute, $workflow);
-
-        // Redirect to the next incompleted step
-        for ($i = $current + 1; $i < count($workflow); ++$i) {
-            if (in_array($workflow[$i], $expectedRoutes)) {
-                return $this->redirectToRoute($workflow[$i]);
-            }
-        }
-
-        // Or redirect to a previous missing step
-        return $this->redirectToRoute($expectedRoutes[0]);
     }
 }

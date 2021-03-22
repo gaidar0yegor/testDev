@@ -2,15 +2,14 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\FaitMarquant;
 use App\Entity\Projet;
-use App\Entity\User;
-use App\Exception\RdiException;
+use App\Entity\SocieteUser;
 use App\ProjetResourceInterface;
-use App\Role;
+use App\Security\Role\RoleProjet;
+use App\Security\Role\RoleSociete;
 use App\Service\ParticipantService;
 use App\Service\SocieteChecker;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\MultiSociete\UserContext;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -26,15 +25,19 @@ class ProjetResourceVoter extends Voter
 
     private $participantService;
 
+    private UserContext $userContext;
+
     private $societeChecker;
 
     public function __construct(
         AuthorizationCheckerInterface $authChecker,
         ParticipantService $participantService,
+        UserContext $userContext,
         SocieteChecker $societeChecker
     ) {
         $this->authChecker = $authChecker;
         $this->participantService = $participantService;
+        $this->userContext = $userContext;
         $this->societeChecker = $societeChecker;
     }
 
@@ -63,63 +66,70 @@ class ProjetResourceVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
+        $societeUser = $this->userContext->getSocieteUser();
+
         if (ProjetResourceInterface::CREATE === $attribute) {
-            return $this->userCanCreateResourceOnProjet($token->getUser(), $subject);
+            return $this->userCanCreateResourceOnProjet($societeUser, $subject);
         }
 
-        return $this->userCanDo($token->getUser(), $subject, $attribute);
+        return $this->userCanDo($societeUser, $subject, $attribute);
     }
 
-    public function userCanCreateResourceOnProjet(User $user, Projet $projet): bool
+    public function userCanCreateResourceOnProjet(SocieteUser $societeUser, Projet $projet): bool
     {
         // User ne peut pas créer de ressource sur un projet d'une société autre que la sienne
-        if (!$this->societeChecker->isSameSociete($projet, $user)) {
+        if (!$this->societeChecker->isSameSociete($projet, $societeUser)) {
             return false;
         }
 
         // L'admin de la société peut créer des ressources sur tous les projets de sa propre société
-        if ($this->authChecker->isGranted('ROLE_FO_ADMIN')) {
+        if ($this->authChecker->isGranted(RoleSociete::ADMIN)) {
             return true;
         }
 
         // User doit être au moins contributeur sur ce projet
-        if (!$this->participantService->hasRoleOnProjet($user, $projet, Role::CONTRIBUTEUR)) {
+        if (!$this->participantService->hasRoleOnProjet($societeUser, $projet, RoleProjet::CONTRIBUTEUR)) {
             return false;
         }
 
         return true;
     }
 
-    public function userCanDo(User $user, ProjetResourceInterface $resource, string $action): bool
+    public function userCanDo(SocieteUser $societeUser, ProjetResourceInterface $resource, string $action): bool
     {
         // User ne peut pas modifier les ressources sur un projet d'une société autre que la sienne
-        if (!$this->societeChecker->isSameSociete($resource->getProjet(), $user)) {
+        if (!$this->societeChecker->isSameSociete($resource->getProjet(), $societeUser)) {
             return false;
         }
 
         // L'admin de la société peut modifier les ressources de tous les projets de sa propre société
-        if ($this->authChecker->isGranted('ROLE_FO_ADMIN')) {
+        if ($this->authChecker->isGranted(RoleSociete::ADMIN)) {
             return true;
         }
 
-        $userRole = $this->participantService->getRoleOfUserOnProjet($user, $resource->getProjet());
+        $userRole = $this->participantService->getRoleOfUserOnProjet($societeUser, $resource->getProjet());
+
+        // Les user n'étant pas participant sur le projet ne peuvent rien faire
+        if (null === $userRole) {
+            return false;
+        }
 
         // Le chef de projet peut tout faire sur les ressources de son propre projet
-        if ($this->participantService->hasRole($userRole, Role::CDP)) {
+        if (RoleProjet::hasRole($userRole, RoleProjet::CDP)) {
             return true;
         }
 
         // Le contributeur qui a créé la ressource peut l'éditer
         if (
-            $this->participantService->hasRole($userRole, Role::CONTRIBUTEUR)
-            && $resource->getOwner() === $user
+            RoleProjet::hasRole($userRole, RoleProjet::CONTRIBUTEUR)
+            && $resource->getOwner() === $societeUser
         ) {
             return true;
         }
 
         // L'observateur peut voir les ressources
         if (
-            $this->participantService->hasRole($userRole, Role::OBSERVATEUR)
+            RoleProjet::hasRole($userRole, RoleProjet::OBSERVATEUR)
             && $action === ProjetResourceInterface::VIEW
         ) {
             return true;

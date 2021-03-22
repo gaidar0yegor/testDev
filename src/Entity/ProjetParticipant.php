@@ -4,14 +4,15 @@ namespace App\Entity;
 
 use App\HasSocieteInterface;
 use App\Repository\ProjetParticipantRepository;
+use App\Security\Role\RoleProjet;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetParticipantRepository::class)
  * @UniqueEntity(
- *     fields={"user", "projet"},
- *     errorPath="user",
+ *     fields={"societeUser", "projet"},
+ *     errorPath="societeUser",
  *     message="Cet utilisateur a déjà un rôle sur ce projet."
  * )
  */
@@ -30,10 +31,10 @@ class ProjetParticipant implements HasSocieteInterface
     private $dateAjout;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projetParticipants")
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="projetParticipants")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $societeUser;
 
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="projetParticipants")
@@ -42,12 +43,12 @@ class ProjetParticipant implements HasSocieteInterface
     private $projet;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=31)
      */
     private $role;
 
     /**
-     * The datetime of the last action $user did on $projet (view, update...)
+     * The datetime of the last action $societeUser did on $projet (view, update...)
      *
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -58,10 +59,10 @@ class ProjetParticipant implements HasSocieteInterface
         $this->dateAjout = new \DateTime();
     }
 
-    public static function create(User $user, Projet $projet, string $role): self
+    public static function create(SocieteUser $societeUser, Projet $projet, string $role): self
     {
         return (new self())
-            ->setUser($user)
+            ->setSocieteUser($societeUser)
             ->setProjet($projet)
             ->setRole($role)
         ;
@@ -84,14 +85,14 @@ class ProjetParticipant implements HasSocieteInterface
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getSocieteUser(): ?SocieteUser
     {
-        return $this->user;
+        return $this->societeUser;
     }
 
-    public function setUser(?User $user): self
+    public function setSocieteUser(?SocieteUser $societeUser): self
     {
-        $this->user = $user;
+        $this->societeUser = $societeUser;
 
         return $this;
     }
@@ -115,6 +116,8 @@ class ProjetParticipant implements HasSocieteInterface
 
     public function setRole(?string $role): self
     {
+        RoleProjet::checkRole($role);
+
         $this->role = $role;
 
         return $this;
@@ -122,11 +125,7 @@ class ProjetParticipant implements HasSocieteInterface
 
     public function getSociete(): ?Societe
     {
-        if (null === $this->user) {
-            return null;
-        }
-
-        return $this->user->getSociete();
+        return $this->projet->getSociete();
     }
 
     public function getLastActionAt(): ?\DateTimeInterface

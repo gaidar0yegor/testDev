@@ -5,11 +5,12 @@ namespace App\Tests\Unit\Service;
 use App\Entity\Cra;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
+use App\Entity\SocieteUser;
 use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
-use App\Role;
+use App\Security\Role\RoleProjet;
 use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\Service\JoursFeriesCalculator;
@@ -23,7 +24,7 @@ class TimesheetCalculatorTest extends TestCase
 {
     private DateMonthService $dateMonthService;
 
-    private User $user;
+    private SocieteUser $societeUser;
     private Projet $projet;
     private TempsPasse $tempsPasse;
     private ProjetParticipant $participation;
@@ -37,18 +38,12 @@ class TimesheetCalculatorTest extends TestCase
 
     private function prepareBasicSample()
     {
-        $this->user = new User();
+        $this->societeUser = new SocieteUser();
         $this->projet = new Projet();
         $this->tempsPasse = new TempsPasse();
 
         $this->mois = $this->dateMonthService->normalize(new \DateTime('01-01-2020'));
-
-        $this->participation = new ProjetParticipant();
-        $this->participation
-            ->setUser($this->user)
-            ->setProjet($this->projet)
-            ->setRole(Role::CONTRIBUTEUR)
-        ;
+        $this->participation = ProjetParticipant::create($this->societeUser, $this->projet, RoleProjet::CONTRIBUTEUR);
 
         $this->tempsPasse
             ->setPourcentage(50)
@@ -57,7 +52,7 @@ class TimesheetCalculatorTest extends TestCase
 
         $this->cra = new Cra();
         $this->cra
-            ->setUser($this->user)
+            ->setSocieteUser($this->societeUser)
             ->setMois($this->mois)
             ->addTempsPass($this->tempsPasse)
             ->setJours([
@@ -69,7 +64,7 @@ class TimesheetCalculatorTest extends TestCase
             ])
         ;
 
-        $this->user
+        $this->societeUser
             ->setHeuresParJours(8.0)
         ;
     }
@@ -88,7 +83,7 @@ class TimesheetCalculatorTest extends TestCase
                     $this->participations = $participations;
                 }
 
-                public function findProjetsContributingUser(User $user): array
+                public function findProjetsContributingUser(SocieteUser $user): array
                 {
                     return $this->participations;
                 }
@@ -100,7 +95,7 @@ class TimesheetCalculatorTest extends TestCase
                     $this->cra = $cra;
                 }
 
-                public function findCraByUserAndMois(User $user, \DateTimeInterface $mois): ?Cra
+                public function findCraByUserAndMois(SocieteUser $user, \DateTimeInterface $mois): ?Cra
                 {
                     return $this->cra;
                 }
@@ -262,7 +257,7 @@ class TimesheetCalculatorTest extends TestCase
 
         $timesheetCalculator = $this->createTimesheetCalculator();
 
-        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+        $timesheet = $timesheetCalculator->generateTimesheet($this->societeUser, $this->mois);
 
         $this->assertEquals(
             1,
@@ -308,8 +303,8 @@ class TimesheetCalculatorTest extends TestCase
 
         $participationProjetEnded
             ->setProjet($projetEnded)
-            ->setUser($this->user)
-            ->setRole(Role::CONTRIBUTEUR)
+            ->setSocieteUser($this->societeUser)
+            ->setRole(RoleProjet::CONTRIBUTEUR)
         ;
 
         $timesheetCalculator = $this->createTimesheetCalculator([
@@ -317,7 +312,7 @@ class TimesheetCalculatorTest extends TestCase
             $participationProjetEnded,
         ]);
 
-        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+        $timesheet = $timesheetCalculator->generateTimesheet($this->societeUser, $this->mois);
 
         $this->assertEquals(
             1,
@@ -337,8 +332,8 @@ class TimesheetCalculatorTest extends TestCase
 
         $participationProjetEnded
             ->setProjet($projetEnded)
-            ->setUser($this->user)
-            ->setRole(Role::CONTRIBUTEUR)
+            ->setSocieteUser($this->societeUser)
+            ->setRole(RoleProjet::CONTRIBUTEUR)
         ;
 
         $timesheetCalculator = $this->createTimesheetCalculator([
@@ -346,7 +341,7 @@ class TimesheetCalculatorTest extends TestCase
             $participationProjetEnded,
         ]);
 
-        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+        $timesheet = $timesheetCalculator->generateTimesheet($this->societeUser, $this->mois);
 
         $this->assertEquals(
             1,
@@ -366,8 +361,8 @@ class TimesheetCalculatorTest extends TestCase
 
         $participationProjetEnded
             ->setProjet($projetEnded)
-            ->setUser($this->user)
-            ->setRole(Role::CONTRIBUTEUR)
+            ->setSocieteUser($this->societeUser)
+            ->setRole(RoleProjet::CONTRIBUTEUR)
         ;
 
         $timesheetCalculator = $this->createTimesheetCalculator([
@@ -375,7 +370,7 @@ class TimesheetCalculatorTest extends TestCase
             $participationProjetEnded,
         ]);
 
-        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+        $timesheet = $timesheetCalculator->generateTimesheet($this->societeUser, $this->mois);
 
         $this->assertEquals(
             2,
@@ -395,8 +390,8 @@ class TimesheetCalculatorTest extends TestCase
 
         $participationProjetEnded
             ->setProjet($projetEnded)
-            ->setUser($this->user)
-            ->setRole(Role::CONTRIBUTEUR)
+            ->setSocieteUser($this->societeUser)
+            ->setRole(RoleProjet::CONTRIBUTEUR)
         ;
 
         $timesheetCalculator = $this->createTimesheetCalculator([
@@ -404,7 +399,7 @@ class TimesheetCalculatorTest extends TestCase
             $participationProjetEnded,
         ]);
 
-        $timesheet = $timesheetCalculator->generateTimesheet($this->user, $this->mois);
+        $timesheet = $timesheetCalculator->generateTimesheet($this->societeUser, $this->mois);
 
         $this->assertEquals(
             2,
@@ -417,12 +412,12 @@ class TimesheetCalculatorTest extends TestCase
     {
         $this->prepareBasicSample();
 
-        $this->user->setDateEntree(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
+        $this->societeUser->setDateEntree(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
 
         $timesheetCalculator = $this->createTimesheetCalculator();
 
         $timesheet = $timesheetCalculator->generateTimesheet(
-            $this->user,
+            $this->societeUser,
             $this->mois
         );
 
@@ -449,12 +444,12 @@ class TimesheetCalculatorTest extends TestCase
     {
         $this->prepareBasicSample();
 
-        $this->user->setDateSortie(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
+        $this->societeUser->setDateSortie(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
 
         $timesheetCalculator = $this->createTimesheetCalculator();
 
         $timesheet = $timesheetCalculator->generateTimesheet(
-            $this->user,
+            $this->societeUser,
             $this->mois
         );
 

@@ -12,8 +12,6 @@ security:
     role_hierarchy:
         ROLE_BO_USER: ROLE_USER
 
-        ROLE_FO_ADMIN: ROLE_FO_CDP
-        ROLE_FO_CDP: ROLE_FO_USER
         ROLE_FO_USER: ROLE_USER
 
     access_decision_manager:
@@ -52,7 +50,7 @@ security:
         - { path: ^/inscription/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/recommander-rdi-manager, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, roles: ROLE_FO_ADMIN }
+        - { path: ^/admin/, roles: SOCIETE_ADMIN }
         - { path: ^/back-office, roles: ROLE_BO_USER }
         - { path: ^/$, roles: ROLE_USER }
         - { path: ^/, roles: ROLE_FO_USER }

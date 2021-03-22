@@ -6,11 +6,15 @@ use App\DTO\InitSociete;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\Societe;
+use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\Exception\RdiException;
+use App\Security\Role\RoleSociete;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -25,7 +29,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  * $user->setEmail($invitation->getEmail());
  *
  * // Optionally add user on projet with a role
- * $invitator->addParticipation($user, $projet, Role::CONTRIBUTEUR);
+ * $invitator->addParticipation($user, $projet, RoleProjet::CONTRIBUTEUR);
  *
  * // Check $user instance before finish
  * $invitator->check($user);
@@ -46,14 +50,14 @@ class Invitator
 
     private SocieteInitializer $societeInitializer;
 
-    private RdiMailer $mailer;
+    private MailerInterface $mailer;
 
     public function __construct(
         TokenGenerator $tokenGenerator,
         ValidatorInterface $validator,
         EntityManagerInterface $em,
         SocieteInitializer $societeInitializer,
-        RdiMailer $mailer
+        MailerInterface $mailer
     ) {
         $this->tokenGenerator = $tokenGenerator;
         $this->validator = $validator;
@@ -65,17 +69,19 @@ class Invitator
     /**
      * Initialise l'utilisateur qui va être invité.
      */
-    public function initUser(Societe $societe, string $role = 'ROLE_FO_USER'): User
+    public function initUser(Societe $societe, string $role = RoleSociete::USER): SocieteUser
     {
-        $user = new User();
+        $societeUser = new SocieteUser();
 
-        $this->em->persist($user);
+        $this->em->persist($societeUser);
 
-        return $user
+        $societeUser
             ->setSociete($societe)
             ->setRole($role)
             ->setInvitationToken($this->tokenGenerator->generateUrlToken())
         ;
+
+        return $societeUser;
     }
 
     public function initSociete(InitSociete $initSociete): Societe
@@ -86,17 +92,13 @@ class Invitator
     /**
      * Ajoute l'utilisateur invité sur un projet.
      */
-    public function addParticipation(User $user, Projet $projet, string $role): ProjetParticipant
+    public function addParticipation(SocieteUser $societeUser, Projet $projet, string $role): ProjetParticipant
     {
-        $participation = new ProjetParticipant();
+        $participation = ProjetParticipant::create($societeUser, $projet, $role);
 
         $this->em->persist($participation);
 
-        return $participation
-            ->setUser($user)
-            ->setRole($role)
-            ->setProjet($projet)
-        ;
+        return $participation;
     }
 
     /**
@@ -135,11 +137,35 @@ class Invitator
         }
     }
 
-    public function sendInvitation(User $user, User $from): void
+    public function sendInvitation(SocieteUser $societeUser, User $from): void
     {
-        $this->mailer->sendInvitationEmail($user, $from);
+        $this->sendInvitationEmail($societeUser, $from);
 
-        $user->setInvitationSentAt(new \DateTime());
-        $this->em->persist($user);
+        $societeUser->setInvitationSentAt(new \DateTime());
+        $this->em->persist($societeUser);
+    }
+
+    /**
+     * @param SocieteUser $invitedUser User à inviter, doit avoir un token d'invitation
+     * @param User $adminUser Référent qui invite l'user, utile pour afficher "XX vous invite..." dans l'email
+     */
+    public function sendInvitationEmail(SocieteUser $invitedUser, User $fromUser): void
+    {
+        if (null === $invitedUser->getInvitationToken()) {
+            throw new RdiException('Cannot send invitation email, this user has no invitation token.');
+        }
+
+        $email = (new TemplatedEmail())
+            ->to($invitedUser->getInvitationEmail())
+            ->subject(sprintf('%s vous invite sur RDI-Manager', $fromUser->getFullname()))
+            ->textTemplate('mail/invite.txt.twig')
+            ->htmlTemplate('mail/invite.html.twig')
+            ->context([
+                'invitedUser' => $invitedUser,
+                'fromUser' => $fromUser,
+            ])
+        ;
+
+        $this->mailer->send($email);
     }
 }

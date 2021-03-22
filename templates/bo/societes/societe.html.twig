@@ -33,8 +33,8 @@
     <tbody>
         {% for admin in societe.admins %}
             <tr>
-                <td>{{ admin.fullname }}</td>
-                <td>{{ admin.email }}</td>
+                <td>{{ admin.user.fullname }}</td>
+                <td>{{ admin.user.email }}</td>
                 <td>
                     {% if admin.invitationToken %}
                         En attente de finalisation d'inscription
@@ -50,7 +50,7 @@
                     {% if admin.invitationToken %}
                         <form
                             method="post"
-                            action="{{ path('app_bo_societe_invite', {'societeId': societe.id, 'userId': admin.id}) }}"
+                            action="{{ path('app_bo_societe_invite', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
                             onsubmit="return confirm('Envoyer un email d\'invitation à cet administrateur ?');"
                         >
                             <button type="submit" class="btn btn-sm btn-info">Envoyer un email d'invitation</button>

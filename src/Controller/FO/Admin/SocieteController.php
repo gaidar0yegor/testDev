@@ -3,6 +3,7 @@
 namespace App\Controller\FO\Admin;
 
 use App\Form\SocieteType;
+use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,19 +18,19 @@ class SocieteController extends AbstractController
     /**
      * @Route("", name="app_fo_admin_societe_show", methods={"GET"})
      */
-    public function show(): Response
+    public function show(UserContext $userContext): Response
     {
         return $this->render('societe/show.html.twig', [
-            'societe' => $this->getUser()->getSociete(),
+            'societe' => $userContext->getSocieteUser()->getSociete(),
         ]);
     }
 
     /**
      * @Route("/modifier", name="app_fo_admin_societe_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, EntityManagerInterface $em): Response
+    public function edit(Request $request, EntityManagerInterface $em, UserContext $userContext): Response
     {
-        $societe = $this->getUser()->getSociete();
+        $societe = $userContext->getSocieteUser()->getSociete();
         $form = $this->createForm(SocieteType::class, $societe);
 
         $form->handleRequest($request);

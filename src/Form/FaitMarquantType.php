@@ -4,21 +4,21 @@ namespace App\Form;
 
 use App\Entity\FaitMarquant;
 use App\Form\Custom\FichierProjetsType;
+use App\MultiSociete\UserContext;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class FaitMarquantType extends AbstractType
 {
-    private TokenStorageInterface $tokenStorage;
+    private UserContext $userContext;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(UserContext $userContext)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->userContext = $userContext;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -54,7 +54,7 @@ class FaitMarquantType extends AbstractType
             $fichierProjet
                 ->setProjet($faitMarquant->getProjet())
                 ->setFaitMarquant($faitMarquant)
-                ->setUploadedBy($this->tokenStorage->getToken()->getUser())
+                ->setUploadedBy($this->userContext->getSocieteUser())
             ;
         }
     }

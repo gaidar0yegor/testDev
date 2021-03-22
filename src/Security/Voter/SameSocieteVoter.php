@@ -2,9 +2,8 @@
 
 namespace App\Security\Voter;
 
-use App\Exception\RdiException;
-use App\HasSocieteInterface;
 use App\Service\SocieteChecker;
+use App\MultiSociete\UserContext;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -14,11 +13,16 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class SameSocieteVoter extends Voter
 {
-    private $societeChecker;
+    public const NAME = 'same_societe';
 
-    public function __construct(SocieteChecker $societeChecker)
+    private SocieteChecker $societeChecker;
+
+    private UserContext $userContext;
+
+    public function __construct(SocieteChecker $societeChecker, UserContext $userContext)
     {
         $this->societeChecker = $societeChecker;
+        $this->userContext = $userContext;
     }
 
     /**
@@ -26,7 +30,7 @@ class SameSocieteVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        return 'same_societe' === $attribute;
+        return self::NAME === $attribute;
     }
 
     /**
@@ -34,12 +38,8 @@ class SameSocieteVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        $user = $token->getUser();
+        $societeUser = $this->userContext->getSocieteUser();
 
-        if (!$user instanceof HasSocieteInterface) {
-            throw new RdiException('SameSocieteVoter expected to be used on a HasSocieteInterface');
-        }
-
-        return $this->societeChecker->isSameSociete($subject, $user);
+        return $this->societeChecker->isSameSociete($subject, $societeUser);
     }
 }

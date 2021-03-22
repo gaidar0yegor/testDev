@@ -6,6 +6,7 @@ use App\Exception\RdiException;
 use App\HasSocieteInterface;
 use App\Repository\ProjetRepository;
 use App\Role;
+use App\Security\Role\RoleProjet;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -408,11 +409,11 @@ class Projet implements HasSocieteInterface
         return $this;
     }
 
-    public function getChefDeProjet(): ?User
+    public function getChefDeProjet(): SocieteUser
     {
         foreach ($this->projetParticipants as $participant) {
-            if ($participant->getRole() === Role::CDP) {
-                return $participant->getUser();
+            if ($participant->getRole() === RoleProjet::CDP) {
+                return $participant->getSocieteUser();
             }
         }
 

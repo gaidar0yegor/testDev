@@ -70,11 +70,11 @@ class Societe implements HasSocieteInterface
     private $heuresParJours;
 
     /**
-     * @ORM\OneToMany(targetEntity=User::class, mappedBy="societe", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="societe", orphanRemoval=true, cascade={"persist"})
      *
      * @Assert\Valid(groups={"Default", "invitation"})
      */
-    private $users;
+    private $societeUsers;
 
     /**
      * Utilise ou non les SMS pour les notifications importantes.
@@ -115,7 +115,7 @@ class Societe implements HasSocieteInterface
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
-        $this->users = new ArrayCollection();
+        $this->societeUsers = new ArrayCollection();
         $this->heuresParJours = self::DEFAULT_HEURES_PAR_JOURS;
         $this->smsEnabled = true;
         $this->slackAccessTokens = new ArrayCollection();
@@ -177,27 +177,27 @@ class Societe implements HasSocieteInterface
     }
 
     /**
-     * @return Collection|User[]
+     * @return Collection|SocieteUser[]
      */
-    public function getUsers(): Collection
+    public function getSocieteUsers(): Collection
     {
-        return $this->users;
+        return $this->societeUsers;
     }
 
-    public function addUser(User $user): self
+    public function addSocieteUser(SocieteUser $user): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
+        if (!$this->societeUsers->contains($user)) {
+            $this->societeUsers[] = $user;
             $user->setSociete($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeSocieteUser(SocieteUser $user): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->societeUsers->contains($user)) {
+            $this->societeUsers->removeElement($user);
             // set the owning side to null (unless already changed)
             if ($user->getSociete() === $this) {
                 $user->setSociete(null);
@@ -209,8 +209,8 @@ class Societe implements HasSocieteInterface
 
     public function getAdmins(): ArrayCollection
     {
-        return $this->users->filter(function (User $user) {
-            return $user->isAdminFo();
+        return $this->societeUsers->filter(function (SocieteUser $societeUser) {
+            return $societeUser->isAdminFo();
         });
     }
 

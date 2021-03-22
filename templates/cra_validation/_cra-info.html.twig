@@ -1,4 +1,4 @@
-{% set cra = user.cras|filter(cra => cra.mois|format_date(pattern='yyyy-MM') == yearMonth)|first %}
+{% set cra = societeUser.cras|filter(cra => cra.mois|format_date(pattern='yyyy-MM') == yearMonth)|first %}
 
 {% if cra and cra.tempsPassesSubmitted %}
     <td class="table-success text-center">

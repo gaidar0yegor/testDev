@@ -15,25 +15,36 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
         Then I should see "Inviter un nouvel utilisateur"
 
         When I fill in the following:
-            | invite_user[email] | nouveau-cdp@societe.dev |
-            | invite_user[role]  | ROLE_FO_CDP             |
+            | invite_user[invitationEmail] | nouveau-cdp@societe.dev |
+            | invite_user[role]            | SOCIETE_CDP             |
         And I press "Inviter"
         Then I should see "Un email avec un lien d'invitation a été envoyé à \"nouveau-cdp@societe.dev\""
 
     Scenario: L'utilisateur invité peut finaliser son inscription après avoir suivi le lien d'invitation qu'il a recu.
         Given I am on "/inscription/cV2bvNJg4e_zkzXis-rfKlih"
         Then I should see "Finalisation de votre inscription"
-        And I should see "vous inscrire sur RDI-Manager, et de rejoindre la société SociétéTest avec le rôle Chef de Projet"
+        And I should see "Vous êtes sur le point de rejoindre la société SociétéTest avec le rôle Chef de Projet"
+
+        # Créer mon compte
+        When I follow "Créer mon compte"
         And I fill in the following:
             | finalize_inscription[prenom]           | JeSuis        |
             | finalize_inscription[nom]              | LeNouveau     |
             | finalize_inscription[password][first]  | m0nM0tdepass3 |
             | finalize_inscription[password][second] | m0nM0tdepass3 |
-        And I press "Finir mon inscription"
-        Then I should be on "/connexion"
+        And I press "Créer mon compte"
+        Then I should be on "/inscription/rejoindre-la-societe/cV2bvNJg4e_zkzXis-rfKlih"
+        And I should see "Vous êtes sur le point de rejoindre la société SociétéTest avec le rôle Chef de Projet"
+        And I should see "Vous rejoindrez la société avec votre compte RDI-Manager JeSuis LeNouveau (invite@societe.dev)"
+
+        # Rejoindre la société
+        When I press "Rejoindre la société SociétéTest"
+        Then I should see "Vous avez rejoint la société"
+        And I should see "Tableau de bord"
 
         # Vérifie que je peux me connecter après la finalisation
-        When I fill in the following:
+        When I follow "Déconnexion"
+        And I fill in the following:
             | _username | invite@societe.dev |
             | _password | m0nM0tdepass3      |
         And I press "Connexion"

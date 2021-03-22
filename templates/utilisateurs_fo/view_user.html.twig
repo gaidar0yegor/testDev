@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ user.fullname }} | {{ parent() }}{% endblock %}
+{% block title %}{{ societeUser.user.fullname }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>{{ user.fullname }}</h1>
+    <h1>{{ societeUser.user.fullname }}</h1>
 
     <div class="row">
         <div class="col-sm-10 mx-auto offset-sm-1 col-lg-8 offset-lg-2">
@@ -11,26 +11,26 @@
                 <div class="card-body">
                     <div class="row mb-3">
                         <div class="col-md-3"><strong>Nom : </strong></div>
-                        <div class="col-md-9">{{ user.nom }}</div>
+                        <div class="col-md-9">{{ societeUser.user.nom }}</div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-3"><strong>Prénom : </strong></div>
-                        <div class="col-md-9">{{ user.prenom }}</div>
+                        <div class="col-md-9">{{ societeUser.user.prenom }}</div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-3"><strong>Rôle : </strong></div>
-                        <div class="col-md-9">{{ user.role|trans }}</div>
+                        <div class="col-md-9">{{ societeUser.role|trans }}</div>
                     </div>
-                    {% if is_granted('ROLE_FO_ADMIN') %}
+                    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
                         <div class="row mb-3">
                             <div class="col-md-3"><strong>E-mail : </strong></div>
-                            <div class="col-md-9">{{ user.email }}</div>
+                            <div class="col-md-9">{{ societeUser.user.email }}</div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-3"><strong>Téléphone : </strong></div>
                             <div class="col-md-9">
-                                {% if user.telephone %}
-                                    {{ user.telephone|phone_number_format('NATIONAL') }}
+                                {% if societeUser.user.telephone %}
+                                    {{ societeUser.user.telephone|phone_number_format('NATIONAL') }}
                                 {% else %}
                                     <i>Non renseigné</i>
                                 {% endif %}
@@ -39,49 +39,35 @@
                         <div class="row mb-3">
                             <div class="col-md-3"><strong>Statut : </strong></div>
                             <div class="col-md-9">
-                                {% if user.enabled %}
-                                    <span class="badge badge-success">Activé</span>
+                                {% if societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_ACTIVE') %}
+                                    <span class="badge badge-success">{{ constant('App\\Entity\\SocieteUser::STATUT_ACTIVE')|trans }}</span>
+                                {% elseif societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_DISABLED') %}
+                                    <span class="badge badge-warning">{{ constant('App\\Entity\\SocieteUser::STATUT_DISABLED')|trans }}</span>
+                                {% elseif societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_INVITATION') %}
+                                    <span class="badge badge-primary">{{ constant('App\\Entity\\SocieteUser::STATUT_INVITATION')|trans }}</span>
                                 {% else %}
-                                    <span class="badge badge-warning">Désactivé</span>
+                                    <span class="badge badge-secondary">État indéfini</span>
                                 {% endif %}
                             </div>
                         </div>
                     {% endif %}
-                    {% if user.dateEntree is not null %}
+                    {% if societeUser.dateEntree is not null %}
                         <div class="row mb-3">
                             <div class="col-md-3"><strong>Date d'entrée : </strong></div>
-                            <div class="col-md-9">{{ user.dateEntree|format_date }}</div>
+                            <div class="col-md-9">{{ societeUser.dateEntree|format_date }}</div>
                         </div>
                     {% endif %}
-                    {% if user.dateSortie is not null %}
+                    {% if societeUser.dateSortie is not null %}
                         <div class="row mb-3">
                             <div class="col-md-3"><strong>Date de sortie : </strong></div>
-                            <div class="col-md-9">{{ user.dateSortie|format_date }}</div>
+                            <div class="col-md-9">{{ societeUser.dateSortie|format_date }}</div>
                         </div>
                     {% endif %}
 
-                    {% if is_granted('ROLE_FO_ADMIN') %}
+                    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
                         <div class="mt-5">
-                            <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: user.id }) }}" class="btn btn-outline-success mt-2">Mettre à jour</a>
-                            <a href="{{ path('app_fo_admin_utilisateur_activity', { id: user.id }) }}" class="btn btn-outline-primary mt-2">Activité</a>
-
-                            {% if user.enabled %}
-                                <form
-                                    action="{{ path('utilisateur_fo_disable', { id: user.id }) }}"
-                                    method="POST"
-                                    class="form float-right"
-                                >
-                                    <input type="submit" value="Désactiver" class="btn btn-outline-warning mt-2" style="width: 100%;"/>
-                                </form>
-                            {% else %}
-                                <form
-                                    action="{{ path('utilisateur_fo_enable', { id: user.id }) }}"
-                                    method="POST"
-                                    class="form float-right"
-                                >
-                                    <input type="submit" value="Ré-activer" class="btn btn-warning mt-2" />
-                                </form>
-                            {% endif %}
+                            <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: societeUser.id }) }}" class="btn btn-outline-success mt-2">Mettre à jour</a>
+                            <a href="{{ path('app_fo_admin_utilisateur_activity', { id: societeUser.id }) }}" class="btn btn-outline-primary mt-2">Activité</a>
                         </div>
                     {% endif %}
                 </div>
@@ -94,7 +80,7 @@
     <div class="row">
         <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
             <ul class="list-group list-group-flush">
-                {% for participation in user.projetParticipants|sortByRole %}
+                {% for participation in societeUser.projetParticipants|sortByRole %}
                     {% if is_granted('view', participation.projet) %}
                         <li class="list-group-item">
                             <strong>{{ participation.role|trans }}</strong>
@@ -116,19 +102,19 @@
             </ul>
         </div>
 
-        {% if is_granted('ROLE_FO_ADMIN') %}
+        {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
             <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
                 <h3 class="text-center">Temps passés en %</h3>
 
                 <div
                     class="year-switch text-center"
                     data-event-name="user-chart-year-changed"
-                    {% if user.dateEntree %}
-                        data-year-from="{{ user.dateEntree|date('Y') }}"
+                    {% if societeUser.dateEntree %}
+                        data-year-from="{{ societeUser.dateEntree|date('Y') }}"
                     {% endif %}
                 ></div>
 
-                <div id="chart-user-projets-temps" data-user-id="{{ user.id }}"></div>
+                <div id="chart-user-projets-temps" data-user-id="{{ societeUser.id }}"></div>
             </div>
         {% endif %}
     </div>

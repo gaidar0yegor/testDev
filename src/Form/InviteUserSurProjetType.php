@@ -5,6 +5,7 @@ namespace App\Form;
 use App\DTO\InvitationUserSurProjet;
 use App\Form\Custom\ParticipantRoleChoiceType;
 use App\Role;
+use App\Security\Role\RoleProjet;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,9 +21,10 @@ class InviteUserSurProjetType extends AbstractType
                 'label' => 'Email',
             ])
             ->add('role', ParticipantRoleChoiceType::class, [
-                'choices' => array_filter(array_reverse(Role::getRoles()), function (string $role) {
-                    return $role !== Role::CDP;
-                }),
+                'choices' => [
+                    RoleProjet::CONTRIBUTEUR => RoleProjet::CONTRIBUTEUR,
+                    RoleProjet::OBSERVATEUR => RoleProjet::OBSERVATEUR,
+                ],
                 'choice_label' => null,
             ])
             ->add('ajouter', SubmitType::class, [

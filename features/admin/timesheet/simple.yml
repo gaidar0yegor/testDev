@@ -1,10 +1,14 @@
 App\Entity\User:
-    admin:
+    _admin:
         nom: Eureka
         prenom: Admin
         email: admin@societe.dev
         password: admin
-        roles: [ROLE_FO_ADMIN]
+
+App\Entity\SocieteUser:
+    admin:
+        user: '@_admin'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
         societe: '@societe'
 
 App\Entity\Projet:
@@ -18,13 +22,13 @@ App\Entity\Projet:
 
 App\Entity\ProjetParticipant:
     admin_projet:
-        user: '@admin'
+        societeUser: '@admin'
         projet: '@projet'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Security\Role\RoleProjet::CDP)>
 
 App\Entity\Cra:
     cra:
-        user: '@admin'
+        societeUser: '@admin'
         mois: '<(new DateTime("2020-11-01"))>'
         tempsPasses:
             - '@temps_passe'

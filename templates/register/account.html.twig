@@ -1,37 +1,25 @@
 {% extends 'register/layout.html.twig' %}
 
 {% block register %}
-    <h1 class="mb-1">Créer mon compte</h1>
+    <h1 class="mb-1">Mon compte RDI-Manager</h1>
 
     <p>
-        Création de votre compte administrateur
-        sur la société <strong>{{ societe.raisonSociale }}</strong> :
+        Si êtes nouveau sur RDI-Manager ou que vous n'avez pas encore de compte,
+        vous pouvez en créer un maintenant.
     </p>
 
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+    <a
+        href="{{ path('app_register_account_creation') }}"
+        class="btn btn-lg btn-success"
+    >Créer mon compte RDI-Manager</a>
 
-    <div class="row">
-        <div class="col-md-12">
-            {{ form_row(form.email) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.prenom) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.nom) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.password.first) }}
-        </div>
-        <div class="col-md-6">
-            {{ form_row(form.password.second) }}
-        </div>
-    </div>
+    <p class="mt-4">
+        Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte.
+        Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
+    </p>
 
-    {{ form_rest(form) }}
-
-    <button type="submit" class="btn btn-lg btn-primary">Continuer</button>
-
-    {{ form_end(form) }}
+    <a
+        href="{{ path('app_register_account_join') }}"
+        class="mt-1 btn btn-outline-primary"
+    >J'ai déjà un compte RDI-Manager</a>
 {% endblock %}

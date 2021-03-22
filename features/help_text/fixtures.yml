@@ -1,10 +1,14 @@
 App\Entity\User:
-    user:
+    _user:
         nom: Eureka
         prenom: User
         email: user@societe.dev
         password: user
-        roles: [ROLE_FO_USER]
+
+App\Entity\SocieteUser:
+    user:
+        user: '@_user'
+        role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
 
 App\Entity\Projet:
@@ -19,9 +23,9 @@ App\Entity\Projet:
 
 App\Entity\ProjetParticipant:
     user_projet1:
-        user: '@user'
+        societeUser: '@user'
         projet: '@projet1'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
 
 App\Entity\Societe:
     societe:

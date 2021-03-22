@@ -8,8 +8,8 @@ use App\License\DTO\Quota;
 use App\License\Exception\LicenseQuotaReachedException;
 use App\License\LicenseQuotaInterface;
 use App\License\LicenseService;
-use App\Repository\UserRepository;
-use App\Role;
+use App\Repository\SocieteUserRepository;
+use App\Security\Role\RoleProjet;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class ContributeurQuota implements LicenseQuotaInterface
@@ -18,14 +18,14 @@ class ContributeurQuota implements LicenseQuotaInterface
 
     private LicenseService $licenseService;
 
-    private UserRepository $userRepository;
+    private SocieteUserRepository $societeUserRepository;
 
     public function __construct(
         LicenseService $licenseService,
-        UserRepository $userRepository
+        SocieteUserRepository $societeUserRepository
     ) {
         $this->licenseService = $licenseService;
-        $this->userRepository = $userRepository;
+        $this->societeUserRepository = $societeUserRepository;
     }
 
     public function getName(): string
@@ -35,7 +35,9 @@ class ContributeurQuota implements LicenseQuotaInterface
 
     public function calculateCurrentCount(Societe $societe): int
     {
-        return count($this->userRepository->findUsersWithAtLeastOneRoleOnProjets($societe, Role::CONTRIBUTEUR));
+        return count(
+            $this->societeUserRepository->findUsersWithAtLeastOneRoleOnProjets($societe, RoleProjet::CONTRIBUTEUR)
+        );
     }
 
     public function checkAddNewContributeur(Societe $societe, ProjetParticipant $projetParticipant = null): void
@@ -49,16 +51,19 @@ class ContributeurQuota implements LicenseQuotaInterface
         if (
             null !== $projetParticipant
             && null !== ($participantRole = $projetParticipant->getRole())
-            && !Role::hasRole($participantRole, Role::CONTRIBUTEUR)
+            && !RoleProjet::hasRole($participantRole, RoleProjet::CONTRIBUTEUR)
         ) {
             return;
         }
 
-        $contributeurs = $this->userRepository->findUsersWithAtLeastOneRoleOnProjets($societe, Role::CONTRIBUTEUR);
+        $contributeurs = $this
+            ->societeUserRepository
+            ->findUsersWithAtLeastOneRoleOnProjets($societe, RoleProjet::CONTRIBUTEUR)
+        ;
         $limit = $this->licenseService->calculateSocieteMaxQuota($societe, self::NAME);
         $quotaAfter = new Quota(count($contributeurs), $limit);
 
-        if (null === $projetParticipant || !in_array($projetParticipant->getUser(), $contributeurs)) {
+        if (null === $projetParticipant || !in_array($projetParticipant->getSocieteUser(), $contributeurs)) {
             $quotaAfter->increment();
         }
 

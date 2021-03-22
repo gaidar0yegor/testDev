@@ -34,7 +34,7 @@
                     style="cursor: pointer;"
                 >
                     <td title="{{ projet.titre }}" class="text-left"><a href='{{ path('app_fo_projet', {'id': projet.id}) }}'>{{ projet.acronyme }}</a></td>
-                    <td class=>{{ projet.chefDeProjet.fullName }}</td>
+                    <td class=>{{ projet.chefDeProjet.user.fullName }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td class="text-center d-none d-md-table-cell">{{ projet.statut }}</td>

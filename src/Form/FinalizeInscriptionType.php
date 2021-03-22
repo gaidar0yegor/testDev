@@ -24,7 +24,7 @@ class FinalizeInscriptionType extends AbstractType
             ])
             ->add('password', RepeatedPasswordType::class)
             ->add('submit', SubmitType::class, [
-                'label' => 'Finir mon inscription !',
+                'label' => 'Créer mon compte',
             ])
         ;
     }

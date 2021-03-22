@@ -1,19 +1,21 @@
 App\Entity\User:
-    admin:
+    _admin:
         nom: Eureka
         prenom: Admin
         email: admin@societe.dev
         password: admin
-        roles: [ROLE_FO_ADMIN]
+
+App\Entity\SocieteUser:
+    admin:
+        user: '@_admin'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
         societe: '@societe'
     invite:
-        nom: Eureka
-        prenom: Utilisateur invité
-        email: invite@societe.dev
-        # Pas encore de mot de passe
-        roles: [ROLE_FO_CDP]
+        user: ~
+        role: <(App\Security\Role\RoleSociete::CDP)>
         societe: '@societe'
         invitationToken: cV2bvNJg4e_zkzXis-rfKlih
+        invitationEmail: invite@societe.dev
 
 App\Entity\Societe:
     societe:

@@ -4,11 +4,11 @@ namespace App\Twig;
 
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
-use App\Entity\User;
-use App\Exception\RdiException;
-use App\Role;
+use App\Entity\SocieteUser;
+use App\Security\Role\RoleProjet;
 use App\Service\ParticipantService;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\MultiSociete\UserContext;
+use RuntimeException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
@@ -17,12 +17,12 @@ class ParticipantExtension extends AbstractExtension
 {
     private ParticipantService $participantService;
 
-    private TokenStorageInterface $tokenStorage;
+    private UserContext $userContext;
 
-    public function __construct(ParticipantService $participantService, TokenStorageInterface $tokenStorage)
+    public function __construct(ParticipantService $participantService, UserContext $userContext)
     {
         $this->participantService = $participantService;
-        $this->tokenStorage = $tokenStorage;
+        $this->userContext = $userContext;
     }
 
     public function getFilters(): array
@@ -41,21 +41,17 @@ class ParticipantExtension extends AbstractExtension
         ];
     }
 
-    public function userRoleOn(Projet $projet, User $user = null): ?string
+    public function userRoleOn(Projet $projet, SocieteUser $societeUser = null): ?string
     {
-        if (null === $user) {
-            $token = $this->tokenStorage->getToken();
-
-            if (null !== $token) {
-                $user = $this->tokenStorage->getToken()->getUser();
-            }
+        if (null === $societeUser) {
+            $societeUser = $this->userContext->getSocieteUser();
         }
 
-        if (null === $user) {
-            throw new RdiException('Twig function "userRoleOn" must be provided an $user when no user logged in');
+        if (null === $societeUser) {
+            throw new RuntimeException('Twig function "userRoleOn" must be provided a $societeUser when no user logged in');
         }
 
-        return $this->participantService->getRoleOfUserOnProjet($user, $projet);
+        return $this->participantService->getRoleOfUserOnProjet($societeUser, $projet);
     }
 
     /**
@@ -69,9 +65,9 @@ class ParticipantExtension extends AbstractExtension
     public function sortByRole(iterable $projetParticipants, string $ascOrDesc = 'desc'): array
     {
         $roleOrder = [
-            Role::CDP => 3,
-            Role::CONTRIBUTEUR => 2,
-            Role::OBSERVATEUR => 1,
+            RoleProjet::CDP => 3,
+            RoleProjet::CONTRIBUTEUR => 2,
+            RoleProjet::OBSERVATEUR => 1,
         ];
 
         $order = 'desc' === strtolower($ascOrDesc) ? 1 : -1;
@@ -105,6 +101,6 @@ class ParticipantExtension extends AbstractExtension
      */
     public function roleSortValue(string $role): int
     {
-        return array_search($role, Role::$allRoles);
+        return array_search($role, RoleProjet::getRoles());
     }
 }

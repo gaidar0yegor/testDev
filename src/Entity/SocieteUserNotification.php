@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\UserNotificationRepository;
+use App\Repository\SocieteUserNotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Ignore;
 
@@ -11,9 +11,9 @@ use Symfony\Component\Serializer\Annotation\Ignore;
  * importante, sous la cloche, et qui sera en highlight
  * tant que l'user ne l'a pas encore lue.
  *
- * @ORM\Entity(repositoryClass=UserNotificationRepository::class)
+ * @ORM\Entity(repositoryClass=SocieteUserNotificationRepository::class)
  */
-class UserNotification
+class SocieteUserNotification
 {
     /**
      * @ORM\Id
@@ -23,12 +23,12 @@ class UserNotification
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userNotifications")
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="societeUserNotifications")
      * @ORM\JoinColumn(nullable=false)
      *
      * @Ignore
      */
-    private $user;
+    private $societeUser;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class)
@@ -46,11 +46,11 @@ class UserNotification
         $this->acknowledged = false;
     }
 
-    public static function create(Activity $activity, User $user): self
+    public static function create(Activity $activity, SocieteUser $societeUser): self
     {
         return (new self())
             ->setActivity($activity)
-            ->setUser($user)
+            ->setSocieteUser($societeUser)
         ;
     }
 
@@ -59,14 +59,14 @@ class UserNotification
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getSocieteUser(): ?SocieteUser
     {
-        return $this->user;
+        return $this->societeUser;
     }
 
-    public function setUser(?User $user): self
+    public function setSocieteUser(?SocieteUser $societeUser): self
     {
-        $this->user = $user;
+        $this->societeUser = $societeUser;
 
         return $this;
     }

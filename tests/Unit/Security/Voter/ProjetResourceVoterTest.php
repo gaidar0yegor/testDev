@@ -5,16 +5,28 @@ namespace App\Tests\Unit\Security\Voter;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\Societe;
-use App\Entity\User;
-use App\Role;
+use App\Entity\SocieteUser;
+use App\Security\Role\RoleProjet;
+use App\Security\Role\RoleSociete;
 use App\Security\Voter\ProjetResourceVoter;
 use App\Service\ParticipantService;
 use App\Service\SocieteChecker;
+use App\MultiSociete\UserContext;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ProjetResourceVoterTest extends TestCase
 {
+    /**
+     * @var UserContext
+     */
+    private $userContextMock;
+
+    protected function setUp(): void
+    {
+        $this->userContextMock = $this->createMock(UserContext::class);
+    }
+
     public function testUserCanCreateResourceOnProjetAllowsAdminToCreateResourceOnProjet()
     {
         $voter = new ProjetResourceVoter(
@@ -26,27 +38,28 @@ class ProjetResourceVoterTest extends TestCase
                 }
             },
             new ParticipantService(),
+            $this->userContextMock,
             new SocieteChecker()
         );
 
         $societe = new Societe();
 
-        $user = new User();
+        $user = new SocieteUser();
         $user
             ->setSociete($societe)
-            ->setRole('ROLE_FO_ADMIN')
+            ->setRole(RoleSociete::ADMIN)
         ;
 
-        $cdp = new User();
+        $cdp = new SocieteUser();
         $cdp
             ->setSociete($societe)
-            ->setRole('ROLE_FO_CDP')
+            ->setRole(RoleSociete::CDP)
         ;
 
         $projet = new Projet();
         $projet
             ->setSociete($societe)
-            ->addProjetParticipant(ProjetParticipant::create($cdp, $projet, Role::CDP))
+            ->addProjetParticipant(ProjetParticipant::create($cdp, $projet, RoleProjet::CDP))
         ;
 
         $adminCanCreate = $voter->userCanCreateResourceOnProjet($user, $projet);

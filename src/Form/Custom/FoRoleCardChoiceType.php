@@ -2,6 +2,7 @@
 
 namespace App\Form\Custom;
 
+use App\Security\Role\RoleSociete;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,14 +15,14 @@ class FoRoleCardChoiceType extends AbstractType
     {
         $resolver->setDefaults([
             'choices' => [
-                'ROLE_FO_USER' => 'ROLE_FO_USER',
-                'ROLE_FO_CDP' => 'ROLE_FO_CDP',
-                'ROLE_FO_ADMIN' => 'ROLE_FO_ADMIN',
+                RoleSociete::USER => RoleSociete::USER,
+                RoleSociete::CDP => RoleSociete::CDP,
+                RoleSociete::ADMIN => RoleSociete::ADMIN,
             ],
             'faIcons' => [
-                'ROLE_FO_USER' => 'fa-user',
-                'ROLE_FO_CDP' => 'fa-user-plus',
-                'ROLE_FO_ADMIN' => 'fa-user-circle-o',
+                RoleSociete::USER => 'fa-user',
+                RoleSociete::CDP => 'fa-user-plus',
+                RoleSociete::ADMIN => 'fa-user-circle-o',
             ],
         ]);
     }

@@ -49,7 +49,7 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;
@@ -124,12 +124,12 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getCreatedBy(): ?User
+    public function getCreatedBy(): ?SocieteUser
     {
         return $this->createdBy;
     }
 
-    public function setCreatedBy(User $createdBy): self
+    public function setCreatedBy(SocieteUser $createdBy): self
     {
         $this->createdBy = $createdBy;
 
@@ -148,7 +148,7 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getOwner(): User
+    public function getOwner(): SocieteUser
     {
         return $this->createdBy;
     }

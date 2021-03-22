@@ -5,6 +5,8 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Multi-société : avoir un accès à plusieurs sociétés avec un même compte RDI-Manager
 
 
 

@@ -48,7 +48,10 @@ class ActiveProjetQuota implements LicenseQuotaInterface
             return;
         }
 
-        $activeProjets = $this->projetRepository->findActiveProjetForSociete($societe);
+        $activeProjets = $this
+            ->projetRepository
+            ->findActiveProjetForSociete($societe)
+        ;
         $limit = $this->licenseService->calculateSocieteMaxQuota($societe, self::NAME);
         $quotaAfter = new Quota(count($activeProjets), $limit);
 

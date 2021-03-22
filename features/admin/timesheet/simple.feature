@@ -13,7 +13,7 @@ Feature: Génération d'une feuille de temps simple.
         When I follow "Export feuilles de temps"
         Then I should see "Générer une feuille de temps"
         And I should see "Tout sélectionner / déselectionner"
-        And I should see "admin@societe.dev" in the "form" element
+        And I should see "Admin Eureka" in the "form" element
 
         When I fill in the following:
             | À partir de              | novembre 2020 |

@@ -7,6 +7,7 @@ use App\DTO\Timesheet;
 use App\DTO\TimesheetProjet;
 use App\Entity\Cra;
 use App\Entity\ProjetParticipant;
+use App\Entity\SocieteUser;
 use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Exception\TimesheetException;
@@ -52,21 +53,21 @@ class TimesheetCalculator
         );
     }
 
-    public function generateTimesheet(User $user, \DateTime $month): Timesheet
+    public function generateTimesheet(SocieteUser $societeUser, \DateTime $month): Timesheet
     {
         $month = $this->dateMonthService->normalize($month);
-        $cra = $this->craRepository->findCraByUserAndMois($user, $month);
+        $cra = $this->craRepository->findCraByUserAndMois($societeUser, $month);
 
         if (null === $cra) {
             throw new TimesheetException(sprintf(
                 'Impossible de générer la feuille de temps :'
                 .' l\'utilisateur "%s" n\'a pas rempli ses jours de congés du mois %s.',
-                $user->getEmail(),
+                $societeUser->getUser()->getEmail(),
                 $month->format('Y/m')
             ));
         }
 
-        $participations = $this->participationRepository->findProjetsContributingUser($cra->getUser());
+        $participations = $this->participationRepository->findProjetsContributingUser($cra->getSocieteUser());
         $timesheetProjets = [];
 
         foreach ($participations as $participation) {
@@ -111,11 +112,11 @@ class TimesheetCalculator
     public function calculateWorkedHoursPerDay(TempsPasse $tempsPasse): array
     {
         $cra = $tempsPasse->getCra();
-        $user = $cra->getUser();
-        $heuresParJours = Timesheet::getUserHeuresParJours($user);
+        $societeUser = $cra->getSocieteUser();
+        $heuresParJours = Timesheet::getUserHeuresParJours($societeUser);
 
-        $this->craService->uncheckJoursAvantDateEntree($cra, $user);
-        $this->craService->uncheckJoursApresDateSortie($cra, $user);
+        $this->craService->uncheckJoursAvantDateEntree($cra, $societeUser);
+        $this->craService->uncheckJoursApresDateSortie($cra, $societeUser);
 
         return array_map(
             function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse) {

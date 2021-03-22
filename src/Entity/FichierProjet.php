@@ -32,7 +32,7 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
     private $projet;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $uploadedBy;
@@ -76,12 +76,12 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
         return $this;
     }
 
-    public function getUploadedBy(): ?User
+    public function getUploadedBy(): ?SocieteUser
     {
         return $this->uploadedBy;
     }
 
-    public function setUploadedBy(User $uploadedBy): self
+    public function setUploadedBy(SocieteUser $uploadedBy): self
     {
         $this->uploadedBy = $uploadedBy;
 
@@ -105,7 +105,7 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
         return $this->getProjet()->getSociete();
     }
 
-    public function getOwner(): User
+    public function getOwner(): SocieteUser
     {
         return $this->uploadedBy;
     }

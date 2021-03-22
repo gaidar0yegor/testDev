@@ -18,6 +18,9 @@ use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use App\DTO\ProjetExportParameters;
 use App\Form\ProjetExportType;
+use App\Security\Role\RoleProjet;
+use App\MultiSociete\UserContext;
+use Symfony\Component\Security\Core\Authorization\Voter\RoleVoter;
 
 /**
  * @Route("/projets")
@@ -34,10 +37,10 @@ class ProjetController extends AbstractController
     /**
      * @Route("", name="app_fo_projets")
      */
-    public function listerProjet(ProjetRepository $projetRepository)
+    public function listerProjet(UserContext $userContext, ProjetRepository $projetRepository)
     {
-        $projets = $projetRepository->findAllForUserInYear($this->getUser(), Role::OBSERVATEUR);
-        $yearRange = $projetRepository->findProjetsYearRangeFor($this->getUser(), ROLE::OBSERVATEUR);
+        $projets = $projetRepository->findAllForUserInYear($userContext->getSocieteUser());
+        $yearRange = $projetRepository->findProjetsYearRangeFor($userContext->getSocieteUser());
 
         return $this->render('projets/liste_projets.html.twig', [
             'projets'=> $projets,
@@ -49,19 +52,19 @@ class ProjetController extends AbstractController
     /**
      * @Route("/creation", name="app_fo_projet_creation")
      *
-     * @IsGranted("ROLE_FO_CDP")
+     * @IsGranted("SOCIETE_CDP")
      */
-    public function creation(Request $rq) : Response
+    public function creation(Request $rq, UserContext $userContext) : Response
     {
         $projet = new Projet();
         $participant = new ProjetParticipant();
         $participant
-            ->setUser($this->getUser())
-            ->setRole(Role::CDP)
+            ->setSocieteUser($userContext->getSocieteUser())
+            ->setRole(RoleProjet::CDP)
         ;
 
         $projet
-            ->setSociete($this->getUser()->getSociete())
+            ->setSociete($userContext->getSocieteUser()->getSociete())
             ->addProjetParticipant($participant)
             ->setDateDebut(new \DateTime())
             ->setDateFin((new \DateTime())->modify('+2 years'))

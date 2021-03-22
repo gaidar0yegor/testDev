@@ -100,7 +100,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/1"
+        And I am on "/admin/utilisateurs/1/modifier"
         And I press "Désactiver"
 
         When I go to "/admin/utilisateurs/1/activite"
@@ -112,7 +112,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/1"
+        And I am on "/admin/utilisateurs/1/modifier"
         And I press "Désactiver"
         And I press "Ré-activer"
 
@@ -125,7 +125,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/1"
+        And I am on "/admin/utilisateurs/1/modifier"
         And I press "Désactiver"
 
         When I go to "/admin/utilisateurs/3/activite"

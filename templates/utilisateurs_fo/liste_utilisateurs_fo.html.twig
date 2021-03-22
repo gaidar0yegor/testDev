@@ -22,26 +22,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for user in users %}
-				<tr class="{{ user.enabled ? '' : 'text-muted' }}">
-					<td class="text-left">{{ user.nom }}</td>
-					<td class="d-none d-md-table-cell">{{ user.prenom }}</td>
-					<td class="d-none d-md-table-cell">{{ user.email }}</td>
-					<td data-sorter-value="{{ user.role }}">
-						<span class="d-none d-sm-block">{{ user.role|trans }}</span>
-						<span class="d-sm-none">{{ (user.role ~'.small')|trans }}</span>
+			{% for societeUser in societeUsers %}
+				<tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
+					<td class="text-left">{{ societeUser.user.nom }}</td>
+					<td class="d-none d-md-table-cell">{{ societeUser.user.prenom }}</td>
+					<td class="d-none d-md-table-cell">{{ societeUser.user.email }}</td>
+					<td data-sorter-value="{{ societeUser.role }}">
+						<span class="d-none d-sm-block">{{ societeUser.role|trans }}</span>
+						<span class="d-sm-none">{{ (societeUser.role ~'.small')|trans }}</span>
 					</td>
-					{% if user.enabled %}
-						<td class="d-none d-md-table-cell">Actif</td>
-					{% else %}
-						<td class="d-none d-md-table-cell">Inactif</td>
-					{% endif %}
-					<td>{{ user.projetParticipants|length }}</td>
+					<td class="d-none d-md-table-cell">{{ societeUser.statut|trans }}</td>
+					<td>{{ societeUser.projetParticipants|length }}</td>
 					<td class="d-flex justify-content-around">
-						<a href="{{ path('app_fo_user', { 'id': user.id }) }}">
+						<a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
 							<i class="fa fa-lg fa-eye"></i>
 						</a>
-						<a href="{{ path('app_fo_admin_utilisateur_modifier', { 'id': user.id }) }}">
+						<a href="{{ path('app_fo_admin_utilisateur_modifier', { 'id': societeUser.id }) }}">
 							<i class="fa fa-lg fa-edit"></i>
 						</a>
 					</td>

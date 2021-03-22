@@ -5,12 +5,13 @@ namespace App\Controller\API;
 use App\Activity\ActivityService;
 use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
-use App\Role;
+use App\Security\Role\RoleProjet;
 use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\Service\ParticipantService;
 use App\Service\ProjetLastActionService;
 use App\Service\StatisticsService;
+use App\MultiSociete\UserContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,10 +35,11 @@ class DashboardController extends AbstractController
     public function getTempsDuMois(
         string $month = null,
         CraService $craService,
+        UserContext $userContext,
         DateMonthService $dateMonthService
     ) {
         $cra = $craService->loadCraForUser(
-            $this->getUser(),
+            $userContext->getSocieteUser(),
             $dateMonthService->getCurrentMonth(null === $month ? 'now' : $month)
         );
 
@@ -103,10 +105,13 @@ class DashboardController extends AbstractController
      *      name="api_dashboard_heures_passees_par_projet"
      * )
      */
-    public function getHeuresPasseesParProjet(int $year, StatisticsService $statisticsService)
-    {
+    public function getHeuresPasseesParProjet(
+        int $year,
+        StatisticsService $statisticsService,
+        UserContext $userContext
+    ) {
         $heuresParProjet = $statisticsService->calculateHeuresParProjetForUser(
-            $this->getUser(),
+            $userContext->getSocieteUser(),
             $year
         );
 
@@ -127,17 +132,18 @@ class DashboardController extends AbstractController
         int $year,
         ProjetRepository $projetRepository,
         StatisticsService $statisticsService,
+        UserContext $userContext,
         ParticipantService $participantService
     ) {
         $projets = $projetRepository->findAllForUserInYear(
-            $this->getUser(),
-            $this->getUser()->isAdminFo()
+            $userContext->getSocieteUser(),
+            $userContext->getSocieteUser()->isAdminFo()
                 ? null
-                : Role::OBSERVATEUR
+                : RoleProjet::OBSERVATEUR
             ,
             $year
         );
-        $heuresParProjet = $statisticsService->calculateHeuresParProjet($this->getUser()->getSociete(), $year);
+        $heuresParProjet = $statisticsService->calculateHeuresParProjet($userContext->getSocieteUser()->getSociete(), $year);
 
         $stats = [
             'projets' => [
@@ -156,9 +162,9 @@ class DashboardController extends AbstractController
 
         foreach ($projets as $projet) {
             $userIsContributing = $participantService->hasRoleOnProjet(
-                $this->getUser(),
+                $userContext->getSocieteUser(),
                 $projet,
-                Role::CONTRIBUTEUR
+                RoleProjet::CONTRIBUTEUR
             );
 
             $stats['projets']['equipe']++;
@@ -178,7 +184,7 @@ class DashboardController extends AbstractController
         }
 
         $stats['tempsTotal']['moi'] = $statisticsService->calculateHeuresForUser(
-            $this->getUser(),
+            $userContext->getSocieteUser(),
             $year
         );
 
@@ -198,12 +204,13 @@ class DashboardController extends AbstractController
      */
     public function getProjetsStatuts(
         int $sinceYear,
+        UserContext $userContext,
         ProjetRepository $projetRepository
     ) {
         $now = new \DateTime();
-        $projets = $this->getUser()->isAdminFo()
-            ? $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete(), $sinceYear)
-            : $projetRepository->findAllForUserSinceYear($this->getUser(), Role::OBSERVATEUR, $sinceYear)
+        $projets = $userContext->getSocieteUser()->isAdminFo()
+            ? $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete(), $sinceYear)
+            : $projetRepository->findAllForUserSinceYear($userContext->getSocieteUser(), RoleProjet::OBSERVATEUR, $sinceYear)
         ;
 
         $stats = [
@@ -248,11 +255,12 @@ class DashboardController extends AbstractController
      */
     public function getProjetsTypesSinceYear(
         int $sinceYear,
+        UserContext $userContext,
         ProjetRepository $projetRepository
     ) {
-        $projets = $this->getUser()->isAdminFo()
-            ? $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete(), $sinceYear)
-            : $projetRepository->findAllForUserSinceYear($this->getUser(), Role::OBSERVATEUR, $sinceYear)
+        $projets = $userContext->getSocieteUser()->isAdminFo()
+            ? $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete(), $sinceYear)
+            : $projetRepository->findAllForUserSinceYear($userContext->getSocieteUser(), RoleProjet::OBSERVATEUR, $sinceYear)
         ;
 
         $currentYear = intval((new \DateTime())->format('Y'));

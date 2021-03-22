@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\UserActivityRepository;
+use App\Repository\SocieteUserActivityRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=UserActivityRepository::class)
+ * @ORM\Entity(repositoryClass=SocieteUserActivityRepository::class)
  */
-class UserActivity
+class SocieteUserActivity
 {
     /**
      * @ORM\Id
@@ -18,10 +18,10 @@ class UserActivity
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userActivities")
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="societeUserActivities")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $societeUser;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class)
@@ -34,14 +34,14 @@ class UserActivity
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getSocieteUser(): ?SocieteUser
     {
-        return $this->user;
+        return $this->societeUser;
     }
 
-    public function setUser(?User $user): self
+    public function setSocieteUser(?SocieteUser $societeUser): self
     {
-        $this->user = $user;
+        $this->societeUser = $societeUser;
 
         return $this;
     }

@@ -1,0 +1,22 @@
+App\Entity\User:
+    _user:
+        nom: Eureka
+        prenom: User
+        email: user@societe.dev
+        password: user
+
+App\Entity\SocieteUser:
+    user_societe0:
+        user: '@_user'
+        societe: '@societe0'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
+    user_societe1:
+        user: '@_user'
+        societe: '@societe1'
+        role: <(App\Security\Role\RoleSociete::USER)>
+
+App\Entity\Societe:
+    societe0:
+        raisonSociale: Société0
+    societe1:
+        raisonSociale: Société1

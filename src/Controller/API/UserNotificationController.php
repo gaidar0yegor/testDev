@@ -3,7 +3,8 @@
 namespace App\Controller\API;
 
 use App\Listener\UseCache;
-use App\Repository\UserNotificationRepository;
+use App\Repository\SocieteUserNotificationRepository;
+use App\MultiSociete\UserContext;
 use Http\Client\Exception\HttpException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,10 +33,11 @@ class UserNotificationController extends AbstractController
      * )
      */
     public function getLastNotifications(
-        UserNotificationRepository $userNotificationRepository,
+        SocieteUserNotificationRepository $societeUserNotificationRepository,
+        UserContext $userContext,
         NormalizerInterface $normalizer
     ): JsonResponse{
-        $notifications = $userNotificationRepository->findLastFor($this->getUser());
+        $notifications = $societeUserNotificationRepository->findLastFor($userContext->getSocieteUser());
 
         return new JsonResponse([
             'notifications' => $normalizer->normalize($notifications),
@@ -53,7 +55,8 @@ class UserNotificationController extends AbstractController
      */
     public function acknowledge(
         Request $request,
-        UserNotificationRepository $userNotificationRepository
+        UserContext $userContext,
+        SocieteUserNotificationRepository $societeUserNotificationRepository
     ): JsonResponse {
         $content = $request->toArray();
 
@@ -61,8 +64,8 @@ class UserNotificationController extends AbstractController
             throw new BadRequestException('Excepted parameters like {"acknowledgeIds": int[]}');
         }
 
-        $userNotificationRepository->acknowledgeAllFor(
-            $this->getUser(),
+        $societeUserNotificationRepository->acknowledgeAllFor(
+            $userContext->getSocieteUser(),
             $content['acknowledgeIds']
         );
 

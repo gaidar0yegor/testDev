@@ -273,3 +273,8 @@ h5 {
     font-size: 1.5em;
     font-family: monospace;
 }
+
+.mes-societes-create {
+    border-style: dashed;
+    border-width: 0.2em;
+}

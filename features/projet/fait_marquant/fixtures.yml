@@ -1,31 +1,41 @@
 App\Entity\User:
-    observateur:
+    _observateur:
         nom: Eureka
         prenom: Observateur
         email: observateur@societe.dev
         password: observateur
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    contributeur:
+    _contributeur:
         nom: Eureka
         prenom: Contributeur
         email: contributeur@societe.dev
         password: contributeur
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    contributeur2:
+    _contributeur2:
         nom: Eureka
         prenom: Contributeur2
         email: contributeur2@societe.dev
         password: contributeur2
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    cdp:
+    _cdp:
         nom: Eureka
         prenom: Chef de projet
         email: cdp@societe.dev
         password: cdp
-        roles: [ROLE_FO_CDP]
+
+App\Entity\SocieteUser:
+    observateur:
+        user: '@_observateur'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    contributeur:
+        user: '@_contributeur'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    contributeur2:
+        user: '@_contributeur2'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    cdp:
+        user: '@_cdp'
+        role: <(App\Security\Role\RoleSociete::CDP)>
         societe: '@societe'
 
 App\Entity\Projet:
@@ -44,21 +54,21 @@ App\Entity\FaitMarquant:
 
 App\Entity\ProjetParticipant:
     projet_observateur:
-        user: '@observateur'
+        societeUser: '@observateur'
         projet: '@projet'
-        role: '<(App\Role::OBSERVATEUR)>'
+        role: <(App\Security\Role\RoleProjet::OBSERVATEUR)>
     projet_contributeur:
-        user: '@contributeur'
+        societeUser: '@contributeur'
         projet: '@projet'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     projet_contributeur2:
-        user: '@contributeur2'
+        societeUser: '@contributeur2'
         projet: '@projet'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     projet_cdp:
-        user: '@cdp'
+        societeUser: '@cdp'
         projet: '@projet'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Security\Role\RoleProjet::CDP)>
 
 App\Entity\Societe:
     societe:

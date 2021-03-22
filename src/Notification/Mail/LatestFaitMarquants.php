@@ -2,10 +2,10 @@
 
 namespace App\Notification\Mail;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Notification\Event\LatestFaitMarquantsNotification;
 use App\Repository\FaitMarquantRepository;
-use App\Repository\UserRepository;
+use App\Repository\SocieteUserRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
@@ -13,7 +13,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class LatestFaitMarquants implements EventSubscriberInterface
 {
-    private UserRepository $userRepository;
+    private SocieteUserRepository $societeUserRepository;
 
     private FaitMarquantRepository $faitMarquantRepository;
 
@@ -22,12 +22,12 @@ class LatestFaitMarquants implements EventSubscriberInterface
     private MailerInterface $mailer;
 
     public function __construct(
-        UserRepository $userRepository,
+        SocieteUserRepository $societeUserRepository,
         FaitMarquantRepository $faitMarquantRepository,
         TranslatorInterface $translator,
         MailerInterface $mailer
     ) {
-        $this->userRepository = $userRepository;
+        $this->societeUserRepository = $societeUserRepository;
         $this->faitMarquantRepository = $faitMarquantRepository;
         $this->translator = $translator;
         $this->mailer = $mailer;
@@ -40,10 +40,10 @@ class LatestFaitMarquants implements EventSubscriberInterface
         ];
     }
 
-    public function sendLatestFaitsMarquants(User $user): void
+    public function sendLatestFaitsMarquants(SocieteUser $societeUser): void
     {
         $from = (new \DateTime())->modify('-7days');
-        $faitMarquants = $this->faitMarquantRepository->findLatestOnUserProjets($user, $from);
+        $faitMarquants = $this->faitMarquantRepository->findLatestOnUserProjets($societeUser, $from);
 
         if (0 === count($faitMarquants)) {
             return;
@@ -53,7 +53,7 @@ class LatestFaitMarquants implements EventSubscriberInterface
         $title .= ' ajoutés à vos projets RDI-Manager';
 
         $email = (new TemplatedEmail())
-            ->to($user->getEmail())
+            ->to($societeUser->getUser()->getEmail())
             ->subject($title)
             ->textTemplate('mail/notification_latest_faits_marquants.txt.twig')
             ->htmlTemplate('mail/notification_latest_faits_marquants.html.twig')
@@ -67,13 +67,13 @@ class LatestFaitMarquants implements EventSubscriberInterface
 
     public function sendLatestFaitsMarquantsToAllUsers(LatestFaitMarquantsNotification $event): void
     {
-        $users = $this->userRepository->findAllNotifiableUsers(
+        $societeUsers = $this->societeUserRepository->findAllNotifiableUsers(
             $event->getSociete(),
             'notificationLatestFaitMarquantEnabled'
         );
 
-        foreach ($users as $user) {
-            $this->sendLatestFaitsMarquants($user);
+        foreach ($societeUsers as $societeUser) {
+            $this->sendLatestFaitsMarquants($societeUser);
         }
     }
 }

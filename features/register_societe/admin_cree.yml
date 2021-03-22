@@ -1,10 +1,14 @@
 App\Entity\User:
-    admin:
+    _admin:
         nom: NomAdmin
         prenom: PrénomAdmin
         email: admin@societe.dev
         password: admin
-        roles: [ROLE_FO_ADMIN]
+
+App\Entity\SocieteUser:
+    admin:
+        user: '@_admin'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
         societe: '@societe'
 
 App\Entity\Societe:

@@ -4,10 +4,9 @@ namespace App\Activity\Type;
 
 use App\Activity\ActivityInterface;
 use App\Entity\Activity;
-use App\Entity\Societe;
-use App\Entity\UserNotification;
+use App\Entity\SocieteUserNotification;
 use App\Notification\Event\RappelSaisieTempsNotification;
-use App\Repository\UserRepository;
+use App\Repository\SocieteUserRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use IntlDateFormatter;
@@ -19,7 +18,7 @@ class SaisieTemps implements ActivityInterface, EventSubscriberInterface
 {
     private EntityManagerInterface $em;
 
-    private UserRepository $userRepository;
+    private SocieteUserRepository $societeUserRepository;
 
     private UrlGeneratorInterface $urlGenerator;
 
@@ -27,11 +26,11 @@ class SaisieTemps implements ActivityInterface, EventSubscriberInterface
 
     public function __construct(
         EntityManagerInterface $em,
-        UserRepository $userRepository,
+        SocieteUserRepository $societeUserRepository,
         UrlGeneratorInterface $urlGenerator
     ) {
         $this->em = $em;
-        $this->userRepository = $userRepository;
+        $this->societeUserRepository = $societeUserRepository;
         $this->urlGenerator = $urlGenerator;
 
         $this->formatter = datefmt_create(
@@ -99,12 +98,12 @@ class SaisieTemps implements ActivityInterface, EventSubscriberInterface
             ])
         ;
 
-        $users = $this->userRepository->findBy([
+        $users = $this->societeUserRepository->findBy([
             'societe' => $societe,
         ]);
 
         foreach ($users as $user) {
-            $userNotification = UserNotification::create($activity, $user);
+            $userNotification = SocieteUserNotification::create($activity, $user);
 
             $this->em->persist($userNotification);
         }

@@ -2,39 +2,41 @@
 
 namespace App\Form\Custom;
 
-use App\Entity\User;
-use App\Exception\RdiException;
-use App\Repository\UserRepository;
+use App\Entity\SocieteUser;
+use App\Repository\SocieteUserRepository;
+use App\MultiSociete\UserContext;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+/**
+ * Champ de formulaire qui sert à séléctionner un utilisateur
+ * dans la même société.
+ */
 class SameSocieteUserType extends AbstractType
 {
-    private TokenStorageInterface $tokenStorage;
+    private UserContext $userContext;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(UserContext $userContext)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->userContext = $userContext;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'class' => User::class,
-            'choice_label' => 'email',
-            'query_builder' => function (UserRepository $repository) {
-                $user = $this->tokenStorage->getToken()->getUser();
-
-                if (!$user instanceof User) {
-                    throw new RdiException(
-                        'Cannot use SameSocieteUserType when no user is logged in,'
-                        .' because needs to filter by society.'
-                    );
+            'class' => SocieteUser::class,
+            'choice_label' => function (SocieteUser $choice, $key, $value): string {
+                if (!$choice->hasUser()) {
+                    return $choice->getInvitationEmail();
                 }
 
-                return $repository->whereSociete($user->getSociete());
+                return $choice->getUser()->getFullname();
+            },
+            'query_builder' => function (SocieteUserRepository $repository) {
+                $societeUser = $this->userContext->getSocieteUser();
+
+                return $repository->whereSociete($societeUser->getSociete());
             },
         ]);
     }

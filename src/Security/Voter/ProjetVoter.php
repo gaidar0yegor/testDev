@@ -3,12 +3,13 @@
 namespace App\Security\Voter;
 
 use App\Entity\Projet;
-use App\Entity\User;
-use App\Role;
+use App\Entity\SocieteUser;
+use App\Security\Role\RoleProjet;
 use App\Service\ParticipantService;
 use App\Service\SocieteChecker;
+use App\MultiSociete\UserContext;
+use App\Security\Role\RoleSociete;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -17,20 +18,20 @@ use Symfony\Component\Security\Core\Authorization\Voter\Voter;
  */
 class ProjetVoter extends Voter
 {
-    private $authChecker;
-
     private $participantService;
+
+    private UserContext $userContext;
 
     private $societeChecker;
 
     public function __construct(
-        AuthorizationCheckerInterface $authChecker,
         ParticipantService $participantService,
+        UserContext $userContext,
         SocieteChecker $societeChecker
     ) {
-        $this->authChecker = $authChecker;
         $this->participantService = $participantService;
         $this->societeChecker = $societeChecker;
+        $this->userContext = $userContext;
     }
 
     /**
@@ -50,30 +51,30 @@ class ProjetVoter extends Voter
      */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
-        return $this->userCan($attribute, $token->getUser(), $subject);
+        return $this->societeUserCan($attribute, $this->userContext->getSocieteUser(), $subject);
     }
 
-    private function userCan(string $action, User $user, Projet $projet): bool
+    private function societeUserCan(string $action, SocieteUser $societeUser, Projet $projet): bool
     {
         // Empêche tous les accès aux projets des autres sociétés
-        if (!$this->societeChecker->isSameSociete($user, $projet)) {
+        if (!$this->societeChecker->isSameSociete($societeUser, $projet)) {
             return false;
         }
 
         // L'admin a tous les droits sur tous les projets
-        if ($this->authChecker->isGranted('ROLE_FO_ADMIN')) {
+        if (RoleSociete::hasRole($societeUser->getRole(), RoleSociete::ADMIN)) {
             return true;
         }
 
         // Le chef de projet a tous les droits sur son propre projet
-        if ($this->participantService->hasRoleOnProjet($user, $projet, Role::CDP)) {
+        if ($this->participantService->hasRoleOnProjet($societeUser, $projet, RoleProjet::CDP)) {
             return true;
         }
 
         switch ($action) {
             case 'view':
                 // L'utilisateur peut voir le projet s'il a un rôle dessus
-                return $this->participantService->isParticipant($user, $projet);
+                return $this->participantService->isParticipant($societeUser, $projet);
 
             case 'edit':
             case 'delete':

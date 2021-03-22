@@ -4,6 +4,7 @@ namespace App\Controller\FO\Admin;
 
 use App\Entity\Projet;
 use App\Repository\ProjetRepository;
+use App\MultiSociete\UserContext;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -14,10 +15,10 @@ class ProjetController extends AbstractController
      *
      * @Route("/tous-les-projets", name="app_fo_admin_projets")
      */
-    public function listerProjetAdmin(ProjetRepository $projetRepository)
+    public function listerProjetAdmin(ProjetRepository $projetRepository, UserContext $userContext)
     {
-        $projets = $projetRepository->findAllProjectsPerSociete($this->getUser()->getSociete());
-        $yearRange = $projetRepository->findProjetsYearRangeFor($this->getUser());
+        $projets = $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete());
+        $yearRange = $projetRepository->findProjetsYearRangeFor($userContext->getSocieteUser());
 
         return $this->render('projets/admin_liste_projets.html.twig', [
             'projets'=> $projets,

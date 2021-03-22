@@ -18,10 +18,6 @@
                         <div class="col-md-9">{{ app.user.prenom }}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-3"><strong>Rôle : </strong></div>
-                        <div class="col-md-9">{{ app.user.role|trans }}</div>
-                    </div>
-                    <div class="row mb-3">
                         <div class="col-md-3"><strong>E-mail : </strong></div>
                         <div class="col-md-9">{{ app.user.email }}</div>
                     </div>
@@ -37,29 +33,37 @@
                     </div>
 
                     <div class="mt-5">
-                        {% if app.user.role =="ROLE_FO_ADMIN" %}
-
-                            <a href= "{{ path('app_fo_admin_utilisateur_modifier', { id: app.user.id }) }}"
-                                class="btn btn-outline-success mt-2">Mettre à jour</a>
-
-                            {% else %}
-                                <a
+                        <a
                             href="{{ path('app_fo_mon_compte_modifier') }}"
                             class="btn btn-outline-success mt-2"
-                            >Mettre à jour</a>
+                        >Mettre à jour</a>
+                        <a
+                            href="{{ path('app_fo_mon_compte_update_password') }}"
+                            class="btn btn-outline-warning mt-2"
+                        >Modifier votre mot de passe</a>
+                    </div>
+                </div>
+            </div>
 
-                            {% endif %}
+            {% if userContext.hasSocieteUser %}
+                <h2>Mon compte sur {{ userContext.societeUser.societe.raisonSociale }}</h2>
+
+                <div class="card bg-light-grey border-light">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>Rôle : </strong></div>
+                            <div class="col-md-9">{{ userContext.societeUser.role|trans }}</div>
+                        </div>
+
+                        <div class="mt-5">
                             <a
                                 href="{{ path('app_fo_mon_compte_activite') }}"
                                 class="btn btn-outline-primary mt-2"
                             >Mon activité</a>
-                            <a
-                                href="{{ path('app_fo_mon_compte_update_password') }}"
-                                class="btn btn-outline-warning mt-2"
-                            >Modifier votre mot de passe</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
 
             <h2>Mes notifications</h2>
 

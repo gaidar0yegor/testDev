@@ -2,7 +2,7 @@
 
 namespace App\Onboarding\Step;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Onboarding\OnboardingStepInterface;
 use App\Repository\ProjetRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -21,7 +21,7 @@ class AddProjetStep implements OnboardingStepInterface
         return 'Ajoutez vos projets';
     }
 
-    public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string
+    public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
         return $urlGenerator->generate(
             'app_fo_projet_creation',
@@ -35,11 +35,11 @@ class AddProjetStep implements OnboardingStepInterface
         return true;
     }
 
-    public function isCompleted(User $user): bool
+    public function isCompleted(SocieteUser $societeUser): bool
     {
         $projets = $this
             ->projetRepository
-            ->findAllProjectsPerSociete($user->getSociete())
+            ->findAllProjectsPerSociete($societeUser->getSociete())
         ;
 
         return count($projets) > 0;

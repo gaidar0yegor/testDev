@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use App\HasSocieteInterface;
 use App\Repository\UserRepository;
-use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,18 +13,16 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Représente un compte RDI-Manager d'un utilisateur.
+ *
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  *      fields={"email"},
  *      groups={"Default", "invitation", "registration"},
  *      message="There is already an account with this email"
  * )
- * @AppAssert\DatesOrdered(
- *      start="dateEntree",
- *      end="dateSortie"
- * )
  */
-class User implements UserInterface, HasSocieteInterface
+class User implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -71,21 +67,6 @@ class User implements UserInterface, HasSocieteInterface
     private $email;
 
     /**
-     * Clé secrète créée lorsque cet user est invité
-     * à rejoindre la société et à finaliser la création de son compte.
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Assert\NotBlank(groups={"invitation"})
-     */
-    private $invitationToken;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $invitationSentAt;
-
-    /**
      * Clé secrète créée lorsque cet user souhaite réinitialiser son mot de passe.
      *
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -105,51 +86,16 @@ class User implements UserInterface, HasSocieteInterface
     private $telephone;
 
     /**
-     * Heures travaillées par jours pour cet employé.
-     *
-     * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
-     */
-    private $heuresParJours;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $dateEntree;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $dateSortie;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
-     * Si cet utilisateur est activé, et peux se connecter.
+     * Si cet utilisateur est activé, et peux se connecter à son compte RDI-Manager.
      *
      * @ORM\Column(type="boolean")
      */
     private $enabled;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Societe::class, inversedBy="users")
-     * @ORM\JoinColumn(nullable=true)
-     *
-     * @Assert\NotBlank(groups={"invitation"})
-     */
-    private $societe;
-
-    /**
-     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $projetParticipants;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Cra::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $cras;
 
     /**
      * @ORM\Column(type="boolean")
@@ -172,11 +118,6 @@ class User implements UserInterface, HasSocieteInterface
     private $notificationSaisieTempsEnabled;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserActivity::class, mappedBy="user", orphanRemoval=true)
-     */
-    private $userActivities;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $onboardingEnabled;
@@ -196,24 +137,33 @@ class User implements UserInterface, HasSocieteInterface
     private $helpTexts;
 
     /**
-     * @ORM\OneToMany(targetEntity=UserNotification::class, mappedBy="user")
+     * All the SocieteUser this user has access to.
+     *
+     * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="user")
      */
-    private $userNotifications;
+    private $societeUsers;
+
+    /**
+     * The current SocieteUser this user has switched to.
+     *
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $currentSocieteUser;
 
     public function __construct()
     {
         $this->enabled = true;
+        $this->roles = ['ROLE_FO_USER'];
         $this->projetParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->cras = new ArrayCollection();
         $this->notificationEnabled = true;
         $this->notificationCreateFaitMarquantEnabled = true;
         $this->notificationLatestFaitMarquantEnabled = true;
         $this->notificationSaisieTempsEnabled = true;
-        $this->userActivities = new ArrayCollection();
         $this->onboardingEnabled = true;
         $this->onboardingTimesheetCompleted = false;
-        $this->userNotifications = new ArrayCollection();
+        $this->societeUsers = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -236,38 +186,6 @@ class User implements UserInterface, HasSocieteInterface
     public function getUsername(): string
     {
         return $this->email;
-    }
-
-    public function getInvitationToken(): ?string
-    {
-        return $this->invitationToken;
-    }
-
-    public function setInvitationToken(string $invitationToken): self
-    {
-        $this->invitationToken = $invitationToken;
-
-        return $this;
-    }
-
-    public function getInvitationSentAt(): ?\DateTimeInterface
-    {
-        return $this->invitationSentAt;
-    }
-
-    public function setInvitationSentAt(?\DateTimeInterface $invitationSentAt): self
-    {
-        $this->invitationSentAt = $invitationSentAt;
-
-        return $this;
-    }
-
-    public function removeInvitationToken(): self
-    {
-        $this->invitationToken = null;
-        $this->invitationSentAt = null;
-
-        return $this;
     }
 
     public function getResetPasswordToken(): ?string
@@ -326,27 +244,6 @@ class User implements UserInterface, HasSocieteInterface
         $this->roles = $roles;
 
         return $this;
-    }
-
-    /**
-     * @return string Role front office de l'utilisateur
-     */
-    public function getRole(): ?string
-    {
-        $foRoles = array_filter($this->roles, function (string $role) {
-            return 'ROLE_FO_' === substr($role, 0, 8);
-        });
-
-        if (count($foRoles) > 0) {
-            return array_pop($foRoles);
-        }
-
-        return null;
-    }
-
-    public function isAdminFo(): bool
-    {
-        return in_array('ROLE_FO_ADMIN', $this->roles);
     }
 
     public function setRole(string $role): self
@@ -466,42 +363,6 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getHeuresParJours(): ?float
-    {
-        return $this->heuresParJours;
-    }
-
-    public function setHeuresParJours(?float $heuresParJours): self
-    {
-        $this->heuresParJours = $heuresParJours;
-
-        return $this;
-    }
-
-    public function getDateEntree(): ?\DateTimeInterface
-    {
-        return $this->dateEntree;
-    }
-
-    public function setDateEntree(?\DateTimeInterface $dateEntree): self
-    {
-        $this->dateEntree = $dateEntree;
-
-        return $this;
-    }
-
-    public function getDateSortie(): ?\DateTimeInterface
-    {
-        return $this->dateSortie;
-    }
-
-    public function setDateSortie(?\DateTimeInterface $dateSortie): self
-    {
-        $this->dateSortie = $dateSortie;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -522,80 +383,6 @@ class User implements UserInterface, HasSocieteInterface
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
-
-        return $this;
-    }
-
-    public function getSociete(): ?Societe
-    {
-        return $this->societe;
-    }
-
-    public function setSociete(?Societe $societe): self
-    {
-        $this->societe = $societe;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|ProjetParticipant[]
-     */
-    public function getProjetParticipants(): Collection
-    {
-        return $this->projetParticipants;
-    }
-
-    public function addProjetParticipant(ProjetParticipant $projetParticipant): self
-    {
-        if (!$this->projetParticipants->contains($projetParticipant)) {
-            $this->projetParticipants[] = $projetParticipant;
-            $projetParticipant->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeProjetParticipant(ProjetParticipant $projetParticipant): self
-    {
-        if ($this->projetParticipants->contains($projetParticipant)) {
-            $this->projetParticipants->removeElement($projetParticipant);
-            // set the owning side to null (unless already changed)
-            if ($projetParticipant->getUser() === $this) {
-                $projetParticipant->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Cra[]
-     */
-    public function getCras(): Collection
-    {
-        return $this->cras;
-    }
-
-    public function addCra(Cra $cra): self
-    {
-        if (!$this->cras->contains($cra)) {
-            $this->cras[] = $cra;
-            $cra->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCra(Cra $cra): self
-    {
-        if ($this->cras->contains($cra)) {
-            $this->cras->removeElement($cra);
-            // set the owning side to null (unless already changed)
-            if ($cra->getUser() === $this) {
-                $cra->setUser(null);
-            }
-        }
 
         return $this;
     }
@@ -648,36 +435,6 @@ class User implements UserInterface, HasSocieteInterface
         return $this;
     }
 
-    /**
-     * @return Collection|UserActivity[]
-     */
-    public function getUserActivities(): Collection
-    {
-        return $this->userActivities;
-    }
-
-    public function addUserActivity(UserActivity $userActivity): self
-    {
-        if (!$this->userActivities->contains($userActivity)) {
-            $this->userActivities[] = $userActivity;
-            $userActivity->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserActivity(UserActivity $userActivity): self
-    {
-        if ($this->userActivities->removeElement($userActivity)) {
-            // set the owning side to null (unless already changed)
-            if ($userActivity->getUser() === $this) {
-                $userActivity->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getOnboardingEnabled(): ?bool
     {
         return $this->onboardingEnabled;
@@ -721,31 +478,53 @@ class User implements UserInterface, HasSocieteInterface
     }
 
     /**
-     * @return Collection|UserNotification[]
+     * @return Collection|SocieteUser[]
      */
-    public function getUserNotifications(): Collection
+    public function getSocieteUsers(): Collection
     {
-        return $this->userNotifications;
+        return $this->societeUsers;
     }
 
-    public function addUserNotification(UserNotification $userNotification): self
+    /**
+     * @return Collection|SocieteUser[]
+     */
+    public function getEnabledSocieteUsers(): Collection
     {
-        if (!$this->userNotifications->contains($userNotification)) {
-            $this->userNotifications[] = $userNotification;
-            $userNotification->setUser($this);
+        return $this->societeUsers->filter(function (SocieteUser $societeUser) {
+            return $societeUser->getEnabled();
+        });
+    }
+
+    public function addSocieteUser(SocieteUser $societeUser): self
+    {
+        if (!$this->societeUsers->contains($societeUser)) {
+            $this->societeUsers[] = $societeUser;
+            $societeUser->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeUserNotification(UserNotification $userNotification): self
+    public function removeSocieteUser(SocieteUser $societeUser): self
     {
-        if ($this->userNotifications->removeElement($userNotification)) {
+        if ($this->societeUsers->removeElement($societeUser)) {
             // set the owning side to null (unless already changed)
-            if ($userNotification->getUser() === $this) {
-                $userNotification->setUser(null);
+            if ($societeUser->getUser() === $this) {
+                $societeUser->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCurrentSocieteUser(): ?SocieteUser
+    {
+        return $this->currentSocieteUser;
+    }
+
+    public function setCurrentSocieteUser(?SocieteUser $societeUser): self
+    {
+        $this->currentSocieteUser = $societeUser;
 
         return $this;
     }

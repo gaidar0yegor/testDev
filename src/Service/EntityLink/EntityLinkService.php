@@ -3,7 +3,6 @@
 namespace App\Service\EntityLink;
 
 use App\Exception\RdiException;
-use App\Service\EntityLink\Entities\ProjetLink;
 use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

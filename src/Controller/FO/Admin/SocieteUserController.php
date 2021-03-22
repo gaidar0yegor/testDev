@@ -2,12 +2,14 @@
 
 namespace App\Controller\FO\Admin;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Form\InviteUserType;
-use App\Form\UtilisateursFormType;
-use App\Repository\UserActivityRepository;
-use App\Repository\UserRepository;
+use App\Form\SocieteUserType;
+use App\Repository\SocieteUserActivityRepository;
+use App\Repository\SocieteUserRepository;
+use App\Security\Voter\SameSocieteVoter;
 use App\Service\Invitator;
+use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,15 +20,15 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 /**
  * @Route("/utilisateurs")
  */
-class UtilisateursFoController extends AbstractController
+class SocieteUserController extends AbstractController
 {
     /**
      * @Route("", name="app_fo_admin_utilisateurs")
      */
-    public function listerUtilisateurs(UserRepository $ur)
+    public function listerUtilisateurs(SocieteUserRepository $societeUserRepository, UserContext $userContext)
     {
         return $this->render('utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
-            'users' => $ur->findBySameSociete($this->getUser()),
+            'societeUsers' => $societeUserRepository->findBySameSociete($userContext->getSocieteUser()),
         ]);
     }
 
@@ -35,22 +37,23 @@ class UtilisateursFoController extends AbstractController
      */
     public function invite(
         Request $request,
+        UserContext $userContext,
         EntityManagerInterface $em,
         Invitator $invitator
     ): Response {
-        $user = $invitator->initUser($this->getUser()->getSociete());
-        $form = $this->createForm(InviteUserType::class, $user);
+        $societeUser = $invitator->initUser($userContext->getSocieteUser()->getSociete());
+        $form = $this->createForm(InviteUserType::class, $societeUser);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $invitator->check($user);
-            $invitator->sendInvitation($user, $this->getUser());
+            $invitator->check($societeUser);
+            $invitator->sendInvitation($societeUser, $this->getUser());
             $em->flush();
 
             $this->addFlash('success', sprintf(
                 'Un email avec un lien d\'invitation a été envoyé à "%s".',
-                $user->getEmail()
+                $societeUser->getInvitationEmail()
             ));
 
             return $this->redirectToRoute('app_fo_admin_user_invite');
@@ -65,28 +68,28 @@ class UtilisateursFoController extends AbstractController
     /**
      * @Route("/{id}/modifier", name="app_fo_admin_utilisateur_modifier")
      */
-    public function modifier(Request $request, User $user, EntityManagerInterface $em)
+    public function modifier(Request $request, SocieteUser $societeUser, EntityManagerInterface $em)
     {
-        $this->denyAccessUnlessGranted('same_societe', $user);
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
-        $form = $this->createForm(UtilisateursFormType::class, $user);
+        $form = $this->createForm(SocieteUserType::class, $societeUser);
 
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
-            $em->persist($user);
+            $em->persist($societeUser);
             $em->flush();
 
             $this->addFlash('success', 'Les informations de l\'utilisateur ont été modifiées');
 
-            return $this->redirectToRoute('app_fo_user', [
-                'id' => $user->getId(),
+            return $this->redirectToRoute('app_fo_societe_user', [
+                'id' => $societeUser->getId(),
             ]);
         }
 
         return $this->render('utilisateurs_fo/edit_user.html.twig', [
             'form' => $form->createView(),
-            'user' => $user,
+            'societeUser' => $societeUser,
         ]);
     }
 
@@ -97,26 +100,26 @@ class UtilisateursFoController extends AbstractController
      *      methods={"POST"}
      * )
      */
-    public function disable(Request $request, User $user, EntityManagerInterface $em)
+    public function disable(SocieteUser $societeUser, EntityManagerInterface $em)
     {
-        $this->denyAccessUnlessGranted('same_societe', $user);
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
-        if (!$user->getEnabled()) {
+        if (!$societeUser->getEnabled()) {
             throw new ConflictHttpException('Cet utilisateur a déjà été désactivé.');
         }
 
-        $user->setEnabled(false);
+        $societeUser->setEnabled(false);
 
-        $em->persist($user);
+        $em->persist($societeUser);
         $em->flush();
 
         $this->addFlash('warning', sprintf(
             'L\'utilisateur %s a été désactivé, il ne pourra plus se connecter.',
-            $user->getFullname()
+            $societeUser->getUser()->getFullname()
         ));
 
-        return $this->redirectToRoute('app_fo_user', [
-            'id' => $user->getId(),
+        return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
+            'id' => $societeUser->getId(),
         ]);
     }
 
@@ -127,26 +130,26 @@ class UtilisateursFoController extends AbstractController
      *      methods={"POST"}
      * )
      */
-    public function enable(Request $request, User $user, EntityManagerInterface $em)
+    public function enable(Request $request, SocieteUser $societeUser, EntityManagerInterface $em)
     {
-        $this->denyAccessUnlessGranted('same_societe', $user);
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
-        if ($user->getEnabled()) {
+        if ($societeUser->getEnabled()) {
             throw new ConflictHttpException('Cet utilisateur est déjà activé.');
         }
 
-        $user->setEnabled(true);
+        $societeUser->setEnabled(true);
 
-        $em->persist($user);
+        $em->persist($societeUser);
         $em->flush();
 
         $this->addFlash('success', sprintf(
             'L\'utilisateur %s a été activé, il pourra se connecter de nouveau.',
-            $user->getFullname()
+            $societeUser->getUser()->getFullname()
         ));
 
-        return $this->redirectToRoute('app_fo_user', [
-            'id' => $user->getId(),
+        return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
+            'id' => $societeUser->getId(),
         ]);
     }
 
@@ -156,13 +159,13 @@ class UtilisateursFoController extends AbstractController
      *      name="app_fo_admin_utilisateur_activity"
      * )
      */
-    public function activity(User $user, UserActivityRepository $userActivityRepository)
+    public function activity(SocieteUser $societeUser, SocieteUserActivityRepository $societeUserActivityRepository)
     {
-        $this->denyAccessUnlessGranted('same_societe', $user);
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
         return $this->render('utilisateurs_fo/user_activity.html.twig', [
-            'user' => $user,
-            'activities' => $userActivityRepository->findByUser($user),
+            'societeUser' => $societeUser,
+            'activities' => $societeUserActivityRepository->findBySocieteUser($societeUser),
         ]);
     }
 }

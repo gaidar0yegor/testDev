@@ -14,3 +14,4 @@ twig:
             host: '%env(MATOMO_HOST)%'
             siteId: '%env(MATOMO_SITE_ID)%'
         rdiManagerDemoUrl: '%env(RDI_DEMO_URL)%'
+        userContext: '@App\MultiSociete\UserContext'

@@ -11,7 +11,10 @@
             </p>
             <p>
                 Finalisez votre inscription en cliquant sur ce bouton :
-                <button href="{{ invitationLink }}" class="large expanded">Finaliser mon inscription</button>
+                <button
+                    href="{{ url('app_fo_user_finalize_inscription', {'token': invitedUser.invitationToken}) }}"
+                    class="large expanded"
+                >Finaliser mon inscription</button>
             </p>
         </columns>
     </row>

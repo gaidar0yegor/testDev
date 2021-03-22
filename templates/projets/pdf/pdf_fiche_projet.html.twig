@@ -41,7 +41,7 @@
                 <div class="col-md-6">
                     <div class="row mb-3">
                         <div class="col-md-4"><strong>Chef de projet : </strong></div>
-                        <div class="col-md-6">{{ projet.chefDeProjet.fullname }}</div>
+                        <div class="col-md-6">{{ projet.chefDeProjet.user.fullname }}</div>
                     </div>
                     {% if projet.dateDebut %}
                         <div class="row mb-3">
@@ -73,7 +73,7 @@
                         <h4 data-date="{{ faitMarquant.date|format_date }}">
                             {{ faitMarquant.date|format_date }}
                             -
-                            <span>{{ faitMarquant.createdBy.fullname }}</span>
+                            <span>{{ faitMarquant.createdBy.user.fullname }}</span>
                         </h4>
                         <h3>{{ faitMarquant.titre }}</h3>
                         <p class="text-justify">

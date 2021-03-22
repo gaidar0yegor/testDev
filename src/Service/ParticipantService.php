@@ -4,9 +4,9 @@ namespace App\Service;
 
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
-use App\Entity\User;
-use App\Exception\RdiException;
+use App\Entity\SocieteUser;
 use App\Role;
+use App\Security\Role\RoleProjet;
 use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
 
 /**
@@ -15,22 +15,22 @@ use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
 class ParticipantService implements UserContributingProjetRepositoryInterface
 {
     /**
-     * @return bool Si oui ou non $user est au moins observateur sur $projet
+     * @return bool Si oui ou non $societeUser est au moins observateur sur $projet
      */
-    public function isParticipant(User $user, Projet $projet): bool
+    public function isParticipant(SocieteUser $societeUser, Projet $projet): bool
     {
-        return null !== $this->getRoleOfUserOnProjet($user, $projet);
+        return null !== $this->getRoleOfUserOnProjet($societeUser, $projet);
     }
 
     /**
-     * @return null|string Role de $user sur $projet.
-     *      Either 'CDP', 'CONTRIBUTEUR' or 'OBSERVATEUR'.
+     * @return null|string Role de $societeUser sur $projet.
+     *      Either RoleProjet::CDP, RoleProjet::CONTRIBUTEUR or RoleProjet::OBSERVATEUR.
      *      Returns null if user has no access to $projet.
      */
-    public function getRoleOfUserOnProjet(User $user, Projet $projet): ?string
+    public function getRoleOfUserOnProjet(SocieteUser $societeUser, Projet $projet): ?string
     {
         foreach ($projet->getProjetParticipants() as $participant) {
-            if ($participant->getUser() === $user) {
+            if ($participant->getSocieteUser() === $societeUser) {
                 return $participant->getRole();
             }
         }
@@ -47,7 +47,7 @@ class ParticipantService implements UserContributingProjetRepositoryInterface
         $projetParticipantsFiltered = [];
 
         foreach ($projetParticipants as $projetParticipant) {
-            if ($this->hasRole($projetParticipant->getRole(), $requiredRole)) {
+            if (RoleProjet::hasRole($projetParticipant->getRole(), $requiredRole)) {
                 $projetParticipantsFiltered[] = $projetParticipant;
             }
         }
@@ -75,33 +75,25 @@ class ParticipantService implements UserContributingProjetRepositoryInterface
     /**
      * {@inheritDoc}
      */
-    public function findProjetsContributingUser(User $user): array
+    public function findProjetsContributingUser(SocieteUser $societeUser): array
     {
         return $this->getProjetParticipantsWithRole(
-            $user->getProjetParticipants(),
-            Role::CONTRIBUTEUR
+            $societeUser->getProjetParticipants(),
+            RoleProjet::CONTRIBUTEUR
         );
     }
 
     /**
      * @return bool Si $user a au moins le role $requiredRole sur $projet.
      */
-    public function hasRoleOnProjet(User $user, Projet $projet, string $requiredRole): bool
+    public function hasRoleOnProjet(SocieteUser $societeUser, Projet $projet, string $requiredRole): bool
     {
-        $userRole = $this->getRoleOfUserOnProjet($user, $projet);
+        $userRole = $this->getRoleOfUserOnProjet($societeUser, $projet);
 
-        return $this->hasRole($userRole, $requiredRole);
-    }
-
-    /**
-     * @deprecated Use Role::hasRole() instead.
-     */
-    public function hasRole(?string $role, string $requiredRole): bool
-    {
-        if (null === $role) {
+        if (null === $userRole) {
             return false;
         }
 
-        return Role::hasRole($role, $requiredRole);
+        return RoleProjet::hasRole($userRole, $requiredRole);
     }
 }

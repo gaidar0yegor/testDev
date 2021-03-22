@@ -20,7 +20,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I follow "P"
         And I follow "Participants"
         And I fill in the following:
-            | liste_projet_participants[projetParticipants][0][role] | CDP |
+            | liste_projet_participants[projetParticipants][0][role] | PROJET_CDP |
         And I press "Mettre à jour"
         Then I should see "Il doit y avoir un seul Chef de projet, vous en avez plusieurs"
 
@@ -29,6 +29,6 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I follow "P"
         And I follow "Participants"
         And I fill in the following:
-            | liste_projet_participants[projetParticipants][1][role] | CONTRIBUTEUR |
+            | liste_projet_participants[projetParticipants][1][role] | PROJET_CONTRIBUTEUR |
         And I press "Mettre à jour"
         Then I should see "Il doit y avoir un chef de projet, vous n'en avez mis aucun"

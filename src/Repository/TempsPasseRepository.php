@@ -4,8 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Projet;
 use App\Entity\Societe;
+use App\Entity\SocieteUser;
 use App\Entity\TempsPasse;
-use App\Entity\User;
 use App\Service\DateMonthService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -27,16 +27,16 @@ class TempsPasseRepository extends ServiceEntityRepository
         $this->dateMonthService = $dateMonthService;
     }
 
-    public function findAllForUserInYear(User $user, int $year): array
+    public function findAllForUserInYear(SocieteUser $societeUser, int $year): array
     {
         return $this
             ->createQueryBuilder('tempsPasse')
             ->leftJoin('tempsPasse.cra', 'cra')
-            ->where('cra.user = :user')
+            ->where('cra.societeUser = :societeUser')
             ->andWhere('cra.mois >= :dateFrom')
             ->andWhere('cra.mois <= :dateTo')
             ->setParameters([
-                'user' => $user,
+                'societeUser' => $societeUser,
                 'dateFrom' => new \DateTime("$year-01-01"),
                 'dateTo' => new \DateTime("$year-12-31"),
             ])
@@ -53,8 +53,8 @@ class TempsPasseRepository extends ServiceEntityRepository
         return $this
             ->createQueryBuilder('tempsPasse')
             ->leftJoin('tempsPasse.cra', 'cra')
-            ->leftJoin('cra.user', 'user')
-            ->where('user.societe = :societe')
+            ->leftJoin('cra.societeUser', 'societeUser')
+            ->where('societeUser.societe = :societe')
             ->andWhere('cra.mois >= :dateFrom')
             ->andWhere('cra.mois <= :dateTo')
             ->setParameters([
@@ -75,9 +75,9 @@ class TempsPasseRepository extends ServiceEntityRepository
         return $this
             ->createQueryBuilder('tempsPasse')
             ->leftJoin('tempsPasse.cra', 'cra')
-            ->leftJoin('cra.user', 'user')
+            ->leftJoin('cra.societeUser', 'societeUser')
             ->addSelect('cra')
-            ->addSelect('user')
+            ->addSelect('societeUser')
             ->where('YEAR(cra.mois) = :year')
             ->andWhere('tempsPasse.projet = :projet')
             ->andWhere('tempsPasse.pourcentage > 0')

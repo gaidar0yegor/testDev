@@ -1,10 +1,14 @@
 App\Entity\User:
-    cdp:
+    _cdp:
         nom: Eureka
         prenom: Chef de projet
         email: cdp@societe.dev
         password: cdp
-        roles: [ROLE_FO_CDP]
+
+App\Entity\SocieteUser:
+    cdp:
+        user: '@_cdp'
+        role: <(App\Security\Role\RoleSociete::CDP)>
         societe: '@societe'
 
 App\Entity\Projet:
@@ -35,9 +39,9 @@ App\Entity\FaitMarquant:
 
 App\Entity\ProjetParticipant:
     projet_cdp:
-        user: '@cdp'
+        societeUser: '@cdp'
         projet: '@projet'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Security\Role\RoleProjet::CDP)>
 
 App\Entity\Societe:
     societe:

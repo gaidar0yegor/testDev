@@ -3,7 +3,7 @@
 namespace App\DTO;
 
 use App\Entity\Cra;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Exception\TimesheetException;
 
 /**
@@ -86,7 +86,7 @@ class Timesheet
 
     public function getHeuresParJours(): float
     {
-        return self::getUserHeuresParJours($this->cra->getUser());
+        return self::getUserHeuresParJours($this->cra->getSocieteUser());
     }
 
     /**
@@ -97,21 +97,21 @@ class Timesheet
      * @throws TimesheetException Si le nombre d'heure par jour n'est pas défini,
      *      ni globalement pour la société, ni pour cet utilisateur.
      */
-    public static function getUserHeuresParJours(User $user): float
+    public static function getUserHeuresParJours(SocieteUser $societeUser): float
     {
-        if (null !== $user->getHeuresParJours()) {
-            return $user->getHeuresParJours();
+        if (null !== $societeUser->getHeuresParJours()) {
+            return $societeUser->getHeuresParJours();
         }
 
-        if (null === $user->getSociete()) {
+        if (null === $societeUser->getSociete()) {
             throw new TimesheetException(
                 'Impossible de générer une feuille de temps : '.
                 'L\'utilisateur n\'a pas de nombre d\'heures par jours, est n\'est pas dans une société'
             );
         }
 
-        if (null !== $user->getSociete()->getHeuresParJours()) {
-            return $user->getSociete()->getHeuresParJours();
+        if (null !== $societeUser->getSociete()->getHeuresParJours()) {
+            return $societeUser->getSociete()->getHeuresParJours();
         }
 
         throw new TimesheetException(

@@ -3,8 +3,9 @@
 namespace App\RegisterSociete;
 
 use App\Entity\Societe;
+use App\Entity\SocieteUser;
 use App\RegisterSociete\DTO\Registration;
-use App\Service\Invitator;
+use App\Security\Role\RoleSociete;
 use App\Service\TokenGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -77,23 +78,31 @@ class RegisterSociete
         ;
     }
 
-    public function persistRegistration(Registration $registration): void
+    public function persistRegistration(Registration $registration): SocieteUser
     {
         $societe = $registration->societe;
         $admin = $registration->admin;
+        $societeUser = new SocieteUser();
 
         $societe
-            ->addUser($admin)
             ->setCreatedFrom(Societe::CREATED_FROM_INSCRIPTION)
             ->setCreatedBy($admin)
+            ->addSocieteUser($societeUser)
         ;
 
         $admin
-            ->setPassword($this->passwordEncoder->encodePassword($admin, $admin->getPassword()))
-            ->setRole('ROLE_FO_ADMIN')
+            //->setPassword($this->passwordEncoder->encodePassword($admin, $admin->getPassword()))
+            ->addSocieteUser($societeUser)
+        ;
+
+        $societeUser
+            ->setRole(RoleSociete::ADMIN)
         ;
 
         $this->em->persist($admin);
         $this->em->persist($societe);
+        $this->em->persist($societeUser);
+
+        return $societeUser;
     }
 }
