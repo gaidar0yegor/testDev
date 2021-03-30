@@ -53,3 +53,29 @@ Feature: Multi-société, page de changement de société
         And I press "Mettre à jour"
         Then I should see "Vos informations personnelles ont été mises à jour"
         And I should see "NouveauPrenom" in the "nav" element
+
+    Scenario: Je ne peux pas switcher sur une société dont mon accès a été désactivé par l'admin
+        When I go to "/mes-societes"
+        Then I should not see "Aller sur SociétéDisabled"
+        But I should see "Accès désactivé" in the ".card" element containing "SociétéDisabled"
+
+    Scenario: Je ne peux pas switcher sur une société dont mon accès a été désactivé par l'admin, même en le faisant par une requête POST
+        When I send a POST request to "/mes-societes/3"
+        And I go to the homepage
+        Then I should not see "Mon tableau de bord"
+        But I should be on "/mes-societes"
+        And I should see "Mes sociétés" in the "h1" element
+
+    Scenario: Je ne peux pas usurper l'accès de quelqu'un d'autre
+        When I send a POST request to "/mes-societes/4"
+        And I go to the homepage
+        Then I should not see "Mon tableau de bord"
+        But I should be on "/mes-societes"
+        And I should see "Mes sociétés" in the "h1" element
+
+    Scenario: Je suis déconnecté de ma société lorsque mon accès a été désactivé
+        When I send a POST request to "/mes-societes/4"
+        And I go to the homepage
+        Then I should not see "Mon tableau de bord"
+        But I should be on "/mes-societes"
+        And I should see "Mes sociétés" in the "h1" element
