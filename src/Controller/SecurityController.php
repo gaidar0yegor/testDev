@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Exception\ResetPasswordException;
 use App\Form\Custom\RepeatedPasswordType;
-use App\Form\FinalizeInscriptionType;
-use App\Repository\UserRepository;
 use App\Service\ResetPasswordService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -57,54 +55,6 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
-    }
-
-    /**
-     * @Route("/inscription/{token}", name="app_fo_user_finalize_inscription")
-     */
-    public function finalizeInscription(
-        Request $request,
-        string $token,
-        UserRepository $userRepository,
-        UserPasswordEncoderInterface $passwordEncoder,
-        EntityManagerInterface $em
-    ) {
-        $user = $userRepository->findOneBy([
-            'invitationToken' => $token,
-        ]);
-
-        if (null === $user) {
-            return $this->render(
-                'utilisateurs_fo/invalid_invitation_token.html.twig',
-                [],
-                new Response('', Response::HTTP_NOT_FOUND)
-            );
-        }
-
-        $form = $this->createForm(FinalizeInscriptionType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $encodedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
-
-            $user
-                ->setPassword($encodedPassword)
-                ->removeInvitationToken()
-            ;
-
-            $em->persist($user);
-            $em->flush();
-
-            $this->addFlash('success', sprintf('Bienvenue à %s !', $user->getPrenom()));
-
-            return $this->redirectToRoute('app_fo_projets');
-        }
-
-        return $this->render('utilisateurs_fo/finalize_inscription.html.twig', [
-            'user' => $user,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**

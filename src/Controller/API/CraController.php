@@ -3,6 +3,7 @@
 namespace App\Controller\API;
 
 use App\Service\CraService;
+use App\MultiSociete\UserContext;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,9 +30,10 @@ class CraController extends AbstractController
         Request $request,
         DateTime $month,
         CraService $craService,
+        UserContext $userContext,
         EntityManagerInterface $em
     ) {
-        $cra = $craService->loadCraForUser($this->getUser(), $month);
+        $cra = $craService->loadCraForUser($userContext->getSocieteUser(), $month);
 
         $cra
             ->setJours($request->get('cra'))

@@ -3,11 +3,9 @@
 namespace App\License;
 
 use App\Entity\Societe;
-use App\Entity\User;
-use App\Exception\UnexpectedUserException;
 use App\HasSocieteInterface;
 use App\License\DTO\License;
-use Symfony\Component\Security\Core\Security;
+use App\MultiSociete\UserContext;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -17,13 +15,13 @@ class TwigExtension extends AbstractExtension
 
     private QuotaService $quotaService;
 
-    private Security $security;
+    private UserContext $userContext;
 
-    public function __construct(LicenseService $licenseService, QuotaService $quotaService, Security $security)
+    public function __construct(LicenseService $licenseService, QuotaService $quotaService, UserContext $userContext)
     {
         $this->licenseService = $licenseService;
         $this->quotaService = $quotaService;
-        $this->security = $security;
+        $this->userContext = $userContext;
     }
 
     public function getFilters(): array
@@ -50,15 +48,7 @@ class TwigExtension extends AbstractExtension
 
     public function isLicenseSameSociete(License $license, HasSocieteInterface $hasSociete = null): bool
     {
-        if (null === $hasSociete) {
-            $hasSociete = $this->security->getUser();
-
-            if (!$hasSociete instanceof User) {
-                throw new UnexpectedUserException($hasSociete);
-            }
-        }
-
-        return $this->licenseService->isSameSociete($license, $hasSociete);
+        return $this->licenseService->isSameSociete($license, $hasSociete ?? $this->userContext->getSocieteUser());
     }
 
     public function hasActiveLicense(Societe $societe): bool

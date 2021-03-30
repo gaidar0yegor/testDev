@@ -2,7 +2,7 @@
 
 namespace App\Onboarding\Step;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Onboarding\OnboardingStepInterface;
 use App\Service\Timesheet\Event\TimesheetEvent;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,7 +23,7 @@ class GenerateTimesheetStep implements OnboardingStepInterface, EventSubscriberI
         return 'Génération de feuilles de temps';
     }
 
-    public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string
+    public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
         return $urlGenerator->generate(
             'app_fo_admin_timesheet_generate',
@@ -37,9 +37,9 @@ class GenerateTimesheetStep implements OnboardingStepInterface, EventSubscriberI
         return false;
     }
 
-    public function isCompleted(User $user): bool
+    public function isCompleted(SocieteUser $societeUser): bool
     {
-        return $user->getOnboardingTimesheetCompleted();
+        return $societeUser->getUser()->getOnboardingTimesheetCompleted();
     }
 
     public static function getPriority(): int
@@ -56,7 +56,7 @@ class GenerateTimesheetStep implements OnboardingStepInterface, EventSubscriberI
 
     public function timesheetGenerated(TimesheetEvent $event): void
     {
-        $event->getUser()->setOnboardingTimesheetCompleted(true);
+        $event->getSocieteUser()->getUser()->setOnboardingTimesheetCompleted(true);
 
         $this->em->flush();
     }

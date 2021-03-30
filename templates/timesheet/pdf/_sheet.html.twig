@@ -4,19 +4,19 @@
     <div class="col-6">
         <dl class="row">
             <dt class="col-3">Nom</dt>
-            <dd class="col-9">{{ timesheet.cra.user.nom }}</dd>
+            <dd class="col-9">{{ timesheet.cra.societeUser.user.nom }}</dd>
 
             <dt class="col-3">Prénom</dt>
-            <dd class="col-9">{{ timesheet.cra.user.prenom }}</dd>
+            <dd class="col-9">{{ timesheet.cra.societeUser.user.prenom }}</dd>
 
             <dt class="col-3">Email</dt>
-            <dd class="col-9">{{ timesheet.cra.user.email }}</dd>
+            <dd class="col-9">{{ timesheet.cra.societeUser.user.email }}</dd>
         </dl>
     </div>
     <div class="col-6">
         <dl class="row">
             <dt class="col-3">Société</dt>
-            <dd class="col-9">{{ timesheet.cra.user.societe.raisonSociale }}</dd>
+            <dd class="col-9">{{ timesheet.cra.societeUser.societe.raisonSociale }}</dd>
 
             <dt class="col-3">Heures/jour</dt>
             <dd class="col-9">{{ timesheet.heuresParJours|round(2) }} h</dd>

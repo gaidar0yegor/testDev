@@ -14,7 +14,6 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         Then I should see "Mon compte" in the "h1" element
         And I should see "Nom : Eureka"
         And I should see "Prénom : User"
-        And I should see "Rôle : Utilisateur"
         And I should see "E-mail : user@societe.dev"
 
     Scenario: Je peux changer mon mot de passe
@@ -49,7 +48,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
             | Prenom | NouveauPrenom |
         And I press "Mettre à jour"
         Then I should see "Vos informations personnelles ont été mises à jour"
-        And I should see "Société | NouveauPrenom" in the "nav" element
+        And I should see "NouveauPrenom" in the "nav" element
 
     Scenario: Je peut ajouter mon numéro de téléphone afin de recevoir les notifications importantes
         Given I am on "/mon-compte/modifier"

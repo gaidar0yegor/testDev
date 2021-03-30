@@ -8,12 +8,12 @@
     <h2>Quotas</h2>
 
     {% include 'licenses/_societe-quotas.html.twig' with {
-        'societe': app.user.societe,
+        'societe': userContext.societeUser.societe,
     } %}
 
     <h2>Licenses</h2>
 
     {% include 'licenses/_licenses-table.html.twig' with {
-        'entity': app.user,
+        'entity': userContext.societeUser,
     } %}
 {% endblock %}

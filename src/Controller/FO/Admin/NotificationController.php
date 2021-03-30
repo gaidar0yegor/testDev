@@ -4,6 +4,7 @@ namespace App\Controller\FO\Admin;
 
 use App\Form\SocieteNotificationsType;
 use App\Service\SocieteNotificationsService;
+use App\MultiSociete\UserContext;
 use App\Slack\Slack;
 use Cron\CronBundle\Entity\CronJob;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,9 +24,10 @@ class NotificationController extends AbstractController
         Request $request,
         Slack $slack,
         EntityManagerInterface $em,
+        UserContext $userContext,
         SocieteNotificationsService $societeNotificationsService
     ) {
-        $societe = $this->getUser()->getSociete();
+        $societe = $userContext->getSocieteUser()->getSociete();
         $societeNotifications = $societeNotificationsService->loadForSociete($societe);
 
         $form = $this->createForm(SocieteNotificationsType::class, $societeNotifications);

@@ -36,7 +36,6 @@ class ResetPasswordService
         $user = $this->userRepository->findOneBy([
             'email' => $email,
             'enabled' => true,
-            'invitationToken' => null,
         ]);
 
         if (null === $user) {
@@ -61,7 +60,6 @@ class ResetPasswordService
         $user = $this->userRepository->findOneBy([
             'resetPasswordToken' => $token,
             'enabled' => true,
-            'invitationToken' => null,
         ]);
 
         $expiredException = new ResetPasswordException('Ce lien de réinitialisation est expiré ou invalide.');

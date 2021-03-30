@@ -3,9 +3,9 @@
 namespace App\Notification\Mail;
 
 use App\Entity\Cra;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Notification\Event\RappelSaisieTempsNotification;
-use App\Repository\UserRepository;
+use App\Repository\SocieteUserRepository;
 use App\Service\DateMonthService;
 use DateTimeInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -14,18 +14,18 @@ use Symfony\Component\Mailer\MailerInterface;
 
 class RappelSaisieTemps implements EventSubscriberInterface
 {
-    private UserRepository $userRepository;
+    private SocieteUserRepository $societeUserRepository;
 
     private DateMonthService $dateMonthService;
 
     private MailerInterface $mailer;
 
     public function __construct(
-        UserRepository $userRepository,
+        SocieteUserRepository $societeUserRepository,
         DateMonthService $dateMonthService,
         MailerInterface $mailer
     ) {
-        $this->userRepository = $userRepository;
+        $this->societeUserRepository = $societeUserRepository;
         $this->dateMonthService = $dateMonthService;
         $this->mailer = $mailer;
     }
@@ -41,16 +41,16 @@ class RappelSaisieTemps implements EventSubscriberInterface
     {
         $societe = $event->getSociete();
         $month = $this->dateMonthService->normalize($event->getMonth());
-        $users = $this->userRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
+        $societeUsers = $this->societeUserRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
 
-        foreach ($users as $user) {
-            $this->sendNotificationSaisieTempsEmail($user, $month);
+        foreach ($societeUsers as $societeUser) {
+            $this->sendNotificationSaisieTempsEmail($societeUser, $month);
         }
     }
 
-    private function sendNotificationSaisieTempsEmail(User $user, DateTimeInterface $month): void
+    private function sendNotificationSaisieTempsEmail(SocieteUser $societeUser, DateTimeInterface $month): void
     {
-        $cra = $user
+        $cra = $societeUser
             ->getCras()
             ->filter(function (Cra $cra) use ($month) {
                 return $this->dateMonthService->isSameMonth($cra->getMois(), $month);
@@ -59,7 +59,7 @@ class RappelSaisieTemps implements EventSubscriberInterface
         ;
 
         $email = (new TemplatedEmail())
-            ->to($user->getEmail())
+            ->to($societeUser->getUser()->getEmail())
             ->subject('Saisie de vos temps sur RDI-Manager')
             ->textTemplate('mail/notification_saisie_temps.txt.twig')
             ->htmlTemplate('mail/notification_saisie_temps.html.twig')

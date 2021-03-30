@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Activité de {{ user.fullname }} | {{ parent() }}{% endblock %}
+{% block title %}Activité de {{ societeUser.user.fullname }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Activité de {{ user.fullname }}</h1>
+<h1>Activité de {{ societeUser.user.fullname }}</h1>
 
-<a class="d-block mb-4" href="{{ path('app_fo_user', {id: user.id}) }}">
+<a class="d-block mb-4" href="{{ path('app_fo_admin_utilisateurs') }}">
     <i class="fa fa-chevron-left" aria-hidden="true"></i>
-    Retourner à l'utilisateur
+    Retourner aux utilisateurs
 </a>
 
 {% include '_activity-list.html.twig' %}

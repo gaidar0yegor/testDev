@@ -2,8 +2,8 @@
 
 namespace App\Controller\FO\Admin;
 
-use App\Repository\UserRepository;
-use DateTime;
+use App\Repository\SocieteUserRepository;
+use App\MultiSociete\UserContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -19,19 +19,19 @@ class CraValidationController extends AbstractController
      *      requirements={"year"="\d{4}"}
      * )
      */
-    public function index(string $year = null, UserRepository $userRepository)
+    public function index(string $year = null, SocieteUserRepository $societeUserRepository, UserContext $userContext)
     {
         if (null === $year) {
             $year = intval(date('Y'));
         }
 
-        $users = $userRepository->findWithCra(
-            $this->getUser()->getSociete(),
+        $societeUsers = $societeUserRepository->findWithCra(
+            $userContext->getSocieteUser()->getSociete(),
             $year
         );
 
         return $this->render('cra_validation/index.html.twig', [
-            'users' => $users,
+            'societeUsers' => $societeUsers,
             'year' => $year,
         ]);
     }

@@ -6,6 +6,7 @@ use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Form\FaitMarquantType;
 use App\ProjetResourceInterface;
+use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,14 +21,18 @@ class FaitMarquantController extends AbstractController
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      */
-    public function new(Projet $projet, Request $request, EntityManagerInterface $em): Response
-    {
+    public function new(
+        Projet $projet,
+        Request $request,
+        EntityManagerInterface $em,
+        UserContext $userContext
+    ): Response {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::CREATE, $projet);
 
         $faitMarquant = new FaitMarquant();
         $faitMarquant
             ->setProjet($projet)
-            ->setCreatedBy($this->getUser())
+            ->setCreatedBy($userContext->getSocieteUser())
             ->setDate(new \DateTime())
         ;
 

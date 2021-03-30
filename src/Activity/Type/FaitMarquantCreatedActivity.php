@@ -7,10 +7,10 @@ use App\Entity\Activity;
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Entity\ProjetActivity;
-use App\Entity\User;
-use App\Entity\UserActivity;
-use App\Entity\UserNotification;
-use App\Role;
+use App\Entity\SocieteUser;
+use App\Entity\SocieteUserActivity;
+use App\Entity\SocieteUserNotification;
+use App\Security\Role\RoleProjet;
 use App\Service\EntityLink\EntityLinkService;
 use App\Service\ParticipantService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -51,7 +51,7 @@ class FaitMarquantCreatedActivity implements ActivityInterface
         return sprintf(
             '%s %s a ajouté le fait marquant %s sur le projet %s.',
             '<i class="fa fa-map-marker" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['createdBy']),
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
             $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
             $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
         );
@@ -69,9 +69,9 @@ class FaitMarquantCreatedActivity implements ActivityInterface
             ])
         ;
 
-        $userActivity = new UserActivity();
-        $userActivity
-            ->setUser($faitMarquant->getCreatedBy())
+        $societeUserActivity = new SocieteUserActivity();
+        $societeUserActivity
+            ->setSocieteUser($faitMarquant->getCreatedBy())
             ->setActivity($activity)
         ;
 
@@ -85,19 +85,19 @@ class FaitMarquantCreatedActivity implements ActivityInterface
 
         $observateurs = $this->participantService->getProjetParticipantsWithRole(
             $faitMarquant->getProjet()->getProjetParticipants(),
-            Role::OBSERVATEUR
+            RoleProjet::OBSERVATEUR
         );
 
         foreach ($observateurs as $observateur) {
-            if ($observateur->getUser() === $faitMarquant->getCreatedBy()) {
+            if ($observateur->getSocieteUser() === $faitMarquant->getCreatedBy()) {
                 continue;
             }
 
-            $em->persist(UserNotification::create($activity, $observateur->getUser()));
+            $em->persist(SocieteUserNotification::create($activity, $observateur->getSocieteUser()));
         }
 
         $em->persist($activity);
-        $em->persist($userActivity);
+        $em->persist($societeUserActivity);
         $em->persist($projetActivity);
         $em->flush();
 

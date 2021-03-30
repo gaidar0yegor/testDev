@@ -3,17 +3,16 @@
 namespace App\Notification\Sms;
 
 use App\Entity\Cra;
-use App\Entity\Societe;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Notification\Event\RappelSaisieTempsNotification;
-use App\Repository\UserRepository;
+use App\Repository\SocieteUserRepository;
 use App\Service\DateMonthService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Twig\Environment as TwigEnvironment;
 
 class RappelSaisieTemps implements EventSubscriberInterface
 {
-    private UserRepository $userRepository;
+    private SocieteUserRepository $societeUserRepository;
 
     private DateMonthService $dateMonthService;
 
@@ -22,12 +21,12 @@ class RappelSaisieTemps implements EventSubscriberInterface
     private SmsSender $smsSender;
 
     public function __construct(
-        UserRepository $userRepository,
+        SocieteUserRepository $societeUserRepository,
         DateMonthService $dateMonthService,
         TwigEnvironment $twig,
         SmsSender $smsSender
     ) {
-        $this->userRepository = $userRepository;
+        $this->societeUserRepository = $societeUserRepository;
         $this->dateMonthService = $dateMonthService;
         $this->twig = $twig;
         $this->smsSender = $smsSender;
@@ -41,15 +40,15 @@ class RappelSaisieTemps implements EventSubscriberInterface
     }
 
     /**
-     * @param User $user Utilisateur à rappeller
+     * @param SocieteUser $societeUser Utilisateur à rappeller
      *
      * @return bool Si l'utilisateur va recevoir un sms
      */
-    public function sendNotificationSaisieTempsSms(User $user, \DateTimeInterface $month = null): void
+    public function sendNotificationSaisieTempsSms(SocieteUser $societeUser, \DateTimeInterface $month = null): void
     {
         $month = $this->dateMonthService->normalize($month ?? new \DateTime());
 
-        $cra = $user
+        $cra = $societeUser
             ->getCras()
             ->filter(function (Cra $cra) use ($month) {
                 return $this->dateMonthService->isSameMonth($cra->getMois(), $month);
@@ -62,18 +61,18 @@ class RappelSaisieTemps implements EventSubscriberInterface
             'cra' => $cra,
         ]);
 
-        $this->smsSender->sendSms($user, $message);
+        $this->smsSender->sendSms($societeUser->getUser(), $message);
     }
 
     public function sendNotificationSaisieTempsAllUsers(RappelSaisieTempsNotification $event): void
     {
         $societe = $event->getSociete();
         $month = $event->getMonth();
-        $users = $this->userRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
+        $societeUsers = $this->societeUserRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
 
-        foreach ($users as $user) {
-            if ($societe->getSmsEnabled() && null !== $user->getTelephone()) {
-                $this->sendNotificationSaisieTempsSms($user, $month);
+        foreach ($societeUsers as $societeUser) {
+            if ($societe->getSmsEnabled() && null !== $societeUser->getUser()->getTelephone()) {
+                $this->sendNotificationSaisieTempsSms($societeUser, $month);
             }
         }
     }

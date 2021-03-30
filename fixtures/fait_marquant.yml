@@ -1,7 +1,0 @@
-App\Entity\FaitMarquant:
-    faitmarquant__{1..100}:
-        projet: '@projet__random_*'
-        titre: <sentence()>
-        description: <paragraphs(2, true)>
-        date: '<dateTimeBetween("-4 years", "now")>'
-        createdBy: '@user*'

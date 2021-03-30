@@ -3,10 +3,10 @@
 namespace App\Service;
 
 use App\Entity\Societe;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Repository\ProjetRepository;
 use App\Repository\TempsPasseRepository;
-use App\Role;
+use App\Security\Role\RoleProjet;
 use App\Service\Timesheet\TimesheetCalculator;
 
 class StatisticsService
@@ -32,12 +32,14 @@ class StatisticsService
      *
      * @return array Array of hours contributed on projets, with projet acronym as array key.
      */
-    public function calculateHeuresParProjetForUser(User $user, int $year, string $roleMinimum = Role::OBSERVATEUR): array
+    public function calculateHeuresParProjetForUser(SocieteUser $societeUser, int $year, string $roleMinimum = RoleProjet::OBSERVATEUR): array
     {
-        $heuresPassees = $this->calculateHeuresParProjet($user->getSociete(), $year);
-        $userProjets = $user->isAdminFo()
-            ? $this->projetRepository->findAllProjectsPerSociete($user->getSociete(), $year, $year)
-            : $this->projetRepository->findAllForUserInYear($user, $roleMinimum, $year)
+        RoleProjet::checkRole($roleMinimum);
+
+        $heuresPassees = $this->calculateHeuresParProjet($societeUser->getSociete(), $year);
+        $userProjets = $societeUser->isAdminFo()
+            ? $this->projetRepository->findAllProjectsPerSociete($societeUser->getSociete(), $year, $year)
+            : $this->projetRepository->findAllForUserInYear($societeUser, $roleMinimum, $year)
         ;
 
         $userProjetsHeuresPassees = [];
@@ -52,9 +54,9 @@ class StatisticsService
     /**
      * Retourne le nombre total d'heures passées par $user sur ses projets dans l'année
      */
-    public function calculateHeuresForUser(User $user, int $year): float
+    public function calculateHeuresForUser(SocieteUser $societeUser, int $year): float
     {
-        $tempsPasses = $this->tempsPasseRepository->findAllForUserInYear($user, $year);
+        $tempsPasses = $this->tempsPasseRepository->findAllForUserInYear($societeUser, $year);
         $totalHours = 0.0;
 
         foreach ($tempsPasses as $tempsPasse) {

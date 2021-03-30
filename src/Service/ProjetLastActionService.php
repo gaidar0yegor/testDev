@@ -3,14 +3,14 @@
 namespace App\Service;
 
 use App\Entity\Projet;
-use App\Entity\User;
+use App\Entity\SocieteUser;
+use App\MultiSociete\UserContext;
 use App\Repository\ProjetParticipantRepository;
 use App\Repository\ProjetRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use RuntimeException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\ControllerArgumentsEvent;
-use Symfony\Component\Security\Core\Security;
 
 class ProjetLastActionService implements EventSubscriberInterface
 {
@@ -20,24 +20,24 @@ class ProjetLastActionService implements EventSubscriberInterface
 
     private EntityManagerInterface $em;
 
-    private Security $security;
+    private UserContext $userContext;
 
     public function __construct(
         ProjetParticipantRepository $projetParticipantRepository,
         ProjetRepository $projetRepository,
         EntityManagerInterface $em,
-        Security $security
+        UserContext $userContext
     ) {
         $this->projetParticipantRepository = $projetParticipantRepository;
         $this->projetRepository = $projetRepository;
         $this->em = $em;
-        $this->security = $security;
+        $this->userContext = $userContext;
     }
 
-    public function updateLastViewedAction(User $user, Projet $projet): void
+    public function updateLastViewedAction(SocieteUser $societeUser, Projet $projet): void
     {
         $projetParticipant = $this->projetParticipantRepository->findOneBy([
-            'user' => $user,
+            'societeUser' => $societeUser,
             'projet' => $projet,
         ]);
 
@@ -46,20 +46,18 @@ class ProjetLastActionService implements EventSubscriberInterface
         }
 
         $projetParticipant->setLastActionAtNow();
-
-        $this->em->flush();
     }
 
     /**
      * @return Projet[]
      */
-    public function findRecentProjetsForUser(?User $user = null): array
+    public function findRecentProjetsForUser(?SocieteUser $societeUser = null): array
     {
-        if (null === $user) {
-            $user = $this->security->getUser();
+        if (null === $societeUser) {
+            $societeUser = $this->userContext->getSocieteUser();
         }
 
-        return $this->projetRepository->findRecentsForUser($user);
+        return $this->projetRepository->findRecentsForUser($societeUser);
     }
 
     public static function getSubscribedEvents(): array
@@ -88,6 +86,7 @@ class ProjetLastActionService implements EventSubscriberInterface
             throw new RuntimeException('app_fo_projet route expected to have a Projet in its controller arguments');
         }
 
-        $this->updateLastViewedAction($this->security->getUser(), $projet);
+        $this->updateLastViewedAction($this->userContext->getSocieteUser(), $projet);
+        $this->em->flush();
     }
 }

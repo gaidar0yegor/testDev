@@ -4,12 +4,12 @@ namespace App\Controller\FO\Admin;
 
 use App\DTO\FilterTimesheet;
 use App\Form\FilterTimesheetType;
-use App\Repository\UserRepository;
+use App\Repository\SocieteUserRepository;
 use App\Service\Timesheet\Event\TimesheetEvent;
 use App\Service\Timesheet\Export\TimesheetExporter;
 use App\Service\Timesheet\TimesheetCalculator;
+use App\MultiSociete\UserContext;
 use DateTime;
-use Knp\Snappy\Pdf;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,13 +17,6 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class TimesheetController extends AbstractController
 {
-    private Pdf $pdf;
-
-    public function __construct(Pdf $pdf)
-    {
-        $this->pdf = $pdf;
-    }
-
     /**
      * @Route(
      *      "/feuille-de-temps/generer",
@@ -35,12 +28,13 @@ class TimesheetController extends AbstractController
         TimesheetCalculator $timesheetCalculator,
         TimesheetExporter $timesheetExporter,
         EventDispatcherInterface $dispatcher,
-        UserRepository $userRepository
+        UserContext $userContext,
+        SocieteUserRepository $societeUserRepository
     ) {
-        $users = $userRepository->findBySameSociete($this->getUser());
+        $societeUsers = $societeUserRepository->findBySameSociete($userContext->getSocieteUser());
         $filter = new FilterTimesheet();
         $filter
-            ->setUsers($users)
+            ->setUsers($societeUsers)
             ->setFrom((new DateTime())->modify('-1 month'))
         ;
         $form = $this->createForm(FilterTimesheetType::class, $filter);
@@ -50,7 +44,7 @@ class TimesheetController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $timesheets = $timesheetCalculator->generateMultipleTimesheets($filter);
 
-            $dispatcher->dispatch(new TimesheetEvent($this->getUser()), TimesheetEvent::GENERATED);
+            $dispatcher->dispatch(new TimesheetEvent($userContext->getSocieteUser()), TimesheetEvent::GENERATED);
 
             return $timesheetExporter->export($timesheets, $filter->getFormat());
         }

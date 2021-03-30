@@ -3,9 +3,9 @@
 namespace App\Service\Timesheet;
 
 use App\Entity\Cra;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 
 interface UserMonthCraRepositoryInterface
 {
-    public function findCraByUserAndMois(User $user, \DateTimeInterface $mois): ?Cra;
+    public function findCraByUserAndMois(SocieteUser $societeUser, \DateTimeInterface $mois): ?Cra;
 }

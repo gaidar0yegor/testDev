@@ -3,8 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\FaitMarquant;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Role;
+use App\Security\Role\RoleProjet;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -22,21 +23,22 @@ class FaitMarquantRepository extends ServiceEntityRepository
         parent::__construct($registry, FaitMarquant::class);
     }
 
-    public function findLatestOnUserProjets(User $user, DateTimeInterface $from, string $minimumRole = Role::OBSERVATEUR)
+    public function findLatestOnUserProjets(SocieteUser $societeUser, DateTimeInterface $from, string $minimumRole = RoleProjet::OBSERVATEUR)
     {
+        RoleProjet::checkRole($minimumRole);
+
         return $this->createQueryBuilder('faitMarquant')
             ->leftJoin('faitMarquant.projet', 'projet')
             ->leftJoin('projet.projetParticipants', 'projetParticipant')
-            ->leftJoin('projetParticipant.user', 'user')
             ->andWhere('faitMarquant.date >= :from')
             ->andWhere('projetParticipant.role in (:roles)')
-            ->andWhere('projetParticipant.user = :user')
+            ->andWhere('projetParticipant.societeUser = :societeUser')
             ->addOrderBy('projet.acronyme', 'asc')
             ->addOrderBy('faitMarquant.date', 'desc')
             ->setParameters([
-                'user' => $user,
+                'societeUser' => $societeUser,
                 'from' => $from,
-                'roles' => Role::getRoles($minimumRole),
+                'roles' => RoleProjet::getRoles($minimumRole),
             ])
             ->getQuery()
             ->getResult()

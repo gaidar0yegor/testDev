@@ -2,24 +2,24 @@
 
 namespace App\Service\Timesheet\Event;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 
 class TimesheetEvent
 {
     public const GENERATED = 'app.event.timesheet.generated';
 
     /**
-     * @var User The user who generated timesheets
+     * @var SocieteUser The societeUser who generated timesheets
      */
-    private User $user;
+    private SocieteUser $societeUser;
 
-    public function __construct(User $user)
+    public function __construct(SocieteUser $societeUser)
     {
-        $this->user = $user;
+        $this->societeUser = $societeUser;
     }
 
-    public function getUser(): User
+    public function getSocieteUser(): SocieteUser
     {
-        return $this->user;
+        return $this->societeUser;
     }
 }

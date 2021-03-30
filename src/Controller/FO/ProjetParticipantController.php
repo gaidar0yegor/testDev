@@ -8,6 +8,7 @@ use App\Form\InviteUserSurProjetType;
 use App\Form\ListeProjetParticipantsType;
 use App\Service\Invitator;
 use App\Service\SocieteChecker;
+use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,6 +23,7 @@ class ProjetParticipantController extends AbstractController
         Request $request,
         Projet $projet,
         SocieteChecker $societeChecker,
+        UserContext $userContext,
         EntityManagerInterface $em
     ) {
         $this->denyAccessUnlessGranted('edit', $projet);
@@ -32,7 +34,7 @@ class ProjetParticipantController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             // Empêche de faire basculer le projet dans une autre société
-            if (!$societeChecker->isSameSociete($projet->getSociete(), $this->getUser())) {
+            if (!$societeChecker->isSameSociete($projet, $userContext->getSocieteUser())) {
                 throw $this->createAccessDeniedException();
             }
 
@@ -58,27 +60,28 @@ class ProjetParticipantController extends AbstractController
         Request $request,
         Projet $projet,
         Invitator $invitator,
+        UserContext $userContext,
         EntityManagerInterface $em
     ) {
         $this->denyAccessUnlessGranted('edit', $projet);
 
-        $user = $invitator->initUser($this->getUser()->getSociete());
+        $societeUser = $invitator->initUser($userContext->getSocieteUser()->getSociete());
         $invitation = new InvitationUserSurProjet();
         $form = $this->createForm(InviteUserSurProjetType::class, $invitation);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setEmail($invitation->getEmail());
-            $invitator->addParticipation($user, $projet, $invitation->getRole());
+            $societeUser->setInvitationEmail($invitation->getEmail());
+            $invitator->addParticipation($societeUser, $projet, $invitation->getRole());
 
-            $invitator->check($user);
-            $invitator->sendInvitation($user, $this->getUser());
+            $invitator->check($societeUser);
+            $invitator->sendInvitation($societeUser, $this->getUser());
             $em->flush();
 
             $this->addFlash('success', sprintf(
                 'Un email avec un lien d\'invitation a été envoyé à "%s".',
-                $user->getEmail()
+                $invitation->getEmail()
             ));
 
             return $this->redirectToRoute('app_fo_projet_participant_invite', [

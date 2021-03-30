@@ -4,21 +4,21 @@ namespace App\Form;
 
 use App\Entity\Projet;
 use App\Form\Custom\FichierProjetsType;
+use App\MultiSociete\UserContext;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ProjetFichierProjetsType extends AbstractType
 {
-    private TokenStorageInterface $tokenStorage;
+    private UserContext $userContext;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(UserContext $userContext)
     {
-        $this->tokenStorage = $tokenStorage;
+        $this->userContext = $userContext;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -42,7 +42,7 @@ class ProjetFichierProjetsType extends AbstractType
             }
 
             $fichierProjet
-                ->setUploadedBy($this->tokenStorage->getToken()->getUser())
+                ->setUploadedBy($this->userContext->getSocieteUser())
             ;
         }
     }

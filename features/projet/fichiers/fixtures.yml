@@ -1,31 +1,41 @@
 App\Entity\User:
-    observateur:
+    _observateur:
         nom: Eureka
         prenom: Observateur
         email: observateur@societe.dev
         password: observateur
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    contributeur:
+    _contributeur:
         nom: Eureka
         prenom: Contributeur
         email: contributeur@societe.dev
         password: contributeur
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    cdp:
+    _cdp:
         nom: Eureka
         prenom: Chef de projet
         email: cdp@societe.dev
         password: cdp
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    pas_acces:
+    _pas_acces:
         nom: Eureka
         prenom: Pas d'accès
         email: pas_acces@societe.dev
         password: pas_acces
-        roles: [ROLE_FO_USER]
+
+App\Entity\SocieteUser:
+    observateur:
+        user: '@_observateur'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    contributeur:
+        user: '@_contributeur'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    cdp:
+        user: '@_cdp'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    pas_acces:
+        user: '@_pas_acces'
+        role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
 
 App\Entity\Fichier:
@@ -58,17 +68,17 @@ App\Entity\Projet:
 
 App\Entity\ProjetParticipant:
     observateur_projet:
-        user: '@observateur'
+        societeUser: '@observateur'
         projet: '@projet'
-        role: <(App\Role::OBSERVATEUR)>
+        role: <(App\Security\Role\RoleProjet::OBSERVATEUR)>
     contributeur_projet:
-        user: '@contributeur'
+        societeUser: '@contributeur'
         projet: '@projet'
-        role: <(App\Role::CONTRIBUTEUR)>
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     cdp_projet:
-        user: '@cdp'
+        societeUser: '@cdp'
         projet: '@projet'
-        role: <(App\Role::CDP)>
+        role: <(App\Security\Role\RoleProjet::CDP)>
 
 App\Entity\Societe:
     societe:

@@ -6,11 +6,10 @@ use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\Projet;
 use App\Entity\ProjetActivity;
-use App\Entity\User;
-use App\Entity\UserActivity;
+use App\Entity\SocieteUser;
+use App\Entity\SocieteUserActivity;
 use App\Exception\RdiException;
 use App\Service\EntityLink\EntityLinkService;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -44,7 +43,7 @@ class ProjetCreatedActivity implements ActivityInterface
         return sprintf(
             '%s %s a créé le projet %s.',
             '<i class="fa fa-plus" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['createdBy']),
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
             $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
         );
     }
@@ -66,9 +65,9 @@ class ProjetCreatedActivity implements ActivityInterface
             ])
         ;
 
-        $userActivity = new UserActivity();
-        $userActivity
-            ->setUser($chefDeProjet)
+        $societeUserActivity = new SocieteUserActivity();
+        $societeUserActivity
+            ->setSocieteUser($chefDeProjet)
             ->setActivity($activity)
         ;
 
@@ -81,7 +80,7 @@ class ProjetCreatedActivity implements ActivityInterface
         $em = $args->getEntityManager();
 
         $em->persist($activity);
-        $em->persist($userActivity);
+        $em->persist($societeUserActivity);
         $em->persist($projetActivity);
         $em->flush();
 

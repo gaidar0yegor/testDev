@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Finalisation de votre inscription</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p>
+            Vous êtes sur le point de rejoindre la société <strong>{{ societeUser.societe.raisonSociale }}</strong>
+            avec le rôle <strong>{{ societeUser.role|trans }}</strong>.
+        </p>
+
+        {% if societeUser.projetParticipants|length > 0 %}
+            <p>
+                Vous aurez accès aux projets :
+
+                <ul>
+                    {% for participation in societeUser.projetParticipants %}
+                        <li>
+                            <strong>{{ participation.projet.titre }}</strong> en tant que <strong>{{ participation.role|trans }}</strong>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+        {% endif %}
+
+        <p>
+            Complétez vos informations personnelles,
+            et choisissez votre mot de passe de connexion.
+        </p>
+
+        <h2>Créer mon compte</h2>
+
+        {{ form(form) }}
+    </div>
+</div>
+
+{% endblock %}

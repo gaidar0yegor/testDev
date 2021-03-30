@@ -2,7 +2,7 @@
 
 namespace App\Onboarding;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 interface OnboardingStepInterface
@@ -15,7 +15,7 @@ interface OnboardingStepInterface
     /**
      * @return string|null Optional absolute url (absolute is required for mails) to complete this step.
      */
-    public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string;
+    public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string;
 
     /**
      * Whether this step should be display again while not completed.
@@ -23,9 +23,9 @@ interface OnboardingStepInterface
     public function isImportant(): bool;
 
     /**
-     * @return bool Whether this onboarding step has been done already for this user
+     * @return bool Whether this onboarding step has been done already for this societeUser
      */
-    public function isCompleted(User $user): bool;
+    public function isCompleted(SocieteUser $societeUser): bool;
 
     /**
      * @return int Order of the step in the tasks list

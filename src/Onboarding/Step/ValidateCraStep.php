@@ -2,7 +2,7 @@
 
 namespace App\Onboarding\Step;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Onboarding\OnboardingStepInterface;
 use App\Repository\CraRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -21,7 +21,7 @@ class ValidateCraStep implements OnboardingStepInterface
         return 'Suivi de temps';
     }
 
-    public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string
+    public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
         return $urlGenerator->generate(
             'app_fo_temps',
@@ -35,12 +35,12 @@ class ValidateCraStep implements OnboardingStepInterface
         return false;
     }
 
-    public function isCompleted(User $user): bool
+    public function isCompleted(SocieteUser $societeUser): bool
     {
         return null !== $this
             ->craRepository
             ->findOneBy([
-                'user' => $user,
+                'societeUser' => $societeUser,
             ])
         ;
     }

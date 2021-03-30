@@ -42,10 +42,10 @@
                         />
                     </a>
                 </div>
-                {% if app.user.societe.slackAccessTokens|length > 0 %}
+                {% if userContext.societeUser.societe.slackAccessTokens|length > 0 %}
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>Notifications envoyées sur les chaînes</strong> :</li>
-                        {% for slackAccessToken in app.user.societe.slackAccessTokens %}
+                        {% for slackAccessToken in userContext.societeUser.societe.slackAccessTokens %}
                             <li class="list-group-item">
                                 {% if slackAccessToken.lastRequestSuccess is null %}
                                     <i class="fa fa-circle-o text-muted" title="Aucune notification encore envoyée" aria-hidden="true"></i>

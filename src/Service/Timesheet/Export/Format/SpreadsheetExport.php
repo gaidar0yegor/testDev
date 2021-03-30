@@ -89,7 +89,7 @@ class SpreadsheetExport implements FormatInterface
                 sprintf(
                     '%s - %s',
                     $timesheet->getCra()->getMois()->format('Y-m'),
-                    substr($timesheet->getCra()->getUser()->getFullname(), 0, 20)
+                    substr($timesheet->getCra()->getSocieteUser()->getUser()->getFullname(), 0, 20)
                 )
             );
 
@@ -115,13 +115,14 @@ class SpreadsheetExport implements FormatInterface
         $colorAbsence = '6C757D';
 
         // Add user info
-        $user = $timesheet->getCra()->getUser();
+        $societeUser = $timesheet->getCra()->getSocieteUser();
+        $user = $societeUser->getUser();
 
         $worksheet->fromArray([
             ['Nom', $user->getNom()],
             ['Prénom', $user->getPrenom()],
             ['Email', $user->getEmail()],
-            ['Société', $user->getSociete()->getRaisonSociale()],
+            ['Société', $societeUser->getSociete()->getRaisonSociale()],
             ['Heures/jour', $timesheet->getHeuresParJours().' h'],
             ['Mois', $timesheet->getCra()->getMois()->format('F Y')],
         ]);

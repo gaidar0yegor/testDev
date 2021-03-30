@@ -6,6 +6,8 @@ use App\Role;
 use App\Entity\User;
 use App\Entity\Projet;
 use App\Entity\Societe;
+use App\Entity\SocieteUser;
+use App\Security\Role\RoleProjet;
 use App\Service\DateMonthService;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -27,20 +29,20 @@ class ProjetRepository extends ServiceEntityRepository
         $this->dateMonthService = $dateMonthService;
     }
 
-    public function whereUserAndRole(User $user, ?string $roleMinimum = null)
+    public function whereUserAndRole(SocieteUser $societeUser, ?string $roleMinimum = null)
     {
         $qb = $this
             ->createQueryBuilder('projet')
             ->leftJoin('projet.projetParticipants', 'projetParticipant')
-            ->leftJoin('projetParticipant.user', 'user')
-            ->where('projetParticipant.user = :user')
-            ->setParameter('user', $user)
+            ->leftJoin('projetParticipant.societeUser', 'societeUser')
+            ->where('projetParticipant.societeUser = :societeUser')
+            ->setParameter('societeUser', $societeUser)
         ;
 
         if (null !== $roleMinimum) {
             $qb
                 ->andWhere('projetParticipant.role in (:roles)')
-                ->setParameter('roles', Role::getRoles($roleMinimum))
+                ->setParameter('roles', RoleProjet::getRoles($roleMinimum))
             ;
         }
 
@@ -67,17 +69,17 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     /**
-     * Recupère tous les projet auxquels $user participe.
+     * Recupère tous les projet auxquels $societeUser participe.
      *
-     * @param User $user
+     * @param SocieteUser $societeUser
      * @param null|string $roleMinimum Rôle minimum sur le projet
      * @param null|\DateTime $month Mois pour lequel les projets doivent êtres actifs
      *
      * @return Projet[]
      */
-    public function findAllForUser(User $user, ?string $roleMinimum = null, \DateTime $month = null): array
+    public function findAllForUser(SocieteUser $societeUser, ?string $roleMinimum = null, \DateTime $month = null): array
     {
-        $qb = $this->whereUserAndRole($user, $roleMinimum);
+        $qb = $this->whereUserAndRole($societeUser, $roleMinimum);
 
         if (null !== $month) {
             $month = $this->dateMonthService->normalize($month);
@@ -102,9 +104,9 @@ class ProjetRepository extends ServiceEntityRepository
      *
      * @return null|int[] Array with values: ["yearMin" => xxxx, "yearMax" => xxxx], or null if no projets.
      */
-    public function findProjetsYearRangeFor(User $user, ?string $roleMinimum = null): ?array
+    public function findProjetsYearRangeFor(SocieteUser $societeUser, ?string $roleMinimum = null): ?array
     {
-        $qb = $this->whereUserAndRole($user, $roleMinimum);
+        $qb = $this->whereUserAndRole($societeUser, $roleMinimum);
 
         $qb
             ->select('min(year(projet.dateDebut)) as yearMin')
@@ -124,17 +126,17 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     /**
-     * Recupère tous les projet auxquels $user participe.
+     * Recupère tous les projet auxquels $societeUser participe.
      *
-     * @param User $user
+     * @param SocieteUser $societeUser
      * @param null|string $roleMinimum Rôle minimum sur le projet
      * @param null|int $year Année pour laquelle les projets doivent êtres actifs
      *
      * @return Projet[]
      */
-    public function findAllForUserInYear(User $user, ?string $roleMinimum = null, ?int $year = null): array
+    public function findAllForUserInYear(SocieteUser $societeUser, ?string $roleMinimum = null, ?int $year = null): array
     {
-        $qb = $this->whereUserAndRole($user, $roleMinimum);
+        $qb = $this->whereUserAndRole($societeUser, $roleMinimum);
 
         if (null !== $year) {
             $qb
@@ -152,17 +154,17 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     /**
-     * Recupère tous les projet auxquels $user participe depuis une année jusque maintenant.
+     * Recupère tous les projet auxquels $societeUser participe depuis une année jusque maintenant.
      *
-     * @param User $user
+     * @param SocieteUser $societeUser
      * @param null|string $roleMinimum Rôle minimum sur le projet
      * @param null|int $year Année à partir de laquelle les projets doivent êtres actifs
      *
      * @return Projet[]
      */
-    public function findAllForUserSinceYear(User $user, ?string $roleMinimum = null, ?int $year = null): array
+    public function findAllForUserSinceYear(SocieteUser $societeUser, ?string $roleMinimum = null, ?int $year = null): array
     {
-        $qb = $this->whereUserAndRole($user, $roleMinimum);
+        $qb = $this->whereUserAndRole($societeUser, $roleMinimum);
 
         if (null !== $year) {
             $qb
@@ -223,17 +225,17 @@ class ProjetRepository extends ServiceEntityRepository
      *
      * @return Projet[]
      */
-    public function findRecentsForUser(User $user, int $limit = 2): array
+    public function findRecentsForUser(SocieteUser $societeUser, int $limit = 2): array
     {
         return $this
             ->createQueryBuilder('projet')
             ->leftJoin('projet.projetParticipants', 'projetParticipant')
-            ->where('projetParticipant.user = :user')
+            ->where('projetParticipant.societeUser = :societeUser')
             ->andWhere('projetParticipant.lastActionAt is not null')
             ->orderBy('projetParticipant.lastActionAt', 'desc')
             ->setMaxResults($limit)
             ->setParameters([
-                'user' => $user,
+                'societeUser' => $societeUser,
             ])
             ->getQuery()
             ->getResult()

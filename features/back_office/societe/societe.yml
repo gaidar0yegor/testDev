@@ -6,11 +6,13 @@ App\Entity\User:
         password: user
         roles: [ROLE_BO_USER]
 
+App\Entity\SocieteUser:
     admin:
-        email: admin@societe.dev
-        roles: [ROLE_FO_ADMIN]
+        user: ~
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
         societe: '@societe'
         invitationToken: codeInvitationToken
+        invitationEmail: admin@societe.dev
 
 App\Entity\Societe:
     societe:

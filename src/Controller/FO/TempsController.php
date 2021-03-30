@@ -5,6 +5,7 @@ namespace App\Controller\FO;
 use App\Form\TempsPassesType;
 use App\Service\CraService;
 use App\Service\DateMonthService;
+use App\MultiSociete\UserContext;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,13 +27,14 @@ class TempsController extends AbstractController
         DateTime $month,
         CraService $craService,
         EntityManagerInterface $em,
+        UserContext $userContext,
         DateMonthService $dateMonthService
     ) {
         if ($month > new \DateTime()) {
             throw $this->createNotFoundException('Impossible de saisir les temps passés dans le futur.');
         }
 
-        $cra = $craService->loadCraForUser($this->getUser(), $month);
+        $cra = $craService->loadCraForUser($userContext->getSocieteUser(), $month);
         $form = $this->createForm(TempsPassesType::class, $cra);
 
         $form->handleRequest($request);
@@ -62,8 +64,8 @@ class TempsController extends AbstractController
 
         return $this->render('temps/temps_en_pour_cent.html.twig', [
             'mois' => $month,
-            'moisEntree' => $dateMonthService->normalizeOrNull($this->getUser()->getDateEntree()),
-            'moisSortie' => $dateMonthService->normalizeOrNull($this->getUser()->getDateSortie()),
+            'moisEntree' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateEntree()),
+            'moisSortie' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateSortie()),
             'form' => $form->createView(),
             'next' => $dateMonthService->getNextMonth($month),
             'prev' => $dateMonthService->getPrevMonth($month),
@@ -82,15 +84,16 @@ class TempsController extends AbstractController
     public function saisieAbsences(
         CraService $craService,
         DateTime $month,
+        UserContext $userContext,
         DateMonthService $dateMonthService
     ) {
         return $this->render('temps/absences.html.twig', [
             'next' => $dateMonthService->getNextMonth($month),
             'prev' => $dateMonthService->getPrevMonth($month),
             'mois' => $month,
-            'moisEntree' => $dateMonthService->normalizeOrNull($this->getUser()->getDateEntree()),
-            'moisSortie' => $dateMonthService->normalizeOrNull($this->getUser()->getDateSortie()),
-            'cra' => $craService->loadCraForUser($this->getUser(), $month),
+            'moisEntree' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateEntree()),
+            'moisSortie' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateSortie()),
+            'cra' => $craService->loadCraForUser($userContext->getSocieteUser(), $month),
         ]);
     }
 }

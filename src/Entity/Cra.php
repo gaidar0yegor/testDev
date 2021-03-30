@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Context\ExecutionContextInterface;
  *
  * @ORM\Entity(repositoryClass=CraRepository::class)
  * @UniqueEntity(
- *     fields={"user", "mois"},
+ *     fields={"societeUser", "mois"},
  *     errorPath="mois",
  *     message="Cet utilisateur a déjà soumis un CRA sur ce mois. Il faut modifier l'autre CRA plutôt."
  * )
@@ -31,10 +31,10 @@ class Cra implements HasSocieteInterface
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="cras")
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="cras")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $user;
+    private $societeUser;
 
     /**
      * @ORM\Column(type="date")
@@ -76,14 +76,14 @@ class Cra implements HasSocieteInterface
         return $this->id;
     }
 
-    public function getUser(): ?User
+    public function getSocieteUser(): ?SocieteUser
     {
-        return $this->user;
+        return $this->societeUser;
     }
 
-    public function setUser(?User $user): self
+    public function setSocieteUser(?SocieteUser $societeUser): self
     {
-        $this->user = $user;
+        $this->societeUser = $societeUser;
 
         return $this;
     }
@@ -202,7 +202,7 @@ class Cra implements HasSocieteInterface
 
     public function getSociete(): ?Societe
     {
-        return $this->user->getSociete();
+        return $this->societeUser->getSociete();
     }
 
     /**

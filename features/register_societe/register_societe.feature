@@ -13,9 +13,10 @@ Feature: S'inscrire en tant que société.
         When I fill in the following:
             | societe[raisonSociale] | MaSocieteTest |
         And I press "Continuer"
-        Then I should see "Création de votre compte administrateur sur la société MaSocieteTest"
+        Then I should see "Mon compte RDI-Manager"
 
-        When I fill in the following:
+        When I follow "Créer mon compte RDI-Manager"
+        And I fill in the following:
             | account[email]            | admin@societe.dev |
             | account[prenom]           | PrénomAdmin       |
             | account[nom]              | NomAdmin          |
@@ -46,9 +47,9 @@ Feature: S'inscrire en tant que société.
 
         When I fill in the following:
             | collaborators[email0] | user0@societe.dev |
-            | collaborators[role0]  | ROLE_FO_USER      |
+            | collaborators[role0]  | SOCIETE_USER      |
             | collaborators[email1] | user1@societe.dev |
-            | collaborators[role1]  | ROLE_FO_USER      |
+            | collaborators[role1]  | SOCIETE_USER      |
         And I press "Continuer"
         Then I should see "Votre compte RDI-Manager est maintenant créé"
 

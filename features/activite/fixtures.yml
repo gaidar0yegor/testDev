@@ -1,25 +1,33 @@
 App\Entity\User:
-    user:
+    _user:
         nom: Eureka
         prenom: User
         email: user@societe.dev
         password: user
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    cdp:
+    _cdp:
         nom: Eureka
         prenom: Chef de projet
         email: cdp@societe.dev
         password: cdp
-        roles: [ROLE_FO_CDP]
-        societe: '@societe'
-    admin:
+    _admin:
         nom: Eureka
         prenom: Admin
         email: admin@societe.dev
         password: admin
-        roles: [ROLE_FO_ADMIN]
+
+App\Entity\SocieteUser:
+    user:
+        user: '@_user'
         societe: '@societe'
+        role: <(App\Security\Role\RoleSociete::USER)>
+    cdp:
+        user: '@_cdp'
+        societe: '@societe'
+        role: <(App\Security\Role\RoleSociete::CDP)>
+    admin:
+        user: '@_admin'
+        societe: '@societe'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
 
 App\Entity\Projet:
     projet:
@@ -43,13 +51,13 @@ App\Entity\FaitMarquant:
 
 App\Entity\ProjetParticipant:
     user_projet:
-        user: '@user'
+        societeUser: '@user'
         projet: '@projet'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     cdp_projet:
-        user: '@cdp'
+        societeUser: '@cdp'
         projet: '@projet'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Security\Role\RoleProjet::CDP)>
 
 App\Entity\Societe:
     societe:

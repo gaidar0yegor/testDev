@@ -47,7 +47,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         And I follow "PTEST"
         And I follow "Participants"
         And I fill in the following:
-            | liste_projet_participants[projetParticipants][1][role] | CONTRIBUTEUR |
+            | liste_projet_participants[projetParticipants][1][role] | PROJET_CONTRIBUTEUR |
         And I press "Mettre à jour"
         Then I should see "Vous ne pouvez pas faire cette action car ca dépasserait votre quota \"contributeurs\" qui sera alors de 2 sur 1"
 

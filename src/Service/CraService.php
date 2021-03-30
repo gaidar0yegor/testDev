@@ -4,11 +4,11 @@ namespace App\Service;
 
 use App\Entity\Cra;
 use App\Entity\Projet;
+use App\Entity\SocieteUser;
 use App\Entity\TempsPasse;
-use App\Entity\User;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
-use App\Role;
+use App\Security\Role\RoleProjet;
 
 class CraService
 {
@@ -54,16 +54,16 @@ class CraService
         return $cra;
     }
 
-    public function loadCraForUser(User $user, \DateTime $month): Cra
+    public function loadCraForUser(SocieteUser $societeUser, \DateTime $month): Cra
     {
-        $cra = $this->craRepository->findCraByUserAndMois($user, $month);
+        $cra = $this->craRepository->findCraByUserAndMois($societeUser, $month);
 
         if (null === $cra) {
             $cra = $this->createDefaultCra($month);
-            $cra->setUser($user);
+            $cra->setSocieteUser($societeUser);
 
-            $this->uncheckJoursAvantDateEntree($cra, $user);
-            $this->uncheckJoursApresDateSortie($cra, $user);
+            $this->uncheckJoursAvantDateEntree($cra, $societeUser);
+            $this->uncheckJoursApresDateSortie($cra, $societeUser);
         }
 
         $this->prefillTempsPasses($cra);
@@ -76,7 +76,10 @@ class CraService
      */
     public function prefillTempsPasses(Cra $cra): void
     {
-        $userProjets = $this->projetRepository->findAllForUser($cra->getUser(), Role::CONTRIBUTEUR, $cra->getMois());
+        $userProjets = $this
+            ->projetRepository
+            ->findAllForUser($cra->getSocieteUser(), RoleProjet::CONTRIBUTEUR, $cra->getMois())
+        ;
 
         foreach ($userProjets as $userProjet) {
             if ($this->craContainsProjet($cra, $userProjet)) {
@@ -132,15 +135,15 @@ class CraService
     }
 
     /**
-     * Décoche les jours où $user n'est pas encore dans la société.
+     * Décoche les jours où $societeUser n'est pas encore dans la société.
      */
-    public function uncheckJoursAvantDateEntree(Cra $cra, User $user): void
+    public function uncheckJoursAvantDateEntree(Cra $cra, SocieteUser $societeUser): void
     {
-        if (null === $user->getDateEntree()) {
+        if (null === $societeUser->getDateEntree()) {
             return;
         }
 
-        $userMonth = $this->dateMonthService->normalize($user->getDateEntree());
+        $userMonth = $this->dateMonthService->normalize($societeUser->getDateEntree());
         $craMonth = $this->dateMonthService->normalize($cra->getMois());
 
         if ($craMonth > $userMonth) {
@@ -153,7 +156,7 @@ class CraService
         }
 
         $jours = $cra->getJours();
-        $to = intval($user->getDateEntree()->format('j')) - 1;
+        $to = intval($societeUser->getDateEntree()->format('j')) - 1;
 
         for ($i = 0; $i < $to; ++$i) {
             $jours[$i] = 0;
@@ -163,15 +166,15 @@ class CraService
     }
 
     /**
-     * Décoche les jours où $user n'est plus dans la société.
+     * Décoche les jours où $societeUser n'est plus dans la société.
      */
-    public function uncheckJoursApresDateSortie(Cra $cra, User $user): void
+    public function uncheckJoursApresDateSortie(Cra $cra, SocieteUser $societeUser): void
     {
-        if (null === $user->getDateSortie()) {
+        if (null === $societeUser->getDateSortie()) {
             return;
         }
 
-        $userMonth = $this->dateMonthService->normalize($user->getDateSortie());
+        $userMonth = $this->dateMonthService->normalize($societeUser->getDateSortie());
         $craMonth = $this->dateMonthService->normalize($cra->getMois());
 
         if ($craMonth < $userMonth) {
@@ -184,7 +187,7 @@ class CraService
         }
 
         $jours = $cra->getJours();
-        $from = intval($user->getDateSortie()->format('j'));
+        $from = intval($societeUser->getDateSortie()->format('j'));
 
         for ($i = $from; $i < count($jours); ++$i) {
             $jours[$i] = 0;

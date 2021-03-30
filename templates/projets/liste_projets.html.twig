@@ -14,7 +14,7 @@
         ></span>
     </h1>
 
-    {% if is_granted('ROLE_FO_ADMIN') %}
+    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
         <p>
             Liste des projets auxquels je participe.
         </p>
@@ -62,9 +62,9 @@
 
     <div class="my-3 text-right">
         <a
-            class="btn btn-outline-success {{ is_granted('ROLE_FO_CDP') ? '' : 'disabled' }}"
+            class="btn btn-outline-success {{ is_granted('SOCIETE_CDP') ? '' : 'disabled' }}"
             href="{{ path('app_fo_projet_creation') }}"
-            {% if not is_granted('ROLE_FO_CDP') %}
+            {% if not is_granted('SOCIETE_CDP') %}
                 title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
             {% endif %}
         >

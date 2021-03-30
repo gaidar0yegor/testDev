@@ -4,10 +4,3 @@ App\Entity\User:
         prenom: User
         email: user@societe.dev
         password: user
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-
-App\Entity\Societe:
-    societe:
-        raisonSociale: Société
-        siret: 111111111

@@ -1,10 +1,14 @@
 App\Entity\User:
-    admin:
+    _admin:
         nom: Eureka
         prenom: Admin
         email: admin@societe.dev
         password: admin
-        roles: [ROLE_FO_ADMIN]
+
+App\Entity\SocieteUser:
+    admin:
+        user: '@_admin'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
         societe: '@societe'
 
 App\Entity\Projet:
@@ -29,17 +33,17 @@ App\Entity\Projet:
 
 App\Entity\ProjetParticipant:
     projet_cdp_null:
-        user: '@admin'
+        societeUser: '@admin'
         projet: '@projet_null'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Security\Role\RoleProjet::CDP)>
     projet_cdp_rdi:
-        user: '@admin'
+        societeUser: '@admin'
         projet: '@projet_rdi'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Security\Role\RoleProjet::CDP)>
     projet_cdp_unreliable:
-        user: '@admin'
+        societeUser: '@admin'
         projet: '@projet_unreliable'
-        role: '<(App\Role::CDP)>'
+        role: <(App\Security\Role\RoleProjet::CDP)>
 
 App\Entity\Societe:
     societe:

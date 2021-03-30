@@ -7,24 +7,23 @@ use App\Entity\Activity;
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Entity\ProjetActivity;
-use App\Entity\User;
-use App\Entity\UserActivity;
+use App\Entity\SocieteUser;
+use App\Entity\SocieteUserActivity;
 use App\Service\EntityLink\EntityLinkService;
+use App\MultiSociete\UserContext;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class FaitMarquantModifiedActivity implements ActivityInterface
 {
     private EntityLinkService $entityLinkService;
 
-    private Security $security;
+    private UserContext $userContext;
 
-    public function __construct(EntityLinkService $entityLinkService, Security $security)
+    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext)
     {
         $this->entityLinkService = $entityLinkService;
-        $this->security = $security;
+        $this->userContext = $userContext;
     }
 
     public static function getType(): string
@@ -53,7 +52,7 @@ class FaitMarquantModifiedActivity implements ActivityInterface
             return sprintf(
                 '%s %s a modifié son fait marquant %s sur le projet %s.',
                 '<i class="fa fa-edit" aria-hidden="true"></i>',
-                $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['modifiedBy']),
                 $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
                 $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
             );
@@ -62,20 +61,16 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         return sprintf(
             '%s %s a modifié le fait marquant %s créé par %s sur le projet %s.',
             '<i class="fa fa-edit" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['modifiedBy']),
             $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
-            $this->entityLinkService->generateLink(User::class, $activityParameters['createdBy']),
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
             $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
         );
     }
 
     public function postUpdate(FaitMarquant $faitMarquant, LifecycleEventArgs $args): ?Activity
     {
-        $modifiedBy = $this->security->getUser();
-
-        if (!$modifiedBy instanceof User) {
-            throw new RuntimeException('Impossible to get current user to determine who modified FaitMarquant');
-        }
+        $modifiedBy = $this->userContext->getSocieteUser();
 
         $activity = new Activity();
         $activity
@@ -88,9 +83,9 @@ class FaitMarquantModifiedActivity implements ActivityInterface
             ])
         ;
 
-        $userActivity = new UserActivity();
-        $userActivity
-            ->setUser($modifiedBy)
+        $societeUserActivity = new SocieteUserActivity();
+        $societeUserActivity
+            ->setSocieteUser($modifiedBy)
             ->setActivity($activity)
         ;
 
@@ -103,7 +98,7 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         $em = $args->getEntityManager();
 
         $em->persist($activity);
-        $em->persist($userActivity);
+        $em->persist($societeUserActivity);
         $em->persist($projetActivity);
         $em->flush();
 

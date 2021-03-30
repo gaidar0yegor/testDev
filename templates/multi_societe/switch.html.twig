@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Mes sociétés</h1>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+    {% for societeUser in app.user.societeUsers %}
+        <div class="col mb-4">
+            <div class="card {% if societeUser == app.user.currentSocieteUser %}border-success{% endif %} {% if not societeUser.enabled %}bg-light{% endif %}">
+                <div class="card-body">
+                    {% if not societeUser.enabled %}
+                        <span
+                            class="badge badge-secondary float-right"
+                            title="L'accès à cette société vous a été désactivé par un administrateur."
+                        >Accès désactivé</span>
+                    {% endif %}
+                    <h5 class="card-title"><i class="fa fa-building-o" aria-hidden="true"></i> {{ societeUser.societe.raisonSociale }}</h5>
+                    <h6 class="card-subtitle text-muted">Mon rôle : <strong>{{ societeUser.role|trans }}</strong></h6>
+                    <ul class="list-unstyled mb-0">
+                        {% if societeUser.projetParticipants|length > 0 %}
+                            <li><strong>{{ societeUser.projetParticipants|length }}</strong> projets</li>
+                        {% endif %}
+                        {% if societeUser.dateEntree %}
+                            <li>Date d'entrée : {{ societeUser.dateEntree|format_date }}</li>
+                        {% endif %}
+                        {% if societeUser.dateSortie %}
+                            <li>Date de sortie : {{ societeUser.dateSortie|format_date }}</li>
+                        {% endif %}
+                    </ul>
+                    {% if societeUser.enabled %}
+                        {% if societeUser == app.user.currentSocieteUser %}
+                            <form action="{{ path('app_fo_multi_societe_switch_disconnect') }}" method="post">
+                                <button type="submit" class="stretched-link mt-2 btn btn-outline-danger">Déconnexion</button>
+                            </form>
+                        {% else %}
+                            <form action="{{ path('app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
+                                <button type="submit" class="stretched-link mt-2 btn btn-primary">Aller sur {{ societeUser.societe.raisonSociale }}</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="col mb-4">
+        <div class="card mes-societes-create">
+            <div class="card-body text-center">
+                <a href="{{ path('app_register') }}" class="stretched-link lead">
+                    <i class="fa fa-2x fa-building-o" aria-hidden="true"></i>
+                    <br>
+                    Créer ma société
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

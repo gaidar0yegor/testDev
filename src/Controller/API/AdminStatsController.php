@@ -3,9 +3,10 @@
 namespace App\Controller\API;
 
 use App\Entity\Projet;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Repository\CraRepository;
 use App\Repository\TempsPasseRepository;
+use App\Security\Voter\SameSocieteVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Returns statistics about users or projets
  * to generate charts dedicated to the admin.
  *
- * @IsGranted("ROLE_FO_ADMIN")
+ * @IsGranted("SOCIETE_ADMIN")
  * @Route("/api/stats/admin")
  */
 class AdminStatsController extends AbstractController
@@ -46,12 +47,12 @@ class AdminStatsController extends AbstractController
      */
     public function getTempsUserParProjet(
         string $year,
-        User $user,
+        SocieteUser $societeUser,
         CraRepository $craRepository
     ) {
-        $this->denyAccessUnlessGranted('same_societe', $user);
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
-        $cras = $craRepository->findCrasByUserAndYear($user, $year);
+        $cras = $craRepository->findCrasByUserAndYear($societeUser, $year);
         $data = [];
 
         for ($i = 0; $i < 12; ++$i) {
@@ -102,7 +103,7 @@ class AdminStatsController extends AbstractController
         Projet $projet,
         TempsPasseRepository $tempsPasseRepository
     ) {
-        $this->denyAccessUnlessGranted('same_societe', $projet);
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $projet);
 
         $tempsPasses = $tempsPasseRepository->findAllByProjetAndYear($projet, $year);
         $months = [];
@@ -113,7 +114,7 @@ class AdminStatsController extends AbstractController
 
         foreach ($tempsPasses as $tempsPasse) {
             $month = intval($tempsPasse->getCra()->getMois()->format('m')) - 1;
-            $user = $tempsPasse->getCra()->getUser()->getShortname();
+            $user = $tempsPasse->getCra()->getSocieteUser()->getUser()->getShortname();
             $percentage = $tempsPasse->getPourcentage();
 
             $months[$month][$user] = $percentage;

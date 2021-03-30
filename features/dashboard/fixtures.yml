@@ -1,10 +1,14 @@
 App\Entity\User:
-    user{1..3}:
+    _user{1..3}:
         nom: Eureka
         prenom: User <current()>
         email: user$current@societe.dev
         password: user<current()>
-        roles: [ROLE_FO_USER]
+
+App\Entity\SocieteUser:
+    user{1..3}:
+        user: '@_user<current()>'
+        role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
 
 App\Entity\Projet:
@@ -31,51 +35,51 @@ App\Entity\Projet:
 
 App\Entity\ProjetParticipant:
     user1_projet1:
-        user: '@user1'
+        societeUser: '@user1'
         projet: '@projet1'
-        role: '<(App\Role::OBSERVATEUR)>'
+        role: <(App\Security\Role\RoleProjet::OBSERVATEUR)>
     user1_projet2:
-        user: '@user1'
+        societeUser: '@user1'
         projet: '@projet2'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     user1_projet3:
-        user: '@user1'
+        societeUser: '@user1'
         projet: '@projet3'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     user1_projet_fini:
-        user: '@user1'
+        societeUser: '@user1'
         projet: '@projet_fini'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
 
     user2_projet1:
-        user: '@user2'
+        societeUser: '@user2'
         projet: '@projet1'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     user2_projet2:
-        user: '@user2'
+        societeUser: '@user2'
         projet: '@projet2'
-        role: '<(App\Role::OBSERVATEUR)>'
+        role: <(App\Security\Role\RoleProjet::OBSERVATEUR)>
     user2_projet3:
-        user: '@user2'
+        societeUser: '@user2'
         projet: '@projet3'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
 
     user3_projet1:
-        user: '@user3'
+        societeUser: '@user3'
         projet: '@projet1'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     user3_projet2:
-        user: '@user3'
+        societeUser: '@user3'
         projet: '@projet2'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     user3_projet3:
-        user: '@user3'
+        societeUser: '@user3'
         projet: '@projet3'
-        role: '<(App\Role::OBSERVATEUR)>'
+        role: <(App\Security\Role\RoleProjet::OBSERVATEUR)>
 
 App\Entity\Cra:
     cra_user{1..3}:
-        user: '@user<current()>'
+        societeUser: '@user<current()>'
         mois: '<(new DateTime("2020-11-01"))>'
         jours: [0,
             1, 1, 1, 1, 1, 0, 0,

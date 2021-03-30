@@ -2,6 +2,7 @@
 
 namespace App\Tests\Unit\Service;
 
+use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
@@ -60,7 +61,7 @@ class CraServiceTest extends TestCase
     {
         $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
 
-        $user = new User();
+        $user = new SocieteUser();
         $user->setDateEntree(DateTime::createFromFormat('Y-m-d', '2020-11-10'));
 
         $cra = $craService->loadCraForUser($user, DateTime::createFromFormat('Y-m-d', '2020-11-01'));
@@ -81,7 +82,7 @@ class CraServiceTest extends TestCase
     {
         $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
 
-        $user = new User();
+        $user = new SocieteUser();
         $user->setDateEntree(DateTime::createFromFormat('Y-m-d', '2020-11-09'));
 
         $cra = $craService->loadCraForUser($user, DateTime::createFromFormat('Y-m-d', '2020-04-01'));
@@ -102,7 +103,7 @@ class CraServiceTest extends TestCase
     {
         $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
 
-        $user = new User();
+        $user = new SocieteUser();
         $user->setDateSortie(DateTime::createFromFormat('Y-m-d', '2020-11-10'));
 
         $cra = $craService->loadCraForUser($user, DateTime::createFromFormat('Y-m-d', '2020-11-01'));
@@ -123,7 +124,7 @@ class CraServiceTest extends TestCase
     {
         $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
 
-        $user = new User();
+        $user = new SocieteUser();
         $user->setDateSortie(DateTime::createFromFormat('Y-m-d', '2020-05-10'));
 
         $cra = $craService->loadCraForUser($user, DateTime::createFromFormat('Y-m-d', '2021-11-01'));

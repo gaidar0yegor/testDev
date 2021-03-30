@@ -21,7 +21,7 @@ class UserLink implements EntityLinkGeneratorInterface
     {
         return new EntityLink(
             $entity->getFullnameOrEmail(),
-            $urlGenerator->generate('app_fo_user', [
+            $urlGenerator->generate('app_fo_societe_user', [
                 'id' => $entity->getId(),
             ])
         );

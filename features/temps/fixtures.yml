@@ -1,26 +1,34 @@
 App\Entity\User:
-    user:
+    _user:
         nom: Eureka
         prenom: User
         email: user@societe.dev
         password: user
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-    user_entree_sortie:
+    _user_entree_sortie:
         nom: Eureka
         prenom: User2
         email: user2@societe.dev
         password: user2
-        roles: [ROLE_FO_USER]
-        societe: '@societe'
-        dateEntree: <(new DateTime('2020-04-15'))>
-        dateSortie: <(new DateTime('2020-08-15'))>
-    user_sans_projet:
+    _user_sans_projet:
         nom: Eureka
         prenom: User sans projet
         email: user_sans_projet@societe.dev
         password: user_sans_projet
-        roles: [ROLE_FO_USER]
+
+App\Entity\SocieteUser:
+    user:
+        user: '@_user'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    user_entree_sortie:
+        user: '@_user_entree_sortie'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+        dateEntree: <(new DateTime('2020-04-15'))>
+        dateSortie: <(new DateTime('2020-08-15'))>
+    user_sans_projet:
+        user: '@_user_sans_projet'
+        role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
 
 App\Entity\Projet:
@@ -59,13 +67,13 @@ App\Entity\Projet:
 
 App\Entity\ProjetParticipant:
     user_projet{1..4}:
-        user: '@user'
+        societeUser: '@user'
         projet: '@projet<current()>'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
     user_entree_sortie_projet1:
-        user: '@user_entree_sortie'
+        societeUser: '@user_entree_sortie'
         projet: '@projet1'
-        role: '<(App\Role::CONTRIBUTEUR)>'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
 
 App\Entity\Societe:
     societe:

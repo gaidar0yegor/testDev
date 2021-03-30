@@ -31,10 +31,9 @@ composer install
 # Si la base de données existe déjà
 php bin/console doctrine:database:drop --force
 
-# Initialize database and fixtures
+# Initialize database
 php bin/console doctrine:database:create
 php bin/console doctrine:schema:update --force --complete
-php bin/console hautelook:fixtures:load --no-interaction
 
 # Install js dependencies
 yarn

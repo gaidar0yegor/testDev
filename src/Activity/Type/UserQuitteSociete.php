@@ -4,8 +4,8 @@ namespace App\Activity\Type;
 
 use App\Activity\ActivityInterface;
 use App\Entity\Activity;
-use App\Entity\User;
-use App\Entity\UserActivity;
+use App\Entity\SocieteUser;
+use App\Entity\SocieteUserActivity;
 use App\Service\EntityLink\EntityLinkService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -38,23 +38,23 @@ class UserQuitteSociete implements ActivityInterface
         return sprintf(
             '%s %s a quitté la société.',
             '<i class="fa fa-user-times" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['user'])
         );
     }
 
-    public function postUpdate(User $user, LifecycleEventArgs $args): ?Activity
+    public function postUpdate(SocieteUser $societeUser, LifecycleEventArgs $args): ?Activity
     {
         $em = $args->getEntityManager();
 
         $oldUserActivities = $em
             ->createQueryBuilder()
-            ->from(UserActivity::class, 'userActivity')
-            ->select('userActivity')
-            ->leftJoin('userActivity.activity', 'activity')
-            ->where('userActivity.user = :user')
+            ->from(SocieteUserActivity::class, 'societeUserActivity')
+            ->select('societeUserActivity')
+            ->leftJoin('societeUserActivity.activity', 'activity')
+            ->where('societeUserActivity.societeUser = :societeUser')
             ->andWhere('activity.type = :type')
             ->setParameters([
-                'user' => $user,
+                'societeUser' => $societeUser,
                 'type' => self::getType(),
             ])
             ->getQuery()
@@ -66,7 +66,7 @@ class UserQuitteSociete implements ActivityInterface
             $em->remove($oldUserActivity);
         }
 
-        if (null === $user->getDateSortie()) {
+        if (null === $societeUser->getDateSortie()) {
             $em->flush();
             return null;
         }
@@ -74,20 +74,20 @@ class UserQuitteSociete implements ActivityInterface
         $activity = new Activity();
         $activity
             ->setType(self::getType())
-            ->setDatetime($user->getDateSortie())
+            ->setDatetime($societeUser->getDateSortie())
             ->setParameters([
-                'user' => intval($user->getId()),
+                'user' => intval($societeUser->getId()),
             ])
         ;
 
-        $userActivity = new UserActivity();
-        $userActivity
-            ->setUser($user)
+        $societeUserActivity = new SocieteUserActivity();
+        $societeUserActivity
+            ->setSocieteUser($societeUser)
             ->setActivity($activity)
         ;
 
         $em->persist($activity);
-        $em->persist($userActivity);
+        $em->persist($societeUserActivity);
         $em->flush();
 
         return $activity;

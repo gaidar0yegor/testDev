@@ -1,50 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification de {{ user.fullname }} | {{ parent() }}{% endblock %}
+{% block title %}Modification de {{ societeUser.user.fullname }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Modification de {{ user.fullname }}</h1>
+<h1>Modification de {{ societeUser.user.fullname }}</h1>
 
-<div class="col-lg-10 offset-lg-1">
-    {{ form_start(form) }}
+{{ form_start(form) }}
+{{ form_errors(form) }}
 
-    {{ form_errors(form) }}
+<div class="row">
+    <div class="col-sm-6">
+        {{ form_row(form.role) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.heuresParJours) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.dateEntree) }}
+    </div>
+    <div class="col-sm-6">
+        {{ form_row(form.dateSortie) }}
+    </div>
+</div>
 
-    <div class="row">
-        <div class="col-sm-6">
-            {{ form_row(form.nom) }}
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.prenom) }}
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.email) }}
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.telephone) }}
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.role) }}
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.heuresParJours) }}
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.dateEntree) }}
-        </div>
-        <div class="col-sm-6">
-            {{ form_row(form.dateSortie) }}
+<div class="d-flex justify-content-around">
+    <div class="form-group mt-5">
+        <a href="{{ path('app_fo_admin_utilisateurs') }}" class="btn btn-outline-warning">Annuler</a>
+    </div>
+    <div class="form-group mt-5">
+        <button type="submit" class="btn btn-success">Valider les modifications</button>
+    </div>
+</div>
+{{ form_end(form) }}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card border-danger my-4">
+            <div class="card-body text-danger">
+                {% if societeUser.enabled %}
+                    <h5 class="card-title">Désactiver le compte</h5>
+                    <p class="card-text">
+                        Désactiver le compte de <strong>{{ societeUser.user.fullname }}</strong>
+                        l'empêchera de se connecter sur cette société.
+                        Vous conserverez ses projets, faits marquants,
+                        les données nécessaires pour générer les feuilles de temps.
+                        Vous pourrez ré-activer le compte à tout moment.
+
+                    </p>
+                    <form
+                        action="{{ path('utilisateur_fo_disable', { id: societeUser.id }) }}"
+                        method="POST"
+                        class="form"
+                    >
+                        <input type="submit" value="Désactiver" class="btn btn-outline-warning" />
+                    </form>
+                {% else %}
+                    <h5 class="card-title">Ré-activer le compte</h5>
+                    <p class="card-text">
+                        Ré-activer le compte de <strong>{{ societeUser.user.fullname }}</strong>
+                        lui permettra d'accéder à nouveau à votre société.
+
+                    </p>
+                    <form
+                        action="{{ path('utilisateur_fo_enable', { id: societeUser.id }) }}"
+                        method="POST"
+                        class="form"
+                    >
+                        <input type="submit" value="Ré-activer" class="btn btn-warning" />
+                    </form>
+                {% endif %}
+            </div>
         </div>
     </div>
-
-    <div class="d-flex justify-content-around">
-        <div class="form-group mt-5">
-            <a href="{{ path('app_fo_admin_utilisateurs') }}" class="btn btn-outline-warning">Annuler</a>
-        </div>
-        {{ form_row(form.ajouter, { 'label' : 'Valider les modifications' }) }}
-    </div>
-    {{ form_end(form) }}
 </div>
 
 {% endblock %}

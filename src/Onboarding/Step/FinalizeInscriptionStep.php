@@ -2,7 +2,7 @@
 
 namespace App\Onboarding\Step;
 
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Onboarding\OnboardingStepInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -13,19 +13,9 @@ class FinalizeInscriptionStep implements OnboardingStepInterface
         return 'Finalisez votre inscription';
     }
 
-    public function getLink(UrlGeneratorInterface $urlGenerator, User $user): ?string
+    public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
-        if (null === $user->getInvitationToken()) {
-            return null;
-        }
-
-        return $urlGenerator->generate(
-            'app_fo_user_finalize_inscription',
-            [
-                'token' => $user->getInvitationToken(),
-            ],
-            UrlGeneratorInterface::ABSOLUTE_URL
-        );
+        return '#';
     }
 
     public function isImportant(): bool
@@ -33,9 +23,9 @@ class FinalizeInscriptionStep implements OnboardingStepInterface
         return true;
     }
 
-    public function isCompleted(User $user): bool
+    public function isCompleted(SocieteUser $societeUser): bool
     {
-        return null === $user->getInvitationToken();
+        return true;
     }
 
     public static function getPriority(): int

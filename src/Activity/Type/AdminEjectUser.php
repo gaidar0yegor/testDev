@@ -4,24 +4,23 @@ namespace App\Activity\Type;
 
 use App\Activity\ActivityInterface;
 use App\Entity\Activity;
-use App\Entity\User;
-use App\Entity\UserActivity;
+use App\Entity\SocieteUser;
+use App\Entity\SocieteUserActivity;
 use App\Service\EntityLink\EntityLinkService;
+use App\MultiSociete\UserContext;
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use RuntimeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Security;
 
 class AdminEjectUser implements ActivityInterface
 {
     private EntityLinkService $entityLinkService;
 
-    private Security $security;
+    private UserContext $userContext;
 
-    public function __construct(EntityLinkService $entityLinkService, Security $security)
+    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext)
     {
         $this->entityLinkService = $entityLinkService;
-        $this->security = $security;
+        $this->userContext = $userContext;
     }
     public static function getType(): string
     {
@@ -47,55 +46,54 @@ class AdminEjectUser implements ActivityInterface
             return sprintf(
                 "%s %s a ré-activé le compte de %s",
                 '<i class="fa fa-check-circle-o" aria-hidden="true"></i>',
-                $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
-                $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['modifiedBy']),
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['user'])
         );}
 
         return sprintf(
             "%s %s a desactivé le compte de %s",
             '<i class="fa fa-ban" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(User::class, $activityParameters['modifiedBy']),
-            $this->entityLinkService->generateLink(User::class, $activityParameters['user'])
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['modifiedBy']),
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['user'])
          );
     }
 
-    public function postUpdate(User $user, LifecycleEventArgs $args): void
+    public function postUpdate(SocieteUser $societeUser, LifecycleEventArgs $args): void
     {
-        $modifiedBy = $this->security->getUser();
-        $userEnabled = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($user);
+        $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($societeUser);
 
-        if(isset($userEnabled['enabled']))
-        {
-            if (!$modifiedBy instanceof User) {
-                throw new RuntimeException('Impossible to get current user to determine who modified the status');
-            }
-
-            $activity = new Activity();
-            $activity
-                ->setType(self::getType())
-                ->setParameters([
-                    'user' => intval($user->getId()),
-                    'modifiedBy' => intval($modifiedBy->getId()),
-                    'userEnabled' => $userEnabled['enabled'][1],
-                ]);
-
-            $userActivity = new UserActivity();
-            $userActivity
-                ->setUser($user)
-                ->setActivity($activity)
-            ;
-
-            $adminActivity = new UserActivity();
-            $adminActivity
-                ->setUser($modifiedBy)
-                ->setActivity($activity)
-            ;
-
-            $em = $args->getEntityManager();
-            $em->persist($activity);
-            $em->persist($userActivity);
-            $em->persist($adminActivity);
-            $em->flush();
+        if (!isset($changes['enabled'])) {
+            return;
         }
+
+        $modifiedBy = $this->userContext->getSocieteUser();
+
+        $activity = new Activity();
+        $activity
+            ->setType(self::getType())
+            ->setParameters([
+                'user' => intval($societeUser->getId()),
+                'modifiedBy' => intval($modifiedBy->getId()),
+                'userEnabled' => $changes['enabled'][1],
+            ])
+        ;
+
+        $societeUserActivity = new SocieteUserActivity();
+        $societeUserActivity
+            ->setSocieteUser($societeUser)
+            ->setActivity($activity)
+        ;
+
+        $adminActivity = new SocieteUserActivity();
+        $adminActivity
+            ->setSocieteUser($modifiedBy)
+            ->setActivity($activity)
+        ;
+
+        $em = $args->getEntityManager();
+        $em->persist($activity);
+        $em->persist($societeUserActivity);
+        $em->persist($adminActivity);
+        $em->flush();
     }
 }

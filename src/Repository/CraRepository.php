@@ -3,7 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Cra;
-use App\Entity\User;
+use App\Entity\SocieteUser;
 use App\Service\Timesheet\UserMonthCraRepositoryInterface;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -22,10 +22,10 @@ class CraRepository extends ServiceEntityRepository implements UserMonthCraRepos
         parent::__construct($registry, Cra::class);
     }
 
-    public function findCraByUserAndMois(User $user, \DateTimeInterface $mois): ?Cra
+    public function findCraByUserAndMois(SocieteUser $societeUser, \DateTimeInterface $mois): ?Cra
     {
         return $this->findOneBy([
-            'user' => $user,
+            'societeUser' => $societeUser,
             'mois' => $mois,
         ]);
     }
@@ -33,14 +33,14 @@ class CraRepository extends ServiceEntityRepository implements UserMonthCraRepos
     /**
      * @return Cra[]
      */
-    public function findCrasByUserAndYear(User $user, int $year): array
+    public function findCrasByUserAndYear(SocieteUser $societeUser, int $year): array
     {
         return $this->createQueryBuilder('cra')
-            ->where('cra.user = :user')
+            ->where('cra.societeUser = :societeUser')
             ->andWhere('YEAR(cra.mois) = :year')
             ->orderBy('cra.mois')
             ->setParameters([
-                'user' => $user,
+                'societeUser' => $societeUser,
                 'year' => $year,
             ])
             ->getQuery()

@@ -81,43 +81,6 @@ class RdiMailer
         $this->mailer->send($email);
     }
 
-    /**
-     * @param User $invitedUser User à inviter, doit avoir un token d'invitation
-     * @param User $adminUser Référent qui invite l'user, utile pour afficher "XX vous invite..." dans l'email
-     */
-    public function sendInvitationEmail(User $invitedUser, User $fromUser): void
-    {
-        if (null === $invitedUser->getInvitationToken()) {
-            throw new RdiException('Cannot send invitation email, this user has no invitation token.');
-        }
-
-        $invitationLink = $this->urlGenerator->generate('app_fo_user_finalize_inscription', [
-            'token' => $invitedUser->getInvitationToken(),
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
-
-        $email = $this->createDefaultEmail()
-            ->to($invitedUser->getEmail())
-            ->subject(sprintf('%s vous invite sur RDI-Manager', $fromUser->getFullname()))
-            ->text(sprintf(
-                '%s vous invite sur RDI-Manager dans la société %s en tant que %s.'
-                .' Finalisez votre inscription en suivant ce lien : %s',
-                $fromUser->getFullname(),
-                $invitedUser->getSociete()->getRaisonSociale(),
-                $this->translator->trans($invitedUser->getRole()),
-                $invitationLink
-            ))
-
-            ->htmlTemplate('mail/invite.html.twig')
-            ->context([
-                'invitedUser' => $invitedUser,
-                'fromUser' => $fromUser,
-                'invitationLink' => $invitationLink,
-            ])
-        ;
-
-        $this->mailer->send($email);
-    }
-
     public function sendResetPasswordEmail(User $user): void
     {
         if (!$user->hasResetPasswordToken()) {

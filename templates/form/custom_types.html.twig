@@ -22,8 +22,8 @@
 {% block projet_participant_row %}
     <div class="row mb-5 mb-md-2 projet-participant-row">
         <div class="col-sm text-center text-sm-left">
-            {{ form_widget(form.children.user) }}
-            {{ form_errors(form.children.user) }}
+            {{ form_widget(form.children.societeUser) }}
+            {{ form_errors(form.children.societeUser) }}
         </div>
         <div class="col-sm">
             {{ form_errors(form.children.role) }}
@@ -87,7 +87,7 @@
                     {{ form_row(form.children.fichier) }}
                 </a>
             </td>
-            <td>{{ form.vars.data.uploadedBy.fullname }}</td>
+            <td>{{ form.vars.data.uploadedBy.user.fullname }}</td>
             <td><span class="d-none d-sm-table-cell">{{ form.vars.data.fichier.dateUpload|format_date }}</span></td>
             <td>
                 <a

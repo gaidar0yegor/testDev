@@ -2,14 +2,15 @@
 
 namespace App\Onboarding;
 
+use App\Entity\SocieteUser;
 use App\Entity\User;
+use App\MultiSociete\UserContext;
+use App\Security\Role\RoleSociete;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 
@@ -19,23 +20,19 @@ class OnboardingListener implements EventSubscriberInterface
 
     private SessionInterface $session;
 
-    private TokenStorageInterface $tokenStorage;
-
-    private AuthorizationCheckerInterface $authChecker;
+    private UserContext $userContext;
 
     private EntityManagerInterface $em;
 
     public function __construct(
         Onboarding $onboarding,
         SessionInterface $session,
-        TokenStorageInterface $tokenStorage,
-        AuthorizationCheckerInterface $authChecker,
+        UserContext $userContext,
         EntityManagerInterface $em
     ) {
         $this->onboarding = $onboarding;
         $this->session = $session;
-        $this->tokenStorage = $tokenStorage;
-        $this->authChecker = $authChecker;
+        $this->userContext = $userContext;
         $this->em = $em;
     }
 
@@ -53,18 +50,22 @@ class OnboardingListener implements EventSubscriberInterface
             return;
         }
 
-        $user = $this->getUser();
-
-        if (null === $user || !$this->shouldDisplayOnboarding($user)) {
+        if (!$this->userContext->hasUser() || !$this->userContext->hasSocieteUser()) {
             return;
         }
 
-        $steps = $this->onboarding->getStepsFor($user);
+        $societeUser = $this->userContext->getSocieteUser();
+
+        if (!$this->shouldDisplayOnboarding($societeUser)) {
+            return;
+        }
+
+        $steps = $this->onboarding->getStepsFor($societeUser);
 
         $this->session->set('onboardingSteps', $steps);
 
         if ($this->onboarding->allCompleted($steps)) {
-            $user->setOnboardingEnabled(false);
+            $societeUser->getUser()->setOnboardingEnabled(false);
             $this->em->flush();
         }
     }
@@ -81,15 +82,21 @@ class OnboardingListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->authChecker->isGranted('ROLE_FO_CDP', $user)) {
+        if (!$this->userContext->hasSocieteUser()) {
             return;
         }
 
+        // Onboarding already enabled, do nothing
         if ($user->getOnboardingEnabled()) {
             return;
         }
 
-        $steps = $this->onboarding->getStepsFor($user);
+        $societeUser = $this->userContext->getSocieteUser();
+        $steps = $this->onboarding->getStepsFor($societeUser);
+
+        if (!RoleSociete::hasRole($societeUser->getRole(), RoleSociete::CDP)) {
+            return;
+        }
 
         if (!$this->onboarding->allImportantCompleted($steps)) {
             $user->setOnboardingEnabled(true);
@@ -97,35 +104,18 @@ class OnboardingListener implements EventSubscriberInterface
         }
     }
 
-    private function shouldDisplayOnboarding(User $user): bool
+    private function shouldDisplayOnboarding(SocieteUser $societeUser): bool
     {
         // Only display to admins and chefs de projet
-        if (!$this->authChecker->isGranted('ROLE_FO_CDP', $user)) {
+        if (!RoleSociete::hasRole($societeUser->getRole(), RoleSociete::CDP)) {
             return false;
         }
 
         // Don't display if onboarding disabled for this user
-        if (!$user->getOnboardingEnabled()) {
+        if (!$societeUser->getUser()->getOnboardingEnabled()) {
             return false;
         }
 
         return true;
-    }
-
-    private function getUser(): ?User
-    {
-        $token = $this->tokenStorage->getToken();
-
-        if (null === $token) {
-            return null;
-        }
-
-        $user = $token->getUser();
-
-        if (!$user instanceof User) {
-            return null;
-        }
-
-        return $user;
     }
 }
