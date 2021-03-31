@@ -10,8 +10,6 @@ $(() => {
     fetch('/api/dashboard/recents-projets')
         .then(response => response.json())
         .then(({recentsProjets}) => {
-            console.log(recentsProjets);
-
             if (0 === recentsProjets.length) {
                 return;
             }
