@@ -2,9 +2,14 @@ import '../styles/user-notifications.scss';
 
 import $ from 'jquery';
 import datesFr from './dates.fr';
+import userContext from './userContext';
 
 $(() => {
     if (0 === document.querySelectorAll('.user-notifications-list').length) {
+        return;
+    }
+
+    if (!userContext.societeUserId) {
         return;
     }
 
@@ -19,7 +24,7 @@ $(() => {
     /**
      * Retrieve last user notifications.
      */
-    const apiGetUserNotifications = () => fetch(`/api/user-notifications/`);
+    const apiGetUserNotifications = () => fetch(`/api/user-notifications/${userContext.societeUserId}`);
 
     /**
      * Mark the list of notifications defined by their ids in acknowledgeIds as read.
@@ -28,7 +33,7 @@ $(() => {
      *
      * @param {Number[]} acknowledgeIds
      */
-    const apiPostUserNotifications = acknowledgeIds => fetch('/api/user-notifications/', {
+    const apiPostUserNotifications = acknowledgeIds => fetch(`/api/user-notifications/${userContext.societeUserId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',

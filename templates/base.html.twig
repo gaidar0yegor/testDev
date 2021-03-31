@@ -12,6 +12,16 @@
     </div>
 
     {% include('_footer.html.twig') %}
+
+    <div
+        id="user-context-ids"
+        {% if userContext.hasUser %}
+            data-user-id="{{ userContext.user.id }}"
+        {% endif %}
+        {% if userContext.hasSocieteUser %}
+            data-societe-user-id="{{ userContext.societeUser.id }}"
+        {% endif %}
+    ></div>
 {% endblock %}
 
 {% block stylesheets %}

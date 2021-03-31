@@ -3,7 +3,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
     Background:
         Given I have loaded fixtures from "activite/fixtures.yml"
 
-    Scenario: Je peux voir qui a créé le projet et quand
+    Scenario: Je suis notifié par la cloche que quelqu'un a créé un fait marquant sur un de mes projets
         Given I am on "/connexion"
         And I fill in the following:
             | _username | user@societe.dev  |
@@ -23,7 +23,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And I press "Connexion"
 
         # Retrieve notifications
-        When I go to "/api/user-notifications/"
+        When I go to "/api/user-notifications/2"
         Then the response status code should be 200
         And the response should be in JSON
         And the JSON node "notifications" should have 1 element
@@ -36,7 +36,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And the JSON node "notifications[0].acknowledged" should be false
 
         # acknowledge notifications
-        When I send a POST request to "/api/user-notifications/" with body:
+        When I send a POST request to "/api/user-notifications/2" with body:
             """
                 {
                     "acknowledgeIds": [1]
@@ -45,8 +45,23 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         Then the response status code should be 204
 
         # Retrieve acknowledged notifications
-        When I go to "/api/user-notifications/"
+        When I go to "/api/user-notifications/2"
         Then the response status code should be 200
         And the response should be in JSON
         And the JSON node "notifications" should have 1 element
         And the JSON node "notifications[0].acknowledged" should be true
+
+    Scenario: Je ne pas voir les notifications des autres utilisateurs
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | user@societe.dev  |
+            | _password | user              |
+        And I press "Connexion"
+        And I go to "/projets/1"
+        And I follow "Fait marquant"
+        And I fill in the following:
+            | fait_marquant[titre]       | Mon fait marquant          |
+            | fait_marquant[description] | J'ai créé un fait marquant |
+        And I press "Sauvegarder"
+        When I go to "/api/user-notifications/2"
+        Then the response status code should be 403
