@@ -83,6 +83,9 @@ final class Version20210325114020 extends AbstractMigration
         $this->addSql('update user set roles = replace(roles, "ROLE_FO_ADMIN", "ROLE_FO_USER")');
         $this->addSql('update user set roles = replace(roles, "ROLE_FO_CDP", "ROLE_FO_USER")');
 
+        // Make all user accounts enabled, even the ones that have been disabled on their societe
+        $this->addSql('update user set enabled = true');
+
         $this->addSql('alter table projet_participant change role role varchar(31)');
         $this->addSql('update projet_participant set role = concat("PROJET_", role)');
 
