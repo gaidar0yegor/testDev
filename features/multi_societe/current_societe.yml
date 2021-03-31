@@ -4,11 +4,14 @@ App\Entity\User:
         prenom: User
         email: user@societe.dev
         password: user
-    _admin:
+        currentSocieteUser: '@user_societe1'
+
+    _user_disabled:
         nom: Eureka
-        prenom: Admin
-        email: admin@societe.dev
-        password: admin
+        prenom: UserDisabled
+        email: user_disabled@societe.dev
+        password: user_disabled
+        currentSocieteUser: '@user_disabled_societe1'
 
 App\Entity\SocieteUser:
     user_societe0:
@@ -19,21 +22,19 @@ App\Entity\SocieteUser:
         user: '@_user'
         societe: '@societe1'
         role: <(App\Security\Role\RoleSociete::USER)>
-    user_societe_disabled:
-        user: '@_user'
-        societe: '@societe_disabled'
+
+    user_disabled_societe0:
+        user: '@_user_disabled'
+        societe: '@societe0'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
+    user_disabled_societe1:
+        user: '@_user_disabled'
+        societe: '@societe1'
         role: <(App\Security\Role\RoleSociete::USER)>
         enabled: false
-
-    admin_societe1:
-        user: '@_admin'
-        societe: '@societe1'
-        role: <(App\Security\Role\RoleSociete::ADMIN)>
 
 App\Entity\Societe:
     societe0:
         raisonSociale: Société0
     societe1:
         raisonSociale: Société1
-    societe_disabled:
-        raisonSociale: SociétéDisabled

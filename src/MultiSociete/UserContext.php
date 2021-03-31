@@ -4,6 +4,7 @@ namespace App\MultiSociete;
 
 use App\Entity\SocieteUser;
 use App\Entity\User;
+use App\MultiSociete\Exception\CurrentSocieteUserAccessDeniedException;
 use App\MultiSociete\Exception\NoCurrentSocieteException;
 use App\Security\Exception\UnexpectedUserException;
 use App\Security\Exception\NoLoggedInUserException;
@@ -84,6 +85,26 @@ class UserContext
      */
     public function switchSociete(SocieteUser $societeUser): void
     {
+        if (!$societeUser->hasUser()) {
+            throw new CurrentSocieteUserAccessDeniedException(
+                'Cannot switch to this access because user is null'
+            );
+        }
+
+        $user = $societeUser->getUser();
+
+        if ($user !== $this->getUser()) {
+            throw new CurrentSocieteUserAccessDeniedException(
+                'Cannot switch to this access because not the same user as logged in'
+            );
+        }
+
+        if (!$societeUser->getEnabled()) {
+            throw new CurrentSocieteUserAccessDeniedException(
+                'Cannot switch to this access because disabled'
+            );
+        }
+
         $this->getUser()->setCurrentSocieteUser($societeUser);
     }
 
