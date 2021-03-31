@@ -9,6 +9,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Multi-société :
     - L'utilisateur restait connecté lorsque son accès était désactivé : déconnecte l'user de la société lorsqu'il se réauthentifie.
     - Il était possible d'usurper l'accès d'un autre user dans la page de switch en envoyant une requete post créée à la main : ajoute un check au moment du switch
+- Cliquer sur la ligne entière d'un projet pour aller dessus fonctionne à nouveau
 
 
 

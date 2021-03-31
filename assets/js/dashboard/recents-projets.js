@@ -28,7 +28,7 @@ $(() => {
                 const $projet = $(`
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="${projetPath}">${projet.acronyme}</a></h5>
+                            <h5 class="card-title"><a href="${projetPath}" class="stretched-link">${projet.acronyme}</a></h5>
                             <ul class="list-unstyled mb-0">
                             </ul>
                         </div>
@@ -37,10 +37,6 @@ $(() => {
 
                 projet.activities.forEach(activity => {
                     $projet.find('ul').append($(`<li>${activity.text}</li>`));
-                });
-
-                $projet.on('click', () => {
-                    window.location.pathname = projetPath;
                 });
 
                 $cards.append($projet);

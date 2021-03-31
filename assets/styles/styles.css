@@ -278,3 +278,8 @@ h5 {
     border-style: dashed;
     border-width: 0.2em;
 }
+
+.table a:not(.stretched-link) {
+    position: relative;
+    z-index: 2;
+}

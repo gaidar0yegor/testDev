@@ -23,7 +23,7 @@
 		</thead>
 		<tbody>
 			{% for societeUser in societeUsers %}
-				<tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
+				<tr class="position-relative {{ societeUser.enabled ? '' : 'text-muted' }}">
 					<td class="text-left">{{ societeUser.user.nom }}</td>
 					<td class="d-none d-md-table-cell">{{ societeUser.user.prenom }}</td>
 					<td class="d-none d-md-table-cell">{{ societeUser.user.email }}</td>
@@ -34,7 +34,7 @@
 					<td class="d-none d-md-table-cell">{{ societeUser.statut|trans }}</td>
 					<td>{{ societeUser.projetParticipants|length }}</td>
 					<td class="d-flex justify-content-around">
-						<a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
+						<a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}" class="stretched-link">
 							<i class="fa fa-lg fa-eye"></i>
 						</a>
 						<a href="{{ path('app_fo_admin_utilisateur_modifier', { 'id': societeUser.id }) }}">
