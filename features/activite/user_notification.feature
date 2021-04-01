@@ -65,3 +65,29 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And I press "Sauvegarder"
         When I go to "/api/user-notifications/2"
         Then the response status code should be 403
+
+    Scenario: Je suis notifié quand quelqu'un a modifié mon fait marquant
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | cdp@societe.dev  |
+            | _password | cdp              |
+        And I press "Connexion"
+        And I go to "/fait-marquants/1/modifier"
+        And I fill in the following:
+            | fait_marquant[titre] | FM_Modifié |
+        And I press "Sauvegarder"
+        And I follow "Déconnexion"
+        And I go to "/connexion"
+        And I fill in the following:
+            | _username | user@societe.dev  |
+            | _password | user              |
+        And I press "Connexion"
+        When I go to "/api/user-notifications/1"
+        And the JSON nodes should be equal to:
+            | notifications[0].activity.type                    | fait_marquant_modified |
+            | notifications[0].activity.parameters.projet       | 1 |
+            | notifications[0].activity.parameters.createdBy    | 1 |
+            | notifications[0].activity.parameters.modifiedBy   | 2 |
+            | notifications[0].activity.parameters.faitMarquant | 1 |
+        And the JSON node "notifications[0].activity.rendered" should contain "a modifié le fait marquant"
+        And the JSON node "notifications[0].acknowledged" should be false
