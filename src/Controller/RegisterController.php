@@ -136,6 +136,8 @@ class RegisterController extends AbstractController
 
                 $this->addFlash('success', 'Votre compte a été créée avec succès !');
 
+                $this->registerSociete->initializeCurrentRegistration();
+
                 return $this->redirectToRoute('app_register_projet');
             }
 
