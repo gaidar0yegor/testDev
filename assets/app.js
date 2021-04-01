@@ -10,6 +10,7 @@ import 'bootstrap';
 import 'bootstrap-datepicker';
 
 import './js/bootstrap-table';
+import './js/draft-forms';
 import './js/Cra';
 import './js/yearSwitch';
 import './js/recommandation-text-preview';
