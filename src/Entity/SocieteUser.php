@@ -6,6 +6,7 @@ use App\DTO\NullUser;
 use App\HasSocieteInterface;
 use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleSociete;
+use App\UserResourceInterface;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -21,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      end="dateSortie"
  * )
  */
-class SocieteUser implements HasSocieteInterface
+class SocieteUser implements HasSocieteInterface, UserResourceInterface
 {
     /**
      * L'utilisateur a été invité mais n'a pas encore accépté l'invitation.

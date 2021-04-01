@@ -2,10 +2,10 @@
 
 namespace App\Controller\API;
 
+use App\Entity\SocieteUser;
 use App\Listener\UseCache;
 use App\Repository\SocieteUserNotificationRepository;
-use App\MultiSociete\UserContext;
-use Http\Client\Exception\HttpException;
+use App\Security\Voter\SameUserVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
@@ -22,42 +22,56 @@ class UserNotificationController extends AbstractController
 {
     /**
      * Récupère les dernières notifications utilisateur.
+     * L'id correspond au SocieteUser pour lequel récupérer les notifications
+     * (doit correspondre à un SocieteUser lié à l'user acutellement connecté)
      *
      * @UseCache()
-     * @Cache(maxage="300", vary={"Cookie"})
+     * @Cache(maxage="300")
      *
      * @Route(
-     *      "/",
+     *      "/{id}",
      *      methods={"GET"},
      *      name="api_user_notifications"
      * )
      */
     public function getLastNotifications(
+        SocieteUser $societeUser,
         SocieteUserNotificationRepository $societeUserNotificationRepository,
-        UserContext $userContext,
         NormalizerInterface $normalizer
-    ): JsonResponse{
-        $notifications = $societeUserNotificationRepository->findLastFor($userContext->getSocieteUser());
+    ): JsonResponse {
+        $this->denyAccessUnlessGranted(SameUserVoter::NAME, $societeUser);
+
+        $notifications = $societeUserNotificationRepository->findLastFor($societeUser);
 
         return new JsonResponse([
             'notifications' => $normalizer->normalize($notifications),
+
+            // TMP
+            'cache' => [
+                'user' => $societeUser->getUser()->getFullname(),
+                'societe' => $societeUser->getSociete()->getRaisonSociale(),
+            ],
         ]);
     }
 
     /**
      * Marque toutes les notifications d'un user lues.
+     * L'id correspond au SocieteUser pour lequel récupérer les notifications
+     * (doit correspondre à un SocieteUser lié à l'user acutellement connecté)
      *
      * @Route(
-     *      "/",
+     *      "/{id}",
      *      methods={"POST"},
      *      name="api_user_notifications_acknowledge"
      * )
      */
     public function acknowledge(
+        SocieteUser $societeUser,
         Request $request,
-        UserContext $userContext,
         SocieteUserNotificationRepository $societeUserNotificationRepository
     ): JsonResponse {
+        $this->denyAccessUnlessGranted(SameUserVoter::NAME, $societeUser);
+
         $content = $request->toArray();
 
         if (!isset($content['acknowledgeIds']) || !is_array($content['acknowledgeIds'])) {
@@ -65,7 +79,7 @@ class UserNotificationController extends AbstractController
         }
 
         $societeUserNotificationRepository->acknowledgeAllFor(
-            $userContext->getSocieteUser(),
+            $societeUser,
             $content['acknowledgeIds']
         );
 
