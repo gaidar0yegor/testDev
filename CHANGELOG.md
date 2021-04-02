@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.20.1] - 2021-04-02
 ### Ajouté
 - Enregistre automatiquement un brouillon sur certains formulaires :
     - Ajout/Modifie un projet
@@ -16,9 +21,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Il était possible d'usurper l'accès d'un autre user dans la page de switch en envoyant une requete post créée à la main : ajoute un check au moment du switch
 - Cliquer sur la ligne entière d'un projet pour aller dessus fonctionne à nouveau
 - Notifications (cloche) : affiche les bonnes notifications après avoir switché de société
-
-
-
 
 ## [0.20.0] - 2021-03-30
 ### Ajouté
