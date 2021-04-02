@@ -1,12 +1,9 @@
-{% set flashMessages = app.flashes %}
-{% if flashMessages|length > 0 %}
-    <section class="flash-messages">
-        {% for type, messages in flashMessages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ type }}" role="alert">
-                    {{ message | striptags('<a>') | raw }}
-                </div>
-            {% endfor %}
+<section class="flash-messages">
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}" role="alert">
+                {{ message | striptags('<a>') | raw }}
+            </div>
         {% endfor %}
-    </section>
-{% endif %}
+    {% endfor %}
+</section>
