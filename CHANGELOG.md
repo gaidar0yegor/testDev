@@ -9,6 +9,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Enregistre automatiquement un brouillon sur certains formulaires :
     - Ajout/Modifie un projet
     - Ajout/Modifie un fait marquant
+- Affiche une notif sur la cloche quand quelqu'un modifie notre propre fait marquant
 ### Réparé
 - Multi-société :
     - L'utilisateur restait connecté lorsque son accès était désactivé : déconnecte l'user de la société lorsqu'il se réauthentifie.

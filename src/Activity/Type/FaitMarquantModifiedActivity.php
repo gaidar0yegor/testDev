@@ -9,6 +9,7 @@ use App\Entity\Projet;
 use App\Entity\ProjetActivity;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
+use App\Entity\SocieteUserNotification;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
 use Doctrine\ORM\Event\LifecycleEventArgs;
@@ -96,6 +97,11 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         ;
 
         $em = $args->getEntityManager();
+
+        if ($faitMarquant->getCreatedBy() !== $modifiedBy) {
+            $societeUserNotification = SocieteUserNotification::create($activity, $faitMarquant->getCreatedBy());
+            $em->persist($societeUserNotification);
+        }
 
         $em->persist($activity);
         $em->persist($societeUserActivity);
