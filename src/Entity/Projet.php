@@ -298,6 +298,16 @@ class Projet implements HasSocieteInterface
         return $this->projetParticipants;
     }
 
+    /**
+     * @return Collection|ProjetParticipant[]
+     */
+    public function getActiveProjetParticipants(): Collection
+    {
+        return $this->projetParticipants->filter(function (ProjetParticipant $projetParticipant) {
+            return $projetParticipant->getSocieteUser()->getStatut() === SocieteUser::STATUT_ACTIVE;
+        });
+    }
+
     public function addProjetParticipant(ProjetParticipant $projetParticipant): self
     {
         if (!$this->projetParticipants->contains($projetParticipant)) {

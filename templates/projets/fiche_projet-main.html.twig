@@ -1,0 +1,69 @@
+<div class="card bg-light-grey border-light">
+    <div class="card-body">
+        <p class="text-justify m-0">{{ projet.resume|nl2br }}</p>
+    </div>
+</div>
+
+<section id="timeline">
+    <h2 class="facts">Faits marquants</h2>
+
+    <ul class="timeline">
+        <li class="event add-fait-marquant">
+            {% if userCanAddFaitMarquant %}
+                <a
+                    href="{{ path('app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}"
+                    class="btn btn-lg btn-outline-primary"
+                >
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Ajouter un fait marquant
+                </a>
+            {% else %}
+                <p class="text-muted">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    Seuls les contributeurs peuvent ajouter un fait marquant
+                </p>
+            {% endif %}
+        </li>
+        {% for faitMarquant in projet.faitMarquants %}
+            <li class="event">
+                <h4 data-date="{{ faitMarquant.date|format_date }}">
+                    {{ faitMarquant.date|format_date }}
+                    -
+                    <span>{{ faitMarquant.createdBy.user.fullname }}</span>
+                </h4>
+                <h3>{{ faitMarquant.titre }}</h3>
+                <p class="text-justify">
+                    {{ faitMarquant.description|nl2br }}
+                </p>
+                <ul class="list-unstyled">
+                    {% for fichierProjet in faitMarquant.fichierProjets %}
+                        <li>
+                            <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
+                            <a
+                                href="{{ path('app_fo_projet_fichier', {
+                                    'projetId': projet.id,
+                                    'fichierProjetId': fichierProjet.id
+                                }) }}"
+                            >
+                                {{ fichierProjet.fichier.nomFichier }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="text-right">
+                    <a
+                        href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
+                        class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                        {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
+                            disabled
+                            title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
+                        {% endif %}
+                    >
+                        <i class="fa fa-pencil"></i>
+                        Modifier
+                    </a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</section>

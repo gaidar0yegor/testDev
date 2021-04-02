@@ -45,7 +45,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
         When I go to "/projets"
         And I follow "PTEST"
-        And I follow "Participants"
+        And I follow "Gérer les participants"
         And I fill in the following:
             | liste_projet_participants[projetParticipants][1][role] | PROJET_CONTRIBUTEUR |
         And I press "Mettre à jour"
@@ -58,7 +58,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
         When I go to "/projets"
         And I follow "PTEST"
-        And I follow "Fait marquant"
+        And I follow "Ajouter un fait marquant"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
@@ -70,7 +70,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
         When I go to "/projets"
         And I follow "PTEST"
-        And I follow "Fait marquant"
+        And I follow "Ajouter un fait marquant"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
@@ -84,7 +84,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
         When I go to "/projets"
         And I follow "PTEST"
-        And I follow "Fait marquant"
+        And I follow "Ajouter un fait marquant"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |

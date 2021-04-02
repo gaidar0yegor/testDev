@@ -11,7 +11,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/projets/1"
 
-        When I follow "Fait marquant"
+        When I follow "Ajouter un fait marquant"
         Then I should see "Ajouter un fait marquant" in the "h1" element
         And I should see "Projet PTEST" in the "h2" element
 
@@ -29,9 +29,11 @@ Feature: Gestion des faits marquants d'un projet
             | _password | observateur              |
         And I press "Connexion"
         And I am on "/projets/1"
+        Then I should see "Seuls les contributeurs peuvent ajouter un fait marquant" in the ".timeline" element
 
-        When I follow "Fait marquant"
-        Then I should not see "Ajouter un fait marquant" in the "h1" element
+        When I go to "/projets/1/fait-marquants/ajouter"
+        Then the response status code should be 403
+        And I should not see "Ajouter un fait marquant"
 
     Scenario: Un contributeur peut modifier son fait marquant
         Given I am on "/connexion"
@@ -96,7 +98,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/projets/1"
 
-        Then I should see "Participants"
+        Then I should see "Contributeurs (2)"
         And I should see "Contributeur"
         And I should see "Contributeur2"
         And I should see "Observateur"

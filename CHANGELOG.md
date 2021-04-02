@@ -15,6 +15,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Ajout/Modifie un projet
     - Ajout/Modifie un fait marquant
 - Affiche une notif sur la cloche quand quelqu'un modifie notre propre fait marquant
+### Modifié
+- Redesign de la page projet
+    - Ré-organisation des 7 boutons
+    - Ajout sidebar pour les infos secondaire
 ### Réparé
 - Multi-société :
     - L'utilisateur restait connecté lorsque son accès était désactivé : déconnecte l'user de la société lorsqu'il se réauthentifie.

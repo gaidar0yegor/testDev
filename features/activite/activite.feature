@@ -31,7 +31,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
         And I press "Connexion"
 
         When I go to "/projets/1"
-        And I follow "Fait marquant"
+        And I follow "Ajouter un fait marquant"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |

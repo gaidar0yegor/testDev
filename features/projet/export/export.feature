@@ -9,7 +9,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/projets/1"
 
-        When I follow "Export PDF"
+        When I follow "Exporter le projet en PDF"
         Then I should see "Date de début"
         And I should see "Date de fin"
 

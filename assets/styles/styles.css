@@ -283,3 +283,19 @@ h5 {
     position: relative;
     z-index: 2;
 }
+
+.projet-actions {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 100%;
+}
+@media (min-width: 992px) {
+    .projet-actions {
+        justify-content: flex-start;
+    }
+}
+.projet-actions a {
+    margin: 0 0.5em 1em 0;
+}
