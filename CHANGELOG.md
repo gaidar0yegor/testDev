@@ -5,11 +5,13 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.21.0] - 2021-04-06
 ### Réparé
 - Répare le click sur les lignes des tables projets et utilisateurs
-
-
-
 
 ## [0.20.1] - 2021-04-02
 ### Ajouté
