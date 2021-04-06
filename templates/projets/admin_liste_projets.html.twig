@@ -13,7 +13,7 @@
         ></span>
     </h1>
 
-    <table class="table table-hover text-center mx-auto m-5">
+    <table class="table table-hover text-center mx-auto m-5 stretched-link-table-row">
         <thead>
             <tr>
                 <th class="text-left">Projet</th>
@@ -30,7 +30,6 @@
                 <tr
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
-                    class="position-relative"
                 >
                     <td class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
                     <td class=>{{ projet.chefDeProjet.user.fullName }}</td>
