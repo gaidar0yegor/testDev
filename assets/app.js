@@ -26,3 +26,4 @@ import './js/main';
 import './js/checkbox.js';
 import './js/limit-description' 
 import './js/modal' 
+import './js/stretched-link-fix-table';
