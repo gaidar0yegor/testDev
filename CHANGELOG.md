@@ -7,7 +7,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 
 
-
+### Réparé
+-Correction de l'invitation d'un user dans création société
 
 ## [0.21.0] - 2021-04-06
 ### Réparé

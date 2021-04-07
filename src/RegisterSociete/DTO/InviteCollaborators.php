@@ -2,6 +2,8 @@
 
 namespace App\RegisterSociete\DTO;
 
+use App\Security\Role\RoleSociete;
+
 class InviteCollaborators
 {
     private ?string $email0;
@@ -15,9 +17,9 @@ class InviteCollaborators
     public function __construct()
     {
         $this->email0 = null;
-        $this->role0 = 'ROLE_FO_USER';
+        $this->role0 =  RoleSociete::USER;
         $this->email1 = null;
-        $this->role1 = 'ROLE_FO_USER';
+        $this->role1 = RoleSociete::USER;
     }
 
     public function getEmail0(): ?string

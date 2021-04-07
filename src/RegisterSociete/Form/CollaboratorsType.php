@@ -19,6 +19,7 @@ class CollaboratorsType extends AbstractType
                 'label' => 'Email',
             ])
             ->add('role0', FoRoleCardChoiceType::class, [
+                'required' => true,
                 'label' => 'Rôle',
             ])
             ->add('email1', EmailType::class, [
@@ -26,6 +27,7 @@ class CollaboratorsType extends AbstractType
                 'label' => 'Email',
             ])
             ->add('role1', FoRoleCardChoiceType::class, [
+                'required' => true,
                 'label' => 'Rôle',
             ])
         ;
