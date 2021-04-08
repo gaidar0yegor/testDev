@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\DTO\RecommandationMessage;
 use App\Form\RecommandationMessageType;
+use App\MultiSociete\UserContext;
 use App\Service\RdiMailer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,13 +22,13 @@ class RecommanderController extends AbstractController
     /**
      * @Route("/recommander-rdi-manager", name="app_recommander")
      */
-    public function recommander(Request $request, RdiMailer $rdiMailer)
+    public function recommander(UserContext $userContext, Request $request, RdiMailer $rdiMailer)
     {
         $recommandationMessage = new RecommandationMessage();
 
         $recommandationMessage->setFrom($this->defaultMailFrom);
 
-        if ($this->getUser()) {
+        if ($userContext->hasUser() && null !== $userContext->getUser()->getEmail()) {
             $recommandationMessage->setFrom($this->getUser()->getEmail());
         }
 

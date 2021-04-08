@@ -42,6 +42,10 @@ class LatestFaitMarquants implements EventSubscriberInterface
 
     public function sendLatestFaitsMarquants(SocieteUser $societeUser): void
     {
+        if (null === $societeUser->getUser()->getEmail()) {
+            return;
+        }
+
         $from = (new \DateTime())->modify('-7days');
         $faitMarquants = $this->faitMarquantRepository->findLatestOnUserProjets($societeUser, $from);
 

@@ -17,7 +17,9 @@ class MonCompteType extends AbstractType
         $builder
             ->add('prenom', TextType::class)
             ->add('nom', TextType::class)
-            ->add('telephone', RdiPhoneNumberType::class)
+            ->add('telephone', RdiPhoneNumberType::class, [
+                'help' => 'Si fourni, vous pourrez recevoir les notifications importantes par SMS.',
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Mettre à jour',
                 'attr' => ['class' => 'btn btn-success'],

@@ -30,7 +30,7 @@
                             <div class="col-md-3"><strong>Téléphone : </strong></div>
                             <div class="col-md-9">
                                 {% if societeUser.user.telephone %}
-                                    {{ societeUser.user.telephone|phone_number_format('NATIONAL') }}
+                                    {{ societeUser.user.telephone|phone_number_rdi }}
                                 {% else %}
                                     <i>Non renseigné</i>
                                 {% endif %}

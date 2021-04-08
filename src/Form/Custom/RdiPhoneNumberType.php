@@ -14,7 +14,6 @@ class RdiPhoneNumberType extends AbstractType
         $resolver->setDefaults([
             'required' => false,
             'label' => 'Mobile',
-            'help' => 'Si fourni, vous pourrez recevoir les notifications importantes par SMS.',
             'format' => PhoneNumberFormat::NATIONAL,
             'default_region' => 'FR',
         ]);

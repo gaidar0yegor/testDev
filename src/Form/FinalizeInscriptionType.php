@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use App\Form\Custom\RdiPhoneNumberType;
 use App\Form\Custom\RepeatedPasswordType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -20,7 +21,11 @@ class FinalizeInscriptionType extends AbstractType
             ->add('nom', TextType::class)
             ->add('email', EmailType::class, [
                 'disabled' => true,
-                'label' => 'Email / Nom d\'utilisateur',
+                'label' => 'Email',
+            ])
+            ->add('telephone', RdiPhoneNumberType::class, [
+                'disabled' => true,
+                'label' => 'Téléphone',
             ])
             ->add('password', RepeatedPasswordType::class)
             ->add('submit', SubmitType::class, [

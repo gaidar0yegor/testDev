@@ -50,6 +50,10 @@ class RappelSaisieTemps implements EventSubscriberInterface
 
     private function sendNotificationSaisieTempsEmail(SocieteUser $societeUser, DateTimeInterface $month): void
     {
+        if (null === $societeUser->getUser()->getEmail()) {
+            return;
+        }
+
         $cra = $societeUser
             ->getCras()
             ->filter(function (Cra $cra) use ($month) {

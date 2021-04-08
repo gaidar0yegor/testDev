@@ -18,7 +18,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | invite_user[invitationEmail] | nouveau-cdp@societe.dev |
             | invite_user[role]            | SOCIETE_CDP             |
         And I press "Inviter"
-        Then I should see "Un email avec un lien d'invitation a été envoyé à \"nouveau-cdp@societe.dev\""
+        Then I should see "Un lien d'invitation a été envoyé"
 
     Scenario: L'utilisateur invité peut finaliser son inscription après avoir suivi le lien d'invitation qu'il a recu.
         Given I am on "/inscription/cV2bvNJg4e_zkzXis-rfKlih"
@@ -53,3 +53,19 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
         # Vérifie que le lien d'invitation ne fonctionne plus une fois la finalisation terminée.
         When I go to "/inscription/cV2bvNJg4e_zkzXis-rfKlih"
         Then the response status code should be 404
+
+    Scenario: L'admin peut inviter un user avec seulement un numéro de téléphone
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | admin@societe.dev  |
+            | _password | admin              |
+        And I press "Connexion"
+
+        When I follow "Inviter un nouvel utilisateur"
+        Then I should see "Inviter un nouvel utilisateur"
+
+        When I fill in the following:
+            | invite_user[invitationTelephone] | 06 05 04 03 02 |
+            | invite_user[role]                | SOCIETE_CDP    |
+        And I press "Inviter"
+        Then I should see "Un lien d'invitation a été envoyé"

@@ -8,8 +8,14 @@
 <h2>Saisir les informations</h2>
 
 <div class="col-lg-6 mx-auto">
+    <p>
+        Vous pouvez envoyer une invitation par email ou sms à un utilisateur
+        pour qu'il rejoigne votre société.
+    </p>
+
     {{ form_start(form) }}
         {{ form_row(form.invitationEmail) }}
+        {{ form_row(form.invitationTelephone) }}
         {{ form_row(form.role) }}
 
       	<div class="text-center mt-5">

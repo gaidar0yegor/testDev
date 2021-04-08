@@ -9,6 +9,7 @@ use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\Exception\RdiException;
+use App\Notification\Event\SocieteUserInvitationNotification;
 use App\Security\Role\RoleSociete;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -16,6 +17,7 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Service qui s'occupe d'inviter des nouveaux utilisateurs
@@ -50,20 +52,20 @@ class Invitator
 
     private SocieteInitializer $societeInitializer;
 
-    private MailerInterface $mailer;
+    private EventDispatcherInterface $dispatcher;
 
     public function __construct(
         TokenGenerator $tokenGenerator,
         ValidatorInterface $validator,
         EntityManagerInterface $em,
         SocieteInitializer $societeInitializer,
-        MailerInterface $mailer
+        EventDispatcherInterface $dispatcher
     ) {
         $this->tokenGenerator = $tokenGenerator;
         $this->validator = $validator;
         $this->em = $em;
         $this->societeInitializer = $societeInitializer;
-        $this->mailer = $mailer;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -139,33 +141,9 @@ class Invitator
 
     public function sendInvitation(SocieteUser $societeUser, User $from): void
     {
-        $this->sendInvitationEmail($societeUser, $from);
+        $this->dispatcher->dispatch(new SocieteUserInvitationNotification($societeUser, $from));
 
         $societeUser->setInvitationSentAt(new \DateTime());
         $this->em->persist($societeUser);
-    }
-
-    /**
-     * @param SocieteUser $invitedUser User à inviter, doit avoir un token d'invitation
-     * @param User $adminUser Référent qui invite l'user, utile pour afficher "XX vous invite..." dans l'email
-     */
-    public function sendInvitationEmail(SocieteUser $invitedUser, User $fromUser): void
-    {
-        if (null === $invitedUser->getInvitationToken()) {
-            throw new RdiException('Cannot send invitation email, this user has no invitation token.');
-        }
-
-        $email = (new TemplatedEmail())
-            ->to($invitedUser->getInvitationEmail())
-            ->subject(sprintf('%s vous invite sur RDI-Manager', $fromUser->getFullname()))
-            ->textTemplate('mail/invite.txt.twig')
-            ->htmlTemplate('mail/invite.html.twig')
-            ->context([
-                'invitedUser' => $invitedUser,
-                'fromUser' => $fromUser,
-            ])
-        ;
-
-        $this->mailer->send($email);
     }
 }

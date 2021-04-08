@@ -51,10 +51,7 @@ class SocieteUserController extends AbstractController
             $invitator->sendInvitation($societeUser, $this->getUser());
             $em->flush();
 
-            $this->addFlash('success', sprintf(
-                'Un email avec un lien d\'invitation a été envoyé à "%s".',
-                $societeUser->getInvitationEmail()
-            ));
+            $this->addFlash('success', 'Un lien d\'invitation a été envoyé.');
 
             return $this->redirectToRoute('app_fo_admin_user_invite');
         }
