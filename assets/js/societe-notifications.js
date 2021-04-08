@@ -1,20 +1,7 @@
-<<<<<<< HEAD
-=======
-import $ from 'jquery';
-import userContext from './userContext';
-
-
-
->>>>>>> 38940a190c51fc1fa905be613f3ea5173e5c21d4
 const apiGetUserNotifications = (id) => fetch(`/api/user-notifications/${id}`);
 
 const cards = document.querySelectorAll('.card[data-societe-user-id]');
 
-<<<<<<< HEAD
-=======
-console.log(cards);
-
->>>>>>> 38940a190c51fc1fa905be613f3ea5173e5c21d4
 cards.forEach(card => {
 
     const societeUserId = card.dataset.societeUserId;
