@@ -7,7 +7,7 @@
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
     {% for societeUser in app.user.societeUsers %}
         <div class="col mb-4">
-            <div class="card {% if societeUser == app.user.currentSocieteUser %}border-success{% endif %} {% if not societeUser.enabled %}bg-light{% endif %}">
+            <div data-societe-user-id="{{ societeUser.id }}" class="card {% if societeUser == app.user.currentSocieteUser %}border-success{% endif %} {% if not societeUser.enabled %}bg-light{% endif %}">
                 <div class="card-body">
                     {% if not societeUser.enabled %}
                         <span
@@ -15,6 +15,7 @@
                             title="L'accès à cette société vous a été désactivé par un administrateur."
                         >Accès désactivé</span>
                     {% endif %}
+                    <div class="notif-container float-right"></div>
                     <h5 class="card-title"><i class="fa fa-building-o" aria-hidden="true"></i> {{ societeUser.societe.raisonSociale }}</h5>
                     <h6 class="card-subtitle text-muted">Mon rôle : <strong>{{ societeUser.role|trans }}</strong></h6>
                     <ul class="list-unstyled mb-0">
