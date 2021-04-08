@@ -7,7 +7,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 
 
-
+### Ajouté
+- Page Multi-société :
+    -Affichage des notifications pour chaque société
 
 ## [0.21.0] - 2021-04-06
 ### Réparé
