@@ -7,7 +7,7 @@ Projet RDI Manager.
 Requires:
 
 - php 7.1+
-- PHP extensions: zip, gd, xsl, intl, mysql, openssl (`sudo apt install php7.4-zip php7.4-gd php7.4-xsl php7.4-intl php7.4-mysql php7.4-sqlite3`)
+- PHP extensions: zip, gd, xsl, intl, mysql, openssl, curl (`sudo apt install php7.4-zip php7.4-gd php7.4-xsl php7.4-intl php7.4-mysql php7.4-sqlite3 php7.4-curl`)
 - PHP extension for development: sqlite3 (`sudo apt install php7.4-sqlite3`)
 - MySQL 8.0+
 - composer

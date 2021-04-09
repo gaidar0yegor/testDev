@@ -4,8 +4,8 @@ namespace App\Service;
 
 use App\Entity\Fichier;
 use League\Flysystem\FilesystemInterface;
+use RuntimeException;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FichierService
 {
@@ -29,7 +29,12 @@ class FichierService
         ;
 
         $stream = fopen($fichier->getFile()->getRealPath(), 'r+');
-        $this->storage->writeStream("uploads/$fileName", $stream);
+        $success = $this->storage->writeStream("uploads/$fileName", $stream);
+
+        if (!$success) {
+            throw new RuntimeException('Error while storing file.');
+        }
+
         fclose($stream);
     }
 

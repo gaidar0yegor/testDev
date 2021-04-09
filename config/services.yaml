@@ -206,5 +206,11 @@ services:
     App\LicenseGeneration\Form\QuotaType:
         $licenseQuotas: !tagged_iterator app.license_quota
 
+    Sabre\DAV\Client:
+        $settings:
+            baseUri: https://cloud.alcalyn.app/remote.php/dav/files/rdi-manager-test/
+            userName: rdi-manager-test
+            password: rdi-manager-test
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

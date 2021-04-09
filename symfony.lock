@@ -234,6 +234,9 @@
             "var/storage/.gitignore"
         ]
     },
+    "league/flysystem-webdav": {
+        "version": "1.0.9"
+    },
     "league/mime-type-detection": {
         "version": "1.5.1"
     },
@@ -396,6 +399,24 @@
     },
     "react/promise": {
         "version": "v2.8.0"
+    },
+    "sabre/dav": {
+        "version": "4.0.3"
+    },
+    "sabre/event": {
+        "version": "5.1.2"
+    },
+    "sabre/http": {
+        "version": "5.0.0"
+    },
+    "sabre/uri": {
+        "version": "2.2.1"
+    },
+    "sabre/vobject": {
+        "version": "4.3.5"
+    },
+    "sabre/xml": {
+        "version": "2.2.3"
     },
     "sebastian/comparator": {
         "version": "4.0.5"

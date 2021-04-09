@@ -2,9 +2,9 @@
 flysystem:
     storages:
         default.storage:
-            adapter: local
+            adapter: webdav
             options:
-                directory: '%kernel.project_dir%/var/storage/default'
+                client: Sabre\DAV\Client
         licenses.storage:
             adapter: local
             options:
