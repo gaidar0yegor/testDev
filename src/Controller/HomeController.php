@@ -15,13 +15,11 @@ class HomeController extends AbstractController
     public function home(UserContext $userContext): Response
     {
         if ($this->isGranted('ROLE_FO_USER')) {
-            if (!$userContext->hasSocieteUser()) {
+            if(count($userContext->getUser()->getSocieteUsers()) > 1) {
                 return $this->redirectToRoute('app_fo_multi_societe_switch');
             }
-
             return $this->redirectToRoute('app_fo_dashboard');
         }
-
         return $this->redirectToRoute('app_login');
     }
 }
