@@ -13,7 +13,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
 
         When I follow "Liste des projets"
         And I follow "PTEST"
-        And I follow "Fichiers"
+        And I follow "Voir tous les fichiers"
         Then I should see "Liste des fichiers" in the "h1" element
         And I should see "fichier_de_contributeur.txt"
         And I should see "fichier_de_cdp.txt"

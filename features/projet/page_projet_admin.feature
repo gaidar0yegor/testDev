@@ -13,7 +13,7 @@ Feature: Affichage de la page d'un projet en tant qu'admin
         When I go to "/projets/1"
         Then I should see "P1" in the "h1" element
 
-        When I follow "Participants"
+        When I follow "Gérer les participants"
         Then I should see "Gestion des participants" in the "h1" element
 
         When I go to "/projets/1/modifier"
@@ -23,7 +23,7 @@ Feature: Affichage de la page d'un projet en tant qu'admin
         When I go to "/projets/2"
         Then I should see "P2" in the "h1" element
 
-        When I follow "Participants"
+        When I follow "Gérer les participants"
         Then I should see "Gestion des participants" in the "h1" element
 
         When I go to "/projets/2/modifier"

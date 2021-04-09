@@ -4,231 +4,70 @@
 
 {% block body %}
 
-<h1>Projet {{ projet.acronyme }}</h1>
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <h1>Projet {{ projet.acronyme }}</h1>
 
-<p class="text-center">
-    {% if projet.projetCollaboratif %}
-        <span class="badge badge-success">Collaboratif</span>
-    {% endif %}
-    {% if projet.projetInterne %}
-        <span class="badge badge-success">Interne</span>
-    {% endif %}
-    {% if projet.projetPpp %}
-        <span class="badge badge-success">PPP - R&amp;D</span>
-    {% endif %}
-    {% if projet.isRdi %}
-        <span class="badge badge-success">Elligible RDI</span>
-    {% endif %}
-</p>
+        <p class="lead text-center">{{ projet.titre }}</p>
+
+        <p class="text-center">Chef de projet : {{ projet.chefDeProjet|entityLink }}</p>
+
+        <p class="text-center">
+            {% if projet.projetCollaboratif %}
+                <span class="badge badge-success">Collaboratif</span>
+            {% endif %}
+            {% if projet.projetInterne %}
+                <span class="badge badge-success">Interne</span>
+            {% endif %}
+            {% if projet.projetPpp %}
+                <span class="badge badge-success">PPP - R&amp;D</span>
+            {% endif %}
+            {% if projet.isRdi %}
+                <span class="badge badge-success">Elligible RDI</span>
+            {% endif %}
+        </p>
+    </div>
+    <div class="col-12 col-lg-4">
+        <div class="projet-actions">
+            <a
+                href="{{ path('app_fo_projet_modifier', {'id': projet.id}) }}"
+                class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
+                {% if not userCanEditProjet %}
+                    title="Seul le chef de projet peut modifier"
+                {% else %}
+                    title="Modifier les informations du projet"
+                {% endif %}
+            ><i class="fa fa-cog"></i></a>
+            <a
+                href="{{ path('app_fo_projet_custom', {'id': projet.id}) }}"
+                class="btn btn-outline-primary rounded-circle"
+                title="Exporter le projet en PDF"
+            ><i class="fa fa-download"></i></a>
+            <a
+                href="{{ path('app_fo_projet_activity', {'id': projet.id}) }}"
+                class="btn btn-outline-primary rounded-circle"
+                title="Activité du projet"
+            ><i class="fa fa-rss"></i></a>
+            <a
+                href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}"
+                class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}"
+                {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
+                    title="Seuls les administrateurs ont accès aux métriques du projet"
+                {% else %}
+                    title="Statistiques du projet"
+                {% endif %}
+            ><i class="fa fa-bar-chart"></i></a>
+        </div>
+    </div>
+</div>
 
 <div class="row">
-    <div class="col-lg-10 offset-lg-1">
-        <div class="card bg-light-grey border-light">
-            <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-2"><strong>Titre : </strong></div>
-                    <div class="col-md-10">{{ projet.titre }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-md-2"><strong>Résumé : </strong></div>
-                    <div class="col-md-10 text-justify">{{ projet.resume|nl2br }}</div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row mb-3">
-                            <div class="col-md-4"><strong>Chef de projet : </strong></div>
-                            <div class="col-md-6">{{ projet.chefDeProjet.user.fullname }}</div>
-                        </div>
-                        {% if projet.dateDebut %}
-                            <div class="row mb-3">
-                                <div class="col-md-4"><strong>Date de début : </strong></div>
-                                <div class="col-md-6">{{ projet.dateDebut|format_date }}</div>
-                            </div>
-                        {% endif %}
-                        {% if projet.dateFin %}
-                            <div class="row mb-3">
-                                <div class="col-md-4"><strong>Date de fin : </strong></div>
-                                <div class="col-md-6">{{ projet.dateFin|format_date }}</div>
-                            </div>
-                        {% endif %}
-                        <div class="row mb-3">
-                            <div class="col-md-4"><strong>Statut : </strong></div>
-                            <div class="col-md-6">{{ projet.statut }}</div>
-                        </div>
-                    </div>
-                    <div>
-
-                    <!-- Scroll bar present and enabled when more contents -->
-                    <strong>Contributeurs :</strong>
-                            <div style="width: 450px; height: 120px; overflow-y: scroll;background-color:white;" class="mt-3 col-sm">
-
-                            {% if projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR'))|length >0 %}
-                                <ul>
-                                        {% for projetParticipant in projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR'))%}
-                                            {% if projetParticipant.societeUser.invitationToken == null %}
-
-                                                <li>{{ projetParticipant.societeUser.user.fullname }}</li>
-                                            {% endif %}
-
-                                            {% else %}
-                                            <div>Il n'y a pas de contributeur pour l'instant</div>
-                                        {% endfor %}
-                                </ul>
-                                        <!-- Button trigger modal -->
-                                <button type="button" class="mt-3 btn-block btn-primary" data-toggle="modal" data-target="#exampleModal">
-                                Voir les observateurs
-                                </button>
-
-                                <!-- Modal -->
-
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">{{ 'n_observateur'|trans({'n': projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::OBSERVATEUR'))|length}) }}</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <ul>
-                                                {% for projetParticipant in projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::OBSERVATEUR'))%}
-                                                    {% if projetParticipant.societeUser.invitationToken == null %}
-                                                    <li>{{ projetParticipant.societeUser.user.fullname }} </li>
-
-                                                    {% endif %}
-
-                                                {% else %}
-                                                    <div>Il n'y a pas d'observateur pour l'instant</div>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                    </div>
-                                </div>
-                                </div>
-                        {% else %}
-                            <p>Ce projet n'a pas encore de contributeur.</p>
-                        {% endif %}
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 my-4">
-            <div class="col">
-                <a
-                    href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2"
-                >Fichiers</a>
-            </div>
-            <div class="col">
-                <a
-                    href="{{ path('app_fo_projet_participant', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
-                    {% if not userCanEditProjet %}
-                        title="Seul le chef de projet peut gérer les participants"
-                    {% endif %}
-                >Participants</a>
-            </div>
-            <div class="col">
-                <a
-                    href="{{ path('app_fo_projet_modifier', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2 {{ userCanEditProjet ? '' : 'disabled' }}"
-                    {% if not userCanEditProjet %}
-                        title="Seul le chef de projet peut modifier"
-                    {% endif %}
-                >Projet</a>
-            </div>
-            <div class="col">
-                <a
-                    href="{{ path('app_fo_fait_marquant_ajouter', {projetId: projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2 {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
-                    {% if not userCanAddFaitMarquant %}
-                        title="Seuls les contributeurs du projet peuvent ajouter un fait marquant"
-                    {% endif %}
-                >Fait marquant</a>
-            </div>
-            <div class="col">
-                <a
-                    href="{{ path('app_fo_projet_custom', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2"
-                >Export PDF</a>
-            </div>
-            <div class="col">
-                <a
-                    href="{{ path('app_fo_projet_activity', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2"
-                >Activité</a>
-            </div>
-            <div class="col">
-                <a
-                    href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}"
-                    class="btn btn-block btn-outline-primary mt-2 {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}"
-                    {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
-                        title="Seuls les administrateurs ont accès aux métriques du projet"
-                    {% endif %}
-                >Statistiques</a>
-            </div>
-        </div>
-
-        <section id="timeline">
-            <h2 class="facts">Faits marquants</h2>
-
-            {% if projet.hasFaitMarquants() %}
-            <ul class="timeline">
-                {% for faitMarquant in projet.faitMarquants %}
-                    <li class="event">
-                        <h4 data-date="{{ faitMarquant.date|format_date }}">
-                            {{ faitMarquant.date|format_date }}
-                            -
-                            <span>{{ faitMarquant.createdBy.user.fullname }}</span>
-                        </h4>
-                        <h3>{{ faitMarquant.titre }}</h3>
-                        <p class="text-justify">
-                            {{ faitMarquant.description|nl2br }}
-                        </p>
-                        <ul class="list-unstyled">
-                            {% for fichierProjet in faitMarquant.fichierProjets %}
-                                <li>
-                                    <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
-                                    <a
-                                        href="{{ path('app_fo_projet_fichier', {
-                                            'projetId': projet.id,
-                                            'fichierProjetId': fichierProjet.id
-                                        }) }}"
-                                    >
-                                        {{ fichierProjet.fichier.nomFichier }}
-                                    </a>
-                                </li>
-                            {% endfor %}
-                        </ul>
-                        <div class="text-right">
-                            <a
-                                href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
-                                class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
-                                {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
-                                    disabled
-                                    title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
-                                {% endif %}
-                            >
-                                <i class="fa fa-pencil"></i>
-                                Modifier
-                            </a>
-                        </div>
-                    </li>
-                {% endfor %}
-            </ul>
-            {% else %}
-                <p>Ce projet n'a pas encore de fait marquants.</p>
-            {% endif %}
-        </section>
+    <div class="col-12 col-lg-8">
+        {% include 'projets/fiche_projet-main.html.twig' %}
     </div>
+    <aside class="col-12 col-lg-4">
+        {% include 'projets/fiche_projet-sidebar.html.twig' %}
+    </aside>
 </div>
 
 {% endblock %}

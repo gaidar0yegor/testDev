@@ -20,6 +20,7 @@ use App\DTO\ProjetExportParameters;
 use App\Form\ProjetExportType;
 use App\Security\Role\RoleProjet;
 use App\MultiSociete\UserContext;
+use App\Service\ParticipantService;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleVoter;
 
 /**
@@ -127,12 +128,16 @@ class ProjetController extends AbstractController
     /**
      * @Route("/{id}", name="app_fo_projet", requirements={"id"="\d+"})
      */
-    public function ficheProjet(Projet $projet)
+    public function ficheProjet(Projet $projet, ParticipantService $participantService)
     {
         $this->denyAccessUnlessGranted('view', $projet);
 
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
+            'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
+                $projet->getActiveProjetParticipants(),
+                RoleProjet::CONTRIBUTEUR
+            ),
             'userCanEditProjet' => $this->isGranted('edit', $projet),
             'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
         ]);

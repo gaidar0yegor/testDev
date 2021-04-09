@@ -12,6 +12,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
     Scenario: Il faut avoir le rôle Chef de projet pour gérer les participants.
         When I go to "/projets"
         And I follow "P"
-        And I follow "Participants"
+        Then I should not see "Gérer les participants"
+
+        When I go to "/projets/1/participants"
         Then the response status code should be 403
-        And I should not see "Participants" in the "h1" element
