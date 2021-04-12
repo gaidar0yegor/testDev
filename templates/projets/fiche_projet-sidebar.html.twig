@@ -1,4 +1,12 @@
 <dl>
+    {% if participation %}
+        {% if projet.chefDeProjet != userContext.societeUser %}
+            <p>Je suis <strong>{{ participation.role|trans }}</strong> sur ce projet.</p>
+        {% endif %}
+    {% else %}
+        {# participation can be null when admin view a projet of his societe but without access #}
+        <p>Vous n'avez <strong>pas de rôle</strong> sur ce projet.</p>
+    {% endif %}
     {% if projet.dateDebut %}
         <dt>Date de début</dt>
         <dd>{{ projet.dateDebut|format_date }}</dd>
@@ -10,6 +18,43 @@
     <dt>Statut</dt>
     <dd>{{ projet.statut }}</dd>
 </dl>
+
+<hr>
+
+{% if participation %}
+    <div class="watch-projet" data-projet-id="{{ projet.id }}">
+        {% if participation.watching %}
+            <button class="btn btn-block btn-primary">
+                <i class="fa fa-eye"></i>
+                Suivre le projet
+                <i class="fa fa-check"></i>
+            </button>
+        {% else %}
+            <button class="btn btn-block btn-outline-primary">
+                <i class="fa fa-eye"></i>
+                Suivre le projet
+            </button>
+        {% endif %}
+
+        <p class="text-muted">
+            <small>
+                Suivez ce projet pour recevoir une notification
+                en temps réel à chaque mise à jour de ce projet.
+            </small>
+        </p>
+    </div>
+{% else %}
+    <button class="btn btn-block btn-outline-primary" disabled>
+        <i class="fa fa-eye"></i>
+        Suivre le projet
+    </button>
+    <p class="text-muted">
+        <small>
+            Vous ne pouvez pas suivre ce projet
+            car vous devez avoir au moins le rôle d'observateur sur ce projet.
+        </small>
+    </p>
+{% endif %}
 
 <hr>
 

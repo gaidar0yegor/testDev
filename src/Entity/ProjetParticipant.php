@@ -54,9 +54,18 @@ class ProjetParticipant implements HasSocieteInterface
      */
     private $lastActionAt;
 
+    /**
+     * Whether societeUser is watching this projet,
+     * and then want to receive more notifications about updates.
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $watching;
+
     public function __construct()
     {
         $this->dateAjout = new \DateTime();
+        $this->watching = false;
     }
 
     public static function create(SocieteUser $societeUser, Projet $projet, string $role): self
@@ -143,6 +152,18 @@ class ProjetParticipant implements HasSocieteInterface
     public function setLastActionAtNow(): self
     {
         $this->lastActionAt = new \DateTime();
+
+        return $this;
+    }
+
+    public function getWatching(): bool
+    {
+        return $this->watching;
+    }
+
+    public function setWatching(bool $watching): self
+    {
+        $this->watching = $watching;
 
         return $this;
     }
