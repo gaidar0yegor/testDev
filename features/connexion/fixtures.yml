@@ -3,6 +3,7 @@ App\Entity\User:
         nom: Eureka
         prenom: User
         email: user@societe.dev
+        telephone: <(libphonenumber\PhoneNumberUtil::getInstance()->parse('06 05 04 03 02', 'FR'))>
         password: user
     _user_desactive:
         nom: Eureka

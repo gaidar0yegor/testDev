@@ -43,6 +43,10 @@ class RappelCreationFaitMarquants implements EventSubscriberInterface
      */
     public function sendReminderFaitMarquant(SocieteUser $societeUser): void
     {
+        if (null === $societeUser->getUser()->getEmail()) {
+            return;
+        }
+
         $projets = $this->projetRepository->findAllForUser($societeUser, RoleProjet::CONTRIBUTEUR, new \DateTime());
 
         if (0 === count($projets)) {

@@ -76,7 +76,7 @@ class TestSmsCommand extends Command
             $message = $input->getOption('message');
         }
 
-        $sent = $this->smsSender->sendSms($user, $message);
+        $sent = $this->smsSender->sendSms($user->getTelephone(), $message);
 
         $io->note(sprintf('DSN configuré : "%s".', $this->smsDsn));
 

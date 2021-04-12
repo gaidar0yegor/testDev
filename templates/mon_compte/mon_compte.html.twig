@@ -19,13 +19,19 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-3"><strong>E-mail : </strong></div>
-                        <div class="col-md-9">{{ app.user.email }}</div>
+                        <div class="col-md-9">
+                            {% if app.user.email %}
+                                {{ app.user.email }}
+                            {% else %}
+                                <i>Non renseigné</i>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-3"><strong>Téléphone : </strong></div>
                         <div class="col-md-9">
                             {% if app.user.telephone %}
-                                {{ app.user.telephone|phone_number_format('NATIONAL') }}
+                                {{ app.user.telephone|phone_number_rdi }}
                             {% else %}
                                 <i>Non renseigné</i>
                             {% endif %}

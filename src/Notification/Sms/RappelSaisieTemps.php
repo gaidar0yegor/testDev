@@ -61,7 +61,7 @@ class RappelSaisieTemps implements EventSubscriberInterface
             'cra' => $cra,
         ]);
 
-        $this->smsSender->sendSms($societeUser->getUser(), $message);
+        $this->smsSender->sendSms($societeUser->getUser()->getTelephone(), $message);
     }
 
     public function sendNotificationSaisieTempsAllUsers(RappelSaisieTempsNotification $event): void

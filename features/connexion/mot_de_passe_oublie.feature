@@ -7,9 +7,18 @@ Feature: Mot de passe oublié
         Then I should see "Réinitialisation de mot de passe"
 
         When I fill in the following:
-            | form[email] | user@societe.dev |
+            | form[username] | user@societe.dev |
         And I press "Demander un lien de réinitialisation"
-        Then I should see "Un lien de réinitialisation de mot de passe a été envoyé à votre email"
+        Then I should see "Un lien de réinitialisation de mot de passe vous a été envoyé"
+
+    Scenario: Je dois pouvoir m'envoyer un SMS de réinitialisation de mot de passe
+        Given I have loaded fixtures from "connexion/fixtures.yml"
+        When I am on "/connexion"
+        And I follow "Mot de passe oublié"
+        And I fill in the following:
+            | form[username] | 06 05 04 03 02 |
+        And I press "Demander un lien de réinitialisation"
+        Then I should see "Un lien de réinitialisation de mot de passe vous a été envoyé"
 
     Scenario: Je dois pouvoir changer mon mot de passe après avoir suivi mon lien de réinitialisation
         Given I have loaded fixtures from "connexion/fixtures.yml"

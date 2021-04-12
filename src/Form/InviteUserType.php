@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\SocieteUser;
+use App\Form\Custom\RdiPhoneNumberType;
 use App\Security\Role\RoleSociete;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,7 +18,12 @@ class InviteUserType extends AbstractType
     {
         $builder
             ->add('invitationEmail', EmailType::class, [
+                'required' => false,
                 'label' => 'Email',
+            ])
+            ->add('invitationTelephone', RdiPhoneNumberType::class, [
+                'required' => false,
+                'label' => 'Téléphone',
             ])
             ->add('role',  ChoiceType::class, [
                 'choices' => [
@@ -36,6 +42,7 @@ class InviteUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => SocieteUser::class,
+            'validation_groups' => ['Default', 'invitation'],
         ]);
     }
 }

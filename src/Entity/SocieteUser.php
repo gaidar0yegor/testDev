@@ -11,6 +11,8 @@ use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use libphonenumber\PhoneNumber;
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -20,6 +22,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @AppAssert\DatesOrdered(
  *      start="dateEntree",
  *      end="dateSortie"
+ * )
+ * @AppAssert\NotBlankEither(
+ *      fields={"invitationEmail", "invitationTelephone"},
+ *      groups={"invitation"}
  * )
  */
 class SocieteUser implements HasSocieteInterface, UserResourceInterface
@@ -141,6 +147,17 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $invitationEmail;
+
+    /**
+     * Numéro de mobile sur laquelle l'invitation a été envoyée.
+     * Peut être réutilisée pour préremplir le téléphone de l'utilisateur
+     * si il n'a pas encore de compten RDI-Manager et qu'il en crée un.
+     *
+     * @ORM\Column(type="phone_number", nullable=true)
+     *
+     * @AssertPhoneNumber(type="mobile", defaultRegion="FR")
+     */
+    private $invitationTelephone;
 
     /**
      * @ORM\OneToMany(targetEntity=SocieteUserActivity::class, mappedBy="societeUser", orphanRemoval=true)
@@ -376,11 +393,24 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         return $this;
     }
 
+    public function getInvitationTelephone(): ?PhoneNumber
+    {
+        return $this->invitationTelephone;
+    }
+
+    public function setInvitationTelephone(?PhoneNumber $invitationTelephone): self
+    {
+        $this->invitationTelephone = $invitationTelephone;
+
+        return $this;
+    }
+
     public function removeInvitationToken(): self
     {
         $this->invitationToken = null;
         $this->invitationSentAt = null;
         $this->invitationEmail = null;
+        $this->invitationTelephone = null;
 
         return $this;
     }

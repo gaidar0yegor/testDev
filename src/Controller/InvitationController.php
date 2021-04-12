@@ -73,6 +73,7 @@ class InvitationController extends AbstractController
 
         $user = new User();
         $user->setEmail($societeUser->getInvitationEmail());
+        $user->setTelephone($societeUser->getInvitationTelephone());
         $form = $this->createForm(FinalizeInscriptionType::class, $user);
 
         $form->handleRequest($request);

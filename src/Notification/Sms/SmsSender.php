@@ -2,7 +2,7 @@
 
 namespace App\Notification\Sms;
 
-use App\Entity\User;
+use libphonenumber\PhoneNumber;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 use Symfony\Component\Notifier\Message\SmsMessage;
@@ -20,13 +20,9 @@ class SmsSender
         $this->phoneNumberUtil = $phoneNumberUtil;
     }
 
-    public function sendSms(User $to, string $message): bool
+    public function sendSms(PhoneNumber $phoneNumber, string $message): bool
     {
-        if (!$to->getTelephone()) {
-            return false;
-        }
-
-        $phoneNumber = $this->phoneNumberUtil->format($to->getTelephone(), PhoneNumberFormat::E164);
+        $phoneNumber = $this->phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::E164);
 
         $sms = new SmsMessage($phoneNumber, $message);
 

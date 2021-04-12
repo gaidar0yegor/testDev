@@ -4,14 +4,8 @@ App\Entity\User:
         prenom: User
         email: user@societe.dev
         password: user
-
-App\Entity\SocieteUser:
-    user:
-        user: '@_user'
-        role: <(App\Security\Role\RoleSociete::USER)>
-        societe: '@societe'
-
-App\Entity\Societe:
-    societe:
-        raisonSociale: Société
-        siret: 111111111
+    _user_phone:
+        nom: Eureka
+        prenom: UserPhone
+        telephone: <(libphonenumber\PhoneNumberUtil::getInstance()->parse('06 05 04 03 02', 'FR'))>
+        password: user

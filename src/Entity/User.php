@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +22,12 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      groups={"Default", "invitation", "registration"},
  *      message="There is already an account with this email"
  * )
+ * @UniqueEntity(
+ *      fields={"telephone"},
+ *      groups={"Default", "invitation", "registration"},
+ *      message="There is already an account with this phone number"
+ * )
+ * @AppAssert\NotBlankEither(fields={"email", "telephone"})
  */
 class User implements UserInterface
 {
@@ -59,9 +66,8 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Assert\NotBlank
      * @Assert\Email
      */
     private $email;
@@ -185,7 +191,7 @@ class User implements UserInterface
      */
     public function getUsername(): string
     {
-        return $this->email;
+        return $this->email ?? $this->telephone->getNationalNumber();
     }
 
     public function getResetPasswordToken(): ?string
@@ -344,7 +350,7 @@ class User implements UserInterface
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 

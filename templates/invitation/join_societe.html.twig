@@ -16,7 +16,7 @@
         {% if app.user %}
             <p>
                 Vous rejoindrez la société avec votre compte RDI-Manager
-                <strong>{{ app.user.fullname }}</strong> ({{ app.user.email }}).
+                <strong>{{ app.user.fullname }}</strong> ({{ app.user.email|default(app.user.telephone|phone_number_rdi) }}).
             </p>
         {% endif %}
 

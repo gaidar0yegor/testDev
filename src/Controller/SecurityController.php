@@ -66,7 +66,9 @@ class SecurityController extends AbstractController
         ResetPasswordService $resetPasswordService
     ) {
         $form = $this->createFormBuilder()
-            ->add('email', EmailType::class)
+            ->add('username', null, [
+                'label' => 'Email ou n° de téléphone',
+            ])
             ->add('Submit', SubmitType::class, [
                 'label' => 'Demander un lien de réinitialisation',
             ])
@@ -77,15 +79,15 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             try {
-                $resetPasswordService->requestLink($form->getData()['email']);
+                $resetPasswordService->requestLink($form->getData()['username']);
 
                 $em->flush();
 
-                $this->addFlash('success', 'Un lien de réinitialisation de mot de passe a été envoyé à votre email.');
+                $this->addFlash('success', 'Un lien de réinitialisation de mot de passe vous a été envoyé.');
 
                 return $this->redirectToRoute('app_home');
             } catch (ResetPasswordException $e) {
-                $form->get('email')->addError(new FormError($e->getMessage()));
+                $form->get('username')->addError(new FormError($e->getMessage()));
             }
         }
 

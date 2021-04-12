@@ -2,9 +2,7 @@ security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         from_database:
-            entity:
-                class: App\Entity\User
-                property: email
+            id: App\Security\UserProvider\LoginUserWithEmailOrPhone
 
     encoders:
         App\Entity\User: sodium

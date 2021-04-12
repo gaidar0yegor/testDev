@@ -8,6 +8,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Page Multi-société :
     - Affichage des notifications pour chaque société
+- Permet d'utiliser RDI-Manager avec un numéro de téléphone au lieu d'un email
+    - L'admin peut inviter un utilisateur avec un numéro de téléphone
+    - Les utilisateurs peuvent se connecter avec leur numéro de téléphone
+    - "Mot de passe oublié" possible avec son numéro de téléphone
+    - Les notifications de rappel de saisie de temps/fait marquants sont envoyé par SMS si pas d'email
 ### Réparé
 - Correction de l'invitation d'un user dans création société
 
