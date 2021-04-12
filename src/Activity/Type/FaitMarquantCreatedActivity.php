@@ -57,7 +57,7 @@ class FaitMarquantCreatedActivity implements ActivityInterface
         );
     }
 
-    public function postPersist(FaitMarquant $faitMarquant, LifecycleEventArgs $args): ?Activity
+    public function postPersist(FaitMarquant $faitMarquant, LifecycleEventArgs $args): void
     {
         $activity = new Activity();
         $activity
@@ -100,7 +100,5 @@ class FaitMarquantCreatedActivity implements ActivityInterface
         $em->persist($societeUserActivity);
         $em->persist($projetActivity);
         $em->flush();
-
-        return $activity;
     }
 }

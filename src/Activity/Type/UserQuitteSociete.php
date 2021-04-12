@@ -42,7 +42,7 @@ class UserQuitteSociete implements ActivityInterface
         );
     }
 
-    public function postUpdate(SocieteUser $societeUser, LifecycleEventArgs $args): ?Activity
+    public function postUpdate(SocieteUser $societeUser, LifecycleEventArgs $args): void
     {
         $em = $args->getEntityManager();
 
@@ -68,7 +68,7 @@ class UserQuitteSociete implements ActivityInterface
 
         if (null === $societeUser->getDateSortie()) {
             $em->flush();
-            return null;
+            return;
         }
 
         $activity = new Activity();
@@ -89,7 +89,5 @@ class UserQuitteSociete implements ActivityInterface
         $em->persist($activity);
         $em->persist($societeUserActivity);
         $em->flush();
-
-        return $activity;
     }
 }
