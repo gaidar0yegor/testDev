@@ -48,12 +48,12 @@ class ProjetCreatedActivity implements ActivityInterface
         );
     }
 
-    public function postPersist(Projet $projet, LifecycleEventArgs $args): ?Activity
+    public function postPersist(Projet $projet, LifecycleEventArgs $args): void
     {
         try {
             $chefDeProjet = $projet->getChefDeProjet();
         } catch (RdiException $e) {
-            return null;
+            return;
         }
 
         $activity = new Activity();
@@ -83,7 +83,5 @@ class ProjetCreatedActivity implements ActivityInterface
         $em->persist($societeUserActivity);
         $em->persist($projetActivity);
         $em->flush();
-
-        return $activity;
     }
 }

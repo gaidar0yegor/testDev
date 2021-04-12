@@ -5,7 +5,6 @@ namespace App\Service;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
-use App\Role;
 use App\Security\Role\RoleProjet;
 use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
 
@@ -15,11 +14,25 @@ use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
 class ParticipantService implements UserContributingProjetRepositoryInterface
 {
     /**
+     * Get ProjetParticipant from a SocieteUser and a Projet.
+     */
+    public function getProjetParticipant(SocieteUser $societeUser, Projet $projet): ?ProjetParticipant
+    {
+        foreach ($projet->getProjetParticipants() as $participant) {
+            if ($participant->getSocieteUser() === $societeUser) {
+                return $participant;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * @return bool Si oui ou non $societeUser est au moins observateur sur $projet
      */
     public function isParticipant(SocieteUser $societeUser, Projet $projet): bool
     {
-        return null !== $this->getRoleOfUserOnProjet($societeUser, $projet);
+        return null !== $this->getProjetParticipant($societeUser, $projet);
     }
 
     /**
@@ -29,13 +42,13 @@ class ParticipantService implements UserContributingProjetRepositoryInterface
      */
     public function getRoleOfUserOnProjet(SocieteUser $societeUser, Projet $projet): ?string
     {
-        foreach ($projet->getProjetParticipants() as $participant) {
-            if ($participant->getSocieteUser() === $societeUser) {
-                return $participant->getRole();
-            }
+        $projetParticipant = $this->getProjetParticipant($societeUser, $projet);
+
+        if (null === $projetParticipant) {
+            return null;
         }
 
-        return null;
+        return $projetParticipant->getRole();
     }
 
     /**

@@ -69,7 +69,7 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         );
     }
 
-    public function postUpdate(FaitMarquant $faitMarquant, LifecycleEventArgs $args): ?Activity
+    public function postUpdate(FaitMarquant $faitMarquant, LifecycleEventArgs $args): void
     {
         $modifiedBy = $this->userContext->getSocieteUser();
 
@@ -107,7 +107,5 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         $em->persist($societeUserActivity);
         $em->persist($projetActivity);
         $em->flush();
-
-        return $activity;
     }
 }

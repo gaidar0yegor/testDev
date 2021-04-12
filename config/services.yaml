@@ -206,5 +206,9 @@ services:
     App\LicenseGeneration\Form\QuotaType:
         $licenseQuotas: !tagged_iterator app.license_quota
 
+    App\Notification\Mail\FaitMarquantCreated:
+        tags:
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

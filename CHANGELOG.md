@@ -13,6 +13,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Les utilisateurs peuvent se connecter avec leur numéro de téléphone
     - "Mot de passe oublié" possible avec son numéro de téléphone
     - Les notifications de rappel de saisie de temps/fait marquants sont envoyé par SMS si pas d'email
+- Pouvoir suivre un projet pour recevoir des notifications en temps réel :
+    - lorsqu'un fait marquant est créé
 ### Réparé
 - Correction de l'invitation d'un user dans création société
 

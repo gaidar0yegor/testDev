@@ -128,12 +128,16 @@ class ProjetController extends AbstractController
     /**
      * @Route("/{id}", name="app_fo_projet", requirements={"id"="\d+"})
      */
-    public function ficheProjet(Projet $projet, ParticipantService $participantService)
-    {
+    public function ficheProjet(
+        UserContext $userContext,
+        Projet $projet,
+        ParticipantService $participantService
+    ) {
         $this->denyAccessUnlessGranted('view', $projet);
 
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
+            'participation' => $participantService->getProjetParticipant($userContext->getSocieteUser(), $projet),
             'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
                 $projet->getActiveProjetParticipants(),
                 RoleProjet::CONTRIBUTEUR
