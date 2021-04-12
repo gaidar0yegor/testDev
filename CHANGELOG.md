@@ -15,6 +15,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Les notifications de rappel de saisie de temps/fait marquants sont envoyé par SMS si pas d'email
 - Pouvoir suivre un projet pour recevoir des notifications en temps réel :
     - lorsqu'un fait marquant est créé
+- Ajout d'une légende sur l'écran de saisie des absences
 ### Réparé
 - Correction de l'invitation d'un user dans création société
 
