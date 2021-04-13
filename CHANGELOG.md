@@ -5,6 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.22.0] - 2021-04-13
 ### Ajouté
 - Page Multi-société :
     - Affichage des notifications pour chaque société
@@ -18,9 +23,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajout d'une légende sur l'écran de saisie des absences
 ### Réparé
 - Correction de l'invitation d'un user dans création société
-
-
-
 
 ## [0.21.0] - 2021-04-06
 ### Réparé
