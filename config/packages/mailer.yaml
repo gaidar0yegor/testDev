@@ -2,4 +2,4 @@ framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
         envelope:
-            sender: 'contact@rdimanager.com'
+            sender: '%env(MAILER_FROM)%'
