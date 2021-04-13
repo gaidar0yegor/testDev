@@ -91,7 +91,7 @@ class RegisterSociete
         ;
 
         $admin
-            //->setPassword($this->passwordEncoder->encodePassword($admin, $admin->getPassword()))
+            ->setPassword($this->passwordEncoder->encodePassword($admin, $admin->getPassword()))
             ->addSocieteUser($societeUser)
         ;
 

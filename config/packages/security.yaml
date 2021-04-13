@@ -9,7 +9,6 @@ security:
 
     role_hierarchy:
         ROLE_BO_USER: ROLE_USER
-
         ROLE_FO_USER: ROLE_USER
 
     access_decision_manager:
