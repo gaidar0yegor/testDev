@@ -3,6 +3,7 @@
 namespace App\Command;
 
 use App\DTO\InitSociete;
+use App\Entity\Societe;
 use App\Entity\User;
 use App\Service\Invitator;
 use Doctrine\ORM\EntityManagerInterface;
@@ -82,6 +83,7 @@ class InitSocieteReferentCommand extends Command
         ;
 
         $societe = $this->invitator->initSociete($initSociete);
+        $societe->setCreatedFrom(Societe::CREATED_FROM_COMMAND);
         $this->invitator->check($societe);
         $admin = $societe->getAdmins()->first();
 

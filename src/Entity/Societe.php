@@ -41,6 +41,13 @@ class Societe implements HasSocieteInterface
     public const CREATED_FROM_BACK_OFFICE = 'BACK_OFFICE';
 
     /**
+     * This societe has been created from command line, with "app:init-societe-referent".
+     *
+     * @param string
+     */
+    public const CREATED_FROM_COMMAND = 'COMMAND';
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
