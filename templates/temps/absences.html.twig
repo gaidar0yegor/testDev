@@ -33,11 +33,19 @@
         <div class="calmonth">
             {% include 'temps/_calendrier_vide.html.twig' %}
         </div>
-    </div>
-</div>
 
-<div class="d-flex justify-content-center mt-4">
-    <button type="submit" class="btn btn-success btn-validate-cra my-3">Enregistrer</button>
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-success btn-validate-cra my-3">Enregistrer</button>
+        </div>
+
+        <p><i class="fa fa-info" aria-hidden="true"></i> Légende :</p>
+
+        <ul class="list-inline">
+            <li class="list-inline-item"><span class="badge badge-success px-3 py-1">&nbsp;</span> Présence</li>
+            <li class="list-inline-item"><span class="badge badge-secondary px-3 py-1">&nbsp;</span> Absence</li>
+            <li class="list-inline-item"><span class="badge badge-info px-3 py-1">&nbsp;</span> Demi-journée</li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}
