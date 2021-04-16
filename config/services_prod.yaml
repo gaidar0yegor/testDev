@@ -6,4 +6,4 @@ services:
 
     App\Listener\KernelExceptionListener:
         tags:
-            - { name: kernel.event_listener, event: kernel.exception }
+            - { name: kernel.event_listener, event: kernel.exception, priority: -500 }
