@@ -3,13 +3,20 @@
 namespace App\RegisterSociete\DTO;
 
 use App\Security\Role\RoleSociete;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class InviteCollaborators
 {
+    /**
+     * @Assert\Email(mode="strict")
+     */
     private ?string $email0;
 
     private string $role0;
 
+    /**
+     * @Assert\Email(mode="strict")
+     */
     private ?string $email1;
 
     private string $role1;

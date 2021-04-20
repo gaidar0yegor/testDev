@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use libphonenumber\PhoneNumber;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Donne à un utilisateur externe
@@ -82,6 +83,8 @@ class ProjetObservateurExterne
      * si il n'a pas encore de compte RDI-Manager et qu'il en crée un.
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\Email(mode="strict")
      */
     private $invitationEmail;
 

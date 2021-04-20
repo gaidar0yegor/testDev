@@ -68,7 +68,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      *
-     * @Assert\Email
+     * @Assert\Email(mode="strict")
      */
     private $email;
 
