@@ -145,6 +145,8 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * si il n'a pas encore de compten RDI-Manager et qu'il en crée un.
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\Email(mode="strict")
      */
     private $invitationEmail;
 

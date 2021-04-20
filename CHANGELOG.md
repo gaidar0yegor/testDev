@@ -9,6 +9,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Observateur externe
 ### Réparé
 - Corrige "Erreur serveur" lors d'un ajout de fait marquant lorsque mes licenses sont expirées
+- Corrige "Erreur serveur" lorqu'une adresse email (exemple `x.@x.x`) est saisie
 
 
 

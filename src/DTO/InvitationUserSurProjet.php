@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Classe utilisée pour le modèle du form InviteUserSurProjetType
  * qui sert à inviter un nouvel utilisateur sur un projet donné
@@ -9,6 +11,9 @@ namespace App\DTO;
  */
 class InvitationUserSurProjet
 {
+    /**
+     * @Assert\Email(mode="strict")
+     */
     private string $email;
 
     private string $role;

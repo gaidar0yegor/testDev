@@ -2,12 +2,17 @@
 
 namespace App\DTO;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 class InitSociete
 {
     private string $raisonSociale;
 
     private ?string $siret;
 
+    /**
+     * @Assert\Email(mode="strict")
+     */
     private string $adminEmail;
 
     public function getRaisonSociale(): string
