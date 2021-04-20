@@ -157,6 +157,11 @@ class User implements UserInterface
      */
     private $currentSocieteUser;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetObservateurExterne::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $projetObservateurExternes;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -170,6 +175,7 @@ class User implements UserInterface
         $this->onboardingEnabled = true;
         $this->onboardingTimesheetCompleted = false;
         $this->societeUsers = new ArrayCollection();
+        $this->projetObservateurExternes = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -531,6 +537,37 @@ class User implements UserInterface
     public function setCurrentSocieteUser(?SocieteUser $societeUser): self
     {
         $this->currentSocieteUser = $societeUser;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetObservateurExterne[]
+     */
+    public function getProjetObservateurExternes(): Collection
+    {
+        return $this->projetObservateurExternes;
+    }
+
+    public function addProjetObservateurExterne(ProjetObservateurExterne $projetParticipant): self
+    {
+        if (!$this->projetObservateurExternes->contains($projetParticipant)) {
+            $this->projetObservateurExternes[] = $projetParticipant;
+            $projetParticipant->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetObservateurExterne(ProjetObservateurExterne $projetParticipant): self
+    {
+        if ($this->projetObservateurExternes->contains($projetParticipant)) {
+            $this->projetObservateurExternes->removeElement($projetParticipant);
+            // set the owning side to null (unless already changed)
+            if ($projetParticipant->getUser() === $this) {
+                $projetParticipant->setUser(null);
+            }
+        }
 
         return $this;
     }

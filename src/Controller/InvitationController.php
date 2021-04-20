@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Exception\InvitationTokenExpiredException;
 use App\Form\FinalizeInscriptionType;
 use App\MultiSociete\UserContext;
 use App\Repository\SocieteUserRepository;
@@ -32,11 +33,7 @@ class InvitationController extends AbstractController
         $societeUser = $societeUserRepository->findOneByInvitationToken($token);
 
         if (null === $societeUser) {
-            return $this->render(
-                'invitation/invalid_invitation_token.html.twig',
-                [],
-                new Response('', Response::HTTP_NOT_FOUND)
-            );
+            throw new InvitationTokenExpiredException();
         }
 
         if (null !== $this->getUser()) {
@@ -47,60 +44,6 @@ class InvitationController extends AbstractController
 
         return $this->render('invitation/finalize_inscription.html.twig', [
             'societeUser' => $societeUser,
-        ]);
-    }
-
-    /**
-     * @Route("/inscription/creer-mon-compte/{token}", name="app_fo_user_invitation_create_account")
-     */
-    public function createAccount(
-        Request $request,
-        string $token,
-        SocieteUserRepository $societeUserRepository,
-        UserPasswordEncoderInterface $passwordEncoder,
-        GuardAuthenticatorHandler $authenticator,
-        EntityManagerInterface $em
-    ) {
-        $societeUser = $societeUserRepository->findOneByInvitationToken($token);
-
-        if (null === $societeUser) {
-            return $this->render(
-                'invitation/invalid_invitation_token.html.twig',
-                [],
-                new Response('', Response::HTTP_NOT_FOUND)
-            );
-        }
-
-        $user = new User();
-        $user->setEmail($societeUser->getInvitationEmail());
-        $user->setTelephone($societeUser->getInvitationTelephone());
-        $form = $this->createForm(FinalizeInscriptionType::class, $user);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $encodedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
-            $user->setPassword($encodedPassword);
-
-            $em->persist($user);
-            $em->flush();
-
-            $authenticator->authenticateWithToken(
-                new UsernamePasswordToken($user, $user->getPassword(), 'fo', $user->getRoles()),
-                $request
-            );
-
-            $this->addFlash('success', sprintf('Bienvenue à %s !', $user->getPrenom()));
-
-            return $this->redirectToRoute('app_fo_user_invitation_join_societe', [
-                'token' => $token,
-            ]);
-        }
-
-        return $this->render('invitation/create_account.html.twig', [
-            'societeUser' => $societeUser,
-            'user' => $user,
-            'form' => $form->createView(),
         ]);
     }
 
@@ -119,11 +62,7 @@ class InvitationController extends AbstractController
         $societeUser = $societeUserRepository->findOneByInvitationToken($token);
 
         if (null === $societeUser) {
-            return $this->render(
-                'invitation/invalid_invitation_token.html.twig',
-                [],
-                new Response('', Response::HTTP_NOT_FOUND)
-            );
+            throw new InvitationTokenExpiredException();
         }
 
         if ($request->isMethod('POST')) {

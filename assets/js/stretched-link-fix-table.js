@@ -17,7 +17,7 @@ $('table.stretched-link-table-row tbody td a.stretched-link').each((i, a) => {
 
     $a.removeClass('stretched-link');
 
-    $td.wrapInner('<div class="position-relative p-3">');
+    $td.wrapInner('<div class="position-relative p-2-3">');
 
     $td
         .addClass('p-0')

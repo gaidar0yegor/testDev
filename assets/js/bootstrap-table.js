@@ -2,6 +2,8 @@ import '../../node_modules/bootstrap-table/dist/bootstrap-table';
 import '../../node_modules/bootstrap-table/dist/bootstrap-table.css';
 import '../../node_modules/bootstrap-table/dist/locale/bootstrap-table-fr-FR.js';
 
+import $ from 'jquery';
+
 /**
  * Sort a custom value.
  * Example:
@@ -36,5 +38,14 @@ const bySorterValue = (a, b, aRow, bRow) => {
 
     return aValue > bValue ? 1 : -1;
 }
+
+/**
+ * Remove 'table-bordered' class added by bootstrapTable.
+ */
+$(() => {
+    $('table[data-toggle="table"]').bootstrapTable('refreshOptions', {
+        classes: '',
+    });
+});
 
 global.bySorterValue = bySorterValue;

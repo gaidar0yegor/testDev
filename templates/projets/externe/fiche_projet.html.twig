@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Projet {{ projet.societe.raisonSociale }} / {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-12 col-lg-8">
+        <h1>Projet {{ projet.societe.raisonSociale }} / {{ projet.acronyme }}</h1>
+
+        <p class="lead text-center">{{ projet.titre }}</p>
+
+        <p class="text-center">Chef de projet : {{ projet.chefDeProjet.user.fullname }}</p>
+
+        <p class="text-center">
+            {% if projet.projetCollaboratif %}
+                <span class="badge badge-success">Collaboratif</span>
+            {% endif %}
+            {% if projet.projetInterne %}
+                <span class="badge badge-success">Interne</span>
+            {% endif %}
+            {% if projet.projetPpp %}
+                <span class="badge badge-success">PPP - R&amp;D</span>
+            {% endif %}
+            {% if projet.isRdi %}
+                <span class="badge badge-success">Elligible RDI</span>
+            {% endif %}
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-8">
+        {% include 'projets/externe/fiche_projet-main.html.twig' %}
+    </div>
+    <aside class="col-12 col-lg-4">
+        {% include 'projets/externe/fiche_projet-sidebar.html.twig' %}
+    </aside>
+</div>
+
+{% endblock %}
+
