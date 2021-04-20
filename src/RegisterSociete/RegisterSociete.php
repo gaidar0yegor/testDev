@@ -10,8 +10,6 @@ use App\Service\TokenGenerator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RegisterSociete
 {
@@ -21,19 +19,15 @@ class RegisterSociete
 
     private TokenGenerator $tokenGenerator;
 
-    private UserPasswordEncoderInterface $passwordEncoder;
-
     private EntityManagerInterface $em;
 
     public function __construct(
         SessionInterface $session,
         TokenGenerator $tokenGenerator,
-        UserPasswordEncoderInterface $passwordEncoder,
         EntityManagerInterface $em
     ) {
         $this->session = $session;
         $this->tokenGenerator = $tokenGenerator;
-        $this->passwordEncoder = $passwordEncoder;
         $this->em = $em;
     }
 
@@ -92,7 +86,6 @@ class RegisterSociete
         ;
 
         $admin
-            ->setPassword($this->passwordEncoder->encodePassword($admin, $admin->getPassword()))
             ->addSocieteUser($societeUser)
         ;
 

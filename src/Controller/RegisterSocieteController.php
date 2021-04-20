@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 class RegisterSocieteController extends AbstractController
@@ -80,8 +81,11 @@ class RegisterSocieteController extends AbstractController
     /**
      * @Route("/creer-ma-societe/mon-compte/creer", name="app_register_account_creation")
      */
-    public function accountCreation(Request $request, MailerInterface $mailer): Response
-    {
+    public function accountCreation(
+        Request $request,
+        MailerInterface $mailer,
+        UserPasswordEncoderInterface $passwordEncoder
+    ): Response {
         $admin = $this->registerSociete->getCurrentRegistration()->admin ?? new User();
         $form = $this->createForm(AccountType::class, $admin);
 
@@ -89,6 +93,7 @@ class RegisterSocieteController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $registration = $this->registerSociete->getCurrentRegistration();
+            $admin->setPassword($passwordEncoder->encodePassword($admin, $admin->getPassword()));
             $registration->admin = $admin;
             $this->registerSociete->updateVerificationCode($registration);
 
