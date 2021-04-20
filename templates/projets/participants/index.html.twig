@@ -21,20 +21,87 @@
     </div>
 </div>
 
-{{ form(form) }}
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+{{ form_row(form.projetParticipants) }}
 
 <button
     type="button"
     id="btn-ajouter-participant"
-    class="btn btn-outline-primary"
+    class="btn mb-4 btn-sm btn-outline-primary"
     style="display: none"
 >
     <i class="fa fa-plus" aria-hidden="true"></i>
     Ajouter un participant
 </button>
 
+<br>
+
+<button
+    type="submit"
+    class="btn mb-4 btn-success"
+>
+    Mettre à jour
+</button>
+
+{{ form_end(form) }}
+
+{% if projet.projetObservateurExternes|length > 0 %}
+    <h2>Observateurs externes</h2>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Contact</th>
+                <th>Statut</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for projetObservateurExterne in projet.projetObservateurExternes %}
+                <tr>
+                    <td>
+                        {{ projetObservateurExterne.user.fullname|default('-') }}
+                    </td>
+                    <td>
+                        {% if projetObservateurExterne.user is null %}
+                            {{ projetObservateurExterne.invitationEmail|default(projetObservateurExterne.invitationTelephone) }}
+                        {% else %}
+                            {{ projetObservateurExterne.user.email|default(projetObservateurExterne.user.telephone) }}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if projetObservateurExterne.user is null %}
+                            En cours d'invitation...
+                        {% else %}
+                            Actif
+                            {% if projetObservateurExterne.lastActionAt %}
+                                - dernière consultation : {{ projetObservateurExterne.lastActionAt|format_date }}
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <form
+                            method="post"
+                            action="{{ path('app_fo_observateur_externe_delete', {
+                                'projetId': projet.id,
+                                'observateurId': projetObservateurExterne.id
+                            }) }}"
+                        >
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token('delete_observateur_externe') }}" />
+                            <button type="submit" class="btn btn-outline-danger" title="Retirer cet observateur externe"><i class="fa fa-times" aria-hidden="true"></i></button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
 <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6">
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">
@@ -43,12 +110,30 @@
                 </h5>
                 <p class="card-text">
                     Vous souhaitez inviter un utilisateur sur votre projet
-                    mais il n'a pas encore de compte sur RDI-Manager ?
+                    et l'inviter aussi dans votre société ?
                 </p>
                 <a
                     href="{{ path('app_fo_projet_participant_invite', {'id': projet.id}) }}"
-                    class="btn btn-primary"
+                    class="btn btn-outline-primary stretched-link"
                 >Inviter un nouvel utilisateur sur ce projet</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fa fa-share-alt" aria-hidden="true"></i>
+                    Inviter un observateur externe
+                </h5>
+                <p class="card-text">
+                    Vous souhaitez donner un accès observateur à un utilisateur sur ce projet,
+                    mais sans l'inviter dans votre société ?
+                </p>
+                <a
+                    href="{{ path('app_fo_observateur_externe_invite', {'id': projet.id}) }}"
+                    class="btn btn-outline-primary stretched-link"
+                >Inviter un observateur externe</a>
             </div>
         </div>
     </div>

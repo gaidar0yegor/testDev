@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\SocieteUser;
-use App\Form\Custom\RdiPhoneNumberType;
+use App\Form\Custom\RdiMobilePhoneNumberType;
 use App\Security\Role\RoleSociete;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -21,7 +21,7 @@ class InviteUserType extends AbstractType
                 'required' => false,
                 'label' => 'Email',
             ])
-            ->add('invitationTelephone', RdiPhoneNumberType::class, [
+            ->add('invitationTelephone', RdiMobilePhoneNumberType::class, [
                 'required' => false,
                 'label' => 'Téléphone',
             ])

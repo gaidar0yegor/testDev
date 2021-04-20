@@ -27,7 +27,7 @@
                 <ul>
                     {% for participation in societeUser.projetParticipants %}
                         <li>
-                            <strong>{{ participation.projet.titre }}</strong> en tant que <strong>{{ participation.role|trans }}</strong>
+                            <strong>{{ participation.projet.acronyme }}</strong> en tant que <strong>{{ participation.role|trans }}</strong>
                         </li>
                     {% endfor %}
                 </ul>

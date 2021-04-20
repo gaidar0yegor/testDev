@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Projets externe | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Projets externes</h1>
+
+<p>Liste des projets dont j'ai un accès en tant qu'observateur externe.</p>
+
+<table
+    class="table table-hover text-center stretched-link-table-row"
+    data-toggle="table"
+    data-search="true"
+>
+    <thead>
+        <tr>
+            <th data-sortable="true" data-sorter="bySorterValue" class="text-left">Projet</th>
+            <th class="d-none d-md-table-cell">Début</th>
+            <th class="d-none d-md-table-cell">Fin</th>
+            <th class="d-none d-md-table-cell">Statut</th>
+            <th data-sortable="true">Participants</th>
+        </tr>
+    </thead>
+    <tbody class="filter-projets-by-selected-year">
+
+        {% for projetObservateurExterne in projetObservateurExternes %}
+            {% set projet = projetObservateurExterne.projet %}
+            <tr
+                data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
+                data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
+            >
+                <td title="{{ projet.titre }}" class="text-left" data-sorter-value="{{ projet.societe.raisonSociale ~ '/' ~ projet.acronyme }}">
+                    <a href="{{ path('app_fo_observateur_externe_view', {'id': projet.id}) }}" class="stretched-link" title="{{ projet.titre }}">
+                        {{ projet.societe.raisonSociale }} / {{ projet.acronyme }}
+                    </a>
+                </td>
+                <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
+                <td class="text-center d-none d-md-table-cell">{{ projet.statut }}</td>
+                <td class="text-center">{{ projet.projetParticipants|length }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+

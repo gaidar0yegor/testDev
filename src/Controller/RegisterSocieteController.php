@@ -26,16 +26,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
-class RegisterController extends AbstractController
+class RegisterSocieteController extends AbstractController
 {
     private RegisterSociete $registerSociete;
 
-    private UserContext $userContext;
-
-    public function __construct(RegisterSociete $registerSociete, UserContext $userContext)
+    public function __construct(RegisterSociete $registerSociete)
     {
         $this->registerSociete = $registerSociete;
-        $this->userContext = $userContext;
     }
 
     /**

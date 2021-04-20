@@ -1,0 +1,45 @@
+App\Entity\User:
+    _cdp:
+        nom: Societe1
+        prenom: User
+        email: user@societe1.dev
+        password: user
+    _cdp2:
+        nom: Societe2
+        prenom: User
+        email: user@societe2.dev
+        password: user
+
+App\Entity\SocieteUser:
+    cdp:
+        user: '@_cdp'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+    cdp2:
+        user: '@_cdp2'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe2'
+
+App\Entity\Projet:
+    projet:
+        titre: Projet
+        acronyme: PTEST
+        societe: '@societe'
+
+App\Entity\ProjetParticipant:
+    cdp_projet:
+        societeUser: '@cdp'
+        projet: '@projet'
+        role: <(App\Security\Role\RoleProjet::CDP)>
+
+App\Entity\ProjetObservateurExterne:
+    invitation:
+        projet: '@projet'
+        invitationToken: INVITATION_TOKEN
+        invitationEmail: email@unused.dev
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société1
+    societe2:
+        raisonSociale: Société2

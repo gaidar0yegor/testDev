@@ -83,6 +83,13 @@ class Projet implements HasSocieteInterface
     private $projetParticipants;
 
     /**
+     * @ORM\OneToMany(targetEntity=ProjetObservateurExterne::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
+     *
+     * @Assert\Valid
+     */
+    private $projetObservateurExternes;
+
+    /**
      * @ORM\OneToMany(targetEntity=FaitMarquant::class, mappedBy="projet", orphanRemoval=true)
      * @ORM\OrderBy({"date" = "DESC"})
      */
@@ -129,6 +136,7 @@ class Projet implements HasSocieteInterface
     {
         $this->fichierProjets = new ArrayCollection();
         $this->projetParticipants = new ArrayCollection();
+        $this->projetObservateurExternes = new ArrayCollection();
         $this->faitMarquants = new ArrayCollection();
         $this->tempsPasses = new ArrayCollection();
         $this->projetCollaboratif = false;
@@ -324,6 +332,46 @@ class Projet implements HasSocieteInterface
             $this->projetParticipants->removeElement($projetParticipant);
             if ($projetParticipant->getProjet() === $this) {
                 $projetParticipant->setProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetObservateurExterne[]
+     */
+    public function getProjetObservateurExternes(): Collection
+    {
+        return $this->projetObservateurExternes;
+    }
+
+    /**
+     * @return Collection|ProjetObservateurExterne[]
+     */
+    public function getActiveProjetObservateurExternes(): Collection
+    {
+        return $this->projetObservateurExternes->filter(function (ProjetObservateurExterne $projetObservateurExterne) {
+            return $projetObservateurExterne->getUser()->getEnabled();
+        });
+    }
+
+    public function addProjetObservateurExterne(ProjetObservateurExterne $projetObservateurExterne): self
+    {
+        if (!$this->projetObservateurExternes->contains($projetObservateurExterne)) {
+            $this->projetObservateurExternes[] = $projetObservateurExterne;
+            $projetObservateurExterne->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetObservateurExterne(ProjetObservateurExterne $projetObservateurExterne): self
+    {
+        if ($this->projetObservateurExternes->contains($projetObservateurExterne)) {
+            $this->projetObservateurExternes->removeElement($projetObservateurExterne);
+            if ($projetObservateurExterne->getProjet() === $this) {
+                $projetObservateurExterne->setProjet(null);
             }
         }
 

@@ -20,7 +20,7 @@
                 <ul>
                     {% for participation in societeUser.projetParticipants %}
                         <li>
-                            <strong>{{ participation.projet.titre }}</strong> en tant que <strong>{{ participation.role|trans }}</strong>
+                            <strong>{{ participation.projet.acronyme }}</strong> en tant que <strong>{{ participation.role|trans }}</strong>
                         </li>
                     {% endfor %}
                 </ul>
@@ -33,18 +33,23 @@
         </p>
 
         <a
-            href="{{ path('app_fo_user_invitation_create_account', {'token': app.request.attributes.get('_route_params').token}) }}"
+            href="{{ path('app_signup', {
+                '_redirect': path('app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}),
+                'user_email': societeUser.invitationEmail,
+                'user_telephone': societeUser.invitationTelephone,
+            }) }}"
             class="mt-1 btn btn-lg btn-success"
         >Créer mon compte RDI-Manager</a>
 
         <p class="mt-4">
             Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte.
             Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
-            <a
-                href="{{ path('app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}) }}"
-                class="mt-1 btn btn-outline-primary"
-            >J'ai déjà un compte RDI-Manager</a>
         </p>
+
+        <a
+            href="{{ path('app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}) }}"
+            class="mt-1 btn btn-outline-primary"
+        >J'ai déjà un compte RDI-Manager</a>
     </div>
 </div>
 

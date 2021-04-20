@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Exception\ResetPasswordException;
 use App\Form\Custom\RepeatedPasswordType;
+use App\Form\FinalizeInscriptionType;
 use App\Service\ResetPasswordService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +15,9 @@ use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -55,6 +59,54 @@ class SecurityController extends AbstractController
     public function logout()
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    /**
+     * @Route("/inscription", name="app_signup")
+     */
+    public function signup(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $authenticator,
+        EntityManagerInterface $em
+    ) {
+        $user = new User();
+        $user
+            ->setPrenom($request->get('user_prenom', ''))
+            ->setNom($request->get('user_nom', ''))
+            ->setEmail($request->get('user_email'))
+            ->setTelephone($request->get('user_telephone'))
+        ;
+
+        $form = $this->createForm(FinalizeInscriptionType::class, $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $encodedPassword = $passwordEncoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($encodedPassword);
+
+            $em->persist($user);
+            $em->flush();
+
+            $authenticator->authenticateWithToken(
+                new UsernamePasswordToken($user, $user->getPassword(), 'fo', $user->getRoles()),
+                $request
+            );
+
+            $this->addFlash('success', sprintf('Bienvenue à %s !', $user->getPrenom()));
+
+            if ($redirect = $request->get('_redirect')) {
+                return $this->redirect($redirect);
+            }
+
+            return $this->redirectToRoute('app_home');
+        }
+
+        return $this->render('security/create_account.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**

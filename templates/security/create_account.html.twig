@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Création de votre compte RDI-Manager</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p class="lead">
+            Complétez vos informations personnelles,
+            et choisissez votre mot de passe de connexion.
+        </p>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="row">
+            <div class="col-6">
+                {{ form_row(form.prenom) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.nom) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.email) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.telephone) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.password.first) }}
+            </div>
+            <div class="col-6">
+                {{ form_row(form.password.second) }}
+            </div>
+        </div>
+
+        <input type="submit" value="Créer mon compte" class="btn btn-lg btn-success" />
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}
