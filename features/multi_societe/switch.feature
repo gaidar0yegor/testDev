@@ -27,18 +27,6 @@ Feature: Multi-société, page de changement de société
         And I press "Aller sur Société0"
         Then I should see "Société0 | User" in the "nav" element
 
-    Scenario: Je suis déjà connecté à la société sur laquelle j'étais lorsque je me reconnecte.
-        Then I should be on "/mes-societes"
-        And I press "Aller sur Société1"
-        Then I should see "Société1 | User" in the "nav" element
-
-        When I follow "Déconnexion"
-        And I fill in the following:
-            | _username | user@societe.dev  |
-            | _password | user              |
-        And I press "Connexion"
-        Then I should see "Société1 | User" in the "nav" element
-
     Scenario: Je peux consulter et modifier mes informations personnelles même en étant pas connecté sur une société
         When I follow "Mon compte"
         Then I should see "Mon compte" in the "h1" element
