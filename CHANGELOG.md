@@ -14,6 +14,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Si l'utilisateur courant à plus d'une société à la connexion, il est redirigé vers le switch société
 
+### Ajouté
+- Ajout d'un bouton pour ajouter un fichier dans la page projet sur la side barre
+
 
 
 ## [0.22.0] - 2021-04-13
