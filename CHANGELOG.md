@@ -6,18 +6,17 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-- Observateur externe
-### Réparé
-- Corrige "Erreur serveur" lors d'un ajout de fait marquant lorsque mes licenses sont expirées
-- Corrige "Erreur serveur" lorqu'une adresse email (exemple `x.@x.x`) est saisie
-
-### Ajouté
-- Si l'utilisateur courant à plus d'une société à la connexion, il est redirigé vers le switch société
-
-### Ajouté
 - Ajout d'un bouton pour ajouter un fichier dans la page projet sur la side barre
 
 
+
+## [0.23.0] - 2021-04-20
+### Ajouté
+- Observateur externe
+- Si l'utilisateur courant à plus d'une société à la connexion, il est redirigé vers le switch société
+### Réparé
+- Corrige "Erreur serveur" lors d'un ajout de fait marquant lorsque mes licenses sont expirées
+- Corrige "Erreur serveur" lorqu'une adresse email (exemple `x.@x.x`) est saisie
 
 ## [0.22.0] - 2021-04-13
 ### Ajouté
