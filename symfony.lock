@@ -168,6 +168,21 @@
     "giggsey/locale": {
         "version": "1.9"
     },
+    "guzzle/guzzle": {
+        "version": "v3.8.1"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "7.4-dev"
+    },
+    "guzzlehttp/promises": {
+        "version": "1.4-dev"
+    },
+    "guzzlehttp/psr7": {
+        "version": "2.0-dev"
+    },
+    "guzzlehttp/uri-template": {
+        "version": "v0.2.0"
+    },
     "hautelook/alice-bundle": {
         "version": "2.1",
         "recipe": {
@@ -234,6 +249,9 @@
             "var/storage/.gitignore"
         ]
     },
+    "league/flysystem-rackspace": {
+        "version": "1.0-dev"
+    },
     "league/mime-type-detection": {
         "version": "1.5.1"
     },
@@ -254,6 +272,9 @@
     },
     "markbaker/matrix": {
         "version": "2.0.0"
+    },
+    "mikemccabe/json-patch-php": {
+        "version": "0.1.0"
     },
     "monolog/monolog": {
         "version": "1.25.5"
@@ -337,6 +358,9 @@
     "php-jsonpointer/php-jsonpointer": {
         "version": "v3.0.2"
     },
+    "php-opencloud/openstack": {
+        "version": "3.0-dev"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -375,6 +399,12 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "rackspace/php-opencloud": {
+        "version": "1.16-dev"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "ramsey/collection": {
         "version": "1.1.3"

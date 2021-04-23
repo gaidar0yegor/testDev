@@ -157,6 +157,26 @@ WKHTMLTOPDF_PATH=/usr/local/bin/wkhtmltopdf
 WKHTMLTOIMAGE_PATH=/usr/local/bin/wkhtmltoimage
 ```
 
+- Configure Openstack files
+
+By default, project files are uploaded on local hard drive.
+To use OVH cloud object storage, use something like:
+
+```
+# Use openstack adapter
+STORAGE_DEFAULT=default.storage.openstack
+
+# Object storage localization
+OS_REGION=GRA
+
+# OVH Horizon user credentials, same as the one required to login at https://horizon.cloud.ovh.net/
+OS_USER_NAME=user-nhvXXXXXXXX
+OS_USER_PASSWORD=FXyaXXXXXXXXXXXXXXXXXXXXjt6
+
+# The object storage name
+OS_CONTAINER_NAME=projets-uploads
+```
+
 ### Initialiser une société et un accès référent
 
 Lancer la commande :
