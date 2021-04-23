@@ -42,5 +42,6 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | contributeur              |
         And I press "Connexion"
 
-        When I go to "/projets/1/fichiers"
-        Then I should see "Ajouter un fichier"
+        When I go to "/projets/1"
+        When I follow "Ajouter un fichier"
+        And I should see "Ajouter un fichier"
