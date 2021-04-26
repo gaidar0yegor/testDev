@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { addFlashMessage } from './flash-messages';
 
 const day0 = 'calmonth-day-0 btn-secondary';
 const day05 = 'calmonth-day-05 btn-info';
@@ -44,9 +45,14 @@ function initAbsences(date, craJours) {
             cra: craJours,
         })
             .done(() => {
+                $('.text-success').html('<i class="fa fa-check" aria-hidden="true"></i> Modification(s) enregistré(s)');
                 $btnSubmit.prop('disabled', false);
                 $btnSubmit.text('✓ Enregistré !');
                 $('.message-validation .text-warning').remove();
+                addFlashMessage('alerte alert alert-success text-center w-25 m-auto', '<i class="fa fa-check" aria-hidden="true"></i> Vos absences ont été mises à jour !' );
+                setTimeout(function() { 
+                    $(".flash-messages").remove(); 
+                }, 10000);
             })
         ;
     });

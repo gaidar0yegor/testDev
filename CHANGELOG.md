@@ -9,6 +9,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans le BO ajout d'une colonne Projets pour voir le nombre de projet par société
 - Ajout d'un bouton pour ajouter un fichier dans la page projet sur la side barre
 
+### Ajouté
+- Mes absences, lors d'un changement dans le calendrier de présence, une alert s'affiche pour bien montrer que vous avez modifié celui ci.
 
 
 
