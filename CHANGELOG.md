@@ -8,6 +8,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Ajout d'un bouton pour ajouter un fichier dans la page projet sur la side barre
 
+### Ajouté
+- Mes absences, lors d'un changement dans le calendrier de présence, une alert s'affiche pour bien montrer que vous avez modifié celui ci.
 
 
 ## [0.23.0] - 2021-04-20
