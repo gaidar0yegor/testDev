@@ -17,7 +17,6 @@ $(() => {
             const $wrapper = $('#recents-projets');
             const $cards = $('<div class="card-deck">');
 
-            $wrapper.append('<h3>Mes projets récents</h3>');
             $wrapper.append($cards);
 
             recentsProjets.forEach(projet => {
