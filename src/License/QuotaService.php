@@ -15,14 +15,14 @@ class QuotaService
     /**
      * @var LicenseQuotaInterface[]
      */
-    private array $licenseQuotas;
+    private iterable $licenseQuotas;
 
     public function __construct(
         LicenseService $licenseService,
         iterable $licenseQuotas
     ) {
         $this->licenseService = $licenseService;
-        $this->licenseQuotas = iterator_to_array($licenseQuotas);
+        $this->licenseQuotas = $licenseQuotas;
     }
 
     /**
