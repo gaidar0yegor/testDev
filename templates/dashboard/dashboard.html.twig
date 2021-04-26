@@ -4,13 +4,14 @@
 
 <h1>Mon tableau de bord</h1>
 
+<h2>Mon actualité</h2>
+
 <div class="row">
-    <div class="col-lg-4">
-        <h3>Mes tâches</h3>
+    <div class="col-lg-5">
         <div id="mes-temps-rappel" data-url-temps-passes="{{ path('app_fo_temps') }}">
         </div>
     </div>
-    <div class="col-lg-7 offset-lg-1">
+    <div class="col-lg-7">
         <div id="recents-projets" data-url-projet="{{ path('app_fo_projet', {'id': 0}) }}">
         </div>
     </div>
