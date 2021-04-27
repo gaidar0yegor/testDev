@@ -5,20 +5,19 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.24.0] - 2021-04-27
 ### Ajouté
 - Dans le BO ajout d'une colonne Projets pour voir le nombre de projet par société
 - Ajout d'un bouton pour ajouter un fichier dans la page projet sur la side barre
+- Mes absences, lors d'un changement dans le calendrier de présence, une alert s'affiche pour bien montrer que vous avez modifié celui ci.
 ### Modifié
 - Tableau de bord : remplace "Mes tâches" et "Mes projets récents" par "Mon actualité"
-
-### Ajouté
-- Mes absences, lors d'un changement dans le calendrier de présence, une alert s'affiche pour bien montrer que vous avez modifié celui ci.
-
 ### Réparé
 - Répare l'erreur 500 sur la page des dernières notifications envoyées
-
-
-
 
 ## [0.23.0] - 2021-04-20
 ### Ajouté
