@@ -52,12 +52,12 @@ class NotificationController extends AbstractController
     /**
      * @Route("/rapport/{id}", name="app_fo_admin_notification_rapport")
      */
-    public function report(CronJob $cronJob)
+    public function report(CronJob $cronJob, UserContext $userContext)
     {
         $tokens = explode('-', $cronJob->getName());
         $societeId = intval(array_pop($tokens));
 
-        if ($societeId !== $this->getUser()->getSociete()->getId()) {
+        if ($societeId !== $userContext->getSocieteUser()->getSociete()->getId()) {
             throw $this->createAccessDeniedException();
         }
 

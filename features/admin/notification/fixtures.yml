@@ -11,7 +11,22 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::ADMIN)>
         societe: '@societe'
 
+Cron\CronBundle\Entity\CronJob:
+    job:
+        name: notifie-saisie-temps-societe-1
+        command: echo hello
+        schedule: '* * * * *'
+        description: Rappel pour saisir nos temps et absences
+        enabled: true
+
+Cron\CronBundle\Entity\CronReport:
+    report:
+        job: '@job'
+        runAt: <(new DateTime("2020-11-09"))>
+        runTime: 1.234
+        exitCode: 0
+        output: Run successfully
+
 App\Entity\Societe:
     societe:
         raisonSociale: SociétéTest
-        siret: 111111111

@@ -21,3 +21,9 @@ Feature: L'admin peut personnaliser le jour et l'heure d'envoi des notifications
 
         When I press "Enregistrer"
         Then I should see "Vos préférences de notifications ont été mises à jour"
+
+    Scenario: L'admin peut voir les dernières notifications envoyées
+        When I follow "Paramètres des notifications"
+        And I follow "Dernières notifications envoyées"
+        Then I should see "Dernières notifications envoyées" in the "h1" element
+        And I should see "Run successfully" in the "9 nov. 2020" row
