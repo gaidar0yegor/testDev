@@ -312,3 +312,19 @@ avec `crontab -e` par exemple :
 ```
 * * * * * /usr/local/bin/php /absolute/path/to/rdi_manager_01/bin/console cron:run 1>> /dev/null 2>&1
 ```
+
+#### Check timezone
+
+To be sure that notification are sent at the same time as defined in admin, run:
+
+``` bash
+date
+```
+
+If it is not the local time, change it with:
+
+``` bash
+sudo dpkg-reconfigure tzdata
+```
+
+Then select Europe > Paris for french time.
