@@ -21,8 +21,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Réparé
 - Répare l'erreur 500 sur la page des dernières notifications envoyées
 
-### Ajouté
-- Mes absences, lors d'un changement dans le calendrier de présence, une alert s'affiche pour bien montrer que vous avez modifié celui ci.
 
 ## [0.23.0] - 2021-04-20
 ### Ajouté
