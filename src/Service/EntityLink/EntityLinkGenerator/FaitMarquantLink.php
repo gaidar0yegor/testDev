@@ -21,12 +21,15 @@ class FaitMarquantLink implements EntityLinkGeneratorInterface
      */
     public function generateLink($entity, UrlGeneratorInterface $urlGenerator): EntityLink
     {
-        return new EntityLink(
-            self::truncate($entity->getTitre()),
-            $urlGenerator->generate('app_fo_projet', [
-                'id' => $entity->getProjet()->getId(),
-            ])
-        );
+        $titre = self::truncate($entity->getTitre());
+
+        $url = $urlGenerator->generate('app_fo_projet', [
+            'id' => $entity->getProjet()->getId(),
+        ]);
+
+        $idFaitMarquant = $entity->getId();
+
+        return new EntityLink($titre, "$url#fait-marquant-$idFaitMarquant");
     }
 
     private static function truncate(string $s): string
