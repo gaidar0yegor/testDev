@@ -22,6 +22,7 @@ import './js/societe-notifications';
 import './js/slack';
 import './js/admin-user-chart-temps-projets';
 import './js/admin-projet-chart-temps-users';
+import './js/fait-marquant-highlight';
 import './js/filter-projets-by-selected-year';
 import './js/main';
 import './js/checkbox.js';
