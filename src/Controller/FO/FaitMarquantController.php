@@ -50,6 +50,7 @@ class FaitMarquantController extends AbstractController
 
             return $this->redirectToRoute('app_fo_projet', [
                 'id' => $projet->getId(),
+                '_fragment' => 'fait-marquant-'.$faitMarquant->getId(),
             ]);
         }
 
@@ -80,6 +81,7 @@ class FaitMarquantController extends AbstractController
 
             return $this->redirectToRoute('app_fo_projet', [
                 'id' => $faitMarquant->getProjet()->getId(),
+                '_fragment' => 'fait-marquant-'.$faitMarquant->getId(),
             ]);
         }
 
