@@ -25,7 +25,7 @@
             {% endif %}
         </li>
         {% for faitMarquant in projet.faitMarquants %}
-            <li class="event">
+            <li class="event" id="fait-marquant-{{ faitMarquant.id }}">
                 <h4 data-date="{{ faitMarquant.date|format_date }}">
                     {{ faitMarquant.date|format_date }}
                     -

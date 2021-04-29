@@ -6,7 +6,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
-
+### Ajouté
+- Dans les notifications sur le click sur le nom du fait marquant vous êtes atterissé directement sur le fait marquant sur lequel vous avez cliqué
 
 
 ## [0.24.0] - 2021-04-27
@@ -16,8 +17,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Mes absences, lors d'un changement dans le calendrier de présence, une alert s'affiche pour bien montrer que vous avez modifié celui ci.
 ### Modifié
 - Tableau de bord : remplace "Mes tâches" et "Mes projets récents" par "Mon actualité"
+
 ### Réparé
 - Répare l'erreur 500 sur la page des dernières notifications envoyées
+
 
 ## [0.23.0] - 2021-04-20
 ### Ajouté
