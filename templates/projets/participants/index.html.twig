@@ -6,21 +6,6 @@
 
 <h1>Gestion des participants</h1>
 
-<div class="row font-weight-bold">
-    <div class="col-sm">
-    </div>
-    <div class="col-sm">
-        <div class="d-flex justify-content-around">
-            <p>{{ constant('App\\Security\\Role\\RoleProjet::CDP')|trans }}</p>
-            <p>{{ constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR')|trans }}</p>
-            <p>{{ constant('App\\Security\\Role\\RoleProjet::OBSERVATEUR')|trans }}</p>
-        </div>
-    </div>
-    <div class="col-sm-2 text-center d-none d-sm-block">
-        <p>Enlever</p>
-    </div>
-</div>
-
 {{ form_start(form) }}
 {{ form_errors(form) }}
 

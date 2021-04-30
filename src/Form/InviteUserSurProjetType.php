@@ -3,8 +3,7 @@
 namespace App\Form;
 
 use App\DTO\InvitationUserSurProjet;
-use App\Form\Custom\ParticipantRoleChoiceType;
-use App\Role;
+use App\Form\Custom\RoleProjetCardChoiceType;
 use App\Security\Role\RoleProjet;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -20,7 +19,7 @@ class InviteUserSurProjetType extends AbstractType
             ->add('email', EmailType::class, [
                 'label' => 'Email',
             ])
-            ->add('role', ParticipantRoleChoiceType::class, [
+            ->add('role', RoleProjetCardChoiceType::class, [
                 'choices' => [
                     RoleProjet::CONTRIBUTEUR => RoleProjet::CONTRIBUTEUR,
                     RoleProjet::OBSERVATEUR => RoleProjet::OBSERVATEUR,

@@ -64,23 +64,7 @@ class ParticipantExtension extends AbstractExtension
      */
     public function sortByRole(iterable $projetParticipants, string $ascOrDesc = 'desc'): array
     {
-        $roleOrder = [
-            RoleProjet::CDP => 3,
-            RoleProjet::CONTRIBUTEUR => 2,
-            RoleProjet::OBSERVATEUR => 1,
-        ];
-
-        $order = 'desc' === strtolower($ascOrDesc) ? 1 : -1;
-        $sorted = iterator_to_array($projetParticipants);
-
-        usort(
-            $sorted,
-            function (ProjetParticipant $a, ProjetParticipant $b) use ($order, $roleOrder) {
-                return ($roleOrder[$b->getRole()] - $roleOrder[$a->getRole()]) * $order;
-            }
-        );
-
-        return $sorted;
+        return $this->participantService->sortByRole($projetParticipants, $ascOrDesc);
     }
 
     /**

@@ -1,4 +1,4 @@
-'Must have exactly one Chef de projet, found more than 1': Il doit y avoir un seul Chef de projet, vous en avez plusieurs
-'Must have exactly one Chef de projet, found 0': Il doit y avoir un chef de projet, vous n'en avez mis aucun
+'Must have exactly one Chef de projet, found more than 1': Il doit y avoir un seul chef de projet sur ce projet, vous en avez plusieurs
+'Must have exactly one Chef de projet, found 0': Il doit y avoir un chef de projet sur ce projet, vous n'en avez mis aucun
 'There is already an account with this email': 'Un utilisateur avec cet email existe déjà'
 'There is already an account with this phone number': 'Un utilisateur avec ce numéro de téléphone existe déjà'

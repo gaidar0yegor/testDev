@@ -1,0 +1,50 @@
+App\Entity\User:
+    _admin:
+        nom: Eureka
+        prenom: Admin
+        email: admin@societe.dev
+        password: admin
+    _cdp:
+        nom: Eureka
+        prenom: Cdp
+        email: cdp@societe.dev
+        password: cdp
+    _user:
+        nom: Eureka
+        prenom: Utilisateur
+        email: user@societe.dev
+        password: user
+
+App\Entity\SocieteUser:
+    admin:
+        user: '@_admin'
+        role: <(App\Security\Role\RoleSociete::ADMIN)>
+        societe: '@societe'
+    cdp:
+        user: '@_cdp'
+        role: <(App\Security\Role\RoleSociete::CDP)>
+        societe: '@societe'
+    user:
+        user: '@_user'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet:
+        titre: ProjetTest
+        acronyme: PTEST
+        societe: '@societe'
+
+App\Entity\ProjetParticipant:
+    cdp_projet:
+        societeUser: '@cdp'
+        projet: '@projet'
+        role: <(App\Security\Role\RoleProjet::CDP)>
+    admin_projet:
+        societeUser: '@admin'
+        projet: '@projet'
+        role: <(App\Security\Role\RoleProjet::CONTRIBUTEUR)>
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: SociétéTest

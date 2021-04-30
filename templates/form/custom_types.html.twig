@@ -20,16 +20,16 @@
 {% endblock %}
 
 {% block projet_participant_row %}
-    <div class="row mb-5 mb-md-2 projet-participant-row">
-        <div class="col-sm text-center text-sm-left">
+    <div class="row mb-5 mb-md-2 projet-participant-row align-items-center">
+        <div class="col-sm-3 text-center text-sm-left">
             {{ form_widget(form.children.societeUser) }}
             {{ form_errors(form.children.societeUser) }}
         </div>
-        <div class="col-sm">
+        <div class="col-sm-8">
             {{ form_errors(form.children.role) }}
             {{ form_widget(form.children.role) }}
         </div>
-        <div class="col-sm-2 text-center">
+        <div class="col-sm-1 text-center">
             <button
                 type="button"
                 class="btn btn-outline-danger embed-form-remove"
@@ -160,7 +160,7 @@
 {% block card_choice_widget %}
     <div class="card-group">
         {% for childForm in form.children %}
-            <div class="card rdi-card-choice">
+            <div class="card rdi-card-choice rdi-card-choice-{{ card_choice_size }}">
                 <div class="card-body">
                     {% if faIcons[childForm.vars.value] is defined %}
                         <i class="fa {{ faIcons[childForm.vars.value] }}" aria-hidden="true"></i>
@@ -170,5 +170,28 @@
                 </div>
             </div>
         {% endfor %}
+    </div>
+{% endblock %}
+
+{% block projet_participant_projet_role_row %}
+    <div class="d-none">
+        {{ form_widget(form.projet) }}
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-3 d-flex align-items-md-center justify-content-md-end">
+            <a
+                href="{{ path('app_fo_projet', {'id': form.children.projet.vars.data.id}) }}"
+                class="lead"
+                title="{{ form.children.projet.vars.data.titre }}"
+            >{{ form.children.projet.vars.data.acronyme }}</a>
+        </div>
+        <div class="col-md-9">
+            {{ form_widget(form.role) }}
+        </div>
+        {% if form.projet.vars.errors|length > 0 %}
+            <div class="col-md-9 offset-md-3 mb-4">
+                {{ form_errors(form.projet) }}
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

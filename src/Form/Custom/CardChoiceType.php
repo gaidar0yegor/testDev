@@ -19,12 +19,19 @@ class CardChoiceType extends AbstractType
             'expanded' => true,
             'multiple' => false,
             'faIcons' => [],
+            'card_choice_size' => 'large',
+        ]);
+
+        $resolver->setAllowedValues('card_choice_size', [
+            'large',
+            'small',
         ]);
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
         $view->vars['faIcons'] = $options['faIcons'];
+        $view->vars['card_choice_size'] = $options['card_choice_size'];
     }
 
     /**

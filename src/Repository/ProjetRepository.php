@@ -2,8 +2,6 @@
 
 namespace App\Repository;
 
-use App\Role;
-use App\Entity\User;
 use App\Entity\Projet;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
@@ -239,6 +237,32 @@ class ProjetRepository extends ServiceEntityRepository
             ])
             ->getQuery()
             ->getResult()
+        ;
+    }
+
+    /**
+     * @return Projet[]
+     */
+    public function findProjetsWhereUserHasNoRole(SocieteUser $societeUser): array
+    {
+        $userProjetsQuery = $this
+            ->whereUserAndRole($societeUser)
+            ->select('projet.id')
+        ;
+
+        $queryBuilder = $this->createQueryBuilder('projet2');
+
+        $queryBuilder = $queryBuilder
+            ->where('projet2.societe = :societe')
+            ->andWhere($queryBuilder->expr()->notIn('projet2.id', $userProjetsQuery->getDQL()))
+            ->setParameters($userProjetsQuery->getParameters())
+            ->setParameter('societe', $societeUser->getSociete())
+        ;
+
+
+        return $queryBuilder
+                ->getQuery()
+                ->getResult()
         ;
     }
 }

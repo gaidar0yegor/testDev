@@ -3,10 +3,9 @@
 namespace App\Form;
 
 use App\Entity\SocieteUser;
+use App\Form\Custom\FoRoleCardChoiceType;
 use App\Form\Custom\RdiMobilePhoneNumberType;
-use App\Security\Role\RoleSociete;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,13 +24,7 @@ class InviteUserType extends AbstractType
                 'required' => false,
                 'label' => 'Téléphone',
             ])
-            ->add('role',  ChoiceType::class, [
-                'choices' => [
-                    RoleSociete::USER => RoleSociete::USER,
-                    RoleSociete::CDP => RoleSociete::CDP,
-                    RoleSociete::ADMIN => RoleSociete::ADMIN,
-                ],
-            ])
+            ->add('role', FoRoleCardChoiceType::class)
             ->add('ajouter', SubmitType::class, [
                 'label' => 'Inviter',
             ])

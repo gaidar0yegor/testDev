@@ -6,22 +6,22 @@
 
 <h1>Inviter sur {{ projet.acronyme }}</h1>
 
-<p>
-    Vous pouvez inviter sur ce projet
-    un utilisateur pas encore inscrit dans votre société
-    à partir de son email.
-</p>
-
-{{ form_start(form) }}
-{{ form_errors(form) }}
 <div class="row">
-    <div class="col-md">
+    <div class="col-md-6 offset-md-3">
+        <p>
+            Vous pouvez inviter sur ce projet
+            un utilisateur pas encore inscrit dans votre société
+            à partir de son email.
+        </p>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
         {{ form_row(form.email) }}
-    </div>
-    <div class="col-md">
         {{ form_row(form.role) }}
+
+        {{ form_end(form) }}
     </div>
 </div>
-{{ form_end(form) }}
 
 {% endblock %}
