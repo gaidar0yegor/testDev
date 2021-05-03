@@ -56,7 +56,8 @@
         "twig/extra-bundle": "^3.1",
         "twig/inky-extra": "^3.1",
         "twig/intl-extra": "^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+        "webthink/monolog-slack": "^2.1"
     },
     "require-dev": {
         "behatch/contexts": "^3.3",

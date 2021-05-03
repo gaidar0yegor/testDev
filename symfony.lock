@@ -862,5 +862,8 @@
     },
     "webmozart/assert": {
         "version": "1.9.1"
+    },
+    "webthink/monolog-slack": {
+        "version": "v2.1.0"
     }
 }

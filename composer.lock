@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4ade39fd77aa062d86e188871ceb4350",
+    "content-hash": "2d8ad7a8d31f567244809fb523454d53",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -10528,6 +10528,56 @@
                 "validate"
             ],
             "time": "2020-07-08T17:02:28+00:00"
+        },
+        {
+            "name": "webthink/monolog-slack",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/gmponos/monolog-slack.git",
+                "reference": "69d2b1d6cbeb9a79fc5de35f02d56d552ed49555"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/gmponos/monolog-slack/zipball/69d2b1d6cbeb9a79fc5de35f02d56d552ed49555",
+                "reference": "69d2b1d6cbeb9a79fc5de35f02d56d552ed49555",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "monolog/monolog": "^1.24 || ^2.0",
+                "php": "^7.2",
+                "psr/http-client": "^1.0",
+                "psr/http-factory": "^1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/psr7": "^1.5",
+                "phpunit/phpunit": "^7.5",
+                "webthink/codesniffer": "^2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Webthink\\MonologSlack\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "George Mponos",
+                    "email": "gmponos@gmail.com"
+                }
+            ],
+            "description": "This package contains handlers/processors for sending logs of monolog to a slack channel.",
+            "homepage": "https://github.com/gmponos/monolog-slack",
+            "support": {
+                "issues": "https://github.com/gmponos/monolog-slack/issues",
+                "source": "https://github.com/gmponos/monolog-slack/tree/master"
+            },
+            "time": "2020-05-17T05:57:39+00:00"
         }
     ],
     "packages-dev": [
@@ -12439,5 +12489,5 @@
         "ext-openssl": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }
