@@ -324,6 +324,21 @@ yarn
 yarn build
 ```
 
+### Log errors on a Slack channel
+
+Create a Slack application and issue a webhook url. Then:
+
+``` bash
+cp config/packages/custom.yaml.dist config/packages/custom.yaml
+```
+
+And configure:
+
+``` yaml
+webhook_url: https://hooks.slack.com/services/T0XXXM/B0XXXL/kdeXXXiWxg
+channel: '#rdi-manager-logs'
+```
+
 ### Cron
 
 Programmer cron pour qu'il lance la commande cron de Symfony chaque minute,
