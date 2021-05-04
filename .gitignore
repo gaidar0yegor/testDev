@@ -1,6 +1,9 @@
 # Ignore dynamic template, but not .dist ones
 /templates/dynamic_templates/*.twig
 
+# Ignore custom config
+/config/packages/custom.yaml
+
 # License generation, ignore the public key that is generated dynamically
 /public/license/public-key.pem
 

@@ -1,0 +1,10 @@
+# Send errors to our Slack channel
+# see https://github.com/symfony/monolog-bundle/blob/master/DependencyInjection/Configuration.php
+monolog:
+    handlers:
+        slackwebhook:
+            type: slackwebhook
+            webhook_url: ~
+            channel: '#rdi-manager-logs'
+            include_extra: true
+            level: error
