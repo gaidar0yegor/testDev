@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ### Ajouté
 - Dans les notifications sur le click sur le nom du fait marquant vous êtes atterissé directement sur le fait marquant sur lequel vous avez cliqué
+- Création d'un onglet dashboard dans le BO pour ajouter dans le futur certaines données
 
 
 ## [0.24.0] - 2021-04-27
