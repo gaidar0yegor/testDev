@@ -20,20 +20,20 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         And I should see "Chef de projet"
         And I should see "Contributeur"
         And I should see "Observateur"
-        And I should see "Valider"
+        And I should see "Mettre à jour"
 
     Scenario: L'admin peut mettre un utilisateur en tant que contributeur depuis la page de ses rôles sur projets
         Given I am on "/admin/utilisateurs/3/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] | PROJET_CONTRIBUTEUR |
-        And I press "Valider"
+        And I press "Mettre à jour"
         Then I should see "Les rôles de Utilisateur Eureka sur les projets ont été mis à jour"
 
     Scenario: L'admin ne peut pas mettre un utilisateur en tant que chef de projet si il y a déjà un autre chef de projet
         Given I am on "/admin/utilisateurs/3/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] | PROJET_CDP |
-        And I press "Valider"
+        And I press "Mettre à jour"
         Then I should see "Les rôles n'ont pas été mis à jour à cause d'une incohérence"
         Then I should see "Il doit y avoir un seul chef de projet sur ce projet, vous en avez plusieurs"
 
@@ -41,7 +41,7 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         Given I am on "/admin/utilisateurs/2/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] | PROJET_CONTRIBUTEUR |
-        And I press "Valider"
+        And I press "Mettre à jour"
         Then I should see "Les rôles n'ont pas été mis à jour à cause d'une incohérence"
         Then I should see "Il doit y avoir un chef de projet sur ce projet, vous n'en avez mis aucun"
 
@@ -49,7 +49,7 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         Given I am on "/admin/utilisateurs/1/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] |  |
-        And I press "Valider"
+        And I press "Mettre à jour"
         Then I should see "Les rôles de Admin Eureka sur les projets ont été mis à jour"
 
         When I follow "PTEST"
