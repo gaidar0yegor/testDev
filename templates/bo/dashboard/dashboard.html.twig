@@ -1,0 +1,23 @@
+{% extends 'bo/base.html.twig' %}
+
+{% block body %}
+
+<h1>Total utilisateurs</h1>
+
+<div class="card w-50 m-auto rdi-card-icon text-center">
+    <i class="fa fa-users" aria-hidden="true"></i>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                <h5 class="card-title">Nombre total d'utilisateurs</h5>
+                <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
+                <p class="card-text display-4 mb-0">
+                    {{ user|length }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
