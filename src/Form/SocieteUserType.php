@@ -4,11 +4,9 @@ namespace App\Form;
 
 use App\Entity\SocieteUser;
 use App\Form\Custom\DatePickerType;
-use App\Security\Role\RoleSociete;
+use App\Form\Custom\FoRoleCardChoiceType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,14 +15,7 @@ class SocieteUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('role',  ChoiceType::class, [
-            'label' => 'Rôle',
-            'choices' => [
-                RoleSociete::USER => RoleSociete::USER,
-                RoleSociete::CDP => RoleSociete::CDP,
-                RoleSociete::ADMIN => RoleSociete::ADMIN,
-            ],
-        ])
+        ->add('role',  FoRoleCardChoiceType::class)
         ->add('heuresParJours', NumberType::class, [
             'label' => 'Nombre d\'heures travaillées par jour',
             'help' => 'Pour cet utilisateur uniquement, vous pouvez remplacer ici le nombre d\'heure défini globalement au niveau de la société.',

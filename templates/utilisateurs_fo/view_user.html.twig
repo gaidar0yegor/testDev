@@ -77,6 +77,12 @@
 
     <h2>Ses projets</h2>
 
+    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
+        <p class="text-center">
+            <a href="{{ path('app_fo_admin_utilisateur_roles_projets', {'id': societeUser.id}) }}" class="btn btn-sm btn-outline-primary">Gérer ses accès aux projets</a>
+        </p>
+    {% endif %}
+
     <div class="row">
         <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
             <ul class="list-group list-group-flush">
@@ -88,14 +94,6 @@
                             <a href="{{ path('app_fo_projet', {'id': participation.projet.id}) }}">
                                 {{ participation.projet.acronyme }}
                             </a>
-
-                            {% if is_granted('edit', participation.projet) %}
-                                <div class="float-right">
-                                    <a href="{{ path('app_fo_projet_participant', {'id': participation.projet.id}) }}">
-                                        modifier
-                                    </a>
-                                </div>
-                            {% endif %}
                         </li>
                     {% endif %}
                 {% endfor %}

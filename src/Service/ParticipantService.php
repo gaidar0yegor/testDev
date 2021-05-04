@@ -7,6 +7,7 @@ use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
 use App\Security\Role\RoleProjet;
 use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
+use Traversable;
 
 /**
  * Service avec des fonctions convernant les roles des user sur les projets.
@@ -108,5 +109,34 @@ class ParticipantService implements UserContributingProjetRepositoryInterface
         }
 
         return RoleProjet::hasRole($userRole, $requiredRole);
+    }
+
+    /**
+     * Sort projetParticipants list by role (Chef de projet, then Contributeur, then Observateur)
+     *
+     * @param iterable $projetParticipants
+     * @param string $order "asc" or "desc"
+     *
+     * @return ProjetParticipant[]
+     */
+    public function sortByRole(iterable $projetParticipants, string $ascOrDesc = 'desc'): array
+    {
+        $roleOrder = [
+            RoleProjet::CDP => 3,
+            RoleProjet::CONTRIBUTEUR => 2,
+            RoleProjet::OBSERVATEUR => 1,
+        ];
+
+        $order = 'desc' === strtolower($ascOrDesc) ? 1 : -1;
+        $sorted = ($projetParticipants instanceof Traversable) ? iterator_to_array($projetParticipants) : (array) $projetParticipants;
+
+        usort(
+            $sorted,
+            function (ProjetParticipant $a, ProjetParticipant $b) use ($order, $roleOrder) {
+                return ($roleOrder[$b->getRole()] - $roleOrder[$a->getRole()]) * $order;
+            }
+        );
+
+        return $sorted;
     }
 }

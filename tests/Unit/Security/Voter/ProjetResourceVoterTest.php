@@ -59,8 +59,9 @@ class ProjetResourceVoterTest extends TestCase
         $projet = new Projet();
         $projet
             ->setSociete($societe)
-            ->addProjetParticipant(ProjetParticipant::create($cdp, $projet, RoleProjet::CDP))
         ;
+
+        ProjetParticipant::create($cdp, $projet, RoleProjet::CDP);
 
         $adminCanCreate = $voter->userCanCreateResourceOnProjet($user, $projet);
 

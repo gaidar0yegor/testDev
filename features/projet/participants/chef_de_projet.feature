@@ -22,7 +22,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I fill in the following:
             | liste_projet_participants[projetParticipants][0][role] | PROJET_CDP |
         And I press "Mettre à jour"
-        Then I should see "Il doit y avoir un seul Chef de projet, vous en avez plusieurs"
+        Then I should see "Il doit y avoir un seul chef de projet sur ce projet, vous en avez plusieurs"
 
     Scenario: Il doit être impossible de laisser un projet sans Chef de projet.
         When I go to "/projets"
@@ -31,4 +31,4 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I fill in the following:
             | liste_projet_participants[projetParticipants][2][role] | PROJET_CONTRIBUTEUR |
         And I press "Mettre à jour"
-        Then I should see "Il doit y avoir un chef de projet, vous n'en avez mis aucun"
+        Then I should see "Il doit y avoir un chef de projet sur ce projet, vous n'en avez mis aucun"

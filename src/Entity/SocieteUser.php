@@ -84,7 +84,9 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     private $role;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="societeUser", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ProjetParticipant::class, mappedBy="societeUser", orphanRemoval=true, cascade={"persist"})
+     *
+     * @Assert\Valid
      */
     private $projetParticipants;
 
@@ -176,6 +178,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->enabled = true;
         $this->createdAt = new \DateTime();
         $this->cras = new ArrayCollection();
+        $this->projetParticipants = new ArrayCollection();
         $this->societeUserActivities = new ArrayCollection();
         $this->societeUserNotifications = new ArrayCollection();
     }

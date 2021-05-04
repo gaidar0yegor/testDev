@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\ProjetParticipant;
-use App\Form\Custom\ParticipantRoleChoiceType;
+use App\Form\Custom\RoleProjetCardChoiceType;
 use App\Form\Custom\SameSocieteUserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,7 +15,9 @@ class ProjetParticipantType extends AbstractType
     {
         $builder
             ->add('societeUser', SameSocieteUserType::class)
-            ->add('role', ParticipantRoleChoiceType::class)
+            ->add('role', RoleProjetCardChoiceType::class, [
+                'card_choice_size' => 'small',
+            ])
         ;
     }
 

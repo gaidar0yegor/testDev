@@ -7,6 +7,7 @@ use App\Repository\ProjetParticipantRepository;
 use App\Security\Role\RoleProjet;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetParticipantRepository::class)
@@ -39,6 +40,8 @@ class ProjetParticipant implements HasSocieteInterface
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="projetParticipants")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Assert\Valid
      */
     private $projet;
 
@@ -68,13 +71,14 @@ class ProjetParticipant implements HasSocieteInterface
         $this->watching = false;
     }
 
-    public static function create(SocieteUser $societeUser, Projet $projet, string $role): self
+    public static function create(SocieteUser $societeUser, Projet $projet, ?string $role): self
     {
-        return (new self())
-            ->setSocieteUser($societeUser)
-            ->setProjet($projet)
-            ->setRole($role)
-        ;
+        $projetParticipant = (new self())->setRole($role);
+
+        $projet->addProjetParticipant($projetParticipant);
+        $societeUser->addProjetParticipant($projetParticipant);
+
+        return $projetParticipant;
     }
 
     public function getId(): ?int
@@ -125,7 +129,9 @@ class ProjetParticipant implements HasSocieteInterface
 
     public function setRole(?string $role): self
     {
-        RoleProjet::checkRole($role);
+        if (null !== $role) {
+            RoleProjet::checkRole($role);
+        }
 
         $this->role = $role;
 
