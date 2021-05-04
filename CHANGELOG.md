@@ -6,12 +6,15 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
+
+
+
+## [0.25.0] - 2021-05-04
 ### Ajouté
 - Dans les notifications sur le click sur le nom du fait marquant vous êtes atterissé directement sur le fait marquant sur lequel vous avez cliqué
 - Création d'un onglet dashboard dans le BO pour ajouter dans le futur certaines données
 - Lors d'une erreur en prod, affiche l'erreur dans un channel Slack
 - Pouvoir modifier les rôles d'un utilisateur sur tous les projets
-
 
 ## [0.24.0] - 2021-04-27
 ### Ajouté
