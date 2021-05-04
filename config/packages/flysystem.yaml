@@ -1,10 +1,18 @@
 # Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
 flysystem:
     storages:
-        default.storage:
+        default.storage.local:
             adapter: local
             options:
                 directory: '%kernel.project_dir%/var/storage/default'
+        default.storage.openstack:
+            adapter: rackspace
+            options:
+                container: app.openstack_storage
+        default.storage:
+            adapter: lazy
+            options:
+                source: '%env(STORAGE_DEFAULT)%'
         licenses.storage:
             adapter: local
             options:
