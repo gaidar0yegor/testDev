@@ -20,7 +20,7 @@
         "jolicode/slack-php-api": "^4.0",
         "knplabs/knp-snappy-bundle": "^1.7",
         "league/flysystem-bundle": "^1.5",
-        "league/flysystem-rackspace": "dev-master#4f860c914a906d4e8a65f5ee5d5d1fefa9da5928",
+        "league/flysystem-rackspace": "dev-master#64240e2e5e51ca21d1dfc42f3c00c2d698689f96",
         "nyholm/psr7": "^1.3",
         "odolbeau/phone-number-bundle": "^3.2",
         "php-opencloud/openstack": "dev-patch-1",
@@ -82,7 +82,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/tdutrion/flysystem-rackspace"
+            "url": "https://github.com/alcalyn/flysystem-rackspace"
         },
         {
             "type": "vcs",

@@ -30,7 +30,10 @@ class FichierService
 
         $stream = fopen($fichier->getFile()->getRealPath(), 'r+');
         $this->storage->writeStream("uploads/$fileName", $stream);
-        fclose($stream);
+
+        if (is_resource($stream)) {
+            fclose($stream);
+        }
     }
 
     public function createDownloadResponse(Fichier $fichier): Response

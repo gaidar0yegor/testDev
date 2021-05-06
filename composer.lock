@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d82840c8c49199845240caefe7fc7528",
+    "content-hash": "a3249e416615fcb2997ee568cd9c9f26",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -3378,13 +3378,13 @@
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/tdutrion/flysystem-rackspace.git",
-                "reference": "4f860c914a906d4e8a65f5ee5d5d1fefa9da5928"
+                "url": "https://github.com/alcalyn/flysystem-rackspace.git",
+                "reference": "64240e2e5e51ca21d1dfc42f3c00c2d698689f96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tdutrion/flysystem-rackspace/zipball/4f860c914a906d4e8a65f5ee5d5d1fefa9da5928",
-                "reference": "4f860c914a906d4e8a65f5ee5d5d1fefa9da5928",
+                "url": "https://api.github.com/repos/alcalyn/flysystem-rackspace/zipball/64240e2e5e51ca21d1dfc42f3c00c2d698689f96",
+                "reference": "64240e2e5e51ca21d1dfc42f3c00c2d698689f96",
                 "shasum": ""
             },
             "require": {
@@ -3419,7 +3419,7 @@
             ],
             "description": "Flysystem adapter for Rackspace",
             "support": {
-                "source": "https://github.com/tdutrion/flysystem-rackspace/tree/master"
+                "source": "https://github.com/alcalyn/flysystem-rackspace/tree/master"
             },
             "time": "2016-06-16T13:42:28+00:00"
         },
