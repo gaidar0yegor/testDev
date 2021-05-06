@@ -6,6 +6,10 @@ services:
     App\Tests\Behat\:
         resource: '../tests/Behat/*'
 
+    App\Listener\KernelExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, priority: -100 }
+
     App\Tests\Behat\RdiContext:
         arguments:
             $loader: '@fidry_alice_data_fixtures.doctrine.purger_loader'
