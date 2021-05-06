@@ -4,18 +4,10 @@ namespace App\Service;
 
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileResponseFactory
 {
-    private SessionInterface $session;
-
-    public function __construct(SessionInterface $session)
-    {
-        $this->session = $session;
-    }
-
     public function createFileResponse($stream, string $filename, string $contentType = null): Response
     {
         return $this->createFileResponseFromString(stream_get_contents($stream), $filename, $contentType);
@@ -23,13 +15,13 @@ class FileResponseFactory
 
     public function createFileResponseFromString(string $content, string $filename, string $contentType = null): Response
     {
-        // Start the session now to prevent starting session after headers are sent by file response
-        $this->session->start();
-
         $response = new StreamedResponse(
             function () use ($content) {
                 echo $content;
                 flush();
+
+                // exit now to prevent sending headers twice and getting silent critical error in logs,
+                // like "headers already sent"
                 exit;
             },
             200
