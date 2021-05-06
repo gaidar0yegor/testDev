@@ -9,6 +9,19 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.25.1] - 2021-05-06
+### Réparé
+- Plusieurs petites réparations
+    - Met à jour Symfony 2.5.1 => 2.5.7, et les autres dépendances php
+    - N'affiche que les erreurs critique dans slack, et ignore les erreurs console
+    - Affiche les rapports de cron récent au lieu des cron les plus anciens
+    - Ré-affiche la page d'erreur personnalisée
+    - Répare le lien du mot de passe oublié
+    - Remove minimum stability to make `composer dump-env prod` works
+    - Fix file upload on rackspace
+    - Fix critical error `headers already sent` when downloading file
+    - Fix error when running bin/console on prod env
+
 ## [0.25.0] - 2021-05-04
 ### Ajouté
 - Dans les notifications sur le click sur le nom du fait marquant vous êtes atterissé directement sur le fait marquant sur lequel vous avez cliqué
