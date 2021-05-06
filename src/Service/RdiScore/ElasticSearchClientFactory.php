@@ -2,21 +2,22 @@
 
 namespace App\Service\RdiScore;
 
-use App\Service\RdiScore\Exception\NoElasticSearchHostException;
 use Elasticsearch\Client;
 use Elasticsearch\ClientBuilder;
+use Psr\Log\LoggerInterface;
 
 class ElasticSearchClientFactory
 {
-    public static function createClient(string $elasticSearchHost): Client
+    public static function createClient(string $elasticSearchHost, LoggerInterface $logger): Client
     {
-        if ('' === $elasticSearchHost) {
-            throw new NoElasticSearchHostException();
+        $builder = ClientBuilder::create();
+
+        if ($elasticSearchHost) {
+            $builder->setHosts([$elasticSearchHost]);
+        } else {
+            $logger->warning('You must define an Elastic search host first. Set ELASTIC_SEARCH_HOST env var.');
         }
 
-        return ClientBuilder::create()
-            ->setHosts([$elasticSearchHost])
-            ->build()
-        ;
+        return $builder->build();
     }
 }

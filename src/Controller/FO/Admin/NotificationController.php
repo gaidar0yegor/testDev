@@ -7,6 +7,7 @@ use App\Service\SocieteNotificationsService;
 use App\MultiSociete\UserContext;
 use App\Slack\Slack;
 use Cron\CronBundle\Entity\CronJob;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,6 +64,7 @@ class NotificationController extends AbstractController
 
         return $this->render('notification/rapport.html.twig', [
             'cronJob' => $cronJob,
+            'cronReports' => $cronJob->getReports()->matching(new Criteria(null, ['runAt' => 'desc'], null, 20)),
         ]);
     }
 }

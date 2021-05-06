@@ -8,3 +8,5 @@ monolog:
             channel: '#rdi-manager-logs'
             include_extra: true
             level: error
+            channels: ["!console"]
+            use_attachment: false
