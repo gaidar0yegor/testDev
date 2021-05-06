@@ -19,7 +19,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for report in cronJob.reports[0:10] %}
+            {% for report in cronReports %}
                 <tr>
                     <td>{{ report.runAt|format_datetime }}</td>
                     <td>{{ report.runTime|round(3) }}ms</td>
