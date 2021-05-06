@@ -2,57 +2,48 @@
 
 namespace App\Service;
 
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileResponseFactory
 {
+    private SessionInterface $session;
+
+    public function __construct(SessionInterface $session)
+    {
+        $this->session = $session;
+    }
+
     public function createFileResponse($stream, string $filename, string $contentType = null): Response
     {
-        $headers = [
-            'Content-Transfer-Encoding', 'binary',
-            'Content-Disposition' => sprintf(
-                'attachment; filename="%s"',
-                $filename
-            ),
-            'Content-Length' => fstat($stream)['size'],
-        ];
-
-        if (null !== $contentType) {
-            $headers['Content-Type'] = $contentType;
-        }
-
-        return new StreamedResponse(
-            function () use ($stream) {
-                echo stream_get_contents($stream);
-                flush();
-            },
-            200,
-            $headers
-        );
+        return $this->createFileResponseFromString(stream_get_contents($stream), $filename, $contentType);
     }
+
     public function createFileResponseFromString(string $content, string $filename, string $contentType = null): Response
     {
-        $headers = [
-            'Content-Transfer-Encoding', 'binary',
-            'Content-Disposition' => sprintf(
-                'attachment; filename="%s"',
-                $filename
-            ),
-            'Content-Length' => strlen($content),
-        ];
+        // Start the session now to prevent starting session after headers are sent by file response
+        $this->session->start();
 
-        if (null !== $contentType) {
-            $headers['Content-Type'] = $contentType;
-        }
-
-        return new StreamedResponse(
+        $response = new StreamedResponse(
             function () use ($content) {
                 echo $content;
                 flush();
+                exit;
             },
-            200,
-            $headers
+            200
         );
+
+        $dispositionHeader = $response->headers->makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, $filename);
+        $response->headers->set('Content-Disposition', $dispositionHeader);
+        $response->headers->set('Content-Transfer-Encoding', 'binary');
+        $response->headers->set('Content-Length', strlen($content));
+
+        if (null !== $contentType) {
+            $response->headers->set('Content-Type', $contentType);
+        }
+
+        return $response;
     }
 }
