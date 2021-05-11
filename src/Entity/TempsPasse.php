@@ -28,11 +28,18 @@ class TempsPasse implements HasSocieteInterface
      * Pourcentage du temps passe sur le projet
      * De 0 a 100
      *
-     * @ORM\Column(type="integer")
+     * Liste avec un seul entier si même pourcentage pour tout le mois,
+     * Liste de plusieurs entiers pour définir un pourcentage chaque jour du mois.
+     *
+     * @ORM\Column(type="simple_array")
+     *
+     * @var int[]
      */
-    private $pourcentage;
+    private $pourcentages = [0];
 
     /**
+     * Projet sur lequel le temps est passé.
+     *
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="tempsPasses")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -49,14 +56,26 @@ class TempsPasse implements HasSocieteInterface
         return $this->id;
     }
 
-    public function getPourcentage(): ?int
+    public function getPourcentage(): int
     {
-        return $this->pourcentage;
+        return intval($this->pourcentages[0]);
     }
 
-    public function setPourcentage(?int $pourcentage): self
+    public function setPourcentage(int $pourcentage): self
     {
-        $this->pourcentage = $pourcentage;
+        $this->pourcentages = [$pourcentage];
+
+        return $this;
+    }
+
+    public function getPourcentages(): array
+    {
+        return array_map('intval', $this->pourcentages);
+    }
+
+    public function setPourcentages(array $pourcentages): self
+    {
+        $this->pourcentages = $pourcentages;
 
         return $this;
     }
