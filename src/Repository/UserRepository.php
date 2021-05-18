@@ -6,6 +6,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use libphonenumber\PhoneNumber;
+use App\Service\DateMonthService;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,8 +18,22 @@ use libphonenumber\PhoneNumber;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, DateMonthService $dateMonthService)
     {
         parent::__construct($registry, User::class);
+
+        $this->dateMonthService = $dateMonthService;
     }
-}
+
+    public function findCreatedAt(int $year): array
+    {
+        return $this
+        ->createQueryBuilder('user')
+        ->select('MONTH(user.createdAt) AS mois, count(user) as total')
+        ->where('YEAR(user.createdAt) = :year')
+        ->setParameter('year', $year)
+        ->groupBy('mois') 
+        ->getQuery()
+        ->getResult();
+    }
+}	

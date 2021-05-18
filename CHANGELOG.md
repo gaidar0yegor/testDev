@@ -7,7 +7,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 
 
-
+### Ajouté
+- Création d'une nouvelle page dans le BO pour avoir accès à des stats
+- Ajout d'un tableau avec le nombre d'user créé par mois sur l'année courante
 
 ## [0.25.0] - 2021-05-04
 ### Ajouté
