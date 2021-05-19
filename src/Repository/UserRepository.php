@@ -6,7 +6,6 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use libphonenumber\PhoneNumber;
-use App\Service\DateMonthService;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
