@@ -4,8 +4,8 @@
 
 <h1>Statistiques</h1>
 
-
-    <div class="card d-flex justify-content-center  rdi-card-icon text-center">
+<div class="row d-flex justify-content-around mt-5">
+    <div class="card d-flex col-lg-4 justify-content-center rdi-card-icon text-center">
         <i class="fa fa-users" aria-hidden="true"></i>
         <div class="card-body text-center">
             <div class="row">
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="card d-flex justify-content-center mt-5 rdi-card-icon text-center">
+    <div class="card d-flex col-lg-4 justify-content-center rdi-card-icon text-center">
         <i class="fa fa-users" aria-hidden="true"></i>
         <div class="card-body text-center">
             <div class="row">
@@ -34,49 +34,50 @@
             </div>
         </div>
     </div>
+</div>
 
-    <table class="table mt-5">
-        <thead>
-            <tr>
-                <th scope="col">Indice par mois</th>
-                <th scope="col">Jan</th>
-                <th scope="col">Fev</th>
-                <th scope="col">Mars</th>
-                <th scope="col">Avr</th>
-                <th scope="col">Mai</th>
-                <th scope="col">Juin</th>
-                <th scope="col">Juil</th>
-                <th scope="col">Aout</th>
-                <th scope="col">Sept</th>
-                <th scope="col">Oct</th>
-                <th scope="col">Nov</th>
-                <th scope="col">Déc</th>
-            </tr>
-        </thead>
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th>Indice par mois</th>
+            <th>Jan</th>
+            <th>Fev</th>
+            <th>Mars</th>
+            <th>Avr</th>
+            <th>Mai</th>
+            <th>Juin</th>
+            <th>Juil</th>
+            <th>Aout</th>
+            <th>Sept</th>
+            <th>Oct</th>
+            <th>Nov</th>
+            <th>Déc</th>
+        </tr>
+    </thead>
 
-        <tbody>
-            <tr>
-                <th scope="row">
-                    Utilisateurs
-                </td>
-                {% for userData in userCreatedAt %}
-                <td>
-                    {{ userData }}
-                </td>
-                {% endfor %}
-            </tr>
-            <tr>
-                <th scope="row">
-                    Projets
-                </td>
-                {% for projetData in projetCreatedAt %}
-                <td>
-                    {{ projetData }}
-                </td>
-                {% endfor %}
-            </tr>
-        </tbody>
+    <tbody>
+        <tr>
+            <td>
+                Utilisateurs
+            </td>
+            {% for userData in userCreatedAt %}
+            <td>
+                {{ userData }}
+            </td>
+            {% endfor %}
+        </tr>
+        <tr>
+            <td>
+                Projets
+            </td>
+            {% for projetData in projetCreatedAt %}
+            <td>
+                {{ projetData }}
+            </td>
+            {% endfor %}
+        </tr>
+    </tbody>
 
-    </table>
+</table>
 
 {% endblock %}

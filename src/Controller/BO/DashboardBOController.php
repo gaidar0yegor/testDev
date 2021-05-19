@@ -51,8 +51,6 @@ class DashboardBOController extends AbstractController
             $projetData[$index] = 0;
         }
 
-        $index = 0;
-
         foreach ($projetCreatedAt as $projet) {
             $projetData[$projet['mois']] = $projet['total'];
             $index++;

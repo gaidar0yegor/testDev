@@ -18,11 +18,9 @@ use App\Service\DateMonthService;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry, DateMonthService $dateMonthService)
+    public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, User::class);
-
-        $this->dateMonthService = $dateMonthService;
     }
 
     public function findCreatedAt(int $year): array
