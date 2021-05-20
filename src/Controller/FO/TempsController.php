@@ -2,14 +2,12 @@
 
 namespace App\Controller\FO;
 
-use App\Form\TempsPassesType;
 use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\MultiSociete\UserContext;
 use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class TempsController extends AbstractController
@@ -22,55 +20,13 @@ class TempsController extends AbstractController
      * name="app_fo_temps"
      * )
      */
-    public function saisieTempsEnPourCent(
-        Request $request,
-        DateTime $month,
-        CraService $craService,
-        EntityManagerInterface $em,
-        UserContext $userContext,
-        DateMonthService $dateMonthService
-    ) {
+    public function saisieTempsEnPourCent(DateTime $month): Response
+    {
         if ($month > new \DateTime()) {
             throw $this->createNotFoundException('Impossible de saisir les temps passés dans le futur.');
         }
 
-        $cra = $craService->loadCraForUser($userContext->getSocieteUser(), $month);
-        $form = $this->createForm(TempsPassesType::class, $cra);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $cra->setTempsPassesModifiedAt(new \DateTime());
-
-            $em->persist($cra);
-            $em->flush();
-
-            $href = $this->generateUrl('app_fo_absences', [
-                'year' => $month->format('Y'),
-                'month' => $month->format('m'),
-            ]);
-
-            $this->addFlash('success', 'Temps passés mis à jour.');
-            $this->addFlash(
-                'warning',
-                '<a href="'.$href.'" class="alert-link">Saisissez vos absences</a> si vous en avez pris ce mois ci.'
-            );
-
-            return $this->redirectToRoute('app_fo_temps', [
-                'year' => $month->format('Y'),
-                'month' => $month->format('m'),
-            ]);
-        }
-
-        return $this->render('temps/temps_en_pour_cent.html.twig', [
-            'mois' => $month,
-            'moisEntree' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateEntree()),
-            'moisSortie' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateSortie()),
-            'form' => $form->createView(),
-            'next' => $dateMonthService->getNextMonth($month),
-            'prev' => $dateMonthService->getPrevMonth($month),
-            'cra' => $cra,
-        ]);
+        return $this->render('temps/temps_en_pour_cent.html.twig');
     }
 
     /**

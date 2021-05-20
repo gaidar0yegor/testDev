@@ -56,6 +56,7 @@ class CraService
 
     public function loadCraForUser(SocieteUser $societeUser, \DateTime $month): Cra
     {
+        $month = $this->dateMonthService->normalize($month);
         $cra = $this->craRepository->findCraByUserAndMois($societeUser, $month);
 
         if (null === $cra) {

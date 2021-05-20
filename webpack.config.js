@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('base', './assets/base.js')
     .addEntry('app', './assets/app.js')
+    .addEntry('vueapp', './assets/vueapp.js')
     .addEntry('dashboard', './assets/dashboard.js')
     .addEntry('login', './assets/login.js')
     .addEntry('timesheet-pdf', './assets/timesheet-pdf.js')
@@ -69,6 +70,8 @@ Encore
 
     // enables Sass/SCSS support
     .enableSassLoader()
+
+    .enableVueLoader()
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()

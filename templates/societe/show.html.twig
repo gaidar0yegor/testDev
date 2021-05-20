@@ -52,5 +52,22 @@
                 <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">Modifier le nombre d'heures</a>
             </div>
         </div>
+        <div class="card rdi-card-icon text-center">
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                        <h5 class="card-title deck">Saisie des temps</h5>
+                        <h6 class="card-subtitle mb-2 deck text-muted">Granularité de saisie des temps.</h6>
+                        <p class="card-text deck display-4 mb-0">
+                            {{ societe.timesheetGranularity|trans }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">Changer la granularité</a>
+            </div>
+        </div>
     </div>
 {% endblock %}

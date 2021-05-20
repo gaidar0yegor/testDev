@@ -8,6 +8,11 @@ const addFlashMessage = (level, message) => {
     `);
 };
 
+const clearFlashMessages = () => {
+    container.innerHTML = '';
+};
+
 export {
     addFlashMessage,
+    clearFlashMessages,
 };

@@ -1,14 +1,21 @@
-import $ from 'jquery';
-import 'popper.js';
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
-$(() => {
+document.addEventListener('DOMContentLoaded', () => {
     // Wrap disabled elements to make sure tooltip appears
-    $('[title].disabled').wrap(function () {
-        return $('<span>').prop('title', $(this).prop('title'));
+    document.querySelectorAll('[title]').forEach(element => {
+        const wrapper = document.createElement('span');
+
+        element.parentNode.insertBefore(wrapper, element);
+        wrapper.appendChild(element);
+        wrapper.setAttribute('title', element.getAttribute('title'));
+        element.removeAttribute('title');
     });
 
-    $('[title]').tooltip({
-        placement: 'auto',
-        trigger: 'hover focus',
+    tippy('[title]', {
+        content: element => element.getAttribute('title'),
+        onCreate(instance) {
+            instance.reference.removeAttribute('title');
+        },
     });
 });

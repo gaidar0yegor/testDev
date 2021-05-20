@@ -48,6 +48,20 @@ class Societe implements HasSocieteInterface
     public const CREATED_FROM_COMMAND = 'COMMAND';
 
     /**
+     * User fill their timesheet once a month.
+     *
+     * @param string
+     */
+    public const GRANULARITY_MONTHLY = 'monthly';
+
+    /**
+     * User fill their timesheet once a week.
+     *
+     * @param string
+     */
+    public const GRANULARITY_WEEKLY = 'weekly';
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
@@ -119,6 +133,13 @@ class Societe implements HasSocieteInterface
      */
     private $createdBy;
 
+    /**
+     * One of self::GRANULARITY_*
+     *
+     * @ORM\Column(type="string", length=31)
+     */
+    private $timesheetGranularity;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -128,6 +149,7 @@ class Societe implements HasSocieteInterface
         $this->slackAccessTokens = new ArrayCollection();
         $this->projets = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->timesheetGranularity = self::GRANULARITY_MONTHLY;
     }
 
     public function getId(): ?int
@@ -330,6 +352,18 @@ class Societe implements HasSocieteInterface
     public function setCreatedBy(?User $createdBy): self
     {
         $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getTimesheetGranularity(): ?string
+    {
+        return $this->timesheetGranularity;
+    }
+
+    public function setTimesheetGranularity(string $timesheetGranularity): self
+    {
+        $this->timesheetGranularity = $timesheetGranularity;
 
         return $this;
     }

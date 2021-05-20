@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Societe;
+use App\Form\Custom\CardChoiceType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -17,9 +18,22 @@ class SocieteType extends AbstractType
             ->add('raisonSociale')
             ->add('siret')
             ->add('heuresParJours', NumberType::class)
-            ->add('submit', SubmitType::class, [
-                'attr' => ['class' => 'btn btn-success'],
-                'label' => 'Mettre à jour',
+            ->add('timesheetGranularity', CardChoiceType::class, [
+                'label' => 'Saisie des temps',
+                'help' => join(' ', [
+                    'Au mois :',
+                    'les utilisateurs doivent saisir leurs temps passés une fois par mois seulement.',
+                    'À la semaine :',
+                    'les pourcentages sont plus précis, mais les utilisateurs doivent les saisir chaque semaine.',
+                ]),
+                'choices' => [
+                    Societe::GRANULARITY_MONTHLY => Societe::GRANULARITY_MONTHLY,
+                    Societe::GRANULARITY_WEEKLY => Societe::GRANULARITY_WEEKLY,
+                ],
+                'faIcons' => [
+                    Societe::GRANULARITY_MONTHLY => 'fa-calendar-o',
+                    Societe::GRANULARITY_WEEKLY => 'fa-calendar',
+                ],
             ])
         ;
     }

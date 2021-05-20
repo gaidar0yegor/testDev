@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation as Serializer;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
@@ -58,11 +59,15 @@ class Cra implements HasSocieteInterface
 
     /**
      * @ORM\Column(type="date", nullable=true)
+     *
+     * @Serializer\Groups({"Default", "saisieTemps"})
      */
     private $tempsPassesModifiedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=TempsPasse::class, mappedBy="cra", orphanRemoval=true, cascade={"persist"})
+     *
+     * @Serializer\Groups({"Default", "saisieTemps"})
      */
     private $tempsPasses;
 

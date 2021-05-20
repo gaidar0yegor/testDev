@@ -6,6 +6,7 @@ use App\HasSocieteInterface;
 use App\Repository\TempsPasseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=TempsPasseRepository::class)
@@ -21,6 +22,8 @@ class TempsPasse implements HasSocieteInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
+     * @Serializer\Groups({"Default", "saisieTemps"})
      */
     private $id;
 
@@ -33,6 +36,8 @@ class TempsPasse implements HasSocieteInterface
      *
      * @ORM\Column(type="simple_array")
      *
+     * @Serializer\Groups({"Default", "saisieTemps"})
+     *
      * @var int[]
      */
     private $pourcentages = [0];
@@ -42,6 +47,8 @@ class TempsPasse implements HasSocieteInterface
      *
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="tempsPasses")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Serializer\Groups({"Default", "saisieTemps"})
      */
     private $projet;
 
@@ -56,9 +63,16 @@ class TempsPasse implements HasSocieteInterface
         return $this->id;
     }
 
-    public function getPourcentage(): int
+    /**
+     * @param int $dayIndex Index of the day, 0 for the first day.
+     */
+    public function getPourcentage(int $dayIndex = 0): int
     {
-        return intval($this->pourcentages[0]);
+        if (1 === count($this->pourcentages)) {
+            return $this->pourcentages[0];
+        }
+
+        return intval($this->pourcentages[$dayIndex]);
     }
 
     public function setPourcentage(int $pourcentage): self
