@@ -27,20 +27,18 @@ class DashboardBOController extends AbstractController
      */
     public function dashboardUser(ProjetRepository $projetRepository, UserRepository $userRepository)
     {
+        $index = 0;
 
         $userCreatedAt = $this->userRepository->findCreatedAt((new \DateTime())->format('Y'));
 
-        $userData = [];
+        $userData = [];  
 
         for ($index = 1; $index < 13; $index++) {
             $userData[$index] = 0;
         }
 
-        $index = 0;
-
         foreach ($userCreatedAt as $user) {
             $userData[$user['mois']] = $user['total'];
-            $index++;
         }
 
         $projetCreatedAt = $this->projetRepository->findCreatedAt((new \DateTime())->format('Y'));
@@ -53,7 +51,6 @@ class DashboardBOController extends AbstractController
 
         foreach ($projetCreatedAt as $projet) {
             $projetData[$projet['mois']] = $projet['total'];
-            $index++;
         }
         
         return $this->render('bo/dashboard/dashboard.html.twig',[

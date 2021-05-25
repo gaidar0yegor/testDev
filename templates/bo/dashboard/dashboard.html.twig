@@ -5,31 +5,34 @@
 <h1>Statistiques</h1>
 
 <div class="row d-flex justify-content-around mt-5">
-    <div class="card d-flex col-lg-4 justify-content-center rdi-card-icon text-center">
-        <i class="fa fa-users" aria-hidden="true"></i>
-        <div class="card-body text-center">
-            <div class="row">
-                <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                    <h5 class="card-title">Nombre total d'utilisateurs</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
-                    <p class="card-text display-4 mb-0">
-                        {{ user|length }}
-                    </p>
+    <div class="col-lg-4">
+        <div class="card d-flex justify-content-center rdi-card-icon text-center">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                        <h5 class="card-title">Nombre total d'utilisateurs</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
+                        <p class="card-text display-4 mb-0">
+                            {{ user|length }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="card d-flex col-lg-4 justify-content-center rdi-card-icon text-center">
-        <i class="fa fa-users" aria-hidden="true"></i>
-        <div class="card-body text-center">
-            <div class="row">
-                <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                    <h5 class="card-title">Nombre total de projets</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
-                    <p class="card-text display-4 mb-0">
-                        {{ projet|length }}
-                    </p>
+    <div class="col-lg-4">
+        <div class="card d-flex justify-content-center rdi-card-icon text-center">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                        <h5 class="card-title">Nombre total de projets</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
+                        <p class="card-text display-4 mb-0">
+                            {{ projet|length }}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -58,7 +61,7 @@
     <tbody>
         <tr>
             <td>
-                Utilisateurs
+                Utilisateurs créés
             </td>
             {% for userData in userCreatedAt %}
             <td>
@@ -68,7 +71,7 @@
         </tr>
         <tr>
             <td>
-                Projets
+                Projets créés
             </td>
             {% for projetData in projetCreatedAt %}
             <td>
