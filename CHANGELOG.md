@@ -5,13 +5,19 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.26.0] - 2021-05-27
 ### Ajouté
+- Back office - statistiques
+    - Ajout du nombre de nouveaux utilisateurs et projets par mois
 - Possibilité de saisir les pourcentages de temps à la semaine
     - L'admin peut switcher sur une saisie hebdomadaire (et revenir au mensuel)
     - Les contributeurs devront saisir les pourcentages chaque semaine (les absences ne changent pas)
     - Les feuilles de temps prennent en compte les pourcentages de chaque semaine
     - L'interface est plus réactive, installation de VueJS et utilisation d'une API pour les données
-
 
 ### Ajouté
 - Création d'une nouvelle page dans le BO pour avoir accès à des stats
