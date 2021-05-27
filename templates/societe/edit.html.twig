@@ -5,7 +5,25 @@
 {% block body %}
     <h1>Modifier ma société</h1>
 
-    {{ form(form) }}
+    <a href="{{ path('app_fo_admin_societe_show') }}" class="d-block mb-4">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Retour
+    </a>
 
-    <a href="{{ path('app_fo_admin_societe_show') }}">Retour</a>
+    {{ form_start(form) }}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.raisonSociale) }}
+            {{ form_row(form.siret) }}
+            {{ form_row(form.heuresParJours) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.timesheetGranularity) }}
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Mettre à jour</button>
+
+    {{ form_end(form) }}
 {% endblock %}

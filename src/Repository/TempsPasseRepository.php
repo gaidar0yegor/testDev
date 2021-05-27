@@ -80,7 +80,6 @@ class TempsPasseRepository extends ServiceEntityRepository
             ->addSelect('societeUser')
             ->where('YEAR(cra.mois) = :year')
             ->andWhere('tempsPasse.projet = :projet')
-            ->andWhere('tempsPasse.pourcentage > 0')
             ->setParameters([
                 'projet' => $projet,
                 'year' => $year,

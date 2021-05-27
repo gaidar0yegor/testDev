@@ -6,47 +6,23 @@
 
 <h1>Saisie de temps passé</h1>
 
-<div class="row">
-    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-        {{ helpText('saisieTempsPasse') }}
+{{ helpText('saisieTempsPasse') }}
 
-        <h2 class="mb-4 align-items-center">
-            <a href="{{ path('app_fo_temps', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
-                <i class="fa fa-angle-left fa-lg"></i>
-            </a>
-            <span class="mx-3 text-month">
-                {{ mois|format_date(pattern='MMMM yyyy')|capitalize }}
-            </span>
-            {% if next > date() %}
-                <span class="text-muted" title="Impossible de saisir les temps passés dans le futur.">
-                    <i class="fa fa-angle-right fa-lg"></i>
-                </span>
-            {% else %}
-                <a href="{{ path('app_fo_temps', {'year': next|date('Y'), 'month': next|date('m')}) }}">
-                    <i class="fa fa-angle-right fa-lg"></i>
-                </a>
-            {% endif %}
-        </h2>
+<App>
+    <saisie-des-temps
+        monthly-or-weekly="{{ userContext.societeUser.societe.timesheetGranularity|default(constant('App\\Entity\\Societe::GRANULARITY_MONTHLY')) }}"
+        url-to-absences="{{ path('app_fo_absences', {'year': '1111', 'month': '22'}) }}"
+    ></saisie-des-temps>
+</App>
 
-        {% if cra.hasTempsPasses %}
-            {% include 'temps/_info-validation.html.twig' with {
-                'submitted': cra.isTempsPassesSubmitted,
-                'modifiedAt': cra.tempsPassesModifiedAt
-            } %}
+{% endblock %}
 
-            {{ form_start(form) }}
-            {{ form_errors(form) }}
-            {{ form_row(form.tempsPasses) }}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('vueapp') }}
+{% endblock %}
 
-            <div class="text-center">
-                {{ form_row(form.submit) }}
-            </div>
-
-            {{ form_end(form) }}
-        {% else %}
-            <p class="lead text-center">Ce mois-ci, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.</p>
-        {% endif %}
-    </div>
-</div>
-
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('vueapp') }}
 {% endblock %}

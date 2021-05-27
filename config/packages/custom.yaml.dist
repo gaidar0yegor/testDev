@@ -2,9 +2,16 @@
 # see https://github.com/symfony/monolog-bundle/blob/master/DependencyInjection/Configuration.php
 monolog:
     handlers:
+        slack_logs:
+            type: fingers_crossed
+            action_level: error
+            excluded_404s:
+                - ^/
+            handler: slackwebhook
+            channels: ["!console"]
         slackwebhook:
             type: slackwebhook
-            webhook_url: ~
+            webhook_url: https://hooks.slack.com/services/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
             channel: '#rdi-manager-logs'
             include_extra: true
             level: error

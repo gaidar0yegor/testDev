@@ -62,12 +62,6 @@
                 {# Total heures #}
                 <td>
                     <strong>{{ projet.totalWorkedHours|round(2) }}&nbsp;h</strong>
-                    {% if projet.tempsPasse %}
-                        <br>
-                        <small class="text-muted">
-                            soit {{ projet.tempsPasse.pourcentage }} %
-                        </small>
-                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

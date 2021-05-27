@@ -126,7 +126,7 @@ class TimesheetCalculator
                     return 0.0;
                 }
 
-                return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage()) / 100.0;
+                return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage($key)) / 100.0;
             },
             $cra->getJours(),
             array_keys($cra->getJours())

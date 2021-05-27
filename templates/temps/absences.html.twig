@@ -15,7 +15,7 @@
                 <i class="fa fa-angle-left fa-lg"></i>
             </a>
             <span class="mx-3 text-month">
-                {{ cra.mois|format_date(pattern='MMMM yyyy')|capitalize }}
+                {{ cra.mois|format_date(pattern='MMMM yyyy') }}
             </span>
             <a href="{{ path('app_fo_absences', {'year': next|date('Y'), 'month': next|date('m')}) }}">
                 <i class="fa fa-angle-right fa-lg"></i>
