@@ -21,4 +21,16 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
-}
+
+    public function findCreatedAt(int $year): array
+    {
+        return $this
+        ->createQueryBuilder('user')
+        ->select('MONTH(user.createdAt) AS mois, count(user) as total')
+        ->where('YEAR(user.createdAt) = :year')
+        ->setParameter('year', $year)
+        ->groupBy('mois') 
+        ->getQuery()
+        ->getResult();
+    }
+}	

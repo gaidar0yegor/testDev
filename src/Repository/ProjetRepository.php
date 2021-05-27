@@ -265,4 +265,16 @@ class ProjetRepository extends ServiceEntityRepository
                 ->getResult()
         ;
     }
+
+    public function findCreatedAt(int $year): array
+    {
+        return $this
+        ->createQueryBuilder('projet')
+        ->select('MONTH(projet.createdAt) AS mois, count(projet) as total')
+        ->where('YEAR(projet.createdAt) = :year')
+        ->setParameter('year', $year)
+        ->groupBy('mois') 
+        ->getQuery()
+        ->getResult();
+    }
 }
