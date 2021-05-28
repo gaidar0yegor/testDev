@@ -71,7 +71,12 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
-    .enableVueLoader()
+    .enableVueLoader(() => {}, {
+        // "false" would be better but not working.
+        // Setting "true" to silent this message while building:
+        // "To create a smaller (and CSP-compliant) build, see https://symfony.com/doc/current/frontend/encore/vuejs.html#runtime-compiler-build"
+        runtimeCompilerBuild: true
+    })
 
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
