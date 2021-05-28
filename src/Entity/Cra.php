@@ -216,37 +216,49 @@ class Cra implements HasSocieteInterface
      * @Assert\Callback
      *
      * @param TempsPasse[] $tempsPasses
-     *
-     * @throws TempsPassesPercentException Si les pourcentages ne sont pas valide.
      */
     public function checkPercents(ExecutionContextInterface $context, $payload)
     {
-        $totalPercent = 0;
+        $maxDays = 1;
 
+        // Check every single percent is between 0 and 100
         foreach ($this->tempsPasses as $tempsPasse) {
-            $percent = $tempsPasse->getPourcentage();
+            foreach ($tempsPasse->getPourcentages() as $percent) {
+                if ($percent < 0 || $percent > 100) {
+                    $context
+                        ->buildViolation(sprintf(
+                            'Un pourcentage doit être entre 0 et 100, %d obtenu.',
+                            $percent
+                        ))
+                        ->addViolation()
+                    ;
 
-            if ($percent < 0 || $percent > 100) {
+                    break;
+                }
+            }
+
+            $maxDays = max($maxDays, count($tempsPasse->getPourcentages()));
+        }
+
+        // Check total percents of every days are <= 100
+        for ($i = 0; $i < $maxDays; ++$i) {
+            $total = 0;
+
+            foreach ($this->tempsPasses as $tempsPasse) {
+                $total += $tempsPasse->getPourcentage($i);
+            }
+
+            if ($total > 100) {
                 $context
                     ->buildViolation(sprintf(
-                        'Un pourcentage doit être entre 0 et 100, %d obtenu.',
-                        $percent
+                        'La somme des pourcentages doit être entre 0 et 100, %d obtenu.',
+                        $total
                     ))
                     ->addViolation()
                 ;
+
+                break;
             }
-
-            $totalPercent += $percent;
-        }
-
-        if ($totalPercent < 0 || $totalPercent > 100) {
-            $context
-                ->buildViolation(sprintf(
-                    'La somme des pourcentages doit être entre 0 et 100, %d obtenu.',
-                    $totalPercent
-                ))
-                ->addViolation()
-            ;
         }
     }
 }

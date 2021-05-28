@@ -72,6 +72,10 @@ class TempsPasse implements HasSocieteInterface
             return $this->pourcentages[0];
         }
 
+        if ($dayIndex >= count($this->pourcentages)) {
+            return 0;
+        }
+
         return intval($this->pourcentages[$dayIndex]);
     }
 
