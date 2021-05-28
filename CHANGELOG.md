@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Modifié
 - Retirer l'effet de surlignement après la création d'un fait marquant
+- Réduction du nombre de charactères des SMS pour diviser le coût par 2
 
 
 

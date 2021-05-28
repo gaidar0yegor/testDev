@@ -56,7 +56,7 @@ class RappelSaisieTemps implements EventSubscriberInterface
             ->first()
         ;
 
-        $message = $this->twig->render('mail/notification_saisie_temps.txt.twig', [
+        $message = $this->twig->render('sms/notification_saisie_temps.txt.twig', [
             'month' => $month,
             'cra' => $cra,
         ]);

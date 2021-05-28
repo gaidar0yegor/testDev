@@ -8,11 +8,11 @@ class TokenGenerator
      * Generates random tokens that can be used in url.
      * I.e: "zl-R5gGDcBYw7pz7jniZWfUA69V_iEffqFQQatt-F54"
      */
-    public function generateUrlToken(): string
+    public function generateUrlToken(int $size = 42): string
     {
-        $bytes = random_bytes(32);
+        $bytes = random_bytes($size + 10);
 
-        return sodium_bin2base64($bytes, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING);
+        return substr(sodium_bin2base64($bytes, SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING), 0, $size);
     }
 
     public function generate6DigitVerificationCode(): string

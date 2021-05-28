@@ -12,7 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Twig\Environment as Twig;
 
 class TestSmsCommand extends Command
 {
@@ -24,20 +24,20 @@ class TestSmsCommand extends Command
 
     private PhoneNumberUtil $phoneNumberUtil;
 
-    private UrlGeneratorInterface $urlGenerator;
+    private Twig $twig;
 
     public function __construct(
         string $smsDsn,
         SmsSender $smsSender,
         PhoneNumberUtil $phoneNumberUtil,
-        UrlGeneratorInterface $urlGenerator
+        Twig $twig
     ) {
         parent::__construct();
 
         $this->smsDsn = $smsDsn;
         $this->smsSender = $smsSender;
         $this->phoneNumberUtil = $phoneNumberUtil;
-        $this->urlGenerator = $urlGenerator;
+        $this->twig = $twig;
     }
 
     protected function configure()
@@ -64,17 +64,10 @@ class TestSmsCommand extends Command
         $user = new User();
         $user->setTelephone($phoneNumber);
 
-        $homeUrl = $this->urlGenerator->generate('app_home', [], UrlGeneratorInterface::ABSOLUTE_URL);
-        $message = sprintf(
-            'Ceci est un SMS de test envoyé depuis RDI-Manager. '
-            .'Si vous le recevez, le serveur est bien configuré pour envoyer les SMS RDI-Manager. '
-            .'Url absolue de RDI-Manager : %s',
-            $homeUrl
-        );
-
-        if ($input->getOption('message')) {
-            $message = $input->getOption('message');
-        }
+        $message = $input->getOption('message')
+            ? $input->getOption('message')
+            : $this->twig->render('sms/test.txt.twig')
+        ;
 
         $sent = $this->smsSender->sendSms($user->getTelephone(), $message);
 
@@ -85,7 +78,9 @@ class TestSmsCommand extends Command
             return 1;
         }
 
-        $io->success('Le SMS de test a été envoyé !');
+        $io->success('Le SMS de test a été envoyé :');
+
+        $io->writeln($message);
 
         return 0;
     }
