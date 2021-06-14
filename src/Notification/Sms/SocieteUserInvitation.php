@@ -49,7 +49,7 @@ class SocieteUserInvitation implements EventSubscriberInterface
             throw new RdiException('Cannot send invitation email, this user has no invitation token.');
         }
 
-        $message = $this->twig->render('mail/invite.txt.twig', [
+        $message = $this->twig->render('sms/invite.txt.twig', [
             'invitedUser' => $invitedUser,
             'fromUser' => $fromUser,
         ]);

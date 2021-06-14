@@ -48,6 +48,7 @@ security:
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/recommander-rdi-manager, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/invitation-observateur-externe/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/l/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, roles: SOCIETE_ADMIN }
         - { path: ^/back-office, roles: ROLE_BO_USER }
         - { path: ^/$, roles: ROLE_USER }

@@ -50,7 +50,7 @@ class ResetPasswordRequest implements EventSubscriberInterface
             throw new RdiException('Cannot send reset password sms, this user has no reset password token.');
         }
 
-        $message = $this->twig->render('mail/reset_password.txt.twig', [
+        $message = $this->twig->render('sms/reset_password.txt.twig', [
             'user' => $user,
         ]);
 
