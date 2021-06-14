@@ -59,7 +59,12 @@
                     <div class="col d-none d-sm-block">
                     </div>
                 </div>
-
+                <p 
+                    v-if="!validCra(cra)" 
+                    class="text-danger text-center"
+                >
+                    Vos pourcentages et la somme de vos pourcentages doivent ếtre entre 0 et 100
+                </p>
                 <button
                     type="submit"
                     class="mt-5 btn btn-success btn-lg mx-auto d-block"
