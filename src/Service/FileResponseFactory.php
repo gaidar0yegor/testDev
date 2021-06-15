@@ -27,7 +27,14 @@ class FileResponseFactory
             200
         );
 
-        $dispositionHeader = $response->headers->makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, $filename);
+        $filenameFallback = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $filename);
+        $filenameFallback = str_replace('%', '', $filenameFallback);
+
+        $dispositionHeader = $response->headers->makeDisposition(
+            HeaderUtils::DISPOSITION_ATTACHMENT,
+            $filename,
+            $filenameFallback
+        );
         $response->headers->set('Content-Disposition', $dispositionHeader);
         $response->headers->set('Content-Transfer-Encoding', 'binary');
         $response->headers->set('Content-Length', strlen($content));
