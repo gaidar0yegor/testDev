@@ -5,12 +5,18 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.27.0] - 2021-06-15
+### Ajouté
+- Ajout d'un message d'erreur explicatif dans la saisie des pourcentages de temps passés
 ### Modifié
 - Retirer l'effet de surlignement après la création d'un fait marquant
 - Réduction du nombre de charactères des SMS pour diviser le coût par 2
-
-
-
+### Réparé
+- Erreur lorsqu'on téléchargeait un fichier dont le nom contient un accent
 
 ## [0.26.0] - 2021-05-27
 ### Ajouté
