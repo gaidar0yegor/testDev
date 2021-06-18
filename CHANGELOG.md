@@ -9,6 +9,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.27.1] - 2021-06-18
+### Réparé
+- Erreur lorsqu'on allait sur la page de gestion des participants après une invitation par téléphone
+
 ## [0.27.0] - 2021-06-15
 ### Ajouté
 - Ajout d'un message d'erreur explicatif dans la saisie des pourcentages de temps passés
