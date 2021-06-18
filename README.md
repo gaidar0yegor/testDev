@@ -297,6 +297,14 @@ un schéma de base de données à jour, lancer :
 php bin/console doctrine:schema:up --dump-sql
 ```
 
+## Translation
+
+Dump translations from templates, php files... with:
+
+``` bash
+php bin/console translation:update --force --output-format=yml --prefix="" fr
+```
+
 ## Production
 
 Déploiement :
