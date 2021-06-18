@@ -1,1 +1,5 @@
 dashboard: My dashboard
+PROJET_CDP: Project Manager
+PROJET_CONTRIBUTEUR: Contributor
+PROJET_OBSERVATEUR: Observer
+ROLE_BO_USER: Back-office user
