@@ -339,7 +339,7 @@ class User implements UserInterface
             return '-';
         }
 
-        return strtoupper($this->prenom[0]).'. '.$this->nom;
+        return strtoupper(mb_substr($this->prenom, 0, 1)).'. '.$this->nom;
     }
 
     public function getFullnameOrEmail(): string
