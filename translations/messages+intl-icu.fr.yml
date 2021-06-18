@@ -10,19 +10,23 @@ SOCIETE_CDP.small: CdP
 SOCIETE_ADMIN.small: Admin
 SOCIETE_USER.small: Utilisateur
 quota.activeProjet.name: 'Projets actifs'
-quota.activeProjet.description: 'Projet en cours en prennant en compte ses dates de début et de fin.'
+quota.activeProjet.description: 'Projet en cours en prennant en compte ses dates de
+  début et de fin.'
 quota.contributeurs.name: Contributeurs
-quota.contributeurs.description: 'Utilisateur non désactivé, et contributeur (ou chef de projet) sur au moins un projet de la société.'
+quota.contributeurs.description: 'Utilisateur non désactivé, et contributeur (ou chef
+  de projet) sur au moins un projet de la société.'
 None: Aucun
 BACK_OFFICE: Back-Office
 INSCRIPTION: 'Formulaire d''inscription'
 COMMAND: 'Ligne de commande'
-SOCIETE_USER_STATUT_INVITATION: 'En cours d''invitation...'
+SOCIETE_USER_STATUT_INVITATION: 'En cours d''invitation…'
 SOCIETE_USER_STATUT_ACTIVE: Actif
 SOCIETE_USER_STATUT_DISABLED: Désactivé
 monthly: 'Au mois'
 weekly: 'À la semaine'
-n_nouveaux_faits_marquants: "{n, plural,\n    =0    {aucun nouveau fait marquant}\n    one   {un nouveau fait marquant}\n    other {# nouveaux faits marquants}\n}"
-n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other {Observateurs}\n}"
+n_nouveaux_faits_marquants: "{n, plural,\n    =0    {aucun nouveau fait marquant}\n\
+  \    one   {un nouveau fait marquant}\n    other {# nouveaux faits marquants}\n}"
+n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other\
+  \ {Observateurs}\n}"
 dashboard: Mon tableau de bord
 dashboard.today: Mon actualité
