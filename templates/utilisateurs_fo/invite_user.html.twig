@@ -1,26 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un nouvel utilisateur | {{ parent() }}{% endblock %}
+{% block title %}{{ 'invite_new_user'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Inviter un nouvel utilisateur</h1>
-<h2>Saisir les informations</h2>
+<h1>{{ 'invite_new_user'|trans }}</h1>
 
 <div class="col-lg-6 mx-auto">
     <p>
-        Vous pouvez envoyer une invitation par email ou sms à un utilisateur
-        pour qu'il rejoigne votre société.
+        {{ 'you_can_invite_by_email_or_sms_to_make_him_join_company.'|trans }}
     </p>
 
     {{ form_start(form) }}
-        {{ form_row(form.invitationEmail) }}
-        {{ form_row(form.invitationTelephone) }}
-        {{ form_row(form.role) }}
 
-      	<div class="text-center mt-5">
-        	{{ form_row(form.ajouter, { 'label' : bouton }) }}
-		    </div>
+    {{ form_row(form.invitationEmail) }}
+    {{ form_row(form.invitationTelephone) }}
+    {{ form_row(form.role) }}
+
+    <div class="text-center mt-5">
+        <button type="submit" class="btn btn-success btn-lg">{{ 'invite'|trans }}
+    </div>
 
     {{ form_end(form) }}
 

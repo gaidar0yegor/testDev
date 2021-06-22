@@ -1,5 +1,6 @@
 import { FormDataJson, FormDataJsonOptions } from 'form-data-json-convert';
 import { addFlashMessage } from './flash-messages';
+import { t } from './translation';
 
 /**
  * List of forms on which we should keep a draft.
@@ -78,7 +79,13 @@ const saveDraft = form => {
  */
 const enableDraft = form => {
     if (hasDraft(form)) {
-        addFlashMessage('info', 'Vous avez commencez à saisir des données sans les soumettre. <a href="#" class="draft-continue">Continuer la saisie</a>.');
+        addFlashMessage('info', t('unsubmitted_data_warning', {
+            link_start: '<a href="#" class="draft-continue">',
+            link_end: '</a>',
+            interpolation: {
+                escapeValue: false,
+            },
+        }));
 
         document.querySelector('.draft-continue').addEventListener('click', e => {
             e.preventDefault();

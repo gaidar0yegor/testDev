@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier ma société | {{ parent() }}{% endblock %}
+{% block title %}{{ 'edit_my_company'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Modifier ma société</h1>
+    <h1>{{ 'edit_my_company'|trans }}</h1>
 
     <a href="{{ path('app_fo_admin_societe_show') }}" class="d-block mb-4">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Retour
+        {{ 'back'|trans }}
     </a>
 
     {{ form_start(form) }}
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <button type="submit" class="btn btn-success">Mettre à jour</button>
+    <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
 
     {{ form_end(form) }}
 {% endblock %}

@@ -2,24 +2,24 @@
     {% if submitted %}
         <p class="text-success">
             <i class="fa fa-check" aria-hidden="true"></i>
-            Vous avez validé ce mois le {{ modifiedAt|format_date }}.
+            {{ 'you_submitted_this_month_on'|trans({'%date%': modifiedAt|format_date}) }}
         </p>
     {% endif %}
 
     {% if moisEntree is not null and mois < moisEntree %}
         <p class="text-danger">
             <i class="fa fa-user-times" aria-hidden="true"></i>
-            Ce mois-ci, vous n'êtes pas encore dans la société.
+            {{ 'this_month_not_yet_in_company'|trans }}
         </p>
     {% elseif moisSortie is not null and mois > moisSortie %}
         <p class="text-danger">
             <i class="fa fa-user-times" aria-hidden="true"></i>
-            Ce mois-ci, vous n'êtes plus dans la société.
+            {{ 'this_month_no_longer_in_company'|trans }}
         </p>
     {% elseif not submitted and currentOrPreviousMonth(cra.mois) %}
         <p class="text-warning">
             <i class="fa fa-exclamation" aria-hidden="true"></i>
-            Vous devriez valider ce mois.
+            {{ 'you_should_validate_this_month'|trans }}
         </p>
     {% endif %}
 </div>

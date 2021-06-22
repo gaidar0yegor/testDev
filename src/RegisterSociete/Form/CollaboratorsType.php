@@ -16,19 +16,19 @@ class CollaboratorsType extends AbstractType
         $builder
             ->add('email0', EmailType::class, [
                 'required' => false,
-                'label' => 'Email',
+                'label' => 'email',
             ])
             ->add('role0', FoRoleCardChoiceType::class, [
                 'required' => true,
-                'label' => 'Rôle',
+                'label' => 'role',
             ])
             ->add('email1', EmailType::class, [
                 'required' => false,
-                'label' => 'Email',
+                'label' => 'email',
             ])
             ->add('role1', FoRoleCardChoiceType::class, [
                 'required' => true,
-                'label' => 'Rôle',
+                'label' => 'role',
             ])
         ;
     }

@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import EmbedForm from './EmbedForm';
-import datesFr from './dates.fr';
+import datesLocalize from './dates.localize';
+import { detectedLocale } from './translation';
 
 $('form').on('change', 'input.custom-file-input', function () {
     const $input = $(this);
@@ -13,17 +14,17 @@ $('form').on('change', 'input.custom-file-input', function () {
     ;
 });
 
-$.fn.datepicker.dates['fr'] = datesFr;
+$.fn.datepicker.dates[detectedLocale] = datesLocalize;
 
 $('.month-picker').datepicker({
-    language: 'fr',
+    language: detectedLocale,
     minViewMode: 'months',
     format: 'MM yyyy',
     immediateUpdates: true,
 });
 
 $('.date-picker').datepicker({
-    language: 'fr',
+    language: detectedLocale,
     format: 'dd MM yyyy',
     immediateUpdates: true,
 });

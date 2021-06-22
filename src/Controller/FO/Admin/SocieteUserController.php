@@ -62,7 +62,6 @@ class SocieteUserController extends AbstractController
 
         return $this->render('utilisateurs_fo/invite_user.html.twig', [
             'form' => $form->createView(),
-            'bouton' => 'Inviter',
         ]);
     }
 

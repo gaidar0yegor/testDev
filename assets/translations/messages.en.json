@@ -1,0 +1,6 @@
+{
+    "week_from_to": "Week from {{from}} to {{to}}",
+    "update": "Update",
+    "month_validated_on": "You validated this month on {{month}}.",
+    "invalid_percentages": "Each percentage and the sum of these percentages must be between 0 and 100."
+}

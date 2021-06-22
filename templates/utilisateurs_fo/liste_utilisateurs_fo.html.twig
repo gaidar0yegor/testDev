@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des utilisateurs | {{ parent() }}{% endblock %}
+{% block title %}{{ 'users_list'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-	<h1>Liste des utilisateurs</h1>
+	<h1>{{ 'users_list'|trans }}</h1>
 
 	<table
 		class="table table-hover text-center stretched-link-table-row"
@@ -12,13 +12,13 @@
 	>
 		<thead>
 			<tr>
-				<th data-sortable="true" class="text-left">NOM</th>
-				<th data-sortable="true" class="d-none d-md-table-cell">Prénom</th>
-				<th class="d-none d-md-table-cell">Email</th>
-				<th data-sortable="true" data-sorter="bySorterValue">Rôle</th>
-				<th data-sortable="true" class="d-none d-md-table-cell">Statut</th>
-				<th data-sortable="true">Projets</th>
-				<th>Actions</th>
+				<th data-sortable="true" class="text-left">{{ 'lastname'|trans }}</th>
+				<th data-sortable="true" class="d-none d-md-table-cell">{{ 'firstname'|trans }}</th>
+				<th class="d-none d-md-table-cell">{{ 'email'|trans }}</th>
+				<th data-sortable="true" data-sorter="bySorterValue">{{ 'role'|trans }}</th>
+				<th data-sortable="true" class="d-none d-md-table-cell">{{ 'status'|trans }}</th>
+				<th data-sortable="true">{{ 'projects'|trans }}</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -49,7 +49,7 @@
 	<div class="my-3 text-right">
 		<a href="{{ path('app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
 			<i class="fa fa-user-plus" aria-hidden="true"></i>
-			Inviter un nouvel utilisateur
+			{{ 'invite_new_user'|trans }}
 		</a>
 	</div>
 

@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Validation des temps de {{ year }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'timesheet_validation_of_year_n'|trans({'%year%': year}) }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Validation des temps de {{ year }}</h1>
+<h1>{{ 'timesheet_validation_of_year_n'|trans({'%year%': year}) }}</h1>
 
 <ul class="list-inline text-center mb-4">
     {% for yearSwitch in '-3 years'|date('Y')..'+1 months'|date('Y') %}
@@ -25,7 +25,7 @@
 <table class="table table-responsive-md">
     <thead>
         <tr>
-            <th>Utilisateur</th>
+            <th>{{ 'user'|trans }}</th>
             {% for mois in 1..12 %}
                 <th class="text-center">
                     <span class="d-lg-none">{{ [year, mois]|join('-')|format_date(pattern='MMMMM') }}</span>
@@ -45,7 +45,7 @@
                 <td>
                     {% if societeUser.enabled %}
                     {% else %}
-                        Compte désactivé
+                        {{ 'account_disabled'|trans }}
                     {% endif %}
                 </td>
             </tr>

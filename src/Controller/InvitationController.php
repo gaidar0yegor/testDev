@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Pages pour répondre à une invitation à une société,
@@ -57,6 +58,7 @@ class InvitationController extends AbstractController
         string $token,
         SocieteUserRepository $societeUserRepository,
         UserContext $userContext,
+        TranslatorInterface $translator,
         EntityManagerInterface $em
     ) {
         $societeUser = $societeUserRepository->findOneByInvitationToken($token);
@@ -67,7 +69,7 @@ class InvitationController extends AbstractController
 
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('invitation_join_societe', $request->get('csrf_token'))) {
-                $this->addFlash('danger', 'Erreur, il semblerai que le bouton ait expiré, veuillez réessayer.');
+                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('app_fo_user_invitation_rejoindre', [
                     'token' => $token,
@@ -83,7 +85,7 @@ class InvitationController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success', 'Vous avez rejoint la société !');
+            $this->addFlash('success', $translator->trans('Vous avez rejoint la société !'));
 
             return $this->redirectToRoute('app_home');
         }

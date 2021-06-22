@@ -10,34 +10,34 @@
             <div class="card bg-light-grey border-light">
                 <div class="card-body">
                     <div class="row mb-3">
-                        <div class="col-md-3"><strong>Nom : </strong></div>
+                        <div class="col-md-3"><strong>{{ 'lastname'|trans }}</strong></div>
                         <div class="col-md-9">{{ societeUser.user.nom }}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-3"><strong>Prénom : </strong></div>
+                        <div class="col-md-3"><strong>{{ 'firstname'|trans }}</strong></div>
                         <div class="col-md-9">{{ societeUser.user.prenom }}</div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-md-3"><strong>Rôle : </strong></div>
+                        <div class="col-md-3"><strong>{{ 'role'|trans }}</strong></div>
                         <div class="col-md-9">{{ societeUser.role|trans }}</div>
                     </div>
                     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
                         <div class="row mb-3">
-                            <div class="col-md-3"><strong>E-mail : </strong></div>
+                            <div class="col-md-3"><strong>{{ 'email'|trans }}</strong></div>
                             <div class="col-md-9">{{ societeUser.user.email }}</div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-3"><strong>Téléphone : </strong></div>
+                            <div class="col-md-3"><strong>{{ 'phone'|trans }}</strong></div>
                             <div class="col-md-9">
                                 {% if societeUser.user.telephone %}
                                     {{ societeUser.user.telephone|phone_number_rdi }}
                                 {% else %}
-                                    <i>Non renseigné</i>
+                                    <i>{{ 'not_known'|trans }}</i>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-3"><strong>Statut : </strong></div>
+                            <div class="col-md-3"><strong>{{ 'status'|trans }}</strong></div>
                             <div class="col-md-9">
                                 {% if societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_ACTIVE') %}
                                     <span class="badge badge-success">{{ constant('App\\Entity\\SocieteUser::STATUT_ACTIVE')|trans }}</span>
@@ -46,28 +46,28 @@
                                 {% elseif societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_INVITATION') %}
                                     <span class="badge badge-primary">{{ constant('App\\Entity\\SocieteUser::STATUT_INVITATION')|trans }}</span>
                                 {% else %}
-                                    <span class="badge badge-secondary">État indéfini</span>
+                                    <span class="badge badge-secondary">{{ 'not_known'|trans }}</span>
                                 {% endif %}
                             </div>
                         </div>
                     {% endif %}
                     {% if societeUser.dateEntree is not null %}
                         <div class="row mb-3">
-                            <div class="col-md-3"><strong>Date d'entrée : </strong></div>
+                            <div class="col-md-3"><strong>{{ 'user.dateEntree'|trans }}</strong></div>
                             <div class="col-md-9">{{ societeUser.dateEntree|format_date }}</div>
                         </div>
                     {% endif %}
                     {% if societeUser.dateSortie is not null %}
                         <div class="row mb-3">
-                            <div class="col-md-3"><strong>Date de sortie : </strong></div>
+                            <div class="col-md-3"><strong>{{ 'user.dateSortie'|trans }}</strong></div>
                             <div class="col-md-9">{{ societeUser.dateSortie|format_date }}</div>
                         </div>
                     {% endif %}
 
                     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
                         <div class="mt-5">
-                            <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: societeUser.id }) }}" class="btn btn-outline-success mt-2">Mettre à jour</a>
-                            <a href="{{ path('app_fo_admin_utilisateur_activity', { id: societeUser.id }) }}" class="btn btn-outline-primary mt-2">Activité</a>
+                            <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: societeUser.id }) }}" class="btn btn-outline-success mt-2">{{ 'update'|trans }}</a>
+                            <a href="{{ path('app_fo_admin_utilisateur_activity', { id: societeUser.id }) }}" class="btn btn-outline-primary mt-2">{{ 'activity'|trans }}</a>
                         </div>
                     {% endif %}
                 </div>
@@ -75,11 +75,11 @@
         </div>
     </div>
 
-    <h2>Ses projets</h2>
+    <h2>{{ 'his_projects'|trans }}</h2>
 
     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
         <p class="text-center">
-            <a href="{{ path('app_fo_admin_utilisateur_roles_projets', {'id': societeUser.id}) }}" class="btn btn-sm btn-outline-primary">Gérer ses accès aux projets</a>
+            <a href="{{ path('app_fo_admin_utilisateur_roles_projets', {'id': societeUser.id}) }}" class="btn btn-sm btn-outline-primary">{{ 'manage_his_projects_access'|trans }}</a>
         </p>
     {% endif %}
 
@@ -90,7 +90,7 @@
                     {% if is_granted('view', participation.projet) %}
                         <li class="list-group-item">
                             <strong>{{ participation.role|trans }}</strong>
-                            sur le projet
+                            {{ '.on_the_project'|trans }}
                             <a href="{{ path('app_fo_projet', {'id': participation.projet.id}) }}">
                                 {{ participation.projet.acronyme }}
                             </a>
@@ -102,7 +102,7 @@
 
         {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
             <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
-                <h3 class="text-center">Temps passés en %</h3>
+                <h3 class="text-center">{{ 'time_spent_in_percent_unit'|trans }}</h3>
 
                 <div
                     class="year-switch text-center"

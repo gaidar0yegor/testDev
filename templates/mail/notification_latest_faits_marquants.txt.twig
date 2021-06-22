@@ -1,4 +1,4 @@
-Les contributeurs ont ajouté {{ 'n_nouveaux_faits_marquants'|trans({'n': faitMarquants|length}) }} sur vos projets :
+Les contributeurs ont ajouté {{ 'n_nouveaux_faits_marquants'|trans({'%n%': faitMarquants|length}) }} sur vos projets :
 
 {% for faitMarquant in faitMarquants %}
  - {{ faitMarquant.titre }}

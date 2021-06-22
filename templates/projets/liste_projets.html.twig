@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des projets{% endblock %}
+{% block title %}{{ 'menu.projects.list'|trans }}{% endblock %}
 
 {% block body %}
 
     <h1>
-        Mes projets de l'année
+        {{ 'my_projects_of_year'|trans }}
         <span
             class="year-switch"
             data-event-name="year-changed"
@@ -16,12 +16,14 @@
 
     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
         <p>
-            Liste des projets auxquels je participe.
+            {{ 'list_of_projects_i_participate'|trans }}
         </p>
         <p>
             <i class="fa fa-info-circle" aria-hidden="true"></i>
-            En tant qu'administrateur, je peux aussi
-            <a href="{{ path('app_fo_admin_projets') }}">accéder à tous les projets de la société</a>.
+            {{ 'as_admin_i_can_also_access_all_projects'|trans({
+                '%link_start%': '<a href="' ~ path('app_fo_admin_projets') ~ '">',
+                '%link_end%': '</a>'
+            })|raw }}
         </p>
     {% endif %}
 
@@ -32,12 +34,12 @@
     >
         <thead>
             <tr>
-                <th data-sortable="true" data-sorter="bySorterValue" class="text-left">Projet</th>
-                <th data-sortable="true" data-sorter="bySorterValue">Mon rôle</th>
-                <th class="d-none d-md-table-cell">Début</th>
-                <th class="d-none d-md-table-cell">Fin</th>
-                <th class="d-none d-md-table-cell">Statut</th>
-                <th data-sortable="true">Participants</th>
+                <th data-sortable="true" data-sorter="bySorterValue" class="text-left">{{ 'project'|trans }}</th>
+                <th data-sortable="true" data-sorter="bySorterValue">{{ 'my_role'|trans }}</th>
+                <th class="d-none d-md-table-cell">{{ 'start'|trans }}</th>
+                <th class="d-none d-md-table-cell">{{ 'end'|trans }}</th>
+                <th class="d-none d-md-table-cell">{{ 'status'|trans }}</th>
+                <th data-sortable="true">{{ 'participants'|trans }}</th>
             </tr>
         </thead>
         <tbody class="filter-projets-by-selected-year">
@@ -63,11 +65,11 @@
             class="btn btn-outline-success {{ is_granted('SOCIETE_CDP') ? '' : 'disabled' }}"
             href="{{ path('app_fo_projet_creation') }}"
             {% if not is_granted('SOCIETE_CDP') %}
-                title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
+                title="{{ 'create_project_requires_project_manager_role'|trans }}"
             {% endif %}
         >
             <i class="fa fa-plus" aria-hidden="true"></i>
-            Nouveau projet
+            {{ 'menu.projects.create'|trans }}
         </a>
     </div>
 {% endblock %}

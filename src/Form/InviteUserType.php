@@ -18,15 +18,14 @@ class InviteUserType extends AbstractType
         $builder
             ->add('invitationEmail', EmailType::class, [
                 'required' => false,
-                'label' => 'Email',
+                'label' => 'email',
             ])
             ->add('invitationTelephone', RdiMobilePhoneNumberType::class, [
                 'required' => false,
-                'label' => 'Téléphone',
+                'label' => 'phone',
             ])
-            ->add('role', FoRoleCardChoiceType::class)
-            ->add('ajouter', SubmitType::class, [
-                'label' => 'Inviter',
+            ->add('role', FoRoleCardChoiceType::class, [
+                'label' => 'role',
             ])
         ;
     }

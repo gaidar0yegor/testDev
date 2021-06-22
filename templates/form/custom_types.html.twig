@@ -1,3 +1,18 @@
+{% extends 'bootstrap_4_layout.html.twig' %}
+
+{% block form_label %}
+    {# Change label by i.e "societe.raisonSociale" instead of "Raison Sociale" #}
+    {% if not label %}
+        {% set translationKey = id|split('_')[-2:]|join('_')|replace({'_': '.'}) %}
+        {% set translationExists = translationKey|trans != translationKey %}
+        {% if translationExists %}
+            {% set label = translationKey %}
+        {% endif %}
+    {% endif %}
+
+    {{ parent() }}
+{% endblock %}
+
 {% block temps_passe_row %}
     <div class="row mb-2 align-items-center">
         <div class="col text-right lead">

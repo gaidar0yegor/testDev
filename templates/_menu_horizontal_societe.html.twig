@@ -1,26 +1,26 @@
 <ul class="navbar-nav mr-auto">
     <li class="nav-item {{ activeOn('app_fo_dashboard') }}">
-        <a class="nav-link" href="{{ path('app_fo_dashboard') }}">Tableau de bord</a>
+        <a class="nav-link" href="{{ path('app_fo_dashboard') }}">{{ 'dashboard'|trans }}</a>
     </li>
     <li class="nav-item dropdown {{ activeOn('app_fo_projets', 'app_fo_projets_all', 'app_fo_projets_by_year', 'app_fo_projet_creation', 'app_fo_observateur_externe_list', 'app_fo_observateur_externe_view') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Mes Projets
+            {{ 'menu.projects'|trans }}
         </a>
         <div class="dropdown-menu">
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_projets') }}"
             >
-                <i class="fa fa-list-ul" aria-hidden="true"></i>Liste des projets
+                <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.projects.list'|trans }}
             </a>
             <a
                 class="dropdown-item {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }}"
                 href="{{ path('app_fo_projet_creation') }}"
                 {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) %}
-                    title="Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
+                    title="{{ 'create_project_requires_project_manager_role'|trans }}"
                 {% endif %}
             >
-                Créer un projet
+                {{ 'menu.projects.create'|trans }}
             </a>
             {% if app.user.projetObservateurExternes|length > 0 %}
                 <div class="dropdown-divider"></div>
@@ -28,27 +28,27 @@
                     class="dropdown-item"
                     href="{{ path('app_fo_observateur_externe_list') }}"
                 >
-                    Projets externes
+                    {{ 'menu.projects.external'|trans }}
                 </a>
             {% endif %}
         </div>
     </li>
     <li class="nav-item dropdown {{ activeOn('app_fo_temps', 'app_fo_absences') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Suivi temps
+            {{ 'menu.time_tracking'|trans }}
         </a>
         <div class="dropdown-menu">
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_temps') }}"
             >
-                <i class="fa fa-tasks" aria-hidden="true"></i>Temps passés
+                <i class="fa fa-tasks" aria-hidden="true"></i>{{ 'menu.time_tracking.time_spent'|trans }}
             </a>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_absences') }}"
             >
-                <i class="fa fa-calendar" aria-hidden="true"></i>Mes absences
+                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.time_tracking.absences'|trans }}
             </a>
         </div>
     </li>
@@ -56,7 +56,7 @@
         <a
             class="nav-link dropdown-toggle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}"
             {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
-                title="Menu réservé à l'administrateur de votre société."
+                title="{{ 'admin_requires_admin_role'|trans }}"
             {% endif %}
             href="#"
             role="button"
@@ -64,59 +64,59 @@
             aria-haspopup="true"
             aria-expanded="false"
         >
-            Administration
+            {{ 'menu.admin'|trans }}
         </a>
         <div class="dropdown-menu">
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_societe_show') }}"
             >
-                <i class="fa fa-building-o" aria-hidden="true"></i>Ma société
+                <i class="fa fa-building-o" aria-hidden="true"></i>{{ 'menu.admin.company'|trans }}
             </a>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_projets') }}"
             >
-                Tous les Projets
+                {{ 'menu.admin.projects'|trans }}
             </a>
             <div class="dropdown-divider"></div>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_utilisateurs') }}"
             >
-                <i class="fa fa-users" aria-hidden="true"></i>Utilisateurs
+                <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
             </a>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_user_invite') }}"
             >
-                <i class="fa fa-user-plus" aria-hidden="true"></i>Inviter un nouvel utilisateur
+                <i class="fa fa-user-plus" aria-hidden="true"></i>{{ 'menu.admin.invite_user'|trans }}
             </a>
             <div class="dropdown-divider"></div>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_cra_validation') }}"
             >
-                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>Validation des temps
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{{ 'menu.admin.timesheet_check'|trans }}
             </a>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_timesheet_generate') }}"
             >
-                <i class="fa fa-download" aria-hidden="true"></i>Export feuilles de temps
+                <i class="fa fa-download" aria-hidden="true"></i>{{ 'menu.admin.timesheet_export'|trans }}
             </a>
             <div class="dropdown-divider"></div>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_notification') }}"
             >
-                <i class="fa fa-bell-o" aria-hidden="true"></i>Paramètres des notifications
+                <i class="fa fa-bell-o" aria-hidden="true"></i>{{ 'menu.admin.notification_parameters'|trans }}
             </a>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_admin_licenses') }}"
             >
-                <i class="fa fa-key" aria-hidden="true"></i>Licenses
+                <i class="fa fa-key" aria-hidden="true"></i>{{ 'menu.admin.licenses'|trans }}
             </a>
         </div>
     </li>
@@ -136,7 +136,7 @@
     </a>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownNotifications">
         <div class="rdi-dropdown-scroll rdi-notification-container">
-            <span class="dropdown-item disabled"><small>Chargement...</small></span>
+            <span class="dropdown-item disabled"><small>{{ 'loading'|trans }}</small></span>
         </div>
     </div>
 </div>

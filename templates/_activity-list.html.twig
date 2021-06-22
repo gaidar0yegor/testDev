@@ -4,7 +4,7 @@
             {{ renderActivity(activity.activity) }}
             <small>
                 <time class="text-muted float-right" datetime="{{ activity.activity.datetime|date('c') }}">
-                    le {{ activity.activity.datetime|format_datetime }}
+                    {{ '.at_date'|trans({'%date%': activity.activity.datetime|format_datetime}) }}
                 </time>
             </small>
         </li>

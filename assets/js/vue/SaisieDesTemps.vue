@@ -24,7 +24,7 @@
                 <div class="message-validation text-center">
                     <p v-if="cra.tempsPassesModifiedAt" class="text-success">
                         <i class="fa fa-check" aria-hidden="true"></i>
-                        Vous avez validé ce mois le {{ formatDate(cra.tempsPassesModifiedAt) }}.
+                        {{ t('month_validated_on', {month: formatDate(cra.tempsPassesModifiedAt)}) }}
                     </p>
                 </div>
 
@@ -37,7 +37,7 @@
                             :for="'temps_passe_pourcentage_' + tempsPasse.id"
                             v-tippy="{content: tempsPasse.projet.titre}"
                             class="m-0"
-                        >Projet {{ tempsPasse.projet.acronyme }}</label>
+                        >{{ t('project_heading', {project_name: tempsPasse.projet.acronyme}) }}</label>
                     </div>
                     <div class="col">
                         <div class="input-group input-group-lg">
@@ -63,13 +63,13 @@
                     v-if="!validCra(cra)" 
                     class="text-danger text-center"
                 >
-                    Vos pourcentages et la somme de vos pourcentages doivent ếtre entre 0 et 100
+                    {{ t('invalid_percentages') }}
                 </p>
                 <button
                     type="submit"
                     class="mt-5 btn btn-success btn-lg mx-auto d-block"
                     :disabled="submitting || !validCra(cra)"
-                >Mettre à jour</button>
+                >{{ t('update') }}</button>
             </form>
 
             <p v-if="cra && cra.tempsPasses.length === 0" class="lead text-center">
@@ -81,9 +81,10 @@
 
 <script>
 import { addWeeks, getWeek, format, parseISO, startOfWeek } from 'date-fns';
-import { fr as locale } from 'date-fns/locale';
+import locale from '../dateFnsLocale';
 import { directive as tippy } from 'vue-tippy';
 import { addFlashMessage, clearFlashMessages } from './../flash-messages';
+import { t } from '../translation';
 
 const updateMonth = (date, increment) => {
     const updatedDate = new Date(date.getTime());
@@ -178,12 +179,10 @@ const strategies = {
 
             endWeek.setDate(date.getDate() + 6);
 
-            return [
-                'Semaine du',
-                format(date, date.getMonth() === endWeek.getMonth() ? 'd' : 'd LLLL', {locale}),
-                'au',
-                format(endWeek, 'd LLLL yyyy', {locale}),
-            ].join(' ');
+            return t('week_from_to', {
+                from: format(date, date.getMonth() === endWeek.getMonth() ? 'd' : 'd LLLL', {locale}),
+                to: format(endWeek, 'd LLLL yyyy', {locale}),
+            });
         },
 
         isCurrentDate(date) {
@@ -246,6 +245,8 @@ export default {
     },
 
     methods: {
+        t,
+
         loadCurrentTempsPasses() {
             this.cra = null;
 
@@ -272,7 +273,7 @@ export default {
                     this.submitting = false;
                     this.cra.tempsPassesModifiedAt = new Date();
 
-                    addFlashMessage('success', 'Temps passés mis à jour.');
+                    addFlashMessage('success', t('time_spent_updated'));
 
                     if (this.urlToAbsences) {
                         const url = this.urlToAbsences
@@ -280,7 +281,13 @@ export default {
                             .replace('22', ('0' + (this.selectedDate.getMonth() + 1)).substr(-2))
                         ;
 
-                        addFlashMessage('warning', `<a href="${url}" class="alert-link">Saisissez vos absences</a> si vous en avez pris ce mois ci.`);
+                        addFlashMessage('warning', t('enter_absences_if_taken_this_month', {
+                            link_start: `<a href="${url}" class="alert-link">`,
+                            link_end: `</a>`,
+                            interpolation: {
+                                escapeValue: false,
+                            },
+                        }));
                     }
                 })
             ;

@@ -4,3 +4,19 @@ PROJET_CONTRIBUTEUR: Contributor
 PROJET_OBSERVATEUR: Observer
 ROLE_BO_USER: Back-office user
 SOCIETE_ADMIN: Administrator
+my_contributions: My contributions
+my_contributions.me: Me
+my_contributions.team: Team
+my_contributions.projects: Projects
+my_contributions.rdi_projects: RDI projects
+my_contributions.total: Total contribution time
+menu.projects: My projects
+menu.projects.list: Projects list
+menu.projects.create: Create a project
+menu.projects.external: Externals projects
+menu.time_tracking: Time tracking
+menu.time_tracking.time_spent: Time spent
+menu.time_tracking.absences: Absences
+menu.admin: Administration
+my_account: 'My account'
+locale: Language

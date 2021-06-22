@@ -21,4 +21,4 @@ Feature: Le référent peut voir les infos de sa société et les modifier.
         And I fill in the following:
             | societe[heuresParJours] | 7.5 |
         And I press "Mettre à jour"
-        Then I should see "7.5 h" in the ".card" element containing "Heures travaillées"
+        Then I should see "7.5 h" in the ".card" element containing "Heures travaillées"

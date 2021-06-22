@@ -3,22 +3,22 @@
 <div class="row">
     <div class="col-6">
         <dl class="row">
-            <dt class="col-3">Nom</dt>
+            <dt class="col-3">{{ 'lastname'|trans }}</dt>
             <dd class="col-9">{{ timesheet.cra.societeUser.user.nom }}</dd>
 
-            <dt class="col-3">Prénom</dt>
+            <dt class="col-3">{{ 'firstname'|trans }}</dt>
             <dd class="col-9">{{ timesheet.cra.societeUser.user.prenom }}</dd>
 
-            <dt class="col-3">Email</dt>
+            <dt class="col-3">{{ 'email'|trans }}</dt>
             <dd class="col-9">{{ timesheet.cra.societeUser.user.email }}</dd>
         </dl>
     </div>
     <div class="col-6">
         <dl class="row">
-            <dt class="col-3">Société</dt>
+            <dt class="col-3">{{ 'company'|trans }}</dt>
             <dd class="col-9">{{ timesheet.cra.societeUser.societe.raisonSociale }}</dd>
 
-            <dt class="col-3">Heures/jour</dt>
+            <dt class="col-3">{{ 'worked_hours_per_day'|trans }}</dt>
             <dd class="col-9">{{ timesheet.heuresParJours|round(2) }} h</dd>
         </dl>
     </div>
@@ -61,7 +61,7 @@
 
                 {# Total heures #}
                 <td>
-                    <strong>{{ projet.totalWorkedHours|round(2) }}&nbsp;h</strong>
+                    <strong>{{ 'n_hours_short'|trans({'%n%': projet.totalWorkedHours|round(2)}) }}</strong>
                 </td>
             </tr>
         {% endfor %}
@@ -69,26 +69,25 @@
         {# Présence #}
         <tr>
             <th>
-                Présence
+                {{ 'presence'|trans }}
                 <br>
                 <small class="text-muted">
-                    en jours
+                    {{ '.in_days_unit'|trans }}
                 </small>
             </th>
             {% for jour in timesheet.cra.jours %}
                 <td class="rdi-cra-value"><strong>{{ jour }}</strong></td>
             {% endfor %}
 
-            <td><strong>{{ timesheet.totalJours }}&nbsp;j</strong></td>
+            <td><strong>{{ 'n_days_short'|trans({'%n%': timesheet.totalJours}) }}</strong></td>
         </tr>
     </tbody>
 </table>
 
 <p class="text-right lead">
-    Total des heures en
-    {{ timesheet.cra.mois|format_date(pattern='MMMM yyyy') }} :
-    <strong>{{ timesheet.totalWorkedHours|round(2) }} h</strong>
+    {{ 'total_hours_in_month:'|trans({'%month%': timesheet.cra.mois|format_date(pattern='MMMM yyyy')}) }}
+    <strong>{{ 'n_hours_short'|trans({'%n%': timesheet.totalWorkedHours|round(2)}) }}</strong>
 </p>
 <p class="text-right text-muted">
-    soit {{ timesheet.totalPourcentage }} %
+    {{ '.or_n_percent'|trans({'%n%': timesheet.totalPourcentage}) }}
 </p>

@@ -17,7 +17,6 @@ class SocieteUserType extends AbstractType
         $builder
         ->add('role',  FoRoleCardChoiceType::class)
         ->add('heuresParJours', NumberType::class, [
-            'label' => 'Nombre d\'heures travaillées par jour',
             'help' => 'Pour cet utilisateur uniquement, vous pouvez remplacer ici le nombre d\'heure défini globalement au niveau de la société.',
             'required' => false,
             'attr' => [
@@ -25,11 +24,9 @@ class SocieteUserType extends AbstractType
             ],
         ])
         ->add('dateEntree', DatePickerType::class, [
-            'label' => 'Date d\'entrée',
             'required' => false,
         ])
         ->add('dateSortie', DatePickerType::class, [
-            'label' => 'Date de sortie',
             'required' => false,
         ])
         ;
