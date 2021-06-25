@@ -7,6 +7,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Installation de la traduction, pouvoir changer la langue de son compte en Anglais
+### Modifié
+- Par défaut, une société créée a son nombre d'heures travaillées par jour à 7h au lieu de 7h30.
 ### Réparé
 - Erreur d'encodage quand on génère un prénom court avec un accent comme "É. Couturier"
 

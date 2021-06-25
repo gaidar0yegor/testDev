@@ -23,7 +23,7 @@ class Societe implements HasSocieteInterface
      *
      * @param float
      */
-    public const DEFAULT_HEURES_PAR_JOURS = 7.5;
+    public const DEFAULT_HEURES_PAR_JOURS = 7;
 
     /**
      * This societe has been created by someone who followed
