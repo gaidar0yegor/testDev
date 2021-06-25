@@ -12,9 +12,7 @@ class ProjetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre', null, [
-                'label' => 'Titre descriptif',
-            ])
+            ->add('titre')
             ->add('acronyme')
         ;
     }

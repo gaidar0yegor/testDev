@@ -68,6 +68,7 @@ class SecurityController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $passwordEncoder,
         GuardAuthenticatorHandler $authenticator,
+        TranslatorInterface $translator,
         EntityManagerInterface $em
     ) {
         $user = new User();
@@ -94,7 +95,9 @@ class SecurityController extends AbstractController
                 $request
             );
 
-            $this->addFlash('success', sprintf('Bienvenue à %s !', $user->getPrenom()));
+            $this->addFlash('success', $translator->trans('Bienvenue à {user} !', [
+                'user' => $user->getPrenom(),
+            ]));
 
             if ($redirect = $request->get('_redirect')) {
                 return $this->redirect($redirect);
@@ -115,14 +118,15 @@ class SecurityController extends AbstractController
     public function resetPasswordRequest(
         Request $request,
         EntityManagerInterface $em,
+        TranslatorInterface $translator,
         ResetPasswordService $resetPasswordService
     ) {
         $form = $this->createFormBuilder()
             ->add('username', null, [
-                'label' => 'Email ou n° de téléphone',
+                'label' => 'username_or_phone',
             ])
             ->add('Submit', SubmitType::class, [
-                'label' => 'Demander un lien de réinitialisation',
+                'label' => 'request_reset_password_link',
             ])
             ->getForm()
         ;
@@ -135,7 +139,9 @@ class SecurityController extends AbstractController
 
                 $em->flush();
 
-                $this->addFlash('success', 'Un lien de réinitialisation de mot de passe vous a été envoyé.');
+                $this->addFlash('success', $translator->trans(
+                    'Un lien de réinitialisation de mot de passe vous a été envoyé.'
+                ));
 
                 return $this->redirectToRoute('app_home');
             } catch (ResetPasswordException $e) {
@@ -156,6 +162,7 @@ class SecurityController extends AbstractController
         string $token,
         ResetPasswordService $resetPasswordService,
         UserPasswordEncoderInterface $passwordEncoder,
+        TranslatorInterface $translator,
         EntityManagerInterface $em
     ) {
         try {
@@ -167,7 +174,7 @@ class SecurityController extends AbstractController
         $form = $this->createFormBuilder()
             ->add('password', RepeatedPasswordType::class)
             ->add('submit', SubmitType::class, [
-                'label' => 'Valider mon mot de passe',
+                'label' => 'validate_my_password',
             ])
             ->getForm()
         ;
@@ -184,7 +191,9 @@ class SecurityController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success', 'Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.');
+            $this->addFlash('success', $translator->trans(
+                'Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.'
+            ));
 
             return $this->redirectToRoute('app_home');
         }

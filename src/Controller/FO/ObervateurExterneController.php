@@ -17,6 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ObervateurExterneController extends AbstractController
 {
@@ -80,6 +81,7 @@ class ObervateurExterneController extends AbstractController
         Request $request,
         Projet $projet,
         InvitationService $invitationService,
+        TranslatorInterface $translator,
         EntityManagerInterface $em
     ) {
         $this->denyAccessUnlessGranted('edit', $projet);
@@ -96,10 +98,9 @@ class ObervateurExterneController extends AbstractController
             $em->persist($projetObservateurExterne);
             $em->flush();
 
-            $this->addFlash(
-                'success',
+            $this->addFlash('success', $translator->trans(
                 'Une notification avec un lien d\'invitation a été envoyée à votre observateur externe.'
-            );
+            ));
 
             return $this->redirectToRoute('app_fo_projet_participant', [
                 'id' => $projet->getId(),
@@ -126,6 +127,7 @@ class ObervateurExterneController extends AbstractController
         Request $request,
         Projet $projet,
         ProjetObservateurExterne $projetObservateurExterne,
+        TranslatorInterface $translator,
         EntityManagerInterface $em
     ) {
         $this->denyAccessUnlessGranted('edit', $projet);
@@ -139,12 +141,12 @@ class ObervateurExterneController extends AbstractController
         ]);
 
         if (!$this->isCsrfTokenValid('delete_observateur_externe', $request->get('csrf_token'))) {
-            $this->addFlash('danger', 'Erreur, il semblerai que la page ait expiré, veuillez réessayer.');
+            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
             return $redirectResponse;
         }
 
-        $this->addFlash('success', 'Cet observateur externe a été retiré.');
+        $this->addFlash('success', $translator->trans('Cet observateur externe a été retiré.'));
 
         $em->remove($projetObservateurExterne);
         $em->flush();

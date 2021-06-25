@@ -1,8 +1,10 @@
 import '../../node_modules/bootstrap-table/dist/bootstrap-table';
 import '../../node_modules/bootstrap-table/dist/bootstrap-table.css';
 import '../../node_modules/bootstrap-table/dist/locale/bootstrap-table-fr-FR.js';
+import '../../node_modules/bootstrap-table/dist/locale/bootstrap-table-en-US.js';
 
 import $ from 'jquery';
+import { detectedLocale } from './translation';
 
 /**
  * Sort a custom value.
@@ -41,10 +43,13 @@ const bySorterValue = (a, b, aRow, bRow) => {
 
 /**
  * Remove 'table-bordered' class added by bootstrapTable.
+ *
+ * @see https://bootstrap-table.com/
  */
 $(() => {
     $('table[data-toggle="table"]').bootstrapTable('refreshOptions', {
         classes: '',
+        locale: detectedLocale,
     });
 });
 

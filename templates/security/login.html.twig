@@ -13,15 +13,15 @@
 
             <form method="post" class="mb-4">
                 <div class="form-group">
-                    <label for="input-email">Identifiant</label>
+                    <label for="input-email">{{ 'username'|trans }}</label>
                     <input type="text" name="_username" class="form-control" id="input-email" placeholder="Votre email ou n° de téléphone">
                 </div>
                 <div class="form-group">
-                    <label for="input-password">Mot de passe</label>
+                    <label for="input-password">{{ 'password'|trans }}</label>
                     <input type="password" name="_password" class="form-control" id="input-password" placeholder="Votre mot de passe">
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <input type="submit" class="btn btn-success" value="Connexion">
+                <input type="submit" class="btn btn-success" value="{{ 'login'|trans }}">
             </form>
 
             <a href="{{ path('app_fo_reset_password_request') }}"><small>Mot de passe oublié</small></a>

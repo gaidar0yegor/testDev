@@ -11,7 +11,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | _password | admin              |
         And I press "Connexion"
 
-        When I follow "Inviter un nouvel utilisateur"
+        When I follow "Inviter un utilisateur"
         Then I should see "Inviter un nouvel utilisateur"
 
         When I fill in the following:
@@ -61,7 +61,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | _password | admin              |
         And I press "Connexion"
 
-        When I follow "Inviter un nouvel utilisateur"
+        When I follow "Inviter un utilisateur"
         Then I should see "Inviter un nouvel utilisateur"
 
         When I fill in the following:

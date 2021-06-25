@@ -17,8 +17,12 @@ class FinalizeInscriptionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prenom', TextType::class)
-            ->add('nom', TextType::class)
+            ->add('prenom', TextType::class, [
+                'label' => 'firstname',
+            ])
+            ->add('nom', TextType::class, [
+                'label' => 'lastname',
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
             ])

@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ObervateurExterneController extends AbstractController
 {
@@ -41,6 +42,7 @@ class ObervateurExterneController extends AbstractController
         Request $request,
         string $token,
         EntityManagerInterface $em,
+        TranslatorInterface $translator,
         ProjetObservateurExterneRepository $projetObservateurExterneRepository
     ) {
         $projetObservateurExterne = $projetObservateurExterneRepository->findOneBy([
@@ -53,7 +55,7 @@ class ObervateurExterneController extends AbstractController
 
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('invitation_join_projet_observateur_externe', $request->get('csrf_token'))) {
-                $this->addFlash('danger', 'Erreur, il semblerai que le bouton ait expiré, veuillez réessayer.');
+                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('app_fo_user_invitation_rejoindre', [
                     'token' => $token,
@@ -67,7 +69,7 @@ class ObervateurExterneController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success', 'Vous avez rejoint le projet !');
+            $this->addFlash('success', $translator->trans('Vous avez rejoint le projet !'));
 
             return $this->redirectToRoute('app_fo_observateur_externe_view', [
                 'id' => $projetObservateurExterne->getProjet()->getId(),

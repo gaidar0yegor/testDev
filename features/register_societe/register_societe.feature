@@ -53,7 +53,7 @@ Feature: S'inscrire en tant que société.
         And I press "Continuer"
         Then I should see "Votre compte RDI-Manager est maintenant créé"
 
-        When I follow "Aller sur mon espace"
+        When I follow "Aller sur mon tableau de bord"
         Then I should see "Mon tableau de bord"
 
         When I follow "Liste des projets"

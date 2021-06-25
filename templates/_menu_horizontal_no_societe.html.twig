@@ -1,8 +1,8 @@
 <ul class="navbar-nav mr-auto">
     <li class="nav-item {{ activeOn('app_fo_multi_societe_switch') }}">
-        <a class="nav-link" href="{{ path('app_fo_multi_societe_switch') }}">Mes sociétés</a>
+        <a class="nav-link" href="{{ path('app_fo_multi_societe_switch') }}">{{ 'my_companies'|trans }}</a>
     </li>
     <li class="nav-item {{ activeOn('app_fo_observateur_externe_list', 'app_fo_observateur_externe_view') }}">
-        <a class="nav-link" href="{{ path('app_fo_observateur_externe_list') }}">Projets externes</a>
+        <a class="nav-link" href="{{ path('app_fo_observateur_externe_list') }}">{{ 'menu.projects.external'|trans }}</a>
     </li>
 </ul>

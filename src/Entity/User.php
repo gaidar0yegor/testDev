@@ -162,6 +162,11 @@ class User implements UserInterface
      */
     private $projetObservateurExternes;
 
+    /**
+     * @ORM\Column(type="string", length=7)
+     */
+    private $locale;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -176,6 +181,7 @@ class User implements UserInterface
         $this->onboardingTimesheetCompleted = false;
         $this->societeUsers = new ArrayCollection();
         $this->projetObservateurExternes = new ArrayCollection();
+        $this->locale = 'fr';
     }
 
     public function getId(): ?string
@@ -568,6 +574,18 @@ class User implements UserInterface
                 $projetParticipant->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
+    }
+
+    public function setLocale(string $locale): self
+    {
+        $this->locale = $locale;
 
         return $this;
     }

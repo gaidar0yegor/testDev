@@ -1,7 +1,7 @@
 {% extends 'register/layout.html.twig' %}
 
 {% block register %}
-    <h1 class="mb-1">Mon compte RDI-Manager</h1>
+    <h1 class="mb-1">{{ 'my_rdi_manager_account'|trans }}</h1>
 
     <form method="post">
         <p class="text-center">
@@ -9,7 +9,7 @@
             <button
                 type="submit"
                 class="btn btn-lg btn-success"
-            >Rejoindre la société <strong>{{ societe.raisonSociale }}</strong></button>
+            >{{ 'join_company'|trans }} <strong>{{ societe.raisonSociale }}</strong></button>
         </p>
     </form>
 {% endblock %}

@@ -26,6 +26,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegisterSocieteController extends AbstractController
 {
@@ -117,6 +118,7 @@ class RegisterSocieteController extends AbstractController
     public function accountVerification(
         Request $request,
         EntityManagerInterface $em,
+        TranslatorInterface $translator,
         GuardAuthenticatorHandler $authenticator
     ): Response {
         $form = $this->createForm(AccountVerificationType::class);
@@ -136,14 +138,14 @@ class RegisterSocieteController extends AbstractController
 
                 $authenticator->authenticateWithToken($token, $request);
 
-                $this->addFlash('success', 'Votre compte a été créée avec succès !');
+                $this->addFlash('success', $translator->trans('Votre compte a été créée avec succès !'));
 
                 $this->registerSociete->initializeCurrentRegistration();
 
                 return $this->redirectToRoute('app_register_projet');
             }
 
-            $this->addFlash('danger', 'Le code n\'est pas valide.');
+            $this->addFlash('danger', $translator->trans('Le code n\'est pas valide.'));
         }
 
         return $this->render('register/account-verification.html.twig', [
@@ -160,13 +162,14 @@ class RegisterSocieteController extends AbstractController
     public function accountJoin(
         Request $request,
         UserContext $userContext,
+        TranslatorInterface $translator,
         EntityManagerInterface $em
     ): Response {
         $registration = $this->registerSociete->getCurrentRegistration();
 
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('register_join_societe', $request->get('csrf_token'))) {
-                $this->addFlash('danger', 'Erreur, il semblerai que le bouton ait expiré, veuillez réessayer.');
+                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('app_register_account_join');
             }
@@ -193,8 +196,12 @@ class RegisterSocieteController extends AbstractController
      *
      * @IsGranted("SOCIETE_ADMIN")
      */
-    public function projet(Request $request, EntityManagerInterface $em, UserContext $userContext): Response
-    {
+    public function projet(
+        Request $request,
+        EntityManagerInterface $em,
+        TranslatorInterface $translator,
+        UserContext $userContext
+    ): Response {
         $projet = (new Projet())
             ->setSociete($userContext->getSocieteUser()->getSociete())
         ;
@@ -213,7 +220,7 @@ class RegisterSocieteController extends AbstractController
             $em->persist($participant);
             $em->flush();
 
-            $this->addFlash('success', 'Votre projet a bien été ajouté.');
+            $this->addFlash('success', $translator->trans('Votre projet a bien été ajouté.'));
 
             return $this->redirectToRoute('app_register_collaborators');
         }

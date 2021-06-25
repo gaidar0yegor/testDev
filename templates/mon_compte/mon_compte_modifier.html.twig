@@ -1,17 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification de mon compte | {{ parent() }}{% endblock %}
+{% block title %}{{ 'my_account_edition'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Modification de mon compte</h1>
+<h1>{{ 'my_account_edition'|trans }}</h1>
 
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <a class="d-block mb-4" href="{{ path('app_fo_mon_compte') }}">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            Annuler et retourner à mon compte
+            {{ 'back'|trans }}
         </a>
 
         {{ form(form) }}

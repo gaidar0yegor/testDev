@@ -5,9 +5,9 @@
 {% block body %}
     <h1 class="mb-0">{{ societe.raisonSociale }}</h1>
     <p class="text-center">
-        Siret : <span class="text-monospace">{{ societe.siret|formatSiret }}</span>
+        {{ 'business_identification_number:'|trans }} <span class="text-monospace">{{ societe.siret|formatSiret }}</span>
         <br>
-        <a href="{{ path('app_fo_admin_societe_edit') }}">Modifier les infos de ma société</a>
+        <a href="{{ path('app_fo_admin_societe_edit') }}">{{ 'edit_my_company_data'|trans }}</a>
     </p>
 
     <div class="card-deck">
@@ -16,8 +16,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title">Nombre d'utilisateurs</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">rattachés à ma société</h6>
+                        <h5 class="card-title">{{ 'users_number'|trans }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ '.attached_to_my_company'|trans }}</h6>
                         <p class="card-text display-4 mb-0">
                             {{ societe.societeUsers|length }}
                         </p>
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ path ('app_fo_admin_utilisateurs') }}" class="card-link">Afficher la liste des utilisateurs</a>
+                <a href="{{ path ('app_fo_admin_utilisateurs') }}" class="card-link">{{ 'display_users_list'|trans }}</a>
             </div>
         </div>
         <div class="card rdi-card-icon text-center">
@@ -33,23 +33,23 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title deck">Heures travaillées</h5>
-                        <h6 class="card-subtitle mb-2 deck text-muted">par jours, par défaut.</h6>
+                        <h5 class="card-title deck">{{ 'worked_hours'|trans }}</h5>
+                        <h6 class="card-subtitle mb-2 deck text-muted">{{ '.per_day_per_default'|trans }}</h6>
                         <p class="card-text deck display-4 mb-0">
                             {% if societe.heuresParJours %}
-                                {{ societe.heuresParJours }} h
+                                {{ 'n_hours_short'|trans({'%n%': societe.heuresParJours}) }}
                             {% else %}
-                                <small class="text-warning">À définir</small>
+                                <small class="text-warning">{{ 'to_be_defined'|trans }}</small>
                             {% endif %}
                         </p>
                         <small class="text-muted">
-                            Valeur par défaut, utilisée lors de la génération des feuilles de temps.
+                            {{ 'default_value_used_in_timesheets.'|trans }}
                         </small>
                     </div>
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">Modifier le nombre d'heures</a>
+                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_hours_number'|trans }}</a>
             </div>
         </div>
         <div class="card rdi-card-icon text-center">
@@ -57,8 +57,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title deck">Saisie des temps</h5>
-                        <h6 class="card-subtitle mb-2 deck text-muted">Granularité de saisie des temps.</h6>
+                        <h5 class="card-title deck">{{ 'time_spent_recording'|trans }}</h5>
+                        <h6 class="card-subtitle mb-2 deck text-muted">{{ 'time_spent_recording_granularity'|trans }}</h6>
                         <p class="card-text deck display-4 mb-0">
                             {{ societe.timesheetGranularity|trans }}
                         </p>
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">Changer la granularité</a>
+                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_granularity'|trans }}</a>
             </div>
         </div>
     </div>

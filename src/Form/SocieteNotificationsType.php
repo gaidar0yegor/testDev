@@ -32,7 +32,7 @@ class SocieteNotificationsType extends AbstractType
                 'help' => 'Un SMS sera également envoyé aux utilisateurs ayant saisi leurs numéro de téléphone portable, pour certaines notifications importantes (comme le rappel de saisi des temps).',
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Enregistrer',
+                'label' => 'update',
                 'attr' => ['class' => 'btn btn-success btn-lg mt-3 d-block mx-auto'],
             ])
         ;

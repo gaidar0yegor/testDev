@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modification de {{ societeUser.user.fullname }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'edit_user_user'|trans({'%user%': societeUser.user.fullname}) }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Modification de {{ societeUser.user.fullname }}</h1>
+<h1>{{ 'edit_user_user'|trans({'%user%': societeUser.user.fullname}) }}</h1>
 
 {{ form_start(form) }}
 {{ form_errors(form) }}
@@ -26,10 +26,10 @@
 
 <div class="d-flex justify-content-around">
     <div class="form-group mt-5">
-        <a href="{{ path('app_fo_admin_utilisateurs') }}" class="btn btn-outline-warning">Annuler</a>
+        <a href="{{ path('app_fo_admin_utilisateurs') }}" class="btn btn-outline-warning">{{ 'cancel'|trans }}</a>
     </div>
     <div class="form-group mt-5">
-        <button type="submit" class="btn btn-success">Valider les modifications</button>
+        <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
     </div>
 </div>
 {{ form_end(form) }}
@@ -39,35 +39,28 @@
         <div class="card border-danger my-4">
             <div class="card-body text-danger">
                 {% if societeUser.enabled %}
-                    <h5 class="card-title">Désactiver le compte</h5>
+                    <h5 class="card-title">{{ 'disable_account'|trans }}</h5>
                     <p class="card-text">
-                        Désactiver le compte de <strong>{{ societeUser.user.fullname }}</strong>
-                        l'empêchera de se connecter sur cette société.
-                        Vous conserverez ses projets, faits marquants,
-                        les données nécessaires pour générer les feuilles de temps.
-                        Vous pourrez ré-activer le compte à tout moment.
-
+                        {{ 'disable_account_explain'|trans({'%user%': societeUser.user.fullname}) }}
                     </p>
                     <form
                         action="{{ path('utilisateur_fo_disable', { id: societeUser.id }) }}"
                         method="POST"
                         class="form"
                     >
-                        <input type="submit" value="Désactiver" class="btn btn-outline-warning" />
+                        <input type="submit" value="{{ 'disable_account'|trans }}" class="btn btn-outline-warning" />
                     </form>
                 {% else %}
-                    <h5 class="card-title">Ré-activer le compte</h5>
+                    <h5 class="card-title">{{ 're_enable_account'|trans }}</h5>
                     <p class="card-text">
-                        Ré-activer le compte de <strong>{{ societeUser.user.fullname }}</strong>
-                        lui permettra d'accéder à nouveau à votre société.
-
+                        {{ 're_enable_account_explain'|trans({'%user%': societeUser.user.fullname}) }}
                     </p>
                     <form
                         action="{{ path('utilisateur_fo_enable', { id: societeUser.id }) }}"
                         method="POST"
                         class="form"
                     >
-                        <input type="submit" value="Ré-activer" class="btn btn-warning" />
+                        <input type="submit" value="{{ 're_enable_account'|trans }}" class="btn btn-warning" />
                     </form>
                 {% endif %}
             </div>

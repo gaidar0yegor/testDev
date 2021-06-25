@@ -1,5 +1,5 @@
 import c3 from 'c3';
-import datesFr from './dates.fr';
+import datesLocalize from './dates.localize';
 
 const chartDiv = window['chart-user-projets-temps'];
 
@@ -14,7 +14,7 @@ if (chartDiv) {
         axis: {
             x: {
                 type: 'category',
-                categories: datesFr.monthsShort,
+                categories: datesLocalize.monthsShort,
             },
         },
         bar: {

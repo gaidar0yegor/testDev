@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Rôles sur projets de {{ societeUser.user.fullname }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'roles_on_projects_of_user'|trans({'%user%': societeUser.user.fullname}) }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Rôles sur projets de {{ societeUser.user.fullname }}</h1>
+<h1>{{ 'roles_on_projects_of_user'|trans({'%user%': societeUser.user.fullname}) }}</h1>
 
 <a class="d-block mb-4" href="{{ path('app_fo_societe_user', {'id': societeUser.id}) }}">
     <i class="fa fa-chevron-left" aria-hidden="true"></i>
-    Retourner sur la page de {{ societeUser.user.fullname }}
+    {{ 'back'|trans }}
 </a>
 
 {{ form_start(form) }}
@@ -16,7 +16,7 @@
 
 {{ form_row(form.projetParticipants) }}
 
-<button type="submit" class="btn btn-success btn-lg d-block mx-auto">Mettre à jour</button>
+<button type="submit" class="btn btn-success btn-lg d-block mx-auto">{{ 'update'|trans }}</button>
 
 {{ form_end(form) }}
 

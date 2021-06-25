@@ -10,11 +10,9 @@ SOCIETE_CDP.small: CdP
 SOCIETE_ADMIN.small: Admin
 SOCIETE_USER.small: Utilisateur
 quota.activeProjet.name: 'Projets actifs'
-quota.activeProjet.description: 'Projet en cours en prennant en compte ses dates de
-  début et de fin.'
+quota.activeProjet.description: 'Projet en cours en prennant en compte ses dates de début et de fin.'
 quota.contributeurs.name: Contributeurs
-quota.contributeurs.description: 'Utilisateur non désactivé, et contributeur (ou chef
-  de projet) sur au moins un projet de la société.'
+quota.contributeurs.description: 'Utilisateur non désactivé, et contributeur (ou chef de projet) sur au moins un projet de la société.'
 None: Aucun
 BACK_OFFICE: Back-Office
 INSCRIPTION: 'Formulaire d''inscription'
@@ -24,9 +22,197 @@ SOCIETE_USER_STATUT_ACTIVE: Actif
 SOCIETE_USER_STATUT_DISABLED: Désactivé
 monthly: 'Au mois'
 weekly: 'À la semaine'
-n_nouveaux_faits_marquants: "{n, plural,\n    =0    {aucun nouveau fait marquant}\n\
-  \    one   {un nouveau fait marquant}\n    other {# nouveaux faits marquants}\n}"
-n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other\
-  \ {Observateurs}\n}"
-dashboard: Mon tableau de bord
-dashboard.today: Mon actualité
+n_nouveaux_faits_marquants: "{n, plural,\n    =0    {aucun nouveau fait marquant}\n    one   {un nouveau fait marquant}\n    other {# nouveaux faits marquants}\n}"
+n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other {Observateurs}\n}"
+my_dashboard: 'Mon tableau de bord'
+dashboard: 'Tableau de bord'
+dashboard.today: 'Mon actualité'
+menu.projects: 'Mes projets'
+menu.projects.list: 'Liste des projets'
+menu.projects.create: 'Créer un projet'
+menu.projects.external: 'Projets externes'
+menu.time_tracking: 'Suivi temps'
+menu.time_tracking.time_spent: 'Temps passés'
+menu.time_tracking.absences: Absences
+menu.admin: Administration
+create_project_requires_project_manager_role: 'Vous devez avoir le rôle de chef de projet pour créer un nouveau projet.'
+admin_requires_admin_role: 'Menu réservé à l''administrateur de votre société.'
+menu.admin.company: 'Ma société'
+menu.admin.projects: 'Tous les projets'
+menu.admin.users: Utilisateurs
+menu.admin.invite_user: 'Inviter un utilisateur'
+menu.admin.timesheet_check: 'Validation des temps'
+menu.admin.timesheet_export: 'Export feuilles de temps'
+menu.admin.notification_parameters: 'Paramètres notifications'
+menu.admin.licenses: 'Mes licenses'
+loading: Chargement…
+projects_analyse_of_year: 'Analyse des projets de l''année'
+hours_by_project: 'Nombre d''heures par projet'
+my_contributions: 'Mes contributions'
+my_contributions.me: Moi
+my_contributions.team: Équipe
+my_contributions.projects: Projets
+my_contributions.rdi_projects: 'Projets de type RDI'
+my_contributions.total: 'Temps total de contribution'
+my_projects_of_year: 'Mes projets de l''année'
+list_of_projects_i_participate: 'Liste des projets auxquels je participe.'
+as_admin_i_can_also_access_all_projects: 'En tant qu''administrateur, je peux aussi {link_start}accéder à tous les projets de la société{link_end}.'
+project_analyse_from: 'Analyse des projets depuis'
+projects_realisations: 'Réalisation des projets'
+realized_projects_type: 'Type de projets réalisés'
+project: Projet
+my_role: 'Mon rôle'
+start: Début
+end: Fin
+status: Statut
+participants: Participants
+back_office: 'Back office'
+my_account: 'Mon compte'
+switch_company: 'Changer de société'
+logout: Déconnexion
+my_companies: 'Mes sociétés'
+you_submitted_this_month_on: 'Vous avez validé ce mois le {date}.'
+this_month_not_yet_in_company: 'Ce mois-ci, vous n''êtes pas encore dans la société.'
+this_month_no_longer_in_company: 'Ce mois-ci, vous n''êtes plus dans la société.'
+you_should_validate_this_month: 'Vous devriez valider ce mois.'
+enter_your_absences: 'Saisissez vos absences'
+save: Enregistrer
+'legend:': 'Légende :'
+presence: Présence
+absence: Absence
+half_day: Demi-journée
+enter_your_time_spent: 'Saisissez vos temps passés'
+'business_identification_number:': 'Siret :'
+edit_my_company_data: 'Modifier les infos de ma société'
+users_number: 'Nombre d''utilisateurs'
+.attached_to_my_company: 'rattachés à ma société'
+display_users_list: 'Afficher la liste des utilisateurs'
+worked_hours: 'Heures travaillées'
+worked_hours_per_day: 'Heures par jours'
+.in_days_unit: 'en jours'
+.per_day_per_default: 'par jours, par défaut'
+n_hours_short: "{n}\_h"
+n_days_short: "{n}\_j"
+'total_hours_in_month:': "Total des heures en {month}\_:"
+.or_n_percent: "soit {n}\_%"
+to_be_defined: 'À définir'
+default_value_used_in_timesheets.: 'Valeur par défaut, utilisée lors de la génération des feuilles de temps.'
+edit_hours_number: 'Modifier le nombre d''heures'
+time_spent_recording: 'Saisie de temps'
+time_spent_recording_granularity: 'Granularité de saisie des temps'
+change_granularity: 'Modifier la granularité'
+company: Société
+company_projects: 'Projets de la société'
+participants_nb: 'Nb participants'
+edit_my_company: 'Modifier ma société'
+back: Retour
+update: 'Mettre à jour'
+users_list: 'Liste des utilisateurs'
+lastname: Nom
+firstname: Prénom
+email: Email
+role: Rôle
+projects: Projets
+invite_new_user: 'Inviter un nouvel utilisateur'
+you_can_invite_by_email_or_sms_to_make_him_join_company.: 'Vous pouvez envoyer une invitation par email ou sms à un utilisateur pour qu''il rejoigne votre société.'
+invite: Inviter
+phone: Téléphone
+timesheet_validation_of_year_n: 'Validation des temps de {year}'
+user: Utilisateur
+account_disabled: 'Compte désactivé'
+select_unselect_all: 'Tout sélectionner / désélectionner'
+slack_integration: 'Intégration Slack'
+send_slack_reminder_in_your_team_channel: 'Envoyez les notifications de rappel à votre équipe dans une de vos chaînes Slack.'
+add_to_slack: 'Ajouter à Slack'
+channels_currently_connected: 'Chaînes actuellement connectées'
+quotas: Quotas
+not_known: 'Non renseigné'
+change_password: 'Changer mon mot de passe'
+my_account_on_societe_x: 'Mon compte sur {societe}'
+my_activity: 'Mon activité'
+my_notifications: 'Mes notifications'
+my_account_edition: 'Modification de mon compte'
+if_provided_you_can_receive_important_notification_by_sms.: 'Si fourni, vous pourrez recevoir les notifications importantes par SMS.'
+locale: Langue
+username: Identifiant
+password: 'Mot de passe'
+login: Connexion
+csrf_token_invalid: 'Erreur, il semblerai que le formulaire ait expiré, veuillez réessayer.'
+'Vous avez rejoint la société !': 'Vous avez rejoint la société !'
+'Vous avez rejoint le projet !': 'Vous avez rejoint le projet !'
+'Un email de recommandation a bien été envoyé à "{to}". Merci !': 'Un email de recommandation a bien été envoyé à "{to}". Merci !'
+username_or_phone: 'Email ou n° de téléphone'
+request_reset_password_link: 'Demander un lien de réinitialisation'
+validate_my_password: 'Valider mon mot de passe'
+'Une notification avec un lien d''invitation a été envoyée à votre observateur externe.': 'Une notification avec un lien d''invitation a été envoyée à votre observateur externe.'
+'Cet observateur externe a été retiré.': 'Cet observateur externe a été retiré.'
+'Votre compte a été créée avec succès !': 'Votre compte a été créée avec succès !'
+'Le code n''est pas valide.': 'Le code n''est pas valide.'
+'Votre projet a bien été ajouté.': 'Votre projet a bien été ajouté.'
+'Bienvenue à {user} !': 'Bienvenue à {user} !'
+'Un lien de réinitialisation de mot de passe vous a été envoyé.': 'Un lien de réinitialisation de mot de passe vous a été envoyé.'
+'Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.': 'Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.'
+welcome_user_you_can_reset_password: 'Bonjour {user}, vous pouvez maintenant définir votre nouveau mot de passe.'
+password_reset: 'Réinitialisation de mot de passe'
+your_new_password: 'Votre nouveau mot de passe'
+'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.': 'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.'
+'Le fait marquant "{titre_fait_marquant}" a été modifié.': 'Le fait marquant "{titre_fait_marquant}" a été modifié.'
+'Le fait marquant "{titre_fait_marquant}" a été supprimé.': 'Le fait marquant "{titre_fait_marquant}" a été supprimé.'
+edit_user_user: 'Modification de {user}'
+disable_account_explain: 'Désactiver le compte de {user} l''empêchera de se connecter sur cette société. Vous conserverez ses projets, faits marquants, les données nécessaires pour générer les feuilles de temps. Vous pourrez ré-activer le compte à tout moment.'
+re_enable_account_explain: 'Ré-activer le compte de {user} lui permettra d''accéder à nouveau à votre société.'
+cancel: Annuler
+disable_account: 'Désactiver le compte'
+re_enable_account: 'Ré-activer le compte'
+roles_on_projects_of_user: 'Rôles sur projets de {user}'
+activity_of_user: 'Activité de {user}'
+activity: Activité
+his_projects: 'Ses projets'
+manage_his_projects_access: 'Gérer ses accès aux projets'
+.on_the_project: 'sur le projet'
+time_spent_in_percent_unit: 'Temps passés en %'
+.at_date: 'le {date}'
+creation_of_your_admin_account_on_company: 'Création de votre compte administrateur sur la société'
+continue: Continuer
+my_rdi_manager_account: 'Mon compte RDI-Manager'
+create_my_rdi_manager_account: 'Créer mon compte RDI-Manager'
+join_company: 'Rejoindre la société'
+create_my_account: 'Créer mon compte'
+you_received_6_digit_code_enter_it: 'Vous avez reçu un code de vérification à 6 chiffres sur votre boîte email. Veuillez le saisir ici.'
+code_non_received: 'Code de vérification non reçu ?'
+re_verify_my_email_address: 'Revérifier mon adresse email'
+if_you_are_new_create_an_account: 'Si êtes nouveau sur RDI-Manager ou que vous n''avez pas encore de compte, vous pouvez en créer un maintenant.'
+i_already_have_a_rdi_manager_account: 'J''ai déjà un compte RDI-Manager'
+already_have_account_explain: 'Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte. Vous serez invité à vous connecter si vous ne l''êtes pas déjà.'
+invite_my_collaborators: 'Inviter mes collaborateurs'
+you_can_invite_two_collaborators: 'Vous pouvez inviter vos deux premiers collaborateurs qui travaillent sur votre projets et qui pourront saisir du temps passé dessus.'
+you_can_still_invite_later: 'Vous pourrez toujours inviter vos collaborateurs plus tard.'
+skip_this_step: 'Passer cette étape'
+first_collaborator: 'Premier collaborateur'
+second_collaborator: 'Second collaborateur'
+registration_finished: 'Inscription terminée !'
+your_rdi_manager_account_is_now_created: 'Votre compte RDI-Manager est maintenant créé.'
+go_to_my_dashboard: 'Aller sur mon tableau de bord'
+my_company: 'Ma société'
+.to_register_on_rdi_manager: 'à inscrire sur RDI-Manager'
+.administrator: administrateur
+my_project: 'Mon projet'
+.that_i_want_to_track: 'que je souhaite suivre'
+my_collaborators: 'Mes collaborateur'
+.to_invite: 'à inviter'
+finished!: 'Terminé !'
+welcome_on_rdi_manager: 'Bienvenue sur RDI-Manager !'
+your_collaborators_will_enrich_this_project: 'Vos collaborateurs pourront saisir leurs temps passé sur ce projet, ou encore ajouter les faits marquants.'
+you_still_can_create_project_later: 'Vous pourrez toujours créer votre projet plus tard.'
+welcome_on_rdi_manager_long: 'Bienvenue sur RDI-Manager, vous allez ici créer votre société et votre accès administrateur afin de suivre vos projets.'
+if_you_want_join_already_existing_company_ask_your_admin: 'Si vous souhaitez plutôt rejoindre une société déjà existante, veuillez demander à votre administrateur de vous inviter.'
+create_my_company: 'Créer ma société'
+create_my_project: 'Créer mon projet'
+societe.raisonSociale: 'Raison sociale'
+societe.siret: Siret
+projet.titre: 'Titre descriptif'
+projet.acronyme: Acronyme
+user.role: Rôle
+user.heuresParJours: 'Heures travaillées par jour'
+user.dateEntree: Date d'entrée
+user.dateSortie: Date de sortie

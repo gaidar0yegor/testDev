@@ -30,14 +30,14 @@ Feature: Multi-société, page de changement de société
     Scenario: Je peux consulter et modifier mes informations personnelles même en étant pas connecté sur une société
         When I follow "Mon compte"
         Then I should see "Mon compte" in the "h1" element
-        And I should see "Nom : Eureka"
-        And I should see "E-mail : user@societe.dev"
+        And I should see "Nom Eureka"
+        And I should see "Email user@societe.dev"
         And I should see "Mes notifications"
 
         When I follow "Mettre à jour"
         Then I should see "Modification de mon compte"
         When I fill in the following:
-            | Prenom | NouveauPrenom |
+            | Prénom | NouveauPrenom |
         And I press "Mettre à jour"
         Then I should see "Vos informations personnelles ont été mises à jour"
         And I should see "NouveauPrenom" in the "nav" element

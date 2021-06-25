@@ -1,5 +1,7 @@
 import $ from 'jquery';
 import { addFlashMessage } from './flash-messages';
+import { format } from 'date-fns';
+import { t } from './translation';
 
 const day0 = 'calmonth-day-0 btn-secondary';
 const day05 = 'calmonth-day-05 btn-info';
@@ -39,17 +41,17 @@ function initAbsences(date, craJours) {
 
     $btnSubmit.click(function () {
         $btnSubmit.prop('disabled', true);
-        $btnSubmit.text('Enregistrement...');
+        $btnSubmit.text(t('updating...'));
 
         $.post(['/api/cra', date.year, date.month].join('/'), {
             cra: craJours,
         })
             .done(() => {
-                $('.text-success').html('<i class="fa fa-check" aria-hidden="true"></i> Modification(s) enregistré(s)');
+                $('.text-success').html('<i class="fa fa-check" aria-hidden="true"></i> ' + t('editions_updated'));
                 $btnSubmit.prop('disabled', false);
-                $btnSubmit.text('✓ Enregistré !');
+                $btnSubmit.html('<i class="fa fa-check" aria-hidden="true"></i> ' + t('updated!'));
                 $('.message-validation .text-warning').remove();
-                addFlashMessage('alerte alert alert-success text-center w-25 m-auto', '<i class="fa fa-check" aria-hidden="true"></i> Vos absences ont été mises à jour !' );
+                addFlashMessage('alerte alert alert-success text-center w-25 m-auto', '<i class="fa fa-check" aria-hidden="true"></i> ' + t('your_absences_have_been_updated'));
                 setTimeout(function() { 
                     $(".flash-messages").remove(); 
                 }, 10000);
@@ -134,9 +136,14 @@ function initCalMonth($calMonth, yearStr, monthStr, cra) {
 function createDaysHeader() {
     const $header = $('<div>').addClass('calmonth-row');
 
-    ['lun', 'mar', 'mer', 'jeu', 'ven', 'sam', 'dim'].forEach(mois => {
-        $header.append($('<p>').text(mois));
-    });
+    Array(7)
+        .fill(0)
+        .map((_, index) => 1604919600 + index * 24 * 3600)
+        .map(timestamp => format(timestamp, 'EEE'))
+        .forEach(mois => {
+            $header.append($('<p>').text(mois));
+        })
+    ;
 
     return $header;
 }

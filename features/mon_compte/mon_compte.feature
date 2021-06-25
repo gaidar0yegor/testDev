@@ -12,14 +12,14 @@ Feature: Mon compte, voir et modifier mes données personnelles.
     Scenario: Je peux voir mes données personnelles
         When I follow "Mon compte"
         Then I should see "Mon compte" in the "h1" element
-        And I should see "Nom : Eureka"
-        And I should see "Prénom : User"
-        And I should see "E-mail : user@societe.dev"
+        And I should see "Nom Eureka"
+        And I should see "Prénom User"
+        And I should see "Email user@societe.dev"
 
     Scenario: Je peux changer mon mot de passe
         Given I am on "/mon-compte"
-        When I follow "Modifier votre mot de passe"
-        Then I should see "Changement du mot de passe"
+        When I follow "Changer mon mot de passe"
+        Then I should see "Changer mon mot de passe"
 
         When I fill in the following:
             | update_password[oldPassword]         | user              |
@@ -30,8 +30,8 @@ Feature: Mon compte, voir et modifier mes données personnelles.
 
     Scenario: Je doit connaître l'ancien mot de passe pour le changer
         Given I am on "/mon-compte"
-        When I follow "Modifier votre mot de passe"
-        Then I should see "Changement du mot de passe"
+        When I follow "Changer mon mot de passe"
+        Then I should see "Changer mon mot de passe"
 
         When I fill in the following:
             | update_password[oldPassword]         | MAUVAIS           |
@@ -45,7 +45,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         When I follow "Mettre à jour"
         Then I should see "Modification de mon compte"
         When I fill in the following:
-            | Prenom | NouveauPrenom |
+            | Prénom | NouveauPrenom |
         And I press "Mettre à jour"
         Then I should see "Vos informations personnelles ont été mises à jour"
         And I should see "NouveauPrenom" in the "nav" element

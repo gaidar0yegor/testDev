@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des projets de la société{% endblock %}
+{% block title %}{{ 'company_projects'|trans }}{% endblock %}
 
 {% block body %}
     <h1>
-        Projets de la société
+        {{ 'company_projects'|trans }}
         <span
             class="year-switch"
             data-event-name="year-changed"
@@ -16,12 +16,12 @@
     <table class="table table-hover text-center mx-auto m-5 stretched-link-table-row">
         <thead>
             <tr>
-                <th class="text-left">Projet</th>
-                <th>Chef de Projet</th>
-                <th class="d-none d-md-table-cell">Début</th>
-                <th class="d-none d-md-table-cell">Fin</th>
-                <th class="d-none d-md-table-cell">Statut</th>
-                <th>Nb Participants</th>
+                <th class="text-left">{{ 'project'|trans }}</th>
+                <th>{{ 'PROJET_CDP'|trans }}</th>
+                <th class="d-none d-md-table-cell">{{ 'start'|trans }}</th>
+                <th class="d-none d-md-table-cell">{{ 'end'|trans }}</th>
+                <th class="d-none d-md-table-cell">{{ 'status'|trans }}</th>
+                <th>{{ 'participants_nb'|trans }}</th>
                 <th></th>
             </tr>
         </thead>

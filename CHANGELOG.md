@@ -5,6 +5,8 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Installation de la traduction, pouvoir changer la langue de son compte en Anglais
 ### Réparé
 - Erreur d'encodage quand on génère un prénom court avec un accent comme "É. Couturier"
 

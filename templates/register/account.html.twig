@@ -1,25 +1,23 @@
 {% extends 'register/layout.html.twig' %}
 
 {% block register %}
-    <h1 class="mb-1">Mon compte RDI-Manager</h1>
+    <h1 class="mb-1">{{ 'my_rdi_manager_account'|trans }}</h1>
 
     <p>
-        Si êtes nouveau sur RDI-Manager ou que vous n'avez pas encore de compte,
-        vous pouvez en créer un maintenant.
+        {{ 'if_you_are_new_create_an_account'|trans }}
     </p>
 
     <a
         href="{{ path('app_register_account_creation') }}"
         class="btn btn-lg btn-success"
-    >Créer mon compte RDI-Manager</a>
+    >{{ 'create_my_rdi_manager_account'|trans }}</a>
 
     <p class="mt-4">
-        Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte.
-        Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
+        {{ 'already_have_account_explain'|trans }}
     </p>
 
     <a
         href="{{ path('app_register_account_join') }}"
         class="mt-1 btn btn-outline-primary"
-    >J'ai déjà un compte RDI-Manager</a>
+    >{{ 'i_already_have_a_rdi_manager_account'|trans }}</a>
 {% endblock %}

@@ -1,0 +1,14 @@
+{
+    "week_from_to": "Semaine du {{from}} au {{to}}",
+    "update": "Mettre à jour",
+    "month_validated_on": "Vous avez validé ce mois le {{month}}.",
+    "invalid_percentages": "Vos pourcentages et la somme de vos pourcentages doivent ếtre entre 0 et 100.",
+    "your_absences_have_been_updated": "Vos absences ont été mises à jour !",
+    "unsubmitted_data_warning": "Vous avez commencez à saisir des données sans les soumettre. {{link_start}}Continuer la saisie{{link_end}}.",
+    "time_spent_updated": "Temps passés mis à jour",
+    "enter_absences_if_taken_this_month": "{{link_start}}Saisissez vos absences{{link_end}} si vous en avez pris ce mois ci.",
+    "updating...": "Enregistrement...",
+    "updated!": "Enregistré !",
+    "editions_updated": "Modification(s) enregistrée(s)",
+    "project_heading": "Projet {{project_name}}"
+}

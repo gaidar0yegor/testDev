@@ -1,7 +1,8 @@
 import '../styles/user-notifications.scss';
 
 import $ from 'jquery';
-import datesFr from './dates.fr';
+import { format } from 'date-fns';
+import locale from './dateFnsLocale';
 import userContext from './userContext';
 
 $(() => {
@@ -71,7 +72,7 @@ $(() => {
                     currentMonth = date;
 
                     $('.rdi-notification-container')
-                        .append(`<h6 class="dropdown-header">${datesFr.months[date.getMonth()]}</h6>`)
+                        .append(`<h6 class="dropdown-header">${format(date, 'MMMM', {locale})}</h6>`)
                     ;
                 }
 

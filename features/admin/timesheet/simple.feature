@@ -11,8 +11,8 @@ Feature: Génération d'une feuille de temps simple.
 
     Scenario: L'admin peut générer une feuille de temps simple. Il a contribué sur un seul projet.
         When I follow "Export feuilles de temps"
-        Then I should see "Générer une feuille de temps"
-        And I should see "Tout sélectionner / déselectionner"
+        Then I should see "Export feuilles de temps"
+        And I should see "Tout sélectionner / désélectionner"
         And I should see "Admin Eureka" in the "form" element
 
         When I fill in the following:

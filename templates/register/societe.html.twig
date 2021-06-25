@@ -1,24 +1,22 @@
 {% extends 'register/layout.html.twig' %}
 
 {% block register %}
-    <h1 class="mb-1">Créer ma société</h1>
+    <h1 class="mb-1">{{ 'create_my_company'|trans }}</h1>
 
     <p class="lead">
-        Bienvenue sur RDI-Manager, vous allez ici créer votre société
-        et votre accès administrateur afin de suivre vos projets.
+        {{ 'welcome_on_rdi_manager_long'|trans }}
     </p>
 
     <p class="text-warning">
         <i class="fa fa-exclamation" aria-hidden="true"></i>
-        Si vous souhaitez plutôt rejoindre une société déjà existante,
-        veuillez demander à votre administrateur de vous inviter.
+        {{ 'if_you_want_join_already_existing_company_ask_your_admin'|trans }}
     </p>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
     {{ form_rest(form) }}
 
-    <button type="submit" class="btn btn-lg btn-primary">Continuer</button>
+    <button type="submit" class="btn btn-lg btn-primary">{{ 'continue'|trans }}</button>
 
     {{ form_end(form) }}
 {% endblock %}

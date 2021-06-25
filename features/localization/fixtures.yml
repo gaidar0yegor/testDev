@@ -1,0 +1,7 @@
+App\Entity\User:
+    user:
+        nom: Eureka
+        prenom: User
+        email: user@societe.dev
+        password: user
+        locale: fr

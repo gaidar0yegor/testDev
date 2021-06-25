@@ -302,7 +302,7 @@ php bin/console doctrine:schema:up --dump-sql
 Dump translations from templates, php files... with:
 
 ``` bash
-php bin/console translation:update --force --output-format=yml --prefix="" fr
+php bin/console translation:update --dump-messages --force --output-format=yml --prefix="" fr
 ```
 
 ## Production
