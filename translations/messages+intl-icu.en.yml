@@ -180,7 +180,7 @@ validate_my_password: Validate my password
 'Bienvenue à {user} !': Welcome to {user} !
 'Un lien de réinitialisation de mot de passe vous a été envoyé.': A reset link of
   your password have been sent to you.
-welcome_user_you_can_reset_password: Hello {user}, now you can define your new password
+welcome_user_you_can_reset_password: Hello {user}, now you can define your new password.
 password_reset: Password reset
 your_new_password: Your new password
 'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.': The striking fact
