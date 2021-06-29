@@ -241,3 +241,7 @@ registration_finished: Registration finished !
 your_rdi_manager_account_is_now_created: Your RDI-Manager account has been created.
 go_to_my_dashboard: Go to my dashboard
 my_company: My company
+.to_register_on_rdi_manager: to enter on RDI-Manager
+.administrator: administrator
+my_project: My project
+societe.siret: Siret
