@@ -227,3 +227,7 @@ re_verify_my_email_address: Recheck my email address
 if_you_are_new_create_an_account: If you are new to RDI-Manager or if you don't have
   any account yet, you can create one now.
 i_already_have_a_rdi_manager_account: I already have an RDI-Manager account
+already_have_account_explain: If you already have an account, you can link your new
+  company to this account. You will be invited to connect yourself if you have not
+  yet.
+invite_my_collaborators: Invite my collaborators
