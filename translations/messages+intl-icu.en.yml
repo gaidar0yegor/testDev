@@ -223,7 +223,7 @@ create_my_account: Create my account
 you_received_6_digit_code_enter_it: You received a 6 numbers verification code in
   your mailbox. Please enter it here.
 code_non_received: Verification code not received ?
-re_verify_my_email_address: Verify my email adress
+re_verify_my_email_address: Recheck my email address
 if_you_are_new_create_an_account: If you are new to RDI-Manager or that you don't
   have any account yet, you can create one now.
 i_already_have_a_rdi_manager_account: I already have an RDI-Manager account
