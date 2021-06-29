@@ -231,3 +231,9 @@ already_have_account_explain: If you already have an account, you can link your 
   company to this account. You will be invited to connect yourself if you have not
   yet.
 invite_my_collaborators: Invite my collaborators
+you_can_invite_two_collaborators: You can invite your two first collaborators that
+  work on your projects and that will enter the time spent on it.
+you_can_still_invite_later: You can always invite your collaborators later.
+skip_this_step: Skip this step
+first_collaborator: First collaborator
+second_collaborator: Second collaborator
