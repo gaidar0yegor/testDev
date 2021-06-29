@@ -91,3 +91,72 @@ you_submitted_this_month_on: You have validated this month the {date}.
 update: Update
 enter_your_time_spent: Enter your time spent on each project
 .per_day_per_default: per day, by default
+you_can_invite_by_email_or_sms_to_make_him_join_company.: You can send an invitation
+  by email or SMS to a user for him to join your company.
+BACK_OFFICE: Back-Office
+welcome_on_rdi_manager: Welcome to RDI-Manager !
+admin_requires_admin_role: Menu reserved to your company's administrator.
+menu.admin.company: My society
+list_of_projects_i_participate: List of projects in which I participate.
+switch_company: Change companies
+'legend:': 'Key :'
+presence: Presence
+'business_identification_number:': 'Siret :'
+n_days_short: '{n} j'
+'total_hours_in_month:': 'Total of hours in {month} :'
+.or_n_percent: that is {n} %
+edit_my_company: Modify my company
+back: Return
+users_list: List of users
+lastname: Name
+firstname: First name
+email: Email
+role: Role
+projects: Projects
+invite_new_user: Invite a new user
+to_be_defined: To define
+edit_hours_number: Modify the number of hours
+time_spent_recording: Enter the time
+change_granularity: Modify the granularity
+company: Company
+company_projects: Projects of the society
+participants_nb: Nb participants
+invite: Invite
+phone: Phone
+timesheet_validation_of_year_n: Validate your time for {year}
+user: User
+account_disabled: Account deactivated
+select_unselect_all: Select all / unselect
+slack_integration: Integration of Slack
+time_spent_recording_granularity: Granularity of the time entry
+send_slack_reminder_in_your_team_channel: Send the notifications of reminders to your
+  team in one of your Slack channels.
+add_to_slack: Add to Slack
+channels_currently_connected: Channels currently connected
+quotas: Quota
+not_known: Not indicated
+change_password: Change my password
+my_account_on_societe_x: My account on {societe}
+my_activity: My activity
+your_collaborators_will_enrich_this_project: Your collaborators will be able to enter
+  their time spent on this project, or even add the remarkable facts.
+.that_i_want_to_track: that I wish to follow
+my_collaborators: My collaborators
+.to_invite: to invite
+finished!: Done !
+you_still_can_create_project_later: You will always be able to create your project
+  later.
+welcome_on_rdi_manager_long: Welcome to RDI-Manager, here you will create your company
+  and your administrator access that will allow you to follow your projects.
+if_you_want_join_already_existing_company_ask_your_admin: If you would rather join
+  an existing society, please ask your administrator to invite you.
+create_my_project: Create my project
+create_my_company: Create my company
+societe.raisonSociale: Social reason / Organisation
+projet.titre: Descriptive title
+projet.acronyme: Acronymn
+user.role: Role
+user.heuresParJours: Hours worked per day
+user.dateEntree: Date of entry
+user.dateSortie: Date of exit
+default_value_used_in_timesheets.: Value by default, used to create timesheets.
