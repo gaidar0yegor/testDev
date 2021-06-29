@@ -213,3 +213,7 @@ SOCIETE_CDP.small: PM
 disable_account_explain: To deactivate the account of {user} will prevent him from
   connecting to this company. You will keep his projects, striking facts, necessary
   data so to generate the timesheets. You can reactivate the account anytime you wish.
+creation_of_your_admin_account_on_company: Creation of your administrator's account
+  in the company
+continue: Continue
+my_rdi_manager_account: My RDI-Manager account
