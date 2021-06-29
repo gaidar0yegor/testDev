@@ -193,21 +193,21 @@ if_provided_you_can_receive_important_notification_by_sms.: If provided, you wil
   receive important notifications by text.
 'Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.': Your
   password have been changed. Now you can connect to your account.
-roles_on_projects_of_user: roles on {user}'s projects
+roles_on_projects_of_user: Roles on {user}'s projects
 'Le fait marquant "{titre_fait_marquant}" a été supprimé.': The striking fact "{titre_fait_marquant}"
   have been deleted.
 edit_user_user: Modification of {user}
-re_enable_account_explain: reactivating {user}'s account will allow him to access
+re_enable_account_explain: Reactivating the {user}'s account will allow him to access
   your company again.
 cancel: Cancel
-disable_account: deactivate account
+disable_account: Deactivate account
 re_enable_account: Reactivate account
 activity_of_user: "{user}'s Activity"
 activity: Activity
 his_projects: His projects
 manage_his_projects_access: Manage his access to projects
-.on_the_project: On the project
-time_spent_in_percent_unit: time spent in %
+.on_the_project: on the project
+time_spent_in_percent_unit: Time spent in %
 .at_date: the {date}
 SOCIETE_CDP.small: PM
 disable_account_explain: To deactivate the account of {user} will prevent him from
