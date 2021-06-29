@@ -5,15 +5,17 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.28.0] - 2021-06-29
 ### Ajouté
 - Installation de la traduction, pouvoir changer la langue de son compte en Anglais
 ### Modifié
 - Par défaut, une société créée a son nombre d'heures travaillées par jour à 7h au lieu de 7h30.
 ### Réparé
 - Erreur d'encodage quand on génère un prénom court avec un accent comme "É. Couturier"
-
-
-
 
 ## [0.27.1] - 2021-06-18
 ### Réparé
