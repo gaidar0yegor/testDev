@@ -210,3 +210,6 @@ manage_his_projects_access: Manage his access to projects
 time_spent_in_percent_unit: time spent in %
 .at_date: the {date}
 SOCIETE_CDP.small: PM
+disable_account_explain: To deactivate the account of {user} will prevent him from
+  connecting to this company. You will keep his projects, striking facts, necessary
+  data so to generate the timesheets. You can reactivate the account anytime you wish.
