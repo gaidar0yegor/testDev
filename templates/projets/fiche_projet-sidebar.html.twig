@@ -1,12 +1,22 @@
 <dl>
     {% if participation %}
-        {% if projet.chefDeProjet != userContext.societeUser %}
-            <p>Je suis <strong>{{ participation.role|trans }}</strong> sur ce projet.</p>
-        {% endif %}
+        <p>Je suis <strong>{{ participation.role|trans }}</strong> sur ce projet.</p>
     {% else %}
         {# participation can be null when admin view a projet of his societe but without access #}
         <p>Vous n'avez <strong>pas de rôle</strong> sur ce projet.</p>
     {% endif %}
+
+    {% if projet.projetUrls|length > 0 %}
+        <ul class="list-unstyled">
+            {% for projetUrl in projet.projetUrls %}
+                <li class="text-truncate">
+                    <i class="fa {{ projetUrl.url|faUrlIcon }}" aria-hidden="true"></i>
+                    <a href="{{ projetUrl.url }}" target="_blank">{{ projetUrl.text|default(projetUrl.url) }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     {% if projet.dateDebut %}
         <dt>Date de début</dt>
         <dd>{{ projet.dateDebut|format_date }}</dd>

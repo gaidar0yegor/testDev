@@ -134,6 +134,11 @@ class Projet implements HasSocieteInterface
      */
     private $createdAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetUrl::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
+     */
+    private $projetUrls;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -146,6 +151,7 @@ class Projet implements HasSocieteInterface
         $this->projetInterne = false;
         $this->projetActivities = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->projetUrls = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -547,6 +553,36 @@ class Projet implements HasSocieteInterface
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetUrl[]
+     */
+    public function getProjetUrls(): Collection
+    {
+        return $this->projetUrls;
+    }
+
+    public function addProjetUrl(ProjetUrl $projetUrl): self
+    {
+        if (!$this->projetUrls->contains($projetUrl)) {
+            $this->projetUrls[] = $projetUrl;
+            $projetUrl->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetUrl(ProjetUrl $projetUrl): self
+    {
+        if ($this->projetUrls->removeElement($projetUrl)) {
+            // set the owning side to null (unless already changed)
+            if ($projetUrl->getProjet() === $this) {
+                $projetUrl->setProjet(null);
+            }
+        }
 
         return $this;
     }

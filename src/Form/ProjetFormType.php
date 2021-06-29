@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 
@@ -40,6 +41,14 @@ class ProjetFormType extends AbstractType
             ->add('dateFin', DatePickerType::class, [
                 'required' => false,
                 'label' => 'Date de fin',
+            ])
+            ->add('projetUrls', CollectionType::class, [
+                'label' => 'projet.projetUrls',
+                'help' => 'projet.projetUrls.help',
+                'entry_type' => ProjetUrlType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
             ])
             ->add('projetCollaboratif', CheckboxType::class, [
                 'label' => 'Projet en collaboration avec au moins un partenaire externe',

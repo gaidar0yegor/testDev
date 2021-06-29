@@ -250,3 +250,8 @@ user.role: Rôle
 user.heuresParJours: 'Heures travaillées par jour'
 user.dateEntree: Date d'entrée
 user.dateSortie: Date de sortie
+add_external_link: Ajouter un lien externe
+projet.projetUrls: 'Urls externes du projet'
+projet.projetUrls.help: 'Afficher des liens externes en relation avec ce projet.'
+projet.projetUrl.text.help: 'Texte du lien'
+projet.projetUrl.url.help: Url

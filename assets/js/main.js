@@ -38,6 +38,15 @@ $('.fichier-projets-container').on('click', '.remove-file-btn', function () {
     $(this).closest('tr').remove();
 });
 
+// form projet
+EmbedForm.init($('#projet_form_projetUrls'), {
+    $addButton: $('.add-external-link'),
+});
+$('#projet_form_projetUrls').on('click', '.remove-row-btn', function (e) {
+    e.preventDefault();
+    $(this).closest('.row').remove();
+});
+
 
 // form gestion projets participants
 const $participants = $('#liste_projet_participants_projetParticipants');
