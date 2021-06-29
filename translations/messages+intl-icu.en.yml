@@ -223,3 +223,4 @@ create_my_account: Create my account
 you_received_6_digit_code_enter_it: You received a 6 numbers verification code in
   your mailbox. Please enter it here.
 code_non_received: Verification code not received ?
+re_verify_my_email_address: Verify my email adress
