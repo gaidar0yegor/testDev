@@ -90,21 +90,12 @@ class TempsController extends AbstractController
 
         foreach ($submittedTempsPasses as $submittedTempsPasse) {
             list($projetId, $pourcentage) = $submittedTempsPasse;
-            $updated = false;
 
             foreach ($cra->getTempsPasses()->toArray() as $tempsPasse) {
                 if ($tempsPasse->getProjet()->getId() === $projetId) {
                     $tempsPasse->setPourcentage($pourcentage);
-                    $updated = true;
                     break;
                 }
-            }
-
-            if (!$updated) {
-                throw new Exception(sprintf(
-                    'Cannot update TempsPasse for projet id "%s", projet not expected.',
-                    $projetId
-                ));
             }
         }
 
@@ -240,21 +231,12 @@ class TempsController extends AbstractController
     {
         foreach ($submittedTempsPasses as $submittedTempsPasse) {
             list($projetId, $pourcentage) = $submittedTempsPasse;
-            $updated = false;
 
             foreach ($cra->getTempsPasses()->toArray() as $tempsPasse) {
                 if ($tempsPasse->getProjet()->getId() === $projetId) {
                     $rest = self::fillWeeklyTempsPasse($tempsPasse, $date, $pourcentage, $days);
-                    $updated = true;
                     break;
                 }
-            }
-
-            if (!$updated) {
-                throw new Exception(sprintf(
-                    'Cannot update TempsPasse for projet id "%s", projet not expected.',
-                    $projetId
-                ));
             }
         }
 
