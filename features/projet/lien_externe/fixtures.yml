@@ -1,0 +1,42 @@
+App\Entity\User:
+    _user:
+        nom: Eureka
+        prenom: User
+        email: user@societe.dev
+        password: user
+
+App\Entity\SocieteUser:
+    user:
+        user: '@_user'
+        role: <(App\Security\Role\RoleSociete::USER)>
+        societe: '@societe'
+
+App\Entity\Projet:
+    projet:
+        titre: 'Projet'
+        acronyme: 'PTEST'
+        societe: '@societe'
+        dateDebut: <(new DateTime("2020-11-09"))>
+
+
+App\Entity\ProjetUrl:
+    trello:
+        projet: '@projet'
+        url: https://trello.com/b/DEj9Z6fX/rdi-manager
+        text: Trello board
+    github:
+        projet: '@projet'
+        url: https://github.com/RDI-Manager/rdi-manager.github.io
+    custom:
+        projet: '@projet'
+        url: http://localhost
+
+App\Entity\ProjetParticipant:
+    user_projet1:
+        societeUser: '@user'
+        projet: '@projet'
+        role: <(App\Security\Role\RoleProjet::CDP)>
+
+App\Entity\Societe:
+    societe:
+        raisonSociale: Société

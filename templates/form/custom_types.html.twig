@@ -1,18 +1,5 @@
 {% extends 'bootstrap_4_layout.html.twig' %}
 
-{% block form_label %}
-    {# Change label by i.e "societe.raisonSociale" instead of "Raison Sociale" #}
-    {% if not label %}
-        {% set translationKey = id|split('_')[-2:]|join('_')|replace({'_': '.'}) %}
-        {% set translationExists = translationKey|trans != translationKey %}
-        {% if translationExists %}
-            {% set label = translationKey %}
-        {% endif %}
-    {% endif %}
-
-    {{ parent() }}
-{% endblock %}
-
 {% block temps_passe_row %}
     <div class="row mb-2 align-items-center">
         <div class="col text-right lead">
@@ -208,5 +195,29 @@
                 {{ form_errors(form.projet) }}
             </div>
         {% endif %}
+    </div>
+{% endblock %}
+
+{% block projet_url_row %}
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                {{ form_errors(form.url) }}
+                {{ form_widget(form.url) }}
+                {{ form_help(form.url) }}
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="mb-3">
+                {{ form_errors(form.text) }}
+                {{ form_widget(form.text) }}
+                {{ form_help(form.text) }}
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="mb-3 text-right">
+                <button class="btn btn-outline-danger remove-row-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </div>
+        </div>
     </div>
 {% endblock %}

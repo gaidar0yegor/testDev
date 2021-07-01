@@ -1,5 +1,17 @@
 <dl>
     <p>Je suis <strong>observateur externe</strong> sur ce projet.</p>
+
+    {% if projet.projetUrls|length > 0 %}
+        <ul class="list-unstyled">
+            {% for projetUrl in projet.projetUrls %}
+                <li class="text-truncate">
+                    <i class="fa {{ projetUrl.url|faUrlIcon }}" aria-hidden="true"></i>
+                    <a href="{{ projetUrl.url }}" target="_blank">{{ projetUrl.text|default(projetUrl.url) }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     {% if projet.dateDebut %}
         <dt>Date de début</dt>
         <dd>{{ projet.dateDebut|format_date }}</dd>

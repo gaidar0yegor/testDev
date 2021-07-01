@@ -21,7 +21,8 @@ EmbedForm.init = function ($prototypeContainer, options = {}) {
         $prototypeContainer.after(options.$addButton);
     }
 
-    options.$addButton.on('click', function () {
+    options.$addButton.on('click', function (e) {
+        e.preventDefault();
         EmbedForm.addPrototypedItem($prototypeContainer, options);
     });
 
