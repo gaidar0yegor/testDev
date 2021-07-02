@@ -18,6 +18,7 @@
         "doctrine/orm": "^2.7",
         "elasticsearch/elasticsearch": "^7.10",
         "jolicode/slack-php-api": "^4.0",
+        "knplabs/knp-markdown-bundle": "^1.9",
         "knplabs/knp-snappy-bundle": "^1.7",
         "league/flysystem-bundle": "^1.5",
         "league/flysystem-rackspace": "dev-master#64240e2e5e51ca21d1dfc42f3c00c2d698689f96",

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\FaitMarquant;
 use App\Form\Custom\FichierProjetsType;
+use App\Form\Custom\MarkdownWysiwygType;
 use App\MultiSociete\UserContext;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
@@ -27,7 +28,7 @@ class FaitMarquantType extends AbstractType
             ->add('titre', null, [
                 'attr' => ['class' => 'form-control-lg'],
             ])
-            ->add('description', TextareaType:: class, [
+            ->add('description', MarkdownWysiwygType:: class, [
                 'attr' => [
                     'class' => 'text-justify',
                     'rows' => 9,

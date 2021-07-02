@@ -50,6 +50,9 @@ const loadDraft = form => {
     }
 
     FormDataJson.fillFormFromJsonValues(form, JSON.parse(localStorage.getItem(itemKey(form))));
+    form.querySelectorAll('input, textarea').forEach(input => {
+        input.dispatchEvent(new CustomEvent('change'));
+    });
 };
 
 /**

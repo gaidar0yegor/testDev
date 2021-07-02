@@ -23,4 +23,5 @@ return [
     Cron\CronBundle\CronCronBundle::class => ['all' => true],
     Misd\PhoneNumberBundle\MisdPhoneNumberBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
+    Knp\Bundle\MarkdownBundle\KnpMarkdownBundle::class => ['all' => true],
 ];

@@ -17,7 +17,7 @@
   .timeline h1,
   .timeline h2,
   .timeline h3 {
-    font-size: 1.4em;
+    text-align: left;
   }
   .timeline h4 {
     font-size: 1em;
@@ -28,6 +28,10 @@
     padding-bottom: 15px;
     margin-bottom: 20px;
     position: relative;
+  }
+  
+  .timeline .event img {
+    max-width: 100%;
   }
   
   .timeline .event:last-of-type {
@@ -64,6 +68,28 @@
     content: "";
     top: 5px;
   }
+
+  .timeline .event .event-content h1 {
+    font-size: 1.4em;
+  }
+  .timeline .event .event-content h2 {
+    font-size: 1.3em;
+  }
+  .timeline .event .event-content h3 {
+    font-size: 1.2em;
+  }
+  .timeline .event .event-content h4 {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  .timeline .event .event-content h5 {
+    font-size: 1em;
+    font-weight: bold;
+  }
+  .timeline .event .event-content h6 {
+    font-size: 0.9em;
+    font-weight: bold;
+  }
   /**/
   /*——————————————
   Responsive Stuff
@@ -75,9 +101,6 @@
       top: 20px;
       min-width: 0;
       font-size: 13px;
-    }
-    .timeline h3 {
-      font-size: 16px;
     }
     .timeline p {
       padding-top: 20px;
@@ -99,9 +122,6 @@
     .timeline .event:nth-child(3)::before,
     .timeline .event:nth-child(5)::before {
       top: 38px;
-    }
-    .timeline h3 {
-      font-size: 16px;
     }
     .timeline p {
       padding-top: 20px;

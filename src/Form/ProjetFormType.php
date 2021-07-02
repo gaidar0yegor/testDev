@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Projet;
 use App\Form\Custom\DatePickerType;
+use App\Form\Custom\MarkdownWysiwygType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,7 +27,7 @@ class ProjetFormType extends AbstractType
                 'label' => 'Titre réduit / Acronyme',
                 'attr' => ['class' => 'form-control-lg'],
             ])
-            ->add('resume', TextareaType::class, [
+            ->add('resume', MarkdownWysiwygType::class, [
                 'label' => 'Résumé',
                 'required' => false,
                 'attr' => [
