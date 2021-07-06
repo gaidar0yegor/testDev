@@ -5,13 +5,15 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.29.0] - 2021-07-06
 ### Ajouté
 - Pouvoir ajouter un lien vers Trello, ou d'autres liens externes en général sur la page projet
 # Réparé
 - Répare bug quand on modifie un temps passé sur un projet dont on n'est plus contributeur
-
-
-
 
 ## [0.28.0] - 2021-06-29
 ### Ajouté
