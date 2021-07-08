@@ -47,7 +47,7 @@ menu.admin.invite_user: Invite a user
 menu.admin.timesheet_check: Validate your time
 menu.admin.timesheet_export: Export your timesheets
 hours_by_project: Number of hours per projects
-loading: Charging …
+loading: Loading…
 projects_analyse_of_year: Analyse this year's projects
 my_projects_of_year: This year's projects
 project_analyse_from: Analysis of the projects since
@@ -84,7 +84,7 @@ n_nouveaux_faits_marquants: "{n, plural,\n    =0    {no new remarkable fact}\n  
   \ one   {one new remarkable fact}\n    other {# new remarkable facts}\n}"
 menu.admin.notification_parameters: Parameters notification
 menu.admin.licenses: My licences
-as_admin_i_can_also_access_all_projects: As an administrator, I can as well{link_start}access
+as_admin_i_can_also_access_all_projects: As an administrator, I can as well {link_start}access
   to all of my projects{link_end}.
 logout: Desconnexion
 you_submitted_this_month_on: You have validated this month the {date}.
@@ -101,7 +101,7 @@ list_of_projects_i_participate: List of projects in which I participate.
 switch_company: Change companies
 'legend:': 'Key :'
 presence: Presence
-'business_identification_number:': 'Siret :'
+'business_identification_number:': 'Siret:'
 n_days_short: '{n} j'
 'total_hours_in_month:': 'Total of hours in {month} :'
 .or_n_percent: that is {n} %
