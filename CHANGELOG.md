@@ -5,12 +5,14 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.29.1] - 2021-07-08
 ### Ajouté
 - Markdown dans les faits marquants et description de projet
     - pouvoir mettre des liens, gras, italique, titre...
-
-
-
 
 ## [0.29.0] - 2021-07-06
 ### Ajouté
