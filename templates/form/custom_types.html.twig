@@ -221,3 +221,14 @@
         </div>
     </div>
 {% endblock %}
+
+{% block markdown_wysiwyg_row %}
+    <div
+        class="markdown-wysiwyg"
+        data-input-id="{{ id }}"
+    ></div>
+
+    <div class="markdown-wysiwyg-textarea">
+        {{ form_row(form) }}
+    </div>
+{% endblock %}

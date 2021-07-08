@@ -21,6 +21,6 @@ function count() {
 if (textarea) {
     // on pose un écouteur d'évènement keyup sur le textarea.
     // On déclenche la fonction count quand l'évènement se produit et au chargement de la page
-    textarea.addEventListener('keyup', count);
+    textarea.addEventListener('change', count);
     count();
 }

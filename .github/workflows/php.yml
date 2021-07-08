@@ -47,16 +47,14 @@ jobs:
       if: steps.composer-cache.outputs.cache-hit != 'true'
       run: composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Yarn install
-      uses: borales/actions-yarn@v2.0.0
+    - name: Setup node
+      uses: actions/setup-node@v2
       with:
-        cmd: install
-        auth-token: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
-        registry-url: npm.fontawesome.com
-    - name: Yarn build
-      uses: borales/actions-yarn@v2.0.0
-      with:
-        cmd: run encore production
+        node-version: '12'
+        cache: 'yarn'
+
+    - name: Install node dependencies
+      run: yarn && yarn build
 
     - name: Run unit tests
       run: php bin/phpunit

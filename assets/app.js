@@ -19,6 +19,8 @@ import './js/onboarding';
 import './js/helpText';
 import './js/user-notifications';
 import './js/societe-notifications';
+import './js/syntax-highlighter';
+import './js/markdown-wysiwyg';
 import './js/slack';
 import './js/admin-user-chart-temps-projets';
 import './js/admin-projet-chart-temps-users';
