@@ -108,7 +108,7 @@ n_days_short: '{n} j'
 edit_my_company: Modify my company
 back: Return
 users_list: List of users
-lastname: Name
+lastname: Last name
 firstname: First name
 email: Email
 role: Role
@@ -245,3 +245,8 @@ my_company: My company
 .administrator: administrator
 my_project: My project
 societe.siret: Siret number
+add_external_link: Add an external link
+projet.projetUrls: External urls of this project
+projet.projetUrls.help: Display external urls related to this project.
+projet.projetUrl.text.help: Link text
+projet.projetUrl.url.help: Url
