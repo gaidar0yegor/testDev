@@ -1,0 +1,22 @@
+# See dos how to configure the bundle: https://symfony.com/doc/current/bundles/LiipImagineBundle/basic-usage.html
+liip_imagine:
+    # valid drivers options include "gd" or "gmagick" or "imagick"
+    driver: "gd"
+
+
+    filter_sets:
+        cache: ~
+
+        # Avatar, normal size for preview
+        avatar:
+            quality: 85
+            filters:
+                upscale: { min: [512, 512] }
+                thumbnail : { size: [512, 512], mode: outbound }
+
+        # Avatar used in little format in many places (menu, next to user name, ...)
+        avatar_mini:
+            quality: 75
+            filters:
+                upscale: { min: [128, 128] }
+                thumbnail : { size: [128, 128], mode: outbound }

@@ -5,6 +5,13 @@
 {% block body %}
     <h1>{{ 'my_account'|trans }}</h1>
 
+    <div class="text-center mb-4">
+        {% include 'utils/_avatar.html.twig' with {user: app.user, size: 180, border: true} %}
+        <br>
+
+        <a href="{{ path('app_fo_mon_compte_modifier_avatar') }}" class="btn btn-link btn-sm">{{ 'edit_my_avatar'|trans }}</a>
+    </div>
+
     <div class="row">
         <div class="col-sm-10 mx-auto offset-sm-1 col-lg-8 offset-lg-2">
             <div class="card bg-light-grey border-light">

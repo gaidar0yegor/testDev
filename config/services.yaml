@@ -29,15 +29,6 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    app.openstack_storage:
-        class: 'OpenStack\Common\Api\OperatorInterface'
-        factory: ['App\Service\RackspaceAdapterFactory', 'create']
-        arguments:
-            $region: '%env(OS_REGION)%'
-            $userName: '%env(OS_USER_NAME)%'
-            $userPassword: '%env(OS_USER_PASSWORD)%'
-            $containerName: '%env(OS_CONTAINER_NAME)%'
-
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:
@@ -232,6 +223,13 @@ services:
 
     App\Localization\TwigExtension:
         $locales: '%locales%'
+
+    App\File\FileHandler\AvatarHandler:
+        $filesAvatarUri: '%filesAvatarUri%'
+
+    App\File\CreateDefaultAvatarOnNewUser:
+        tags:
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\User }
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

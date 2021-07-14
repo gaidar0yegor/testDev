@@ -99,9 +99,9 @@ Feature: Gestion des faits marquants d'un projet
         And I am on "/projets/1"
 
         Then I should see "Contributeurs (2)"
-        And I should see "Contributeur"
-        And I should see "Contributeur2"
-        And I should see "Observateur"
+        And I should see an "img[alt='Avatar de Contributeur Eureka']" element
+        And I should see an "img[alt='Avatar de Contributeur2 Eureka']" element
+        And I should see "Observateur Eureka"
 
     Scenario: On peut mettre un lien hypertexte dans le fait marquant en markdown
         Given I am on "/connexion"

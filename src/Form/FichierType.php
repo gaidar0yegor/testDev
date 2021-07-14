@@ -3,7 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Fichier;
-use App\Service\FichierService;
+use App\File\FileHandlerInterface;
+use LogicException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -14,13 +15,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FichierType extends AbstractType
 {
-    private FichierService $fichierService;
-
-    public function __construct(FichierService $fichierService)
-    {
-        $this->fichierService = $fichierService;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -34,6 +28,12 @@ class FichierType extends AbstractType
 
     public function uploadFichier(PostSubmitEvent $event)
     {
+        $fileHandler = $event->getForm()->getConfig()->getOption('fileHandler');
+
+        if (!$fileHandler instanceof FileHandlerInterface) {
+            throw new LogicException('$fileHandler must be an instance of '.FileHandlerInterface::class);
+        }
+
         $fichier = $event->getData();
 
         // In case no file has been selected
@@ -46,7 +46,7 @@ class FichierType extends AbstractType
             return;
         }
 
-        $this->fichierService->upload($fichier);
+        $fileHandler->upload($fichier);
     }
 
     public function configureOptions(OptionsResolver $resolver)
@@ -54,5 +54,8 @@ class FichierType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Fichier::class,
         ]);
+
+        $resolver->setRequired('fileHandler');
+        $resolver->setAllowedTypes('fileHandler', FileHandlerInterface::class);
     }
 }

@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\Custom\RdiMobilePhoneNumberType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -33,12 +32,7 @@ class MonCompteType extends AbstractType
                 'help' => 'if_provided_you_can_receive_important_notification_by_sms.',
             ])
             ->add('locale', ChoiceType::class, [
-                'label' => 'Langue',
                 'choices'  => array_flip($this->locales),
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'update',
-                'attr' => ['class' => 'btn btn-success'],
             ])
         ;
     }

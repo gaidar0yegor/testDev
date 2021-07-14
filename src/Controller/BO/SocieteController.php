@@ -15,7 +15,7 @@ use App\LicenseGeneration\Form\GenerateLicenseType;
 use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
 use App\Security\Role\RoleSociete;
-use App\Service\FileResponseFactory;
+use App\File\FileResponseFactory;
 use App\Service\Invitator;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Flysystem\FilesystemInterface;

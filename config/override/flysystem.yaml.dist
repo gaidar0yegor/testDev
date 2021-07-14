@@ -1,0 +1,23 @@
+# This example uses OVH object storage to store projects files uploads.
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    app.openstack_storage:
+        class: 'OpenStack\Common\Api\OperatorInterface'
+        factory: ['App\File\RackspaceAdapterFactory', 'create']
+        arguments:
+            $region: GRA
+            # User corresponds to the Horizon user credentials from OVH (i.e user-nhvbXXXS8nKu)
+            $userName: user-XXX
+            $userPassword: ~
+            $containerName: projets-uploads
+
+flysystem:
+    storages:
+        projectFiles.storage:
+            adapter: rackspace
+            options:
+                container: app.openstack_storage

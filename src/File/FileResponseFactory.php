@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\File;
 
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;

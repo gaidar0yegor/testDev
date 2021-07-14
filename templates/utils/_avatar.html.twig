@@ -1,0 +1,14 @@
+{% set size = size|default(36) %}
+{% set border = border|default(false) %}
+{% if user and user.avatar %}
+    <img
+        src="{{ user|avatarUrl|imagine_filter(size > 128 ? 'avatar' : 'avatar_mini') }}"
+        alt="{{ 'avatar_of_user'|trans({'user': user.fullname}) }}"
+        title="{{ user.fullname }}"
+        class="{{ border ? 'img-thumbnail' : '' }} rounded-circle"
+        width="{{ size }}"
+        height="{{ size }}"
+    />
+{% else %}
+    <i class="fa fa-lg fa-user-circle-o" aria-hidden="true" style="font-size: {{ size }}px; margin: 0.15em 0"></i>
+{% endif %}
