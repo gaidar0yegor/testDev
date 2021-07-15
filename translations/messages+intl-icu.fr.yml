@@ -19,7 +19,7 @@ None: Aucun
 BACK_OFFICE: Back-Office
 INSCRIPTION: 'Formulaire d''inscription'
 COMMAND: 'Ligne de commande'
-SOCIETE_USER_STATUT_INVITATION: 'En cours d''invitation…'
+SOCIETE_USER_STATUT_INVITATION: 'Invitation envoyée, en attente d''inscription…'
 SOCIETE_USER_STATUT_ACTIVE: Actif
 SOCIETE_USER_STATUT_DISABLED: Désactivé
 monthly: 'Au mois'
