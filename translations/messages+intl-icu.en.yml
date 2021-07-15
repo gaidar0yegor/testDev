@@ -30,7 +30,7 @@ quota.contributeurs.description: User not detected, and contributor (or project 
 None: None
 INSCRIPTION: Registration form
 COMMAND: Command line
-SOCIETE_USER_STATUT_INVITATION: Sending invitation …
+SOCIETE_USER_STATUT_INVITATION: Invitation sent, awaiting registration…
 SOCIETE_USER_STATUT_ACTIVE: Active
 SOCIETE_USER_STATUT_DISABLED: Deactivated
 monthly: At least
@@ -82,11 +82,11 @@ quota.activeProjet.description: Projects in progress taking into account the sta
   and ending dates.
 n_nouveaux_faits_marquants: "{n, plural,\n    =0    {no new remarkable fact}\n   \
   \ one   {one new remarkable fact}\n    other {# new remarkable facts}\n}"
-menu.admin.notification_parameters: Parameters notification
+menu.admin.notification_parameters: Notifications parameters
 menu.admin.licenses: My licences
 as_admin_i_can_also_access_all_projects: As an administrator, I can as well {link_start}access
   to all of my projects{link_end}.
-logout: Desconnexion
+logout: Logout
 you_submitted_this_month_on: You have validated this month the {date}.
 update: Update
 enter_your_time_spent: Enter your time spent on each project
