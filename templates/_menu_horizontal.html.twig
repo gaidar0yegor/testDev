@@ -21,8 +21,8 @@
                         {{ app.user.currentSocieteUser.societe.raisonSociale }}
                         |
                     {% endif %}
+                    {% include 'utils/_avatar.html.twig' with {user: app.user, size: 24} %}
                     {{ app.user.prenom }}
-                    <i class="fa fa-lg fa-user-circle-o" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-lg-right">
                     {% if is_granted('ROLE_BO_USER') %}

@@ -10,7 +10,7 @@ use App\ObservateurExterne\InvitationService;
 use App\ObservateurExterne\Security\Voter\ViewProjetExterneVoter;
 use App\Repository\ProjetObservateurExterneRepository;
 use App\Security\Role\RoleProjet;
-use App\Service\FichierService;
+use App\File\FileHandler\ProjectFileHandler;
 use App\Service\ParticipantService;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -48,7 +48,7 @@ class ObervateurExterneController extends AbstractController
     public function viewFile(
         Projet $projet,
         FichierProjet $fichierProjet,
-        FichierService $fichierService
+        ProjectFileHandler $projectFileHandler
     ) {
         $this->denyAccessUnlessGranted(ViewProjetExterneVoter::VIEW, $projet);
 
@@ -56,7 +56,7 @@ class ObervateurExterneController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        return $fichierService->createDownloadResponse($fichierProjet->getFichier());
+        return $projectFileHandler->createDownloadResponse($fichierProjet->getFichier());
     }
 
     /**

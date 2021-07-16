@@ -255,3 +255,7 @@ projet.projetUrls: 'Urls externes du projet'
 projet.projetUrls.help: 'Afficher des liens externes en relation avec ce projet.'
 projet.projetUrl.text.help: 'Texte du lien'
 projet.projetUrl.url.help: Url
+avatar_of_user: Avatar de {user}
+edit_my_avatar: Modifier mon avatar
+'current_avatar:': 'Avatar actuel :'
+'new_avatar:': 'Nouvel avatar :'

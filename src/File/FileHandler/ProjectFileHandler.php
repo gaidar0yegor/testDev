@@ -1,35 +1,36 @@
 <?php
 
-namespace App\Service;
+namespace App\File\FileHandler;
 
 use App\Entity\Fichier;
+use App\File\FileHandlerInterface;
+use App\File\FileResponseFactory;
 use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class FichierService
+/**
+ * Gestion des fichiers privés uploadés sur un projet.
+ */
+class ProjectFileHandler implements FileHandlerInterface
 {
     private FilesystemInterface $storage;
 
     private FileResponseFactory $fileResponseFactory;
 
-    public function __construct(FilesystemInterface $defaultStorage, FileResponseFactory $fileResponseFactory)
+    public function __construct(FilesystemInterface $projectFilesStorage, FileResponseFactory $fileResponseFactory)
     {
-        $this->storage = $defaultStorage;
+        $this->storage = $projectFilesStorage;
         $this->fileResponseFactory = $fileResponseFactory;
     }
 
     public function upload(Fichier $fichier): void
     {
-        $fileName = md5(uniqid()).'.'.$fichier->getFile()->guessExtension();
+        $fichier->setDefaultFilename();
 
-        $fichier
-            ->setNomFichier($fichier->getFile()->getClientOriginalName())
-            ->setNomMd5($fileName)
-        ;
-
+        $filename = $fichier->getNomMd5();
         $stream = fopen($fichier->getFile()->getRealPath(), 'r+');
-        $this->storage->writeStream("uploads/$fileName", $stream);
+
+        $this->storage->writeStream($filename, $stream);
 
         if (is_resource($stream)) {
             fclose($stream);
@@ -39,13 +40,13 @@ class FichierService
     public function createDownloadResponse(Fichier $fichier): Response
     {
         return $this->fileResponseFactory->createFileResponse(
-            $this->storage->readStream('uploads/'.$fichier->getNomMd5()),
+            $this->storage->readStream($fichier->getNomMd5()),
             $fichier->getNomFichier()
         );
     }
 
     public function delete(Fichier $fichier): void
     {
-        $this->storage->delete('uploads/'.$fichier->getNomMd5());
+        $this->storage->delete($fichier->getNomMd5());
     }
 }

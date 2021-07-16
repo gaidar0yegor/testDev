@@ -29,7 +29,12 @@
                 <h4 data-date="{{ faitMarquant.date|format_date }}">
                     {{ faitMarquant.date|format_date }}
                     -
-                    <span>{{ faitMarquant.createdBy.user.fullname }}</span>
+                    <a
+                        href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                    >
+                        {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24} %}
+                        {{ faitMarquant.createdBy.user.fullname }}
+                    </a>
                 </h4>
                 <h3>{{ faitMarquant.titre }}</h3>
                 <div class="event-content">

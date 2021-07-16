@@ -4,7 +4,7 @@
 
 {% block body %}
 
-<h1>{{ 'my_account_edition'|trans }}</h1>
+<h1>{{ 'edit_my_avatar'|trans }}</h1>
 
 
 <div class="row">
@@ -14,13 +14,24 @@
             {{ 'back'|trans }}
         </a>
 
+        <p>{{ 'current_avatar:'|trans }}</p>
+
+        {% if app.user.avatar %}
+            <img
+                src="{{ app.user|avatarUrl|imagine_filter('avatar') }}"
+                alt="{{ 'avatar_of_user'|trans({'user': app.user.fullname}) }}"
+                class="img-thumbnail rounded-circle mb-4"
+                width="200"
+            />
+            <br>
+        {% endif %}
+
+        <p>{{ 'new_avatar:'|trans }}</p>
+
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        {{ form_row(form.prenom) }}
-        {{ form_row(form.nom) }}
-        {{ form_row(form.telephone) }}
-        {{ form_row(form.locale) }}
+        {{ form_row(form.file) }}
 
         <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
 

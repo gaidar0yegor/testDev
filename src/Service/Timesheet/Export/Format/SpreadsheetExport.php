@@ -3,7 +3,7 @@
 namespace App\Service\Timesheet\Export\Format;
 
 use App\DTO\Timesheet;
-use App\Service\FileResponseFactory;
+use App\File\FileResponseFactory;
 use App\Service\Timesheet\Export\FormatInterface;
 use DateTime;
 use PhpOffice\PhpSpreadsheet\Cell\Coordinate;

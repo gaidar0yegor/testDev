@@ -80,10 +80,12 @@
 
 <h4>Contributeurs ({{ contributeurs|length }})</h4>
 
-<ul class="list-unstyled">
+<ul class="list-inline">
     {% for contributeur in contributeurs %}
-        <li>
-            {{ contributeur.societeUser|entityLink }}
+        <li class="list-inline-item m-1">
+            <a href="{{ path('app_fo_societe_user', {'id': contributeur.societeUser.id}) }}">
+                {% include 'utils/_avatar.html.twig' with {user: contributeur.societeUser.user} %}
+            </a>
         </li>
     {% else %}
         <li>Il n'y a pas de contributeur pour l'instant.</li>

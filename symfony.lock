@@ -203,6 +203,12 @@
             "fixtures/.gitignore"
         ]
     },
+    "imagine/imagine": {
+        "version": "1.2.4"
+    },
+    "intervention/image": {
+        "version": "2.6.0"
+    },
     "jane-php/json-schema-runtime": {
         "version": "v6.3.2"
     },
@@ -242,6 +248,15 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.1.1"
     },
+    "lasserafn/php-initial-avatar-generator": {
+        "version": "4.2.1"
+    },
+    "lasserafn/php-initials": {
+        "version": "3.1"
+    },
+    "lasserafn/php-string-script-language": {
+        "version": "0.3"
+    },
     "league/flysystem": {
         "version": "1.1.3"
     },
@@ -270,6 +285,19 @@
     "league/uri-interfaces": {
         "version": "2.2.0"
     },
+    "liip/imagine-bundle": {
+        "version": "1.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.8",
+            "ref": "5a5bdc2d0e2533ed6935d5ae562f2b318a8fc1ee"
+        },
+        "files": [
+            "config/packages/liip_imagine.yaml",
+            "config/routes/liip_imagine.yaml"
+        ]
+    },
     "lorenzo/pinky": {
         "version": "1.0.5"
     },
@@ -281,6 +309,9 @@
     },
     "markbaker/matrix": {
         "version": "2.0.0"
+    },
+    "meyfa/php-svg": {
+        "version": "v0.9.1"
     },
     "michelf/php-markdown": {
         "version": "1.9.0"
@@ -342,6 +373,9 @@
         "files": [
             "config/packages/misd_phone_number.yaml"
         ]
+    },
+    "overtrue/pinyin": {
+        "version": "4.0.7"
     },
     "php": {
         "version": "7.4"

@@ -1,18 +1,18 @@
 # Read the documentation at https://github.com/thephpleague/flysystem-bundle/blob/master/docs/1-getting-started.md
+parameters:
+    filesAvatarDir: '%kernel.project_dir%/public/avatar'
+    filesAvatarUri: '/avatar/'
+
 flysystem:
     storages:
-        default.storage.local:
+        avatar.storage:
             adapter: local
             options:
-                directory: '%kernel.project_dir%/var/storage/default'
-        default.storage.openstack:
-            adapter: rackspace
+                directory: '%filesAvatarDir%'
+        projectFiles.storage:
+            adapter: local
             options:
-                container: app.openstack_storage
-        default.storage:
-            adapter: lazy
-            options:
-                source: '%env(STORAGE_DEFAULT)%'
+                directory: '%kernel.project_dir%/var/storage/default/uploads'
         licenses.storage:
             adapter: local
             options:

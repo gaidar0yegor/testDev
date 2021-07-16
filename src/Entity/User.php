@@ -167,6 +167,11 @@ class User implements UserInterface
      */
     private $locale;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Fichier::class, cascade={"persist", "remove"})
+     */
+    private $avatar;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -586,6 +591,18 @@ class User implements UserInterface
     public function setLocale(string $locale): self
     {
         $this->locale = $locale;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Fichier
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Fichier $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

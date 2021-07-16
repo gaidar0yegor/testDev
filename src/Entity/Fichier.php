@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use App\Repository\FichierRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * @ORM\Entity(repositoryClass=FichierRepository::class)
  */
-class Fichier
+class Fichier implements Serializable
 {
     /**
      * @ORM\Id
@@ -94,5 +95,37 @@ class Fichier
         $this->file = $file;
 
         return $this;
+    }
+
+    public function setDefaultFilename(): self
+    {
+        $fileName = md5(uniqid()).'.'.$this->file->guessExtension();
+
+        $this
+            ->setNomFichier($this->file->getClientOriginalName())
+            ->setNomMd5($fileName)
+        ;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize([
+            $this->id,
+            $this->nomMd5,
+            $this->nomFichier,
+            $this->dateUpload,
+        ]);
+    }
+
+    public function unserialize($data)
+    {
+        list(
+            $this->id,
+            $this->nomMd5,
+            $this->nomFichier,
+            $this->dateUpload,
+        ) = unserialize($data);
     }
 }

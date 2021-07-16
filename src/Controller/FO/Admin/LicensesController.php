@@ -3,7 +3,7 @@
 namespace App\Controller\FO\Admin;
 
 use App\License\LicenseService;
-use App\Service\FileResponseFactory;
+use App\File\FileResponseFactory;
 use App\MultiSociete\UserContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

@@ -337,7 +337,7 @@ yarn build
 Create a Slack application and issue a webhook url. Then:
 
 ``` bash
-cp config/packages/custom.yaml.dist config/packages/custom.yaml
+cp config/override/monolog.yaml.dist config/override/monolog.yaml
 ```
 
 And configure:

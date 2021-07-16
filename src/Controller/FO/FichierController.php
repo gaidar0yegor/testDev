@@ -7,7 +7,7 @@ use App\Entity\FichierProjet;
 use App\Form\ProjetFichierProjetsType;
 use App\ProjetResourceInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Service\FichierService;
+use App\File\FileHandler\ProjectFileHandler;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -52,13 +52,13 @@ class FichierController extends AbstractController
      */
     public function delete(
         FichierProjet $fichierProjet,
-        FichierService $fichierService,
+        ProjectFileHandler $projectFileHandler,
         EntityManagerInterface $em,
         Projet $projet
     ): Response {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $fichierProjet);
 
-        $fichierService->delete($fichierProjet->getFichier());
+        $projectFileHandler->delete($fichierProjet->getFichier());
 
         $em->remove($fichierProjet);
         $em->flush();
@@ -74,10 +74,10 @@ class FichierController extends AbstractController
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
      */
-    public function download(FichierProjet $fichierProjet, FichierService $fichierService): Response
+    public function download(FichierProjet $fichierProjet, ProjectFileHandler $projectFileHandler): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::VIEW, $fichierProjet);
 
-        return $fichierService->createDownloadResponse($fichierProjet->getFichier());
+        return $projectFileHandler->createDownloadResponse($fichierProjet->getFichier());
     }
 }

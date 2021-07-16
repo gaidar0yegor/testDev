@@ -3,6 +3,8 @@
 namespace App\Controller\FO;
 
 use App\DTO\UpdatePassword;
+use App\Entity\Fichier;
+use App\Form\AvatarType;
 use App\Form\MonCompteType;
 use App\Form\UpdatePasswordType;
 use App\Form\UserNotificationType;
@@ -59,6 +61,31 @@ class MonCompteController extends AbstractController
         }
 
         return $this->render('mon_compte/mon_compte_modifier.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/modifier/avatar", name="app_fo_mon_compte_modifier_avatar")
+     */
+    public function monCompteModifierAvatar(Request $request, EntityManagerInterface $em, UserContext $userContext)
+    {
+        $fichier = new Fichier();
+        $form = $this->createForm(AvatarType::class, $fichier);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userContext->getUser()->setAvatar($fichier);
+
+            $em->flush();
+
+            $this->addFlash('success', 'Votre avatar a été mis à jour.');
+
+            return $this->redirectToRoute('app_fo_mon_compte');
+        }
+
+        return $this->render('mon_compte/mon_compte_modifier_avatar.html.twig', [
             'form' => $form->createView(),
         ]);
     }

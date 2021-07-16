@@ -1,8 +1,11 @@
 # Ignore dynamic template, but not .dist ones
 /templates/dynamic_templates/*.twig
 
+# Ignore uploaded avatars
+/public/avatar/
+
 # Ignore custom config
-/config/packages/custom.yaml
+/config/override/*.yaml
 
 # License generation, ignore the public key that is generated dynamically
 /public/license/public-key.pem
@@ -33,3 +36,7 @@
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
