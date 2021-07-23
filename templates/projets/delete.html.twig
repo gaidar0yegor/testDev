@@ -1,0 +1,159 @@
+{% extends "base.html.twig" %}
+
+{% block title %}{{ 'delete_project_title'|trans({'projectAcronyme': projet.acronyme}) }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>
+    {{ 'delete_project_title'|trans({'projectAcronyme': projet.acronyme}) }}
+</h1>
+
+<p>
+    {{ 'your_are_about_to_delete_project'|trans({
+        'projectAcronyme': projet.acronyme,
+        'projectTitle': projet.titre
+    })|raw|striptags('<strong>')|raw }}
+</p>
+
+<p>{{ 'this_action_can_have_effect_on_linked_data:'|trans }}</p>
+
+{% set preview = 5 %}
+
+
+{% if projet.tempsPasses|length > 0 %}
+    <div class="alert alert-danger">
+        <i class="fa fa-warning" aria-hidden="true"></i>
+
+        {{ 'delete_project.time_tracking.warning'|trans({
+            'n': projet.tempsPasses|length
+        })|raw|striptags('<strong>')|raw }}
+
+        <ul class="mt-2">
+            {% for tempsPasse in projet.tempsPasses[-preview:] %}
+                <li>{{ tempsPasse.cra.societeUser.user.fullname }} - {{ tempsPasse.pourcentage }}% - {{ tempsPasse.cra.mois|format_datetime(pattern='MMMM yyyy') }}</li>
+            {% endfor %}
+            {% if projet.tempsPasses|length > preview %}
+                <li><i>{{ '...and_n_others'|trans({'n': projet.tempsPasses|length - preview}) }}</i></li>
+            {% endif %}
+        </ul>
+    </div>
+{% else %}
+    <div class="alert alert-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        {{ 'delete_project.time_tracking.safe'|trans }}
+    </div>
+{% endif %}
+
+
+{% if projet.faitMarquants|length > 0 %}
+    <div class="alert alert-danger">
+        <i class="fa fa-warning" aria-hidden="true"></i>
+
+        {{ 'delete_project.fait_marquant.warning'|trans({
+            'n': projet.faitMarquants|length
+        })|raw|striptags('<strong>')|raw }}
+
+        <ul class="mt-2">
+            {% for faitMarquant in projet.faitMarquants[-preview:] %}
+                <li>{{ faitMarquant.titre }}</li>
+            {% endfor %}
+            {% if projet.faitMarquants|length > preview %}
+                <li><i>{{ '...and_n_others'|trans({'n': projet.faitMarquants|length - preview}) }}</i></li>
+            {% endif %}
+        </ul>
+    </div>
+{% else %}
+    <div class="alert alert-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        {{ 'delete_project.fait_marquant.safe'|trans }}
+    </div>
+{% endif %}
+
+
+{% if projet.fichierProjets|length > 0 %}
+    <div class="alert alert-danger">
+        <i class="fa fa-warning" aria-hidden="true"></i>
+
+        {{ 'delete_project.project_file.warning'|trans({
+            'n': projet.fichierProjets|length
+        })|raw|striptags('<strong>')|raw }}
+
+        <ul class="mt-2">
+            {% for fichierProjet in projet.fichierProjets[-preview:] %}
+                <li>{{ fichierProjet.fichier.nomFichier }}</li>
+            {% endfor %}
+            {% if projet.fichierProjets|length > preview %}
+                <li><i>{{ '...and_n_others'|trans({'n': projet.fichierProjets|length - preview}) }}</i></li>
+            {% endif %}
+        </ul>
+    </div>
+{% else %}
+    <div class="alert alert-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        {{ 'delete_project.project_file.safe'|trans }}
+    </div>
+{% endif %}
+
+
+{% if projet.projetObservateurExternes|length > 0 %}
+    <div class="alert alert-warning">
+        <i class="fa fa-warning" aria-hidden="true"></i>
+
+        {{ 'delete_project.external_observator.warning'|trans({
+            'n': projet.projetObservateurExternes|length
+        })|raw|striptags('<strong>')|raw }}
+
+        <ul class="mt-2">
+            {% for projetObservateurExterne in projet.projetObservateurExternes[-preview:] %}
+                <li>{{ projetObservateurExterne.user.fullname }}</li>
+            {% endfor %}
+            {% if projet.projetObservateurExternes|length > preview %}
+                <li><i>{{ '...and_n_others'|trans({'n': projet.projetObservateurExternes|length - preview}) }}</i></li>
+            {% endif %}
+        </ul>
+    </div>
+{% else %}
+    <div class="alert alert-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        {{ 'delete_project.external_observator.safe'|trans }}
+    </div>
+{% endif %}
+
+
+{% if projet.projetParticipants|length > 0 %}
+    <div class="alert alert-warning">
+        <i class="fa fa-warning" aria-hidden="true"></i>
+
+        {{ 'delete_project.project_participant.warning'|trans({
+            'n': projet.projetParticipants|length
+        })|raw|striptags('<strong>')|raw }}
+
+        <ul class="mt-2">
+            {% for projetParticipant in projet.projetParticipants[-preview:] %}
+                <li>{{ projetParticipant.societeUser.user.fullname }}</li>
+            {% endfor %}
+            {% if projet.projetParticipants|length > preview %}
+                <li><i>{{ '...and_n_others'|trans({'n': projet.projetParticipants|length - preview}) }}</i></li>
+            {% endif %}
+        </ul>
+    </div>
+{% else %}
+    <div class="alert alert-success">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        {{ 'delete_project.project_participant.safe'|trans }}
+    </div>
+{% endif %}
+
+<form
+    method="post"
+    action="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
+    onsubmit="return confirm('{{ 'are_you_sure_delete_project'|trans({'projectAcronyme': projet.acronyme})|escape('js') }}');"
+>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete_project_' ~ projet.id) }}">
+    <button class="btn btn-outline-danger">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        {{ 'delete'|trans }}
+    </button>
+</form>
+
+{% endblock %}

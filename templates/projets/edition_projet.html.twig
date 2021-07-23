@@ -35,6 +35,20 @@
 
 		{{ form_end(form) }}
 	</div>
+    <div class="col-lg-4 offset-lg-2">
+        <div class="card border-danger mb-3">
+            <div class="card-body text-danger">
+                <h5 class="card-title">{{ 'delete_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
+                <p class="card-text">
+					{{ 'delete_project_link_description'|trans }}
+                    <a
+                        href="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
+                        class="btn btn-outline-danger mt-4"
+                    >{{ 'verify_and_delete_project'|trans }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
 
 

@@ -259,3 +259,22 @@ avatar_of_user: Avatar de {user}
 edit_my_avatar: Modifier mon avatar
 'current_avatar:': 'Avatar actuel :'
 'new_avatar:': 'Nouvel avatar :'
+delete_project_title: 'Supprimer le projet {projectAcronyme}'
+delete_project_link_description: 'Pour supprimer ce projet, vous pourrez vérifier les données liées au projet puis valider la suppression définitive ici :'
+verify_and_delete_project: 'Vérifier et supprimer le projet'
+project_have_been_deleted: 'Le projet {projectAcronyme} a été supprimé !'
+your_are_about_to_delete_project: 'Vous êtes sur le point de supprimer le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
+'this_action_can_have_effect_on_linked_data:': 'Cette action peut avoir une action les données liées à ce projet :'
+'...and_n_others': "… et {n, plural, =0 {pas d'autres} =1 {un autre} other {# autres}}"
+delete_project.time_tracking.warning: 'Les contributeurs ont saisis du temps passé sur ce projet dans <strong>{n, plural, =1 {une feuille de temps} other {# feuilles de temps}}</strong>. Ces temps passés seront supprimés, et il y aura une différence avec les potentielles feuilles de temps que vous avez déjà imprimé :'
+delete_project.time_tracking.safe: 'Aucun temps passé n''a été saisi sur ce projet.'
+delete_project.fait_marquant.warning: 'Le projet a <strong>{n, plural, =1 {un fait marquant} other {# faits marquants}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :'
+delete_project.fait_marquant.safe: 'Le projet n''a pas de fait marquant.'
+delete_project.project_file.warning: 'Le projet a <strong>{n, plural, =1 {un fichier rattaché} other {# fichiers rattachés}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :'
+delete_project.project_file.safe: 'Le projet n''a pas de fichiers rattachés.'
+delete_project.external_observator.warning: 'Le projet a <strong>{n, plural, =1 {un observateur externe} other {# observateurs externes}}</strong>, {n, plural, =1 {il ne pourra} other {ils ne pourront}} plus consulter le projet :'
+delete_project.external_observator.safe: 'Le projet n''a pas d''observateur externe.'
+delete_project.project_participant.warning: 'Le projet a <strong>{n, plural, =1 {un participant} other {# participants}}</strong>, {n, plural, =1 {il sera détaché} other {ils seront détachés}} du projet :'
+delete_project.project_participant.safe: 'Le projet n''a pas de participants.'
+are_you_sure_delete_project: 'Êtes-vous sûr de vouloir supprimer le projet {projectAcronyme} ?'
+delete: Supprimer
