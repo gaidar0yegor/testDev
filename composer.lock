@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4e27f887bc4de47dbfcdaadb182637e3",
+    "content-hash": "88a1c850ab7b4e76cefb9854d4a3ca76",
     "packages": [
         {
             "name": "beberlei/doctrineextensions",
@@ -5485,16 +5485,16 @@
         },
         {
             "name": "php-opencloud/openstack",
-            "version": "dev-patch-1",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/alcalyn/openstack.git",
-                "reference": "8723ea4a1399303f44c983559bd07fa59582c28c"
+                "url": "https://github.com/php-opencloud/openstack.git",
+                "reference": "42e2d09b9368becb6fde6dac17854132fcf77a5c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alcalyn/openstack/zipball/8723ea4a1399303f44c983559bd07fa59582c28c",
-                "reference": "8723ea4a1399303f44c983559bd07fa59582c28c",
+                "url": "https://api.github.com/repos/php-opencloud/openstack/zipball/42e2d09b9368becb6fde6dac17854132fcf77a5c",
+                "reference": "42e2d09b9368becb6fde6dac17854132fcf77a5c",
                 "shasum": ""
             },
             "require": {
@@ -5521,12 +5521,7 @@
                     "OpenStack\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "OpenStack\\Test\\": "tests/unit/",
-                    "OpenStack\\Integration\\": "tests/integration/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -5545,15 +5540,16 @@
             "description": "PHP SDK for OpenStack APIs. Supports BlockStorage, Compute, Identity, Images, Networking and Metric Gnocchi",
             "homepage": "https://github.com/php-opencloud/openstack",
             "keywords": [
+                "Openstack",
                 "api",
-                "openstack",
                 "php",
                 "sdk"
             ],
             "support": {
-                "source": "https://github.com/alcalyn/openstack/tree/patch-1"
+                "issues": "https://github.com/php-opencloud/openstack/issues",
+                "source": "https://github.com/php-opencloud/openstack/tree/v3.2.1"
             },
-            "time": "2021-04-23T15:41:12+00:00"
+            "time": "2021-07-21T13:43:25+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -14342,8 +14338,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "league/flysystem-rackspace": 20,
-        "php-opencloud/openstack": 20
+        "league/flysystem-rackspace": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
