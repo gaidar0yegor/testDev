@@ -33,7 +33,7 @@ COMMAND: Command line
 SOCIETE_USER_STATUT_INVITATION: Invitation sent, awaiting registration…
 SOCIETE_USER_STATUT_ACTIVE: Active
 SOCIETE_USER_STATUT_DISABLED: Deactivated
-monthly: At least
+monthly: Monthly
 weekly: Weekly
 n_observateur: "{n, plural,\n    =0 {Observator}\n    one {Observator}\n    other\
   \ {Observators}\n}"
@@ -60,7 +60,7 @@ end: End
 status: Status
 participants: Participants
 back_office: Back Office
-my_companies: My society
+my_companies: My companies
 this_month_not_yet_in_company: This month, you are not yet in the company.
 this_month_no_longer_in_company: This month, you are not in the company anymore.
 you_should_validate_this_month: You should validate this month.
@@ -96,9 +96,9 @@ you_can_invite_by_email_or_sms_to_make_him_join_company.: You can send an invita
 BACK_OFFICE: Back-Office
 welcome_on_rdi_manager: Welcome to RDI-Manager !
 admin_requires_admin_role: Menu reserved to your company's administrator.
-menu.admin.company: My society
+menu.admin.company: My company
 list_of_projects_i_participate: List of projects in which I participate.
-switch_company: Change companies
+switch_company: Switch company
 'legend:': 'Key :'
 presence: Presence
 'business_identification_number:': 'Siret:'
@@ -119,7 +119,7 @@ edit_hours_number: Modify the number of hours
 time_spent_recording: Enter the time
 change_granularity: Modify the granularity
 company: Company
-company_projects: Projects of the society
+company_projects: Projects of the company
 participants_nb: Nb participants
 invite: Invite
 phone: Phone
@@ -149,7 +149,7 @@ you_still_can_create_project_later: You will always be able to create your proje
 welcome_on_rdi_manager_long: Welcome to RDI-Manager, here you will create your company
   and your administrator access that will allow you to follow your projects.
 if_you_want_join_already_existing_company_ask_your_admin: If you would rather join
-  an existing society, please ask your administrator to invite you.
+  an existing company, please ask your administrator to invite you.
 create_my_project: Create my project
 create_my_company: Create my company
 societe.raisonSociale: Social reason / Organisation
