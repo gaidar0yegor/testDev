@@ -21,7 +21,9 @@ use App\Form\ProjetExportType;
 use App\Security\Role\RoleProjet;
 use App\MultiSociete\UserContext;
 use App\Service\ParticipantService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleVoter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/projets")
@@ -219,6 +221,41 @@ class ProjetController extends AbstractController
         return $this->render('projets/generer_fait_marquant.html.twig', [
             'form' => $form->createView(),
             'projet' => $projet
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/supprimer", name="app_fo_projet_delete")
+     */
+    public function delete(
+        Projet $projet,
+        Request $request,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em
+    ) {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        if ($request->isMethod('POST')) {
+            if (!$this->isCsrfTokenValid('delete_project_'.$projet->getId(), $request->get('_token'))) {
+                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+
+                return $this->redirectToRoute('app_fo_projet_delete', [
+                    'id' => $projet->getId(),
+                ]);
+            }
+
+            $em->remove($projet);
+            $em->flush();
+
+            $this->addFlash('warning', $translator->trans('project_have_been_deleted', [
+                'projectAcronyme' => $projet->getAcronyme(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_projets');
+        }
+
+        return $this->render('projets/delete.html.twig', [
+            'projet' => $projet,
         ]);
     }
 }
