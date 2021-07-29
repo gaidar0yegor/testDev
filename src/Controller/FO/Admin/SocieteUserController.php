@@ -20,6 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/utilisateurs")
@@ -100,9 +101,26 @@ class SocieteUserController extends AbstractController
      *      methods={"POST"}
      * )
      */
-    public function disable(SocieteUser $societeUser, EntityManagerInterface $em)
-    {
+    public function disable(
+        Request $request,
+        TranslatorInterface $translator,
+        SocieteUser $societeUser,
+        UserContext $userContext,
+        EntityManagerInterface $em
+    ) {
         $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
+
+        if (!$this->isCsrfTokenValid('disable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
+            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+
+            return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
+                'id' => $societeUser->getId(),
+            ]);
+        }
+
+        if ($userContext->getSocieteUser() === $societeUser) {
+            throw new ConflictHttpException($translator->trans('cannot_disable_self'));
+        }
 
         if (!$societeUser->getEnabled()) {
             throw new ConflictHttpException('Cet utilisateur a déjà été désactivé.');
@@ -130,9 +148,21 @@ class SocieteUserController extends AbstractController
      *      methods={"POST"}
      * )
      */
-    public function enable(Request $request, SocieteUser $societeUser, EntityManagerInterface $em)
-    {
+    public function enable(
+        Request $request,
+        TranslatorInterface $translator,
+        SocieteUser $societeUser,
+        EntityManagerInterface $em
+    ) {
         $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
+
+        if (!$this->isCsrfTokenValid('re_enable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
+            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+
+            return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
+                'id' => $societeUser->getId(),
+            ]);
+        }
 
         if ($societeUser->getEnabled()) {
             throw new ConflictHttpException('Cet utilisateur est déjà activé.');

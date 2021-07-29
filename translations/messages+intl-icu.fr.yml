@@ -147,6 +147,7 @@ locale: Langue
 username: Identifiant
 password: 'Mot de passe'
 login: Connexion
+cannot_disable_self: 'Impossible de désactiver votre propre compte, vous seriez bloqué.'
 csrf_token_invalid: 'Erreur, il semblerai que le formulaire ait expiré, veuillez réessayer.'
 'Vous avez rejoint la société !': 'Vous avez rejoint la société !'
 'Vous avez rejoint le projet !': 'Vous avez rejoint le projet !'
