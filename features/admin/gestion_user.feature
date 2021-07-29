@@ -52,6 +52,12 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I click on the 1st "[href='/utilisateur/2']" element
         And I should see "Actif" in the ".badge" element
 
+    Scenario: Le référent ne peut pas se désactiver lui-même car il serait bloqué
+        When I click on the 1st "[href='/utilisateur/1']" element
+        And I follow "Mettre à jour"
+        And I press "Désactiver"
+        Then I should not see "Admin Eureka a été désactivé, il ne pourra plus se connecter"
+
     Scenario: Le référent ne peut pas désactiver les utilisateurs des autres société
         When I send a POST request to "/admin/utilisateurs/3/desactiver"
         Then the response status code should be 403

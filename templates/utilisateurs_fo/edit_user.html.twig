@@ -48,7 +48,16 @@
                         method="POST"
                         class="form"
                     >
-                        <input type="submit" value="{{ 'disable_account'|trans }}" class="btn btn-outline-warning" />
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token('disable_user_' ~ societeUser.id) }}" />
+                        <input
+                            type="submit"
+                            value="{{ 'disable_account'|trans }}"
+                            class="btn btn-outline-warning"
+                            {% if userContext.societeUser == societeUser %}
+                                disabled
+                                title="{{ 'cannot_disable_self'|trans }}"
+                            {% endif %}
+                        />
                     </form>
                 {% else %}
                     <h5 class="card-title">{{ 're_enable_account'|trans }}</h5>
@@ -60,6 +69,7 @@
                         method="POST"
                         class="form"
                     >
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token('re_enable_user_' ~ societeUser.id) }}" />
                         <input type="submit" value="{{ 're_enable_account'|trans }}" class="btn btn-warning" />
                     </form>
                 {% endif %}
