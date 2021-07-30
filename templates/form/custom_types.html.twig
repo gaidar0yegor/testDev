@@ -232,3 +232,19 @@
         {{ form_row(form) }}
     </div>
 {% endblock %}
+
+{% block societe_users_card_choice_widget %}
+    <div class="row">
+        {% for childForm in form.children %}
+            <div class="col-6 col-lg-4">
+                <div class="card rdi-card-choice rdi-card-choice-large mb-4">
+                    <div class="card-body">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+
+                        {{ form_row(childForm) }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

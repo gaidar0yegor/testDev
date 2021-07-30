@@ -18,11 +18,14 @@ use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
 use Knp\Snappy\Pdf;
 use App\DTO\ProjetExportParameters;
 use App\Form\ProjetExportType;
+use App\Form\SocieteUsersSelectionType;
 use App\Security\Role\RoleProjet;
 use App\MultiSociete\UserContext;
+use App\Notification\Event\AddedAsContributorNotification;
 use App\Service\ParticipantService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\RoleVoter;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -84,7 +87,8 @@ class ProjetController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', sprintf('Le projet "%s" a été créé.', $projet->getTitre()));
-            return $this->redirectToRoute('app_fo_projet', [
+
+            return $this->redirectToRoute('app_fo_projet_add_contributors', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -95,6 +99,64 @@ class ProjetController extends AbstractController
             'attr' => [
                 'class' =>'btn btn-success',
             ]
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/add-contributors", name="app_fo_projet_add_contributors")
+     */
+    public function addFirstContributors(
+        Request $request,
+        Projet $projet,
+        TranslatorInterface $translator,
+        EventDispatcherInterface $dispatcher,
+        ParticipantService $participantService,
+        EntityManagerInterface $em
+    ): Response {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        $form = $this->createForm(SocieteUsersSelectionType::class, [
+            'societeUsers' => $projet
+                ->getProjetParticipants()
+                ->map(function (ProjetParticipant $projetParticipant) {
+                    return $projetParticipant->getSocieteUser();
+                })
+            ,
+        ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $societeUsers = $form->getData()['societeUsers'];
+
+            foreach ($societeUsers as $societeUser) {
+                if ($participantService->isParticipant($societeUser, $projet)) {
+                    continue;
+                }
+
+                $em->persist(ProjetParticipant::create($societeUser, $projet, RoleProjet::CONTRIBUTEUR));
+            }
+
+            $em->flush();
+
+            foreach ($societeUsers as $societeUser) {
+                $dispatcher->dispatch(new AddedAsContributorNotification($societeUser, $projet));
+            }
+
+            if (count($societeUsers) > 0) {
+                $this->addFlash('success', $translator->trans('n_contributors_added', [
+                    'n' => count($societeUsers),
+                ]));
+            }
+
+            return $this->redirectToRoute('app_fo_projet', [
+                'id' => $projet->getId(),
+            ]);
+        }
+
+        return $this->render('projets/add_contributors.html.twig', [
+            'form' => $form->createView(),
+            'projet' => $projet,
         ]);
     }
 

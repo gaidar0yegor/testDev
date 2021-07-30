@@ -16,6 +16,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | projet_form[acronyme] | MPT           |
             | projet_form[titre]    | MonProjetTest |
         And I press "Soumettre"
+        And I follow "J'ajouterai des contributeurs plus tard"
         And I follow "Activité"
         Then I should see "Chef de projet Eureka a créé le projet MPT"
 
