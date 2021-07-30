@@ -17,6 +17,25 @@ Feature: Création de projet
             | projet_form[acronyme] | MPT           |
             | projet_form[titre]    | MonProjetTest |
         And I press "Soumettre"
+        Then I should see "Le projet \"MonProjetTest\" a été créé"
+        When I follow "J'ajouterai des contributeurs plus tard"
         Then the url should match "/projets/"
         And I should see "MPT" in the "h1" element
-        And I should see "Le projet \"MonProjetTest\" a été créé"
+
+    Scenario: Le chef de projet est invité à ajouter des contributeurs dés la création d'un projet
+        Given I am on "/projets"
+        When I follow "Créer un projet"
+        And I fill in the following:
+            | projet_form[acronyme] | MPT           |
+            | projet_form[titre]    | MonProjetTest |
+        And I press "Soumettre"
+        Then I should see "Ajouter des contributeurs" in the "h1" element
+        And I should see "Qui contribue à ce projet ?"
+        And I should see "User Eureka"
+        And I should see "Admin Eureka"
+
+        When I check "User Eureka"
+        And I check "Admin Eureka"
+        And I press "Ajouter ces contributeurs"
+        Then I should see "Les 2 contributeurs ont été ajoutés au projet"
+        And I should see "Contributeurs (2)"
