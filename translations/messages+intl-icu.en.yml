@@ -99,7 +99,7 @@ admin_requires_admin_role: Menu reserved to your company's administrator.
 menu.admin.company: My company
 list_of_projects_i_participate: List of projects in which I participate.
 switch_company: Switch company
-'legend:': 'Key :'
+'legend:': 'Key:'
 presence: Presence
 'business_identification_number:': 'Siret:'
 n_days_short: '{n} j'
