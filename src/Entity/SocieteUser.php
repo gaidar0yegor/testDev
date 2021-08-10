@@ -173,6 +173,18 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $societeUserNotifications;
 
+    /**
+     * Si l'utilisateur accepte les mails de relance
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $notificationOnboardingEnabled;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $notificationOnboardingLastSentAt;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -181,6 +193,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->projetParticipants = new ArrayCollection();
         $this->societeUserActivities = new ArrayCollection();
         $this->societeUserNotifications = new ArrayCollection();
+        $this->notificationOnboardingEnabled = true;
     }
 
     public function getId(): ?int
@@ -491,5 +504,29 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         }
 
         return self::STATUT_ACTIVE;
+    }
+
+    public function getNotificationOnboardingEnabled(): ?bool
+    {
+        return $this->notificationOnboardingEnabled;
+    }
+
+    public function setNotificationOnboardingEnabled(bool $notificationOnboardingEnabled): self
+    {
+        $this->notificationOnboardingEnabled = $notificationOnboardingEnabled;
+
+        return $this;
+    }
+
+    public function getNotificationOnboardingLastSentAt(): ?\DateTimeInterface
+    {
+        return $this->notificationOnboardingLastSentAt;
+    }
+
+    public function setNotificationOnboardingLastSentAt(?\DateTimeInterface $notificationOnboardingLastSentAt): self
+    {
+        $this->notificationOnboardingLastSentAt = $notificationOnboardingLastSentAt;
+
+        return $this;
     }
 }

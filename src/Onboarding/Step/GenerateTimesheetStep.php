@@ -39,6 +39,10 @@ class GenerateTimesheetStep implements OnboardingStepInterface, EventSubscriberI
 
     public function isCompleted(SocieteUser $societeUser): bool
     {
+        if (!$societeUser->hasUser()) {
+            return false;
+        }
+
         return $societeUser->getUser()->getOnboardingTimesheetCompleted();
     }
 

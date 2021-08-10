@@ -16,6 +16,8 @@ use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
 use App\Security\Role\RoleSociete;
 use App\File\FileResponseFactory;
+use App\Form\ParameterType;
+use App\Repository\ParameterRepository;
 use App\Service\Invitator;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Flysystem\FilesystemInterface;
@@ -33,10 +35,27 @@ class SocieteController extends AbstractController
     /**
      * @Route("/societes", name="app_bo_societes")
      */
-    public function societes(SocieteRepository $societeRepository)
-    {
+    public function societes(
+        Request $request,
+        SocieteRepository $societeRepository,
+        ParameterRepository $parameterRepository,
+        EntityManagerInterface $em
+    ) {
+        $onboardingParameter = $parameterRepository->getParameter('bo.onboarding.notification_every', '2 weeks');
+        $form = $this->createForm(ParameterType::class, $onboardingParameter);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+            $this->addFlash('success', 'Interval d\'envoi des emails d\'onboarding mis à jour.');
+
+            return $this->redirectToRoute('app_bo_societes');
+        }
+
         return $this->render('bo/societes/societes.html.twig', [
             'societes' => $societeRepository->findAll(),
+            'form' => $form->createView(),
         ]);
     }
 

@@ -41,7 +41,7 @@ class RappelSaisieTemps implements EventSubscriberInterface
     {
         $societe = $event->getSociete();
         $month = $this->dateMonthService->normalize($event->getMonth());
-        $societeUsers = $this->societeUserRepository->findAllNotifiableUsers($societe, 'notificationSaisieTempsEnabled');
+        $societeUsers = $this->societeUserRepository->findAllNotifiableUsers('notificationSaisieTempsEnabled', $societe);
 
         foreach ($societeUsers as $societeUser) {
             $this->sendNotificationSaisieTempsEmail($societeUser, $month);

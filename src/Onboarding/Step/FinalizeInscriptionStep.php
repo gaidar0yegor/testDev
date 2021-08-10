@@ -25,7 +25,7 @@ class FinalizeInscriptionStep implements OnboardingStepInterface
 
     public function isCompleted(SocieteUser $societeUser): bool
     {
-        return true;
+        return null === $societeUser->getInvitationToken();
     }
 
     public static function getPriority(): int

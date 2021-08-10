@@ -72,8 +72,8 @@ class LatestFaitMarquants implements EventSubscriberInterface
     public function sendLatestFaitsMarquantsToAllUsers(LatestFaitMarquantsNotification $event): void
     {
         $societeUsers = $this->societeUserRepository->findAllNotifiableUsers(
-            $event->getSociete(),
-            'notificationLatestFaitMarquantEnabled'
+            'notificationLatestFaitMarquantEnabled',
+            $event->getSociete()
         );
 
         foreach ($societeUsers as $societeUser) {

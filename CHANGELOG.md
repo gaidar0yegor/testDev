@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - On peut maintenant supprimer un projet
 - Le chef de projet est invité à ajouter des contributeurs dés la création d'un nouveau projet
+- Mails de rappels automatique pour finaliser son inscription
 ### Réparé
 - Empêche un admin de désactiver son propre compte pour ne pas se bloquer
 

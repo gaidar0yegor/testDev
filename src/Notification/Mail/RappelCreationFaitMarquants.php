@@ -72,8 +72,8 @@ class RappelCreationFaitMarquants implements EventSubscriberInterface
     public function remindCreateAllUsers(RappelCreationFaitMarquantsNotification $event): void
     {
         $societeUsers = $this->societeUserRepository->findAllNotifiableUsers(
-            $event->getSociete(),
-            'notificationCreateFaitMarquantEnabled'
+            'notificationCreateFaitMarquantEnabled',
+            $event->getSociete()
         );
 
         foreach ($societeUsers as $societeUser) {
