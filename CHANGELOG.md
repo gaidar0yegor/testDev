@@ -5,14 +5,16 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.31.0] - 2021-07-30
 ### Ajouté
 - On peut maintenant supprimer un projet
 - Le chef de projet est invité à ajouter des contributeurs dés la création d'un nouveau projet
 ### Réparé
 - Empêche un admin de désactiver son propre compte pour ne pas se bloquer
-
-
-
 
 ## [0.30.0] - 2021-07-22
 ### Ajouté
