@@ -172,6 +172,11 @@ class User implements UserInterface
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $cguCgvAcceptedAt;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -603,6 +608,18 @@ class User implements UserInterface
     public function setAvatar(?Fichier $avatar): self
     {
         $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getCguCgvAcceptedAt(): ?\DateTimeInterface
+    {
+        return $this->cguCgvAcceptedAt;
+    }
+
+    public function setCguCgvAcceptedAt(?\DateTimeInterface $cguCgvAcceptedAt): self
+    {
+        $this->cguCgvAcceptedAt = $cguCgvAcceptedAt;
 
         return $this;
     }
