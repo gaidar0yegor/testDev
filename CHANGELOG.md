@@ -5,12 +5,14 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.32.0] - 2021-08-19
 ### Ajouté
 - Mails de rappels automatique pour finaliser son inscription
 - Ajout des CGU et CGV
-
-
-
 
 ## [0.31.0] - 2021-07-30
 ### Ajouté
