@@ -7,6 +7,7 @@ use App\Exception\ResetPasswordException;
 use App\Form\Custom\RepeatedPasswordType;
 use App\Form\FinalizeInscriptionType;
 use App\Service\ResetPasswordService;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -77,6 +78,7 @@ class SecurityController extends AbstractController
             ->setNom($request->get('user_nom', ''))
             ->setEmail($request->get('user_email'))
             ->setTelephone($request->get('user_telephone'))
+            ->setCguCgvAcceptedAt(new DateTime())
         ;
 
         $form = $this->createForm(FinalizeInscriptionType::class, $user);

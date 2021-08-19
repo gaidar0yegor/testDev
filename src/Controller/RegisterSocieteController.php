@@ -16,6 +16,7 @@ use App\RegisterSociete\InviteCollaboratorsService;
 use App\RegisterSociete\RegisterSociete;
 use App\Security\Role\RoleProjet;
 use App\MultiSociete\UserContext;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -95,6 +96,7 @@ class RegisterSocieteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $registration = $this->registerSociete->getCurrentRegistration();
             $admin->setPassword($passwordEncoder->encodePassword($admin, $admin->getPassword()));
+            $admin->setCguCgvAcceptedAt(new DateTime());
             $registration->admin = $admin;
             $this->registerSociete->updateVerificationCode($registration);
 
