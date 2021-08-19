@@ -65,27 +65,64 @@ class SocieteUserRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Societe $societe Société dans laquelle envoyer la notification aux utilisateurs
      * @param string $notificationSetting Nom du flag (champ de l'entité User)
      *                                    qui doit être à true pour envoyer la notification.
      *                                    (Utiliser 'notificationEnabled' si pas de champ specifique.)
+     * @param Societe $societe Société dans laquelle envoyer la notification aux utilisateurs
      *
      * @return SocieteUser[] Liste des utilisateurs auxquels il est possible d'envoyer la notification
      */
-    public function findAllNotifiableUsers(Societe $societe, string $notificationSetting): array
+    public function findAllNotifiableUsers(string $notificationSetting, ?Societe $societe = null): array
     {
         if (!preg_match('/^[a-zA-Z]+$/', $notificationSetting)) {
             throw new InvalidArgumentException(sprintf('"%s" seems not to be a valid field name', $notificationSetting));
         }
 
-        return $this
-            ->whereSociete($societe)
+        $qb = $this->createQueryBuilder('societeUser');
+
+        if (null !== $societe) {
+            $qb = $this->whereSociete($societe);
+        }
+
+        return $qb
             ->leftJoin('societeUser.user', 'user')
             ->andWhere('societeUser.invitationToken is null')
             ->andWhere('societeUser.enabled = true')
             ->andWhere('user.enabled = true')
             ->andWhere('user.notificationEnabled = true')
             ->andWhere("user.$notificationSetting = true")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
+     * Retourne les SocieteUser toujours en cours d'invitation,
+     * et qui n'ont pas refusé une catégorie de mails (i.e: onboarding).
+     *
+     * @param string $notificationSetting Nom du flag (champ de l'entité SocieteUser)
+     *                                    qui doit être à true pour envoyer la notification.
+     * @param Societe $societe Société dans laquelle envoyer la notification aux utilisateurs
+     *
+     * @return SocieteUser[] Liste des utilisateurs auxquels il est possible d'envoyer la notification
+     */
+    public function findAllNotifiableUsersNotYetJoined(string $notificationSetting, ?Societe $societe = null): array
+    {
+        if (!preg_match('/^[a-zA-Z]+$/', $notificationSetting)) {
+            throw new InvalidArgumentException(sprintf('"%s" seems not to be a valid field name', $notificationSetting));
+        }
+
+        $qb = $this->createQueryBuilder('societeUser');
+
+        if (null !== $societe) {
+            $qb = $this->whereSociete($societe);
+        }
+
+        return $qb
+            ->andWhere('societeUser.invitationToken is not null')
+            ->andWhere('societeUser.user is null')
+            ->andWhere('societeUser.enabled = true')
+            ->andWhere("societeUser.$notificationSetting = true")
             ->getQuery()
             ->getResult()
         ;

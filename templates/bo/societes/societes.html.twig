@@ -39,4 +39,22 @@
     Créer une nouvelle société
 </a>
 
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Notifications d'onboarding</h5>
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                {{ form_row(form.value) }}
+
+                <button class="btn btn-primary" type="submit">Mettre à jour</button>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

@@ -13,3 +13,7 @@ Les tâches sont affichées comme validées une fois qu'elles sont faîtes.
 
 Ce guide n'est pour l'instant affiché qu'aux admins et chef de projets, car un user
 n'a pas besoin de créer de projet ou de générer de feuilles de temps.
+
+### ReminderNotification
+
+Fourni aussi une commande pour dispatcher une notification à ceux qui sont encore dans l'onboarding.

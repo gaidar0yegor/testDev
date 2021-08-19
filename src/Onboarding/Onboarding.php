@@ -3,6 +3,7 @@
 namespace App\Onboarding;
 
 use App\Entity\SocieteUser;
+use RuntimeException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class Onboarding
@@ -20,6 +21,16 @@ class Onboarding
         $this->urlGenerator = $urlGenerator;
     }
 
+    private function stepToArray(OnboardingStepInterface $step, SocieteUser $societeUser): array
+    {
+        return [
+            'text' => $step->getText(),
+            'link' => $step->getLink($this->urlGenerator, $societeUser),
+            'completed' => $step->isCompleted($societeUser),
+            'important' => $step->isImportant(),
+        ];
+    }
+
     /**
      * @return (string|bool)[][] Array of steps for an user, completed or not, like:
      *      [
@@ -30,13 +41,19 @@ class Onboarding
     public function getStepsFor(SocieteUser $societeUser): array
     {
         return array_map(function (OnboardingStepInterface $step) use ($societeUser) {
-            return [
-                'text' => $step->getText(),
-                'link' => $step->getLink($this->urlGenerator, $societeUser),
-                'completed' => $step->isCompleted($societeUser),
-                'important' => $step->isImportant(),
-            ];
+            return $this->stepToArray($step, $societeUser);
         }, $this->onboardingSteps);
+    }
+
+    public function getStepFor(SocieteUser $societeUser, string $stepClassName): array
+    {
+        foreach ($this->onboardingSteps as $step) {
+            if (get_class($step) === $stepClassName) {
+                return $this->stepToArray($step, $societeUser);
+            }
+        }
+
+        throw new RuntimeException(sprintf('No step "%s".', $stepClassName));
     }
 
     public function allCompleted(array $steps): bool
