@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class FaitMarquantType extends AbstractType
 {
@@ -38,6 +39,9 @@ class FaitMarquantType extends AbstractType
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),
                 'label' => 'Fichiers joints',
+            ])
+            ->add('date', DateType::class, [
+                'attr' => ['format' => 'yyyy-MM-dd'],
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
         ;
