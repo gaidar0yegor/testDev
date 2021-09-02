@@ -91,7 +91,10 @@
             </td>
             <td>{{ form.vars.data.uploadedBy.user.fullname }}</td>
             <td><span class="d-none d-sm-table-cell">{{ form.vars.data.fichier.dateUpload|format_date }}</span></td>
-            <td>
+            <td class="d-flex">
+                <a class="btn btn-outline-primary btn-sm mr-2" data-toggle="modal" data-target="#fileModal">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
                 <a
                     href="{{ path('app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
                     class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
@@ -109,8 +112,28 @@
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
             </td>
-        {% endif %}
     </tr>
+{% endif %}
+
+<!-- Modal -->
+    <div class="modal fade" id="fileModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="fileModalLabel">Renommer le fichier</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <input type="text" class="form-control-lg form-control" value="">
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success mx-auto">Renommer</button>
+        </div>
+        </div>
+    </div>
+    </div>
 {% endblock %}
 
 {% block fichier_row %}
