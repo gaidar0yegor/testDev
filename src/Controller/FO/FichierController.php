@@ -8,6 +8,7 @@ use App\Form\ProjetFichierProjetsType;
 use App\ProjetResourceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\File\FileHandler\ProjectFileHandler;
+use App\Form\FichierProjetRenameType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,6 +42,35 @@ class FichierController extends AbstractController
         return $this->render('fichier/liste_fichiers.html.twig', [
             'form' => $form->createView(),
             'projet' => $projet,
+        ]);
+    }
+
+    /**
+     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}/rename", name="app_fo_projet_fichier_rename")
+     */
+    public function rename($projetId, $fichierProjetId, Request $request, EntityManagerInterface $em){
+
+        // dd($fichierProjetId, $projetId);
+
+        $data = $this->getDoctrine()->getRepository(FichierProjet ::class)->find($fichierProjetId);
+
+        $form = $this->createForm(FichierProjetRenameType::class, $data);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('app_fo_projet_fichiers', [
+                'id' => $projetId,
+            ]);
+        }
+
+        
+
+        return $this->render('fichier/rename_fichiers.html.twig', [
+            'form' => $form->createView(),
+            'id' => $projetId,
         ]);
     }
 
