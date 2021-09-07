@@ -9,6 +9,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.33.0] - 2021-09-07
+- Ajout mails onboarding
+- Mettre une date de fait marquant personnalisée
+
 ## [0.32.0] - 2021-08-19
 ### Ajouté
 - Mails de rappels automatique pour finaliser son inscription
