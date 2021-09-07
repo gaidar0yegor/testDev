@@ -2,9 +2,13 @@
 
 namespace App\Onboarding;
 
+use App\Onboarding\Notification\AddProjects;
 use App\Onboarding\Notification\FinalizeInscription;
-use App\Onboarding\Step\FinalizeInscriptionStep;
+use App\Onboarding\Notification\InviteCollaborators;
+use App\Onboarding\Step\AddProjetStep;
+use App\Onboarding\Step\InviteUserStep;
 use App\Repository\SocieteUserRepository;
+use App\Security\Role\RoleSociete;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -32,6 +36,7 @@ class ReminderNotification
     public function dispatchReminderNotifications(): void
     {
         $this->dispatchFinalizeInscriptionNotification();
+        $this->dispatchOnboardingStepNotification();
     }
 
     public function dispatchFinalizeInscriptionNotification(): void
@@ -42,10 +47,41 @@ class ReminderNotification
         ;
 
         foreach ($societeUsers as $societeUser) {
-            $step = $this->onboarding->getStepFor($societeUser, FinalizeInscriptionStep::class);
+            $this->dispatcher->dispatch(new FinalizeInscription($societeUser));
+        }
+    }
 
-            if (!$step['completed']) {
-                $this->dispatcher->dispatch(new FinalizeInscription($societeUser));
+    public function dispatchOnboardingStepNotification(): void
+    {
+        $societeUsers = $this
+            ->societeUserRepository
+            ->findAllNotifiableUsers('notificationEnabled')
+        ;
+
+        foreach ($societeUsers as $societeUser) {
+            if (RoleSociete::ADMIN === $societeUser->getRole()) {
+                $step = $this->onboarding->getStepFor($societeUser, InviteUserStep::class);
+
+                if (!$step['completed']) {
+                    $this->dispatcher->dispatch(new InviteCollaborators($societeUser));
+                    continue;
+                }
+
+                $step = $this->onboarding->getStepFor($societeUser, AddProjetStep::class);
+
+                if (!$step['completed']) {
+                    $this->dispatcher->dispatch(new AddProjects($societeUser));
+                    continue;
+                }
+            }
+
+            if (in_array($societeUser->getRole(), [RoleSociete::ADMIN, RoleSociete::CDP], true)) {
+                $step = $this->onboarding->getStepFor($societeUser, AddProjetStep::class);
+
+                if (!$step['completed']) {
+                    $this->dispatcher->dispatch(new AddProjects($societeUser));
+                    continue;
+                }
             }
         }
     }
