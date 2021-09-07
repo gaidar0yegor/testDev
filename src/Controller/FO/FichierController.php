@@ -2,6 +2,7 @@
 
 namespace App\Controller\FO;
 
+use App\Entity\Fichier;
 use App\Entity\Projet;
 use App\Entity\FichierProjet;
 use App\Form\ProjetFichierProjetsType;
@@ -50,16 +51,31 @@ class FichierController extends AbstractController
      */
     public function rename($projetId, $fichierProjetId, Request $request, EntityManagerInterface $em){
 
-        // dd($fichierProjetId, $projetId);
+        $fichierProjet = $this->getDoctrine()->getRepository(FichierProjet ::class)->find($fichierProjetId);
 
-        $data = $this->getDoctrine()->getRepository(FichierProjet ::class)->find($fichierProjetId);
+        $fichier = $fichierProjet->getFichier();
 
-        $form = $this->createForm(FichierProjetRenameType::class, $data);
+        $form = $this->createForm(FichierProjetRenameType::class, $fichierProjet);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
+
+            $nomMd5 = $form->get('fichier')->getData()->getNomMd5();
+    
+            $originalExt = pathinfo($nomMd5, PATHINFO_EXTENSION);
+
+            $nomFichier = $form->get('fichier')->getData()->getNomFichier();
+    
+            $wrongExt = pathinfo($nomFichier, PATHINFO_EXTENSION);
+
+            $newName = pathinfo($nomFichier, PATHINFO_FILENAME);
+
+            if($originalExt !== $wrongExt){
+                $fichier->setNomFichier($newName . '.' . $originalExt);
+            }
+
+            $em->flush();         
 
             return $this->redirectToRoute('app_fo_projet_fichiers', [
                 'id' => $projetId,
