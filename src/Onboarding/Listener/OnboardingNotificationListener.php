@@ -2,7 +2,10 @@
 
 namespace App\Onboarding\Listener;
 
+use App\Onboarding\Notification\AbstractOnboardingNotification;
+use App\Onboarding\Notification\AddProjects;
 use App\Onboarding\Notification\FinalizeInscription;
+use App\Onboarding\Notification\InviteCollaborators;
 use App\Repository\ParameterRepository;
 use App\Security\Role\RoleSociete;
 use DateTime;
@@ -44,7 +47,25 @@ class OnboardingNotificationListener implements EventSubscriberInterface
     {
         return [
             FinalizeInscription::class => 'finalizeInscription',
+            InviteCollaborators::class => 'inviteCollaborators',
+            AddProjects::class => 'addProjects',
         ];
+    }
+
+    private function shouldResendNotification(AbstractOnboardingNotification $notification): bool
+    {
+        if (null !== $notification->getSocieteUser()->getNotificationOnboardingLastSentAt()) {
+            $timeThreshold = (new DateTime())
+                ->modify('-'.$this->sendNotificationEvery)
+                ->modify('+2 hours')
+            ;
+
+            if ($notification->getSocieteUser()->getNotificationOnboardingLastSentAt() > $timeThreshold) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public function finalizeInscription(FinalizeInscription $onboardingNotification): void
@@ -56,17 +77,9 @@ class OnboardingNotificationListener implements EventSubscriberInterface
             return;
         }
 
-        if (null !== $societeUser->getNotificationOnboardingLastSentAt()) {
-            $timeThreshold = (new DateTime())
-                ->modify('-'.$this->sendNotificationEvery)
-                ->modify('+2 hours')
-            ;
-
-            if ($societeUser->getNotificationOnboardingLastSentAt() > $timeThreshold) {
-                return;
-            }
+        if (!$this->shouldResendNotification($onboardingNotification)) {
+            return;
         }
-
 
         $email = (new TemplatedEmail())
             ->to($societeUser->getInvitationEmail())
@@ -110,6 +123,68 @@ class OnboardingNotificationListener implements EventSubscriberInterface
                 ;
                 break;
         }
+
+        $this->mailer->send($email);
+
+        $societeUser->setNotificationOnboardingLastSentAt(new DateTime());
+
+        $this->em->flush();
+    }
+
+    public function inviteCollaborators(InviteCollaborators $onboardingNotification): void
+    {
+        $societeUser = $onboardingNotification->getSocieteUser();
+        $societe = $societeUser->getSociete();
+
+        if (null === $societeUser->getUser()->getEmail()) {
+            return;
+        }
+
+        if (!$this->shouldResendNotification($onboardingNotification)) {
+            return;
+        }
+
+        $email = (new TemplatedEmail())
+            ->to($societeUser->getUser()->getEmail())
+            ->context([
+                'societe' => $societe,
+                'societeUser' => $societeUser,
+            ])
+            ->subject('Invitez vos chefs de projets et collaborateurs')
+            ->htmlTemplate('mail/onboarding/invite_collaborators.html.twig')
+            ->textTemplate('mail/onboarding/invite_collaborators.txt.twig')
+        ;
+
+        $this->mailer->send($email);
+
+        $societeUser->setNotificationOnboardingLastSentAt(new DateTime());
+
+        $this->em->flush();
+    }
+
+    public function addProjects(AddProjects $onboardingNotification): void
+    {
+        $societeUser = $onboardingNotification->getSocieteUser();
+        $societe = $societeUser->getSociete();
+
+        if (null === $societeUser->getUser()->getEmail()) {
+            return;
+        }
+
+        if (!$this->shouldResendNotification($onboardingNotification)) {
+            return;
+        }
+
+        $email = (new TemplatedEmail())
+            ->to($societeUser->getUser()->getEmail())
+            ->context([
+                'societe' => $societe,
+                'societeUser' => $societeUser,
+            ])
+            ->subject('Créer vos projets et répartissez les rôles')
+            ->htmlTemplate('mail/onboarding/add_projects.html.twig')
+            ->textTemplate('mail/onboarding/add_projects.txt.twig')
+        ;
 
         $this->mailer->send($email);
 
