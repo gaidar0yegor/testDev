@@ -9,36 +9,38 @@ const apiProjetWatch = async (projetId, watch) => {
 };
 
 const main = () => {
-    const watchProjet = document.querySelector('.watch-projet');
+    const watchProjets = document.querySelectorAll('.watch-projet');
 
-    if (!watchProjet) {
+    if (!watchProjets) {
         return;
     }
 
-    const projetId = watchProjet.dataset.projetId;
-    const button = watchProjet.querySelector('button');
+    watchProjets.forEach(watchProjet => {
+        const projetId = watchProjet.dataset.projetId;
+        const button = watchProjet.querySelector('button');
 
-    button
-        .addEventListener('click', async () => {
-            button.setAttribute('disabled', 'disabled');
+        button
+            .addEventListener('click', async () => {
+                button.setAttribute('disabled', 'disabled');
 
-            const watch = button.classList.contains('btn-outline-primary');
+                const watch = button.classList.contains('btn-outline-primary');
 
-            await apiProjetWatch(projetId, watch);
+                await apiProjetWatch(projetId, watch);
 
-            button.removeAttribute('disabled');
+                button.removeAttribute('disabled');
 
-            if (watch) {
-                button.innerHTML = '<i class="fa fa-eye"></i> Suivre le projet <i class="fa fa-check"></i>';
-                button.classList.remove('btn-outline-primary');
-                button.classList.add('btn-primary');
-            } else {
-                button.innerHTML = '<i class="fa fa-eye"></i> Suivre le projet';
-                button.classList.add('btn-outline-primary');
-                button.classList.remove('btn-primary');
-            }
-        })
-    ;
+                if (watch) {
+                    button.innerHTML = '<i class="fa fa-eye"></i> Suivre le projet <i class="fa fa-check"></i>';
+                    button.classList.remove('btn-outline-primary');
+                    button.classList.add('btn-primary');
+                } else {
+                    button.innerHTML = '<i class="fa fa-eye"></i> Suivre le projet';
+                    button.classList.add('btn-outline-primary');
+                    button.classList.remove('btn-primary');
+                }
+            })
+        ;
+    });
 };
 
 main();
