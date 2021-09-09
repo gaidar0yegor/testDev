@@ -5,11 +5,13 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.33.1] - 2021-09-09
 ### Modifié
 - Modifie le layout de la page projet en version mobile, place sidebar au début et non à la fin
-
-
-
 
 ## [0.33.0] - 2021-09-07
 - Ajout mails onboarding
