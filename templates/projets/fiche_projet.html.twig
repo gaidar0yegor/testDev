@@ -69,9 +69,42 @@
     <div class="col-12 col-lg-8">
         {% include 'projets/fiche_projet-main.html.twig' %}
     </div>
-    <aside class="col-12 col-lg-4">
+    <aside class="col-12 col-lg-4 d-none d-md-block">
         {% include 'projets/fiche_projet-sidebar.html.twig' %}
     </aside>
+</div>
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{ 'n_observateur'|trans({'%n%': projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::OBSERVATEUR'))|length}) }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    {% for projetParticipant in projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::OBSERVATEUR')) %}
+                        {% if projetParticipant.societeUser.invitationToken == null %}
+                            <li>{{ projetParticipant.societeUser.user.fullname }} </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% for projetObservateurExterne in projet.projetObservateurExternes %}
+                        {% if projetObservateurExterne.user is not null %}
+                            <li><strong>Externe</strong> : {{ projetObservateurExterne.user.fullname }} </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
