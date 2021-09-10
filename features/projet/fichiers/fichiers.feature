@@ -22,6 +22,58 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         When I follow "fichier_de_cdp.txt"
         Then the response status code should not be 403
 
+    Scenario: Un contributeur peut renommer un fichier 
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | contributeur@societe.dev  |
+            | _password | contributeur              |
+        And I press "Connexion"
+
+        When I follow "Liste des projets"
+        And I follow "PTEST"
+        And I follow "Voir tous les fichiers"
+        When I click on the 1st "[href='/projets/1/fichiers/1/rename']" element
+        Then I should see "Renommer un fichier" in the "h1" element
+        And I fill in the following:
+            | fichier_projet_rename[fichier][nomFichier] | business-plan.txt |
+        And I press "Renommer"
+
+        And I should see "Votre fichier fichier_de_contributeur.txt à bien été renommé en business-plan.txt"
+        Then I should see "business-plan.txt" in the "form[name='projet_fichier_projets']" element
+
+    Scenario: Un contributeur ne peut pas changer l'extension d'un fichier
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | contributeur@societe.dev  |
+            | _password | contributeur              |
+        And I press "Connexion"
+
+        When I follow "Liste des projets"
+        And I follow "PTEST"
+        And I follow "Voir tous les fichiers"
+        When I click on the 1st "[href='/projets/1/fichiers/1/rename']" element
+        Then I should see "Renommer un fichier" in the "h1" element
+        And I fill in the following:
+            | fichier_projet_rename[fichier][nomFichier] | business-plan.php |
+        And I press "Renommer"
+
+        And I should see "Votre fichier fichier_de_contributeur.txt à bien été renommé en business-plan.txt"
+        Then I should see "business-plan.txt" in the "form[name='projet_fichier_projets']" element
+
+    Scenario: Un observateur ne peut pas renommer les fichiers
+        Given I am on "/connexion"
+        And I fill in the following:
+            | _username | observateur@societe.dev  |
+            | _password | observateur              |
+        And I press "Connexion"
+
+        When I follow "Liste des projets"
+        And I follow "PTEST"
+        And I follow "Voir tous les fichiers"
+        Then I should see a "[href='/projets/1/fichiers/1/rename'].disabled" element
+        When I go to "/projets/1/fichiers/1/rename"
+        Then the response status code should be 403
+
     Scenario: Un utilisateur ne peut pas voir et télécharger les fichiers si il n'est pas au moins observateur sur le projet
         Given I am on "/connexion"
         And I fill in the following:
