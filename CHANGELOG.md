@@ -6,7 +6,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
-
+### Ajouté
+- Pouvoir renommer les fichiers
 
 
 ## [0.33.1] - 2021-09-09

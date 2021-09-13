@@ -40,10 +40,10 @@ App\Entity\SocieteUser:
 
 App\Entity\Fichier:
     file_fichier_de_contributeur:
-        nomMd5: xxx
+        nomMd5: xxx.txt
         nomFichier: fichier_de_contributeur.txt
     file_fichier_de_cdp:
-        nomMd5: yyy
+        nomMd5: yyy.txt
         nomFichier: fichier_de_cdp.txt
 
 App\Entity\FichierProjet:
