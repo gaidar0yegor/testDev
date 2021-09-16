@@ -2,13 +2,17 @@
 
 namespace App\Onboarding;
 
+use App\Entity\SocieteUser;
 use App\Onboarding\Notification\AddProjects;
 use App\Onboarding\Notification\FinalizeInscription;
+use App\Onboarding\Notification\FinalSuccess;
 use App\Onboarding\Notification\InviteCollaborators;
 use App\Onboarding\Step\AddProjetStep;
 use App\Onboarding\Step\InviteUserStep;
+use App\Repository\ParameterRepository;
 use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleSociete;
+use DateTime;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -23,14 +27,25 @@ class ReminderNotification
 
     private EventDispatcherInterface $dispatcher;
 
+    /**
+     * Time to wait before sending another onboarding notification.
+     */
+    private string $sendNotificationEvery;
+
     public function __construct(
         SocieteUserRepository $societeUserRepository,
         Onboarding $onboarding,
+        ParameterRepository $parameterRepository,
         EventDispatcherInterface $dispatcher
     ) {
         $this->societeUserRepository = $societeUserRepository;
         $this->onboarding = $onboarding;
         $this->dispatcher = $dispatcher;
+
+        $this->sendNotificationEvery = $parameterRepository
+            ->getParameter('bo.onboarding.notification_every', '2 weeks')
+            ->getValue()
+        ;
     }
 
     public function dispatchReminderNotifications(): void
@@ -47,6 +62,10 @@ class ReminderNotification
         ;
 
         foreach ($societeUsers as $societeUser) {
+            if (!$this->shouldResendNotification($societeUser)) {
+                continue;
+            }
+
             $this->dispatcher->dispatch(new FinalizeInscription($societeUser));
         }
     }
@@ -59,30 +78,76 @@ class ReminderNotification
         ;
 
         foreach ($societeUsers as $societeUser) {
-            if (RoleSociete::ADMIN === $societeUser->getRole()) {
-                $step = $this->onboarding->getStepFor($societeUser, InviteUserStep::class);
-
-                if (!$step['completed']) {
-                    $this->dispatcher->dispatch(new InviteCollaborators($societeUser));
-                    continue;
-                }
-
-                $step = $this->onboarding->getStepFor($societeUser, AddProjetStep::class);
-
-                if (!$step['completed']) {
-                    $this->dispatcher->dispatch(new AddProjects($societeUser));
-                    continue;
-                }
+            if (!$this->shouldResendNotification($societeUser)) {
+                continue;
             }
 
-            if (in_array($societeUser->getRole(), [RoleSociete::ADMIN, RoleSociete::CDP], true)) {
-                $step = $this->onboarding->getStepFor($societeUser, AddProjetStep::class);
+            $this->dispatchOnboardingStepNotificationTo($societeUser);
+        }
+    }
 
-                if (!$step['completed']) {
-                    $this->dispatcher->dispatch(new AddProjects($societeUser));
-                    continue;
-                }
+    /**
+     * Dispatch an onboarding notification to a specific user
+     * to make him receive the next step onboarding message.
+     *
+     * @param SocieteUser $societeUser The specific user to send to
+     * @param bool $forceFinalNotification If set to true, also send the final "bravo" notification.
+     *                                     Should not be used on automatic notifications,
+     *                                     only once previous step is done.
+     */
+    public function dispatchOnboardingStepNotificationTo(
+        SocieteUser $societeUser,
+        bool $forceFinalNotification = false
+    ): void {
+        if (RoleSociete::ADMIN === $societeUser->getRole()) {
+            $step = $this->onboarding->getStepFor($societeUser, InviteUserStep::class);
+
+            if (!$step['completed']) {
+                $this->dispatcher->dispatch(new InviteCollaborators($societeUser));
+                return;
+            }
+
+            $step = $this->onboarding->getStepFor($societeUser, AddProjetStep::class);
+
+            if (!$step['completed']) {
+                $this->dispatcher->dispatch(new AddProjects($societeUser));
+                return;
             }
         }
+
+        if (in_array($societeUser->getRole(), [RoleSociete::ADMIN, RoleSociete::CDP], true)) {
+            $step = $this->onboarding->getStepFor($societeUser, AddProjetStep::class);
+
+            if (!$step['completed']) {
+                $this->dispatcher->dispatch(new AddProjects($societeUser));
+                return;
+            }
+        }
+
+        if (!$forceFinalNotification || $societeUser->getNotificationOnboardingFinished()) {
+            return;
+        }
+
+        $this->dispatcher->dispatch(new FinalSuccess($societeUser));
+    }
+
+    private function shouldResendNotification(SocieteUser $societeUser): bool
+    {
+        if ($societeUser->getNotificationOnboardingFinished()) {
+            return false;
+        }
+
+        if (null !== $societeUser->getNotificationOnboardingLastSentAt()) {
+            $timeThreshold = (new DateTime())
+                ->modify('-'.$this->sendNotificationEvery)
+                ->modify('+2 hours')
+            ;
+
+            if ($societeUser->getNotificationOnboardingLastSentAt() > $timeThreshold) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

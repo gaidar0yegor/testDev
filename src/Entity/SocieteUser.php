@@ -185,6 +185,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $notificationOnboardingLastSentAt;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $notificationOnboardingFinished;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -194,6 +199,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->societeUserActivities = new ArrayCollection();
         $this->societeUserNotifications = new ArrayCollection();
         $this->notificationOnboardingEnabled = true;
+        $this->notificationOnboardingFinished = false;
     }
 
     public function getId(): ?int
@@ -526,6 +532,18 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     public function setNotificationOnboardingLastSentAt(?\DateTimeInterface $notificationOnboardingLastSentAt): self
     {
         $this->notificationOnboardingLastSentAt = $notificationOnboardingLastSentAt;
+
+        return $this;
+    }
+
+    public function getNotificationOnboardingFinished(): ?bool
+    {
+        return $this->notificationOnboardingFinished;
+    }
+
+    public function setNotificationOnboardingFinished(bool $notificationOnboardingFinished): self
+    {
+        $this->notificationOnboardingFinished = $notificationOnboardingFinished;
 
         return $this;
     }

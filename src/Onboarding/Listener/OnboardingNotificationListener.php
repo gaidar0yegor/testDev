@@ -2,11 +2,10 @@
 
 namespace App\Onboarding\Listener;
 
-use App\Onboarding\Notification\AbstractOnboardingNotification;
 use App\Onboarding\Notification\AddProjects;
 use App\Onboarding\Notification\FinalizeInscription;
+use App\Onboarding\Notification\FinalSuccess;
 use App\Onboarding\Notification\InviteCollaborators;
-use App\Repository\ParameterRepository;
 use App\Security\Role\RoleSociete;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,23 +23,12 @@ class OnboardingNotificationListener implements EventSubscriberInterface
 
     private EntityManagerInterface $em;
 
-    /**
-     * Time to wait before sending another onboarding notification.
-     */
-    private string $sendNotificationEvery;
-
     public function __construct(
         MailerInterface $mailer,
-        ParameterRepository $parameterRepository,
         EntityManagerInterface $em
     ) {
         $this->mailer = $mailer;
         $this->em = $em;
-
-        $this->sendNotificationEvery = $parameterRepository
-            ->getParameter('bo.onboarding.notification_every', '2 weeks')
-            ->getValue()
-        ;
     }
 
     public static function getSubscribedEvents(): array
@@ -49,23 +37,8 @@ class OnboardingNotificationListener implements EventSubscriberInterface
             FinalizeInscription::class => 'finalizeInscription',
             InviteCollaborators::class => 'inviteCollaborators',
             AddProjects::class => 'addProjects',
+            FinalSuccess::class => 'finalSuccess',
         ];
-    }
-
-    private function shouldResendNotification(AbstractOnboardingNotification $notification): bool
-    {
-        if (null !== $notification->getSocieteUser()->getNotificationOnboardingLastSentAt()) {
-            $timeThreshold = (new DateTime())
-                ->modify('-'.$this->sendNotificationEvery)
-                ->modify('+2 hours')
-            ;
-
-            if ($notification->getSocieteUser()->getNotificationOnboardingLastSentAt() > $timeThreshold) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public function finalizeInscription(FinalizeInscription $onboardingNotification): void
@@ -74,10 +47,6 @@ class OnboardingNotificationListener implements EventSubscriberInterface
         $societe = $societeUser->getSociete();
 
         if (null === $societeUser->getInvitationEmail()) {
-            return;
-        }
-
-        if (!$this->shouldResendNotification($onboardingNotification)) {
             return;
         }
 
@@ -140,10 +109,6 @@ class OnboardingNotificationListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->shouldResendNotification($onboardingNotification)) {
-            return;
-        }
-
         $email = (new TemplatedEmail())
             ->to($societeUser->getUser()->getEmail())
             ->context([
@@ -171,10 +136,6 @@ class OnboardingNotificationListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->shouldResendNotification($onboardingNotification)) {
-            return;
-        }
-
         $email = (new TemplatedEmail())
             ->to($societeUser->getUser()->getEmail())
             ->context([
@@ -191,5 +152,51 @@ class OnboardingNotificationListener implements EventSubscriberInterface
         $societeUser->setNotificationOnboardingLastSentAt(new DateTime());
 
         $this->em->flush();
+    }
+
+    public function finalSuccess(FinalSuccess $onboardingNotification): void
+    {
+        $societeUser = $onboardingNotification->getSocieteUser();
+        $societe = $societeUser->getSociete();
+
+        if (null === $societeUser->getUser()->getEmail()) {
+            return;
+        }
+
+        $template = null;
+
+        switch ($societeUser->getRole()) {
+            case RoleSociete::ADMIN:
+                $template = 'final_success_admin';
+                break;
+
+            case RoleSociete::CDP:
+                $template = 'final_success_cdp';
+                break;
+
+            case RoleSociete::USER:
+                $template = 'final_success_user';
+                break;
+
+            default:
+                return;
+        }
+
+        $email = (new TemplatedEmail())
+            ->to($societeUser->getUser()->getEmail())
+            ->context([
+                'societe' => $societe,
+                'societeUser' => $societeUser,
+            ])
+            ->subject('Bravo ! L\'aventure RDI-Manager est en marche pour vous')
+            ->htmlTemplate("mail/onboarding/$template.html.twig")
+        ;
+
+        $this->mailer->send($email);
+
+        $societeUser
+            ->setNotificationOnboardingLastSentAt(new DateTime())
+            ->setNotificationOnboardingFinished(true)
+        ;
     }
 }
