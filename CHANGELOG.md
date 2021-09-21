@@ -6,11 +6,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
+
+
+
+## [0.33.2] - 2021-09-21
 ### Ajouté
 - Pouvoir renommer les fichiers
 - Envoi du prochain email d'onboarding directement après la dernière étape
 - Envoi du dernier email d'onboarding "bravo, vous avez pris la main sur rdi-manager"
-
 
 ## [0.33.1] - 2021-09-09
 ### Modifié
