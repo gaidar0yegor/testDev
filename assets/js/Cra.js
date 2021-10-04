@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import { addFlashMessage } from './flash-messages';
-import { format } from 'date-fns';
+import { format, fromUnixTime } from 'date-fns';
+import locale from './dateFnsLocale';
 import { t } from './translation';
 
 const day0 = 'calmonth-day-0 btn-secondary';
@@ -139,7 +140,7 @@ function createDaysHeader() {
     Array(7)
         .fill(0)
         .map((_, index) => 1604919600 + index * 24 * 3600)
-        .map(timestamp => format(timestamp, 'EEE'))
+        .map(timestamp => format(fromUnixTime(timestamp), 'EEE', {locale}))
         .forEach(mois => {
             $header.append($('<p>').text(mois));
         })
