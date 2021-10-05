@@ -5,11 +5,13 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+
+## [0.34.0] - 2021-10-05
 ### Réparé
 - Répare l'affichage des jours dans la saisie des absences (Mon Mon Mon...)
-
-
-
 
 ## [0.33.2] - 2021-09-21
 ### Ajouté
