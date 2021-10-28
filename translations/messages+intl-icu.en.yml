@@ -35,6 +35,7 @@ SOCIETE_USER_STATUT_ACTIVE: Active
 SOCIETE_USER_STATUT_DISABLED: Deactivated
 monthly: Monthly
 weekly: Weekly
+daily: Daily
 n_observateur: "{n, plural,\n    =0 {Observator}\n    one {Observator}\n    other\
   \ {Observators}\n}"
 my_dashboard: My dashboard

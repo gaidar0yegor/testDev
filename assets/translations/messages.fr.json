@@ -10,5 +10,6 @@
     "updating...": "Mise à jour…",
     "updated!": "Enregistré !",
     "editions_updated": "Modification(s) enregistrée(s)",
+    "invalid_hours": "Le total d'heures ne doit pas dépasser {{max}} heures.",
     "project_heading": "Projet {{project_name}}"
 }

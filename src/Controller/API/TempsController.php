@@ -212,6 +212,104 @@ class TempsController extends AbstractController
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
 
+    /**
+     * @Route(
+     *   "/daily/{year}/{month}/{day}",
+     *   methods={"GET"},
+     *   requirements={"year"="\d{4}", "month"="\d{2}", "day"="\d{2}"},
+     *   name="api_get_temps_daily"
+     * )
+     *
+     * @UseCache()
+     * @Cache(maxage="300", vary={"Cookie"})
+     */
+    public function getCraDaily(
+        DateTime $month,
+        string $day,
+        CraService $craService,
+        NormalizerInterface $normalizer,
+        UserContext $userContext
+    ): JsonResponse {
+        $month->setDate($month->format('Y'), $month->format('m'), $day);
+
+        if ($month > new \DateTime()) {
+            return new JsonResponse([
+                'message' => 'Impossible de saisir les temps passés dans le futur.',
+            ], 404);
+        }
+
+        $cra = $craService->loadCraForUser($userContext->getSocieteUser(), $month);
+
+        $normalizedCra = $normalizer->normalize($cra, null, [
+            AbstractNormalizer::GROUPS => ['saisieTemps'],
+        ]);
+
+        foreach ($normalizedCra['tempsPasses'] as &$tempsPasse) {
+            if (count($tempsPasse['pourcentages']) > 1) {
+                $tempsPasse['pourcentages'] = array_slice($tempsPasse['pourcentages'], intval($month->format('d')) - 1, 7);
+            } else {
+                $tempsPasse['pourcentages'] = array_fill(0, 7, $tempsPasse['pourcentages'][0]);
+            }
+        }
+
+        return new JsonResponse($normalizedCra);
+    }
+
+    /**
+     * @Route(
+     *   "/daily/{year}/{month}/{day}",
+     *   methods={"POST"},
+     *   requirements={"year"="\d{4}", "month"="\d{2}", "day"="\d{2}"},
+     *   name="api_post_temps_daily"
+     * )
+     */
+    public function postCraDaily(
+        Request $request,
+        DateTime $month,
+        string $day,
+        CraService $craService,
+        EntityManagerInterface $em,
+        ValidatorInterface $validator,
+        DateMonthService $dateMonthService,
+        UserContext $userContext
+    ): JsonResponse {
+        $month->setDate($month->format('Y'), $month->format('m'), $day);
+
+        if ($month > new \DateTime()) {
+            return new JsonResponse([
+                'message' => 'Impossible de saisir les temps passés dans le futur.',
+            ], 404);
+        }
+
+        $cra = $craService->loadCraForUser($userContext->getSocieteUser(), $month);
+        $submittedTempsPasses = json_decode($request->getContent());
+        $rest = self::fillWeeklyCra($cra, $submittedTempsPasses, $month);
+
+        // Fill days in next month if week overlaps next month
+        if ($rest > 0) {
+            $nextMonth = $dateMonthService->getNextMonth($month);
+
+            $nextCra = $craService->loadCraForUser(
+                $userContext->getSocieteUser(),
+                $nextMonth
+            );
+
+            self::fillWeeklyCra($nextCra, $submittedTempsPasses, $nextMonth, $rest);
+            $em->persist($nextCra);
+        }
+
+        if ($errorResponse = self::validateCra($cra, $validator)) {
+            return $errorResponse;
+        }
+
+        $cra->setTempsPassesModifiedAt(new DateTime());
+
+        $em->persist($cra);
+        $em->flush();
+
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+    }
+
     private static function validateCra(Cra $cra, ValidatorInterface $validator): ?JsonResponse
     {
         $violations = $validator->validate($cra);
@@ -247,23 +345,33 @@ class TempsController extends AbstractController
      * Fill temps passe pourcentages of a full week in a month,
      * from the monday $date.
      *
+     * @param TempsPasse $tempsPasse
+     * @param DateTime $date
+     * @param int|int[] $pourcentages Pourcentage to fill for the week.
+     *                                If an int is provided, then the week will be filled with the same value.
+     * @param int $days = 7
+     *
      * @return int Number of days still to fill in next month, if week overlap with next month.
      */
-    private static function fillWeeklyTempsPasse(TempsPasse $tempsPasse, DateTime $date, int $pourcentage, int $days = 7): int
+    private static function fillWeeklyTempsPasse(TempsPasse $tempsPasse, DateTime $date, $pourcentages, int $days = 7): int
     {
+        if (is_int($pourcentages)) {
+            $pourcentages = [$pourcentages];
+        }
+
         $dayIndex = intval($date->format('d')) - 1;
-        $pourcentages = $tempsPasse->getPourcentages();
+        $newPourcentages = $tempsPasse->getPourcentages();
 
-        if (1 === count($pourcentages)) {
-            $pourcentages = array_fill(0, intval($date->format('t')), $pourcentages[0]);
+        if (1 === count($newPourcentages)) {
+            $newPourcentages = array_fill(0, intval($date->format('t')), $newPourcentages[0]);
         }
 
-        for ($i = $dayIndex; $i < $dayIndex + $days && $i < count($pourcentages); ++$i) {
-            $pourcentages[$i] = $pourcentage;
+        for ($i = $dayIndex; $i < $dayIndex + $days && $i < count($newPourcentages); ++$i) {
+            $newPourcentages[$i] = $pourcentages[($i - $dayIndex) % count($pourcentages)];
         }
 
-        $tempsPasse->setPourcentages($pourcentages);
+        $tempsPasse->setPourcentages($newPourcentages);
 
-        return max(0, 7 - (count($pourcentages) - $dayIndex));
+        return max(0, 7 - (count($newPourcentages) - $dayIndex));
     }
 }
