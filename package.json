@@ -20,6 +20,8 @@
         "highlight.js": "^11.0.1",
         "i18next": "^20.3.2",
         "jquery": "3.5.1",
+        "node-sass": "^6.0.0",
+        "sass-loader": "^10",
         "popper.js": "^1.16.1",
         "smartwizard": "^5.1.1",
         "tippy.js": "^6.3.1",
@@ -36,5 +38,6 @@
         "vue-loader": "^16.0.0-alpha.1",
         "vue-template-compiler": "^2.6.12",
         "webpack-notifier": "^1.6.0"
-    }
+    },
+    "version": "0.0.0"
 }
