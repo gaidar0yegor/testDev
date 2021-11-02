@@ -38,9 +38,6 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
 
     /**
      * Date du fait marquant
-     * @Assert\Range(
-     *      max = "today"
-     * )
      *
      * @ORM\Column(type="datetime")
      */
