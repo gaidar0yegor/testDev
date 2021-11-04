@@ -3,6 +3,8 @@ import EmbedForm from './EmbedForm';
 import datesLocalize from './dates.localize';
 import { detectedLocale } from './translation';
 
+import './datatable';
+
 $('form').on('change', 'input.custom-file-input', function () {
     const $input = $(this);
     const path = $input.val();
@@ -30,13 +32,24 @@ $('.date-picker').datepicker({
 });
 
 // form fait marquants
-EmbedForm.init($('.fichier-projets-container'), {
-    $addButton: $('.fichier-projets-container .add-file-btn'),
-    newItemAppend: $newItem => $('.fichier-projets-container .add-file-btn').before($newItem),
-});
-$('.fichier-projets-container').on('click', '.remove-file-btn', function () {
-    $(this).closest('tr').remove();
-});
+var files_list_dt;
+$(document).ready( function () {
+    files_list_dt = $('#files_list_dt').DataTable( {
+        dom: 'ift',
+        paging: false,
+        language: {
+            url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
+        },
+    } );
+
+    EmbedForm.init($('.fichier-projets-container'), {
+        $addButton: $('.fichier-projets-container-tfoot .add-file-btn'),
+        newItemAppend: $newItem => $('.fichier-projets-container').append($newItem),
+    });
+    $('.fichier-projets-container').on('click', '.remove-file-btn', function () {
+        files_list_dt.row( $(this).parents('tr') ).remove().draw();
+    });
+} );
 
 // form projet
 EmbedForm.init($('#projet_form_projetUrls'), {
@@ -75,7 +88,11 @@ $('a.link-delete-file').click(function () {
                 },
                 400,
                 () => {
-                    $a.closest('tr').remove();
+                    if ($.fn.DataTable.isDataTable( '#files_list_dt' )){
+                        files_list_dt.row( $a.parents('tr') ).remove().draw();
+                    } else {
+                        $a.closest('tr').remove();
+                    }
                 },
             );
         },
