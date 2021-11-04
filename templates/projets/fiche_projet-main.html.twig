@@ -17,8 +17,8 @@
         <li class="event add-fait-marquant">
             {% if userCanAddFaitMarquant %}
                 <a
-                    href="{{ path('app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}"
-                    class="btn btn-lg btn-outline-primary"
+                        href="{{ path('app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}"
+                        class="btn btn-lg btn-outline-primary"
                 >
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Ajouter un fait marquant
@@ -36,7 +36,7 @@
                     {{ faitMarquant.date|format_date }}
                     -
                     <a
-                        href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                            href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
                     >
                         {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24} %}
                         {{ faitMarquant.createdBy.user.fullname }}
@@ -51,11 +51,10 @@
                         <li>
                             <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
                             <a
-                                href="{{ path('app_fo_projet_fichier', {
-                                    'projetId': projet.id,
-                                    'fichierProjetId': fichierProjet.id
-                                }) }}"
-                            >
+                                    href="{{ path('app_fo_projet_fichier', {
+                                        'projetId': projet.id,
+                                        'fichierProjetId': fichierProjet.id
+                                    }) }}" {% if fichierProjet.fichier|faFileIcon == "fa-file-image-o" %} miniature {% else %} title="Télécharger" {% endif %}>
                                 {{ fichierProjet.fichier.nomFichier }}
                             </a>
                         </li>
@@ -63,12 +62,12 @@
                 </ul>
                 <div class="text-right">
                     <a
-                        href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
-                        class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
-                        {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
-                            disabled
-                            title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
-                        {% endif %}
+                            href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
+                            class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                            {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
+                                disabled
+                                title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
+                            {% endif %}
                     >
                         <i class="fa fa-pencil"></i>
                         Modifier
