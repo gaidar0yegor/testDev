@@ -38,7 +38,7 @@ class TempsPasse implements HasSocieteInterface
      *
      * @Serializer\Groups({"Default", "saisieTemps"})
      *
-     * @var int[]
+     * @var float[]
      */
     private $pourcentages = [0];
 
@@ -66,7 +66,7 @@ class TempsPasse implements HasSocieteInterface
     /**
      * @param int $dayIndex Index of the day, 0 for the first day.
      */
-    public function getPourcentage(int $dayIndex = 0): int
+    public function getPourcentage(int $dayIndex = 0): float
     {
         if (1 === count($this->pourcentages)) {
             return $this->pourcentages[0];
@@ -76,10 +76,10 @@ class TempsPasse implements HasSocieteInterface
             return 0;
         }
 
-        return intval($this->pourcentages[$dayIndex]);
+        return floatval($this->pourcentages[$dayIndex]);
     }
 
-    public function setPourcentage(int $pourcentage): self
+    public function setPourcentage(float $pourcentage): self
     {
         $this->pourcentages = [$pourcentage];
 
@@ -88,7 +88,7 @@ class TempsPasse implements HasSocieteInterface
 
     public function getPourcentages(): array
     {
-        return array_map('intval', $this->pourcentages);
+        return array_map('floatval', $this->pourcentages);
     }
 
     public function setPourcentages(array $pourcentages): self

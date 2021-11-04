@@ -24,6 +24,7 @@ SOCIETE_USER_STATUT_ACTIVE: Actif
 SOCIETE_USER_STATUT_DISABLED: Désactivé
 monthly: 'Au mois'
 weekly: 'À la semaine'
+daily: 'Au jour'
 n_nouveaux_faits_marquants: "{n, plural,\n    =0    {aucun nouveau fait marquant}\n\
   \    one   {un nouveau fait marquant}\n    other {# nouveaux faits marquants}\n}"
 n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other\

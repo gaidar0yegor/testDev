@@ -29,10 +29,12 @@ class SocieteType extends AbstractType
                 'choices' => [
                     Societe::GRANULARITY_MONTHLY => Societe::GRANULARITY_MONTHLY,
                     Societe::GRANULARITY_WEEKLY => Societe::GRANULARITY_WEEKLY,
+                    Societe::GRANULARITY_DAILY => Societe::GRANULARITY_DAILY,
                 ],
                 'faIcons' => [
                     Societe::GRANULARITY_MONTHLY => 'fa-calendar-o',
-                    Societe::GRANULARITY_WEEKLY => 'fa-calendar',
+                    Societe::GRANULARITY_WEEKLY => 'fa-calendar-minus-o',
+                    Societe::GRANULARITY_DAILY => 'fa-calendar',
                 ],
             ])
         ;

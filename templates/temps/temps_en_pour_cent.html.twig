@@ -10,8 +10,9 @@
 
 <App>
     <saisie-des-temps
-        monthly-or-weekly="{{ userContext.societeUser.societe.timesheetGranularity|default(constant('App\\Entity\\Societe::GRANULARITY_MONTHLY')) }}"
+        period="{{ userContext.societeUser.societe.timesheetGranularity|default(constant('App\\Entity\\Societe::GRANULARITY_MONTHLY')) }}"
         url-to-absences="{{ path('app_fo_absences', {'year': '1111', 'month': '22'}) }}"
+        :hours-per-days="{{ userContext.societeUser.societe.heuresParJours }}"
     ></saisie-des-temps>
 </App>
 

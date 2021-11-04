@@ -62,6 +62,13 @@ class Societe implements HasSocieteInterface
     public const GRANULARITY_WEEKLY = 'weekly';
 
     /**
+     * User fill their timesheet every day.
+     *
+     * @param string
+     */
+    public const GRANULARITY_DAILY = 'daily';
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
