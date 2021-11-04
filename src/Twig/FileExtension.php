@@ -13,6 +13,8 @@ class FileExtension extends AbstractExtension
 {
     private ExtensionToFontAwesomeIcon $extensionToIcon;
 
+    public const IMAGE_EXTENSIONS = ['ai', 'bmp', 'gif', 'ico', 'jpeg', 'jpg', 'png', 'ps', 'psd', 'svg', 'tif', 'tiff'];
+
     public function __construct(ExtensionToFontAwesomeIcon $extensionToIcon)
     {
         $this->extensionToIcon = $extensionToIcon;
@@ -22,6 +24,7 @@ class FileExtension extends AbstractExtension
     {
         return [
             new TwigFilter('faFileIcon', [$this, 'faFileIcon']),
+            new TwigFilter('isImageFile', [$this, 'isImageFile']),
         ];
     }
 
@@ -39,5 +42,21 @@ class FileExtension extends AbstractExtension
         }
 
         throw new RdiException('Unsupported type passed to twig filter "faFileIcon"');
+    }
+
+    /**
+     *  Check if $fichier is an image.
+     */
+    public function isImageFile($fichier): string
+    {
+        if ($fichier instanceof Fichier) {
+            return in_array(pathinfo($fichier->getNomFichier(),PATHINFO_EXTENSION),self::IMAGE_EXTENSIONS);
+        }
+
+        if ($fichier instanceof FichierProjet) {
+            return in_array(pathinfo($fichier->getFichier()->getNomFichier(),PATHINFO_EXTENSION),self::IMAGE_EXTENSIONS);
+        }
+
+        throw new RdiException('Unsupported type passed to twig filter "isImageFile"');
     }
 }
