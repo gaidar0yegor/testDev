@@ -45,7 +45,7 @@
     {{ form_errors(form) }}
     {{ form_help(form) }}
 
-    <table class="table">
+    <table id="files_list_dt" class="table datatable hover" data-column-defs='[{"sortable": false, "targets": [3]}]'>
         <thead>
             <tr>
                 <th>Fichier</th>
@@ -56,7 +56,8 @@
         </thead>
         <tbody class="fichier-projets-container" data-prototype="{{ form_row(form.vars.prototype)|e }}">
             {{ form_widget(form) }}
-
+        </tbody>
+        <tfoot class="fichier-projets-container-tfoot">
             {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), form.vars.projet) %}
                 <tr class="add-file-btn">
                     <td colspan="4">
@@ -67,7 +68,7 @@
                     </td>
                 </tr>
             {% endif %}
-        </tbody>
+        </tfoot>
     </table>
 {% endblock %}
 
