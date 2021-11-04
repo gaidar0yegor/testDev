@@ -1,6 +1,3 @@
-# Ignore IDE's file
-/.idea/
-
 # Ignore dynamic template, but not .dist ones
 /templates/dynamic_templates/*.twig
 
