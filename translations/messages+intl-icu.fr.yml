@@ -287,3 +287,4 @@ parameter.bo.onboarding.notification_every: 'Envoyer un email d''onboarding tout
 parameter.bo.onboarding.notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.html" target="_blank">conditions générales d''utilisation</a> et les <a href="https://rdimanager.com/fr/cgv.html" target="_blank">conditions générales de vente</a>.'
 rename_file_success: 'Votre fichier {oldName} à bien été renommé en {newName}'
+download: 'Télécharger'

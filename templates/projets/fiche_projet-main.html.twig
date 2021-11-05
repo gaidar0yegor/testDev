@@ -54,7 +54,7 @@
                                     href="{{ path('app_fo_projet_fichier', {
                                         'projetId': projet.id,
                                         'fichierProjetId': fichierProjet.id
-                                    }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="Télécharger" {% endif %}>
+                                    }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
                                 {{ fichierProjet.fichier.nomFichier }}
                             </a>
                         </li>

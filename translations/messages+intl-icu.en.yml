@@ -250,3 +250,4 @@ projet.projetUrls: External urls of this project
 projet.projetUrls.help: Display external urls related to this project.
 projet.projetUrl.text.help: Link text
 projet.projetUrl.url.help: Url
+download: Download
