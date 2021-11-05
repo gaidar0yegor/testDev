@@ -5,19 +5,28 @@
 {% block body %}
 	<h1>{{ 'users_list'|trans }}</h1>
 
-	<table
-		class="table table-hover text-center stretched-link-table-row"
-        data-toggle="table"
-        data-search="true"
-	>
+	<ul class="nav nav-tabs mb-3 tab-filter-users">
+		<li class="nav-item">
+			<a class="nav-link enabled-users active" href="#0">Actif</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link disabled-users" href="#0">Désactivé</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link all-users" href="#0">Tout</a>
+		</li>
+		<input type="hidden" id="filter-users-statut">
+	</ul>
+
+	<table id="users_list_dt" class="table datatable custom-datatable hover text-center">
 		<thead>
 			<tr>
-				<th data-sortable="true" class="text-left">{{ 'lastname'|trans }}</th>
-				<th data-sortable="true" class="d-none d-md-table-cell">{{ 'firstname'|trans }}</th>
-				<th class="d-none d-md-table-cell">{{ 'email'|trans }}</th>
-				<th data-sortable="true" data-sorter="bySorterValue">{{ 'role'|trans }}</th>
-				<th data-sortable="true" class="d-none d-md-table-cell">{{ 'status'|trans }}</th>
-				<th data-sortable="true">{{ 'projects'|trans }}</th>
+				<th class="text-left">{{ 'lastname'|trans }}</th>
+				<th>{{ 'firstname'|trans }}</th>
+				<th>{{ 'email'|trans }}</th>
+				<th>{{ 'role'|trans }}</th>
+				<th>{{ 'status'|trans }}</th>
+				<th>{{ 'projects'|trans }}</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -25,16 +34,16 @@
 			{% for societeUser in societeUsers %}
 				<tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
 					<td class="text-left">{{ societeUser.user.nom }}</td>
-					<td class="d-none d-md-table-cell">{{ societeUser.user.prenom }}</td>
-					<td class="d-none d-md-table-cell">{{ societeUser.user.email }}</td>
-					<td data-sorter-value="{{ societeUser.role }}">
+					<td>{{ societeUser.user.prenom }}</td>
+					<td>{{ societeUser.user.email }}</td>
+					<td data-sort='{{ societeUser.role|trans }}'>
 						<span class="d-none d-sm-block">{{ societeUser.role|trans }}</span>
 						<span class="d-sm-none">{{ (societeUser.role ~'.small')|trans }}</span>
 					</td>
-					<td class="d-none d-md-table-cell">{{ societeUser.statut|trans }}</td>
+					<td data-search='{{ societeUser.statut }}'>{{ societeUser.statut|trans }}</td>
 					<td>{{ societeUser.projetParticipants|length }}</td>
-					<td class="d-flex justify-content-around">
-						<a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}" class="stretched-link">
+					<td>
+						<a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
 							<i class="fa fa-lg fa-eye"></i>
 						</a>
 						<a href="{{ path('app_fo_admin_utilisateur_modifier', { 'id': societeUser.id }) }}">

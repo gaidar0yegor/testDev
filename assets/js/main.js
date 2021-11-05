@@ -31,6 +31,53 @@ $('.date-picker').datepicker({
     immediateUpdates: true,
 });
 
+// liste utilisateurs
+var users_list_dt;
+$(document).ready( function () {
+    users_list_dt = $('#users_list_dt').DataTable( {
+        order: [[ 5, "desc" ]],
+        columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
+        language: {
+            url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
+        },
+        initComplete: function(settings, json) {
+            $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
+        },
+    });
+
+    $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+            if (settings.sInstance === 'users_list_dt'){
+                var tab = $('#filter-users-statut').val();
+                var statut = data[4];
+
+                return ( tab !== '' && tab === statut ) || ( tab === '' );
+            }
+
+        }
+    );
+
+    $('.tab-filter-users').on('click', '.nav-link', function () {
+            $('.tab-filter-users').find('.nav-link').removeClass('active');
+            $(this).addClass('active');
+        })
+        .on('click', '.enabled-users', function () {
+            $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
+        })
+        .on('click', '.disabled-users', function () {
+            $('#filter-users-statut').val('SOCIETE_USER_STATUT_DISABLED').trigger('change');
+        })
+        .on('click', '.all-users', function () {
+            $('#filter-users-statut').val('').trigger('change');
+        })
+        .on('click', '.all-users', function () {
+            $('#filter-users-statut').val('').trigger('change');
+        })
+        .on('change', '#filter-users-statut', function () {
+            users_list_dt.draw();
+        });
+});
+
 // form fait marquants
 var files_list_dt;
 $(document).ready( function () {
