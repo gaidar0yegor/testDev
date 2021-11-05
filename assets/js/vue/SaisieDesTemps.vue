@@ -56,6 +56,7 @@
                                     :id="'temps_passe_pourcentage_' + tempsPasse.id"
                                     min="0"
                                     max="100"
+                                    placeholder="0"
                                     required
                                 />
                                 <div class="input-group-append">
