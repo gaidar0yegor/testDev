@@ -52,7 +52,7 @@ class FaitMarquantCreatedActivity implements ActivityInterface
 
         if ($isFaitMarquantDeleted){
             return sprintf(
-                '%s %s a <i>supprimé</i> un fait marquant du le projet %s.',
+                '%s %s a <i>supprimé</i> un fait marquant du projet %s.',
                 '<i class="fa fa-map-marker" aria-hidden="true"></i>',
                 $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
                 $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
