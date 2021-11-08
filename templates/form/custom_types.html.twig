@@ -45,7 +45,7 @@
     {{ form_errors(form) }}
     {{ form_help(form) }}
 
-    <table id="files_list_dt" class="table datatable hover" data-column-defs='[{"sortable": false, "targets": [3]}]'>
+    <table id="files_list_dt" class="table datatable custom-datatable hover" data-column-defs='[{"sortable": false, "targets": [3]}]'>
         <thead>
             <tr>
                 <th>Fichier</th>
@@ -91,7 +91,11 @@
                 </a>
             </td>
             <td>{{ form.vars.data.uploadedBy.user.fullname }}</td>
-            <td><span class="d-none d-sm-table-cell">{{ form.vars.data.fichier.dateUpload|format_date }}</span></td>
+            <td data-sort='{{ form.vars.data.fichier.dateUpload | date('Ymd') }}'>
+                <span class="d-none d-sm-table-cell">
+                    {{ form.vars.data.fichier.dateUpload|format_date }}
+                </span>
+            </td>
             <td class="d-flex">
                 <a href="{{ path('app_fo_projet_fichier_rename', {
                         'projetId': form.vars.data.projet.id,

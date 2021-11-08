@@ -27,19 +27,15 @@
         </p>
     {% endif %}
 
-    <table
-        class="table table-hover text-center stretched-link-table-row"
-        data-toggle="table"
-        data-search="true"
-    >
+    <table class="table datatable hover">
         <thead>
             <tr>
-                <th data-sortable="true" data-sorter="bySorterValue" class="text-left">{{ 'project'|trans }}</th>
-                <th data-sortable="true" data-sorter="bySorterValue">{{ 'my_role'|trans }}</th>
-                <th class="d-none d-md-table-cell">{{ 'start'|trans }}</th>
-                <th class="d-none d-md-table-cell">{{ 'end'|trans }}</th>
-                <th class="d-none d-md-table-cell">{{ 'status'|trans }}</th>
-                <th data-sortable="true">{{ 'participants'|trans }}</th>
+                <th>{{ 'project'|trans }}</th>
+                <th>{{ 'my_role'|trans }}</th>
+                <th>{{ 'start'|trans }}</th>
+                <th>{{ 'end'|trans }}</th>
+                <th>{{ 'status'|trans }}</th>
+                <th>{{ 'participants'|trans }}</th>
             </tr>
         </thead>
         <tbody class="filter-projets-by-selected-year">
@@ -49,11 +45,11 @@
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
                 >
-                    <td class="text-left" data-sorter-value="{{ projet.acronyme }}"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" class="stretched-link" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
-                    <td class="text-center" data-sorter-value="{{ roleSortValue(userRoleOn(projet)) }}">{{ userRoleOn(projet)|trans }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center d-none d-md-table-cell">{{ projet.statut }}</td>
+                    <td class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
+                    <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
+                    <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center">{{ projet.statut }}</td>
                     <td class="text-center">{{ projet.projetParticipants|length }}</td>
                 </tr>
             {% endfor %}
