@@ -108,6 +108,11 @@ default_value_used_in_timesheets.: 'Valeur par défaut, utilisée lors de la gé
 edit_hours_number: 'Modifier le nombre d''heures'
 time_spent_recording: 'Saisie de temps'
 time_spent_recording_granularity: 'Granularité de saisie des temps'
+max_legnth_fait_marquant_desc: 'Description du fait marquant'
+.in_number_of_char: 'en nombre de caractères'
+change_max_legnth_fait_marquant_desc: 'Modifier la longueur du text'
+isBlocking: 'La limite est Bloquante ?'
+illimited: 'Illimité'
 change_granularity: 'Modifier la granularité'
 company: Société
 company_projects: 'Projets de la société'

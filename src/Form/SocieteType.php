@@ -5,6 +5,8 @@ namespace App\Form;
 use App\Entity\Societe;
 use App\Form\Custom\CardChoiceType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,6 +38,18 @@ class SocieteType extends AbstractType
                     Societe::GRANULARITY_WEEKLY => 'fa-calendar-minus-o',
                     Societe::GRANULARITY_DAILY => 'fa-calendar',
                 ],
+            ])
+            ->add('faitMarquantMaxDesc', ChoiceType::class, [
+                'label' => 'max_legnth_fait_marquant_desc',
+                'choices' => [
+                    '750 caractères' => 751,
+                    '1000 caractères' => 1001,
+                    'Illimité' => -1,
+                ],
+            ])
+            ->add('faitMarquantMaxDescIsblocking', CheckboxType::class, [
+                'label'    => 'isBlocking',
+                'required' => false,
             ])
         ;
     }
