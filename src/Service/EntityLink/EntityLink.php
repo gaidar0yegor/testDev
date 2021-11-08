@@ -14,6 +14,11 @@ class EntityLink
         $this->url = $url;
     }
 
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
     public function __toString()
     {
         return sprintf(

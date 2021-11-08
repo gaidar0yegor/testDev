@@ -48,13 +48,25 @@ class FaitMarquantCreatedActivity implements ActivityInterface
 
     public function render(array $activityParameters, Activity $activity): string
     {
-        return sprintf(
-            '%s %s a ajouté le fait marquant %s sur le projet %s.',
-            '<i class="fa fa-map-marker" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
-            $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
-            $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
-        );
+        $isFaitMarquantDeleted = $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant'])->getUrl() == "";
+
+        if ($isFaitMarquantDeleted){
+            return sprintf(
+                '%s %s a <i>supprimé</i> un fait marquant du projet %s.',
+                '<i class="fa fa-map-marker" aria-hidden="true"></i>',
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
+                $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
+            );
+        } else {
+            return sprintf(
+                '%s %s a ajouté le fait marquant %s sur le projet %s.',
+                '<i class="fa fa-map-marker" aria-hidden="true"></i>',
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
+                $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
+                $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
+            );
+        }
+
     }
 
     public function postPersist(FaitMarquant $faitMarquant, LifecycleEventArgs $args): void
