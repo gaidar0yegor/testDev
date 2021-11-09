@@ -6,7 +6,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 
-
+## [0.35.1] - 2021-11-09
+- Fix weekly timesheet
 
 ## [0.35.0] - 2021-11-09
 ### Ajouté
