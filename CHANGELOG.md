@@ -12,6 +12,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Séparation des listes d'utilisateurs selon STATUT **(Actif | Désactivé | Tout)**
 - Ajouter des 0 en **Placeholder** dans les champs du temps passés 
 - Aperçu les fichiers de type **Image** lorsque la souris passe dessus
+- Configuration de la limite en caractére de la description du fait marquant
+- Textes d'aides : ré-afficher les aides de la page s'elles existent
+- Afficher les mois validés sur cette année dans le tableau **Mes contributions -> Temps total de contribution -> Moi**
+- Retirer les accents non GSM pour garder des SMS de 1 segment, et non 3
+- Être notifié lorsqu'un user quitte le projet
 
 ### Modifié
 - Modifier le message de la notification lors de la supprission d'un fait marquant
