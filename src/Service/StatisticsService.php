@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
+use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
 use App\Repository\TempsPasseRepository;
 use App\Security\Role\RoleProjet;
@@ -15,15 +16,19 @@ class StatisticsService
 
     private ProjetRepository $projetRepository;
 
+    private CraRepository $craRepository;
+
     private TimesheetCalculator $timesheetCalculator;
 
     public function __construct(
         TempsPasseRepository $tempsPasseRepository,
         ProjetRepository $projetRepository,
+        CraRepository $craRepository,
         TimesheetCalculator $timesheetCalculator
     ) {
         $this->tempsPasseRepository = $tempsPasseRepository;
         $this->projetRepository = $projetRepository;
+        $this->craRepository = $craRepository;
         $this->timesheetCalculator = $timesheetCalculator;
     }
 
@@ -88,5 +93,15 @@ class StatisticsService
         }
 
         return $heuresPassees;
+    }
+
+    /**
+     * @return array With tuple of [string $projetAcronyme, float $heuresPassees][]
+     */
+    public function calculateMonthsValidByYear(SocieteUser $societeUser, int $year): int
+    {
+        $nbrMonthsValid = $this->craRepository->findNumberMonthsValidByUserAndYear($societeUser, $year);
+
+        return $nbrMonthsValid;
     }
 }
