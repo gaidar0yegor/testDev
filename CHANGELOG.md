@@ -5,6 +5,10 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+
+
+
+## [0.35.0] - 2021-11-09
 ### Ajouté
 - Saisie du nombre d'heures à la journée
 - Filtrer et trier le tableau de la liste des fichiers
