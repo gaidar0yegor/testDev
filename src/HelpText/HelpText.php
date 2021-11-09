@@ -50,7 +50,7 @@ class HelpText
         $user = $token->getUser();
 
         if (null === $user || !$this->shouldRenderHelp($helpId, $user)) {
-            return '';
+            return "<div class=\"help_text_to_review\" data-help-id=\"{$helpId}\"></div>";
         }
 
         $template = self::HELP_TEMPLATES_FOLDER.$helpId.'.html.twig';
@@ -59,7 +59,7 @@ class HelpText
             'id' => $helpId,
         ];
 
-        return $this->twig->render($template, $context);
+        return "<div class=\"help_text_to_review\" data-help-id=\"{$helpId}\">{$this->twig->render($template, $context)}</div>";
     }
 
     /**
@@ -80,6 +80,23 @@ class HelpText
         }
 
         unset($helpTexts[$key]);
+        $user->setHelpTexts(array_values($helpTexts));
+    }
+
+    /**
+     * Reactive a Help text to review it.
+     */
+    public function reactive(string $helpId, User $user): void
+    {
+        $helpTexts = $user->getHelpTexts();
+
+        if (null === $helpTexts) {
+            $helpTexts = [];
+        } elseif (false ==! array_search($helpId,$helpTexts)) {
+            return;
+        }
+
+        array_push($helpTexts,$helpId);
         $user->setHelpTexts(array_values($helpTexts));
     }
 

@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -33,5 +34,25 @@ class HelpTextController extends AbstractController
         $em->flush();
 
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Revoir un message d'aide
+     *
+     * @Route(
+     *      "/help-text/reactive",
+     *      methods={"POST"},
+     *      name="api_help_text_reactive"
+     * )
+     */
+    public function reactive(Request $request, EntityManagerInterface $em, HelpText $helpText)
+    {
+        $content = json_decode($request->getContent());
+
+        $helpText->reactive($content->helpId, $this->getUser());
+
+        $em->flush();
+
+        return new Response($helpText->renderHelp($content->helpId));
     }
 }
