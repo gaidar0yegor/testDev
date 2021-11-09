@@ -96,12 +96,10 @@ import { addFlashMessage, clearFlashMessages } from './../flash-messages';
 import { t } from '../translation';
 import monthly from './period/monthly';
 import weekly from './period/weekly';
-import daily from './period/daily';
 
 const strategies = {
     monthly,
     weekly,
-    daily,
 };
 
 export default {
