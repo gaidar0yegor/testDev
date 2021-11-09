@@ -7,8 +7,18 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Saisie du nombre d'heures à la journée
+- Filtrer et trier le tableau de la liste des fichiers
+- Filtrer et trier le tableau de la liste des projets
+- Séparation des listes d'utilisateurs selon STATUT **(Actif | Désactivé | Tout)**
+- Ajouter des 0 en **Placeholder** dans les champs du temps passés 
+- Aperçu les fichiers de type **Image** lorsque la souris passe dessus
 
+### Modifié
+- Modifier le message de la notification lors de la supprission d'un fait marquant
 
+### Réparé
+- Ne pas pouvoir mettre une date future dans l'ajout d'un fait marquant
+- Réparer le Hover dans le tableau des projets pour afficher leurs noms complets
 
 
 ## [0.34.0] - 2021-10-05
