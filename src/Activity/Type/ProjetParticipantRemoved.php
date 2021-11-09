@@ -61,35 +61,37 @@ class ProjetParticipantRemoved implements ActivityInterface
         $participant = $projetParticipant->getSocieteUser();
         $removedBy = $this->userContext->getSocieteUser();
 
-        $activity = new Activity();
-        $activity
-            ->setType(self::getType())
-            ->setParameters([
-                'projet' => intval($projet->getId()),
-                'participant' => intval($participant->getId()),
-                'removedBy' => intval($removedBy->getId()),
-            ])
-        ;
+        if ($projet instanceof Projet && $participant instanceof SocieteUser && $removedBy instanceof SocieteUser){
+            $activity = new Activity();
+            $activity
+                ->setType(self::getType())
+                ->setParameters([
+                    'projet' => intval($projet->getId()),
+                    'participant' => intval($participant->getId()),
+                    'removedBy' => intval($removedBy->getId()),
+                ])
+            ;
 
-        $projetActivity = new ProjetActivity();
-        $projetActivity
-            ->setActivity($activity)
-            ->setProjet($projet)
-        ;
+            $projetActivity = new ProjetActivity();
+            $projetActivity
+                ->setActivity($activity)
+                ->setProjet($projet)
+            ;
 
-        $societeUserNotification = SocieteUserNotification::create($activity,$participant);
+            $societeUserNotification = SocieteUserNotification::create($activity,$participant);
 
-        $societeUserActivity = new SocieteUserActivity();
-        $societeUserActivity
-            ->setSocieteUser($participant)
-            ->setActivity($activity)
-        ;
+            $societeUserActivity = new SocieteUserActivity();
+            $societeUserActivity
+                ->setSocieteUser($participant)
+                ->setActivity($activity)
+            ;
 
-        $em = $args->getEntityManager();
-        $em->persist($activity);
-        $em->persist($projetActivity);
-        $em->persist($societeUserActivity);
-        $em->persist($societeUserNotification);
-        $em->flush();
+            $em = $args->getEntityManager();
+            $em->persist($activity);
+            $em->persist($projetActivity);
+            $em->persist($societeUserActivity);
+            $em->persist($societeUserNotification);
+            $em->flush();
+        }
     }
 }
