@@ -10,22 +10,37 @@ use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
 use App\Entity\SocieteUserNotification;
+use App\Notification\Event\ProjetParticipantRemovedEvent;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
-use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class ProjetParticipantRemoved implements ActivityInterface
+class ProjetParticipantRemoved implements ActivityInterface, EventSubscriberInterface
 {
+    private EntityManagerInterface $em;
+
     private EntityLinkService $entityLinkService;
 
     private UserContext $userContext;
 
-    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext)
-    {
+    private UrlGeneratorInterface $urlGenerator;
+
+    public function __construct(
+        EntityManagerInterface $em,
+        EntityLinkService $entityLinkService,
+        UserContext $userContext,
+        UrlGeneratorInterface $urlGenerator
+    ) {
+        $this->em = $em;
         $this->entityLinkService = $entityLinkService;
         $this->userContext = $userContext;
+        $this->urlGenerator = $urlGenerator;
     }
+
+
     public static function getType(): string
     {
         return 'projet_participant_removed';
@@ -55,43 +70,46 @@ class ProjetParticipantRemoved implements ActivityInterface
          );
     }
 
-    public function postRemove(ProjetParticipant $projetParticipant, LifecycleEventArgs $args): void
+    public static function getSubscribedEvents(): array
     {
-        $projet = $projetParticipant->getProjet();
-        $participant = $projetParticipant->getSocieteUser();
+        return [
+            ProjetParticipantRemovedEvent::class => 'createActivity',
+        ];
+    }
+
+    public function createActivity(ProjetParticipantRemovedEvent $event): void
+    {
+        $projet = $event->getProjet();
+        $participant = $event->getSocieteUser();
         $removedBy = $this->userContext->getSocieteUser();
 
-        if ($projet instanceof Projet && $participant instanceof SocieteUser && $removedBy instanceof SocieteUser){
-            $activity = new Activity();
-            $activity
-                ->setType(self::getType())
-                ->setParameters([
-                    'projet' => intval($projet->getId()),
-                    'participant' => intval($participant->getId()),
-                    'removedBy' => intval($removedBy->getId()),
-                ])
-            ;
+        $activity = new Activity();
+        $activity
+            ->setType(self::getType())
+            ->setParameters([
+                'projet' => intval($projet->getId()),
+                'participant' => intval($participant->getId()),
+                'removedBy' => intval($removedBy->getId()),
+            ])
+        ;
 
-            $projetActivity = new ProjetActivity();
-            $projetActivity
-                ->setActivity($activity)
-                ->setProjet($projet)
-            ;
+        $projetActivity = new ProjetActivity();
+        $projetActivity
+            ->setActivity($activity)
+            ->setProjet($projet)
+        ;
 
-            $societeUserNotification = SocieteUserNotification::create($activity,$participant);
+        $societeUserNotification = SocieteUserNotification::create($activity,$participant);
 
-            $societeUserActivity = new SocieteUserActivity();
-            $societeUserActivity
-                ->setSocieteUser($participant)
-                ->setActivity($activity)
-            ;
+        $societeUserActivity = new SocieteUserActivity();
+        $societeUserActivity
+            ->setSocieteUser($participant)
+            ->setActivity($activity)
+        ;
 
-            $em = $args->getEntityManager();
-            $em->persist($activity);
-            $em->persist($projetActivity);
-            $em->persist($societeUserActivity);
-            $em->persist($societeUserNotification);
-            $em->flush();
-        }
+        $this->em->persist($activity);
+        $this->em->persist($projetActivity);
+        $this->em->persist($societeUserActivity);
+        $this->em->persist($societeUserNotification);
     }
 }

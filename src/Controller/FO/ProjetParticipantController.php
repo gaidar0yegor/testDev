@@ -4,8 +4,11 @@ namespace App\Controller\FO;
 
 use App\DTO\InvitationUserSurProjet;
 use App\Entity\Projet;
+use App\Entity\ProjetParticipant;
 use App\Form\InviteUserSurProjetType;
 use App\Form\ListeProjetParticipantsType;
+use App\Notification\Event\ProjetParticipantRemovedEvent;
+use App\Notification\Event\RappelSaisieTempsNotification;
 use App\Service\Invitator;
 use App\Service\SocieteChecker;
 use App\MultiSociete\UserContext;
@@ -13,9 +16,17 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ProjetParticipantController extends AbstractController
 {
+    private EventDispatcherInterface $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @Route("/projets/{id}/participants", name="app_fo_projet_participant")
      */
@@ -30,6 +41,8 @@ class ProjetParticipantController extends AbstractController
 
         $form = $this->createForm(ListeProjetParticipantsType::class, $projet);
 
+        $oldProjetParticipantIds = $projet->getProjetParticipants()->map(function($obj){ return $obj->getId(); })->getValues();
+
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
@@ -37,6 +50,15 @@ class ProjetParticipantController extends AbstractController
             if (!$societeChecker->isSameSociete($projet, $userContext->getSocieteUser())) {
                 throw $this->createAccessDeniedException();
             }
+
+            // START:: Un évenement pour créer une activité lors de la suppression d'un ProjetParticipant
+            $newProjetParticipantIds = $projet->getProjetParticipants()->map(function($obj){ return $obj->getId(); })->getValues();
+            $removedProjetParticipantIds = array_diff($oldProjetParticipantIds, $newProjetParticipantIds);
+
+            foreach ($removedProjetParticipantIds as $removedProjetParticipantId){
+                $this->dispatcher->dispatch(new ProjetParticipantRemovedEvent($em->getRepository(ProjetParticipant::class)->find($removedProjetParticipantId)));
+            }
+            // END
 
             $em->flush();
 
@@ -93,5 +115,9 @@ class ProjetParticipantController extends AbstractController
             'projet' => $projet,
             'form' => $form->createView(),
         ]);
+    }
+
+    function compare($a, $b) {
+        dump($a,$b);exit;
     }
 }
