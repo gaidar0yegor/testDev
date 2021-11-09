@@ -1,4 +1,5 @@
 import {formatHours} from './utils';
+import tippy from "tippy.js";
 
 const displayGraph = year => {
 
@@ -18,6 +19,13 @@ const displayGraph = year => {
             document.querySelector('.moi-vs-equipe.equipe.projet-rdi').innerText = moiVsEquipe.projetsRdi.equipe;
             document.querySelector('.moi-vs-equipe.moi.temps-total').innerText = formatHours(moiVsEquipe.tempsTotal.moi);
             document.querySelector('.moi-vs-equipe.equipe.temps-total').innerText = formatHours(moiVsEquipe.tempsTotal.equipe);
+            document.querySelector('.moi-vs-equipe.moi.temps-total').setAttribute('title', "Sur "+ moiVsEquipe.moisValides.moi +" mois validés");
+            tippy('.moi-vs-equipe.moi.temps-total', {
+                content: element => element.getAttribute('title'),
+                onCreate(instance) {
+                    instance.reference.removeAttribute('title');
+                },
+            });
         })
     ;
 };

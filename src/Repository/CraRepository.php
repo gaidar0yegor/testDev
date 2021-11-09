@@ -47,4 +47,20 @@ class CraRepository extends ServiceEntityRepository implements UserMonthCraRepos
             ->getResult()
         ;
     }
+
+    public function findNumberMonthsValidByUserAndYear(SocieteUser $societeUser, int $year): int
+    {
+        return $this->createQueryBuilder('cra')
+            ->select('count(cra.id)')
+            ->where('cra.societeUser = :societeUser')
+            ->andWhere('YEAR(cra.mois) = :year')
+            ->andWhere('cra.tempsPassesModifiedAt is NOT NULL')
+            ->setParameters([
+                'societeUser' => $societeUser,
+                'year' => $year,
+            ])
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
 }

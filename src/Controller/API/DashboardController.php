@@ -144,6 +144,7 @@ class DashboardController extends AbstractController
             $year
         );
         $heuresParProjet = $statisticsService->calculateHeuresParProjet($userContext->getSocieteUser()->getSociete(), $year);
+        $monthsValidForYear = $statisticsService->calculateMonthsValidByYear($userContext->getSocieteUser(), $year);
 
         $stats = [
             'projets' => [
@@ -157,6 +158,9 @@ class DashboardController extends AbstractController
             'tempsTotal' => [
                 'moi' => 0,
                 'equipe' => 0,
+            ],
+            'moisValides' => [
+                'moi' => $monthsValidForYear,
             ],
         ];
 
