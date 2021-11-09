@@ -355,7 +355,7 @@ class TempsController extends AbstractController
      */
     private static function fillWeeklyTempsPasse(TempsPasse $tempsPasse, DateTime $date, $pourcentages, int $days = 7): int
     {
-        if (is_int($pourcentages)) {
+        if (!is_array($pourcentages)) {
             $pourcentages = [$pourcentages];
         }
 
