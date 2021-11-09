@@ -116,8 +116,4 @@ class ProjetParticipantController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
-    function compare($a, $b) {
-        dump($a,$b);exit;
-    }
 }
