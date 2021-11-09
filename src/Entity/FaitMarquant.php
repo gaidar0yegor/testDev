@@ -29,10 +29,6 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
 
     /**
      * @ORM\Column(type="text")
-     *  @Assert\Length(
-     *      max = 751,
-     *      maxMessage = "Votre fait marquant ne peut avoir plus de 750 caractères"
-     * )
      */
     private $description;
 

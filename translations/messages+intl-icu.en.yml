@@ -118,6 +118,11 @@ invite_new_user: Invite a new user
 to_be_defined: To define
 edit_hours_number: Modify the number of hours
 time_spent_recording: Enter the time
+max_legnth_fait_marquant_desc: Description of the remarkable fact
+.in_number_of_char: 'in number of characters'
+change_max_legnth_fait_marquant_desc: Modify the length of the text
+isBlocking: 'Is the limit Blocking ?'
+illimited: 'Illimited'
 change_granularity: Modify the granularity
 company: Company
 company_projects: Projects of the company

@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Validator\Constraints\Length;
 
 class FaitMarquantType extends AbstractType
 {
@@ -25,17 +26,25 @@ class FaitMarquantType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $societe = $this->userContext->getSocieteUser()->getSociete();
+
+        $descriptionOptions = [ 'attr' => [
+            'class' => 'text-justify',
+            'rows' => 9,
+        ]];
+
+        if ($societe->getFaitMarquantMaxDescIsblocking() && $societe->getFaitMarquantMaxDesc() !== -1){
+            $descriptionOptions['attr']['maxlength'] = $societe->getFaitMarquantMaxDesc();
+            $descriptionOptions['constraints'] = [
+                new Length(['max' => $societe->getFaitMarquantMaxDescIsblocking() ? $societe->getFaitMarquantMaxDesc() - 1 : false])
+            ];
+        }
+
         $builder
             ->add('titre', null, [
                 'attr' => ['class' => 'form-control-lg'],
             ])
-            ->add('description', MarkdownWysiwygType:: class, [
-                'attr' => [
-                    'class' => 'text-justify',
-                    'rows' => 9,
-                    'maxlength' =>  800,
-                ]
-            ])
+            ->add('description', MarkdownWysiwygType:: class, $descriptionOptions)
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),
                 'label' => 'Fichiers joints',

@@ -147,6 +147,19 @@ class Societe implements HasSocieteInterface
      */
     private $timesheetGranularity;
 
+    /**
+     * Limit character of description field of Fait Marquant
+     *
+     * @ORM\Column(type="integer", options={"default" : 751})
+     */
+    private $faitMarquantMaxDesc;
+
+    /**
+     * Limit character is blocking or not
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $faitMarquantMaxDescIsblocking;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -157,6 +170,8 @@ class Societe implements HasSocieteInterface
         $this->projets = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->timesheetGranularity = self::GRANULARITY_MONTHLY;
+        $this->faitMarquantMaxDesc = 751;
+        $this->faitMarquantMaxDescIsblocking = true;
     }
 
     public function getId(): ?int
@@ -371,6 +386,30 @@ class Societe implements HasSocieteInterface
     public function setTimesheetGranularity(string $timesheetGranularity): self
     {
         $this->timesheetGranularity = $timesheetGranularity;
+
+        return $this;
+    }
+
+    public function getFaitMarquantMaxDesc(): ?int
+    {
+        return $this->faitMarquantMaxDesc;
+    }
+
+    public function setFaitMarquantMaxDesc(int $faitMarquantMaxDesc): self
+    {
+        $this->faitMarquantMaxDesc = $faitMarquantMaxDesc;
+
+        return $this;
+    }
+
+    public function getFaitMarquantMaxDescIsblocking(): ?bool
+    {
+        return $this->faitMarquantMaxDescIsblocking;
+    }
+
+    public function setFaitMarquantMaxDescIsblocking(bool $faitMarquantMaxDescIsblocking): self
+    {
+        $this->faitMarquantMaxDescIsblocking = $faitMarquantMaxDescIsblocking;
 
         return $this;
     }
