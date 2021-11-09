@@ -54,6 +54,7 @@ $(document).ready( function () {
                 return ( tab !== '' && tab === statut ) || ( tab === '' );
             }
 
+            return true;
         }
     );
 
