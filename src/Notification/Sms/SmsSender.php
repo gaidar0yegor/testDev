@@ -24,10 +24,18 @@ class SmsSender
     {
         $phoneNumber = $this->phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::E164);
 
-        $sms = new SmsMessage($phoneNumber, $message);
+        $sms = new SmsMessage($phoneNumber, $this->removeAccents($message));
 
         $this->texter->send($sms);
 
         return true;
+    }
+
+    private function removeAccents(string $text): string
+    {
+        $search  = array('À', 'Á', 'Â', 'Ã', 'È', 'Ê', 'Ë', 'Ì', 'Í', 'Î', 'Ï', 'Ò', 'Ó', 'Ô', 'Õ', 'Ù', 'Ú', 'Û', 'Ý', 'á', 'â', 'ã', 'ç', 'ê', 'ë', 'í', 'î', 'ï', 'ð', 'ó', 'ô', 'õ', 'ú', 'û', 'ý', 'ÿ');
+        $replace = array('A', 'A', 'A', 'A', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'Y', 'a', 'a', 'a', 'c', 'e', 'e', 'i', 'i', 'i', 'o', 'o', 'o', 'o', 'u', 'u', 'y', 'y');
+
+        return str_replace($search, $replace, $text);
     }
 }
