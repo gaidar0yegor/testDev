@@ -253,4 +253,8 @@ export default {
         width: 4.5em;
         white-space: nowrap;
     }
+    .saisie-des-temps-daily table tbody td:nth-last-child(-n+2),.saisie-des-temps-daily table thead th:nth-last-child(-n+2){
+        background-color: #788189;
+        border-color: #788189;
+    }
 </style>
