@@ -35,6 +35,7 @@ $('.date-picker').datepicker({
 var users_list_dt;
 $(document).ready( function () {
     users_list_dt = $('#users_list_dt').DataTable( {
+        info: false,
         order: [[ 5, "desc" ]],
         columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
         language: {
@@ -84,6 +85,7 @@ var files_list_dt;
 $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
         dom: 'ift',
+        info: false,
         paging: false,
         language: {
             url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
