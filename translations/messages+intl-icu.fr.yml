@@ -31,7 +31,7 @@ n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    ot
   \ {Observateurs}\n}"
 my_dashboard: 'Mon tableau de bord'
 dashboard: 'Tableau de bord'
-dashboard.today: 'Mon actualité'
+dashboard.today: 'Actualité'
 menu.projects: 'Mes projets'
 menu.projects.list: 'Liste des projets'
 menu.projects.create: 'Créer un projet'
