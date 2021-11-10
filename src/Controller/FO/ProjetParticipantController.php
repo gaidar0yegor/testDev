@@ -7,6 +7,7 @@ use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Form\InviteUserSurProjetType;
 use App\Form\ListeProjetParticipantsType;
+use App\Notification\Event\ProjetParticipantAddedEvent;
 use App\Notification\Event\ProjetParticipantRemovedEvent;
 use App\Notification\Event\RappelSaisieTempsNotification;
 use App\Service\Invitator;
@@ -57,6 +58,17 @@ class ProjetParticipantController extends AbstractController
 
             foreach ($removedProjetParticipantIds as $removedProjetParticipantId){
                 $this->dispatcher->dispatch(new ProjetParticipantRemovedEvent($em->getRepository(ProjetParticipant::class)->find($removedProjetParticipantId)));
+            }
+            // END
+
+            $em->flush();
+
+            // START:: Un évenement pour créer une activité lors de la ajout d'un ProjetParticipant
+            $newProjetParticipantIds = $projet->getProjetParticipants()->map(function($obj){ return $obj->getId(); })->getValues();
+            $addedProjetParticipantIds = array_diff($newProjetParticipantIds, $oldProjetParticipantIds);
+
+            foreach ($addedProjetParticipantIds as $addedProjetParticipantId){
+                $this->dispatcher->dispatch(new ProjetParticipantAddedEvent($em->getRepository(ProjetParticipant::class)->find($addedProjetParticipantId)));
             }
             // END
 
