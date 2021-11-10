@@ -5,6 +5,8 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Être notifié lorsqu'un user rejoint un projet
 
 ## [0.35.2] - 2021-11-09
 - Fix daily timesheet
