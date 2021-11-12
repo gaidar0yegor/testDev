@@ -48,6 +48,7 @@ $('.date-picker').datepicker({
 var users_list_dt;
 $(document).ready( function () {
     users_list_dt = $('#users_list_dt').DataTable( {
+        info: false,
         order: [[ 5, "desc" ]],
         columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
         language: {

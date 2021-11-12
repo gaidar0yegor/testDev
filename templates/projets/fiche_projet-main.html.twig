@@ -1,6 +1,6 @@
 <div class="card bg-light-grey border-light">
-    <div class="card-body">
-        <p class="text-justify m-0">{{ projet.resume|markdown }}</p>
+    <div class="card-body text-justify">
+        <p class="m-0">{{ projet.resume|markdown }}</p>
     </div>
 </div>
 
@@ -48,7 +48,7 @@
                                 </a>
                             </h4>
                             <h3>{{ faitMarquant.titre }}</h3>
-                            <div class="event-content">
+                            <div class="event-content text-justify">
                                 {{ faitMarquant.description|markdown }}
                             </div>
                             <ul class="list-unstyled">
