@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Ajouter une barre de recherche pour les faits marquant
+- Généraliser le datatable dans tout le projet : **/admin/validations** & **/admin/tous-les-projets**
 
 ## [0.35.2] - 2021-11-09
 - Fix daily timesheet
