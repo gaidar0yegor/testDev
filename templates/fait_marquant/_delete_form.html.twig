@@ -1,3 +1,6 @@
+{% if faitMarquant.trashedAt is not null %}
+    <span class="badge badge-danger">Supprimé</span>
+{% else %}
 <form
     method="post"
     action="{{ path('app_fo_fait_marquant_delete', {'id': faitMarquant.id}) }}"
@@ -10,3 +13,4 @@
         Supprimer
     </button>
 </form>
+{% endif %}

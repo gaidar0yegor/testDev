@@ -61,6 +61,14 @@
                     title="Statistiques du projet"
                 {% endif %}
             ><i class="fa fa-bar-chart"></i></a>
+            <div class="dropdown">
+                <a href="javascript:;" class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}" id="dropdownOtherMenuButton" data-toggle="dropdown">
+                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownOtherMenuButton">
+                    <a class="dropdown-item m-0" href="{{ path('app_fo_fait_marquant_trash', { 'id' : projet.id }) }}"><i class="fa fa-trash"></i> Corbeille des FM</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>

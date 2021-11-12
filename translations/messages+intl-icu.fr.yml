@@ -183,6 +183,9 @@ your_new_password: 'Votre nouveau mot de passe'
   a été modifié.'
 'Le fait marquant "{titre_fait_marquant}" a été supprimé.': 'Le fait marquant "{titre_fait_marquant}"
   a été supprimé.'
+'Le fait marquant "{titre_fait_marquant}" a été déplacé dans la corbeille.': 'Le fait marquant "{titre_fait_marquant}"
+  a été déplacé dans la corbeille.'
+'Le fait marquant "{titre_fait_marquant}" a été restauré': 'Le fait marquant "{titre_fait_marquant}" a été réstauré.'
 edit_user_user: 'Modification de {user}'
 disable_account_explain: 'Désactiver le compte de {user} l''empêchera de se connecter
   sur cette société. Vous conserverez ses projets, faits marquants, les données nécessaires

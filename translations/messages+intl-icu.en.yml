@@ -202,6 +202,10 @@ if_provided_you_can_receive_important_notification_by_sms.: If provided, you wil
 roles_on_projects_of_user: Roles on {user}'s projects
 'Le fait marquant "{titre_fait_marquant}" a été supprimé.': The striking fact "{titre_fait_marquant}"
   have been deleted.
+'Le fait marquant "{titre_fait_marquant}" a été déplacé dans la corbeille.': The striking fact "{titre_fait_marquant}"
+  has been moved to the trash.
+'Le fait marquant "{titre_fait_marquant}" a été restauré': The striking fact "{titre_fait_marquant}"
+  has been restored.
 edit_user_user: Modification of {user}
 re_enable_account_explain: Reactivating the {user}'s account will allow him to access
   your company again.

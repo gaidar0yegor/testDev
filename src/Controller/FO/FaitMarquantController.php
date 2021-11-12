@@ -5,6 +5,8 @@ namespace App\Controller\FO;
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Form\FaitMarquantType;
+use App\Notification\Event\FaitMarquantRemovedEvent;
+use App\Notification\Event\FaitMarquantRestoredEvent;
 use App\ProjetResourceInterface;
 use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,10 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FaitMarquantController extends AbstractController
 {
+    private EventDispatcherInterface $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @Route("/projets/{projetId}/fait-marquants/ajouter", name="app_fo_fait_marquant_ajouter", methods={"GET","POST"})
      *
@@ -107,12 +117,16 @@ class FaitMarquantController extends AbstractController
         Request $request,
         FaitMarquant $faitMarquant,
         TranslatorInterface $translator,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        UserContext $userContext
     ): Response {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $faitMarquant);
 
         if ($this->isCsrfTokenValid('delete'.$faitMarquant->getId(), $request->request->get('_token'))) {
-            $em->remove($faitMarquant);
+            $faitMarquant->setTrashedAt(new \DateTime());
+            $faitMarquant->setTrashedBy($userContext->getSocieteUser());
+            $this->dispatcher->dispatch(new FaitMarquantRemovedEvent($em->getRepository(FaitMarquant::class)->find($faitMarquant->getId())));
+
             $em->flush();
 
             $this->addFlash('success', $translator->trans(
@@ -122,6 +136,54 @@ class FaitMarquantController extends AbstractController
                 ]
             ));
         }
+
+        return $this->redirectToRoute('app_fo_projet', [
+            'id' => $faitMarquant->getProjet()->getId(),
+        ]);
+    }
+
+    /**
+     * @Route("/projet/{id}/fait-marquants/corbeille", name="app_fo_fait_marquant_trash", methods={"GET"})
+     */
+    public function trash(
+        Request $request,
+        Projet $projet,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em
+    ): Response {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        $faitMarquants = $em->getRepository(FaitMarquant::class)->findTrashItems($projet);
+
+        return $this->render('fait_marquant/trash.html.twig', [
+            'projet' => $projet,
+            'faitMarquants' => $faitMarquants,
+        ]);
+    }
+
+    /**
+     * @Route("/fait-marquants/restaurer/{id}", name="app_fo_fait_marquant_restore", methods={"GET"})
+     */
+    public function restore(
+        Request $request,
+        FaitMarquant $faitMarquant,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em
+    ): Response {
+        $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $faitMarquant);
+
+        $faitMarquant->setTrashedAt(null);
+        $faitMarquant->setTrashedBy(null);
+        $this->dispatcher->dispatch(new FaitMarquantRestoredEvent($em->getRepository(FaitMarquant::class)->find($faitMarquant->getId())));
+
+        $em->flush();
+
+        $this->addFlash('success', $translator->trans(
+            'Le fait marquant "{titre_fait_marquant}" a été restauré',
+            [
+                'titre_fait_marquant' => $faitMarquant->getTitre(),
+            ]
+        ));
 
         return $this->redirectToRoute('app_fo_projet', [
             'id' => $faitMarquant->getProjet()->getId(),
