@@ -7,9 +7,9 @@ use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
 
 /**
- * Event émit lorsqu'un utilisateur vient d'être retiré d'un projet
+ * Event émit lorsqu'un utilisateur vient de rejoindre un projet
  */
-class ProjetParticipantRemovedEvent
+class ProjetParticipantAddedEvent
 {
     private ProjetParticipant $projetParticipant;
 
