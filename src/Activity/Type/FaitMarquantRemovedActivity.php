@@ -88,7 +88,7 @@ class FaitMarquantRemovedActivity implements ActivityInterface, EventSubscriberI
         $faitMarquant = $event->getFaitMarquant();
         $projet = $event->getProjet();
         $createdBy = $event->getCreatedBy();
-        $restoredBy = $this->userContext->getSocieteUser();
+        $removedBy = $this->userContext->getSocieteUser();
 
         $activity = new Activity();
         $activity
@@ -96,7 +96,8 @@ class FaitMarquantRemovedActivity implements ActivityInterface, EventSubscriberI
             ->setParameters([
                 'faitMarquant' => intval($faitMarquant->getId()),
                 'projet' => intval($projet->getId()),
-                'restoredBy' => intval($restoredBy->getId()),
+                'createdBy' => intval($createdBy->getId()),
+                'removedBy' => intval($removedBy->getId()),
             ])
         ;
 
