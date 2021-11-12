@@ -28,6 +28,7 @@ Encore
     .addEntry('timesheet-pdf', './assets/timesheet-pdf.js')
     .addEntry('back-office', './assets/back-office.js')
     .addEntry('foundation', './assets/foundation.js')
+    .addEntry('fiche-projet', './assets/fiche-projet.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     //.enableStimulusBridge('./assets/controllers.json')

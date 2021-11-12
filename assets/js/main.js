@@ -16,6 +16,19 @@ $('form').on('change', 'input.custom-file-input', function () {
     ;
 });
 
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        if (settings.sInstance === 'users_list_dt'){
+            var tab = $('#filter-users-statut').val();
+            var statut = data[4];
+
+            return ( tab !== '' && tab === statut ) || ( tab === '' );
+        }
+
+        return true;
+    }
+);
+
 $.fn.datepicker.dates[detectedLocale] = datesLocalize;
 
 $('.month-picker').datepicker({
@@ -46,19 +59,6 @@ $(document).ready( function () {
         },
     });
 
-    $.fn.dataTable.ext.search.push(
-        function( settings, data, dataIndex ) {
-            if (settings.sInstance === 'users_list_dt'){
-                var tab = $('#filter-users-statut').val();
-                var statut = data[4];
-
-                return ( tab !== '' && tab === statut ) || ( tab === '' );
-            }
-
-            return true;
-        }
-    );
-
     $('.tab-filter-users').on('click', '.nav-link', function () {
             $('.tab-filter-users').find('.nav-link').removeClass('active');
             $(this).addClass('active');
@@ -84,9 +84,7 @@ $(document).ready( function () {
 var files_list_dt;
 $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
-        dom: 'ift',
-        info: false,
-        paging: false,
+        dom: 'lftp',
         language: {
             url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
         },
