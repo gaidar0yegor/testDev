@@ -175,8 +175,6 @@ export default {
                 return sum + parseFloat(tempsPasse.heures[dayIndex]);
             }, 0);
 
-            console.log(totalHours, this.hoursPerDays);
-
             return totalHours <= this.hoursPerDays;
         },
 

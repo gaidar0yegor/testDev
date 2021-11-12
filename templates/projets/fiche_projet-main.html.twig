@@ -34,53 +34,55 @@
             <thead><tr><th>Faits marquants</th></tr></thead>
             <tbody>
             {% for faitMarquant in projet.faitMarquants %}
-                <tr>
-                    <td>
-                        <li class="event" id="fait-marquant-{{ faitMarquant.id }}">
-                            <h4 data-date="{{ faitMarquant.date|format_date }}">
-                                {{ faitMarquant.date|format_date }}
-                                -
-                                <a
-                                        href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
-                                >
-                                    {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24} %}
-                                    {{ faitMarquant.createdBy.user.fullname }}
-                                </a>
-                            </h4>
-                            <h3>{{ faitMarquant.titre }}</h3>
-                            <div class="event-content text-justify">
-                                {{ faitMarquant.description|markdown }}
-                            </div>
-                            <ul class="list-unstyled">
-                                {% for fichierProjet in faitMarquant.fichierProjets %}
-                                    <li>
-                                        <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
-                                        <a
-                                                href="{{ path('app_fo_projet_fichier', {
-                                                    'projetId': projet.id,
-                                                    'fichierProjetId': fichierProjet.id
-                                                }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
-                                            {{ fichierProjet.fichier.nomFichier }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                            <div class="text-right">
-                                <a
-                                        href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
-                                        class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
-                                        {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
-                                            disabled
-                                            title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
-                                        {% endif %}
-                                >
-                                    <i class="fa fa-pencil"></i>
-                                    Modifier
-                                </a>
-                            </div>
-                        </li>
-                    </td>
-                </tr>
+                {% if faitMarquant.trashedAt is null %}
+                    <tr>
+                        <td>
+                            <li class="event" id="fait-marquant-{{ faitMarquant.id }}">
+                                <h4 data-date="{{ faitMarquant.date|format_date }}">
+                                    {{ faitMarquant.date|format_date }}
+                                    -
+                                    <a
+                                            href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                                    >
+                                        {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24} %}
+                                        {{ faitMarquant.createdBy.user.fullname }}
+                                    </a>
+                                </h4>
+                                <h3>{{ faitMarquant.titre }}</h3>
+                                <div class="event-content text-justify">
+                                    {{ faitMarquant.description|markdown }}
+                                </div>
+                                <ul class="list-unstyled">
+                                    {% for fichierProjet in faitMarquant.fichierProjets %}
+                                        <li>
+                                            <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
+                                            <a
+                                                    href="{{ path('app_fo_projet_fichier', {
+                                                        'projetId': projet.id,
+                                                        'fichierProjetId': fichierProjet.id
+                                                    }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                                                {{ fichierProjet.fichier.nomFichier }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="text-right">
+                                    <a
+                                            href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
+                                            class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                                            {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
+                                                disabled
+                                                title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
+                                            {% endif %}
+                                    >
+                                        <i class="fa fa-pencil"></i>
+                                        Modifier
+                                    </a>
+                                </div>
+                            </li>
+                        </td>
+                    </tr>
+                {% endif %}
             {% endfor %}
             </tbody>
         </table>

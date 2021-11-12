@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Être notifié lorsqu'un user rejoint un projet
 - Ajouter une barre de recherche pour les faits marquant
+- Gestion de la suppression des Faits Marquants
 
 ## [0.35.2] - 2021-11-09
 - Fix daily timesheet

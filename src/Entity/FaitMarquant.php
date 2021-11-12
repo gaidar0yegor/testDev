@@ -64,6 +64,16 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
      */
     private $fichierProjets;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $trashedAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class)
+     */
+    private $trashedBy;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -197,5 +207,29 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     public function getSociete(): ?Societe
     {
         return $this->projet->getSociete();
+    }
+
+    public function getTrashedAt(): ?\DateTimeInterface
+    {
+        return $this->trashedAt;
+    }
+
+    public function setTrashedAt(?\DateTimeInterface $trashedAt): self
+    {
+        $this->trashedAt = $trashedAt;
+
+        return $this;
+    }
+
+    public function getTrashedBy(): ?SocieteUser
+    {
+        return $this->trashedBy;
+    }
+
+    public function setTrashedBy(?SocieteUser $trashedBy): self
+    {
+        $this->trashedBy = $trashedBy;
+
+        return $this;
     }
 }

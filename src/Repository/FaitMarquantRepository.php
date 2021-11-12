@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FaitMarquant;
+use App\Entity\Projet;
 use App\Entity\SocieteUser;
 use App\Role;
 use App\Security\Role\RoleProjet;
@@ -39,6 +40,20 @@ class FaitMarquantRepository extends ServiceEntityRepository
                 'societeUser' => $societeUser,
                 'from' => $from,
                 'roles' => RoleProjet::getRoles($minimumRole),
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findTrashItems(Projet $projet)
+    {
+        return $this->createQueryBuilder('faitMarquant')
+            ->where('faitMarquant.trashedAt is not null')
+            ->andWhere('faitMarquant.projet = :projet')
+            ->orderBy('faitMarquant.trashedAt', 'desc')
+            ->setParameters([
+                'projet' => $projet,
             ])
             ->getQuery()
             ->getResult()
