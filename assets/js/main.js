@@ -83,8 +83,7 @@ $(document).ready( function () {
 var files_list_dt;
 $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
-        dom: 'ift',
-        paging: false,
+        dom: 'lftp',
         language: {
             url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
         },
