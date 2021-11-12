@@ -16,6 +16,19 @@ $('form').on('change', 'input.custom-file-input', function () {
     ;
 });
 
+$.fn.dataTable.ext.search.push(
+    function( settings, data, dataIndex ) {
+        if (settings.sInstance === 'users_list_dt'){
+            var tab = $('#filter-users-statut').val();
+            var statut = data[4];
+
+            return ( tab !== '' && tab === statut ) || ( tab === '' );
+        }
+
+        return true;
+    }
+);
+
 $.fn.datepicker.dates[detectedLocale] = datesLocalize;
 
 $('.month-picker').datepicker({
@@ -44,19 +57,6 @@ $(document).ready( function () {
             $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
         },
     });
-
-    $.fn.dataTable.ext.search.push(
-        function( settings, data, dataIndex ) {
-            if (settings.sInstance === 'users_list_dt'){
-                var tab = $('#filter-users-statut').val();
-                var statut = data[4];
-
-                return ( tab !== '' && tab === statut ) || ( tab === '' );
-            }
-
-            return true;
-        }
-    );
 
     $('.tab-filter-users').on('click', '.nav-link', function () {
             $('.tab-filter-users').find('.nav-link').removeClass('active');
