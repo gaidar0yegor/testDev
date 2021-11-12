@@ -33,6 +33,7 @@
                         <a
                                 href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id }) }}"
                                 class="btn btn-outline-warning btn-sm {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                                title="Modifier"
                                 {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
                                     disabled
                                     title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
@@ -43,6 +44,7 @@
                         <a
                                 href="{{ path('app_fo_fait_marquant_restore', {'id': faitMarquant.id }) }}"
                                 class="btn btn-outline-info btn-sm {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), faitMarquant) %}disabled{% endif %}"
+                                title="Restaurer"
                                 {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), faitMarquant) %}
                                     disabled
                                     title="Vous ne pouvez pas restaurer les faits marquants qui ne vous appartiennent pas"
