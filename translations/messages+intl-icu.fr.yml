@@ -271,7 +271,7 @@ delete_project_link_description: 'Pour supprimer ce projet, vous pourrez vérifi
 verify_and_delete_project: 'Vérifier et supprimer le projet'
 project_have_been_deleted: 'Le projet {projectAcronyme} a été supprimé !'
 your_are_about_to_delete_project: 'Vous êtes sur le point de supprimer le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
-'this_action_can_have_effect_on_linked_data:': 'Cette action peut avoir une action les données liées à ce projet :'
+'this_action_can_have_effect_on_linked_data:': 'Cette action peut avoir un impact sur les données liées à ce projet :'
 '...and_n_others': "… et {n, plural, =0 {pas d'autres} =1 {un autre} other {# autres}}"
 delete_project.time_tracking.warning: 'Les contributeurs ont saisis du temps passé sur ce projet dans <strong>{n, plural, =1 {une feuille de temps} other {# feuilles de temps}}</strong>. Ces temps passés seront supprimés, et il y aura une différence avec les potentielles feuilles de temps que vous avez déjà imprimé :'
 delete_project.time_tracking.safe: 'Aucun temps passé n''a été saisi sur ce projet.'
