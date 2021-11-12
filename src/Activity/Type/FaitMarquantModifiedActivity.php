@@ -71,6 +71,12 @@ class FaitMarquantModifiedActivity implements ActivityInterface
 
     public function postUpdate(FaitMarquant $faitMarquant, LifecycleEventArgs $args): void
     {
+        $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($faitMarquant);
+
+        if (key_exists('trashedAt',$changes) && key_exists('trashedBy',$changes) && count($changes) === 2){
+            return;
+        }
+
         $modifiedBy = $this->userContext->getSocieteUser();
 
         $activity = new Activity();
