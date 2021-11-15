@@ -12,6 +12,7 @@ use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
 use App\Entity\SocieteUserNotification;
 use App\Notification\Event\FaitMarquantRemovedEvent;
+use App\Notification\Event\FaitMarquantRestoredEvent;
 use App\Notification\Event\ProjetParticipantRemovedEvent;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
@@ -53,41 +54,38 @@ class FaitMarquantRestoredActivity implements ActivityInterface, EventSubscriber
         $resolver->setRequired([
             'faitMarquant',
             'projet',
-            'createdBy',
-            'removedBy',
+            'restoredBy'
         ]);
 
         $resolver->setAllowedTypes('faitMarquant', 'integer');
         $resolver->setAllowedTypes('projet', 'integer');
-        $resolver->setAllowedTypes('createdBy', 'integer');
-        $resolver->setAllowedTypes('removedBy', 'integer');
+        $resolver->setAllowedTypes('restoredBy', 'integer');
     }
 
     public function render(array $activityParameters, Activity $activity): string
     {
         return sprintf(
-            "%s %s a supprimé le fait marquant %s, créé par %s, du projet %s",
-            '<i class="fa fa-trash" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['removedBy']),
+            "%s %s a restauré le fait marquant %s dans le projet %s",
+            '<i class="fa fa-undo" aria-hidden="true"></i>',
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['restoredBy']),
             $this->entityLinkService->generateLink(FaitMarquant::class, $activityParameters['faitMarquant']),
-            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['createdBy']),
             $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
-         );
+        );
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            FaitMarquantRemovedEvent::class => 'createActivity',
+            FaitMarquantRestoredEvent::class => 'createActivity',
         ];
     }
 
-    public function createActivity(FaitMarquantRemovedEvent $event): void
+    public function createActivity(FaitMarquantRestoredEvent $event): void
     {
         $faitMarquant = $event->getFaitMarquant();
         $projet = $event->getProjet();
         $createdBy = $event->getCreatedBy();
-        $removedBy = $this->userContext->getSocieteUser();
+        $restoredBy = $this->userContext->getSocieteUser();
 
         $activity = new Activity();
         $activity
@@ -95,8 +93,7 @@ class FaitMarquantRestoredActivity implements ActivityInterface, EventSubscriber
             ->setParameters([
                 'faitMarquant' => intval($faitMarquant->getId()),
                 'projet' => intval($projet->getId()),
-                'createdBy' => intval($createdBy->getId()),
-                'removedBy' => intval($removedBy->getId()),
+                'restoredBy' => intval($restoredBy->getId()),
             ])
         ;
 
