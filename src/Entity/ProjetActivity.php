@@ -24,7 +24,7 @@ class ProjetActivity
     private $projet;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Activity::class)
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="projetActivities")
      * @ORM\JoinColumn(nullable=false)
      */
     private $activity;

@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ActivityRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DoctrineExtensions\Query\Mysql\Date;
 
@@ -34,9 +36,21 @@ class Activity
      */
     private $parameters = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=SocieteUserNotification::class, mappedBy="activity", orphanRemoval=true)
+     */
+    private $societeUserNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetActivity::class, mappedBy="activity", orphanRemoval=true)
+     */
+    private $projetActivities;
+
     public function __construct()
     {
         $this->datetime = new DateTime();
+        $this->societeUserNotifications = new ArrayCollection();
+        $this->projetActivities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -76,6 +90,66 @@ class Activity
     public function setParameters(?array $parameters): self
     {
         $this->parameters = $parameters;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SocieteUserNotification[]
+     */
+    public function getSocieteUserNotifications(): Collection
+    {
+        return $this->societeUserNotifications;
+    }
+
+    public function addSocieteUserNotification(SocieteUserNotification $userNotification): self
+    {
+        if (!$this->societeUserNotifications->contains($userNotification)) {
+            $this->societeUserNotifications[] = $userNotification;
+            $userNotification->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSocieteUserNotification(SocieteUserNotification $userNotification): self
+    {
+        if ($this->societeUserNotifications->removeElement($userNotification)) {
+            // set the owning side to null (unless already changed)
+            if ($userNotification->getActivity() === $this) {
+                $userNotification->setActivity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetActivity[]
+     */
+    public function getProjetActivities(): Collection
+    {
+        return $this->projetActivities;
+    }
+
+    public function addProjetActivity(ProjetActivity $projetActivity): self
+    {
+        if (!$this->projetActivities->contains($projetActivity)) {
+            $this->projetActivities[] = $projetActivity;
+            $projetActivity->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetActivity(ProjetActivity $projetActivity): self
+    {
+        if ($this->projetActivities->removeElement($projetActivity)) {
+            // set the owning side to null (unless already changed)
+            if ($projetActivity->getActivity() === $this) {
+                $projetActivity->setActivity(null);
+            }
+        }
 
         return $this;
     }
