@@ -143,7 +143,7 @@ class FaitMarquantController extends AbstractController
     }
 
     /**
-     * @Route("/projet/{id}/fait-marquants/corbeille", name="app_fo_fait_marquant_trash", methods={"GET"})
+     * @Route("/projets/{id}/fait-marquants/corbeille", name="app_fo_fait_marquant_trash", methods={"GET"})
      */
     public function trash(
         Request $request,
