@@ -9,10 +9,10 @@ use App\Form\SocieteUserProjetsRolesType;
 use App\Form\SocieteUserType;
 use App\Repository\SocieteUserActivityRepository;
 use App\Repository\SocieteUserRepository;
+use App\Security\Role\RoleProjet;
 use App\Security\Voter\SameSocieteVoter;
 use App\Service\Invitator;
 use App\MultiSociete\UserContext;
-use App\Repository\ProjetRepository;
 use App\Service\UserProjetAffectation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -77,6 +77,8 @@ class SocieteUserController extends AbstractController
 
         $form->handleRequest($request);
 
+        $projetsAsCdp = $em->getRepository(ProjetParticipant::class)->findBySocieteUserAndRole($societeUser,RoleProjet::CDP);
+
         if($form->isSubmitted() && $form->isValid()){
             $em->persist($societeUser);
             $em->flush();
@@ -91,6 +93,7 @@ class SocieteUserController extends AbstractController
         return $this->render('utilisateurs_fo/edit_user.html.twig', [
             'form' => $form->createView(),
             'societeUser' => $societeUser,
+            'projetsAsCdp' => $projetsAsCdp,
         ]);
     }
 
@@ -180,6 +183,44 @@ class SocieteUserController extends AbstractController
 
         return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
             'id' => $societeUser->getId(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/supprimer", name="utilisateur_fo_delete")
+     */
+    public function delete(
+        Request $request,
+        TranslatorInterface $translator,
+        SocieteUser $societeUser,
+        EntityManagerInterface $em
+    ) {
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
+
+        if ($request->isMethod('POST')) {
+
+            if (!$this->isCsrfTokenValid('delete_user_'.$societeUser->getId(), $request->get('_token'))) {
+                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+
+                return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
+                    'id' => $societeUser->getId(),
+                ]);
+            }
+            $user = $societeUser->getUser();
+            $user->setCurrentSocieteUser(null);
+            $em->persist($user);
+            $em->remove($societeUser);
+            $em->flush();
+
+            $this->addFlash('warning', $translator->trans('user_have_been_deleted', [
+                'user' => $user->getFullname(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_admin_utilisateurs');
+        }
+
+        return $this->render('utilisateurs_fo/delete_user.html.twig', [
+            'societeUser' => $societeUser,
         ]);
     }
 

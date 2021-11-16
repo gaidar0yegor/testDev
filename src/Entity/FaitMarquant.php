@@ -48,7 +48,7 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SocieteUser::class)
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="faitMarquants")
      * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;

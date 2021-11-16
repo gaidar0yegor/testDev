@@ -182,3 +182,22 @@ if ($('#projets-year-filter')) {
         ;
     });
 }
+
+// delete an activity
+$('.list-activities.list-group .link-delete-activity').click(function () {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer cette activité ?')) {
+        return false;
+    }
+
+    const $btn = $(this);
+
+    $.ajax({
+        url: $($btn).data('href'),
+        method: 'POST',
+        success: function (response) {
+            $($btn).parents('li.list-group-item').remove();
+        },
+    });
+
+    return false;
+});

@@ -31,7 +31,7 @@ class SocieteUserNotification
     private $societeUser;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Activity::class)
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="societeUserNotifications")
      * @ORM\JoinColumn(nullable=false)
      */
     private $activity;

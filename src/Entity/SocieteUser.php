@@ -91,6 +91,12 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     private $projetParticipants;
 
     /**
+     * @ORM\OneToMany(targetEntity=FaitMarquant::class, mappedBy="createdBy", orphanRemoval=true)
+     * @ORM\OrderBy({"date" = "DESC"})
+     */
+    private $faitMarquants;
+
+    /**
      * Heures travaillées par jours pour cet employé.
      *
      * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
@@ -169,7 +175,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     private $societeUserActivities;
 
     /**
-     * @ORM\OneToMany(targetEntity=SocieteUserNotification::class, mappedBy="societeUser")
+     * @ORM\OneToMany(targetEntity=SocieteUserNotification::class, mappedBy="societeUser", orphanRemoval=true)
      */
     private $societeUserNotifications;
 
@@ -198,6 +204,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->projetParticipants = new ArrayCollection();
         $this->societeUserActivities = new ArrayCollection();
         $this->societeUserNotifications = new ArrayCollection();
+        $this->faitMarquants = new ArrayCollection();
         $this->notificationOnboardingEnabled = true;
         $this->notificationOnboardingFinished = false;
     }
@@ -279,6 +286,41 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
             // set the owning side to null (unless already changed)
             if ($projetParticipant->getSocieteUser() === $this) {
                 $projetParticipant->setSocieteUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FaitMarquant[]
+     */
+    public function getFaitMarquants(): Collection
+    {
+        return $this->faitMarquants;
+    }
+
+    public function hasFaitMarquants(): bool
+    {
+        return count($this->faitMarquants) > 0;
+    }
+
+    public function addFaitMarquant(FaitMarquant $faitMarquant): self
+    {
+        if (!$this->faitMarquants->contains($faitMarquant)) {
+            $this->faitMarquants[] = $faitMarquant;
+            $faitMarquant->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFaitMarquant(FaitMarquant $faitMarquant): self
+    {
+        if ($this->faitMarquants->contains($faitMarquant)) {
+            $this->faitMarquants->removeElement($faitMarquant);
+            if ($faitMarquant->getCreatedBy() === $this) {
+                $faitMarquant->setCreatedBy(null);
             }
         }
 

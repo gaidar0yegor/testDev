@@ -175,6 +175,8 @@ my_account_edition: Modification of my account
 username: Username
 password: Password
 login: Connection
+cannot_disable_self: Unable to deactivate your own account, you will be blocked.
+cannot_disable_cdp: You cannot deactivate an account of a Project Manager.
 csrf_token_invalid: Error, it seems that the form just expired. please try again.
 'Vous avez rejoint la société !': You have joined the company!
 'Vous avez rejoint le projet !': You have joined the project!
@@ -207,11 +209,16 @@ roles_on_projects_of_user: Roles on {user}'s projects
 'Le fait marquant "{titre_fait_marquant}" a été restauré': The striking fact "{titre_fait_marquant}"
   has been restored.
 edit_user_user: Modification of {user}
+delete_user_user: Suppression of {user}'s account
 re_enable_account_explain: Reactivating the {user}'s account will allow him to access
   your company again.
 cancel: Cancel
 disable_account: Deactivate account
 re_enable_account: Reactivate account
+verify_and_delete_user: Verify and delete the account
+delete_account: Delete account
+your_are_about_to_delete_user: "You are about to delete the <strong>{user}</strong> account with the role of <strong>{userRole}</strong>."
+this_action_can_have_effect_on_linked_data_user: 'This action can have an impact on the data related to this user :'
 activity_of_user: "{user}'s Activity"
 activity: Activity
 his_projects: His projects
@@ -223,6 +230,7 @@ SOCIETE_CDP.small: PM
 disable_account_explain: To deactivate the account of {user} will prevent him from
   connecting to this company. You will keep his projects, striking facts, necessary
   data so to generate the timesheets. You can reactivate the account anytime you wish.
+disable_account_with_CDP_roles_explain: 'Please change the roles of {user} in these projects :'
 creation_of_your_admin_account_on_company: Creation of your administrator's account
   in the company
 continue: Continue
@@ -261,3 +269,13 @@ projet.projetUrls.help: Display external urls related to this project.
 projet.projetUrl.text.help: Link text
 projet.projetUrl.url.help: Url
 download: Download
+delete_user.projects.warning: "{user} is part of <strong>{n, plural, =1 {a project} other {# projects}}</strong> :"
+delete_user.projects.safe: '{user} is not part of any project.'
+delete_user.fait_marquant.warning: '{user} created <strong>{n, plural, =1 {a striking fact} other {# striking facts}}</strong>, {n, plural, =1 {it will be deleted} other {they will be deleted}} également :'
+delete_user.fait_marquant.safe: '{user} does not have a striking fact.'
+delete_user.activities.warning: '{user} has <strong>{n, plural, =1 {an activity} other {# activities}}</strong>, {n, plural, =1 {it will be deleted} other {they will be deleted}}.'
+delete_user.activities.safe: '{user} does not have any activity.'
+delete_user.time_tracking.warning: '{user} has entered time spent in <strong>{n, plural, =1 {a timesheet} other {# timesheets}}</strong>. These past times will be deleted, and there will be a difference with the potential timesheets you have already printed :'
+delete_user.time_tracking.safe: 'No time spent was entered by {user}.'
+are_you_sure_delete_user: "Are you sure you want to delete {user }'s account ?"
+user_have_been_deleted: "{User}'s account has been deleted !"

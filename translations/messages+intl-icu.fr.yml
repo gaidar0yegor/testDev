@@ -154,6 +154,7 @@ username: Identifiant
 password: 'Mot de passe'
 login: Connexion
 cannot_disable_self: 'Impossible de désactiver votre propre compte, vous seriez bloqué.'
+cannot_disable_cdp: "Vous ne pouvez pas désactiver un compte d'un Chef de projet."
 csrf_token_invalid: 'Erreur, il semblerai que le formulaire ait expiré, veuillez réessayer.'
 'Vous avez rejoint la société !': 'Vous avez rejoint la société !'
 'Vous avez rejoint le projet !': 'Vous avez rejoint le projet !'
@@ -187,14 +188,20 @@ your_new_password: 'Votre nouveau mot de passe'
   a été déplacé dans la corbeille.'
 'Le fait marquant "{titre_fait_marquant}" a été restauré': 'Le fait marquant "{titre_fait_marquant}" a été réstauré.'
 edit_user_user: 'Modification de {user}'
+verify_and_delete_user: 'Vérifier et supprimer le compte'
+delete_user_user: 'Suppression du compte de {user}'
 disable_account_explain: 'Désactiver le compte de {user} l''empêchera de se connecter
   sur cette société. Vous conserverez ses projets, faits marquants, les données nécessaires
   pour générer les feuilles de temps. Vous pourrez ré-activer le compte à tout moment.'
+disable_account_with_CDP_roles_explain: "Merci de modifier les rôles de {user} dans ces projets :"
 re_enable_account_explain: 'Ré-activer le compte de {user} lui permettra d''accéder
   à nouveau à votre société.'
 cancel: Annuler
 disable_account: 'Désactiver le compte'
 re_enable_account: 'Ré-activer le compte'
+delete_account: 'Supprimer le compte'
+your_are_about_to_delete_user: "Vous êtes sur le point de supprimer le compte de <strong>{user}</strong> ayant le rôle d'un <strong>{userRole}</strong>."
+this_action_can_have_effect_on_linked_data_user: 'Cette action peut avoir un impact sur les données liées à cet utilisateur :'
 roles_on_projects_of_user: 'Rôles sur projets de {user}'
 activity_of_user: 'Activité de {user}'
 activity: Activité
@@ -287,6 +294,16 @@ delete_project.external_observator.safe: 'Le projet n''a pas d''observateur exte
 delete_project.project_participant.warning: 'Le projet a <strong>{n, plural, =1 {un participant} other {# participants}}</strong>, {n, plural, =1 {il sera détaché} other {ils seront détachés}} du projet :'
 delete_project.project_participant.safe: 'Le projet n''a pas de participants.'
 are_you_sure_delete_project: 'Êtes-vous sûr de vouloir supprimer le projet {projectAcronyme} ?'
+delete_user.projects.warning: "{user} fait partie <strong>{n, plural, =1 {d'un projet} other {de # projets}}</strong> :"
+delete_user.projects.safe: '{user} ne fait partie d''aucun projet.'
+delete_user.fait_marquant.warning: '{user} a créé <strong>{n, plural, =1 {un fait marquant} other {# faits marquants}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :'
+delete_user.fait_marquant.safe: '{user} n''a pas de fait marquant.'
+delete_user.activities.warning: '{user} a <strong>{n, plural, =1 {une activité} other {# activités}}</strong>, {n, plural, =1 {elle sera supprimée} other {elles seront supprimées}}.'
+delete_user.activities.safe: '{user} n''a pas d''activité.'
+delete_user.time_tracking.warning: '{user} a saisi du temps passé dans <strong>{n, plural, =1 {une feuille de temps} other {# feuilles de temps}}</strong>. Ces temps passés seront supprimés, et il y aura une différence avec les potentielles feuilles de temps que vous avez déjà imprimé :'
+delete_user.time_tracking.safe: 'Aucun temps passé n''a été saisi par {user}.'
+are_you_sure_delete_user: 'Êtes-vous sûr de vouloir supprimer le compte de {user} ?'
+user_have_been_deleted: 'Le compte de {user} a été supprimé !'
 delete: Supprimer
 add_contributors: 'Ajouter des contributeurs'
 add_contributors_help: 'Sans autres contributeurs, vous serez le seul à pouvoir ajouter des faits marquant, joindre des fichiers... Ajoutez les contributeurs sur ce projet afin qu''ils puissent l''enrichir et saisir leurs temps passé dessus.'
