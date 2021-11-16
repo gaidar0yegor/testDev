@@ -15,8 +15,17 @@
                             title="L'accès à cette société vous a été désactivé par un administrateur."
                         >Accès désactivé</span>
                     {% endif %}
+
                     <div class="notif-container float-right"></div>
-                    <h5 class="card-title"><i class="fa fa-building-o" aria-hidden="true"></i> {{ societeUser.societe.raisonSociale }}</h5>
+                    <h5 class="card-title">
+                        {% if societeUser.societe.logo %}
+                            {% include 'utils/_avatar.html.twig' with {societe: societeUser.societe, size: 50, border: true} %}
+                        {% else %}
+                            <i class="fa fa-building-o" aria-hidden="true"></i>
+                        {% endif %}
+
+                        {{ societeUser.societe.raisonSociale }}
+                    </h5>
                     <h6 class="card-subtitle text-muted">Mon rôle : <strong>{{ societeUser.role|trans }}</strong></h6>
                     <ul class="list-unstyled mb-0">
                         {% if societeUser.projetParticipants|length > 0 %}

@@ -11,6 +11,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Généraliser le datatable dans tout le projet : **/admin/validations** & **/admin/tous-les-projets**
 - Gestion de la suppression des Faits Marquants
 - Gestion de la suppression des utilisateurs d'une société donnée
+- L'ajout du logo pour les sociétés
 
 ## [0.35.2] - 2021-11-09
 - Fix daily timesheet

@@ -18,6 +18,7 @@
             <div class="btn-group user-menu">
                 <a href="#" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% if app.user.currentSocieteUser %}
+                        {% include 'utils/_avatar.html.twig' with {societe: app.user.currentSocieteUser.societe, size: 24} %}
                         {{ app.user.currentSocieteUser.societe.raisonSociale }}
                         |
                     {% endif %}
