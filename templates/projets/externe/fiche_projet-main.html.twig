@@ -10,6 +10,7 @@
     {% if projet.faitMarquants|length > 0 %}
         <ul class="timeline">
             {% for faitMarquant in projet.faitMarquants %}
+                {% if faitMarquant.trashedAt is null %}
                 <li class="event">
                     <h4 data-date="{{ faitMarquant.date|format_date }}">
                         {{ faitMarquant.date|format_date }}
@@ -36,6 +37,7 @@
                         {% endfor %}
                     </ul>
                 </li>
+                {% endif %}
             {% endfor %}
         </ul>
     {% else %}
