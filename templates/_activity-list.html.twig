@@ -1,6 +1,11 @@
-<ul class="list-group list-group-flush">
+<ul class="list-activities list-group list-group-flush">
     {% for activity in activities %}
         <li class="list-group-item">
+            {% if edit is defined %}
+                <button class="btn btn-outline-danger btn-sm link-delete-activity mr-2" data-activity="{{ activity.activity.id }}" data-href="{{ path('activite_fo_delete', {'id' : activity.activity.id}) }}">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            {% endif %}
             {{ renderActivity(activity.activity) }}
             <small>
                 <time class="text-muted float-right" datetime="{{ activity.activity.datetime|date('c') }}">

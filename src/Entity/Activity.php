@@ -46,11 +46,17 @@ class Activity
      */
     private $projetActivities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SocieteUserActivity::class, mappedBy="activity", orphanRemoval=true)
+     */
+    private $societeUserActivities;
+
     public function __construct()
     {
         $this->datetime = new DateTime();
         $this->societeUserNotifications = new ArrayCollection();
         $this->projetActivities = new ArrayCollection();
+        $this->societeUserActivities = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,6 +154,36 @@ class Activity
             // set the owning side to null (unless already changed)
             if ($projetActivity->getActivity() === $this) {
                 $projetActivity->setActivity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SocieteUserActivity[]
+     */
+    public function getUserActivities(): Collection
+    {
+        return $this->societeUserActivities;
+    }
+
+    public function addSocieteUserActivity(SocieteUserActivity $societeUserActivity): self
+    {
+        if (!$this->societeUserActivities->contains($societeUserActivity)) {
+            $this->societeUserActivities[] = $societeUserActivity;
+            $societeUserActivity->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSocieteUserActivity(SocieteUserActivity $societeUserActivity): self
+    {
+        if ($this->societeUserActivities->removeElement($societeUserActivity)) {
+            // set the owning side to null (unless already changed)
+            if ($societeUserActivity->getActivity() === $this) {
+                $societeUserActivity->setActivity(null);
             }
         }
 

@@ -225,6 +225,20 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/activite/modifier", name="app_fo_projet_activity_edit", requirements={"id"="\d+"})
+     */
+    public function projetActivityEdit(Projet $projet, ProjetActivityRepository $projetActivityRepository)
+    {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        return $this->render('projets/projet_activity.html.twig', [
+            'edit' => true,
+            'projet' => $projet,
+            'activities' => $projetActivityRepository->findByProjet($projet),
+        ]);
+    }
+
+    /**
      * @Route("/{id}.pdf", name="app_fo_projet_pdf")
      */
     public function ficheProjetGeneratformatePdf(Projet $projet)

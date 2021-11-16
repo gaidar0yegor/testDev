@@ -207,6 +207,8 @@ class SocieteUserController extends AbstractController
                 ]);
             }
             $user = $societeUser->getUser();
+            $user->setCurrentSocieteUser(null);
+            $em->persist($user);
             $em->remove($societeUser);
             $em->flush();
 

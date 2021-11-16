@@ -24,7 +24,7 @@ class SocieteUserActivity
     private $societeUser;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Activity::class)
+     * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="societeUserActivities")
      * @ORM\JoinColumn(nullable=false)
      */
     private $activity;
