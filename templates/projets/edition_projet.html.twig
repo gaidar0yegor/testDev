@@ -9,8 +9,16 @@
 	    <h1>Modification du projet {{ projet.acronyme }}</h1>
 		{{ form_start(form) }}
 
-	        {{ form_row(form.titre) }}
-	        {{ form_row(form.acronyme) }}
+            <div class="row d-flex flex-row justify-content-between align-items-end">
+                <div class="col-lg-9 col-md-8">
+                    {{ form_row(form.acronyme) }}
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    {{ form_row(form.colorCode) }}
+                </div>
+            </div>
+
+            {{ form_row(form.titre) }}
 	        {{ form_row(form.resume) }}
 
 			<div class="d-md-flex justify-content-between">

@@ -1,0 +1,6 @@
+{% set color = color|default('rgba(255,255,255,0)') %}
+{% set size = size|default(25) %}
+
+{% if color is defined %}
+    <span class="badge d-inline-block rounded-circle mt-1" style="background-color: {{ color }};width: {{size}}px;height: {{size}}px;"></span>
+{% endif %}

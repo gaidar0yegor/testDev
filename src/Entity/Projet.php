@@ -139,6 +139,11 @@ class Projet implements HasSocieteInterface
      */
     private $projetUrls;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $colorCode;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -152,6 +157,7 @@ class Projet implements HasSocieteInterface
         $this->projetActivities = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->projetUrls = new ArrayCollection();
+        $this->colorCode = '#007bff';
     }
 
     public function getId(): ?int
@@ -583,6 +589,18 @@ class Projet implements HasSocieteInterface
                 $projetUrl->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getColorCode(): ?string
+    {
+        return $this->colorCode;
+    }
+
+    public function setColorCode(?string $colorCode): self
+    {
+        $this->colorCode = $colorCode;
 
         return $this;
     }

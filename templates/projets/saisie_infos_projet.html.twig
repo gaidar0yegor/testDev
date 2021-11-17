@@ -6,11 +6,20 @@
 
 <h1>Ajouter un nouveau projet</h1>
 
-<div class="col-lg-6 mx-auto">
+<div class="col-lg-8 offset-lg-2">
 	{{ form_start(form) }}
 	{{ form_errors(form) }}
 
-        {{ form_row(form.acronyme) }}
+		<div class="row d-flex flex-row justify-content-between align-items-end">
+			<div class="col-lg-9 col-md-8">
+				{{ form_row(form.acronyme) }}
+			</div>
+			<div class="col-lg-3 col-md-4">
+				{{ form_row(form.colorCode) }}
+			</div>
+		</div>
+
+
         {{ form_row(form.titre) }}
         {{ form_row(form.resume) }}
 
