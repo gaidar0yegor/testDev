@@ -6,6 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+## [0.36.0] - 2021-11-17
+### Ajouté
 - Être notifié lorsqu'un user rejoint un projet
 - Ajouter une barre de recherche pour les faits marquant
 - Généraliser le datatable dans tout le projet : **/admin/validations** & **/admin/tous-les-projets**
@@ -15,6 +20,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter un code couleur pour les projets
 - Séparer la liste Validation des temps selon les STATUT des utilisateurs **(Actif | Désactivé | Tout)**
 - Afficher la photo de profil (societe / compte) lors de l'uploade
+
+### Modifié
+- Style des notification
 
 ## [0.35.2] - 2021-11-09
 - Fix daily timesheet
