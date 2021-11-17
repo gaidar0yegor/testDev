@@ -13,6 +13,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Gestion de la suppression des utilisateurs d'une société donnée
 - Ajouter un logo pour les sociétés
 - Ajouter un code couleur pour les projets
+- Séparer la liste Validation des temps selon les STATUT des utilisateurs **(Actif | Désactivé | Tout)**
 
 ## [0.35.2] - 2021-11-09
 - Fix daily timesheet
