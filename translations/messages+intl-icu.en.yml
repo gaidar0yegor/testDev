@@ -73,6 +73,7 @@ edit_my_company_data: Modify the information in my company
 users_number: Number of users
 .attached_to_my_company: Linked to my company
 display_users_list: View the list of users
+edit_societe_logo: Update logo
 worked_hours: Hours worked
 worked_hours_per_day: Hours per day
 .in_days_unit: in days

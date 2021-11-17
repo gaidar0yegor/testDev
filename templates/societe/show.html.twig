@@ -10,80 +10,107 @@
         <a href="{{ path('app_fo_admin_societe_edit') }}">{{ 'edit_my_company_data'|trans }}</a>
     </p>
 
-    <div class="card-deck">
-        <div class="card rdi-card-icon text-center">
-            <i class="fa fa-users" aria-hidden="true"></i>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title">{{ 'users_number'|trans }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ '.attached_to_my_company'|trans }}</h6>
-                        <p class="card-text display-4 mb-0">
-                            {{ societe.societeUsers|length }}
-                        </p>
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+            <div class="card rdi-card-icon text-center h-100">
+                <i class="fa fa-building" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title">Logo</h5>
+                            <h6 class="card-subtitle mb-2 text-muted"></h6>
+                            <p class="card-text display-4 mb-0">
+                                {% include 'utils/_avatar.html.twig' with {societe: societe, size: 180, border: true} %}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <a href="{{ path ('app_fo_admin_utilisateurs') }}" class="card-link">{{ 'display_users_list'|trans }}</a>
+                <div class="card-footer">
+                    <a href="{{ path ('app_fo_admin_societe_logo_edit') }}" class="card-link">{{ 'edit_societe_logo'|trans }}</a>
+                </div>
             </div>
         </div>
-        <div class="card rdi-card-icon text-center">
-            <i class="fa fa-clock-o" aria-hidden="true"></i>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title deck">{{ 'worked_hours'|trans }}</h5>
-                        <h6 class="card-subtitle mb-2 deck text-muted">{{ '.per_day_per_default'|trans }}</h6>
-                        <p class="card-text deck display-4 mb-0">
-                            {% if societe.heuresParJours %}
-                                {{ 'n_hours_short'|trans({'%n%': societe.heuresParJours}) }}
-                            {% else %}
-                                <small class="text-warning">{{ 'to_be_defined'|trans }}</small>
-                            {% endif %}
-                        </p>
-                        <small class="text-muted">
-                            {{ 'default_value_used_in_timesheets.'|trans }}
-                        </small>
+        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+            <div class="card rdi-card-icon text-center h-100">
+                <i class="fa fa-users" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title">{{ 'users_number'|trans }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{ '.attached_to_my_company'|trans }}</h6>
+                            <p class="card-text display-4 mb-0">
+                                {{ societe.societeUsers|length }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_hours_number'|trans }}</a>
+                <div class="card-footer">
+                    <a href="{{ path ('app_fo_admin_utilisateurs') }}" class="card-link">{{ 'display_users_list'|trans }}</a>
+                </div>
             </div>
         </div>
-        <div class="card rdi-card-icon text-center">
-            <i class="fa fa-calendar" aria-hidden="true"></i>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title deck">{{ 'time_spent_recording'|trans }}</h5>
-                        <h6 class="card-subtitle mb-2 deck text-muted">{{ 'time_spent_recording_granularity'|trans }}</h6>
-                        <p class="card-text deck display-4 mb-0">
-                            {{ societe.timesheetGranularity|trans }}
-                        </p>
+        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+            <div class="card rdi-card-icon text-center  h-100">
+                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title deck">{{ 'worked_hours'|trans }}</h5>
+                            <h6 class="card-subtitle mb-2 deck text-muted">{{ '.per_day_per_default'|trans }}</h6>
+                            <p class="card-text deck display-4 mb-0">
+                                {% if societe.heuresParJours %}
+                                    {{ 'n_hours_short'|trans({'%n%': societe.heuresParJours}) }}
+                                {% else %}
+                                    <small class="text-warning">{{ 'to_be_defined'|trans }}</small>
+                                {% endif %}
+                            </p>
+                            <small class="text-muted">
+                                {{ 'default_value_used_in_timesheets.'|trans }}
+                            </small>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-footer">
-                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_granularity'|trans }}</a>
+                <div class="card-footer">
+                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_hours_number'|trans }}</a>
+                </div>
             </div>
         </div>
-        <div class="card rdi-card-icon text-center">
-            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                        <h5 class="card-title deck">{{ 'max_legnth_fait_marquant_desc'|trans }}</h5>
-                        <h6 class="card-subtitle mb-2 deck text-muted">{{ '.in_number_of_char'|trans }}</h6>
-                        <p class="card-text deck display-4 mb-0">
-                            {{ societe.faitMarquantMaxDesc == -1 ? ('illimited'|trans) : societe.faitMarquantMaxDesc - 1 }}
-                        </p>
+        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+            <div class="card rdi-card-icon text-center h-100">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title deck">{{ 'time_spent_recording'|trans }}</h5>
+                            <h6 class="card-subtitle mb-2 deck text-muted">{{ 'time_spent_recording_granularity'|trans }}</h6>
+                            <p class="card-text deck display-4 mb-0">
+                                {{ societe.timesheetGranularity|trans }}
+                            </p>
+                        </div>
                     </div>
                 </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_granularity'|trans }}</a>
+                </div>
             </div>
-            <div class="card-footer">
-                <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_max_legnth_fait_marquant_desc'|trans }}</a>
+        </div>
+        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+            <div class="card rdi-card-icon text-center h-100">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title deck">{{ 'max_legnth_fait_marquant_desc'|trans }}</h5>
+                            <h6 class="card-subtitle mb-2 deck text-muted">{{ '.in_number_of_char'|trans }}</h6>
+                            <p class="card-text deck display-4 mb-0">
+                                {{ societe.faitMarquantMaxDesc == -1 ? ('illimited'|trans) : societe.faitMarquantMaxDesc - 1 }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_max_legnth_fait_marquant_desc'|trans }}</a>
+                </div>
             </div>
         </div>
     </div>

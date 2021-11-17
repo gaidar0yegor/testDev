@@ -160,6 +160,11 @@ class Societe implements HasSocieteInterface
      */
     private $faitMarquantMaxDescIsblocking;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Fichier::class, cascade={"persist", "remove"})
+     */
+    private $logo;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -410,6 +415,18 @@ class Societe implements HasSocieteInterface
     public function setFaitMarquantMaxDescIsblocking(bool $faitMarquantMaxDescIsblocking): self
     {
         $this->faitMarquantMaxDescIsblocking = $faitMarquantMaxDescIsblocking;
+
+        return $this;
+    }
+
+    public function getLogo(): ?Fichier
+    {
+        return $this->logo;
+    }
+
+    public function setLogo(?Fichier $logo): self
+    {
+        $this->logo = $logo;
 
         return $this;
     }

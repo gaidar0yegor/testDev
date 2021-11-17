@@ -94,6 +94,7 @@ edit_my_company_data: 'Modifier les infos de ma société'
 users_number: 'Nombre d''utilisateurs'
 .attached_to_my_company: 'rattachés à ma société'
 display_users_list: 'Afficher la liste des utilisateurs'
+edit_societe_logo: 'Mettre à jour le logo'
 worked_hours: 'Heures travaillées'
 worked_hours_per_day: 'Heures par jours'
 .in_days_unit: 'en jours'
@@ -273,9 +274,12 @@ projet.projetUrls.help: 'Afficher des liens externes en relation avec ce projet.
 projet.projetUrl.text.help: 'Texte du lien'
 projet.projetUrl.url.help: Url
 avatar_of_user: Avatar de {user}
+logo_of_socete: Logo de {societe}
 edit_my_avatar: Modifier mon avatar
 'current_avatar:': 'Avatar actuel :'
+'current_logo:': 'Logo actuel :'
 'new_avatar:': 'Nouvel avatar :'
+'new_logo:': 'Nouveau logo :'
 delete_project_title: 'Supprimer le projet {projectAcronyme}'
 delete_project_link_description: 'Pour supprimer ce projet, vous pourrez vérifier les données liées au projet puis valider la suppression définitive ici :'
 verify_and_delete_project: 'Vérifier et supprimer le projet'
