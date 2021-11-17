@@ -25,6 +25,9 @@ class AvatarType extends FichierType
             ->add('file', FileType::class, [
                 'label' => false,
                 'required' 	=> false,
+                'attr' => [
+                    'class' => 'upload-img',
+                ],
                 'constraints' => [
                     new Image([
                         'mimeTypes' => [

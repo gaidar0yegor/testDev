@@ -150,6 +150,11 @@ h5 {
     display: inline-block;
 }
 
+.img-uploaded-container .img-thumbnail {
+    width: 200px !important;
+    height: 200px !important;
+}
+
 /**
  * Jours travaillés
  */
