@@ -14,11 +14,15 @@
             {{ 'back'|trans }}
         </a>
 
-        {% if userContext.societeUser.societe.logo %}
-            <p>{{ 'current_logo:'|trans }}</p>
-            {% include 'utils/_avatar.html.twig' with {societe: userContext.societeUser.societe, size: 200, border: true} %}
-            <br>
-        {% endif %}
+        <p>{{ 'current_logo:'|trans }}</p>
+
+        <div class="img-uploaded-container">
+            {% if userContext.societeUser.societe.logo %}
+                {% include 'utils/_avatar.html.twig' with {societe: userContext.societeUser.societe, size: 200, border: true} %}
+            {% else %}
+                <img class="img-thumbnail rounded-circle mb-4"/>
+            {% endif %}
+        </div>
 
         <p>{{ 'new_logo:'|trans }}</p>
 

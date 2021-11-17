@@ -32,3 +32,4 @@ import './js/limit-description'
 import './js/modal' 
 import './js/stretched-link-fix-table';
 import './js/watch-projet';
+import './js/preview-image';

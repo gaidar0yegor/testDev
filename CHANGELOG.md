@@ -14,6 +14,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter un logo pour les sociétés
 - Ajouter un code couleur pour les projets
 - Séparer la liste Validation des temps selon les STATUT des utilisateurs **(Actif | Désactivé | Tout)**
+- Afficher la photo de profil (societe / compte) lors de l'uploade
 
 ## [0.35.2] - 2021-11-09
 - Fix daily timesheet

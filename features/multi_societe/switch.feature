@@ -21,11 +21,13 @@ Feature: Multi-société, page de changement de société
     Scenario: Je peux me connecter à une société, et ensuite switcher sur l'autre.
         When I go to "/mes-societes"
         And I press "Aller sur Société1"
-        Then I should see "Société1 | User" in the "nav" element
+        Then I should see "Société1" in the "nav" element
+        And I should see "User" in the "nav" element
 
-        When I follow "Changer de société"
+        When I follow "Société1"
         And I press "Aller sur Société0"
-        Then I should see "Société0 | User" in the "nav" element
+        Then I should see "Société0" in the "nav" element
+        And I should see "User" in the "nav" element
 
     Scenario: Je peux consulter et modifier mes informations personnelles même en étant pas connecté sur une société
         When I follow "Mon compte"

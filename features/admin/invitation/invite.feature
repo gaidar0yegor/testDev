@@ -48,7 +48,8 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | _username | invite@societe.dev |
             | _password | m0nM0tdepass3      |
         And I press "Connexion"
-        Then I should see "SociétéTest | JeSuis"
+        Then I should see "SociétéTest"
+        And I should see "JeSuis"
 
         # Vérifie que le lien d'invitation ne fonctionne plus une fois la finalisation terminée.
         When I go to "/inscription/cV2bvNJg4e_zkzXis-rfKlih"

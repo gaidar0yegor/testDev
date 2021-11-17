@@ -12,7 +12,8 @@ Feature: Page de connexion
             | _username | user@societe.dev  |
             | _password | user              |
         And I press "Connexion"
-        And I should see "Société | User"
+        And I should see "Société"
+        And I should see "User"
 
     Scenario: Je reste sur la page de connexion si je me trompe de mot de passe
         Given I have loaded fixtures from "connexion/fixtures.yml"
