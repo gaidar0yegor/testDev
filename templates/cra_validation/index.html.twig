@@ -4,26 +4,39 @@
 
 {% block body %}
 
-<h1>{{ 'timesheet_validation_of_year_n'|trans({'%year%': year}) }}</h1>
+    <h1>{{ 'timesheet_validation_of_year_n'|trans({'%year%': year}) }}</h1>
 
-<ul class="list-inline text-center mb-4">
-    {% for yearSwitch in '-3 years'|date('Y')..'+1 months'|date('Y') %}
-        {% if yearSwitch == year %}
-            <li class="list-inline-item m-0">{{ yearSwitch }}</li>
-        {% else %}
-            <li class="list-inline-item m-0">
-                <a href="{{ path('app_fo_admin_cra_validation', {year: yearSwitch}) }}">{{ yearSwitch }}</a>
-            </li>
-        {% endif %}
+    <ul class="list-inline text-center mb-4">
+        {% for yearSwitch in '-3 years'|date('Y')..'+1 months'|date('Y') %}
+            {% if yearSwitch == year %}
+                <li class="list-inline-item m-0">{{ yearSwitch }}</li>
+            {% else %}
+                <li class="list-inline-item m-0">
+                    <a href="{{ path('app_fo_admin_cra_validation', {year: yearSwitch}) }}">{{ yearSwitch }}</a>
+                </li>
+            {% endif %}
 
-        {% if not loop.last %}
-            -
-        {% endif %}
-    {% endfor %}
-</ul>
+            {% if not loop.last %}
+                -
+            {% endif %}
+        {% endfor %}
+    </ul>
 
-<table class="table datatable" data-ordering="false">
-    <thead>
+    <ul class="nav nav-tabs mb-3 tab-filter-users">
+        <li class="nav-item">
+            <a class="nav-link enabled-users active" href="#0">Actifs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled-users" href="#0">Désactivés</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link all-users" href="#0">Tous</a>
+        </li>
+        <input type="hidden" id="filter-users-statut">
+    </ul>
+
+    <table id="validation_temps_dt" class="table datatable custom-datatable">
+        <thead>
         <tr>
             <th>{{ 'user'|trans }}</th>
             {% for mois in 1..12 %}
@@ -34,15 +47,17 @@
             {% endfor %}
             <th></th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for societeUser in societeUsers %}
             <tr {% if not societeUser.enabled %}class="table-secondary"{% endif %}>
-                <td><a href="{{ path('app_fo_societe_user', {'id': societeUser.id}) }}">{{ societeUser.user.fullname }}</a></td>
+                <td>
+                    <a href="{{ path('app_fo_societe_user', {'id': societeUser.id}) }}">{{ societeUser.user.fullname }}</a>
+                </td>
                 {% for mois in 1..12 %}
                     {% include 'cra_validation/_cra-info.html.twig' with {'yearMonth': [year, '%02d'|format(mois)]|join('-')} %}
                 {% endfor %}
-                <td>
+                <td data-search='{{ societeUser.statut }}'>
                     {% if societeUser.enabled %}
                     {% else %}
                         {{ 'account_disabled'|trans }}
@@ -50,7 +65,7 @@
                 </td>
             </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
 {% endblock %}

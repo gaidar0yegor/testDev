@@ -18,9 +18,16 @@ $('form').on('change', 'input.custom-file-input', function () {
 
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
-        if (settings.sInstance === 'users_list_dt'){
+        if (settings.sInstance === 'users_list_dt' || settings.sInstance === 'validation_temps_dt' ){
+            switch (settings.sInstance) {
+                case 'users_list_dt':
+                    var statut = data[4]; break;
+                case 'validation_temps_dt':
+                    var statut = data[13]; break;
+            }
+
             var tab = $('#filter-users-statut').val();
-            var statut = data[4];
+
 
             return ( tab !== '' && tab === statut ) || ( tab === '' );
         }
@@ -46,7 +53,18 @@ $('.date-picker').datepicker({
 
 // liste utilisateurs
 var users_list_dt;
+var validation_temps_dt;
 $(document).ready( function () {
+    validation_temps_dt = $('#validation_temps_dt').DataTable( {
+        info: false,
+        ordering: false,
+        language: {
+            url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
+        },
+        initComplete: function(settings, json) {
+            $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
+        },
+    });
     users_list_dt = $('#users_list_dt').DataTable( {
         info: false,
         order: [[ 5, "desc" ]],
@@ -77,6 +95,7 @@ $(document).ready( function () {
         })
         .on('change', '#filter-users-statut', function () {
             users_list_dt.draw();
+            validation_temps_dt.draw();
         });
 });
 
