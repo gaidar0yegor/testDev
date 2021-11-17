@@ -26,7 +26,8 @@ Feature: Multi-société, page de changement de société
 
         When I follow "Changer de société"
         And I press "Aller sur Société0"
-        Then I should see "Société0 | User" in the "nav" element
+        Then I should see "Société0" in the "nav" element
+        And I should see "User" in the "nav" element
 
     Scenario: Je peux consulter et modifier mes informations personnelles même en étant pas connecté sur une société
         When I follow "Mon compte"
