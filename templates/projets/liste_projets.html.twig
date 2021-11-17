@@ -30,6 +30,7 @@
     <table class="table datatable hover">
         <thead>
             <tr>
+                <th></th>
                 <th>{{ 'project'|trans }}</th>
                 <th>{{ 'my_role'|trans }}</th>
                 <th>{{ 'start'|trans }}</th>
@@ -45,6 +46,9 @@
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
                 >
+                    <td class="text-center">
+                        {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
+                    </td>
                     <td class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
                     <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
                     <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>

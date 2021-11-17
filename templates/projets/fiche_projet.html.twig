@@ -6,7 +6,10 @@
 
 <div class="row">
     <div class="col-12 col-lg-8">
-        <h1>Projet {{ projet.acronyme }}</h1>
+        <h1>
+            {% include 'utils/_code_color.html.twig' with {color: projet.colorCode} %}
+            Projet {{ projet.acronyme }}
+        </h1>
 
         <p class="lead text-center">{{ projet.titre }}</p>
 

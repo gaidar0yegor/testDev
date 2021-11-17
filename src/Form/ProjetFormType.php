@@ -6,6 +6,7 @@ use App\Entity\Projet;
 use App\Form\Custom\DatePickerType;
 use App\Form\Custom\MarkdownWysiwygType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,6 +23,14 @@ class ProjetFormType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre descriptif',
+            ])
+            ->add('colorCode', ColorType::class, [
+                'label' => 'Code couleur',
+                'html5' => true,
+                'attr' => [
+                    'class' => 'form-control-lg border-0 p-0',
+                    'title' => 'Code couleur',
+                ],
             ])
             ->add('acronyme', TextType::class, [
                 'label' => 'Titre réduit / Acronyme',
