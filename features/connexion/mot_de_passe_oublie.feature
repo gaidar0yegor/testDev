@@ -36,7 +36,8 @@ Feature: Mot de passe oublié
             | _username | oubli@societe.dev |
             | _password | nouveauMotDePasse |
         And I press "Connexion"
-        Then I should see "Société | Oubli"
+        Then I should see "Oubli"
+        And I should see "Société"
 
     Scenario: Je ne doit pas pouvoir utiliser un lien de réinitialisation généré il y a trop longtemps
         Given I have loaded fixtures from "connexion/fixtures.yml"
