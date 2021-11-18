@@ -8,14 +8,26 @@
 }
 #fait_marquant_timeline_dt_filter{
     width: 100%;
-    margin: 1rem 0 0.5rem;
-}
-#fait_marquant_timeline_dt_filter label{
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
+    margin-bottom: 1rem;
+}
+#fait_marquant_timeline_dt_filter label{
+    margin-bottom: 0;
 }
 #fait_marquant_timeline_dt_filter label input{
-    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    border-radius: 0.3rem;
+}
+#fait_marquant_timeline_dt_filter label input::placeholder {
+    font-size: 0.8rem;
+}
+#fait_marquant_timeline_dt_filter label input:focus {
+    outline: none !important;
+    border:1px solid #007BFF;
+    box-shadow: 0 0 5px #719ECE;
 }

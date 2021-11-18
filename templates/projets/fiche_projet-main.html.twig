@@ -14,7 +14,7 @@
     <h2 class="facts">Faits marquants</h2>
 
     <ul class="timeline">
-        <li class="event add-fait-marquant">
+        <div class="add-fait-marquant">
             {% if userCanAddFaitMarquant %}
                 <a
                         href="{{ path('app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}"
@@ -29,7 +29,7 @@
                     Seuls les contributeurs peuvent ajouter un fait marquant
                 </p>
             {% endif %}
-        </li>
+        </div>
         <table id="fait_marquant_timeline_dt" class="table datatable custom-datatable">
             <thead><tr><th>Faits marquants</th></tr></thead>
             <tbody>

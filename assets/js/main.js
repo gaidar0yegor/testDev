@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import EmbedForm from './EmbedForm';
 import datesLocalize from './dates.localize';
-import { detectedLocale } from './translation';
+import {detectedLocale, language_dt} from './translation';
 
 import './datatable';
 
@@ -59,9 +59,7 @@ $(document).ready( function () {
         info: false,
         ordering: false,
         searchHighlight: true,
-        language: {
-            url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
-        },
+        language: language_dt,
         initComplete: function(settings, json) {
             $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
         },
@@ -71,9 +69,7 @@ $(document).ready( function () {
         order: [[ 5, "desc" ]],
         columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
         searchHighlight: true,
-        language: {
-            url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
-        },
+        language: language_dt,
         initComplete: function(settings, json) {
             $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
         },
@@ -107,9 +103,7 @@ $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
         dom: 'lftp',
         searchHighlight: true,
-        language: {
-            url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
-        },
+        language: language_dt,
     } );
 
     EmbedForm.init($('.fichier-projets-container'), {
