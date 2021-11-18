@@ -105,6 +105,9 @@ h2.facts {
 .opacity-25{
     opacity: 0.25;
 }
+.font-weight-bold-unset{
+    font-weight: unset !important;
+}
 
 /**************************** NAV ************************/
 nav.navbar{

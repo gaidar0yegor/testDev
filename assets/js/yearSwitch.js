@@ -31,7 +31,7 @@ $(() => {
         const yearFrom = divSwitch.dataset.yearFrom ? parseInt(divSwitch.dataset.yearFrom, 10) : currentYear - 5;
         const toYear = divSwitch.dataset.yearTo ? parseInt(divSwitch.dataset.yearTo, 10) : currentYear;
         const selectedYear = divSwitch.dataset.yearSelected ? parseInt(divSwitch.dataset.yearSelected, 10) : currentYear;
-        const $select = $('<select>');
+        const $select = $('<select class="border-0 font-weight-bold-unset">');
 
         for (let i = yearFrom; i <= toYear; ++i) {
             $select.append(`<option ${i === selectedYear ? 'selected' : ''}>${i}</option>`);
