@@ -6,6 +6,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+## [0.36.1] - 2021-11-18
+### Ajouté
 - Ajouter des Highlight lors de la recherche dans les Datatables
 
 
