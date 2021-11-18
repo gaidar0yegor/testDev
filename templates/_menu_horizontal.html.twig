@@ -16,13 +16,13 @@
             {% endif %}
 
             {% if app.user.currentSocieteUser %}
-                <a href="{{ path('app_fo_multi_societe_switch') }}" class="btn btn-outline-light mr-2">
+                <a href="{{ path('app_fo_multi_societe_switch') }}" class="btn btn-outline-light border-0 mr-2">
                     {% include 'utils/_avatar.html.twig' with {societe: app.user.currentSocieteUser.societe, size: 24} %}
                     {{ app.user.currentSocieteUser.societe.raisonSociale }}
                 </a>
             {% endif %}
             <div class="btn-group user-menu">
-                <a href="#" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a href="#" class="btn btn-outline-light border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% include 'utils/_avatar.html.twig' with {user: app.user, size: 24} %}
                     {{ app.user.prenom }}
                 </a>
