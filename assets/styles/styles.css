@@ -1,6 +1,7 @@
 /*********************** BODY *****************************/
 body {
     background-color: white;
+    padding-top: 3rem;
 }
 
 
@@ -106,6 +107,13 @@ h2.facts {
 }
 
 /**************************** NAV ************************/
+nav.navbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+}
 .navbar-dark {
     background-color: #ce352c;
 }
