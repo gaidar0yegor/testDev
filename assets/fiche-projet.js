@@ -12,6 +12,7 @@ $(document).ready( function () {
         paging: false,
         ordering: false,
         info: false,
+        searchHighlight: true,
         language: {
             url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
         },

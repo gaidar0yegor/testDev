@@ -58,6 +58,7 @@ $(document).ready( function () {
     validation_temps_dt = $('#validation_temps_dt').DataTable( {
         info: false,
         ordering: false,
+        searchHighlight: true,
         language: {
             url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
         },
@@ -69,6 +70,7 @@ $(document).ready( function () {
         info: false,
         order: [[ 5, "desc" ]],
         columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
+        searchHighlight: true,
         language: {
             url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
         },
@@ -104,6 +106,7 @@ var files_list_dt;
 $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
         dom: 'lftp',
+        searchHighlight: true,
         language: {
             url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
         },
