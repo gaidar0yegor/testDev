@@ -280,3 +280,4 @@ delete_user.time_tracking.warning: '{user} has entered time spent in <strong>{n,
 delete_user.time_tracking.safe: 'No time spent was entered by {user}.'
 are_you_sure_delete_user: "Are you sure you want to delete {user }'s account ?"
 user_have_been_deleted: "{User}'s account has been deleted !"
+see_more: "See more ..."
