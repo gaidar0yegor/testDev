@@ -55,19 +55,26 @@
                             </div>
                         </div>
                     {% endif %}
-                    {% if societeUser.dateEntree is not null %}
                         <div class="row mb-3">
                             <div class="col-md-3"><strong>{{ 'user.dateEntree'|trans }}</strong></div>
-                            <div class="col-md-9">{{ societeUser.dateEntree|format_date }}</div>
+                            <div class="col-md-9">
+                                {% if societeUser.dateEntree is not null %}
+                                    {{ societeUser.dateEntree|format_date }}
+                                {% else %}
+                                    <i>{{ 'not_known'|trans }}</i>
+                                {% endif %}
+                            </div>
                         </div>
-                    {% endif %}
-                    {% if societeUser.dateSortie is not null %}
                         <div class="row mb-3">
                             <div class="col-md-3"><strong>{{ 'user.dateSortie'|trans }}</strong></div>
-                            <div class="col-md-9">{{ societeUser.dateSortie|format_date }}</div>
+                            <div class="col-md-9">
+                                {% if societeUser.dateSortie is not null %}
+                                    {{ societeUser.dateSortie|format_date }}
+                                {% else %}
+                                    <i>{{ 'not_known'|trans }}</i>
+                                {% endif %}
+                            </div>
                         </div>
-                    {% endif %}
-
                     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
                         <div class="mt-5">
                             <a href="{{ path('app_fo_admin_utilisateur_modifier', { id: societeUser.id }) }}" class="btn btn-outline-success mt-2">{{ 'update'|trans }}</a>

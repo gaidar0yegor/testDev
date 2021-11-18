@@ -1,6 +1,7 @@
 /*********************** BODY *****************************/
 body {
     background-color: white;
+    padding-top: 3rem;
 }
 
 
@@ -58,6 +59,7 @@ table tbody a {
 
 .rdi-card-icon {
     overflow: hidden;
+    min-height: 19rem;
 }
 .rdi-card-icon > i {
     position: absolute;
@@ -104,8 +106,18 @@ h2.facts {
 .opacity-25{
     opacity: 0.25;
 }
+.font-weight-bold-unset{
+    font-weight: unset !important;
+}
 
 /**************************** NAV ************************/
+nav.navbar{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+}
 .navbar-dark {
     background-color: #ce352c;
 }

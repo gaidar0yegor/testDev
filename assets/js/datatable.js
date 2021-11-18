@@ -4,7 +4,7 @@ import './datatable/dataTables';
 import './datatable/jquery.highlight';
 
 import $ from "jquery";
-import {detectedLocale} from "./translation";
+import {language_dt} from "./translation";
 
 (function() {
     $(document).on('init.dt.dth', function(e, settings, json) {
@@ -25,7 +25,5 @@ import {detectedLocale} from "./translation";
 $('.table.datatable:not(.custom-datatable)').DataTable( {
     info: false,
     searchHighlight: true,
-    language: {
-        url: detectedLocale === 'fr' ? "https://cdn.datatables.net/plug-ins/1.11.3/i18n/fr_fr.json" : null,
-    },
+    language: language_dt,
 } );

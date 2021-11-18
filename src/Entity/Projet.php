@@ -140,7 +140,7 @@ class Projet implements HasSocieteInterface
     private $projetUrls;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, options={"default" : "#e9ece6"})
      */
     private $colorCode;
 
@@ -157,7 +157,7 @@ class Projet implements HasSocieteInterface
         $this->projetActivities = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->projetUrls = new ArrayCollection();
-        $this->colorCode = '#007bff';
+        $this->colorCode = '#e9ece6';
     }
 
     public function getId(): ?int
