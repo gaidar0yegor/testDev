@@ -27,7 +27,7 @@ class Activity
     private $datetime;
 
     /**
-     * @ORM\Column(type="string", length=31)
+     * @ORM\Column(type="string", length=50)
      */
     private $type;
 
