@@ -16,11 +16,28 @@
             {% endif %}
 
             {% if app.user.currentSocieteUser %}
-                <a href="{{ path('app_fo_multi_societe_switch') }}" class="btn btn-outline-light border-0 mr-2">
+            <div class="btn-group user-menu">
+                <a href="#" class="btn btn-outline-light border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% include 'utils/_avatar.html.twig' with {societe: app.user.currentSocieteUser.societe, size: 24} %}
                     {{ app.user.currentSocieteUser.societe.raisonSociale }}
                 </a>
+                <div class="dropdown-menu dropdown-menu-lg-right">
+                    {% for societeUser in app.user.societeUsers|slice(0, 3) %}
+                        <form action="{{ path('app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
+                            <button type="submit" class="dropdown-item btn-outline-light border-0 pl-3 {{ societeUser.enabled ? '' : 'disabled' }}">
+                                {% include 'utils/_avatar.html.twig' with {societe: societeUser.societe, size: 20} %}
+                                {{ societeUser.societe.raisonSociale }}
+                            </button>
+                        </form>
+                    {% endfor %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('app_fo_multi_societe_switch') }}">
+                        {{ 'see_more'|trans }}
+                    </a>
+                </div>
+            </div>
             {% endif %}
+
             <div class="btn-group user-menu">
                 <a href="#" class="btn btn-outline-light border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% include 'utils/_avatar.html.twig' with {user: app.user, size: 24} %}

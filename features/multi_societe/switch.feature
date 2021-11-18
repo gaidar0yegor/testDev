@@ -24,7 +24,7 @@ Feature: Multi-société, page de changement de société
         Then I should see "Société1" in the "nav" element
         And I should see "User" in the "nav" element
 
-        When I follow "Société1"
+        When I follow "Voir plus ..."
         And I press "Aller sur Société0"
         Then I should see "Société0" in the "nav" element
         And I should see "User" in the "nav" element
