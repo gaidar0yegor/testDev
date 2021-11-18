@@ -27,7 +27,7 @@
         </p>
     {% endif %}
 
-    <table class="table datatable hover">
+    <table class="table datatable hover" data-order='[[ 1, "asc" ]]'>
         <thead>
             <tr>
                 <th></th>
@@ -46,7 +46,7 @@
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
                 >
-                    <td class="text-center">
+                    <td class="text-center" data-sort='{{ projet.colorCode }}'>
                         {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
                     </td>
                     <td class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
