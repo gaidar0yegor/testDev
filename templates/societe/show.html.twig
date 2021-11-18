@@ -11,7 +11,7 @@
     </p>
 
     <div class="row">
-        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+        <div class="col-lg-4 col-sm-2 mb-3">
             <div class="card rdi-card-icon text-center h-100">
                 <i class="fa fa-building" aria-hidden="true"></i>
                 <div class="card-body">
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+        <div class="col-lg-4 col-sm-2 mb-3">
             <div class="card rdi-card-icon text-center h-100">
                 <i class="fa fa-users" aria-hidden="true"></i>
                 <div class="card-body">
@@ -49,7 +49,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+        <div class="col-lg-4 col-sm-2 mb-3">
             <div class="card rdi-card-icon text-center  h-100">
                 <i class="fa fa-clock-o" aria-hidden="true"></i>
                 <div class="card-body">
@@ -75,7 +75,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+        <div class="col-lg-4 col-sm-2 mb-3">
             <div class="card rdi-card-icon text-center h-100">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 <div class="card-body">
@@ -94,7 +94,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-xs-2 mb-3">
+        <div class="col-lg-4 col-sm-2 mb-3">
             <div class="card rdi-card-icon text-center h-100">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                 <div class="card-body">
@@ -110,6 +110,25 @@
                 </div>
                 <div class="card-footer">
                     <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_max_legnth_fait_marquant_desc'|trans }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-sm-2 mb-3">
+            <div class="card rdi-card-icon text-center h-100">
+                <i class="fa fa-bell-o" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title deck">{{ 'menu.admin.notification_parameters'|trans }}</h5>
+                            <h6 class="card-subtitle mb-2 deck text-muted"></h6>
+                            <p class="card-text deck display-4 mb-0">
+                                SMS, Mail, Slack ...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_fo_admin_notification') }}" class="card-link">{{ 'menu.admin.notification_parameters'|trans }}</a>
                 </div>
             </div>
         </div>

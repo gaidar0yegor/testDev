@@ -59,6 +59,7 @@ table tbody a {
 
 .rdi-card-icon {
     overflow: hidden;
+    min-height: 19rem;
 }
 .rdi-card-icon > i {
     position: absolute;
