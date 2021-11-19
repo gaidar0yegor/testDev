@@ -6,6 +6,12 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+## [0.36.2] - 2021-11-19
+### Ajouté
 - Fixer le navbar de l'application
 - Déplacer la barre de recherche des FM devant le bouton d'ajout d'un FM, Supprimer label et mettre un placeholder, modifier la couleur de son cadre en bleu
 - Changer la couleur du message de changement du rôle lors de la suppression d'un compte en noir
