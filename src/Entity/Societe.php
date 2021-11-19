@@ -166,7 +166,7 @@ class Societe implements HasSocieteInterface
     private $logo;
 
     /**
-     * @ORM\Column(type="simple_array", nullable=true)
+     * @ORM\Column(type="json", nullable=true)
      */
     private $usedProjectColors = [];
 
@@ -441,7 +441,7 @@ class Societe implements HasSocieteInterface
         return $this->usedProjectColors;
     }
 
-    public function setUsedProjectColors(array $usedProjectColors): self
+    public function setUsedProjectColors(?array $usedProjectColors): self
     {
         $this->usedProjectColors = $usedProjectColors;
 
