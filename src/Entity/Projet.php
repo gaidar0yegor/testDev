@@ -140,7 +140,7 @@ class Projet implements HasSocieteInterface
     private $projetUrls;
 
     /**
-     * @ORM\Column(type="string", length=255, options={"default" : "#e9ece6"})
+     * @ORM\Column(type="string", length=10)
      */
     private $colorCode;
 
@@ -598,7 +598,7 @@ class Projet implements HasSocieteInterface
         return $this->colorCode;
     }
 
-    public function setColorCode(?string $colorCode): self
+    public function setColorCode(string $colorCode): self
     {
         $this->colorCode = $colorCode;
 
