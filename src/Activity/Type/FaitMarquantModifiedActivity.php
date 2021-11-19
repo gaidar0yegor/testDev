@@ -12,17 +12,21 @@ use App\Entity\SocieteUserActivity;
 use App\Entity\SocieteUserNotification;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class FaitMarquantModifiedActivity implements ActivityInterface
 {
+    private EntityManagerInterface $em;
+
     private EntityLinkService $entityLinkService;
 
     private UserContext $userContext;
 
-    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext)
+    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext, EntityManagerInterface $em)
     {
+        $this->em = $em;
         $this->entityLinkService = $entityLinkService;
         $this->userContext = $userContext;
     }
@@ -49,6 +53,10 @@ class FaitMarquantModifiedActivity implements ActivityInterface
 
     public function render(array $activityParameters, Activity $activity): string
     {
+        $faitMarquant = $this->em->getRepository(FaitMarquant::class)->find($activityParameters['faitMarquant']);
+        if (is_object($faitMarquant) && $faitMarquant->getTrashedBy() !== null && $faitMarquant->getTrashedAt() !== null){
+            return '';
+        }
         if ($activityParameters['createdBy'] === $activityParameters['modifiedBy']) {
             return sprintf(
                 '%s %s a modifié son fait marquant %s sur le projet %s.',

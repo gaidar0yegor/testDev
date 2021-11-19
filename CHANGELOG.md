@@ -23,6 +23,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter notification / activité pour un changement du rôle dans un projet
 - Ajouter une liste des sociétés en dropdown pour switcher rapidement
 - Proposer des couleurs déjà utilisées dans la société dans l'ajout d'un projet
+- Ne pas afficher les activités de modification d'un FM supprimé qu'après sa restauration
 
 
 ## [0.36.1] - 2021-11-18
