@@ -217,3 +217,17 @@ $('.list-activities.list-group .link-delete-activity').click(function () {
 
     return false;
 });
+
+//project colors input
+$(document).on('change', '.radio-choice-colors input[type=radio]', function (e) {
+    var $inputColor = $('input[type=color]');
+    if ($inputColor) {
+        $inputColor.val(this.value);
+    }
+});
+$(document).on('change', '.input-color-container input[type=color]', function (e) {
+    var $radioColors = $('.radio-choice-color[name=usedColorCodes]');
+    if ($radioColors) {
+        $radioColors.prop("checked", false);
+    }
+});

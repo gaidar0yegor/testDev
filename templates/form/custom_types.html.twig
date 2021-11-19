@@ -263,3 +263,27 @@
         {% endfor %}
     </div>
 {% endblock %}
+
+{% block color_widget %}
+    <div class="input-color-container" title="{{ form.vars.attr.title }}">
+        <input type="color" id="{{ form.vars.id }}" value="{{ form.vars.value }}" name="{{ form.vars.full_name }}" class="input-color">
+    </div>
+{% endblock %}
+
+{% block radio_choice_colors_row %}
+    {% if form.vars.choices | length > 0 %}
+        <div class="radio-choice-colors mr-4">
+            {% for colorChoice in form.vars.choices %}
+                <div>
+                    <input type="radio" id="{{ form.vars.full_name ~ '[' ~ colorChoice.value ~ ']' }}" name="{{ form.vars.name }}" value="{{ colorChoice.value }}" class="radio-choice-color">
+                    <label for="{{ form.vars.full_name ~ '[' ~ colorChoice.value ~ ']' }}">
+                      <span style="background-color: {{ colorChoice.value }};">
+                        <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+                      </span>
+                    </label>
+                </div>
+            {% endfor %}
+
+        </div>
+    {% endif %}
+{% endblock %}

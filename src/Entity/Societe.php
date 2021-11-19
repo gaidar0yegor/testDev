@@ -165,6 +165,11 @@ class Societe implements HasSocieteInterface
      */
     private $logo;
 
+    /**
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $usedProjectColors = [];
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -427,6 +432,18 @@ class Societe implements HasSocieteInterface
     public function setLogo(?Fichier $logo): self
     {
         $this->logo = $logo;
+
+        return $this;
+    }
+
+    public function getUsedProjectColors(): ?array
+    {
+        return $this->usedProjectColors;
+    }
+
+    public function setUsedProjectColors(array $usedProjectColors): self
+    {
+        $this->usedProjectColors = $usedProjectColors;
 
         return $this;
     }

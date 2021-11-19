@@ -82,8 +82,14 @@ class ProjetController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $societe = $projet->getSociete();
+            $usedColors = $societe->getUsedProjectColors();
+            $usedColors = $usedColors ? (in_array($projet->getColorCode(),$usedColors) ? $usedColors : array_merge($usedColors,[$projet->getColorCode()])) :[$projet->getColorCode()];
+            $societe->setUsedProjectColors($usedColors);
+
             $em->persist($participant);
             $em->persist($projet);
+            $em->persist($societe);
             $em->flush();
 
             $this->addFlash('success', sprintf('Le projet "%s" a été créé.', $projet->getTitre()));
@@ -173,7 +179,13 @@ class ProjetController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $societe = $projet->getSociete();
+            $usedColors = $societe->getUsedProjectColors();
+            $usedColors = $usedColors ? (in_array($projet->getColorCode(),$usedColors) ? $usedColors : array_merge($usedColors,[$projet->getColorCode()])) :[$projet->getColorCode()];
+            $societe->setUsedProjectColors($usedColors);
+
             $em->persist($projet);
+            $em->persist($societe);
             $em->flush();
 
             $this->addFlash('success', sprintf('Le projet "%s" a été modifié.', $projet->getTitre()));

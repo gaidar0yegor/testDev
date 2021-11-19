@@ -5,6 +5,7 @@ import './styles/form-card-choice.scss';
 import './styles/timeline.css';
 import './styles/styles.css';
 import './styles/register.scss';
+import './styles/radio-choice-colors.scss';
 
 import 'bootstrap';
 import 'bootstrap-datepicker';

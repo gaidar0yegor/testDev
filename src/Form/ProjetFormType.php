@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Projet;
+use App\Form\Custom\RadioChoiceColorsType;
 use App\Form\Custom\DatePickerType;
 use App\Form\Custom\MarkdownWysiwygType;
 use Symfony\Component\Form\AbstractType;
@@ -20,6 +21,9 @@ class ProjetFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $usedProjectColors = ($options['data'])->getSociete()->getUsedProjectColors();
+        $usedProjectColors = is_array($usedProjectColors) ? $usedProjectColors : [];
+
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre descriptif',
@@ -29,8 +33,15 @@ class ProjetFormType extends AbstractType
                 'html5' => true,
                 'attr' => [
                     'class' => 'form-control-lg border-0 p-0',
-                    'title' => 'Code couleur',
+                    'title' => 'Palette de couleur',
                 ],
+            ])
+            ->add('usedColorCodes', RadioChoiceColorsType::class, [
+                'label' => false,
+                'mapped' => false,
+                'expanded' => true,
+                'required' => false,
+                'choices' => $usedProjectColors,
             ])
             ->add('acronyme', TextType::class, [
                 'label' => 'Titre réduit / Acronyme',
