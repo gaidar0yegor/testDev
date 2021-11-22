@@ -2,6 +2,7 @@
 
 namespace App\Twig;
 
+use App\Entity\SocieteUser;
 use App\Service\DateMonthService;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -25,6 +26,7 @@ class SaisieTempsExtension extends AbstractExtension
     {
         return [
             new TwigFunction('currentOrPreviousMonth', [$this, 'currentOrPreviousMonth']),
+            new TwigFunction('isUserBelongingToSociete', [$this, 'isUserBelongingToSociete']),
         ];
     }
 
@@ -34,5 +36,13 @@ class SaisieTempsExtension extends AbstractExtension
         $month = $this->dateMonthService->normalize($month);
 
         return $month < $now;
+    }
+
+    public function isUserBelongingToSociete(SocieteUser $societeUser, $date): bool
+    {
+        if (!is_object($date)){
+            $date = new \DateTime($date);
+        }
+        return $this->dateMonthService->isUserBelongingToSocieteByDate($societeUser,$date);
     }
 }

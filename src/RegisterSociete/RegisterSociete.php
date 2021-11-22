@@ -4,6 +4,7 @@ namespace App\RegisterSociete;
 
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
+use App\Entity\SocieteUserPeriod;
 use App\RegisterSociete\DTO\Registration;
 use App\Security\Role\RoleSociete;
 use App\Service\TokenGenerator;
@@ -91,6 +92,7 @@ class RegisterSociete
 
         $societeUser
             ->setRole(RoleSociete::ADMIN)
+            ->addSocieteUserPeriod(new SocieteUserPeriod())
         ;
 
         $this->em->persist($admin);

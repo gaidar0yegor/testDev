@@ -5,6 +5,7 @@ namespace App\Service;
 use App\DTO\InitSociete;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
+use App\Entity\SocieteUserPeriod;
 use App\Entity\User;
 use App\Exception\RdiException;
 use App\Security\Role\RoleSociete;
@@ -42,6 +43,7 @@ class SocieteInitializer implements EventSubscriber
             ->setRole(RoleSociete::ADMIN)
             ->setInvitationEmail($initSociete->getAdminEmail())
             ->setInvitationToken($invitationToken)
+            ->addSocieteUserPeriod(new SocieteUserPeriod())
         ;
 
         return $societe;

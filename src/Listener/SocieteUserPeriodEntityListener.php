@@ -17,6 +17,7 @@ class SocieteUserPeriodEntityListener
             $societeUserPeriod->setSocieteUser($societeUser);
 
             $args->getEntityManager()->persist($societeUserPeriod);
+            $args->getEntityManager()->persist($societeUser);
             $args->getEntityManager()->flush();
         }
     }
