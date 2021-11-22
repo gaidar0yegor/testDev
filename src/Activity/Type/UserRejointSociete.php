@@ -66,7 +66,7 @@ class UserRejointSociete implements ActivityInterface
             $em->remove($oldUserActivity);
         }
 
-        if (null === $societeUser->getDateEntree()) {
+        if (null === $societeUser->getLastSocieteUserPeriod()->getDateEntry()) {
             $em->flush();
             return;
         }
@@ -74,7 +74,7 @@ class UserRejointSociete implements ActivityInterface
         $activity = new Activity();
         $activity
             ->setType(self::getType())
-            ->setDatetime($societeUser->getDateEntree())
+            ->setDatetime($societeUser->getLastSocieteUserPeriod()->getDateEntry())
             ->setParameters([
                 'user' => intval($societeUser->getId()),
             ])

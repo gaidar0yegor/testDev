@@ -7,6 +7,7 @@ use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
+use App\Entity\SocieteUserPeriod;
 use App\Entity\User;
 use App\Exception\RdiException;
 use App\Notification\Event\SocieteUserInvitationNotification;
@@ -76,6 +77,8 @@ class Invitator
         $societeUser = new SocieteUser();
 
         $this->em->persist($societeUser);
+
+        $societeUser->addSocieteUserPeriod(new SocieteUserPeriod());
 
         $societeUser
             ->setSociete($societe)

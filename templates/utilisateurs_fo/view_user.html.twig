@@ -56,20 +56,20 @@
                         </div>
                     {% endif %}
                         <div class="row mb-3">
-                            <div class="col-md-3"><strong>{{ 'user.dateEntree'|trans }}</strong></div>
+                            <div class="col-md-3"><strong>{{ 'societeUserPeriod.dateEntry'|trans }}</strong></div>
                             <div class="col-md-9">
-                                {% if societeUser.dateEntree is not null %}
-                                    {{ societeUser.dateEntree|format_date }}
+                                {% if societeUser.getLastSocieteUserPeriod.dateEntry is not null %}
+                                    {{ societeUser.getLastSocieteUserPeriod.dateEntry|format_date }}
                                 {% else %}
                                     <i>{{ 'not_known'|trans }}</i>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="row mb-3">
-                            <div class="col-md-3"><strong>{{ 'user.dateSortie'|trans }}</strong></div>
+                            <div class="col-md-3"><strong>{{ 'societeUserPeriod.dateLeave'|trans }}</strong></div>
                             <div class="col-md-9">
-                                {% if societeUser.dateSortie is not null %}
-                                    {{ societeUser.dateSortie|format_date }}
+                                {% if societeUser.getLastSocieteUserPeriod.dateLeave is not null %}
+                                    {{ societeUser.getLastSocieteUserPeriod.dateLeave|format_date }}
                                 {% else %}
                                     <i>{{ 'not_known'|trans }}</i>
                                 {% endif %}
@@ -118,8 +118,8 @@
                 <div
                     class="year-switch text-center"
                     data-event-name="user-chart-year-changed"
-                    {% if societeUser.dateEntree %}
-                        data-year-from="{{ societeUser.dateEntree|date('Y') }}"
+                    {% if societeUser.getLastSocieteUserPeriod.dateEntry %}
+                        data-year-from="{{ societeUser.getLastSocieteUserPeriod.dateEntry|date('Y') }}"
                     {% endif %}
                 ></div>
 

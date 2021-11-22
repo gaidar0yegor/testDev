@@ -1,4 +1,5 @@
 {% set cra = societeUser.cras|filter(cra => cra.mois|format_date(pattern='yyyy-MM') == yearMonth)|first %}
+{% set dateEntry = societeUser.getLastSocieteUserPeriod.dateEntry %}
 
 {% if cra and cra.tempsPassesSubmitted %}
     <td class="table-success text-center">
@@ -6,10 +7,16 @@
             <i class="fa fa-check" aria-hidden="true"></i>
         </span>
     </td>
-{% elseif (yearMonth ~ '-01')|date('Ym') < 'now'|date('Ym') %}
+{% elseif (yearMonth ~ '-01')|date('Ym') < 'now'|date('Ym') and ( dateEntry is null or (dateEntry is not null and (yearMonth ~ '-01')|date('Ym') >= dateEntry|date('Ym')) ) %}
     <td class="table-danger text-center">
         <span class="text-danger" title="Pas encore validé">
             <i class="fa fa-times" aria-hidden="true"></i>
+        </span>
+    </td>
+{% elseif dateEntry is not null and (yearMonth ~ '-01')|date('Ym') < dateEntry|date('Ym') %}
+    <td class="table-warning text-center">
+        <span class="text-warning" title="Non applicable">
+            <i class="fa fa-minus" aria-hidden="true"></i>
         </span>
     </td>
 {% else %}

@@ -66,7 +66,7 @@ class UserQuitteSociete implements ActivityInterface
             $em->remove($oldUserActivity);
         }
 
-        if (null === $societeUser->getDateSortie()) {
+        if (null === $societeUser->getLastSocieteUserPeriod()->getDateLeave()) {
             $em->flush();
             return;
         }
@@ -74,7 +74,7 @@ class UserQuitteSociete implements ActivityInterface
         $activity = new Activity();
         $activity
             ->setType(self::getType())
-            ->setDatetime($societeUser->getDateSortie())
+            ->setDatetime($societeUser->getLastSocieteUserPeriod()->getDateLeave())
             ->setParameters([
                 'user' => intval($societeUser->getId()),
             ])

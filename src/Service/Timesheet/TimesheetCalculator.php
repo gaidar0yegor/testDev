@@ -115,8 +115,8 @@ class TimesheetCalculator
         $societeUser = $cra->getSocieteUser();
         $heuresParJours = Timesheet::getUserHeuresParJours($societeUser);
 
-        $this->craService->uncheckJoursAvantDateEntree($cra, $societeUser);
-        $this->craService->uncheckJoursApresDateSortie($cra, $societeUser);
+        $this->craService->uncheckJoursAvantDateEntry($cra, $societeUser);
+        $this->craService->uncheckJoursApresDateLeave($cra, $societeUser);
 
         return array_map(
             function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse) {

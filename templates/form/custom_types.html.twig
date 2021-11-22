@@ -259,8 +259,19 @@
                         {{ form_row(childForm) }}
                     </div>
                 </div>
-            </div>
+            </div>f
         {% endfor %}
+    </div>
+{% endblock %}
+
+{% block societe_user_periods_row %}
+    <div class="row">
+        <div class="col-sm-6">
+            {{ form_row(form.dateEntry) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_row(form.dateLeave) }}
+        </div>
     </div>
 {% endblock %}
 

@@ -63,8 +63,8 @@ class CraService
             $cra = $this->createDefaultCra($month);
             $cra->setSocieteUser($societeUser);
 
-            $this->uncheckJoursAvantDateEntree($cra, $societeUser);
-            $this->uncheckJoursApresDateSortie($cra, $societeUser);
+            $this->uncheckJoursAvantDateEntry($cra, $societeUser);
+            $this->uncheckJoursApresDateLeave($cra, $societeUser);
         }
 
         $this->prefillTempsPasses($cra);
@@ -138,13 +138,13 @@ class CraService
     /**
      * Décoche les jours où $societeUser n'est pas encore dans la société.
      */
-    public function uncheckJoursAvantDateEntree(Cra $cra, SocieteUser $societeUser): void
+    public function uncheckJoursAvantDateEntry(Cra $cra, SocieteUser $societeUser): void
     {
-        if (null === $societeUser->getDateEntree()) {
+        if (null === $societeUser->getLastSocieteUserPeriod()->getDateEntry()) {
             return;
         }
 
-        $userMonth = $this->dateMonthService->normalize($societeUser->getDateEntree());
+        $userMonth = $this->dateMonthService->normalize($societeUser->getLastSocieteUserPeriod()->getDateEntry());
         $craMonth = $this->dateMonthService->normalize($cra->getMois());
 
         if ($craMonth > $userMonth) {
@@ -157,7 +157,7 @@ class CraService
         }
 
         $jours = $cra->getJours();
-        $to = intval($societeUser->getDateEntree()->format('j')) - 1;
+        $to = intval($societeUser->getLastSocieteUserPeriod()->getDateEntry()->format('j')) - 1;
 
         for ($i = 0; $i < $to; ++$i) {
             $jours[$i] = 0;
@@ -169,13 +169,13 @@ class CraService
     /**
      * Décoche les jours où $societeUser n'est plus dans la société.
      */
-    public function uncheckJoursApresDateSortie(Cra $cra, SocieteUser $societeUser): void
+    public function uncheckJoursApresDateLeave(Cra $cra, SocieteUser $societeUser): void
     {
-        if (null === $societeUser->getDateSortie()) {
+        if (null === $societeUser->getLastSocieteUserPeriod()->getDateLeave()) {
             return;
         }
 
-        $userMonth = $this->dateMonthService->normalize($societeUser->getDateSortie());
+        $userMonth = $this->dateMonthService->normalize($societeUser->getLastSocieteUserPeriod()->getDateLeave());
         $craMonth = $this->dateMonthService->normalize($cra->getMois());
 
         if ($craMonth < $userMonth) {
@@ -188,7 +188,7 @@ class CraService
         }
 
         $jours = $cra->getJours();
-        $from = intval($societeUser->getDateSortie()->format('j'));
+        $from = intval($societeUser->getLastSocieteUserPeriod()->getDateLeave()->format('j'));
 
         for ($i = $from; $i < count($jours); ++$i) {
             $jours[$i] = 0;
