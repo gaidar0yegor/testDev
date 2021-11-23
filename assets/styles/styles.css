@@ -22,7 +22,9 @@ h1 select {
     content:" *";
     color: red;
 }
-
+.text-word-break{
+    word-break: break-word !important;
+}
 .flash-messages {
     margin-top: 1em;
 }

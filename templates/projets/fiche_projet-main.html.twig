@@ -30,7 +30,7 @@
                 </p>
             {% endif %}
         </div>
-        <table id="fait_marquant_timeline_dt" class="table datatable custom-datatable">
+        <table id="fait_marquant_timeline_dt" class="table datatable custom-datatable text-word-break">
             <thead><tr><th>Faits marquants</th></tr></thead>
             <tbody>
             {% for faitMarquant in projet.faitMarquants %}
@@ -49,7 +49,7 @@
                                     </a>
                                 </h4>
                                 <h3>{{ faitMarquant.titre }}</h3>
-                                <div class="event-content text-justify text-break-all">
+                                <div class="event-content text-justify">
                                     {{ faitMarquant.description|markdown }}
                                 </div>
                                 <ul class="list-unstyled">
