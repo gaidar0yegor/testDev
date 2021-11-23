@@ -11,6 +11,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Réparé
 - Corrigé le retour à la ligne des faits marquants
 
+
+
 ## [0.36.4] - 2021-11-19
 ### Réparé
 - Corrige "Erreur serveur"
