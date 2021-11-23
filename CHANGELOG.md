@@ -7,6 +7,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 
+## [0.36.5] - 2021-11-19
+### Réparé
+- Corrigé le retour à la ligne des faits marquants
 
 ## [0.36.4] - 2021-11-19
 ### Réparé
