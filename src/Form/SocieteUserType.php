@@ -31,12 +31,12 @@ class SocieteUserType extends AbstractType
             ],
         ])
         ->add('societeUserPeriods', CollectionType::class, [
-            'label' => 'societeUser.societeUserPeriods',
+            'label' => false,
             'entry_type' => SocieteUserPeriodType::class,
             'required' => false,
             'allow_add' => true,
             'allow_delete' => true,
-//            'by_reference' => false,
+            'by_reference' => false,
         ])
         ->addEventListener(FormEvents::SUBMIT, [$this, 'checkDates'])
         ;

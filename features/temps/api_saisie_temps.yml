@@ -30,10 +30,18 @@ App\Entity\SocieteUser:
         societe: '@societe'
 
 App\Entity\SocieteUserPeriod:
+    user_period:
+        societeUser: '@user'
+        dateEntry: null
+        dateLeave: null
     user_entree_sortie_period:
-        societeUser: '@_user_entree_sortie'
+        societeUser: '@user_entree_sortie'
         dateEntry: <(new DateTime('2020-04-15'))>
         dateLeave: <(new DateTime('2020-08-15'))>
+    user_sans_projet_period:
+        societeUser: '@user_sans_projet'
+        dateEntry: null
+        dateLeave: null
 
 App\Entity\Projet:
     projet1:

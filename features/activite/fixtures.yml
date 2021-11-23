@@ -29,6 +29,20 @@ App\Entity\SocieteUser:
         societe: '@societe'
         role: <(App\Security\Role\RoleSociete::ADMIN)>
 
+App\Entity\SocieteUserPeriod:
+    user_period:
+        societeUser: '@user'
+        dateEntry: null
+        dateLeave: null
+    cdp_period:
+        societeUser: '@cdp'
+        dateEntry: null
+        dateLeave: null
+    admin_period:
+        societeUser: '@admin'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Projet:
     projet:
         titre: Projet

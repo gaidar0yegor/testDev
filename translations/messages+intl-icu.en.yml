@@ -218,7 +218,7 @@ disable_account: Deactivate account
 re_enable_account: Reactivate account
 verify_and_delete_user: Verify and delete the account
 delete_account: Delete account
-your_are_about_to_delete_user: "You are about to delete the <strong>{user}</strong> account with the role of <strong>{userRole}</strong>."
+your_are_about_to_delete_user: "You are about to permanently delete the <strong>{user}</strong> account with the role of <strong>{userRole}</strong>."
 this_action_can_have_effect_on_linked_data_user: 'This action can have an impact on the data related to this user :'
 activity_of_user: "{user}'s Activity"
 activity: Activity

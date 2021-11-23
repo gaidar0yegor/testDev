@@ -46,6 +46,24 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
 
+App\Entity\SocieteUserPeriod:
+    user_desactive_period:
+        societeUser: '@user_desactive'
+        dateEntry: null
+        dateLeave: null
+    oubli_period:
+        societeUser: '@oubli'
+        dateEntry: null
+        dateLeave: null
+    user_period:
+        societeUser: '@user'
+        dateEntry: null
+        dateLeave: null
+    oubli_long_period:
+        societeUser: '@oubli_long'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Societe:
     societe:
         raisonSociale: Société

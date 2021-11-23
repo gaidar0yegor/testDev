@@ -21,10 +21,9 @@ class SocieteUserPeriodType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-//            ->add('societeUser', SameSocieteUserType::class)
             ->add('dateEntry', DatePickerType::class, [
                 'label' => 'societeUserPeriod.dateEntry',
-                'required' => false,
+                'required' => true,
             ])
             ->add('dateLeave', DatePickerType::class, [
                 'label' => 'societeUserPeriod.dateLeave',

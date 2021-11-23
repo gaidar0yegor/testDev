@@ -74,7 +74,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
     Scenario: L'admin peut définir une date d'entrée d'un user
         When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
         And I fill in the following:
-            | societe_user[dateEntree] | 01 janvier 2021 |
+            | societe_user[societeUserPeriods][0][dateEntry] | 01 janvier 2021 |
         And I press "Mettre à jour"
         Then I should see "Les informations de l'utilisateur ont été modifiées"
         And I should see "Date d'entrée 1 janv. 2021"
@@ -85,7 +85,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
     Scenario: L'admin peut définir une date de sortie d'un user
         When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
         And I fill in the following:
-            | societe_user[dateSortie] | 20 janvier 2021 |
+            | societe_user[societeUserPeriods][0][dateLeave] | 20 janvier 2021 |
         And I press "Mettre à jour"
         Then I should see "Les informations de l'utilisateur ont été modifiées"
         And I should see "Date de sortie 20 janv. 2021"
@@ -96,8 +96,8 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
     Scenario: Je ne vois pas l'activité future
         When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
         And I fill in the following:
-            | societe_user[dateEntree] | 1 janvier 2020 |
-            | societe_user[dateSortie] | 20 janvier 2050 |
+            | societe_user[societeUserPeriods][0][dateEntry] | 1 janvier 2020 |
+            | societe_user[societeUserPeriods][0][dateLeave] | 20 janvier 2050 |
         And I press "Mettre à jour"
         When I follow "Activité"
         Then I should see "Utilisateur Eureka a rejoint la société. le 1 janv. 2020"
@@ -106,11 +106,11 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
     Scenario: L'activité 'a rejoint la société' est bien remplacée (et non dupliquée) lorsque je modifie la date d'entrée
         When I click on the 1st "[href='/admin/utilisateurs/2/modifier']" element
         And I fill in the following:
-            | societe_user[dateSortie] | 1 janvier 2021 |
+            | societe_user[societeUserPeriods][0][dateLeave] | 1 janvier 2021 |
         And I press "Mettre à jour"
         And I follow "Mettre à jour"
         And I fill in the following:
-            | societe_user[dateSortie] | 2 janvier 2021 |
+            | societe_user[societeUserPeriods][0][dateLeave] | 2 janvier 2021 |
         And I press "Mettre à jour"
         And I follow "Activité"
         Then I should see "Utilisateur Eureka a quitté la société. le 2 janv. 2021"

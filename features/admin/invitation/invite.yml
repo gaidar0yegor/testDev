@@ -17,6 +17,16 @@ App\Entity\SocieteUser:
         invitationToken: cV2bvNJg4e_zkzXis-rfKlih
         invitationEmail: invite@societe.dev
 
+App\Entity\SocieteUserPeriod:
+    admin_period:
+        societeUser: '@admin'
+        dateEntry: null
+        dateLeave: null
+    invite_period:
+        societeUser: '@invite'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Societe:
     societe:
         raisonSociale: SociétéTest

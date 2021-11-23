@@ -201,7 +201,7 @@ cancel: Annuler
 disable_account: 'Désactiver le compte'
 re_enable_account: 'Ré-activer le compte'
 delete_account: 'Supprimer le compte'
-your_are_about_to_delete_user: "Vous êtes sur le point de supprimer le compte de <strong>{user}</strong> ayant le rôle d'un <strong>{userRole}</strong>."
+your_are_about_to_delete_user: "Vous êtes sur le point de supprimer définitivement le compte de <strong>{user}</strong> ayant le rôle d'un <strong>{userRole}</strong>."
 this_action_can_have_effect_on_linked_data_user: 'Cette action peut avoir un impact sur les données liées à cet utilisateur :'
 roles_on_projects_of_user: 'Rôles sur projets de {user}'
 activity_of_user: 'Activité de {user}'

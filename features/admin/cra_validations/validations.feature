@@ -18,3 +18,4 @@ Feature: L'admin peut avoir un oeil global sur la saisie des temps passés de to
         And I should see "User 1 Eureka" in the "table" element
         And I should see a "table tbody td span.text-success" element
         And I should see a "table tbody td span.text-danger" element
+        And I should see a "table tbody td span.text-grey" element

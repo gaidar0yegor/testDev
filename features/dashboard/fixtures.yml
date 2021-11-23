@@ -11,6 +11,20 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
 
+App\Entity\SocieteUserPeriod:
+    user1_period:
+        societeUser: '@user1'
+        dateEntry: null
+        dateLeave: null
+    user2_period:
+        societeUser: '@user2'
+        dateEntry: null
+        dateLeave: null
+    user3_period:
+        societeUser: '@user3'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Projet:
     projet1:
         titre: Projet 1

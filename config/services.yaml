@@ -105,7 +105,7 @@ services:
     App\Activity\Type\UserQuitteSociete:
         tags:
             - 'app.activity_type'
-            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\SocieteUser }
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\SocieteUserPeriod }
 
     App\Activity\Type\AdminEjectUser:
         tags:
@@ -120,7 +120,7 @@ services:
     App\Activity\Type\UserRejointSociete:
         tags:
             - 'app.activity_type'
-            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\SocieteUser }
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\SocieteUserPeriod }
 
     App\Service\EntityLink\EntityLinkGenerator\:
         resource: '../src/Service/EntityLink/EntityLinkGenerator/'

@@ -102,7 +102,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | admin              |
         And I press "Connexion"
         And I am on "/admin/utilisateurs/1/modifier"
-        And I press "Désactiver"
+        And I press "Désactiver le compte"
 
         When I go to "/admin/utilisateurs/1/activite"
         Then I should see "Admin Eureka a desactivé le compte de User Eureka"
@@ -114,8 +114,8 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | admin              |
         And I press "Connexion"
         And I am on "/admin/utilisateurs/1/modifier"
-        And I press "Désactiver"
-        And I press "Ré-activer"
+        And I press "Désactiver le compte"
+        And I press "Ré-activer le compte"
 
         When I go to "/admin/utilisateurs/1/activite"
         Then I should see "Admin Eureka a ré-activé le compte de User Eureka"
@@ -127,7 +127,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | admin              |
         And I press "Connexion"
         And I am on "/admin/utilisateurs/1/modifier"
-        And I press "Désactiver"
+        And I press "Désactiver le compte"
 
         When I go to "/admin/utilisateurs/3/activite"
         Then I should see "Admin Eureka a desactivé le compte de User Eureka"

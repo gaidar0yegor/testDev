@@ -22,7 +22,6 @@ App\Entity\SocieteUser:
         user: '@_user'
         societe: '@societe1'
         role: <(App\Security\Role\RoleSociete::USER)>
-
     user_disabled_societe0:
         user: '@_user_disabled'
         societe: '@societe0'
@@ -32,6 +31,24 @@ App\Entity\SocieteUser:
         societe: '@societe1'
         role: <(App\Security\Role\RoleSociete::USER)>
         enabled: false
+
+App\Entity\SocieteUserPeriod:
+    user_societe0_period:
+        societeUser: '@user_societe0'
+        dateEntry: null
+        dateLeave: null
+    user_societe1_period:
+        societeUser: '@user_societe1'
+        dateEntry: null
+        dateLeave: null
+    user_disabled_societe0_period:
+        societeUser: '@user_disabled_societe0'
+        dateEntry: null
+        dateLeave: null
+    user_disabled_societe1_period:
+        societeUser: '@user_disabled_societe1'
+        dateEntry: null
+        dateLeave: null
 
 App\Entity\Societe:
     societe0:

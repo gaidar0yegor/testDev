@@ -6,6 +6,7 @@ use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
+use App\Entity\SocieteUserPeriod;
 use App\Service\EntityLink\EntityLinkService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,9 +29,11 @@ class UserRejointSociete implements ActivityInterface
     {
         $resolver->setRequired([
             'user',
+            'societeUserPeriod',
         ]);
 
         $resolver->setAllowedTypes('user', 'integer');
+        $resolver->setAllowedTypes('user', 'societeUserPeriod');
     }
 
     public function render(array $activityParameters, Activity $activity): string
@@ -42,10 +45,10 @@ class UserRejointSociete implements ActivityInterface
         );
     }
 
-    public function postUpdate(SocieteUser $societeUser, LifecycleEventArgs $args): void
+    public function postUpdate(SocieteUserPeriod $societeUserPeriod, LifecycleEventArgs $args): void
     {
         $em = $args->getEntityManager();
-
+        $societeUser = $societeUserPeriod->getSocieteUser();
         $oldUserActivities = $em
             ->createQueryBuilder()
             ->from(SocieteUserActivity::class, 'societeUserActivity')
@@ -62,11 +65,14 @@ class UserRejointSociete implements ActivityInterface
         ;
 
         foreach ($oldUserActivities as $oldUserActivity) {
-            $em->remove($oldUserActivity->getActivity());
-            $em->remove($oldUserActivity);
+            $oldActivity = $oldUserActivity->getActivity();
+            if (isset($oldActivity->getParameters()['societeUserPeriod']) && $oldActivity->getParameters()['societeUserPeriod'] == $societeUserPeriod->getId()){
+                $em->remove($oldUserActivity->getActivity());
+                $em->remove($oldUserActivity);
+            }
         }
 
-        if (null === $societeUser->getLastSocieteUserPeriod()->getDateEntry()) {
+        if (null === $societeUserPeriod->getDateEntry()) {
             $em->flush();
             return;
         }
@@ -74,9 +80,10 @@ class UserRejointSociete implements ActivityInterface
         $activity = new Activity();
         $activity
             ->setType(self::getType())
-            ->setDatetime($societeUser->getLastSocieteUserPeriod()->getDateEntry())
+            ->setDatetime($societeUserPeriod->getDateEntry())
             ->setParameters([
                 'user' => intval($societeUser->getId()),
+                'societeUserPeriod' => intval($societeUserPeriod->getId()),
             ])
         ;
 

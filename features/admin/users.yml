@@ -28,6 +28,20 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe2'
 
+App\Entity\SocieteUserPeriod:
+    admin_period:
+        societeUser: '@admin'
+        dateEntry: null
+        dateLeave: null
+    user_period:
+        societeUser: '@user'
+        dateEntry: null
+        dateLeave: null
+    user_autre_societe_period:
+        societeUser: '@user_autre_societe'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Societe:
     societe:
         raisonSociale: SociétéTest
