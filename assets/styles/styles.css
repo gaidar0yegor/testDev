@@ -17,8 +17,9 @@ h1 {
 h1 select {
     color: #ce352c;
 }
-
-
+.text-break-all {
+    word-break: break-all !important;
+}
 .flash-messages {
     margin-top: 1em;
 }
