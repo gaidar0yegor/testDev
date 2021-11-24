@@ -187,7 +187,7 @@ class CraService
             if ($craMonthMois > $dateEntryMois){
                 $to = intval($dateLeave->format('j')) - 1;
 
-                for ($i = 0; $i < $to; ++$i) {
+                for ($i = 0; $i <= $to; $i++) {
                     $boolCra[$i] = true;
                 }
             }
@@ -196,7 +196,7 @@ class CraService
                 $from = intval($dateEntry->format('j')) - 1;
                 $to = intval($dateLeave->format('j')) - 1;
 
-                for ($i = $from; $i < $to; ++$i) {
+                for ($i = $from; $i <= $to; $i++) {
                     $boolCra[$i] = true;
                 }
             }

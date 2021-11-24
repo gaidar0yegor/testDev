@@ -6,6 +6,7 @@ use App\Entity\Cra;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
+use App\Entity\SocieteUserPeriod;
 use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Repository\CraRepository;
@@ -39,6 +40,7 @@ class TimesheetCalculatorTest extends TestCase
     private function prepareBasicSample()
     {
         $this->societeUser = new SocieteUser();
+        $this->societeUser->addSocieteUserPeriod(new SocieteUserPeriod());
         $this->projet = new Projet();
         $this->tempsPasse = new TempsPasse();
 
@@ -113,7 +115,7 @@ class TimesheetCalculatorTest extends TestCase
     public function testGenerateTimesheetProjet()
     {
         $this->prepareBasicSample();
-
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateEntry(DateTime::createFromFormat('Y-m-d', '2010-01-01'));
         $timesheetCalculator = $this->createTimesheetCalculator();
 
         $timesheetProjet = $timesheetCalculator->generateTimesheetProjet($this->participation, $this->cra);
@@ -146,7 +148,7 @@ class TimesheetCalculatorTest extends TestCase
     public function testGenerateTimesheetProjetWithDateDebut()
     {
         $this->prepareBasicSample();
-
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateEntry(DateTime::createFromFormat('Y-m-d', '2010-01-01'));
         $this->projet->setDateDebut(new \DateTime('15-01-2020'));
 
         $timesheetCalculator = $this->createTimesheetCalculator();
@@ -181,7 +183,7 @@ class TimesheetCalculatorTest extends TestCase
     public function testGenerateTimesheetProjetWithDateFin()
     {
         $this->prepareBasicSample();
-
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateEntry(DateTime::createFromFormat('Y-m-d', '2010-01-01'));
         $this->projet->setDateFin(new \DateTime('15-01-2020'));
 
         $timesheetCalculator = $this->createTimesheetCalculator();
@@ -216,7 +218,7 @@ class TimesheetCalculatorTest extends TestCase
     public function testGenerateTimesheetProjetWithDateDebutEtFin()
     {
         $this->prepareBasicSample();
-
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateEntry(DateTime::createFromFormat('Y-m-d', '2010-01-01'));
         $this->projet
             ->setDateDebut(new \DateTime('10-01-2020'))
             ->setDateFin(new \DateTime('20-01-2020'))
@@ -254,7 +256,7 @@ class TimesheetCalculatorTest extends TestCase
     public function testGenerateTimesheet()
     {
         $this->prepareBasicSample();
-
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateEntry(DateTime::createFromFormat('Y-m-d', '2010-01-01'));
         $timesheetCalculator = $this->createTimesheetCalculator();
 
         $timesheet = $timesheetCalculator->generateTimesheet($this->societeUser, $this->mois);
@@ -412,7 +414,7 @@ class TimesheetCalculatorTest extends TestCase
     {
         $this->prepareBasicSample();
 
-        $this->societeUser->setDateEntree(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateEntry(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
 
         $timesheetCalculator = $this->createTimesheetCalculator();
 
@@ -444,7 +446,8 @@ class TimesheetCalculatorTest extends TestCase
     {
         $this->prepareBasicSample();
 
-        $this->societeUser->setDateSortie(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateEntry(DateTime::createFromFormat('Y-m-d', '2019-12-01'));
+        ($this->societeUser->getSocieteUserPeriods()[0])->setDateLeave(DateTime::createFromFormat('Y-m-d', '2020-01-15'));
 
         $timesheetCalculator = $this->createTimesheetCalculator();
 
