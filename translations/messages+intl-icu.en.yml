@@ -62,8 +62,7 @@ status: Status
 participants: Participants
 back_office: Back Office
 my_companies: My companies
-this_month_not_yet_in_company: This month, you are not yet in the company.
-this_month_no_longer_in_company: This month, you are not in the company anymore.
+this_month_not_in_company: This month, you were not in the company.
 you_should_validate_this_month: You should validate this month.
 enter_your_absences: Enter your absences
 save: Register

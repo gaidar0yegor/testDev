@@ -31,14 +31,16 @@
                         {% if societeUser.projetParticipants|length > 0 %}
                             <li><strong>{{ societeUser.projetParticipants|length }}</strong> projets</li>
                         {% endif %}
-                        {% for societeUserPeriod in societeUser.societeUserPeriods %}
-                            {% if societeUserPeriod.dateEntry %}
-                                <li>Date d'entrée : {{ societeUserPeriod.dateEntry|format_date }}</li>
-                            {% endif %}
-                            {% if societeUserPeriod.dateLeave %}
-                                <li>Date de sortie : {{ societeUserPeriod.dateLeave|format_date }}</li>
-                            {% endif %}
-                        {% endfor %}
+                        {% if not societeUser.enabled %}
+                            {% for societeUserPeriod in societeUser.societeUserPeriods %}
+                                {% if societeUserPeriod.dateEntry %}
+                                    <li>Date d'entrée : {{ societeUserPeriod.dateEntry|format_date }}</li>
+                                {% endif %}
+                                {% if societeUserPeriod.dateLeave %}
+                                    <li>Date de sortie : {{ societeUserPeriod.dateLeave|format_date }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
                     </ul>
                     {% if societeUser.enabled %}
                         {% if societeUser == app.user.currentSocieteUser %}
