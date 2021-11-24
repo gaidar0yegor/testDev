@@ -19,10 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * Représente un utilisateur qui a un rôle sur une société.
  *
  * @ORM\Entity(repositoryClass=SocieteUserRepository::class)
- * @AppAssert\DatesOrdered(
- *      start="dateEntree",
- *      end="dateSortie"
- * )
+ *
  * @AppAssert\NotBlankEither(
  *      fields={"invitationEmail", "invitationTelephone"},
  *      groups={"invitation"}
@@ -102,16 +99,6 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
      */
     private $heuresParJours;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $dateEntree;
-
-    /**
-     * @ORM\Column(type="date", nullable=true)
-     */
-    private $dateSortie;
 
     /**
      * @ORM\Column(type="datetime")
@@ -196,6 +183,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $notificationOnboardingFinished;
 
+    /**
+     * @ORM\OneToMany(targetEntity=SocieteUserPeriod::class, mappedBy="societeUser", orphanRemoval=true, cascade={"persist"})
+     */
+    private $societeUserPeriods;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -207,6 +199,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->faitMarquants = new ArrayCollection();
         $this->notificationOnboardingEnabled = true;
         $this->notificationOnboardingFinished = false;
+        $this->societeUserPeriods = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -340,30 +333,6 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     public function setHeuresParJours(?float $heuresParJours): self
     {
         $this->heuresParJours = $heuresParJours;
-
-        return $this;
-    }
-
-    public function getDateEntree(): ?\DateTimeInterface
-    {
-        return $this->dateEntree;
-    }
-
-    public function setDateEntree(?\DateTimeInterface $dateEntree): self
-    {
-        $this->dateEntree = $dateEntree;
-
-        return $this;
-    }
-
-    public function getDateSortie(): ?\DateTimeInterface
-    {
-        return $this->dateSortie;
-    }
-
-    public function setDateSortie(?\DateTimeInterface $dateSortie): self
-    {
-        $this->dateSortie = $dateSortie;
 
         return $this;
     }
@@ -586,6 +555,46 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     public function setNotificationOnboardingFinished(bool $notificationOnboardingFinished): self
     {
         $this->notificationOnboardingFinished = $notificationOnboardingFinished;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SocieteUserPeriod[]
+     */
+    public function getSocieteUserPeriods(): Collection
+    {
+        return $this->societeUserPeriods;
+    }
+
+    public function getLastSocieteUserPeriod(): SocieteUserPeriod
+    {
+        foreach ( array_reverse($this->societeUserPeriods->toArray()) as $societeUserPeriod ) {
+            if ($societeUserPeriod->getDateEntry() !== null || $societeUserPeriod->getDateLeave() !== null){
+                return $societeUserPeriod;
+            }
+        }
+        return $this->societeUserPeriods->last();
+    }
+
+    public function addSocieteUserPeriod(SocieteUserPeriod $societeUserPeriod): self
+    {
+        if (!$this->societeUserPeriods->contains($societeUserPeriod)) {
+            $this->societeUserPeriods[] = $societeUserPeriod;
+            $societeUserPeriod->setSocieteUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSocieteUserPeriod(SocieteUserPeriod $societeUserPeriod): self
+    {
+        if ($this->societeUserPeriods->removeElement($societeUserPeriod)) {
+            // set the owning side to null (unless already changed)
+            if ($societeUserPeriod->getSocieteUser() === $this) {
+                $societeUserPeriod->setSocieteUser(null);
+            }
+        }
 
         return $this;
     }

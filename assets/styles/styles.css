@@ -17,8 +17,15 @@ h1 {
 h1 select {
     color: #ce352c;
 }
+.required:after {
+    content:" *";
+    color: red;
+}
+.text-word-break {
+    word-break: break-word !important;
+}
 .text-break-all {
-    word-break: break-all !important;
+  word-break: break-all !important;
 }
 .flash-messages {
     margin-top: 1em;
@@ -109,6 +116,12 @@ h2.facts {
 }
 .font-weight-bold-unset{
     font-weight: unset !important;
+}
+.text-grey{
+    color: #9b9b9b !important;
+}
+.table-grey-light, .table-grey-light > th, .table-grey-light > td {
+    background-color: #f5f5f5;
 }
 
 /**************************** NAV ************************/

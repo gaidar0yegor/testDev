@@ -79,8 +79,7 @@ switch_company: 'Changer de société'
 logout: Déconnexion
 my_companies: 'Mes sociétés'
 you_submitted_this_month_on: 'Vous avez validé ce mois le {date}.'
-this_month_not_yet_in_company: 'Ce mois-ci, vous n''êtes pas encore dans la société.'
-this_month_no_longer_in_company: 'Ce mois-ci, vous n''êtes plus dans la société.'
+this_month_not_in_company: 'Ce mois-ci, vous n''étiez pas dans la société.'
 you_should_validate_this_month: 'Vous devriez valider ce mois.'
 enter_your_absences: 'Saisissez vos absences'
 save: Enregistrer
@@ -201,7 +200,7 @@ cancel: Annuler
 disable_account: 'Désactiver le compte'
 re_enable_account: 'Ré-activer le compte'
 delete_account: 'Supprimer le compte'
-your_are_about_to_delete_user: "Vous êtes sur le point de supprimer le compte de <strong>{user}</strong> ayant le rôle d'un <strong>{userRole}</strong>."
+your_are_about_to_delete_user: "Vous êtes sur le point de supprimer définitivement le compte de <strong>{user}</strong> ayant le rôle d'un <strong>{userRole}</strong>."
 this_action_can_have_effect_on_linked_data_user: 'Cette action peut avoir un impact sur les données liées à cet utilisateur :'
 roles_on_projects_of_user: 'Rôles sur projets de {user}'
 activity_of_user: 'Activité de {user}'
@@ -266,8 +265,8 @@ projet.titre: 'Titre descriptif'
 projet.acronyme: Acronyme
 user.role: Rôle
 user.heuresParJours: 'Heures travaillées par jour'
-user.dateEntree: Date d'entrée
-user.dateSortie: Date de sortie
+societeUserPeriod.dateEntry: Date d'entrée
+societeUserPeriod.dateLeave: Date de sortie
 add_external_link: Ajouter un lien externe
 projet.projetUrls: 'Urls externes du projet'
 projet.projetUrls.help: 'Afficher des liens externes en relation avec ce projet.'
@@ -319,3 +318,4 @@ i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.htm
 rename_file_success: 'Votre fichier {oldName} à bien été renommé en {newName}'
 download: 'Télécharger'
 see_more: 'Voir plus ...'
+societeUser.societeUserPeriods: 'Les périodes'

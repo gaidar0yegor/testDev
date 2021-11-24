@@ -38,6 +38,24 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::CDP)>
         societe: '@societe'
 
+App\Entity\SocieteUserPeriod:
+    cdp_period:
+        societeUser: '@cdp'
+        dateEntry: null
+        dateLeave: null
+    user_phone_period:
+        societeUser: '@user_phone'
+        dateEntry: null
+        dateLeave: null
+    user_period:
+        societeUser: '@user'
+        dateEntry: null
+        dateLeave: null
+    user2_period:
+        societeUser: '@user2'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Projet:
     projet:
         titre: 'Projet de test'

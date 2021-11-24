@@ -38,6 +38,24 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::CDP)>
         societe: '@societe'
 
+App\Entity\SocieteUserPeriod:
+    observateur_period:
+        societeUser: '@observateur'
+        dateEntry: null
+        dateLeave: null
+    cdp_period:
+        societeUser: '@cdp'
+        dateEntry: null
+        dateLeave: null
+    contributeur_period:
+        societeUser: '@contributeur'
+        dateEntry: null
+        dateLeave: null
+    contributeur2_period:
+        societeUser: '@contributeur2'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Projet:
     projet:
         titre: Projet

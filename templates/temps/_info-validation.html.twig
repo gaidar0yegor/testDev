@@ -6,15 +6,10 @@
         </p>
     {% endif %}
 
-    {% if moisEntree is not null and mois < moisEntree %}
+    {% if not isUserBelongingToSociete %}
         <p class="text-danger">
             <i class="fa fa-user-times" aria-hidden="true"></i>
-            {{ 'this_month_not_yet_in_company'|trans }}
-        </p>
-    {% elseif moisSortie is not null and mois > moisSortie %}
-        <p class="text-danger">
-            <i class="fa fa-user-times" aria-hidden="true"></i>
-            {{ 'this_month_no_longer_in_company'|trans }}
+            {{ 'this_month_not_in_company'|trans }}
         </p>
     {% elseif not submitted and currentOrPreviousMonth(cra.mois) %}
         <p class="text-warning">

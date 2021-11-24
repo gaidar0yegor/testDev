@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Projet;
+use App\Entity\SocieteUser;
 use App\Exception\MonthOutOfRangeException;
 use DateTime;
 use DateTimeInterface;
@@ -137,5 +138,22 @@ class DateMonthService
     public function isSameMonth(\DateTimeInterface $date0, \DateTimeInterface $date1): bool
     {
         return $date0->format('Y-m') === $date1->format('Y-m');
+    }
+
+    public function isUserBelongingToSocieteByDate(SocieteUser $societeUser, \DateTimeInterface $date): bool
+    {
+        foreach ($societeUser->getSocieteUserPeriods() as $societeUserPeriod) {
+            $dateEntry = $societeUserPeriod->getDateEntry() ? new \DateTime($societeUserPeriod->getDateEntry()->format('Y-m')) : null;
+            $dateLeave = $societeUserPeriod->getDateLeave() ? new \DateTime($societeUserPeriod->getDateLeave()->format('Y-m')) : null;
+
+            if (
+                $dateEntry && $dateEntry <= $date &&
+                ($dateLeave === null || ($dateLeave && $dateLeave >= $date))
+            ) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

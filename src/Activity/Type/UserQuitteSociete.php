@@ -6,6 +6,7 @@ use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
+use App\Entity\SocieteUserPeriod;
 use App\Service\EntityLink\EntityLinkService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -28,9 +29,11 @@ class UserQuitteSociete implements ActivityInterface
     {
         $resolver->setRequired([
             'user',
+            'societeUserPeriod',
         ]);
 
         $resolver->setAllowedTypes('user', 'integer');
+        $resolver->setAllowedTypes('societeUserPeriod', 'integer');
     }
 
     public function render(array $activityParameters, Activity $activity): string
@@ -42,9 +45,10 @@ class UserQuitteSociete implements ActivityInterface
         );
     }
 
-    public function postUpdate(SocieteUser $societeUser, LifecycleEventArgs $args): void
+    public function postUpdate(SocieteUserPeriod $societeUserPeriod, LifecycleEventArgs $args): void
     {
         $em = $args->getEntityManager();
+        $societeUser = $societeUserPeriod->getSocieteUser();
 
         $oldUserActivities = $em
             ->createQueryBuilder()
@@ -62,11 +66,14 @@ class UserQuitteSociete implements ActivityInterface
         ;
 
         foreach ($oldUserActivities as $oldUserActivity) {
-            $em->remove($oldUserActivity->getActivity());
-            $em->remove($oldUserActivity);
+            $oldActivity = $oldUserActivity->getActivity();
+            if (isset($oldActivity->getParameters()['societeUserPeriod']) && $oldActivity->getParameters()['societeUserPeriod'] == $societeUserPeriod->getId()){
+                $em->remove($oldUserActivity->getActivity());
+                $em->remove($oldUserActivity);
+            }
         }
 
-        if (null === $societeUser->getDateSortie()) {
+        if (null === $societeUserPeriod->getDateLeave()) {
             $em->flush();
             return;
         }
@@ -74,9 +81,10 @@ class UserQuitteSociete implements ActivityInterface
         $activity = new Activity();
         $activity
             ->setType(self::getType())
-            ->setDatetime($societeUser->getDateSortie())
+            ->setDatetime($societeUserPeriod->getDateLeave())
             ->setParameters([
                 'user' => intval($societeUser->getId()),
+                'societeUserPeriod' => intval($societeUserPeriod->getId()),
             ])
         ;
 

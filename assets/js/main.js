@@ -55,6 +55,29 @@ $('.date-picker').datepicker({
 var users_list_dt;
 var validation_temps_dt;
 $(document).ready( function () {
+
+    $('.tab-filter-users')
+        .on('click', '.nav-link', function () {
+        $('.tab-filter-users').find('.nav-link').removeClass('active');
+        $(this).addClass('active');
+        })
+        .on('click', '.enabled-users', function () {
+            $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
+        })
+        .on('click', '.disabled-users', function () {
+            $('#filter-users-statut').val('SOCIETE_USER_STATUT_DISABLED').trigger('change');
+        })
+        .on('click', '.all-users', function () {
+            $('#filter-users-statut').val('').trigger('change');
+        })
+        .on('click', '.all-users', function () {
+            $('#filter-users-statut').val('').trigger('change');
+        })
+        .on('change', '#filter-users-statut', function () {
+            $('#users_list_dt').DataTable().draw();
+            $('#validation_temps_dt').DataTable().draw();
+        });
+
     validation_temps_dt = $('#validation_temps_dt').DataTable( {
         info: false,
         ordering: false,
@@ -74,27 +97,6 @@ $(document).ready( function () {
             $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
         },
     });
-
-    $('.tab-filter-users').on('click', '.nav-link', function () {
-            $('.tab-filter-users').find('.nav-link').removeClass('active');
-            $(this).addClass('active');
-        })
-        .on('click', '.enabled-users', function () {
-            $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
-        })
-        .on('click', '.disabled-users', function () {
-            $('#filter-users-statut').val('SOCIETE_USER_STATUT_DISABLED').trigger('change');
-        })
-        .on('click', '.all-users', function () {
-            $('#filter-users-statut').val('').trigger('change');
-        })
-        .on('click', '.all-users', function () {
-            $('#filter-users-statut').val('').trigger('change');
-        })
-        .on('change', '#filter-users-statut', function () {
-            users_list_dt.draw();
-            validation_temps_dt.draw();
-        });
 });
 
 // form fait marquants

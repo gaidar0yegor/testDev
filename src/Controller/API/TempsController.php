@@ -26,6 +26,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
  */
 class TempsController extends AbstractController
 {
+    private DateMonthService $dateMonthService;
+
+    public function __construct(DateMonthService $dateMonthService)
+    {
+        $this->dateMonthService = $dateMonthService;
+    }
+
     /**
      * @Route(
      *   "/{year}/{month}",
@@ -59,6 +66,8 @@ class TempsController extends AbstractController
             $tempsPasse['pourcentage'] = $tempsPasse['pourcentages'][0];
             unset($tempsPasse['pourcentages']);
         }
+
+        $normalizedCra['isUserBelongingToSociete'] = $this->dateMonthService->isUserBelongingToSocieteByDate($userContext->getSocieteUser(),$month);
 
         return new JsonResponse($normalizedCra);
     }

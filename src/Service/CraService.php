@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Cra;
 use App\Entity\Projet;
 use App\Entity\SocieteUser;
+use App\Entity\SocieteUserPeriod;
 use App\Entity\TempsPasse;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
@@ -63,8 +64,7 @@ class CraService
             $cra = $this->createDefaultCra($month);
             $cra->setSocieteUser($societeUser);
 
-            $this->uncheckJoursAvantDateEntree($cra, $societeUser);
-            $this->uncheckJoursApresDateSortie($cra, $societeUser);
+            $this->uncheckJoursNotBelongingToSociete($cra, $societeUser);
         }
 
         $this->prefillTempsPasses($cra);
@@ -136,65 +136,73 @@ class CraService
     }
 
     /**
-     * Décoche les jours où $societeUser n'est pas encore dans la société.
+     * Décoche les jours où $societeUser n'est pas dans la société.
      */
-    public function uncheckJoursAvantDateEntree(Cra $cra, SocieteUser $societeUser): void
+    public function uncheckJoursNotBelongingToSociete(Cra $cra, SocieteUser $societeUser): void
     {
-        if (null === $societeUser->getDateEntree()) {
-            return;
-        }
-
-        $userMonth = $this->dateMonthService->normalize($societeUser->getDateEntree());
+        $joursCra = $cra->getJours();
+        $boolCra = array_fill(0, count($cra->getJours()), false);
         $craMonth = $this->dateMonthService->normalize($cra->getMois());
 
-        if ($craMonth > $userMonth) {
-            return;
+        foreach ($societeUser->getSocieteUserPeriods() as $societeUserPeriod){
+            $boolCra = $this->handleUserPeriod($craMonth, $boolCra, $societeUserPeriod);
         }
 
-        if ($craMonth < $userMonth) {
-            $cra->setJours(array_fill(0, count($cra->getJours()), 0));
-            return;
+        foreach ($boolCra as $key => $value){
+            if ($value === false){
+                $joursCra[$key] = 0;
+            }
         }
 
-        $jours = $cra->getJours();
-        $to = intval($societeUser->getDateEntree()->format('j')) - 1;
+        $cra->setJours($joursCra);
 
-        for ($i = 0; $i < $to; ++$i) {
-            $jours[$i] = 0;
-        }
-
-        $cra->setJours($jours);
     }
 
-    /**
-     * Décoche les jours où $societeUser n'est plus dans la société.
-     */
-    public function uncheckJoursApresDateSortie(Cra $cra, SocieteUser $societeUser): void
+    public function handleUserPeriod(\DateTime $craMonth, array $boolCra, SocieteUserPeriod $societeUserPeriod): array
     {
-        if (null === $societeUser->getDateSortie()) {
-            return;
+        $dateEntry = $societeUserPeriod->getDateEntry();
+        $dateLeave = $societeUserPeriod->getDateLeave();
+
+        $dateEntryMois = $dateEntry ? $dateEntry->format('Y-m') : null;
+        $dateLeaveMois = $dateLeave ? $dateLeave->format('Y-m') : null;
+        $craMonthMois = $craMonth->format('Y-m');
+
+        if (null === $dateEntryMois && null === $dateLeaveMois){
+            return $boolCra;
         }
 
-        $userMonth = $this->dateMonthService->normalize($societeUser->getDateSortie());
-        $craMonth = $this->dateMonthService->normalize($cra->getMois());
-
-        if ($craMonth < $userMonth) {
-            return;
+        if ($craMonthMois > $dateEntryMois && (null === $dateLeaveMois || (null !== $dateLeaveMois && $craMonthMois < $dateLeaveMois))){
+            $boolCra = array_fill(0, count($boolCra), true);
         }
 
-        if ($craMonth > $userMonth) {
-            $cra->setJours(array_fill(0, count($cra->getJours()), 0));
-            return;
+        if ($craMonthMois == $dateEntryMois && (null === $dateLeaveMois || (null !== $dateLeaveMois && $craMonthMois < $dateLeaveMois))){
+            $from = intval($dateEntry->format('j')) - 1;
+
+            for ($i = $from; $i < count($boolCra); ++$i) {
+                $boolCra[$i] = true;
+            }
         }
 
-        $jours = $cra->getJours();
-        $from = intval($societeUser->getDateSortie()->format('j'));
+        if (null !== $dateLeaveMois && $craMonthMois == $dateLeaveMois){
+            if ($craMonthMois > $dateEntryMois){
+                $to = intval($dateLeave->format('j')) - 1;
 
-        for ($i = $from; $i < count($jours); ++$i) {
-            $jours[$i] = 0;
+                for ($i = 0; $i <= $to; $i++) {
+                    $boolCra[$i] = true;
+                }
+            }
+
+            if ($craMonthMois == $dateEntryMois){
+                $from = intval($dateEntry->format('j')) - 1;
+                $to = intval($dateLeave->format('j')) - 1;
+
+                for ($i = $from; $i <= $to; $i++) {
+                    $boolCra[$i] = true;
+                }
+            }
         }
 
-        $cra->setJours($jours);
+        return $boolCra;
     }
 
     /**

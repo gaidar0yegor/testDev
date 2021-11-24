@@ -47,8 +47,7 @@ class TempsController extends AbstractController
             'next' => $dateMonthService->getNextMonth($month),
             'prev' => $dateMonthService->getPrevMonth($month),
             'mois' => $month,
-            'moisEntree' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateEntree()),
-            'moisSortie' => $dateMonthService->normalizeOrNull($userContext->getSocieteUser()->getDateSortie()),
+            'isUserBelongingToSociete' => $dateMonthService->isUserBelongingToSocieteByDate($userContext->getSocieteUser(),$month),
             'cra' => $craService->loadCraForUser($userContext->getSocieteUser(), $month),
         ]);
     }

@@ -109,13 +109,13 @@
     {% endif %}
 
 
-    {% if societeUser.userActivities|length > 0 %}
+    {% if societeUser.userActivities | length > 0 %}
         <div class="alert alert-warning">
             <i class="fa fa-warning" aria-hidden="true"></i>
 
             {{ 'delete_user.activities.warning'|trans({
                 'user': societeUser.user.fullname,
-                'n': societeUser.faitMarquants|length
+                'n': societeUser.userActivities|length
             })|raw|striptags('<strong>')|raw }}
 
         </div>

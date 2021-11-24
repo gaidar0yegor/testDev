@@ -38,6 +38,24 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
 
+App\Entity\SocieteUserPeriod:
+    observateur_period:
+        societeUser: '@observateur'
+        dateEntry: null
+        dateLeave: null
+    contributeur_period:
+        societeUser: '@contributeur'
+        dateEntry: null
+        dateLeave: null
+    cdp_period:
+        societeUser: '@cdp'
+        dateEntry: null
+        dateLeave: null
+    pas_acces_period:
+        societeUser: '@pas_acces'
+        dateEntry: null
+        dateLeave: null
+
 App\Entity\Fichier:
     file_fichier_de_contributeur:
         nomMd5: xxx.txt

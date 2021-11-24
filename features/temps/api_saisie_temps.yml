@@ -24,12 +24,24 @@ App\Entity\SocieteUser:
         user: '@_user_entree_sortie'
         role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
-        dateEntree: <(new DateTime('2020-04-15'))>
-        dateSortie: <(new DateTime('2020-08-15'))>
     user_sans_projet:
         user: '@_user_sans_projet'
         role: <(App\Security\Role\RoleSociete::USER)>
         societe: '@societe'
+
+App\Entity\SocieteUserPeriod:
+    user_period:
+        societeUser: '@user'
+        dateEntry: null
+        dateLeave: null
+    user_entree_sortie_period:
+        societeUser: '@user_entree_sortie'
+        dateEntry: <(new DateTime('2020-04-15'))>
+        dateLeave: <(new DateTime('2020-08-15'))>
+    user_sans_projet_period:
+        societeUser: '@user_sans_projet'
+        dateEntry: null
+        dateLeave: null
 
 App\Entity\Projet:
     projet1:

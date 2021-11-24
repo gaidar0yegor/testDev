@@ -31,11 +31,15 @@
                         {% if societeUser.projetParticipants|length > 0 %}
                             <li><strong>{{ societeUser.projetParticipants|length }}</strong> projets</li>
                         {% endif %}
-                        {% if societeUser.dateEntree %}
-                            <li>Date d'entrée : {{ societeUser.dateEntree|format_date }}</li>
-                        {% endif %}
-                        {% if societeUser.dateSortie %}
-                            <li>Date de sortie : {{ societeUser.dateSortie|format_date }}</li>
+                        {% if not societeUser.enabled %}
+                            {% for societeUserPeriod in societeUser.societeUserPeriods %}
+                                {% if societeUserPeriod.dateEntry %}
+                                    <li>Date d'entrée : {{ societeUserPeriod.dateEntry|format_date }}</li>
+                                {% endif %}
+                                {% if societeUserPeriod.dateLeave %}
+                                    <li>Date de sortie : {{ societeUserPeriod.dateLeave|format_date }}</li>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                     </ul>
                     {% if societeUser.enabled %}

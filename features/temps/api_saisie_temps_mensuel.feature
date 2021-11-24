@@ -44,7 +44,8 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
                             },
                             "pourcentage": 0
                         }
-                    ]
+                    ],
+                    "isUserBelongingToSociete":false
                 }
             """
 

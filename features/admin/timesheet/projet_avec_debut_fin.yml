@@ -11,6 +11,12 @@ App\Entity\SocieteUser:
         role: <(App\Security\Role\RoleSociete::ADMIN)>
         societe: '@societe'
 
+App\Entity\SocieteUserPeriod:
+    admin_period:
+        societeUser: '@admin'
+        dateEntry: <(new DateTime("2020-11-01"))>
+        dateLeave: null
+
 App\Entity\Projet:
     projet:
         titre: 'Projet 0'

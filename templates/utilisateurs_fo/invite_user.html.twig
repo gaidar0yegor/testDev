@@ -12,9 +12,11 @@
     </p>
 
     {{ form_start(form) }}
+    {{ form_errors(form) }}
 
     {{ form_row(form.invitationEmail) }}
     {{ form_row(form.invitationTelephone) }}
+    {{ form_row(form.societeUserPeriods) }}
     {{ form_row(form.role) }}
 
     <div class="text-center mt-5">
