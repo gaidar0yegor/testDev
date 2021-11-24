@@ -14,15 +14,15 @@ App\Entity\SocieteUser:
 App\Entity\SocieteUserPeriod:
     user1_period:
         societeUser: '@user1'
-        dateEntry: null
+        dateEntry: <(new DateTime("2010-01-01"))>
         dateLeave: null
     user2_period:
         societeUser: '@user2'
-        dateEntry: null
+        dateEntry: <(new DateTime("2010-01-01"))>
         dateLeave: null
     user3_period:
         societeUser: '@user3'
-        dateEntry: null
+        dateEntry: <(new DateTime("2010-01-01"))>
         dateLeave: null
 
 App\Entity\Projet:

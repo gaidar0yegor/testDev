@@ -14,7 +14,7 @@ App\Entity\SocieteUser:
 App\Entity\SocieteUserPeriod:
     cdp_period:
         societeUser: '@cdp'
-        dateEntry: null
+        dateEntry: <(new DateTime("2010-01-01"))>
         dateLeave: null
 
 App\Entity\Projet:

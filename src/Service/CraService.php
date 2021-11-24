@@ -171,7 +171,7 @@ class CraService
             return $boolCra;
         }
 
-        if ($craMonthMois > $dateEntryMois && null !== $dateLeaveMois && $craMonthMois < $dateLeaveMois){
+        if ($craMonthMois > $dateEntryMois && (null === $dateLeaveMois || (null !== $dateLeaveMois && $craMonthMois < $dateLeaveMois))){
             $boolCra = array_fill(0, count($boolCra), true);
         }
 
