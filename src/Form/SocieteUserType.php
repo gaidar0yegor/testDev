@@ -13,6 +13,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SocieteUserType extends AbstractType
 {
+    private CheckPeriodsDatesListener $checkPeriodsDatesListener;
+
+    public function __construct(CheckPeriodsDatesListener $checkPeriodsDatesListener)
+    {
+        $this->checkPeriodsDatesListener = $checkPeriodsDatesListener;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -32,7 +39,7 @@ class SocieteUserType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
-            ->addEventSubscriber(new CheckPeriodsDatesListener());
+            ->addEventSubscriber($this->checkPeriodsDatesListener);
     }
 
     public function configureOptions(OptionsResolver $resolver)
