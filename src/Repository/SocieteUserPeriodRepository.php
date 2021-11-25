@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\SocieteUser;
 use App\Entity\SocieteUserPeriod;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,15 @@ class SocieteUserPeriodRepository extends ServiceEntityRepository
         parent::__construct($registry, SocieteUserPeriod::class);
     }
 
-    // /**
-    //  * @return SocieteUserPeriod[] Returns an array of SocieteUserPeriod objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByDateEntryNotNullAndDateLeaveNull(SocieteUser $societeUser)
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('sup')
+            ->andWhere('sup.societeUser = :societeUser')
+            ->andWhere('sup.dateEntry is not null')
+            ->andWhere('sup.dateLeave is null')
+            ->setParameter('societeUser', $societeUser)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?SocieteUserPeriod
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

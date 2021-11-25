@@ -4,6 +4,7 @@ namespace App\Controller\FO\Admin;
 
 use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
+use App\Entity\SocieteUserPeriod;
 use App\Form\InviteUserType;
 use App\Form\SocieteUserProjetsRolesType;
 use App\Form\SocieteUserType;
@@ -130,6 +131,18 @@ class SocieteUserController extends AbstractController
             throw new ConflictHttpException('Cet utilisateur a déjà été désactivé.');
         }
 
+        if (count($em->getRepository(SocieteUserPeriod::class)->findByDateEntryNotNullAndDateLeaveNull($societeUser))){
+
+            $this->addFlash('warning', $translator->trans('verif_date_leave_on_disable_user', [
+                'user' => $societeUser->getUser()->getFullname(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
+                'id' => $societeUser->getId(),
+            ]);
+        }
+
+
         $societeUser->setEnabled(false);
 
         $em->persist($societeUser);
@@ -170,6 +183,17 @@ class SocieteUserController extends AbstractController
 
         if ($societeUser->getEnabled()) {
             throw new ConflictHttpException('Cet utilisateur est déjà activé.');
+        }
+
+        if (count($em->getRepository(SocieteUserPeriod::class)->findByDateEntryNotNullAndDateLeaveNull($societeUser)) == 0){
+
+            $this->addFlash('warning', $translator->trans('verif_date_entry_on_enable_user', [
+                'user' => $societeUser->getUser()->getFullname(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_admin_utilisateur_modifier', [
+                'id' => $societeUser->getId(),
+            ]);
         }
 
         $societeUser->setEnabled(true);

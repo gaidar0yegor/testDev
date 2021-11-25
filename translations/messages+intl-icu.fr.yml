@@ -319,3 +319,5 @@ rename_file_success: 'Votre fichier {oldName} à bien été renommé en {newName
 download: 'Télécharger'
 see_more: 'Voir plus ...'
 societeUser.societeUserPeriods: 'Les périodes'
+verif_date_leave_on_disable_user: 'Pour désactiver le compte de {user}, veuillez préciser sa date de sortie.'
+verif_date_entry_on_enable_user: 'Pour activer le compte de {user}, veuillez préciser sa date d''entrèe.'
