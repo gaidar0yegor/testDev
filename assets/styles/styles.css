@@ -208,6 +208,12 @@ h5 {
 
 /*********************************************** RESPONSIVE DESIGN *******************************************/
 
+@media (min-width: 576px){
+    .modal-dialog {
+        margin: 5.75rem auto;
+    }
+}
+
 @media (min-width: 575px) {
     .text-month {
     min-width: 10em;
@@ -226,6 +232,12 @@ h5 {
 
     h3 {
         font-size: 1.25em;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1204px) {
+    .navbar-nav .nav-item .nav-item-title {
+        display: none;
     }
 }
 

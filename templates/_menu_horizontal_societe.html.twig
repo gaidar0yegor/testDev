@@ -1,10 +1,10 @@
 <ul class="navbar-nav mr-auto">
     <li class="nav-item {{ activeOn('app_fo_dashboard') }}">
-        <a class="nav-link" href="{{ path('app_fo_dashboard') }}">{{ 'dashboard'|trans }}</a>
+        <a class="nav-link" href="{{ path('app_fo_dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> <span class="nav-item-title">{{ 'dashboard'|trans }}</span></a>
     </li>
     <li class="nav-item dropdown {{ activeOn('app_fo_projets', 'app_fo_projets_all', 'app_fo_projets_by_year', 'app_fo_projet_creation', 'app_fo_observateur_externe_list', 'app_fo_observateur_externe_view') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ 'menu.projects'|trans }}
+            <i class="fa fa-tasks" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.projects'|trans }}</span>
         </a>
         <div class="dropdown-menu">
             <a
@@ -35,7 +35,7 @@
     </li>
     <li class="nav-item dropdown {{ activeOn('app_fo_temps', 'app_fo_absences') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            {{ 'menu.time_tracking'|trans }}
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.time_tracking'|trans }}</span>
         </a>
         <div class="dropdown-menu">
             <a
@@ -64,7 +64,7 @@
             aria-haspopup="true"
             aria-expanded="false"
         >
-            {{ 'menu.admin'|trans }}
+            <i class="fa fa-cogs" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.admin'|trans }}</span>
         </a>
         <div class="dropdown-menu">
             <a
@@ -122,13 +122,13 @@
     </li>
 </ul>
 
-<div>
-    <a id="reviewHelpText" href="#" class="text-light text-info mr-2">
+<div class="d-inline-block">
+    <a id="reviewHelpText" href="#" class="text-light text-info mr-2 d-inline-block">
         <i class="fa fa-lg fa-question-circle-o mb-3 mb-lg-0 opacity-25" aria-hidden="true"></i>
     </a>
 </div>
 
-<div class="dropdown user-notifications-list">
+<div class="dropdown user-notifications-list d-inline-block">
     <a
         href="#"
         class="text-light dropdown-toggle mr-2"
