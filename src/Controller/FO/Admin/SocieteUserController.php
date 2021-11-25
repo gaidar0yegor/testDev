@@ -12,6 +12,7 @@ use App\Repository\SocieteUserActivityRepository;
 use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleProjet;
 use App\Security\Voter\SameSocieteVoter;
+use App\Service\EnableDisableSocieteUserChecker;
 use App\Service\Invitator;
 use App\MultiSociete\UserContext;
 use App\Service\UserProjetAffectation;
@@ -111,7 +112,8 @@ class SocieteUserController extends AbstractController
         TranslatorInterface $translator,
         SocieteUser $societeUser,
         UserContext $userContext,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        EnableDisableSocieteUserChecker $enableDisableSocieteUserChecker
     ) {
         $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
@@ -131,7 +133,7 @@ class SocieteUserController extends AbstractController
             throw new ConflictHttpException('Cet utilisateur a déjà été désactivé.');
         }
 
-        if (count($em->getRepository(SocieteUserPeriod::class)->findByDateEntryNotNullAndDateLeaveNull($societeUser))){
+        if (!$enableDisableSocieteUserChecker->canDisable($societeUser)){
 
             $this->addFlash('warning', $translator->trans('verif_date_leave_on_disable_user', [
                 'user' => $societeUser->getUser()->getFullname(),
@@ -169,7 +171,8 @@ class SocieteUserController extends AbstractController
         Request $request,
         TranslatorInterface $translator,
         SocieteUser $societeUser,
-        EntityManagerInterface $em
+        EntityManagerInterface $em,
+        EnableDisableSocieteUserChecker $enableDisableSocieteUserChecker
     ) {
         $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
@@ -185,7 +188,7 @@ class SocieteUserController extends AbstractController
             throw new ConflictHttpException('Cet utilisateur est déjà activé.');
         }
 
-        if (count($em->getRepository(SocieteUserPeriod::class)->findByDateEntryNotNullAndDateLeaveNull($societeUser)) == 0){
+        if (!$enableDisableSocieteUserChecker->canEnable($societeUser)){
 
             $this->addFlash('warning', $translator->trans('verif_date_entry_on_enable_user', [
                 'user' => $societeUser->getUser()->getFullname(),
