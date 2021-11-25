@@ -14,7 +14,7 @@ final class Version20211119163035 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return '';
+        return 'Every SocieteUser can have one or many SocieteUserPeriod';
     }
 
     public function up(Schema $schema): void
@@ -47,7 +47,21 @@ final class Version20211119163035 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE societe_user_period DROP FOREIGN KEY FK_C045D20262A85E16');
+
+        $this->addSql('
+            alter table societe_user
+                add date_entree date default null,
+                add date_sortie date default null');
+
+        $this->addSql('
+            update societe_user
+            left join societe_user_period on societe_user.id = societe_user_period.societe_user_id
+            set 
+                societe_user.date_entree = societe_user_period.date_entry,
+                societe_user.date_sortie = societe_user_period.date_leave
+            ');
+
         $this->addSql('DROP TABLE societe_user_period');
     }
 }

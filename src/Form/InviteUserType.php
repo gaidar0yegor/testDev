@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\SocieteUser;
 use App\Form\Custom\FoRoleCardChoiceType;
 use App\Form\Custom\RdiMobilePhoneNumberType;
+use App\Form\EventListener\CheckPeriodsDatesListener;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -38,7 +39,7 @@ class InviteUserType extends AbstractType
                 'allow_delete' => true,
 //            'by_reference' => false,
             ])
-            ->addEventListener(FormEvents::SUBMIT, [$this, 'checkDates'])
+            ->addEventSubscriber(new CheckPeriodsDatesListener())
         ;
     }
 
@@ -48,23 +49,5 @@ class InviteUserType extends AbstractType
             'data_class' => SocieteUser::class,
             'validation_groups' => ['Default', 'invitation'],
         ]);
-    }
-
-    public function checkDates(SubmitEvent $event): void
-    {
-        $forms = $event->getForm()->get('societeUserPeriods');
-
-        $dateLeaveLast = null;
-        foreach ($forms as $societeUserPeriodForm) {
-            $dateEntry = $societeUserPeriodForm->getData()->getDateEntry();
-            $dateLeave = $societeUserPeriodForm->getData()->getDateLeave();
-            if (
-                $dateEntry && $dateLeave && $societeUserPeriodForm->getData()->getDateEntry() > $societeUserPeriodForm->getData()->getDateLeave() ||
-                $dateEntry && $dateLeaveLast && $dateEntry < $dateLeaveLast
-            ) {
-                $societeUserPeriodForm->addError(new FormError("Les dates d'entrée / sortie ne sont pas cohérentes !"));
-            }
-            $dateLeaveLast = $dateLeave;
-        }
     }
 }
