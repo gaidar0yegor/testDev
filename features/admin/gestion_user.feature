@@ -40,12 +40,28 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
 
         When I follow "Mettre à jour"
         And I press "Désactiver"
+        Then I should see "veuillez préciser sa date de sortie"
+        And I fill in the following:
+            | societe_user[societeUserPeriods][0][dateLeave] | 20 janvier 2050 |
+        And I press "Mettre à jour"
+        Then I should see "Les informations de l'utilisateur ont été modifiées"
+
+        And I am on "/admin/utilisateurs/2/modifier"
+        And I press "Désactiver"
         Then I should see "Utilisateur Eureka a été désactivé, il ne pourra plus se connecter"
         When I follow "Utilisateurs"
         And I click on the 1st "[href='/utilisateur/2']" element
         And I should see "Désactivé" in the ".badge" element
 
         When I follow "Mettre à jour"
+        And I press "Ré-activer"
+        Then I should see "veuillez préciser sa date d'entrèe"
+        And I fill in the following:
+            | societe_user[societeUserPeriods][1][dateEntry] | 20 janvier 2051 |
+        And I press "Mettre à jour"
+        Then I should see "Les informations de l'utilisateur ont été modifiées"
+
+        And I am on "/admin/utilisateurs/2/modifier"
         And I press "Ré-activer"
         Then I should see "Utilisateur Eureka a été activé, il pourra se connecter de nouveau"
         When I follow "Utilisateurs"
