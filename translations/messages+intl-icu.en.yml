@@ -280,3 +280,5 @@ delete_user.time_tracking.safe: 'No time spent was entered by {user}.'
 are_you_sure_delete_user: "Are you sure you want to delete {user }'s account ?"
 user_have_been_deleted: "{User}'s account has been deleted !"
 see_more: "See more ..."
+verif_date_leave_on_disable_user: "To deactivate {user}'s account, please specify its exit date."
+verif_date_entry_on_enable_user: "To activate {user}'s account, please specify its entry date."

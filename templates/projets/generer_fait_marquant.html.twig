@@ -37,7 +37,7 @@
             <h2 class="facts">Faits marquants</h2>
 
             {% if projet.hasFaitMarquants() %}
-            <ul class="timeline">
+            <ul class="timeline text-word-break">
                 {% for faitMarquant in projet.faitMarquants %}
                     {% if faitMarquant.trashedAt is null %}
                     <li class="event">

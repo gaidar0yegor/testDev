@@ -32,16 +32,16 @@ App\Entity\SocieteUser:
 App\Entity\SocieteUserPeriod:
     user_period:
         societeUser: '@user'
-        dateEntry: null
-        dateLeave: null
+        dateEntry: <(new DateTime("2010-11-01"))>
+        dateLeave: <(new DateTime("2050-11-01"))>
     cdp_period:
         societeUser: '@cdp'
-        dateEntry: null
-        dateLeave: null
+        dateEntry: <(new DateTime("2010-11-01"))>
+        dateLeave: <(new DateTime("2050-11-01"))>
     admin_period:
         societeUser: '@admin'
-        dateEntry: null
-        dateLeave: null
+        dateEntry: <(new DateTime("2010-11-01"))>
+        dateLeave: <(new DateTime("2050-11-01"))>
 
 App\Entity\Projet:
     projet:
