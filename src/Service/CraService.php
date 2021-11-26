@@ -10,6 +10,7 @@ use App\Entity\TempsPasse;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
 use App\Security\Role\RoleProjet;
+use Doctrine\ORM\EntityManagerInterface;
 
 class CraService
 {
@@ -21,16 +22,20 @@ class CraService
 
     private $joursFeriesCalculator;
 
+    private $em;
+
     public function __construct(
         DateMonthService $dateMonthService,
         CraRepository $craRepository,
         ProjetRepository $projetRepository,
-        JoursFeriesCalculator $joursFeriesCalculator
+        JoursFeriesCalculator $joursFeriesCalculator,
+        EntityManagerInterface $em
     ) {
         $this->dateMonthService = $dateMonthService;
         $this->craRepository = $craRepository;
         $this->projetRepository = $projetRepository;
         $this->joursFeriesCalculator = $joursFeriesCalculator;
+        $this->em = $em;
     }
 
     /**
@@ -83,6 +88,11 @@ class CraService
         ;
 
         foreach ($userProjets as $userProjet) {
+            $isSuspendedProject = $this->dateMonthService->isSuspendedProjectByMonth($userProjet, $cra->getMois());
+            if ($isSuspendedProject){
+                $this->deleteTempsPasseByProjet($cra,$userProjet);
+                continue;
+            }
             if ($this->craContainsProjet($cra, $userProjet)) {
                 continue;
             }
@@ -220,5 +230,22 @@ class CraService
         }
 
         return false;
+    }
+
+    /**
+     * @param TempsPasse[] $tempsPasses Liste de temps passés pour supprimer qui est lié au projet un s'il existe
+     * @param Projet $projet
+     */
+    private function deleteTempsPasseByProjet(Cra $cra, Projet $projet): void
+    {
+        foreach ($cra->getTempsPasses() as $tempsPasse) {
+            if ($tempsPasse->getProjet() === $projet) {
+                $this->em->remove($tempsPasse);
+
+                $cra->setTempsPassesModifiedAt(null);
+                $this->em->persist($cra);
+                $this->em->flush();
+            }
+        }
     }
 }

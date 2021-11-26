@@ -100,8 +100,10 @@
 
 <a
     href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}"
-    class="btn btn-outline-primary rounded-circle float-right {{ userCanAddFaitMarquant ? '' : 'disabled' }}"
-    {% if not userCanAddFaitMarquant %}
+    class="btn btn-outline-primary rounded-circle float-right {{ not projet.isSuspended and userCanAddFaitMarquant ? '' : 'disabled' }}"
+    {% if projet.isSuspended %}
+        title="Le projet est suspendu"
+    {% elseif not userCanAddFaitMarquant %}
         title="Seul les contributeurs peuvent ajouter un fichier"
     {% else %}
         title="Ajouter un fichier"
@@ -114,7 +116,7 @@
 {% if projet.fichierProjets|length > 0 %}
     
     <ul class="list-unstyled">
-        {% for fichierProjet in projet.fichierProjets[0:5] %}
+        {% for fichierProjet in projet.fichierProjets|reverse[0:5] %}
             <li>
                 <a href="{{ path('app_fo_projet_fichier', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
                         {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>

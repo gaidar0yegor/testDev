@@ -46,7 +46,7 @@ class ProjetResourceVoter extends Voter
      */
     protected function supports($attribute, $subject): bool
     {
-        if ($subject instanceof Projet && ProjetResourceInterface::CREATE === $attribute) {
+        if ($subject instanceof Projet && !$subject->getIsSuspended() && ProjetResourceInterface::CREATE === $attribute) {
             return true;
         }
 
@@ -87,6 +87,10 @@ class ProjetResourceVoter extends Voter
             return true;
         }
 
+        if ($projet->getIsSuspended()) {
+            return false;
+        }
+
         // User doit être au moins contributeur sur ce projet
         if (!$this->participantService->hasRoleOnProjet($societeUser, $projet, RoleProjet::CONTRIBUTEUR)) {
             return false;
@@ -99,6 +103,13 @@ class ProjetResourceVoter extends Voter
     {
         // User ne peut pas modifier les ressources sur un projet d'une société autre que la sienne
         if (!$this->societeChecker->isSameSociete($resource->getProjet(), $societeUser)) {
+            return false;
+        }
+
+        if (
+            ($action === ProjetResourceInterface::CREATE || $action === ProjetResourceInterface::EDIT || $action === ProjetResourceInterface::DELETE) &&
+            $resource->getProjet()->getIsSuspended()
+        ){
             return false;
         }
 

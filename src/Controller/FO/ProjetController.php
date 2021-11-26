@@ -3,6 +3,7 @@
 namespace App\Controller\FO;
 
 use App\Entity\Projet;
+use App\Entity\ProjetSuspendPeriod;
 use App\Form\FaitMarquantType;
 use App\Form\ProjetFormType;
 use App\Entity\ProjetParticipant;
@@ -11,6 +12,7 @@ use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
 use App\Service\FaitMarquantService;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -361,23 +363,118 @@ class ProjetController extends AbstractController
     ) {
         $this->denyAccessUnlessGranted('edit', $projet);
 
-        $projet->setSuspendedAt(new \DateTime());
+        if ($projet->getIsSuspended()){
+            $this->addFlash('danger', $translator->trans('project_have_been_suspended', [
+                'projectAcronyme' => $projet->getAcronyme(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_projet', ['id' => $projet->getId()]);
+        }
+
         $faitMarquant = $faitMarquantService->CreateFmOfProjectSuspension($projet);
 
-        $form = $this->createForm(FaitMarquantType::class, $faitMarquant, [
-            'suspendProjet' => true
+        $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
+        $form->add('suspendedAt', DateType::class, [
+            'label' => 'Date de suspension du projet',
+            'attr' => ['format' => 'yyyy-MM-dd'],
+            'required' => true,
+            'mapped' => false,
+            'data' => new \DateTime(),
         ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            if ($form->get('suspendedAt')->getData() > (new \DateTime())){
+                $form->addError(new FormError("La date de suspension du projet doit être inférieure ou égale à " . (new \DateTime())->format('d M Y')));
+                return $this->render('projets/suspend.html.twig', [
+                    'projet' => $projet,
+                    'form' => $form->createView(),
+                ]);
+            }
+            $suspendPeriod = new ProjetSuspendPeriod();
+            $suspendPeriod->setSuspendedAt($form->get('suspendedAt')->getData());
             $projet->setIsSuspended(true);
+            $projet->addProjetSuspendPeriod($suspendPeriod);
 
+            $em->persist($suspendPeriod);
             $em->persist($faitMarquant);
             $em->persist($projet);
             $em->flush();
 
             $this->addFlash('warning', $translator->trans('project_have_been_suspended', [
+                'projectAcronyme' => $projet->getAcronyme(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_projet', [
+                'id' => $projet->getId(),
+            ]);
+        }
+
+        return $this->render('projets/suspend.html.twig', [
+            'projet' => $projet,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/reactiver", name="app_fo_projet_resume")
+     */
+    public function resume(
+        Projet $projet,
+        Request $request,
+        TranslatorInterface $translator,
+        FaitMarquantService $faitMarquantService,
+        EntityManagerInterface $em
+    ) {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        if (!$projet->getIsSuspended()){
+            $this->addFlash('danger', $translator->trans('project_have_been_resumed', [
+                'projectAcronyme' => $projet->getAcronyme(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_projet', ['id' => $projet->getId()]);
+        }
+
+        $faitMarquant = $faitMarquantService->CreateFmOfProjectResume($projet);
+
+        $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
+        $form->add('resumedAt', DateType::class, [
+            'label' => 'Date de ré-activation du projet',
+            'attr' => ['format' => 'yyyy-MM-dd'],
+            'required' => true,
+            'mapped' => false,
+            'data' => new \DateTime(),
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $suspendPeriod = $em->getRepository(ProjetSuspendPeriod::class)->findToResume($projet);
+
+            if ($form->get('resumedAt')->getData() > (new \DateTime()) || $form->get('resumedAt')->getData() < $suspendPeriod->getSuspendedAt()){
+                $form->addError(new FormError("
+                La date de ré-activation du projet doit être comprise entre " .
+                    $suspendPeriod->getSuspendedAt()->format('d M Y') . " et " .
+                    (new \DateTime())->format('d M Y'))
+                );
+                return $this->render('projets/suspend.html.twig', [
+                    'projet' => $projet,
+                    'form' => $form->createView(),
+                ]);
+            }
+
+
+            $suspendPeriod->setResumedAt($form->get('resumedAt')->getData());
+            $projet->setIsSuspended(false);
+
+            $em->persist($suspendPeriod);
+            $em->persist($faitMarquant);
+            $em->persist($projet);
+            $em->flush();
+
+            $this->addFlash('success', $translator->trans('project_have_been_resumed', [
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 

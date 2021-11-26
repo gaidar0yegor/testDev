@@ -26,9 +26,7 @@ class FaitMarquantType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $faitMarquant = $options['data'];
         $societe = $this->userContext->getSocieteUser()->getSociete();
-
 
         $descriptionOptions = [ 'attr' => [
             'class' => 'text-justify',
@@ -56,13 +54,6 @@ class FaitMarquantType extends AbstractType
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
         ;
-        if ($options['suspendProjet']){
-            $builder->add('suspendedAt', DateSuspendProjetType::class,[
-                'label' => false,
-                'data' => $faitMarquant->getProjet(),
-                'mapped' => false
-            ]);
-        }
     }
 
     public function setFichierProjetFaitMarquant(SubmitEvent $event)
@@ -85,8 +76,7 @@ class FaitMarquantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => FaitMarquant::class,
-            'suspendProjet' => false,
+            'data_class' => FaitMarquant::class
         ]);
     }
 }

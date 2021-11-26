@@ -102,6 +102,16 @@ services:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Projet }
 
+    App\Activity\Type\ProjetSuspendedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\ProjetSuspendPeriod }
+
+    App\Activity\Type\ProjetResumedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\ProjetSuspendPeriod }
+
     App\Activity\Type\UserQuitteSociete:
         tags:
             - 'app.activity_type'

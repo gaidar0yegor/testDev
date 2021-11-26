@@ -101,7 +101,9 @@
                         'fichierProjetId': form.vars.data.id
                     }) }}" 
                     class="btn btn-outline-primary btn-sm mr-2 {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}disabled{% endif %}"
-                    {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}
+                    {% if form.vars.data.projet.isSuspended %}
+                        title="Le projet est suspendu"
+                    {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}
                         title="Vous ne pouvez pas renommer les fichiers qui ne vous appartiennent pas"
                     {% endif %}
                     >
@@ -110,7 +112,9 @@
                 <a
                     href="{{ path('app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
                     class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
-                    {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}
+                        {% if form.vars.data.projet.isSuspended %}
+                            title="Le projet est suspendu"
+                        {% elseif not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}
                         title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
                     {% endif %}
                 >

@@ -220,10 +220,13 @@ class DashboardController extends AbstractController
         $stats = [
             'active' => 0,
             'finished' => 0,
+            'suspended' => 0,
         ];
 
         foreach ($projets as $projet) {
-            if (null === $projet->getDateFin() || $projet->getDateFin() >= $now) {
+            if ($projet->getIsSuspended()) {
+                ++$stats['suspended'];
+            } elseif (null === $projet->getDateFin() || $projet->getDateFin() >= $now) {
                 ++$stats['active'];
             } else {
                 ++$stats['finished'];

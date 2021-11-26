@@ -156,4 +156,21 @@ class DateMonthService
 
         return false;
     }
+
+    public function isSuspendedProjectByMonth(Projet $projet, \DateTimeInterface $date): bool
+    {
+        foreach ($projet->getProjetSuspendPeriods() as $suspendPeriod) {
+            $suspendDate = $suspendPeriod->getSuspendedAt() ? new \DateTime($suspendPeriod->getSuspendedAt()->format('Y-m')) : null;
+            $resumeDate = $suspendPeriod->getResumedAt() ? new \DateTime($suspendPeriod->getResumedAt()->format('Y-m')) : null;
+
+            if (
+                $suspendDate && $suspendDate < $date &&
+                ($resumeDate === null || ($resumeDate && $resumeDate > $date))
+            ) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

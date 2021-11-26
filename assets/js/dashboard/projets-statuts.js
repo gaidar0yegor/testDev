@@ -36,7 +36,7 @@ window.addEventListener('loadSinceYearCharts', event => {
                 columns: [
                     ['En cours', heuresParProjet.active],
                     ['Terminés', heuresParProjet.finished],
-                    ['Suspendus', 0], // Fake data, commercial purpose
+                    ['Suspendus', heuresParProjet.suspended]
                 ],
             });
         })
