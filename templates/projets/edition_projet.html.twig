@@ -45,6 +45,17 @@
 		{{ form_end(form) }}
 	</div>
     <div class="col-lg-4 offset-lg-2">
+        <div class="card border-warning mb-3">
+            <div class="card-body text-warning">
+                <h5 class="card-title">{{ 'suspend_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
+                <p class="card-text">
+                    <a
+                            href="{{ path('app_fo_projet_suspend', {'id': projet.id}) }}"
+                            class="btn btn-outline-warning mt-4"
+                    >{{ 'suspend_project'|trans }}</a>
+                </p>
+            </div>
+        </div>
         <div class="card border-danger mb-3">
             <div class="card-body text-danger">
                 <h5 class="card-title">{{ 'delete_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>

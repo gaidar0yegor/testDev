@@ -2,13 +2,15 @@
 
 namespace App\Controller\FO;
 
-use App\Role;
 use App\Entity\Projet;
+use App\Form\FaitMarquantType;
 use App\Form\ProjetFormType;
 use App\Entity\ProjetParticipant;
 use App\ProjetResourceInterface;
 use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
+use App\Service\FaitMarquantService;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -344,6 +346,49 @@ class ProjetController extends AbstractController
 
         return $this->render('projets/delete.html.twig', [
             'projet' => $projet,
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/suspendre", name="app_fo_projet_suspend")
+     */
+    public function suspend(
+        Projet $projet,
+        Request $request,
+        TranslatorInterface $translator,
+        FaitMarquantService $faitMarquantService,
+        EntityManagerInterface $em
+    ) {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        $projet->setSuspendedAt(new \DateTime());
+        $faitMarquant = $faitMarquantService->CreateFmOfProjectSuspension($projet);
+
+        $form = $this->createForm(FaitMarquantType::class, $faitMarquant, [
+            'suspendProjet' => true
+        ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $projet->setIsSuspended(true);
+
+            $em->persist($faitMarquant);
+            $em->persist($projet);
+            $em->flush();
+
+            $this->addFlash('warning', $translator->trans('project_have_been_suspended', [
+                'projectAcronyme' => $projet->getAcronyme(),
+            ]));
+
+            return $this->redirectToRoute('app_fo_projet', [
+                'id' => $projet->getId(),
+            ]);
+        }
+
+        return $this->render('projets/suspend.html.twig', [
+            'projet' => $projet,
+            'form' => $form->createView(),
         ]);
     }
 }

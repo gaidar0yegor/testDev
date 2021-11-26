@@ -6,7 +6,6 @@ use App\Entity\SocieteUser;
 use App\Notification\Event\RappelCreationFaitMarquantsNotification;
 use App\Repository\ProjetRepository;
 use App\Repository\SocieteUserRepository;
-use App\Role;
 use App\Security\Role\RoleProjet;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

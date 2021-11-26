@@ -216,6 +216,12 @@ cancel: Cancel
 disable_account: Deactivate account
 re_enable_account: Reactivate account
 verify_and_delete_user: Verify and delete the account
+delete_project_title: 'Delete the project {projectAcronyme}'
+suspend_project_title: 'Suspend the project {projectAcronyme}'
+project_have_been_deleted: 'The project {projectAcronyme} has been deleted !'
+project_have_been_suspended: 'The project {projectAcronyme} has been suspended !'
+your_are_about_to_delete_project: 'You are about to permanently delete the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
+your_are_about_to_suspend_project: 'You are about to suspend the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
 delete_account: Delete account
 your_are_about_to_delete_user: "You are about to permanently delete the <strong>{user}</strong> account with the role of <strong>{userRole}</strong>."
 this_action_can_have_effect_on_linked_data_user: 'This action can have an impact on the data related to this user :'

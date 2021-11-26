@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Exception\RdiException;
 use App\HasSocieteInterface;
 use App\Repository\ProjetRepository;
-use App\Role;
 use App\Security\Role\RoleProjet;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -143,6 +142,21 @@ class Projet implements HasSocieteInterface
      * @ORM\Column(type="string", length=10)
      */
     private $colorCode;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isSuspended;
+
+    /**
+     * Date de suspension du projet
+     * @Assert\Range(
+     *      max = "today"
+     * )
+     *
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $suspendedAt;
 
     public function __construct()
     {
@@ -601,6 +615,30 @@ class Projet implements HasSocieteInterface
     public function setColorCode(string $colorCode): self
     {
         $this->colorCode = $colorCode;
+
+        return $this;
+    }
+
+    public function getIsSuspended(): ?bool
+    {
+        return $this->isSuspended;
+    }
+
+    public function setIsSuspended(?bool $isSuspended): self
+    {
+        $this->isSuspended = $isSuspended;
+
+        return $this;
+    }
+
+    public function getSuspendedAt(): ?\DateTimeInterface
+    {
+        return $this->suspendedAt;
+    }
+
+    public function setSuspendedAt(?\DateTimeInterface $suspendedAt): self
+    {
+        $this->suspendedAt = $suspendedAt;
 
         return $this;
     }
