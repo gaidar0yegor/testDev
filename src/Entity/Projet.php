@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Exception\RdiException;
 use App\HasSocieteInterface;
 use App\Repository\ProjetRepository;
-use App\Role;
 use App\Security\Role\RoleProjet;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -144,6 +143,16 @@ class Projet implements HasSocieteInterface
      */
     private $colorCode;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isSuspended;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetSuspendPeriod::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
+     */
+    private $projetSuspendPeriods;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -158,6 +167,7 @@ class Projet implements HasSocieteInterface
         $this->createdAt = new \DateTime();
         $this->projetUrls = new ArrayCollection();
         $this->colorCode = '#e9ece6';
+        $this->projetSuspendPeriods = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -300,6 +310,10 @@ class Projet implements HasSocieteInterface
     public function getStatut(): string
     {
         $now = new \DateTime();
+
+        if ($this->isSuspended) {
+            return 'Suspendu';
+        }
 
         if (null !== $this->dateDebut && $now < $this->dateDebut) {
             return 'À venir';
@@ -601,6 +615,48 @@ class Projet implements HasSocieteInterface
     public function setColorCode(string $colorCode): self
     {
         $this->colorCode = $colorCode;
+
+        return $this;
+    }
+
+    public function getIsSuspended(): ?bool
+    {
+        return $this->isSuspended;
+    }
+
+    public function setIsSuspended(?bool $isSuspended): self
+    {
+        $this->isSuspended = $isSuspended;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetSuspendPeriod[]
+     */
+    public function getProjetSuspendPeriods(): Collection
+    {
+        return $this->projetSuspendPeriods;
+    }
+
+    public function addProjetSuspendPeriod(ProjetSuspendPeriod $projetSuspendPeriod): self
+    {
+        if (!$this->projetSuspendPeriods->contains($projetSuspendPeriod)) {
+            $this->projetSuspendPeriods[] = $projetSuspendPeriod;
+            $projetSuspendPeriod->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetSuspendPeriod(ProjetSuspendPeriod $projetSuspendPeriod): self
+    {
+        if ($this->projetSuspendPeriods->removeElement($projetSuspendPeriod)) {
+            // set the owning side to null (unless already changed)
+            if ($projetSuspendPeriod->getProjet() === $this) {
+                $projetSuspendPeriod->setProjet(null);
+            }
+        }
 
         return $this;
     }

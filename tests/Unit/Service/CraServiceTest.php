@@ -11,6 +11,8 @@ use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\Service\JoursFeriesCalculator;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectManager;
 use PHPUnit\Framework\TestCase;
 
 class CraServiceTest extends TestCase
@@ -25,15 +27,21 @@ class CraServiceTest extends TestCase
      */
     private $projetRepositoryMock;
 
+    /**
+     * @var EntityManagerInterface
+     */
+    private $em;
+
     protected function setUp(): void
     {
         $this->craRepositoryMock = $this->createMock(CraRepository::class);
         $this->projetRepositoryMock = $this->createMock(ProjetRepository::class);
+        $this->em = $this->createMock(EntityManagerInterface::class);
     }
 
     public function testCreateDefaultCraCreatesCraWithDaysOff()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator(), $this->em);
 
         $cra = $craService->createDefaultCra(\DateTime::createFromFormat('Y-m-d', '2020-11-09'));
         $expected = [
@@ -50,7 +58,7 @@ class CraServiceTest extends TestCase
 
     public function testCreateDefaultCraCreatesCraNormalizedMonth()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator(), $this->em);
 
         $cra = $craService->createDefaultCra(\DateTime::createFromFormat('Y-m-d', '2020-11-09'));
 
@@ -60,7 +68,7 @@ class CraServiceTest extends TestCase
 
     public function testCreateDefaultCraTakesAccountOfUserDateEntreeSameMonth()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator(), $this->em);
 
         $user = new SocieteUser();
         $userPeriod = new SocieteUserPeriod();
@@ -83,7 +91,7 @@ class CraServiceTest extends TestCase
 
     public function testCreateDefaultCraTakesAccountOfUserDateEntreeLongBefore()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator(), $this->em);
 
         $user = new SocieteUser();
         $userPeriod = new SocieteUserPeriod();
@@ -106,7 +114,7 @@ class CraServiceTest extends TestCase
 
     public function testCreateDefaultCraTakesAccountOfUserDateSortieSameMonth()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator(), $this->em);
 
         $user = new SocieteUser();
         $userPeriod = new SocieteUserPeriod();
@@ -130,7 +138,7 @@ class CraServiceTest extends TestCase
 
     public function testCreateDefaultCraTakesAccountOfUserDateSortieLongAfter()
     {
-        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator());
+        $craService = new CraService(new DateMonthService(), $this->craRepositoryMock, $this->projetRepositoryMock, new JoursFeriesCalculator(), $this->em);
 
         $user = new SocieteUser();
         $userPeriod = new SocieteUserPeriod();

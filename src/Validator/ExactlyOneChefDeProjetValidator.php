@@ -3,7 +3,6 @@
 namespace App\Validator;
 
 use App\Entity\ProjetParticipant;
-use App\Role;
 use App\Security\Role\RoleProjet;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;

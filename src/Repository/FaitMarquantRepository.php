@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Entity\SocieteUser;
-use App\Role;
 use App\Security\Role\RoleProjet;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;

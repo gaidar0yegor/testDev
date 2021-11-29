@@ -76,7 +76,7 @@ class FaitMarquantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => FaitMarquant::class,
+            'data_class' => FaitMarquant::class
         ]);
     }
 }

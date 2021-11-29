@@ -19,6 +19,7 @@ use App\Service\Timesheet\TimesheetCalculator;
 use App\Service\Timesheet\UserContributingProjetRepositoryInterface;
 use App\Service\Timesheet\UserMonthCraRepositoryInterface;
 use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Framework\TestCase;
 
 class TimesheetCalculatorTest extends TestCase
@@ -31,10 +32,12 @@ class TimesheetCalculatorTest extends TestCase
     private ProjetParticipant $participation;
     private Cra $cra;
     private \DateTimeInterface $mois;
+    private $em;
 
     protected function setUp(): void
     {
         $this->dateMonthService = new DateMonthService();
+        $this->em = $this->createMock(EntityManagerInterface::class);
     }
 
     private function prepareBasicSample()
@@ -106,7 +109,8 @@ class TimesheetCalculatorTest extends TestCase
                 new DateMonthService(),
                 $this->createMock(CraRepository::class),
                 $this->createMock(ProjetRepository::class),
-                new JoursFeriesCalculator()
+                new JoursFeriesCalculator(),
+                $this->em
             ),
             $this->dateMonthService
         );

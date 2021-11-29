@@ -49,15 +49,44 @@
             <div class="card-body text-danger">
                 <h5 class="card-title">{{ 'delete_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
                 <p class="card-text">
-					{{ 'delete_project_link_description'|trans }}
+                    {{ 'delete_project_link_description'|trans }}
                     <a
-                        href="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
-                        class="btn btn-outline-danger mt-4"
+                            href="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
+                            class="btn btn-outline-danger mt-4"
                     >{{ 'verify_and_delete_project'|trans }}</a>
                 </p>
             </div>
         </div>
     </div>
+    {% if projet.isSuspended %}
+    <div class="col-lg-4">
+        <div class="card border-success mb-3">
+            <div class="card-body text-success">
+                <h5 class="card-title">{{ 'resume_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
+                <p class="card-text">
+                    <a
+                            href="{{ path('app_fo_projet_resume', {'id': projet.id}) }}"
+                            class="btn btn-outline-success mt-4"
+                    >{{ 'resume_project'|trans }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-lg-4">
+        <div class="card border-warning mb-3">
+            <div class="card-body text-warning">
+                <h5 class="card-title">{{ 'suspend_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
+                <p class="card-text">
+                    <a
+                            href="{{ path('app_fo_projet_suspend', {'id': projet.id}) }}"
+                            class="btn btn-outline-warning mt-4"
+                    >{{ 'suspend_project'|trans }}</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 
 

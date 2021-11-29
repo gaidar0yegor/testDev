@@ -23,6 +23,11 @@
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Ajouter un fait marquant
                 </a>
+            {% elseif projet.isSuspended %}
+                <p class="text-muted text-left">
+                    <i class="fa fa-ban" aria-hidden="true"></i>
+                    Le projet est suspendu
+                </p>
             {% else %}
                 <p class="text-muted text-left">
                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -70,7 +75,10 @@
                                     <a
                                             href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
                                             class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
-                                            {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
+                                            {% if projet.isSuspended %}
+                                                disabled
+                                                title="Le projet est suspendu"
+                                            {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
                                                 disabled
                                                 title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
                                             {% endif %}
