@@ -32,7 +32,7 @@
                 </p>
 
                 <p v-if="cra && cra.tempsPasses.length === 0 && cra.isUserBelongingToSociete === true" class="lead text-center">
-                    Ce mois-ci, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.
+                    Cette période, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.
                 </p>
 
                 <form v-if="cra && cra.tempsPasses.length > 0 && cra.isUserBelongingToSociete === true" @submit="submitCra">

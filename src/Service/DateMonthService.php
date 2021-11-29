@@ -140,11 +140,11 @@ class DateMonthService
         return $date0->format('Y-m') === $date1->format('Y-m');
     }
 
-    public function isUserBelongingToSocieteByDate(SocieteUser $societeUser, \DateTimeInterface $date): bool
+    public function isUserBelongingToSocieteByDate(SocieteUser $societeUser, \DateTimeInterface $date, bool $isMonthly = true): bool
     {
         foreach ($societeUser->getSocieteUserPeriods() as $societeUserPeriod) {
-            $dateEntry = $societeUserPeriod->getDateEntry() ? new \DateTime($societeUserPeriod->getDateEntry()->format('Y-m')) : null;
-            $dateLeave = $societeUserPeriod->getDateLeave() ? new \DateTime($societeUserPeriod->getDateLeave()->format('Y-m')) : null;
+            $dateEntry = $societeUserPeriod->getDateEntry() ? new \DateTime($societeUserPeriod->getDateEntry()->format($isMonthly ? 'Y-m' : 'Y-m-d')) : null;
+            $dateLeave = $societeUserPeriod->getDateLeave() ? new \DateTime($societeUserPeriod->getDateLeave()->format($isMonthly ? 'Y-m' : 'Y-m-d')) : null;
 
             if (
                 $dateEntry && $dateEntry <= $date &&

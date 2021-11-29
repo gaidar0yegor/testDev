@@ -19,7 +19,15 @@
             </span>
         </h2>
 
-        <form v-if="cra && cra.tempsPasses.length > 0" @submit="submitCra">
+        <p v-if="cra && cra.isUserBelongingToSociete === false" class="lead text-center">
+            Impossible de saisir les temps de cette période car vous n'étiez pas dans la société.
+        </p>
+
+        <p v-if="cra && cra.tempsPasses.length === 0 && cra.isUserBelongingToSociete === true" class="lead text-center">
+            Cette période, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.
+        </p>
+
+        <form v-if="cra && cra.tempsPasses.length > 0 && cra.isUserBelongingToSociete === true" @submit="submitCra">
             <div class="message-validation text-center">
                 <p v-if="cra.tempsPassesModifiedAt" class="text-success">
                     <i class="fa fa-check" aria-hidden="true"></i>
@@ -69,10 +77,6 @@
                 :disabled="submitting || !validCra(cra)"
             >{{ t('update') }}</button>
         </form>
-
-        <p v-if="cra && cra.tempsPasses.length === 0" class="lead text-center">
-            Ce mois-ci, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.
-        </p>
     </div>
 </template>
 
