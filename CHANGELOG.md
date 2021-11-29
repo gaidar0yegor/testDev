@@ -10,6 +10,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.37.2] - 2021-11-29
+### Réparé
+- Corriger word-break des faits marquants
+
 ## [0.37.1] - 2021-11-29
 ### Réparé
 - Corrige "Erreur serveur"
