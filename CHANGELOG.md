@@ -9,6 +9,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.37.3] - 2021-11-29
+### Réparé
+- Corriger erreur : Suivi temps
 
 ## [0.37.2] - 2021-11-29
 ### Réparé
