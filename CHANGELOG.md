@@ -9,6 +9,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Possibilité d'avoir plusieurs date d'entrée / sortie pour chaque utilisateur pour la même société
 - Gérer les dates d'entrée / sortie lors de la désactivation / activation d'un utilisateur
 - Suspendre un projet
+- Ajouter les icones du NavBar
+- Réparer les responsive du NavBar
 
 ## [0.36.6] - 2021-11-19
 ### Réparé
