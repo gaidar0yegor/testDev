@@ -162,6 +162,8 @@ class TempsController extends AbstractController
             unset($tempsPasse['pourcentages']);
         }
 
+        $normalizedCra['isUserBelongingToSociete'] = $this->dateMonthService->isUserBelongingToSocieteByDate($userContext->getSocieteUser(), $month,false);
+
         return new JsonResponse($normalizedCra);
     }
 
@@ -260,6 +262,8 @@ class TempsController extends AbstractController
                 $tempsPasse['pourcentages'] = array_fill(0, 7, $tempsPasse['pourcentages'][0]);
             }
         }
+
+        $normalizedCra['isUserBelongingToSociete'] = $this->dateMonthService->isUserBelongingToSocieteByDate($userContext->getSocieteUser(), $month, false);
 
         return new JsonResponse($normalizedCra);
     }

@@ -130,7 +130,7 @@ class Cra implements HasSocieteInterface
         return $this->craModifiedAt;
     }
 
-    public function setCraModifiedAt(\DateTimeInterface $craModifiedAt): self
+    public function setCraModifiedAt(?\DateTimeInterface $craModifiedAt): self
     {
         $this->craModifiedAt = $craModifiedAt;
 
@@ -142,7 +142,7 @@ class Cra implements HasSocieteInterface
         return $this->tempsPassesModifiedAt;
     }
 
-    public function setTempsPassesModifiedAt(\DateTimeInterface $tempsPassesModifiedAt): self
+    public function setTempsPassesModifiedAt(?\DateTimeInterface $tempsPassesModifiedAt): self
     {
         $this->tempsPassesModifiedAt = $tempsPassesModifiedAt;
 

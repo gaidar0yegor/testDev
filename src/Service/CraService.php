@@ -239,7 +239,8 @@ class CraService
     private function deleteTempsPasseByProjet(Cra $cra, Projet $projet): void
     {
         foreach ($cra->getTempsPasses() as $tempsPasse) {
-            if ($tempsPasse->getProjet() === $projet) {
+            if ($tempsPasse->getProjet()->getId() === $projet->getId()) {
+                $cra->removeTempsPass($tempsPasse);
                 $this->em->remove($tempsPasse);
 
                 $cra->setTempsPassesModifiedAt(null);
