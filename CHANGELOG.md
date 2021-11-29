@@ -6,6 +6,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+## [0.37.0] - 2021-11-29
+### Ajouté
 - Possibilité d'avoir plusieurs date d'entrée / sortie pour chaque utilisateur pour la même société
 - Gérer les dates d'entrée / sortie lors de la désactivation / activation d'un utilisateur
 - Suspendre un projet
