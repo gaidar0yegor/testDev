@@ -5,6 +5,12 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+
+
+
+
+## [0.37.1] - 2021-11-29
 ### Réparé
 - Corrige "Erreur serveur"
 
