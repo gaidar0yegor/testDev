@@ -26,7 +26,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                            <h5 class="card-title">Contributeurs</h5>
+                            <h5 class="card-title"><a href="{{ path('app_fo_projet_participant', {'id': projet.id}) }}">Contributeurs</a></h5>
                             <p class="card-text display-4 mb-0">
                                 {{ projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR'))|length + projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CDP'))|length }}
                             </p>
@@ -39,7 +39,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                            <h5 class="card-title">Faits marquants</h5>
+                            <h5 class="card-title"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}">Faits marquants</a></h5>
                             <p class="card-text display-4 mb-0">
                                 {{ projet.faitMarquants|length }}
                             </p>
