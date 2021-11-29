@@ -26,8 +26,8 @@ class FaitMarquantService
     {
         $faitMarquant = new FaitMarquant();
 
-        $faitMarquant->setTitre('Fait marquant de suspension du projet');
-        $faitMarquant->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+        $faitMarquant->setTitre('Projet suspendu');
+        $faitMarquant->setDescription('Suspension temporaire du projet pour des raisons stratégiques internes. Plus aucune action (saisie de faits marquants, suivi du temps, …) ne sera possible sur ce projet jusqu’à sa réactivation. Seule la consultation de la page projet sera possible durant toute la période de suspension. Pour toute information complémentaire, veuillez contacter le responsable des projets.');
         $faitMarquant->setDate(new \DateTime());
 
         $faitMarquant->setProjet($projet);
@@ -43,8 +43,8 @@ class FaitMarquantService
     {
         $faitMarquant = new FaitMarquant();
 
-        $faitMarquant->setTitre('Fait marquant de ré-activation du projet');
-        $faitMarquant->setDescription('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+        $faitMarquant->setTitre('Projet réactivé');
+        $faitMarquant->setDescription('Réactivation du projet après validation en interne avec les principales parties prenantes. Les contributeurs du projet peuvent à nouveau réaliser des actions (saisie de faits marquants, suivi du temps, …) sur ce projet. Pour toute information complémentaire, veuillez contacter le responsable des projets.');
         $faitMarquant->setDate(new \DateTime());
 
         $faitMarquant->setProjet($projet);
