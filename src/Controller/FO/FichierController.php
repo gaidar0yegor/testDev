@@ -2,10 +2,10 @@
 
 namespace App\Controller\FO;
 
-use App\Entity\Fichier;
 use App\Entity\Projet;
 use App\Entity\FichierProjet;
 use App\Form\ProjetFichierProjetsType;
+use App\Notification\Event\FichierProjetAddedEvent;
 use App\ProjetResourceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\File\FileHandler\ProjectFileHandler;
@@ -15,10 +15,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FichierController extends AbstractController
 {
+    private EventDispatcherInterface $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @Route("/projets/{id}/fichiers", name="app_fo_projet_fichiers")
      */
@@ -35,6 +43,8 @@ class FichierController extends AbstractController
 
             $em->persist($projet);
             $em->flush();
+
+            $this->dispatcher->dispatch(new FichierProjetAddedEvent($projet->getFichierProjets()->last()));
 
             return $this->redirectToRoute('app_fo_projet_fichiers', [
                 'id' => $projet->getId(),
