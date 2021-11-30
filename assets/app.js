@@ -10,6 +10,7 @@ import './styles/radio-choice-colors.scss';
 import 'bootstrap';
 import 'bootstrap-datepicker';
 
+import './js/select2'
 import './js/bootstrap-table';
 import './js/draft-forms';
 import './js/Cra';
