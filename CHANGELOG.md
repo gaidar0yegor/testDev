@@ -6,7 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
+- Ajouter une activité lorsqu'un fichier est ajouté au projet sans même l'avoir ajouté à un fait marquant.
 
 
 ## [0.37.3] - 2021-11-29
