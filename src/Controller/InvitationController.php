@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Exception\InvitationTokenAlreadyHasSocieteException;
 use App\Exception\InvitationTokenExpiredException;
 use App\Form\FinalizeInscriptionType;
 use App\MultiSociete\UserContext;
@@ -38,6 +39,10 @@ class InvitationController extends AbstractController
         }
 
         if (null !== $this->getUser()) {
+            if (count($societeUserRepository->findBy(['societe' => $societeUser->getSociete(), 'user' => $this->getUser()])) > 0){
+                throw new InvitationTokenAlreadyHasSocieteException();
+            }
+
             return $this->redirectToRoute('app_fo_user_invitation_join_societe', [
                 'token' => $token,
             ]);
@@ -65,6 +70,10 @@ class InvitationController extends AbstractController
 
         if (null === $societeUser) {
             throw new InvitationTokenExpiredException();
+        }
+
+        if (count($societeUserRepository->findBy(['societe' => $societeUser->getSociete(), 'user' => $this->getUser()])) > 0){
+            throw new InvitationTokenAlreadyHasSocieteException();
         }
 
         if ($request->isMethod('POST')) {
