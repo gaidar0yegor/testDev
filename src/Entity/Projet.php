@@ -92,7 +92,7 @@ class Projet implements HasSocieteInterface
 
     /**
      * @ORM\OneToMany(targetEntity=FaitMarquant::class, mappedBy="projet", orphanRemoval=true)
-     * @ORM\OrderBy({"date" = "DESC"})
+     * @ORM\OrderBy({"date" = "DESC", "id" = "DESC"})
      */
     private $faitMarquants;
 

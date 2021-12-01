@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ 'suspend_project_title'|trans({'projectAcronyme': projet.acronyme}) }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'resume_project_title'|trans({'projectAcronyme': projet.acronyme}) }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
     <h1>
-        {{ 'suspend_project_title'|trans({'projectAcronyme': projet.acronyme}) }}
+        {{ 'resume_project_title'|trans({'projectAcronyme': projet.acronyme}) }}
     </h1>
 
     <p>
-        {{ 'your_are_about_to_suspend_project'|trans({
+        {{ 'your_are_about_to_resume_project'|trans({
             'projectAcronyme': projet.acronyme,
             'projectTitle': projet.titre
         })|raw|striptags('<strong>')|raw }}
