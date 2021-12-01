@@ -1,12 +1,5 @@
  {{ form_start(form) }}
         {{ form_errors(form) }}
-
-        {% if form.suspendedAt is defined %}
-                {{ form_row(form.suspendedAt) }}
-        {% endif %}
-        {% if form.resumedAt is defined %}
-                {{ form_row(form.resumedAt) }}
-        {% endif %}
         {{ form_row(form.titre) }}
         {{ form_errors(form.description)}}
         {{ form_row(form.description)}}

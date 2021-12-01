@@ -14,8 +14,13 @@ class MultiSocieteController extends AbstractController
     /**
      * @Route("/mes-societes", name="app_fo_multi_societe_switch")
      */
-    public function switch(): Response
+    public function switch(
+        UserContext $userContext,
+        EntityManagerInterface $em
+    ): Response
     {
+        $userContext->disconnectSociete();
+        $em->flush();
         return $this->render('multi_societe/switch.html.twig');
     }
 
