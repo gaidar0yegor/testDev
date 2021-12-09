@@ -59,6 +59,7 @@ class RappelCreationFaitMarquants implements EventSubscriberInterface
             ->htmlTemplate('mail/notification_create_fait_marquant.html.twig')
             ->context([
                 'projets' => $projets,
+                'societe' => $societeUser->getSociete(),
             ])
         ;
 

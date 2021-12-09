@@ -4,7 +4,18 @@
      <row>
             <columns>
                 <spacer size="8"></spacer>
-                <center><img src="{{ email.image('@public' ~ asset('build/assets/img/Logo-RDI-rouge.png')) }}" width="60" height="40" alt="RDI-Manager logo"></center>
+                <center>
+                    {% if societe is defined and societe %}
+                        {% if societe.logo %}
+                            <img src="{{ societe|logoUrl|imagine_filter('avatar_mini') }}" height="100"
+                                    alt="{{ 'logo_of_socete'|trans({'societe': societe.raisonSociale}) }}"/>
+                        {% else %}
+                            <h3 class="pt text-center" >{{ societe.raisonSociale }}</h3>
+                        {% endif %}
+                    {% else %}
+                    <img src="{{ email.image('@public' ~ asset('build/assets/img/Logo-RDI-rouge.png')) }}" height="100" alt="RDI-Manager logo">
+                    {% endif %}
+                </center>
                 <h4 class="pt text-center color-title" >{% block title %}RDI-Manager{% endblock %}</h4>
             </columns>
         </row>

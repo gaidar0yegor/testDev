@@ -29,6 +29,7 @@ class FaitMarquantCreated
             ->textTemplate('mail/fait_marquant_cree.txt.twig')
             ->context([
                 'faitMarquant' => $faitMarquant,
+                'societe' => $faitMarquant->getSociete(),
             ])
         ;
 

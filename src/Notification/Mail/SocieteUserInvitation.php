@@ -53,6 +53,7 @@ class SocieteUserInvitation implements EventSubscriberInterface
             ->context([
                 'invitedUser' => $invitedUser,
                 'fromUser' => $fromUser,
+                'societe' => $invitedUser->getSociete(),
             ])
         ;
 
