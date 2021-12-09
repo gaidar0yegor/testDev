@@ -8,7 +8,7 @@
     {% for societeUser in app.user.societeUsers %}
         <div class="col mb-4">
             <div data-societe-user-id="{{ societeUser.id }}" class="card {% if societeUser == app.user.currentSocieteUser %}border-success{% endif %} {% if not societeUser.enabled %}bg-light{% endif %}">
-                <div class="card-body">
+                <div class="card-body" style="border-top: 5px solid {{ societeUser.societe.colorCode }}">
                     {% if not societeUser.enabled %}
                         <span
                             class="badge badge-secondary float-right"
