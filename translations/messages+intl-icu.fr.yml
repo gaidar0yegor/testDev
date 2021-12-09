@@ -279,6 +279,7 @@ edit_my_avatar: Modifier mon avatar
 'current_logo:': 'Logo actuel :'
 'new_avatar:': 'Nouvel avatar :'
 'new_logo:': 'Nouveau logo :'
+'color_code:': 'Code couleur :'
 delete_project_title: 'Supprimer le projet {projectAcronyme}'
 suspend_project_title: 'Suspendre le projet {projectAcronyme}'
 resume_project_title: 'Ré-activer le projet {projectAcronyme}'
