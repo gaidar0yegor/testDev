@@ -13,7 +13,7 @@
         ></span>
     </h1>
 
-    <table class="table datatable hover" data-column-defs='[{"sortable": false, "targets": [6]}]'>
+    <table class="table datatable hover text-center" data-column-defs='[{"sortable": false, "targets": [6]}]'>
         <thead>
             <tr>
                 <th>{% include 'utils/_code_color.html.twig' with {color: '#e9ece6', size: 15} %}</th>
@@ -32,7 +32,7 @@
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
                 >
-                    <td class="text-center" data-sort='{{ projet.colorCode }}'>
+                    <td data-sort='{{ projet.colorCode }}'>
                         {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
                     </td>
                     <td class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
@@ -40,7 +40,7 @@
                     <td data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td>{{ projet.statut }}</td>
-                    <td>{{projet.projetParticipants|length}}</td>
+                    <td  data-sort='{{ projet.activeProjetParticipants|length }}'>{{ projet.activeProjetParticipants|length }}<small> / {{ projet.projetParticipants|length }}</small></td>
                     <td>
                         <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">
                             <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
