@@ -80,6 +80,7 @@ $(document).ready( function () {
 
     validation_temps_dt = $('#validation_temps_dt').DataTable( {
         info: false,
+        responsive: true,
         ordering: false,
         searchHighlight: true,
         language: language_dt,
@@ -89,6 +90,7 @@ $(document).ready( function () {
     });
     users_list_dt = $('#users_list_dt').DataTable( {
         info: false,
+        responsive: true,
         order: [[ 5, "desc" ]],
         columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
         searchHighlight: true,
@@ -104,6 +106,7 @@ var files_list_dt;
 $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
         dom: 'lftp',
+        responsive: true,
         searchHighlight: true,
         language: language_dt,
     } );
