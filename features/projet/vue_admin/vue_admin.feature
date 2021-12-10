@@ -15,4 +15,4 @@ Feature: Affichage du score RDI
         When I follow "Statistiques"
         Then I should see "Contributeurs" in the ".card-deck" element
         And I should see "Faits marquants" in the ".card-deck" element
-        And I should see "Temps passés en %"
+        And I should see "Temps passés en"

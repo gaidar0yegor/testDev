@@ -113,15 +113,25 @@
 
         {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
             <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
-                <h3 class="text-center">{{ 'time_spent_in_percent_unit'|trans }}</h3>
-
-                <div
-                    class="year-switch text-center"
-                    data-event-name="user-chart-year-changed"
-                    {% if societeUser.getLastSocieteUserPeriod.dateEntry %}
-                        data-year-from="{{ societeUser.getLastSocieteUserPeriod.dateEntry|date('Y') }}"
-                    {% endif %}
-                ></div>
+                <div class="row my-4">
+                    <div class="col-md-12 mx-auto bordure">
+                        <h2>
+                            <span
+                                    class="year-switch text-center"
+                                    data-event-name="user-chart-year-changed"
+                                    {% if societeUser.getLastSocieteUserPeriod.dateEntry %}
+                                        data-year-from="{{ societeUser.getLastSocieteUserPeriod.dateEntry|date('Y') }}"
+                                    {% endif %}
+                                    data-with-unit="temps-unit-switch"
+                            ></span>
+                            {{ 'time_spent_in'|trans }}
+                            <span
+                                    class="temps-unit-switch"
+                                    data-event-name="user-chart-year-changed"
+                            ></span>
+                        </h2>
+                    </div>
+                </div>
 
                 <div id="chart-user-projets-temps" data-user-id="{{ societeUser.id }}"></div>
             </div>

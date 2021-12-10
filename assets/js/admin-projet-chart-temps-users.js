@@ -32,18 +32,18 @@ if (chartDiv) {
         e => {
             chart.unload();
 
-            fetch(`/api/stats/admin/temps-par-user/${chartDiv.dataset.projetId}/${e.detail.year}`)
+            fetch(`/api/stats/admin/temps-par-user/${chartDiv.dataset.projetId}/${e.detail.year}/${e.detail.unit}`)
                 .then(response => response.json())
                 .then(tempsParUsers => {
                     const total = {};
 
                     tempsParUsers.months.forEach(month => {
-                        Object.entries(month).forEach(([user, pourcentage]) => {
+                        Object.entries(month).forEach(([user, value]) => {
                             if (!total[user]) {
                                 total[user] = 0;
                             }
 
-                            total[user] += pourcentage;
+                            total[user] += value;
                         });
                     });
 

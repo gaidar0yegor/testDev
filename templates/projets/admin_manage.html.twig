@@ -79,15 +79,25 @@
             {% endif %}
         </div>
 
-        <h3 class="text-center">Temps passés en %</h3>
-
-        <div
-            class="year-switch text-center"
-            data-event-name="projet-chart-year-changed"
-            {% if projet.dateDebut %}
-                data-year-from="{{ projet.dateDebut|date('Y') }}"
-            {% endif %}
-        ></div>
+        <div class="row my-4">
+            <div class="col-md-12 mx-auto bordure">
+                <h2>
+                    <span
+                            class="year-switch text-center"
+                            data-event-name="projet-chart-year-changed"
+                            {% if projet.dateDebut %}
+                                data-year-from="{{ projet.dateDebut|date('Y') }}"
+                            {% endif %}
+                            data-with-unit="temps-unit-switch"
+                    ></span>
+                    {{ 'time_spent_in'|trans }}
+                    <span
+                            class="temps-unit-switch"
+                            data-event-name="projet-chart-year-changed"
+                    ></span>
+                </h2>
+            </div>
+        </div>
 
         <div id="chart-projet-users-temps" data-projet-id="{{ projet.id }}"></div>
     </div>

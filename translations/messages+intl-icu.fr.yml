@@ -207,7 +207,7 @@ activity: Activité
 his_projects: 'Ses projets'
 manage_his_projects_access: 'Gérer ses accès aux projets'
 .on_the_project: 'sur le projet'
-time_spent_in_percent_unit: 'Temps passés en %'
+time_spent_in: 'Temps passés en'
 .at_date: 'le {date}'
 creation_of_your_admin_account_on_company: 'Création de votre compte administrateur
   sur la société'

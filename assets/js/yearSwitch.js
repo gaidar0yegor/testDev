@@ -1,4 +1,5 @@
 import $ from 'jquery';
+const detectedLocale = document.querySelector('html').lang || 'fr';
 
 /*
  * Permet de créer un selecteur d'année à partir de :
@@ -24,10 +25,26 @@ import $ from 'jquery';
  *
  */
 $(() => {
+    $('.temps-unit-switch').each((_, divSwitch) => {
+        const $divSwitch = $(divSwitch);
+        const defaultUnit = 'hour';
+
+        const selectedUnit = divSwitch.dataset.unitSelected ? divSwitch.dataset.unitSelected : defaultUnit;
+
+        const $select = $('<select class="border-0 font-weight-bold-unset">' +
+            '<option value="hour" selected>'+ (detectedLocale === 'fr' ? 'heure' : 'hour') +'</option>' +
+            '<option value="percent">%</option>' +
+            '</select>');
+
+        $divSwitch.append($select);
+    });
+});
+$(() => {
     const currentYear = (new Date()).getFullYear();
 
     $('.year-switch').each((_, divSwitch) => {
         const $divSwitch = $(divSwitch);
+        const withUnit = divSwitch.dataset.withUnit ? divSwitch.dataset.withUnit : false;
         const yearFrom = divSwitch.dataset.yearFrom ? parseInt(divSwitch.dataset.yearFrom, 10) : currentYear - 5;
         const toYear = divSwitch.dataset.yearTo ? parseInt(divSwitch.dataset.yearTo, 10) : currentYear;
         const selectedYear = divSwitch.dataset.yearSelected ? parseInt(divSwitch.dataset.yearSelected, 10) : currentYear;
@@ -46,15 +63,32 @@ $(() => {
         $divSwitch.append($select);
 
         if (divSwitch.dataset.eventName) {
-            const dispatchEvent = year => {
-                window.dispatchEvent(new CustomEvent(divSwitch.dataset.eventName, {detail: {year}}));
+            var unit = false;
+            if (withUnit){
+                unit = $('.' + withUnit + ' select').val()
+            }
+            const dispatchEvent = (year, unit) => {
+                window.dispatchEvent(
+                    new CustomEvent(
+                        divSwitch.dataset.eventName,
+                        {
+                            detail:{
+                                year: year,
+                                unit: unit,
+                            }
+                        }
+                    ));
             };
 
             $select.on('change', function () {
-                dispatchEvent(parseInt(this.value, 10));
+                dispatchEvent(parseInt(this.value, 10), $('.' + withUnit + ' select').val());
             });
-
-            dispatchEvent(selectedYear);
+            if (withUnit){
+                $('.' + withUnit + ' select').on('change', function () {
+                    dispatchEvent(parseInt($(".year-switch[data-with-unit='"+ withUnit +"'] select").val(), 10), this.value);
+                });
+            }
+            dispatchEvent(selectedYear, unit);
         }
     });
 });
