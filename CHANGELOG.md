@@ -6,8 +6,16 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+- Logo de la société dans les emails envoyés
+- Afficher les avatars dans la liste des utilisateurs
+- Dans ma société : Afficher le nombre des utilisateurs actifs / nombre des users (actifs + en attentes)
+- En hover agrandir les avatars
+- Code couleurs pour les sociétés
+- Graphique : Temps passé en heure et en %
 
-
+### Réparé
+- La suppression d'un utilisateur qui n'a pas encore accepté l'invitation
+- Barre de recherche des faits marquants non responsive
 
 
 ## [0.37.4] - 2021-12-01
