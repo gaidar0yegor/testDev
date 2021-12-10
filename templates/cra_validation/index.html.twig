@@ -38,6 +38,7 @@
     <table id="validation_temps_dt" class="table datatable custom-datatable">
         <thead>
         <tr>
+            <th>Avatar</th>
             <th>{{ 'user'|trans }}</th>
             {% for mois in 1..12 %}
                 <th class="text-center">
@@ -51,6 +52,7 @@
         <tbody>
         {% for societeUser in societeUsers %}
             <tr {% if not societeUser.enabled %}class="table-secondary"{% endif %}>
+                <td> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
                 <td>
                     <a href="{{ path('app_fo_societe_user', {'id': societeUser.id}) }}">{{ societeUser.user.fullname }}</a>
                 </td>
