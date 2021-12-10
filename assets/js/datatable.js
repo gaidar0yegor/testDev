@@ -1,7 +1,10 @@
 import './datatable/dataTables.css';
 import './datatable/dataTables.searchHighlight.css';
+import '../../node_modules/datatables.net-responsive-bs4/css/responsive.bootstrap4.css';
+
 import './datatable/dataTables';
 import './datatable/jquery.highlight';
+import './datatable/dataTables.responsive.min';
 
 import $ from "jquery";
 import {language_dt} from "./translation";
@@ -25,5 +28,6 @@ import {language_dt} from "./translation";
 $('.table.datatable:not(.custom-datatable)').DataTable( {
     info: false,
     searchHighlight: true,
+    responsive: true,
     language: language_dt,
 } );

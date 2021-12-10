@@ -21,9 +21,9 @@ $.fn.dataTable.ext.search.push(
         if (settings.sInstance === 'users_list_dt' || settings.sInstance === 'validation_temps_dt' ){
             switch (settings.sInstance) {
                 case 'users_list_dt':
-                    var statut = data[4]; break;
+                    var statut = data[5]; break;
                 case 'validation_temps_dt':
-                    var statut = data[13]; break;
+                    var statut = data[14]; break;
             }
 
             var tab = $('#filter-users-statut').val();
@@ -80,6 +80,7 @@ $(document).ready( function () {
 
     validation_temps_dt = $('#validation_temps_dt').DataTable( {
         info: false,
+        responsive: true,
         ordering: false,
         searchHighlight: true,
         language: language_dt,
@@ -89,6 +90,7 @@ $(document).ready( function () {
     });
     users_list_dt = $('#users_list_dt').DataTable( {
         info: false,
+        responsive: true,
         order: [[ 5, "desc" ]],
         columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
         searchHighlight: true,
@@ -104,6 +106,7 @@ var files_list_dt;
 $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
         dom: 'lftp',
+        responsive: true,
         searchHighlight: true,
         language: language_dt,
     } );
@@ -267,4 +270,12 @@ $(document).on('change', 'input#societe_colorCode', function (e) {
     });
 
     return false;
+});
+
+$(document).ready(function(){
+    $('.img-expend').hover(function() {
+        $(this).addClass('expend-transition');
+    }, function() {
+        $(this).removeClass('expend-transition');
+    });
 });

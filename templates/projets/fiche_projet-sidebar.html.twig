@@ -84,7 +84,7 @@
     {% for contributeur in contributeurs %}
         <li class="list-inline-item m-1">
             <a href="{{ path('app_fo_societe_user', {'id': contributeur.societeUser.id}) }}">
-                {% include 'utils/_avatar.html.twig' with {user: contributeur.societeUser.user} %}
+                {% include 'utils/_avatar.html.twig' with {user: contributeur.societeUser.user, toExpend: true} %}
             </a>
         </li>
     {% else %}

@@ -39,7 +39,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
 
         When I follow "Projets externes"
         Then I should see "Projets externes" in the "h1" element
-        When I follow "Société1 / PTEST"
+        When I follow "PTEST"
         Then I should see "Projet Société1 / PTEST" in the "h1" element
 
     Scenario: Le chef de projet peut retirer un observateur externe

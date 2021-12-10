@@ -70,6 +70,7 @@ class RappelSaisieTemps implements EventSubscriberInterface
             ->context([
                 'month' => $month,
                 'cra' => $cra,
+                'societe' => $societeUser->getSociete(),
             ])
         ;
 

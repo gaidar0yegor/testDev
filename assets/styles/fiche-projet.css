@@ -18,7 +18,7 @@
     margin-bottom: 0;
 }
 #fait_marquant_timeline_dt_filter label input{
-    padding: 0.5rem 1rem;
+    padding: 0 1rem;
     font-size: 1.25rem;
     line-height: 1.5;
     border-radius: 0.3rem;
@@ -30,4 +30,16 @@
     outline: none !important;
     border:1px solid #007BFF;
     box-shadow: 0 0 5px #719ECE;
+}
+@media (max-width: 640px) {
+    #fait_marquant_timeline_dt_filter{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .add-fait-marquant p{
+        padding-top: 0;
+    }
 }

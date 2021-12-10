@@ -2,9 +2,9 @@
 
 namespace App\Controller\FO\Admin;
 
+use App\DTO\NullUser;
 use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
-use App\Entity\SocieteUserPeriod;
 use App\Form\InviteUserType;
 use App\Form\SocieteUserProjetsRolesType;
 use App\Form\SocieteUserType;
@@ -234,9 +234,14 @@ class SocieteUserController extends AbstractController
                     'id' => $societeUser->getId(),
                 ]);
             }
+
             $user = $societeUser->getUser();
-            $user->setCurrentSocieteUser(null);
-            $em->persist($user);
+
+            if (!$user instanceof NullUser){
+                $user->setCurrentSocieteUser(null);
+                $em->persist($user);
+            }
+
             $em->remove($societeUser);
             $em->flush();
 

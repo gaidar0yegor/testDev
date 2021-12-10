@@ -50,8 +50,9 @@
                         <div class="col-9 offset-3 col-sm-12 offset-sm-0">
                             <h5 class="card-title">{{ 'users_number'|trans }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ '.attached_to_my_company'|trans }}</h6>
-                            <p class="card-text display-4 mb-0">
-                                {{ societe.societeUsers|length }}
+                            <p class="card-text mb-0">
+                                <p class="display-4 d-inline-block">{{ societe.activeSocieteUsers|length }}</p>
+                                 <h5 class="d-inline-block">actifs / {{ societe.enableSocieteUsers|length }}</h5>
                             </p>
                         </div>
                     </div>
