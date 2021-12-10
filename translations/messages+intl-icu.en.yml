@@ -126,7 +126,6 @@ illimited: 'Illimited'
 change_granularity: Modify the granularity
 company: Company
 company_projects: Projects of the company
-participants_nb: Nb participants
 invite: Invite
 phone: Phone
 timesheet_validation_of_year_n: Validate your time for {year}

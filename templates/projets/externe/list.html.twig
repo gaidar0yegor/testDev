@@ -8,10 +8,11 @@
 
 <p>Liste des projets dont j'ai un accès en tant qu'observateur externe.</p>
 
-<table class="table datatable hover text-center">
+<table class="table datatable hover">
     <thead>
         <tr>
             <th class="text-left">Projet</th>
+            <th>Société</th>
             <th>Début</th>
             <th>Fin</th>
             <th>Statut</th>
@@ -22,13 +23,12 @@
         {% for projetObservateurExterne in projetObservateurExternes %}
             {% set projet = projetObservateurExterne.projet %}
             <tr>
-                <td class="text-left" data-sorter-value="{{ projet.societe.raisonSociale ~ '/' ~ projet.acronyme }}">
-                    <a title="{{ projet.titre }}"
-                       href="{{ path('app_fo_observateur_externe_view', {'id': projet.id}) }}">
-                        {{ projet.societe.raisonSociale }} / {{ projet.acronyme }}
+                <td class="text-left">
+                    <a title="{{ projet.titre }}" href="{{ path('app_fo_observateur_externe_view', {'id': projet.id}) }}">
+                        {{ projet.acronyme }}
                     </a>
-
                 </td>
+                <td>{{ projet.societe.raisonSociale }}</td>
                 <td>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                 <td>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                 <td>{{ projet.statut }}</td>
