@@ -170,6 +170,11 @@ class Societe implements HasSocieteInterface
      */
     private $usedProjectColors = [];
 
+    /**
+     * @ORM\Column(type="string", length=10, options={"default" : "#ce352c"})
+     */
+    private $colorCode;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -182,6 +187,7 @@ class Societe implements HasSocieteInterface
         $this->timesheetGranularity = self::GRANULARITY_MONTHLY;
         $this->faitMarquantMaxDesc = 751;
         $this->faitMarquantMaxDescIsblocking = true;
+        $this->colorCode = '#ce352c';
     }
 
     public function getId(): ?int
@@ -474,6 +480,18 @@ class Societe implements HasSocieteInterface
     public function setUsedProjectColors(?array $usedProjectColors): self
     {
         $this->usedProjectColors = $usedProjectColors;
+
+        return $this;
+    }
+
+    public function getColorCode(): ?string
+    {
+        return $this->colorCode;
+    }
+
+    public function setColorCode(string $colorCode): self
+    {
+        $this->colorCode = $colorCode;
 
         return $this;
     }

@@ -3,7 +3,19 @@
 {% block title %}{{ societe.raisonSociale }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1 class="mb-0">{{ societe.raisonSociale }}</h1>
+    <div class="d-flex flex-row justify-content-center align-items-center mt-4">
+        <h1 class="mb-0 mt-0">
+            {{ societe.raisonSociale }}
+        </h1>
+        <div class="ml-3 mt-2">
+            <span>
+                <div class="input-color-container">
+                    <input type="color" id="societe_colorCode" class="input-color" value="{{ societe.colorCode }}" data-href="{{ path('app_fo_admin_societe_code_color_edit') }}">
+                </div>
+            </span>
+        </div>
+    </div>
+
     <p class="text-center">
         {{ 'business_identification_number:'|trans }} <span class="text-monospace">{{ societe.siret|formatSiret }}</span>
         <br>
