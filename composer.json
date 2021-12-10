@@ -86,6 +86,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/alcalyn/flysystem-rackspace"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/theofidry/AliceBundle"
         }
     ],
     "config": {
