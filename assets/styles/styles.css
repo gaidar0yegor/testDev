@@ -6,8 +6,21 @@ body {
 
 @media (min-width: 1400px){
     .container, .container-sm, .container-md, .container-lg, .container-xl {
-        max-width: 1400px !important;
+        max-width: 1300px !important;
     }
+}
+
+.expend-transition {
+    -webkit-transform: scale(3);
+    -moz-transform: scale(3);
+    -o-transform: scale(3);
+    transform: scale(3);
+}
+.img-expend {
+    -webkit-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
 }
 
 /*****************************HTML*************************/

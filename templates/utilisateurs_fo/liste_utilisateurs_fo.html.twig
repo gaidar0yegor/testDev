@@ -34,7 +34,7 @@
 		<tbody>
 			{% for societeUser in societeUsers %}
 				<tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
-					<td> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24} %}</td>
+					<td> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
 					<td>{{ societeUser.user.nom }}</td>
 					<td>{{ societeUser.user.prenom }}</td>
 					<td>{{ societeUser.user.email }}</td>

@@ -1,12 +1,13 @@
 {% set size = size|default(36) %}
 {% set border = border|default(false) %}
+{% set toExpend = toExpend|default(false) %}
 {% if user is defined %}
     {% if user and user.avatar %}
     <img
         src="{{ user|avatarUrl|imagine_filter(size > 128 ? 'avatar' : 'avatar_mini') }}"
         alt="{{ 'avatar_of_user'|trans({'user': user.fullname}) }}"
         title="{{ user.fullname }}"
-        class="{{ border ? 'img-thumbnail' : '' }} rounded-circle"
+        class="{{ border ? 'img-thumbnail' : '' }} {{ toExpend ? 'img-expend' : '' }} rounded-circle"
         width="{{ size }}"
         height="{{ size }}"
     />
@@ -19,7 +20,7 @@
             src="{{ societe|logoUrl|imagine_filter(size > 128 ? 'avatar' : 'avatar_mini') }}"
             alt="{{ 'logo_of_socete'|trans({'societe': societe.raisonSociale}) }}"
             title="{{ societe.raisonSociale }}"
-            class="{{ border ? 'img-thumbnail' : '' }} rounded-circle"
+            class="{{ border ? 'img-thumbnail' : '' }} {{ toExpend ? 'img-expend' : '' }} rounded-circle"
             width="{{ size }}"
             height="{{ size }}"
     />

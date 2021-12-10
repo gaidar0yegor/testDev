@@ -17,7 +17,7 @@
     <tbody>
         {% for societe in societes %}
             <tr>
-                <td>{% include 'utils/_avatar.html.twig' with {societe: societe, size: 35, border: true} %}</td>
+                <td>{% include 'utils/_avatar.html.twig' with {societe: societe, size: 35, border: true, toExpend: true} %}</td>
                 <td><a href="{{ path('app_bo_societe', {'id': societe.id}) }}">{{ societe.raisonSociale }}</a></td>
                 <td>{{ societe.admins|map(societeUser => "#{societeUser.user.fullnameOrEmail}")|join(', ') }}</td>
                 <td>{{ societe.societeUsers|length }}</td>

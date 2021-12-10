@@ -233,3 +233,11 @@ $(document).on('change', '.input-color-container input[type=color]', function (e
         $radioColors.prop("checked", false);
     }
 });
+
+$(document).ready(function(){
+    $('.img-expend').hover(function() {
+        $(this).addClass('expend-transition');
+    }, function() {
+        $(this).removeClass('expend-transition');
+    });
+});
