@@ -96,7 +96,7 @@ class StatisticsService
     }
 
     /**
-     * @return array With tuple of [string $projetAcronyme, float $heuresPassees][]
+     * @return int
      */
     public function calculateMonthsValidByYear(SocieteUser $societeUser, int $year): int
     {

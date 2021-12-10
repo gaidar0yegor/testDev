@@ -354,3 +354,12 @@ h5 {
 .p-2-3 {
     padding: 0.75em;
 }
+
+/* Extra style for C3 js */
+.c3-tooltip-container{
+    bottom: 70px !important;
+    top: unset !important;
+}
+.c3-tooltip-container table.c3-tooltip th, .c3-tooltip-container table.c3-tooltip td {
+    padding: 5px 10px !important;
+}

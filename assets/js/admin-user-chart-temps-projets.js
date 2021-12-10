@@ -27,18 +27,18 @@ if (chartDiv) {
     window.addEventListener(
         'user-chart-year-changed',
         e => {
-            fetch(`/api/stats/admin/temps-par-projet/${chartDiv.dataset.userId}/${e.detail.year}`)
+            fetch(`/api/stats/admin/temps-par-projet/${chartDiv.dataset.userId}/${e.detail.year}/${e.detail.unit}`)
                 .then(response => response.json())
                 .then(tempsParProjets => {
                     const total = {};
 
                     tempsParProjets.months.forEach(month => {
-                        Object.entries(month).forEach(([projet, pourcentage]) => {
+                        Object.entries(month).forEach(([projet, value]) => {
                             if (!total[projet]) {
                                 total[projet] = 0;
                             }
 
-                            total[projet] += pourcentage;
+                            total[projet] += value;
                         });
                     });
 
