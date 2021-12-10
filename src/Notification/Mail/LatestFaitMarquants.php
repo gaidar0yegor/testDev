@@ -63,6 +63,7 @@ class LatestFaitMarquants implements EventSubscriberInterface
             ->htmlTemplate('mail/notification_latest_faits_marquants.html.twig')
             ->context([
                 'faitMarquants' => $faitMarquants,
+                'societe' => $societeUser->getSociete(),
             ])
         ;
 

@@ -26,6 +26,7 @@ class AddedAsContributor implements EventSubscriberInterface
     public function addedAsContributor(AddedAsContributorNotification $event): void
     {
         $user = $event->getSocieteUser()->getUser();
+        $societe = $event->getSocieteUser()->getSociete();
 
         if (null === $user) {
             return;
@@ -49,6 +50,7 @@ class AddedAsContributor implements EventSubscriberInterface
             ->textTemplate('mail/added_as_contributor.txt.twig')
             ->context([
                 'projet' => $event->getProjet(),
+                'societe' => $societe,
             ])
         ;
 
