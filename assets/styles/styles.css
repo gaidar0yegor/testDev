@@ -4,6 +4,11 @@ body {
     padding-top: 3rem;
 }
 
+@media (min-width: 1400px){
+    .container, .container-sm, .container-md, .container-lg, .container-xl {
+        max-width: 1400px !important;
+    }
+}
 
 /*****************************HTML*************************/
 h1, h2 {

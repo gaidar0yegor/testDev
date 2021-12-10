@@ -21,9 +21,9 @@ $.fn.dataTable.ext.search.push(
         if (settings.sInstance === 'users_list_dt' || settings.sInstance === 'validation_temps_dt' ){
             switch (settings.sInstance) {
                 case 'users_list_dt':
-                    var statut = data[4]; break;
+                    var statut = data[5]; break;
                 case 'validation_temps_dt':
-                    var statut = data[13]; break;
+                    var statut = data[14]; break;
             }
 
             var tab = $('#filter-users-statut').val();

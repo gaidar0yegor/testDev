@@ -21,7 +21,8 @@
 	<table id="users_list_dt" class="table datatable custom-datatable hover text-center">
 		<thead>
 			<tr>
-				<th class="text-left">{{ 'lastname'|trans }}</th>
+				<th class="text-left">Avatar</th>
+				<th>{{ 'lastname'|trans }}</th>
 				<th>{{ 'firstname'|trans }}</th>
 				<th>{{ 'email'|trans }}</th>
 				<th>{{ 'role'|trans }}</th>
@@ -33,7 +34,8 @@
 		<tbody>
 			{% for societeUser in societeUsers %}
 				<tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
-					<td class="text-left">{{ societeUser.user.nom }}</td>
+					<td> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24} %}</td>
+					<td>{{ societeUser.user.nom }}</td>
 					<td>{{ societeUser.user.prenom }}</td>
 					<td>{{ societeUser.user.email }}</td>
 					<td data-sort='{{ societeUser.role|trans }}'>
