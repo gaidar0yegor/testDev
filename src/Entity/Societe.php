@@ -245,6 +245,36 @@ class Societe implements HasSocieteInterface
         return $this->societeUsers;
     }
 
+    /**
+     * @return Collection|SocieteUser[]
+     */
+    public function getEnableSocieteUsers(): Collection
+    {
+        return $this->societeUsers->filter(function (SocieteUser $societeUser) {
+            return $societeUser->getEnabled();
+        });
+    }
+
+    /**
+     * @return Collection|SocieteUser[]
+     */
+    public function getDisableSocieteUsers(): Collection
+    {
+        return $this->societeUsers->filter(function (SocieteUser $societeUser) {
+            return !$societeUser->getEnabled();
+        });
+    }
+
+    /**
+     * @return Collection|SocieteUser[]
+     */
+    public function getActiveSocieteUsers(): Collection
+    {
+        return $this->societeUsers->filter(function (SocieteUser $societeUser) {
+            return $societeUser->hasUser() && $societeUser->getEnabled();
+        });
+    }
+
     public function addSocieteUser(SocieteUser $user): self
     {
         if (!$this->societeUsers->contains($user)) {
