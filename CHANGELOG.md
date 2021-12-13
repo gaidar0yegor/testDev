@@ -6,6 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+## [0.37.5] - 2021-12-13
+### Ajouté
 - Logo de la société dans les emails envoyés
 - Afficher les avatars dans la liste des utilisateurs
 - Dans ma société : Afficher le nombre des utilisateurs actifs / nombre des users (actifs + en attentes)
