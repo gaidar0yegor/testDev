@@ -122,14 +122,15 @@
                 </a>
             </td>
         {% else %}
-            <td colspan="3" class="input-group-sm">{{ form_row(form.children.fichier) }}</td>
+            <td class="input-group-sm">{{ form_row(form.children.fichier.file) }}</td>
+            <td colspan="2" class="input-group-sm">{{ form_row(form.children.fichier.nomFichier) }}</td>
             <td>
                 <button type="button" class="btn btn-sm btn-outline-danger remove-file-btn">
                     <i class="fa fa-trash" aria-hidden="true"></i>
                 </button>
             </td>
+        {% endif %}
     </tr>
-{% endif %}
 {% endblock %}
 
 {% block fichier_row %}

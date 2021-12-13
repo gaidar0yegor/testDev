@@ -26,7 +26,7 @@
         <dd>{{ projet.dateFin|format_date }}</dd>
     {% endif %}
     <dt>Statut</dt>
-    <dd>{{ projet.statut }}</dd>
+    <dd>{{ projet.statut }} <small><i>{{ projet.isSuspended ? '(' ~ projet.projetSuspendPeriods.last.suspendedAt | date("d/m/Y") ~ ')' : '' }}</i></small></dd>
 </dl>
 
 <hr>

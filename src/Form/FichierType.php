@@ -8,6 +8,7 @@ use LogicException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,6 +22,13 @@ class FichierType extends AbstractType
             ->add('file', FileType::class, [
                 'label' => false,
                 'required' 	=> true,
+            ])
+            ->add('nomFichier', TextType::class, [
+                'label' => false,
+                'required' 	=> true,
+                'attr' => [
+                    'placeholder' => 'Nom du fichier ...'
+                ]
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'uploadFichier'])
         ;
