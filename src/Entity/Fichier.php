@@ -100,9 +100,9 @@ class Fichier implements Serializable
     public function setDefaultFilename(): self
     {
         $fileName = md5(uniqid()).'.'.$this->file->guessExtension();
-
+        $nomFichier = null === $this->nomFichier ? $this->file->getClientOriginalName() : $this->nomFichier.'.'.$this->file->guessExtension();
         $this
-            ->setNomFichier($this->file->getClientOriginalName())
+            ->setNomFichier($nomFichier)
             ->setNomMd5($fileName)
         ;
 
