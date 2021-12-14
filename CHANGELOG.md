@@ -6,7 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
+- Renommer les fichier lors de les upload
 
 
 ## [0.37.5] - 2021-12-13
