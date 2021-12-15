@@ -71,6 +71,9 @@ table thead tr {
 table tbody tr {
     background-color: #e6e6e6;
 }
+table.light tbody tr {
+    background-color: #ffffff;
+}
 table tbody a {
     color: black;
 }

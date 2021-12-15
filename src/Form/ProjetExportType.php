@@ -22,6 +22,13 @@ class ProjetExportType extends AbstractType
             'required' => false,
             'label' => 'Date de fin',
         ])
+        ->add('exportOptions', ChoiceType::class, [
+            'required' => false,
+            'label' => 'Que souhaitez-vous exporter ?',
+            'expanded' => true,
+            'multiple' => true,
+            'choices' => array_combine($options['data']->getExportOptions(),$options['data']->getExportOptions())
+        ])
         ->add('format', ChoiceType::class, [
             'choices' => [
                 '.pdf' => 'pdf',

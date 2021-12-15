@@ -10,7 +10,9 @@ use App\Entity\ProjetParticipant;
 use App\ProjetResourceInterface;
 use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
+use App\Repository\TempsPasseRepository;
 use App\Service\FaitMarquantService;
+use App\Service\StatisticsService;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
@@ -283,19 +285,24 @@ class ProjetController extends AbstractController
     /**
      * @Route("/{id}/custom", name="app_fo_projet_custom")
      */
-    public function ficheProjetGenerateCustom(Projet $projet, Request $request)
+    public function ficheProjetGenerateCustom(Projet $projet, Request $request, StatisticsService $statisticsService)
     {
         $this->denyAccessUnlessGranted('view', $projet);
-        $customTime = new ProjetExportParameters ();
-        $customTime
-            ->setdateDebut($projet->getDateDebut())
-            ->setdateFin($projet->getDateFin())
-            ;
+        $customTime = new ProjetExportParameters($projet);
+
         $form = $this->createForm(ProjetExportType::class, $customTime);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $customTime = $form->getData();
+
+            if (in_array(ProjetExportParameters::STATISTIQUES, $customTime->getExportOptions()) ){
+                for ($year = (int)$customTime->getDateDebut()->format('Y') ; $year <= (int)$customTime->getDateFin()->format('Y') ; $year++){
+                    $customTime->statistics[$year]['percent'] = $statisticsService->getTempsProjetParUsers($projet,$year,'percent');
+                    $customTime->statistics[$year]['hour'] = $statisticsService->getTempsProjetParUsers($projet,$year,'hour');
+                }
+            }
+
             if ($customTime->getformat() == 'html') {
 
                 return $this->render('projets/pdf/pdf_fiche_projet.html.twig', [

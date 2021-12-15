@@ -21,19 +21,26 @@ class ProjetActivityRepository extends ServiceEntityRepository
         parent::__construct($registry, ProjetActivity::class);
     }
 
-    public function findByProjet(Projet $projet, ?int $limit = null)
+    public function findByProjet(Projet $projet, ?int $limit = null, ?\DateTime $infDate = null, \DateTime $supDate = null)
     {
+        $supDate = $supDate ?? new DateTime();
+
         $qb = $this
             ->createQueryBuilder('projetActivity')
             ->leftJoin('projetActivity.activity', 'activity')
             ->where('projetActivity.projet = :projet')
-            ->andWhere('activity.datetime <= :now')
+            ->andWhere('activity.datetime <= :supDate')
             ->setParameters([
                 'projet' => $projet,
-                'now' => new DateTime(),
-            ])
-            ->orderBy('activity.datetime', 'desc')
-        ;
+                'supDate' => $supDate,
+            ]);
+
+        if (null !== $infDate) {
+            $qb->andWhere('activity.datetime >= :infDate')
+                ->setParameter('infDate', $infDate);
+        }
+
+        $qb->orderBy('activity.datetime', 'desc');
 
         if (null !== $limit) {
             $qb->setMaxResults($limit);
@@ -41,7 +48,6 @@ class ProjetActivityRepository extends ServiceEntityRepository
 
         return $qb
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 }
