@@ -9,7 +9,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/projets/1"
 
-        When I follow "Exporter le projet en PDF"
+        When I follow "Exporter le projet"
         Then I should see "Date de début"
         And I should see "Date de fin"
 
@@ -19,6 +19,10 @@ Feature: Gestion des faits marquants d'un projet
             | Date de début         | 01 février 2021 |
             | Date de fin           | 28 février 2021 |
             | projet_export[format] | html            |
+        And I uncheck "projet_export_exportOptions_2"
+        And I uncheck "projet_export_exportOptions_3"
+        And I uncheck "projet_export_exportOptions_4"
+        And I uncheck "projet_export_exportOptions_5"
         And I press "Générer"
         Then I should see "Fait marquant deux"
         And I should not see "Fait marquant un"
@@ -30,6 +34,10 @@ Feature: Gestion des faits marquants d'un projet
             | Date de début         |                 |
             | Date de fin           | 28 février 2021 |
             | projet_export[format] | html            |
+        And I uncheck "projet_export_exportOptions_2"
+        And I uncheck "projet_export_exportOptions_3"
+        And I uncheck "projet_export_exportOptions_4"
+        And I uncheck "projet_export_exportOptions_5"
         And I press "Générer"
         Then I should see "Fait marquant un"
         And I should see "Fait marquant deux"
@@ -41,6 +49,10 @@ Feature: Gestion des faits marquants d'un projet
             | Date de début         | 01 février 2021 |
             | Date de fin           |                 |
             | projet_export[format] | html            |
+        And I uncheck "projet_export_exportOptions_2"
+        And I uncheck "projet_export_exportOptions_3"
+        And I uncheck "projet_export_exportOptions_4"
+        And I uncheck "projet_export_exportOptions_5"
         And I press "Générer"
         Then I should not see "Fait marquant un"
         And I should see "Fait marquant deux"
@@ -52,6 +64,10 @@ Feature: Gestion des faits marquants d'un projet
             | Date de début         |                 |
             | Date de fin           |                 |
             | projet_export[format] | html            |
+        And I uncheck "projet_export_exportOptions_2"
+        And I uncheck "projet_export_exportOptions_3"
+        And I uncheck "projet_export_exportOptions_4"
+        And I uncheck "projet_export_exportOptions_5"
         And I press "Générer"
         Then I should see "Fait marquant un"
         And I should see "Fait marquant deux"

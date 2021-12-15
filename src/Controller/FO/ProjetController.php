@@ -297,7 +297,9 @@ class ProjetController extends AbstractController
             $customTime = $form->getData();
 
             if (in_array(ProjetExportParameters::STATISTIQUES, $customTime->getExportOptions()) ){
-                for ($year = (int)$customTime->getDateDebut()->format('Y') ; $year <= (int)$customTime->getDateFin()->format('Y') ; $year++){
+                $yearDebut = $customTime->getDateDebut() ? (int)$customTime->getDateDebut()->format('Y') : (int)(new \DateTime())->format('Y');
+                $yearFin = $customTime->getDateFin() ? (int)$customTime->getDateFin()->format('Y') : (int)(new \DateTime())->format('Y');
+                for ($year = $yearDebut ; $year <= $yearFin ; $year++){
                     $customTime->statistics[$year]['percent'] = $statisticsService->getTempsProjetParUsers($projet,$year,'percent');
                     $customTime->statistics[$year]['hour'] = $statisticsService->getTempsProjetParUsers($projet,$year,'hour');
                 }
