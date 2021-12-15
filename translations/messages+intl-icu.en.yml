@@ -19,6 +19,12 @@ menu.time_tracking.time_spent: Time spent
 menu.time_tracking.absences: Absences
 menu.admin: Administration
 my_account: 'My account'
+PRESENTATION: Project's presentation
+FAITS_MARQUANTS: Remarkable fact
+LISTE_FICHIERS: Files list
+ACTIVITES: Activities
+PARTICIPANTS: Participants
+STATISTIQUES: Statistics
 locale: Language
 SOCIETE_USER: User
 ROLE_USER: User

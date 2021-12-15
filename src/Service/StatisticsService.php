@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Projet;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Repository\CraRepository;
@@ -103,5 +104,68 @@ class StatisticsService
         $nbrMonthsValid = $this->craRepository->findNumberMonthsValidByUserAndYear($societeUser, $year);
 
         return $nbrMonthsValid;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTempsUserParProjet(SocieteUser $societeUser, int $year, ?string $unit = 'percent'): array
+    {
+        $cras = $this->craRepository->findCrasByUserAndYear($societeUser, $year);
+
+        $data = [];
+
+        for ($i = 0; $i < 12; ++$i) {
+            $data[$i] = [];
+        }
+
+        foreach ($cras as $cra) {
+            $tempsPasses = [];
+
+            foreach ($cra->getTempsPasses() as $tempsPasse) {
+                switch ($unit){
+                    case 'percent':
+                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = $tempsPasse->getPourcentage();break;
+                    case 'hour':
+                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = round(array_sum($this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
+                    default:
+                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = $tempsPasse->getPourcentage();break;
+                }
+
+            }
+
+            $data[intval($cra->getMois()->format('m')) - 1] = $tempsPasses;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTempsProjetParUsers(Projet $projet, int $year, ?string $unit = 'percent'): array
+    {
+        $tempsPasses = $this->tempsPasseRepository->findAllByProjetAndYear($projet, $year);
+        $data = [];
+
+        for ($i = 0; $i < 12; ++$i) {
+            $data[$i] = [];
+        }
+
+        foreach ($tempsPasses as $tempsPasse) {
+            $month = intval($tempsPasse->getCra()->getMois()->format('m')) - 1;
+            $user = $tempsPasse->getCra()->getSocieteUser()->getUser()->getShortname();
+
+            switch ($unit){
+                case 'percent':
+                    $data[$month][$user] = $tempsPasse->getPourcentage();break;
+                case 'hour':
+                    $data[$month][$user] = round(array_sum($this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
+                default:
+                    $data[$month][$user] = $tempsPasse->getPourcentage();break;
+            }
+        }
+
+        return $data;
     }
 }

@@ -7,11 +7,13 @@ use App\Entity\SocieteUser;
 use App\Repository\CraRepository;
 use App\Repository\TempsPasseRepository;
 use App\Security\Voter\SameSocieteVoter;
+use App\Service\StatisticsService;
 use App\Service\Timesheet\TimesheetCalculator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+use function Symfony\Component\String\u;
 
 /**
  * Returns statistics about users or projets
@@ -22,6 +24,13 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class AdminStatsController extends AbstractController
 {
+    private StatisticsService $statisticsService;
+
+    public function __construct(StatisticsService $statisticsService)
+    {
+        $this->statisticsService = $statisticsService;
+    }
+
     /**
      * Retourne les temps passés par un user sur ses projets sur une année.
      * Exemple :
@@ -49,36 +58,11 @@ class AdminStatsController extends AbstractController
     public function getTempsUserParProjet(
         SocieteUser $societeUser,
         string $year,
-        string $unit,
-        CraRepository $craRepository,
-        TimesheetCalculator $timesheetCalculator
+        string $unit
     ) {
         $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
 
-        $cras = $craRepository->findCrasByUserAndYear($societeUser, $year);
-        $data = [];
-
-        for ($i = 0; $i < 12; ++$i) {
-            $data[$i] = [];
-        }
-
-        foreach ($cras as $cra) {
-            $tempsPasses = [];
-
-            foreach ($cra->getTempsPasses() as $tempsPasse) {
-                switch ($unit){
-                    case 'percent':
-                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = $tempsPasse->getPourcentage();break;
-                    case 'hour':
-                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = round(array_sum($timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
-                    default:
-                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = $tempsPasse->getPourcentage();break;
-                }
-
-            }
-
-            $data[intval($cra->getMois()->format('m')) - 1] = $tempsPasses;
-        }
+        $data = $this->statisticsService->getTempsUserParProjet($societeUser,$year,$unit);
 
         return new JsonResponse([
             'months' => $data,
@@ -118,29 +102,10 @@ class AdminStatsController extends AbstractController
     ) {
         $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $projet);
 
-        $tempsPasses = $tempsPasseRepository->findAllByProjetAndYear($projet, $year);
-        $months = [];
-
-        for ($i = 0; $i < 12; ++$i) {
-            $months[$i] = [];
-        }
-
-        foreach ($tempsPasses as $tempsPasse) {
-            $month = intval($tempsPasse->getCra()->getMois()->format('m')) - 1;
-            $user = $tempsPasse->getCra()->getSocieteUser()->getUser()->getShortname();
-
-            switch ($unit){
-                case 'percent':
-                    $months[$month][$user] = $tempsPasse->getPourcentage();break;
-                case 'hour':
-                    $months[$month][$user] = round(array_sum($timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
-                default:
-                    $months[$month][$user] = $tempsPasse->getPourcentage();break;
-            }
-        }
+        $data = $this->statisticsService->getTempsProjetParUsers($projet, $year, $unit);
 
         return new JsonResponse([
-            'months' => $months,
+            'months' => $data,
         ]);
     }
 }

@@ -9,6 +9,12 @@ ROLE_USER: Utilisateur
 SOCIETE_CDP.small: CdP
 SOCIETE_ADMIN.small: Admin
 SOCIETE_USER.small: Utilisateur
+PRESENTATION: Présentation du projet
+FAITS_MARQUANTS: Faits marquants
+LISTE_FICHIERS: Liste des fichiers
+ACTIVITES: Activités
+PARTICIPANTS: Participants
+STATISTIQUES: Statistiques
 quota.activeProjet.name: 'Projets actifs'
 quota.activeProjet.description: 'Projet en cours en prennant en compte ses dates de
   début et de fin.'
