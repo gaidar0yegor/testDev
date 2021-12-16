@@ -24,10 +24,13 @@ class ProjetExportParameters
 
     private array $exportOptions;
 
+    private Projet $projet;
+
     public function __construct(Projet $projet)
     {
-        $this->dateDebut = $projet->getDateDebut();
-        $this->dateFin = $projet->getDateFin();
+        $this->projet = $projet;
+        $this->dateDebut = $this->projet->getDateDebut();
+        $this->dateFin = $this->projet->getDateFin();
         $this->format = 'pdf';
         $this->exportOptions = [
             $this::PRESENTATION,
@@ -39,6 +42,10 @@ class ProjetExportParameters
         ];
     }
 
+    public function getProjet(): Projet
+    {
+        return $this->projet;
+    }
 
     public function getdateDebut(): ?DateTime
     {
