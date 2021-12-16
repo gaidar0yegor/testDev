@@ -13,6 +13,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Renommer les fichier lors de les upload
 - Exportation globale du projet (Présentation du projet, Faits marquants, Liste des fichiers, Activités, Participants, Statistiques)
+- Exportation de la page des statistiques d'un projet
 
 
 ## [0.37.5] - 2021-12-13
