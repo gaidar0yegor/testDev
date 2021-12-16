@@ -3,8 +3,13 @@
 namespace App\Form;
 
 use App\DTO\ProjetExportParameters;
+use App\Entity\ProjetParticipant;
 use App\Form\Custom\DatePickerType;
+use App\MultiSociete\UserContext;
+use App\Security\Role\RoleProjet;
 use App\Security\Role\RoleSociete;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,16 +20,32 @@ class ProjetExportType extends AbstractType
 {
     private AuthorizationCheckerInterface $authChecker;
 
-    public function __construct(AuthorizationCheckerInterface $authChecker)
+    private UserContext $userContext;
+
+    private EntityManagerInterface $em;
+
+    public function __construct(AuthorizationCheckerInterface $authChecker, UserContext $userContext, EntityManagerInterface $em)
     {
         $this->authChecker = $authChecker;
+        $this->userContext = $userContext;
+        $this->em = $em;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $exportOptions = array_combine($options['data']->getExportOptions(),$options['data']->getExportOptions());
+        $projetExportParameters = $options['data'];
+        $exportOptions = array_combine($projetExportParameters->getExportOptions(), $projetExportParameters->getExportOptions());
 
-        if (!$this->authChecker->isGranted(RoleSociete::ADMIN)) {
+        $projetParticipant = $this->em->getRepository(ProjetParticipant::class)->findOneBy([
+            'societeUser' => $this->userContext->getSocieteUser(),
+            'projet' => $projetExportParameters->getProjet(),
+        ]);
+
+        if (!$projetParticipant instanceof ProjetParticipant){
+            throw new AccessDeniedException('Un problème est survenu !!');
+        }
+
+        if ($projetParticipant->getRole() === RoleProjet::OBSERVATEUR){
             unset($exportOptions[ProjetExportParameters::STATISTIQUES]);
             unset($exportOptions[ProjetExportParameters::PARTICIPANTS]);
         }
