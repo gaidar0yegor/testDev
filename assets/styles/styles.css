@@ -103,7 +103,9 @@ table tbody a {
 .rdi-card-icon > i {
     z-index: 1;
 }
-
+.bg-light-danger {
+    background-color: rgba(206,53,44,0.68);
+}
 .card.bg-light-grey {
     background-color: #e9ece6;
     min-height: 100px;

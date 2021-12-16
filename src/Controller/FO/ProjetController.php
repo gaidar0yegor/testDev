@@ -277,6 +277,7 @@ class ProjetController extends AbstractController
             'margin-right'  => 15,
             'margin-bottom' => 15,
             'margin-left'   => 15,
+            'images' => true,
         ];
         $result = $this->pdf->getOutputFromHtml($htmlContent, $options);
         return new PdfResponse($result, $filename);

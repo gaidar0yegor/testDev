@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<h1>Projet {{ projet.acronyme }}</h1>
+<h1 class="mt-0">Projet {{ projet.acronyme }}</h1>
 
 <p class="text-center">
     {% if projet.projetCollaboratif %}
@@ -27,7 +27,12 @@
         <span class="badge badge-success">PPP - R&amp;D</span>
     {% endif %}
 </p>
-{% if constant('App\\DTO\\ProjetExportParameters::PRESENTATION') in customTime.exportOptions %}
+
+<p class="text-center">
+    <span class="badge badge-warning"><i class="fa fa-download"></i> {{ customTime.dateDebut ? (customTime.dateDebut|format_date) : (projet.dateDebut|format_date) }} <i class="fa fa-arrow-right"></i> {{ customTime.dateFin ? (customTime.dateFin|format_date) : (projet.dateFin|format_date) }}</span>
+</p>
+
+{% if constant('App\\DTO\\ProjetExportParameters::PRESENTATION') in customTime.exportOptions or constant('App\\DTO\\ProjetExportParameters::FAITS_MARQUANTS') in customTime.exportOptions %}
     <div class="card bg-light-grey border-light">
         <div class="card-body">
             <div class="row mb-3">
@@ -91,59 +96,87 @@
     {% endif %}
 </section>
 {% endif %}
-{% if constant('App\\DTO\\ProjetExportParameters::LISTE_FICHIERS') in customTime.exportOptions %}
-<section>
-    <h2 class="facts">{{ constant('App\\DTO\\ProjetExportParameters::LISTE_FICHIERS')|trans }}</h2>
-    <table class="light w-100 m-auto">
-        <thead>
-            <tr>
-                <th class="p-2">Fichier</th>
-                <th class="text-center p-2">Auteur</th>
-                <th class="text-center p-2">Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% set count = 0 %}
-            {% for fichierProjet in projet.fichierProjets %}
-                {% if (not fichierProjet.faitMarquant or (fichierProjet.faitMarquant and fichierProjet.faitMarquant.trashedAt is null)) and (customTime.dateDebut is null or fichierProjet.fichier.dateUpload >= customTime.dateDebut) and (customTime.dateFin is null or fichierProjet.fichier.dateUpload <= customTime.dateFin) %}
-                <tr>
-                    <td class="p-2">{{ fichierProjet.fichier.nomFichier }}</td>
-                    <td class="text-center p-2">{{ fichierProjet.uploadedBy.user.fullname }}</td>
-                    <td class="text-center p-2">{{ fichierProjet.fichier.dateUpload|date('d/m/Y') }}</td>
-                </tr>
-                    {% set count = count + 1 %}
-                {% endif %}
-            {% endfor %}
-            <tr>
-                <td colspan="3" class="bg-secondary text-white text-right pr-5"><b>{{ count }} fichiers</b></td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-{% endif %}
-{% if constant('App\\DTO\\ProjetExportParameters::ACTIVITES') in customTime.exportOptions %}
+
+{% if constant('App\\DTO\\ProjetExportParameters::STATISTIQUES') in customTime.exportOptions and customTime.statistics is defined %}
     <section>
-        <h2 class="facts">{{ constant('App\\DTO\\ProjetExportParameters::ACTIVITES')|trans }}</h2>
-        <ul class="list-activities list-group list-group-flush">
-            {% set activities = getProjetActivities(projet,customTime.dateDebut,customTime.dateFin) %}
-            {% for activity in activities %}
-                {% if renderActivity(activity.activity) %}
-                    <li class="list-group-item">
-                        {% if edit is defined %}
-                            <button class="btn btn-outline-danger btn-sm link-delete-activity mr-2" data-activity="{{ activity.activity.id }}" data-href="{{ path('activite_fo_delete', {'id' : activity.activity.id}) }}">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </button>
-                        {% endif %}
-                        {{ renderActivity(activity.activity) }}
-                        <small>
-                            <time class="text-muted float-right" datetime="{{ activity.activity.datetime|date('c') }}">
-                                {{ '.at_date'|trans({'%date%': activity.activity.datetime|format_datetime}) }}
-                            </time>
+        <h2 class="facts">{{ constant('App\\DTO\\ProjetExportParameters::STATISTIQUES')|trans }}</h2>
+
+        <table class="m-auto text-center w-75">
+            <tbody>
+                <tr class="bg-light">
+                    <td>
+                        <h5 class="card-title">Contributeurs</h5>
+                        <p class="card-text display-4 mb-0">
+                            {{ projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR'))|length + projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CDP'))|length }}
+                        </p>
+                    </td>
+                    <td>
+                        <h5 class="card-title">Faits marquants</h5>
+                        <p class="card-text display-4 mb-0">
+                            {{ projet.faitMarquants|length }}
+                        </p>
+                    </td>
+                    {% if projet.rdiScore is not null %}
+                    <td>
+                        <h5 class="card-title">Score RDI</h5>
+                        <h6 class="card-subtitle mb-2 deck text-muted">elligibilité RDI évaluée par l'algorithme RDI-Manager</h6>
+                        <p class="card-text display-4 mb-0">
+                            {% if projet.rdiScoreReliability > 0.5 %}
+                                <span class="rdi-percent text-success">{{ (projet.rdiScore * 100)|round }}<sup>/ 100</sup></span>
+                            {% else %}
+                                <span class="rdi-percent text-muted">N/A</span>
+                            {% endif %}
+                        </p>
+                        {% if projet.rdiScoreReliability > 0.5 %}
+                        <small class="text-muted">
+                            Score fiable à {{ (projet.rdiScoreReliability * 100)|round }} %.
                         </small>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        </ul>
+                        {% else %}
+                        <small class="text-muted">
+                            Ce projet ne contient pas encore assez de texte et de faits marquants
+                            pour calculer un score précis.
+                        </small>
+                        {% endif %}
+                    </td>
+                    {% endif %}
+                </tr>
+            </tbody>
+        </table>
+
+        {% for year, yearStatistics in customTime.statistics %}
+            {% if year <= "now"|date('Y') %}
+                <table class="light w-100 m-auto">
+                    <thead>
+                    <tr class="bg-light-danger">
+                        <th rowspan="2" class="p-2">Participant</th>
+                        <th colspan="12" class="text-center">Temps passés sur l'année {{ year }}</th>
+                    </tr>
+                    <tr class="bg-light-danger">
+                        {% for i in 1..12 %}
+                            <th class="text-center p-2">{{ date(year ~ '-' ~ i ~ '-01') |date('M') }}</th>
+                        {% endfor %}
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for participant in projet.projetParticipants %}
+                        {% set name = participant.societeUser.user.shortname %}
+                        <tr>
+                            <td>{{ name }}</td>
+                            {% for month, monthStatistics in yearStatistics['hour'] %}
+                                {% if monthStatistics[name] is defined %}
+                                    <td class="text-center p-2">{{ monthStatistics[name] ~ "h" }} &asymp; {{ yearStatistics['percent'][month][name] ~ "%" }}</td>
+                                {% else %}
+                                    <td class="text-center empty p-2">--.--</td>
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div style="height: 3rem;"></div>
+            {% endif %}
+        {% endfor %}
+
     </section>
 {% endif %}
 {% if constant('App\\DTO\\ProjetExportParameters::PARTICIPANTS') in customTime.exportOptions %}
@@ -164,7 +197,7 @@
                     <tr>
                         <td class="p-2">{{ projetParticipant.societeUser.user.fullname }}</td>
                         <td class="text-center p-2">{{ projetParticipant.role|trans }}</td>
-                        <td class="text-center p-2">{{ projetParticipant.dateAjout|date('d/m/Y') }}</td>
+                        <td class="text-center p-2">{{ projetParticipant.dateAjout|format_date }}</td>
                     </tr>
                     {% set count = count + 1 %}
                 {% endif %}
@@ -176,47 +209,56 @@
         </table>
     </section>
 {% endif %}
-{% if constant('App\\DTO\\ProjetExportParameters::STATISTIQUES') in customTime.exportOptions and customTime.statistics is defined %}
+{% if constant('App\\DTO\\ProjetExportParameters::ACTIVITES') in customTime.exportOptions %}
     <section>
-        <h2 class="facts">{{ constant('App\\DTO\\ProjetExportParameters::STATISTIQUES')|trans }}</h2>
-
-        {% for year, yearStatistics in customTime.statistics %}
-            {% if year <= "now"|date('Y') %}
-            <table class="light w-100 m-auto">
-                <thead>
-                <tr>
-                    <th rowspan="2" class="p-2">Participant</th>
-                    <th colspan="12" class="text-center">Temps passés sur l'année {{ year }}</th>
-                </tr>
-                <tr>
-                    {% for i in 1..12 %}
-                        <th class="text-center p-2">{{ date(year ~ '-' ~ i ~ '-01') |date('M') }}</th>
-                    {% endfor %}
-                </tr>
-                </thead>
-                <tbody>
-                    {% for participant in projet.projetParticipants %}
-                        {% set name = participant.societeUser.user.shortname %}
-                        <tr>
-                            <td>{{ name }}</td>
-                            {% for month, monthStatistics in yearStatistics['hour'] %}
-                                {% if monthStatistics[name] is defined %}
-                                    <td class="text-center p-2">{{ monthStatistics[name] ~ "h" }} &asymp; {{ yearStatistics['percent'][month][name] ~ "%" }}</td>
-                                {% else %}
-                                    <td class="text-center empty p-2">--.--</td>
-                                {% endif %}
-                            {% endfor %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div style="height: 3rem;"></div>
-            {% endif %}
-        {% endfor %}
-
+        <h2 class="facts">{{ constant('App\\DTO\\ProjetExportParameters::ACTIVITES')|trans }}</h2>
+        <ul class="list-activities list-group list-group-flush">
+            {% set activities = getProjetActivities(projet,customTime.dateDebut,customTime.dateFin) %}
+            {% for activity in activities %}
+                {% if renderActivity(activity.activity) %}
+                    <li class="list-group-item">
+                        {{ renderActivity(activity.activity) }}
+                        <small>
+                            <time class="text-muted float-right" datetime="{{ activity.activity.datetime|date('c') }}">
+                                {{ '.at_date'|trans({'%date%': activity.activity.datetime|format_datetime}) }}
+                            </time>
+                        </small>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     </section>
 {% endif %}
-
+{% if constant('App\\DTO\\ProjetExportParameters::LISTE_FICHIERS') in customTime.exportOptions %}
+<section>
+    <h2 class="facts">{{ constant('App\\DTO\\ProjetExportParameters::LISTE_FICHIERS')|trans }}</h2>
+    <table class="light w-100 m-auto">
+        <thead>
+            <tr>
+                <th class="p-2">Fichier</th>
+                <th class="text-center p-2">Auteur</th>
+                <th class="text-center p-2">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set count = 0 %}
+            {% for fichierProjet in projet.fichierProjets %}
+                {% if (not fichierProjet.faitMarquant or (fichierProjet.faitMarquant and fichierProjet.faitMarquant.trashedAt is null)) and (customTime.dateDebut is null or fichierProjet.fichier.dateUpload >= customTime.dateDebut) and (customTime.dateFin is null or fichierProjet.fichier.dateUpload <= customTime.dateFin) %}
+                <tr>
+                    <td class="p-2">{{ fichierProjet.fichier.nomFichier }}</td>
+                    <td class="text-center p-2">{{ fichierProjet.uploadedBy.user.fullname }}</td>
+                    <td class="text-center p-2">{{ fichierProjet.fichier.dateUpload|format_date }}</td>
+                </tr>
+                    {% set count = count + 1 %}
+                {% endif %}
+            {% endfor %}
+            <tr>
+                <td colspan="3" class="bg-secondary text-white text-right pr-5"><b>{{ count }} fichiers</b></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+{% endif %}
 
 </body>
 </html>

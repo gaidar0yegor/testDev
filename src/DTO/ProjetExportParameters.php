@@ -32,10 +32,10 @@ class ProjetExportParameters
         $this->exportOptions = [
             $this::PRESENTATION,
             $this::FAITS_MARQUANTS,
-            $this::LISTE_FICHIERS,
-            $this::ACTIVITES,
+            $this::STATISTIQUES,
             $this::PARTICIPANTS,
-            $this::STATISTIQUES
+            $this::ACTIVITES,
+            $this::LISTE_FICHIERS,
         ];
     }
 
