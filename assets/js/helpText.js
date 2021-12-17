@@ -50,15 +50,17 @@ function bindButtons() {
 };
 bindButtons();
 
-document.getElementById('reviewHelpText').addEventListener('click', () => {
-    document.querySelectorAll('.help_text_to_review').forEach(helpTextToReview => {
-        reactive(helpTextToReview.dataset.helpId)
-            .then(response => response.text())
-            .then(text => {
-                $(helpTextToReview).hide();
-                helpTextToReview.innerHTML = text;
-                $(helpTextToReview).slideDown();
-                bindButtons();
-            })
+if (document.getElementById('reviewHelpText')){
+    document.getElementById('reviewHelpText').addEventListener('click', () => {
+        document.querySelectorAll('.help_text_to_review').forEach(helpTextToReview => {
+            reactive(helpTextToReview.dataset.helpId)
+                .then(response => response.text())
+                .then(text => {
+                    $(helpTextToReview).hide();
+                    helpTextToReview.innerHTML = text;
+                    $(helpTextToReview).slideDown();
+                    bindButtons();
+                })
+        });
     });
-});
+}

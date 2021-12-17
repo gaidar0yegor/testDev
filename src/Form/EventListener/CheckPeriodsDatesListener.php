@@ -60,6 +60,7 @@ class CheckPeriodsDatesListener implements EventSubscriberInterface
         if (count($emptyPeriod) === 0 && $lastPeriod->getDateEntry() && $lastPeriod->getDateLeave()){
             $societeUser->addSocieteUserPeriod(new SocieteUserPeriod());
             $this->em->persist($societeUser);
+            $this->em->flush();
         }
     }
 }

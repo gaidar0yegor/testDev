@@ -26,7 +26,6 @@ class SameSocieteUserType extends AbstractType
     {
         $resolver->setDefaults([
             'class' => SocieteUser::class,
-            'required' => true,
             'choice_label' => function (SocieteUser $choice, $key, $value): string {
                 return $choice->getUser()->getFullnameOrEmail();
             },

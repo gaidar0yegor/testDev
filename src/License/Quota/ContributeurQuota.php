@@ -72,6 +72,11 @@ class ContributeurQuota implements LicenseQuotaInterface
         }
     }
 
+    public function prePersist(ProjetParticipant $projetParticipant, LifecycleEventArgs $args): void
+    {
+        $this->checkAddNewContributeur($projetParticipant->getSociete(), $projetParticipant);
+    }
+
     public function preUpdate(ProjetParticipant $projetParticipant, LifecycleEventArgs $args): void
     {
         $societe = $projetParticipant->getSociete();

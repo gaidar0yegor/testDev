@@ -23,7 +23,6 @@ class ListeProjetParticipantsType extends AbstractType
                 'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'required' => true,
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'putAllParticipantOnProjet'])
         ;
@@ -37,10 +36,6 @@ class ListeProjetParticipantsType extends AbstractType
         $projet = $event->getData();
 
         foreach ($projet->getProjetParticipants() as $projetParticipant) {
-            if (!$projetParticipant->getSocieteUser() || ($projetParticipant->getSocieteUser() && $projetParticipant->getSocieteUser()->getEnabled())){
-                $event->getForm()->addError(new FormError("Vous avez sélectionné des participants désactivés."));
-                break;
-            }
             $projetParticipant->setProjet($projet);
         }
     }
