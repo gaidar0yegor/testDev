@@ -2,96 +2,103 @@
 
 {% block body %}
 
-<h1>{{ 'my_dashboard'|trans }}</h1>
+    {% include('utils/_btn_html_to_pdf.html.twig') %}
 
-<h2>{{ 'dashboard.today'|trans }}</h2>
+    <div id="containerHtmlToPdf">
 
-<div class="row">
-    <div class="col-lg-5">
-        <div id="mes-temps-rappel" data-url-temps-passes="{{ path('app_fo_temps') }}">
+        <h1>{{ 'my_dashboard'|trans }}</h1>
+
+        <h2>{{ 'dashboard.today'|trans }}</h2>
+
+        <div class="row not-printable">
+            <div class="col-lg-5">
+                <div id="mes-temps-rappel" data-url-temps-passes="{{ path('app_fo_temps') }}">
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div id="recents-projets" data-url-projet="{{ path('app_fo_projet', {'id': 0}) }}">
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-lg-7">
-        <div id="recents-projets" data-url-projet="{{ path('app_fo_projet', {'id': 0}) }}">
+
+        <div class="row my-4">
+            <div class="col-md-10 mx-auto bordure">
+                <h2>{{ 'projects_analyse_of_year'|trans }}
+                    <span
+                        class="year-switch"
+                        data-event-name="loadYearlyCharts"
+                    ></span>
+                </h2>
+            </div>
         </div>
-    </div>
-</div>
 
-<div class="row my-4">
-	<div class="col-md-10 mx-auto bordure">
-        <h2>{{ 'projects_analyse_of_year'|trans }}
-            <span
-                class="year-switch"
-                data-event-name="loadYearlyCharts"
-            ></span>
-        </h2>
-    </div>
-</div>
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="text-center">{{ 'hours_by_project'|trans }}</h4>
 
-<div class="row">
-    <div class="col-md-4">
-        <h4 class="text-center">{{ 'hours_by_project'|trans }}</h4>
-
-        <div id="heures-par-projet">
+                <div id="heures-par-projet">
+                </div>
+            </div>
+            <div class="offset-md-1 col-md-7">
+                <h4 class="text-center">{{ 'my_contributions'|trans }}</h4>
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>{{ 'my_contributions.me'|trans }}</th>
+                            <th>{{ 'my_contributions.team'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-left">{{ 'my_contributions.projects'|trans }}</td>
+                            <td class="moi-vs-equipe moi projet">…</td>
+                            <td class="moi-vs-equipe equipe projet">…</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">{{ 'my_contributions.rdi_projects'|trans }}</td>
+                            <td class="moi-vs-equipe moi projet-rdi">…</td>
+                            <td class="moi-vs-equipe equipe projet-rdi">…</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left">{{ 'my_contributions.total'|trans }}</td>
+                            <td class="moi-vs-equipe moi temps-total">…</td>
+                            <td class="moi-vs-equipe equipe temps-total">…</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="offset-md-1 col-md-7">
-        <h4 class="text-center">{{ 'my_contributions'|trans }}</h4>
-        <table class="table text-center">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>{{ 'my_contributions.me'|trans }}</th>
-                    <th>{{ 'my_contributions.team'|trans }}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-left">{{ 'my_contributions.projects'|trans }}</td>
-                    <td class="moi-vs-equipe moi projet">…</td>
-                    <td class="moi-vs-equipe equipe projet">…</td>
-                </tr>
-                <tr>
-                    <td class="text-left">{{ 'my_contributions.rdi_projects'|trans }}</td>
-                    <td class="moi-vs-equipe moi projet-rdi">…</td>
-                    <td class="moi-vs-equipe equipe projet-rdi">…</td>
-                </tr>
-                <tr>
-                    <td class="text-left">{{ 'my_contributions.total'|trans }}</td>
-                    <td class="moi-vs-equipe moi temps-total">…</td>
-                    <td class="moi-vs-equipe equipe temps-total">…</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
-<div class="row my-4">
-	<div class="col-md-10 mx-auto">
-        <h2>{{ 'project_analyse_from'|trans }}
-            <span
-                class="year-switch"
-                data-event-name="loadSinceYearCharts"
-                data-year-selected="{{ '-3 years'|date('Y') }}"
-            ></span>
-        </h2>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h4 class="text-center">{{ 'projects_realisations'|trans }}</h4>
-
-        <div id="projets-statuts">
+        <div class="row my-4">
+            <div class="col-md-10 mx-auto">
+                <h2>{{ 'project_analyse_from'|trans }}
+                    <span
+                        class="year-switch"
+                        data-event-name="loadSinceYearCharts"
+                        data-year-selected="{{ '-3 years'|date('Y') }}"
+                    ></span>
+                </h2>
+            </div>
         </div>
-    </div>
-    <div class="offset-md-1 col-md-7">
-        <h4 class="text-center">{{ 'realized_projects_type'|trans }}</h4>
 
-        <div id="projets-rdi-vs-non-rdi">
+        <div class="row">
+            <div class="col-md-4">
+                <h4 class="text-center">{{ 'projects_realisations'|trans }}</h4>
+
+                <div id="projets-statuts">
+                </div>
+            </div>
+            <div class="offset-md-1 col-md-7">
+                <h4 class="text-center">{{ 'realized_projects_type'|trans }}</h4>
+
+                <div id="projets-rdi-vs-non-rdi">
+                </div>
+            </div>
         </div>
+
     </div>
-</div>
+
 {% endblock %}
 
 {% block stylesheets %}
