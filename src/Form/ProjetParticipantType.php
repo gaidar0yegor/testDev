@@ -14,7 +14,9 @@ class ProjetParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('societeUser', SameSocieteUserType::class)
+            ->add('societeUser', SameSocieteUserType::class, [
+                'required' => true,
+            ])
             ->add('role', RoleProjetCardChoiceType::class, [
                 'card_choice_size' => 'small',
             ])

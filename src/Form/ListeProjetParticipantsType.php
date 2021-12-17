@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,6 +23,7 @@ class ListeProjetParticipantsType extends AbstractType
                 'label' => false,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'required' => true,
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'putAllParticipantOnProjet'])
         ;
@@ -35,6 +37,10 @@ class ListeProjetParticipantsType extends AbstractType
         $projet = $event->getData();
 
         foreach ($projet->getProjetParticipants() as $projetParticipant) {
+            if (!$projetParticipant->getSocieteUser() || ($projetParticipant->getSocieteUser() && $projetParticipant->getSocieteUser()->getEnabled())){
+                $event->getForm()->addError(new FormError("Vous avez sélectionné des participants désactivés."));
+                break;
+            }
             $projetParticipant->setProjet($projet);
         }
     }
