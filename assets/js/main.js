@@ -3,7 +3,7 @@ import EmbedForm from './EmbedForm';
 import datesLocalize from './dates.localize';
 import {detectedLocale, language_dt} from './translation';
 
-import './datatable';
+import { domDatatable, btnsDatatable } from './datatable';
 
 $('form').on('change', 'input.custom-file-input', function () {
     const $input = $(this);
@@ -79,7 +79,8 @@ $(document).ready( function () {
         });
 
     validation_temps_dt = $('#validation_temps_dt').DataTable( {
-        info: false,
+        dom: domDatatable,
+        buttons: btnsDatatable,
         responsive: true,
         ordering: false,
         searchHighlight: true,
@@ -89,7 +90,8 @@ $(document).ready( function () {
         },
     });
     users_list_dt = $('#users_list_dt').DataTable( {
-        info: false,
+        dom: domDatatable,
+        buttons: btnsDatatable,
         responsive: true,
         order: [[ 5, "desc" ]],
         columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
@@ -105,7 +107,8 @@ $(document).ready( function () {
 var files_list_dt;
 $(document).ready( function () {
     files_list_dt = $('#files_list_dt').DataTable( {
-        dom: 'lftp',
+        dom: domDatatable,
+        buttons: btnsDatatable,
         responsive: true,
         searchHighlight: true,
         language: language_dt,
@@ -273,7 +276,7 @@ $(document).on('change', 'input#societe_colorCode', function (e) {
 });
 
 $(document).ready(function(){
-    $('.img-expend').hover(function() {
+    $(document).find('.img-expend').hover(function() {
         $(this).addClass('expend-transition');
     }, function() {
         $(this).removeClass('expend-transition');
