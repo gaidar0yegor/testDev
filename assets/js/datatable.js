@@ -1,4 +1,5 @@
 import './datatable/dataTables.css';
+import './datatable/dataTables.responsive.min.css';
 import './datatable/buttons.dataTables.min.css';
 import './datatable/dataTables.searchHighlight.css';
 
