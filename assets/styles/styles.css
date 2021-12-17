@@ -23,6 +23,9 @@ body {
     -ms-transition: all .4s ease-in-out;
 }
 
+option:disabled {
+    color: rgba(206, 53, 44, 0.62);
+}
 /*****************************HTML*************************/
 h1, h2 {
     text-align: center;

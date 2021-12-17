@@ -35,6 +35,8 @@ n_nouveaux_faits_marquants: "{n, plural,\n    =0    {aucun nouveau fait marquant
   \    one   {un nouveau fait marquant}\n    other {# nouveaux faits marquants}\n}"
 n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other\
   \ {Observateurs}\n}"
+n_contributeur: "{n, plural,\n    =0 {Contributeur}\n    one {Contributeur}\n    other\
+  \ {Contributeurs}\n}"
 my_dashboard: 'Mon tableau de bord'
 dashboard: 'Tableau de bord'
 dashboard.today: 'Actualité'

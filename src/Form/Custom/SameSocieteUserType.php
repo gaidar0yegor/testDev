@@ -34,6 +34,9 @@ class SameSocieteUserType extends AbstractType
 
                 return $repository->whereSociete($societeUser->getSociete());
             },
+            'choice_attr' => function($societeUser) {
+                return $societeUser->getEnabled() ? [] : ['disabled' =>  'disabled'];
+            },
         ]);
     }
 

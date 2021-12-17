@@ -8,6 +8,7 @@ use App\Entity\SocieteUser;
 use App\Form\InviteUserType;
 use App\Form\SocieteUserProjetsRolesType;
 use App\Form\SocieteUserType;
+use App\Notification\Event\ProjetParticipantRemovedEvent;
 use App\Repository\SocieteUserActivityRepository;
 use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleProjet;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
@@ -29,6 +31,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SocieteUserController extends AbstractController
 {
+    private EventDispatcherInterface $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @Route("", name="app_fo_admin_utilisateurs")
      */
@@ -146,6 +155,12 @@ class SocieteUserController extends AbstractController
 
 
         $societeUser->setEnabled(false);
+
+        foreach ($societeUser->getProjetParticipants() as $projetParticipant){
+            $this->dispatcher->dispatch(new ProjetParticipantRemovedEvent($em->getRepository(ProjetParticipant::class)->find($projetParticipant->getId())));
+            $societeUser->removeProjetParticipant($projetParticipant);
+            $em->remove($projetParticipant);
+        }
 
         $em->persist($societeUser);
         $em->flush();

@@ -6,7 +6,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
+- Ajouter un Modal pour la liste des contributeurs d'un projet
+- Désactiver la sélection des participants désactivés
 
 
 ## [0.37.6] - 2021-12-15

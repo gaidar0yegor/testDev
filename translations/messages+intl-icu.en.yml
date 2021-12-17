@@ -44,6 +44,8 @@ weekly: Weekly
 daily: Daily
 n_observateur: "{n, plural,\n    =0 {Observator}\n    one {Observator}\n    other\
   \ {Observators}\n}"
+n_contributeur: "{n, plural,\n    =0 {Contributor}\n    one {Contributor}\n    other\
+  \ {Contributors}\n}"
 my_dashboard: My dashboard
 dashboard.today: News
 create_project_requires_project_manager_role: You need to be project manager to create

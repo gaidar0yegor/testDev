@@ -187,6 +187,7 @@ services:
         lazy: true
         tags:
             - { name: app.license_quota }
+            - { name: doctrine.orm.entity_listener, event: prePersist, entity: App\Entity\ProjetParticipant }
             - { name: doctrine.orm.entity_listener, event: preUpdate, entity: App\Entity\ProjetParticipant }
 
     App\License\Listener\LicenseExpiredListener:

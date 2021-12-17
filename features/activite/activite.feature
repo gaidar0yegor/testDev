@@ -115,6 +115,11 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
         And I press "Connexion"
         And I am on "/admin/utilisateurs/1/modifier"
         And I press "Désactiver le compte"
+        And I fill in the following:
+            | societe_user[societeUserPeriods][1][dateEntry] | 1 janvier 2021 |
+        And I press "Mettre à jour"
+
+        When I go to "/admin/utilisateurs/1/modifier"
         And I press "Ré-activer le compte"
 
         When I go to "/admin/utilisateurs/1/activite"
