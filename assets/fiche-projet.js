@@ -9,9 +9,10 @@ language_dt.searchPlaceholder = detectedLocale === "en" ? 'Search within the str
 var fait_marquant_timeline_dt;
 $(document).ready( function () {
     fait_marquant_timeline_dt = $('#fait_marquant_timeline_dt').DataTable( {
-        dom: 'Bft',
+        dom: 'ft',
         paging: false,
         ordering: false,
+        buttons: false,
         info: false,
         searchHighlight: true,
         language: language_dt,

@@ -8,6 +8,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Ajouter un Modal pour la liste des contributeurs d'un projet
 - Désactiver la sélection des participants désactivés
+- Exportation Liste des utilisateurs
+- Exportation Liste des projets
+- Exportation générale des tableaux
 
 
 ## [0.37.6] - 2021-12-15

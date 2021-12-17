@@ -18,33 +18,33 @@
 		<input type="hidden" id="filter-users-statut">
 	</ul>
 
-	<table id="users_list_dt" class="table datatable custom-datatable hover text-center">
+	<table id="users_list_dt" class="table datatable custom-datatable hover">
 		<thead>
 			<tr>
 				<th class="text-left">Avatar</th>
-				<th>{{ 'lastname'|trans }}</th>
-				<th>{{ 'firstname'|trans }}</th>
-				<th>{{ 'email'|trans }}</th>
-				<th>{{ 'role'|trans }}</th>
-				<th>{{ 'status'|trans }}</th>
-				<th>{{ 'projects'|trans }}</th>
+				<th class="text-center">{{ 'lastname'|trans }}</th>
+				<th class="text-center">{{ 'firstname'|trans }}</th>
+				<th class="text-center">{{ 'email'|trans }}</th>
+				<th class="text-center">{{ 'role'|trans }}</th>
+				<th class="text-center">{{ 'status'|trans }}</th>
+				<th class="text-center">{{ 'projects'|trans }}</th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for societeUser in societeUsers %}
 				<tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
-					<td> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
-					<td>{{ societeUser.user.nom }}</td>
-					<td>{{ societeUser.user.prenom }}</td>
-					<td>{{ societeUser.user.email }}</td>
-					<td data-sort='{{ societeUser.role|trans }}'>
+					<td class="text-center"> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
+					<td class="text-center">{{ societeUser.user.nom }}</td>
+					<td class="text-center">{{ societeUser.user.prenom }}</td>
+					<td class="text-center">{{ societeUser.user.email }}</td>
+					<td class="text-center" data-sort='{{ societeUser.role|trans }}'>
 						<span class="d-none d-sm-block">{{ societeUser.role|trans }}</span>
 						<span class="d-sm-none">{{ (societeUser.role ~'.small')|trans }}</span>
 					</td>
-					<td data-search='{{ societeUser.statut }}'>{{ societeUser.statut|trans }}</td>
-					<td>{{ societeUser.projetParticipants|length }}</td>
-					<td>
+					<td class="text-center" data-search='{{ societeUser.statut }}'>{{ societeUser.statut|trans }}</td>
+					<td class="text-center">{{ societeUser.projetParticipants|length }}</td>
+					<td class="text-center">
 						<a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
 							<i class="fa fa-lg fa-eye"></i>
 						</a>
