@@ -11,6 +11,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Exportation Liste des utilisateurs
 - Exportation Liste des projets
 - Exportation générale des tableaux
+- Exportation Tableau de bord
 
 
 ## [0.37.6] - 2021-12-15
