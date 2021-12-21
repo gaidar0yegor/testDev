@@ -12,6 +12,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Exportation Liste des projets
 - Exportation générale des tableaux
 - Exportation Tableau de bord
+- Gestions fichiers : Ajouter des droits de visibilité sur les pièces jointes
 
 
 ## [0.37.6] - 2021-12-15
