@@ -69,10 +69,12 @@ App\Entity\FichierProjet:
         fichier: '@file_fichier_de_contributeur'
         uploadedBy: '@contributeur'
         projet: '@projet'
+        societeUsers: ['@cdp', '@contributeur', '@observateur']
     fichier_de_cdp:
         fichier: '@file_fichier_de_cdp'
         uploadedBy: '@cdp'
         projet: '@projet'
+        societeUsers: ['@cdp', '@contributeur', '@observateur']
 
 App\Entity\Projet:
     projet:
