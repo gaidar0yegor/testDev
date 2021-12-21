@@ -43,6 +43,17 @@ class RoleProjet extends AbstractRdiRole
     public const OBSERVATEUR = 'PROJET_OBSERVATEUR';
 
     /**
+     * Rôle Observateur externe:
+     *
+     * L'utilisateur a accès au projet en lecture seule.
+     * Il peut voir les faits marquants, les fichiers,
+     * mais ne peut rien ajouter ni modifier.
+     *
+     * @var string
+     */
+    public const OBSERVATEUR_EXTERNE = 'PROJET_OBSERVATEUR_EXTERNE';
+
+    /**
      * {@inheritDoc}
      */
     protected static array $allRoles = [

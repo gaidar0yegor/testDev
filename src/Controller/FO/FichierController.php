@@ -92,7 +92,7 @@ class FichierController extends AbstractController
 
             $em->flush();     
 
-            $this->addFlash('success', $translator->trans('rename_file_success', [
+            $this->addFlash('success', $translator->trans('edit_file_success', [
                 'oldName' => $oldName,
                 'newName' => $fichier->getNomFichier(),
             ]));

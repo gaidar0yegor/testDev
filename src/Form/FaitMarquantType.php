@@ -10,7 +10,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\Length;
@@ -47,6 +46,7 @@ class FaitMarquantType extends AbstractType
             ->add('description', MarkdownWysiwygType:: class, $descriptionOptions)
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),
+                'entry_options' => array('projet' => $builder->getData()->getProjet()),
                 'label' => 'Fichiers joints',
             ])
             ->add('date', DateType::class, [

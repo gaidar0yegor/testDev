@@ -1,6 +1,7 @@
 PROJET_CDP: 'Chef de Projet'
 PROJET_CONTRIBUTEUR: Contributeur
 PROJET_OBSERVATEUR: Observateur
+PROJET_OBSERVATEUR_EXTERNE: Observateur externe
 ROLE_BO_USER: 'Utilisateur back-office'
 SOCIETE_ADMIN: Administrateur
 SOCIETE_CDP: 'Chef de Projet'
@@ -79,6 +80,7 @@ project: Projet
 my_role: 'Mon rôle'
 start: Début
 end: Fin
+all: Tous
 status: Statut
 participants: Participants
 back_office: 'Back office'
@@ -333,7 +335,7 @@ n_contributors_added: '{n, plural, =1 {Le contributeur a été ajouté au projet
 parameter.bo.onboarding.notification_every: 'Envoyer un email d''onboarding tout les...'
 parameter.bo.onboarding.notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.html" target="_blank">conditions générales d''utilisation</a> et les <a href="https://rdimanager.com/fr/cgv.html" target="_blank">conditions générales de vente</a>.'
-rename_file_success: 'Votre fichier {oldName} à bien été renommé en {newName}'
+edit_file_success: 'Votre fichier {oldName} à bien été modifié en {newName}'
 download: 'Télécharger'
 see_more: 'Voir plus ...'
 societeUser.societeUserPeriods: 'Les périodes'

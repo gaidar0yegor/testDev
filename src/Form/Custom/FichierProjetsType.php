@@ -9,7 +9,6 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormView;
@@ -64,6 +63,7 @@ class FichierProjetsType extends AbstractType
             'allow_delete' => false,
             'by_reference'  => false,
             'required' => false,
+            'projet' => null,
         ]);
         $resolver->setDefined([
             'projet',

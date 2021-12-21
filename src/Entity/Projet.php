@@ -285,6 +285,46 @@ class Projet implements HasSocieteInterface
         return $this->fichierProjets;
     }
 
+    /**
+     * @return array|FichierProjet[]
+     */
+    public function getAccessibleFichierProjets(SocieteUser $societeUser): array
+    {
+        $fichierProjets = [];
+        foreach ($this->fichierProjets as $fichierProjet){
+            if (
+                $fichierProjet->getSocieteUsers()->contains($societeUser) &&
+                (
+                    $fichierProjet->getFaitMarquant() === null ||
+                    ($fichierProjet->getFaitMarquant() && $fichierProjet->getFaitMarquant()->getTrashedAt() === null)
+                )
+            ){
+                $fichierProjets[] = $fichierProjet;
+            }
+        }
+        return $fichierProjets;
+    }
+
+    /**
+     * @return array|FichierProjet[]
+     */
+    public function getAccessibleExterneFichierProjets(): array
+    {
+        $fichierProjets = [];
+        foreach ($this->fichierProjets as $fichierProjet){
+            if (
+                $fichierProjet->getIsAccessibleParObservateurExterne() &&
+                (
+                    $fichierProjet->getFaitMarquant() === null ||
+                    ($fichierProjet->getFaitMarquant() && $fichierProjet->getFaitMarquant()->getTrashedAt() === null)
+                )
+            ){
+                $fichierProjets[] = $fichierProjet;
+            }
+        }
+        return $fichierProjets;
+    }
+
     public function addFichierProjet(FichierProjet $fichierProjet): self
     {
         if (!$this->fichierProjets->contains($fichierProjet)) {
@@ -504,6 +544,32 @@ class Projet implements HasSocieteInterface
         }
 
         throw new RdiException('This projet has no Chef de Projet');
+    }
+
+    public function getContributeurs(): array
+    {
+        $contributeurs = [];
+
+        foreach ($this->projetParticipants as $participant) {
+            if ($participant->getRole() === RoleProjet::CONTRIBUTEUR) {
+                array_push($contributeurs,$participant);
+            }
+        }
+
+        return $contributeurs;
+    }
+
+    public function getObservateurs(): array
+    {
+        $observatuers = [];
+
+        foreach ($this->projetParticipants as $participant) {
+            if ($participant->getRole() === RoleProjet::OBSERVATEUR) {
+                array_push($observatuers,$participant);
+            }
+        }
+
+        return $observatuers;
     }
 
     public function isRdi(): bool

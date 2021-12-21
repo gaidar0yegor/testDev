@@ -33,12 +33,12 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         And I follow "PTEST"
         And I follow "Voir tous les fichiers"
         When I click on the 1st "[href='/projets/1/fichiers/1/rename']" element
-        Then I should see "Renommer un fichier" in the "h1" element
+        Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
             | fichier_projet_rename[fichier][nomFichier] | business-plan.txt |
-        And I press "Renommer"
+        And I press "Modifier"
 
-        And I should see "Votre fichier fichier_de_contributeur.txt à bien été renommé en business-plan.txt"
+        And I should see "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
         Then I should see "business-plan.txt" in the "form[name='projet_fichier_projets']" element
 
     Scenario: Un contributeur ne peut pas changer l'extension d'un fichier
@@ -52,12 +52,12 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         And I follow "PTEST"
         And I follow "Voir tous les fichiers"
         When I click on the 1st "[href='/projets/1/fichiers/1/rename']" element
-        Then I should see "Renommer un fichier" in the "h1" element
+        Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
             | fichier_projet_rename[fichier][nomFichier] | business-plan.php |
-        And I press "Renommer"
+        And I press "Modifier"
 
-        And I should see "Votre fichier fichier_de_contributeur.txt à bien été renommé en business-plan.txt"
+        And I should see "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
         Then I should see "business-plan.txt" in the "form[name='projet_fichier_projets']" element
 
     Scenario: Un observateur ne peut pas renommer les fichiers
