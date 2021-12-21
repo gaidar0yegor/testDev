@@ -22,6 +22,7 @@ class AvatarType extends FichierType
         parent::buildForm($builder, $options);
 
         $builder
+            ->remove('nomFichier')
             ->add('file', FileType::class, [
                 'label' => false,
                 'required' 	=> false,

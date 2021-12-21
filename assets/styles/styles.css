@@ -26,6 +26,9 @@ body {
 option:disabled {
     color: rgba(206, 53, 44, 0.62);
 }
+.custom-file-label{
+    overflow: hidden;
+}
 /*****************************HTML*************************/
 h1, h2 {
     text-align: center;
@@ -388,4 +391,19 @@ h5 {
 }
 .c3-tooltip-container table.c3-tooltip th, .c3-tooltip-container table.c3-tooltip td {
     padding: 5px 10px !important;
+}
+
+/* style select2 */
+select.select-2{
+    width: 100%;
+}
+.select2.select2-container .select2-selection {
+    min-height: calc(1.5em + 0.75rem + 2px);
+}
+.select2-selection--multiple{
+    overflow: hidden !important;
+    height: auto !important;
+}
+.select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple{
+    border: 1px solid #ced4da !important;
 }

@@ -7,7 +7,6 @@ use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -26,6 +25,7 @@ class ProjetFichierProjetsType extends AbstractType
         $builder
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData(),
+                'entry_options' => array('projet' => $builder->getData()),
                 'label' => false,
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])

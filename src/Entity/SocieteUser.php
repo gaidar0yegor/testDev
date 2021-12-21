@@ -188,6 +188,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $societeUserPeriods;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=FichierProjet::class, mappedBy="societeUsers")
+     */
+    private $fichierProjets;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -200,6 +205,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->notificationOnboardingEnabled = true;
         $this->notificationOnboardingFinished = false;
         $this->societeUserPeriods = new ArrayCollection();
+        $this->fichierProjets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -594,6 +600,33 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
             if ($societeUserPeriod->getSocieteUser() === $this) {
                 $societeUserPeriod->setSocieteUser(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FichierProjet[]
+     */
+    public function getFichierProjets(): Collection
+    {
+        return $this->fichierProjets;
+    }
+
+    public function addFichierProjet(FichierProjet $fichierProjet): self
+    {
+        if (!$this->fichierProjets->contains($fichierProjet)) {
+            $this->fichierProjets[] = $fichierProjet;
+            $fichierProjet->addSocieteUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichierProjet(FichierProjet $fichierProjet): self
+    {
+        if ($this->fichierProjets->removeElement($fichierProjet)) {
+            $fichierProjet->removeSocieteUser($this);
         }
 
         return $this;

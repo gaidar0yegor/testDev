@@ -1,5 +1,7 @@
 import $ from 'jquery';
 
+import { initSelect2 } from './select2';
+
 const EmbedForm = {};
 
 /**
@@ -8,6 +10,7 @@ const EmbedForm = {};
  *                  $addButton (optional) custom Add button
  *                  $itemWrapper (optional) custom wrapper to wrap all added items
  *                  newItemAppend (optional) callback that appends new items. By default, append to $prototypeContainer
+ *                  initSelect2 (optional) callback initialize the select2
  */
 EmbedForm.init = function ($prototypeContainer, options = {}) {
     if ($prototypeContainer.data('embedformprocessed')) {
@@ -50,6 +53,14 @@ EmbedForm.addPrototypedItem = function ($prototypeContainer, options) {
         options.newItemAppend($newItem);
     } else {
         $prototypeContainer.append($newItem);
+    }
+
+    if (options.initSelect2) {
+        if (options.initSelect2.options){
+            initSelect2($('select.select-2:not(.select2-hidden-accessible)'),options.initSelect2.options)
+        } else{
+            initSelect2($('select.select-2:not(.select2-hidden-accessible)'))
+        }
     }
 };
 

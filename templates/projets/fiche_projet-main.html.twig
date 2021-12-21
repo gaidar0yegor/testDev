@@ -59,16 +59,18 @@
                                 </div>
                                 <ul class="list-unstyled">
                                     {% for fichierProjet in faitMarquant.fichierProjets %}
-                                        <li>
-                                            <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
-                                            <a
-                                                    href="{{ path('app_fo_projet_fichier', {
-                                                        'projetId': projet.id,
-                                                        'fichierProjetId': fichierProjet.id
-                                                    }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
-                                                {{ fichierProjet.fichier.nomFichier }}
-                                            </a>
-                                        </li>
+                                        {% if isAccessibleFichierProjet(fichierProjet) %}
+                                            <li>
+                                                <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
+                                                <a
+                                                        href="{{ path('app_fo_projet_fichier', {
+                                                            'projetId': projet.id,
+                                                            'fichierProjetId': fichierProjet.id
+                                                        }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                                                    {{ fichierProjet.fichier.nomFichier }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
                                     {% endfor %}
                                 </ul>
                                 <div class="text-right">

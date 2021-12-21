@@ -45,7 +45,7 @@
     {{ form_errors(form) }}
     {{ form_help(form) }}
 
-    <table id="files_list_dt" class="table datatable custom-datatable hover" data-paging="false" data-column-defs='[{"sortable": false, "targets": [3]}]'>
+    <table id="files_list_dt" class="table datatable custom-datatable hover" data-column-defs='[{"sortable": false, "targets": [3]}]'>
         <thead>
             <tr>
                 <th>Fichier</th>
@@ -77,60 +77,78 @@
 {% endblock %}
 
 {% block fichier_projet_row %}
-    <tr>
+
         {% if form.vars.data %}
-            <td>
-                <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
-                <a
-                    href="{{ path('app_fo_projet_fichier', {
-                        'projetId': form.vars.data.projet.id,
-                        'fichierProjetId': form.vars.data.id
-                    }) }}" {% if form.vars.data.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
-                    {{ form_row(form.children.fichier) }}
-                </a>
-            </td>
-            <td>{{ form.vars.data.uploadedBy.user.fullname }}</td>
-            <td data-sort='{{ form.vars.data.fichier.dateUpload | date('Ymd') }}'>
-                <span class="d-none d-sm-table-cell">
-                    {{ form.vars.data.fichier.dateUpload|format_date }}
-                </span>
-            </td>
-            <td class="d-flex">
-                <a href="{{ path('app_fo_projet_fichier_rename', {
-                        'projetId': form.vars.data.projet.id,
-                        'fichierProjetId': form.vars.data.id
-                    }) }}" 
-                    class="btn btn-outline-primary btn-sm mr-2 {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}disabled{% endif %}"
-                    {% if form.vars.data.projet.isSuspended %}
-                        title="Le projet est suspendu"
-                    {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}
-                        title="Vous ne pouvez pas renommer les fichiers qui ne vous appartiennent pas"
-                    {% endif %}
-                    >
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                </a>
-                <a
-                    href="{{ path('app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
-                    class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
-                        {% if form.vars.data.projet.isSuspended %}
-                            title="Le projet est suspendu"
-                        {% elseif not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}
-                        title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
-                    {% endif %}
-                >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </a>
-            </td>
+            {% if isAccessibleFichierProjet(form.vars.data) %}
+                <tr>
+                    <td>
+                        <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
+                        <a
+                            href="{{ path('app_fo_projet_fichier', {
+                                'projetId': form.vars.data.projet.id,
+                                'fichierProjetId': form.vars.data.id
+                            }) }}" {% if form.vars.data.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                            {{ form_row(form.children.fichier) }}
+                        </a>
+                    </td>
+                    <td>{{ form.vars.data.uploadedBy.user.fullname }}</td>
+                    <td data-sort='{{ form.vars.data.fichier.dateUpload | date('Ymd') }}'>
+                        <span class="d-none d-sm-table-cell">
+                            {{ form.vars.data.fichier.dateUpload|format_date }}
+                        </span>
+                    </td>
+                    <td class="d-flex">
+                        <a href="{{ path('app_fo_projet_fichier_rename', {
+                                'projetId': form.vars.data.projet.id,
+                                'fichierProjetId': form.vars.data.id
+                            }) }}"
+                            class="btn btn-outline-primary btn-sm mr-2 {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}disabled{% endif %}"
+                            {% if form.vars.data.projet.isSuspended %}
+                                title="Le projet est suspendu"
+                            {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}
+                                title="Vous ne pouvez pas renommer les fichiers qui ne vous appartiennent pas"
+                            {% endif %}
+                            >
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a
+                            href="{{ path('app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
+                            class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
+                                {% if form.vars.data.projet.isSuspended %}
+                                    title="Le projet est suspendu"
+                                {% elseif not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}
+                                title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
+                            {% endif %}
+                        >
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
         {% else %}
-            <td class="input-group-sm">{{ form_row(form.children.fichier.file) }}</td>
-            <td colspan="2" class="input-group-sm">{{ form_row(form.children.fichier.nomFichier) }}</td>
-            <td>
-                <button type="button" class="btn btn-sm btn-outline-danger remove-file-btn">
-                    <i class="fa fa-trash" aria-hidden="true"></i>
-                </button>
-            </td>
+            <tr>
+                <td colspan="3">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-12 input-group-sm">
+                            {{ form_row(form.children.fichier.file) }}
+                        </div>
+                        <div class="col-md-8 col-sm-12 input-group-sm">
+                            {{ form_row(form.children.fichier.nomFichier) }}
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_row(form.societeUser) }}
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+                    <button type="button" class="btn btn-sm btn-outline-danger remove-file-btn">
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button>
+                </td>
+            </tr>
         {% endif %}
-    </tr>
+
 {% endblock %}
 
 {% block fichier_row %}

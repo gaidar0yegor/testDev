@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\HasSocieteInterface;
 use App\ProjetResourceInterface;
 use App\Repository\FichiersProjetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -46,6 +48,27 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
      * @ORM\ManyToOne(targetEntity=FaitMarquant::class, inversedBy="fichierProjets")
      */
     private $faitMarquant;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=SocieteUser::class, inversedBy="fichierProjets")
+     */
+    private $societeUsers;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $isAccessibleParObservateurExterne;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $accessesChoices = [];
+
+    public function __construct()
+    {
+        $this->societeUsers = new ArrayCollection();
+        $this->isAccessibleParObservateurExterne = false;
+    }
 
     public function getId(): ?int
     {
@@ -118,6 +141,54 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
     public function setFaitMarquant(?FaitMarquant $faitMarquant): self
     {
         $this->faitMarquant = $faitMarquant;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SocieteUser[]
+     */
+    public function getSocieteUsers(): Collection
+    {
+        return $this->societeUsers;
+    }
+
+    public function addSocieteUser(SocieteUser $societeUser): self
+    {
+        if (!$this->societeUsers->contains($societeUser)) {
+            $this->societeUsers[] = $societeUser;
+        }
+
+        return $this;
+    }
+
+    public function removeSocieteUser(SocieteUser $societeUser): self
+    {
+        $this->societeUsers->removeElement($societeUser);
+
+        return $this;
+    }
+
+    public function getIsAccessibleParObservateurExterne(): ?bool
+    {
+        return $this->isAccessibleParObservateurExterne;
+    }
+
+    public function setIsAccessibleParObservateurExterne(bool $isAccessibleParObservateurExterne): self
+    {
+        $this->isAccessibleParObservateurExterne = $isAccessibleParObservateurExterne;
+
+        return $this;
+    }
+
+    public function getAccessesChoices(): ?array
+    {
+        return $this->accessesChoices;
+    }
+
+    public function setAccessesChoices(array $accessesChoices): self
+    {
+        $this->accessesChoices = $accessesChoices;
 
         return $this;
     }
