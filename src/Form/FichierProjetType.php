@@ -33,7 +33,7 @@ class FichierProjetType extends AbstractType
                 'label' => false,
                 'fileHandler' => $this->projectFileHandler,
             ])
-            ->add('societeUser', ChoiceType::class, [
+            ->add('accessesChoices', ChoiceType::class, [
                 'label' => false,
                 'multiple'    => true,
                 'expanded' 	  => false,
@@ -42,27 +42,8 @@ class FichierProjetType extends AbstractType
                     'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)'
                 ],
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
-                'mapped' => false
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function($event) use ($projet) {
-                $this->fileAccessManagement($event, $projet);
-            })
         ;
-    }
-
-    public function fileAccessManagement(PostSubmitEvent $event, Projet $projet)
-    {
-        $fichierProjet = $event->getData();
-        $accessChoices = $event->getForm()->get('societeUser')->getData();
-
-        if (
-            $fichierProjet instanceof FichierProjet &&
-            (
-                !$fichierProjet->getId() || ($fichierProjet->getId() && $this->fichierProjetService->isAccessibleFichierProjet($fichierProjet))
-            )
-        ) {
-            $this->fichierProjetService->setAccessChoices($fichierProjet, $projet, $accessChoices);
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

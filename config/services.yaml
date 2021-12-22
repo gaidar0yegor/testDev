@@ -132,6 +132,11 @@ services:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\SocieteUserPeriod }
 
+    App\Listener\FichierProjetListener:
+        tags:
+            - { name: doctrine.orm.entity_listener, event: prePersist, entity: App\Entity\FichierProjet }
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\FichierProjet }
+
     App\Service\EntityLink\EntityLinkGenerator\:
         resource: '../src/Service/EntityLink/EntityLinkGenerator/'
         tags: ['app.entity_link_generator']
