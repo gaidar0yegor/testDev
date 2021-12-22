@@ -50,7 +50,7 @@ class FichierType extends AbstractType
         }
 
         // In case file has already been imported and entity is just updating
-        if (null === $fichier->getFile()) {
+        if (null === $fichier->getFile() || $fichier->getId() !== null) {
             return;
         }
 

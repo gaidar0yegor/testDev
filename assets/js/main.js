@@ -105,8 +105,8 @@ $(document).ready( function () {
 
 // form fait marquants
 var files_list_dt;
-$(document).ready( function () {
-    files_list_dt = $('#files_list_dt').DataTable( {
+$(document).ready(function () {
+    files_list_dt = $('#files_list_dt').DataTable({
         info: false,
         paging: false,
         dom: domDatatable,

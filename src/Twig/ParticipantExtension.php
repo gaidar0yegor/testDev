@@ -2,7 +2,6 @@
 
 namespace App\Twig;
 
-use App\Entity\FichierProjet;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
@@ -39,7 +38,6 @@ class ParticipantExtension extends AbstractExtension
         return [
             new TwigFunction('userRoleOn', [$this, 'userRoleOn']),
             new TwigFunction('roleSortValue', [$this, 'roleSortValue']),
-            new TwigFunction('isAccessibleFichierProjet', [$this, 'isAccessibleFichierProjet']),
         ];
     }
 
@@ -88,10 +86,5 @@ class ParticipantExtension extends AbstractExtension
     public function roleSortValue(string $role): int
     {
         return array_search($role, RoleProjet::getRoles());
-    }
-
-    public function isAccessibleFichierProjet(FichierProjet $fichierProjet) :bool
-    {
-        return $fichierProjet->getSocieteUsers()->contains($this->userContext->getSocieteUser());
     }
 }

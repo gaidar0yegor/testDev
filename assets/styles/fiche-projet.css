@@ -22,6 +22,7 @@
     font-size: 1.25rem;
     line-height: 1.5;
     border-radius: 0.3rem;
+    min-height: calc(1.5em + 1rem + 2px);
 }
 #fait_marquant_timeline_dt_filter label input::placeholder {
     font-size: 0.8rem;
@@ -38,6 +39,9 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+    }
+    .add-fait-marquant{
+        padding-bottom: 10px;
     }
     .add-fait-marquant p{
         padding-top: 0;
