@@ -79,8 +79,7 @@
 {% block fichier_projet_row %}
 
         {% if form.vars.data %}
-            {% if isAccessibleFichierProjet(form.vars.data) %}
-                <tr>
+                <tr class="{{ isAccessibleFichierProjet(form.vars.data) ? '' : 'd-none' }}">
                     <td>
                         <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
                         <a
@@ -124,7 +123,6 @@
                         </a>
                     </td>
                 </tr>
-            {% endif %}
         {% else %}
             <tr>
                 <td colspan="3">

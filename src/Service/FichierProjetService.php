@@ -30,10 +30,10 @@ class FichierProjetService
             RoleProjet::CDP => RoleProjet::CDP,
             RoleProjet::CONTRIBUTEUR => RoleProjet::CONTRIBUTEUR,
             RoleProjet::OBSERVATEUR => RoleProjet::OBSERVATEUR,
-            RoleProjet::OBSERVATEUR_EXTERNE  => RoleProjet::OBSERVATEUR_EXTERNE,
+            RoleProjet::OBSERVATEUR_EXTERNE => RoleProjet::OBSERVATEUR_EXTERNE,
         ];
 
-        foreach ($projet->getProjetParticipants() as $projetParticipant){
+        foreach ($projet->getProjetParticipants() as $projetParticipant) {
             $choices[$projetParticipant->getSocieteUser()->getUser()->getShortname()] = $projetParticipant->getSocieteUser()->getId();
         }
 
@@ -46,7 +46,7 @@ class FichierProjetService
         $fichierProjet->addSocieteUser($this->userContext->getSocieteUser());
         $fichierProjet->setIsAccessibleParObservateurExterne(in_array(RoleProjet::OBSERVATEUR_EXTERNE, $accessChoices) || in_array('all', $accessChoices));
 
-        if (in_array('all', $accessChoices)) {
+        if (in_array('all', $accessChoices) || empty($accessChoices)) {
             foreach ($projet->getProjetParticipants() as $projetParticipant) {
                 $fichierProjet->addSocieteUser($projetParticipant->getSocieteUser());
             }
@@ -67,5 +67,12 @@ class FichierProjetService
                 }
             }
         }
+    }
+
+    public function isAccessibleFichierProjet(FichierProjet $fichierProjet): bool
+    {
+        return
+            $this->userContext->getSocieteUser()->isAdminFo() ||
+            $fichierProjet->getSocieteUsers()->contains($this->userContext->getSocieteUser());
     }
 }

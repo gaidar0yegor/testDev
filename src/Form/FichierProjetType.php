@@ -39,7 +39,7 @@ class FichierProjetType extends AbstractType
                 'expanded' 	  => false,
                 'attr' => [
                     'class' => 'select-2 form-control',
-                    'data-placeholder' => 'Droits de visibilité'
+                    'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)'
                 ],
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
                 'mapped' => false
@@ -55,7 +55,12 @@ class FichierProjetType extends AbstractType
         $fichierProjet = $event->getData();
         $accessChoices = $event->getForm()->get('societeUser')->getData();
 
-        if ($fichierProjet instanceof FichierProjet) {
+        if (
+            $fichierProjet instanceof FichierProjet &&
+            (
+                !$fichierProjet->getId() || ($fichierProjet->getId() && $this->fichierProjetService->isAccessibleFichierProjet($fichierProjet))
+            )
+        ) {
             $this->fichierProjetService->setAccessChoices($fichierProjet, $projet, $accessChoices);
         }
     }

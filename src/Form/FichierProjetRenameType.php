@@ -35,7 +35,7 @@ class FichierProjetRenameType extends AbstractType
                 'expanded' 	  => false,
                 'attr' => [
                     'class' => 'select-2',
-                    'placeholder' => 'Ce fichier sera accessible par ...'
+                    'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)'
                 ],
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
                 'data' => $fichierProjet->getAccessesChoices(),
