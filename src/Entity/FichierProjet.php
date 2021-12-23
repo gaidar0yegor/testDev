@@ -68,6 +68,7 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
     {
         $this->societeUsers = new ArrayCollection();
         $this->isAccessibleParObservateurExterne = false;
+        $this->accessesChoices = [];
     }
 
     public function getId(): ?int

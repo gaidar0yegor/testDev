@@ -43,7 +43,7 @@ class FichierProjetService
     public function setAccessChoices(FichierProjet $fichierProjet, Projet $projet, array $accessChoices): void
     {
         $fichierProjet->setAccessesChoices($accessChoices);
-        $fichierProjet->addSocieteUser($this->userContext->getSocieteUser());
+        $fichierProjet->addSocieteUser($fichierProjet->getUploadedBy());
         $fichierProjet->setIsAccessibleParObservateurExterne(in_array(RoleProjet::OBSERVATEUR_EXTERNE, $accessChoices) || in_array('all', $accessChoices));
 
         if (in_array('all', $accessChoices) || empty($accessChoices)) {

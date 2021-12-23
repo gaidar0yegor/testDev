@@ -32,15 +32,15 @@ App\Entity\SocieteUser:
 App\Entity\SocieteUserPeriod:
     admin_period:
         societeUser: '@admin'
-        dateEntry: null
+        dateEntry: <(new DateTime("2020-01-01"))>
         dateLeave: null
     cdp_period:
         societeUser: '@cdp'
-        dateEntry: null
+        dateEntry: <(new DateTime("2020-01-01"))>
         dateLeave: null
     user_period:
         societeUser: '@user'
-        dateEntry: null
+        dateEntry: <(new DateTime("2020-01-01"))>
         dateLeave: null
 
 App\Entity\Projet:
