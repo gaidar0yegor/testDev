@@ -41,19 +41,19 @@ App\Entity\SocieteUser:
 App\Entity\SocieteUserPeriod:
     observateur_period:
         societeUser: '@observateur'
-        dateEntry: null
+        dateEntry: <(new DateTime("2020-01-01"))>
         dateLeave: null
     contributeur_period:
         societeUser: '@contributeur'
-        dateEntry: null
+        dateEntry: <(new DateTime("2020-01-01"))>
         dateLeave: null
     cdp_period:
         societeUser: '@cdp'
-        dateEntry: null
+        dateEntry: <(new DateTime("2020-01-01"))>
         dateLeave: null
     pas_acces_period:
         societeUser: '@pas_acces'
-        dateEntry: null
+        dateEntry: <(new DateTime("2020-01-01"))>
         dateLeave: null
 
 App\Entity\Fichier:
@@ -69,11 +69,13 @@ App\Entity\FichierProjet:
         fichier: '@file_fichier_de_contributeur'
         uploadedBy: '@contributeur'
         projet: '@projet'
+        accessesChoices: ['all']
         societeUsers: ['@cdp', '@contributeur', '@observateur']
     fichier_de_cdp:
         fichier: '@file_fichier_de_cdp'
         uploadedBy: '@cdp'
         projet: '@projet'
+        accessesChoices: ['all']
         societeUsers: ['@cdp', '@contributeur', '@observateur']
 
 App\Entity\Projet:

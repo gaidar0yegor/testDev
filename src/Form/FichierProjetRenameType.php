@@ -28,7 +28,7 @@ class FichierProjetRenameType extends AbstractType
 
         $builder
             ->add('fichier', FichierRenameType::class )
-            ->add('societeUser', ChoiceType::class, [
+            ->add('accessesChoices', ChoiceType::class, [
                 'label' => 'Droits de visibilité',
                 'required'    => false,
                 'multiple'    => true,
@@ -38,28 +38,8 @@ class FichierProjetRenameType extends AbstractType
                     'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)'
                 ],
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
-                'data' => $fichierProjet->getAccessesChoices(),
-                'mapped' => false
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, function($event) use ($projet) {
-                $this->fileAccessManagement($event, $projet);
-            })
         ;
-    }
-
-    public function fileAccessManagement(PostSubmitEvent $event, Projet $projet)
-    {
-        $fichierProjet = $event->getData();
-        $accessChoices = $event->getForm()->get('societeUser')->getData();
-
-        if ($fichierProjet instanceof FichierProjet) {
-            $fichierProjet->getSocieteUsers()->map(function($societeUser) use ($fichierProjet) {
-                $fichierProjet->removeSocieteUser($societeUser); return true;
-            });
-
-            $this->fichierProjetService->setAccessChoices($fichierProjet, $projet, $accessChoices);
-
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver)
