@@ -7,6 +7,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 
+## [0.38.1] - 2021-12-22
+### Réparé
+- Corriger erreur : Modification d'un fichier
 
 ## [0.38.0] - 2021-12-22
 ### Ajouté
