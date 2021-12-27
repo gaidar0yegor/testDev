@@ -4,12 +4,12 @@
 
 {% block body %}
 
-<div class="row">
-	<div class="col-lg-8 offset-lg-2">
-	    <h1>Modification du projet {{ projet.acronyme }}</h1>
-        {{ form_start(form) }}
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h1>Modification du projet {{ projet.acronyme }}</h1>
+            {{ form_start(form) }}
 
-        {{ form_row(form.acronyme) }}
+            {{ form_row(form.acronyme) }}
 
             {{ form_label(form.colorCode) }}
             <div class="row">
@@ -20,74 +20,81 @@
             </div>
 
             {{ form_row(form.titre) }}
-	        {{ form_row(form.resume) }}
+            {{ form_row(form.resume) }}
 
-			<div class="d-md-flex justify-content-between">
-	        	{{ form_row(form.dateDebut) }}
-	        	{{ form_row(form.dateFin) }}
-			</div>
+            <div class="d-md-flex justify-content-between">
+                {{ form_row(form.dateDebut) }}
+                {{ form_row(form.dateFin) }}
+            </div>
 
-	        {{ form_row(form.projetUrls) }}
+            {{ form_row(form.dossierFichierProjets) }}
 
-			<button class="btn btn-outline-primary add-external-link mb-4">
-				<i class="fa fa-plus" aria-hidden="true"></i>
-				{{ 'add_external_link'|trans }}
-			</button>
+            <button class="btn btn-outline-primary add-folder-file mb-4">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                {{ 'add_folder_file_project'|trans }}
+            </button>
 
-	        {{ form_row(form.projetInterne) }}
-	        {{ form_row(form.projetCollaboratif) }}
-	        {{ form_row(form.projetPpp) }}
+            {{ form_row(form.projetUrls) }}
 
-			<div class="text-center">
-	        	{{ form_row(form.submit, { 'label' : bouton }) }}
-			</div>
+            <button class="btn btn-outline-primary add-external-link mb-4">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                {{ 'add_external_link'|trans }}
+            </button>
 
-		{{ form_end(form) }}
-	</div>
-    <div class="col-lg-4 offset-lg-2">
-        <div class="card border-danger mb-3">
-            <div class="card-body text-danger">
-                <h5 class="card-title">{{ 'delete_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
-                <p class="card-text">
-                    {{ 'delete_project_link_description'|trans }}
-                    <a
-                            href="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
-                            class="btn btn-outline-danger mt-4"
-                    >{{ 'verify_and_delete_project'|trans }}</a>
-                </p>
+            {{ form_row(form.projetInterne) }}
+            {{ form_row(form.projetCollaboratif) }}
+            {{ form_row(form.projetPpp) }}
+
+            <div class="text-center">
+                {{ form_row(form.submit, { 'label' : bouton }) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+        <div class="col-lg-4 offset-lg-2">
+            <div class="card border-danger mb-3">
+                <div class="card-body text-danger">
+                    <h5 class="card-title">{{ 'delete_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
+                    <p class="card-text">
+                        {{ 'delete_project_link_description'|trans }}
+                        <a
+                                href="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
+                                class="btn btn-outline-danger mt-4"
+                        >{{ 'verify_and_delete_project'|trans }}</a>
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
-    {% if projet.isSuspended %}
-    <div class="col-lg-4">
-        <div class="card border-success mb-3">
-            <div class="card-body text-success">
-                <h5 class="card-title">{{ 'resume_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
-                <p class="card-text">
-                    <a
-                            href="{{ path('app_fo_projet_resume', {'id': projet.id}) }}"
-                            class="btn btn-outline-success mt-4"
-                    >{{ 'resume_project'|trans }}</a>
-                </p>
+        {% if projet.isSuspended %}
+            <div class="col-lg-4">
+                <div class="card border-success mb-3">
+                    <div class="card-body text-success">
+                        <h5 class="card-title">{{ 'resume_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
+                        <p class="card-text">
+                            <a
+                                    href="{{ path('app_fo_projet_resume', {'id': projet.id}) }}"
+                                    class="btn btn-outline-success mt-4"
+                            >{{ 'resume_project'|trans }}</a>
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    {% else %}
-    <div class="col-lg-4">
-        <div class="card border-warning mb-3">
-            <div class="card-body text-warning">
-                <h5 class="card-title">{{ 'suspend_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
-                <p class="card-text">
-                    <a
-                            href="{{ path('app_fo_projet_suspend', {'id': projet.id}) }}"
-                            class="btn btn-outline-warning mt-4"
-                    >{{ 'suspend_project'|trans }}</a>
-                </p>
+        {% else %}
+            <div class="col-lg-4">
+                <div class="card border-warning mb-3">
+                    <div class="card-body text-warning">
+                        <h5 class="card-title">{{ 'suspend_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
+                        <p class="card-text">
+                            <a
+                                    href="{{ path('app_fo_projet_suspend', {'id': projet.id}) }}"
+                                    class="btn btn-outline-warning mt-4"
+                            >{{ 'suspend_project'|trans }}</a>
+                        </p>
+                    </div>
+                </div>
             </div>
-        </div>
+        {% endif %}
     </div>
-    {% endif %}
-</div>
 
 
 {% endblock %}

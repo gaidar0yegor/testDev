@@ -56,7 +56,7 @@ class ObervateurExterneController extends AbstractController
             throw $this->createAccessDeniedException();
         }
 
-        return $projectFileHandler->createDownloadResponse($fichierProjet->getFichier());
+        return $projectFileHandler->createDownloadResponse($fichierProjet);
     }
 
     /**

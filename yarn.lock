@@ -2833,6 +2833,14 @@ datatables.net-responsive@^2.2.9:
     datatables.net "^1.10.15"
     jquery ">=1.7"
 
+datatables.net-rowgroup@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/datatables.net-rowgroup/-/datatables.net-rowgroup-1.1.4.tgz#3eea91951d46f6c207d2e0c03cb3d635b7b09689"
+  integrity sha512-Oe9mL3X8RXLOQZblJVWTYD0melyw3xoPeQ3T2x1k2guTFxob8/2caKuzn95oFJau6tvbhsvY/QneTaCzHRKnnQ==
+  dependencies:
+    datatables.net ">=1.11.3"
+    jquery ">=1.7"
+
 datatables.net@>=1.11.3, datatables.net@^1.10.15, datatables.net@^1.11.3:
   version "1.11.3"
   resolved "https://registry.npmjs.org/datatables.net/-/datatables.net-1.11.3.tgz"

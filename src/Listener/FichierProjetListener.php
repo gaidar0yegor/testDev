@@ -3,16 +3,19 @@
 namespace App\Listener;
 
 use App\Entity\FichierProjet;
+use App\File\FileHandler\ProjectFileHandler;
 use App\Service\FichierProjetService;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 class FichierProjetListener
 {
     private FichierProjetService $fichierProjetService;
+    private ProjectFileHandler $fileHandler;
 
-    public function __construct(FichierProjetService $fichierProjetService)
+    public function __construct(FichierProjetService $fichierProjetService, ProjectFileHandler $fileHandler)
     {
         $this->fichierProjetService = $fichierProjetService;
+        $this->fileHandler = $fileHandler;
     }
 
     public function prePersist(FichierProjet $fichierProjet, LifecycleEventArgs $args): void
@@ -24,18 +27,24 @@ class FichierProjetListener
     {
         $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($fichierProjet);
 
-        if (!isset($changes['accessesChoices'])) {
-            return;
+        $em = $args->getEntityManager();
+
+        if (isset($changes['accessesChoices'])){
+            $fichierProjet->getSocieteUsers()->map(function($societeUser) use ($fichierProjet) {
+                $fichierProjet->removeSocieteUser($societeUser); return true;
+            });
+
+            $this->fichierProjetService->setAccessChoices($fichierProjet, $fichierProjet->getProjet(), $fichierProjet->getAccessesChoices());
+            $em->persist($fichierProjet);
+            $em->flush();
         }
 
-        $fichierProjet->getSocieteUsers()->map(function($societeUser) use ($fichierProjet) {
-            $fichierProjet->removeSocieteUser($societeUser); return true;
-        });
+        if (isset($changes['dossierFichierProjet'])){
+            $oldRelativeFilePath = $fichierProjet->getRelativeProjetLocationPath() .
+                ($changes['dossierFichierProjet'][0] === null ? "" : ($changes['dossierFichierProjet'][0])->getNomMd5() . "/") .
+                $fichierProjet->getFichier()->getNomMd5();
 
-        $this->fichierProjetService->setAccessChoices($fichierProjet, $fichierProjet->getProjet(), $fichierProjet->getAccessesChoices());
-
-        $em = $args->getEntityManager();
-        $em->persist($fichierProjet);
-        $em->flush();
+            $this->fileHandler->replace($fichierProjet,$oldRelativeFilePath);
+        }
     }
 }

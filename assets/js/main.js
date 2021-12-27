@@ -70,9 +70,6 @@ $(document).ready( function () {
         .on('click', '.all-users', function () {
             $('#filter-users-statut').val('').trigger('change');
         })
-        .on('click', '.all-users', function () {
-            $('#filter-users-statut').val('').trigger('change');
-        })
         .on('change', '#filter-users-statut', function () {
             $('#users_list_dt').DataTable().draw();
             $('#validation_temps_dt').DataTable().draw();
@@ -103,38 +100,18 @@ $(document).ready( function () {
     });
 });
 
-// form fait marquants
-var files_list_dt;
-$(document).ready(function () {
-    files_list_dt = $('#files_list_dt').DataTable({
-        info: false,
-        paging: false,
-        dom: domDatatable,
-        buttons: btnsDatatable,
-        responsive: true,
-        searchHighlight: true,
-        language: language_dt,
-    } );
-
-    EmbedForm.init($('.fichier-projets-container'), {
-        $addButton: $('.fichier-projets-container-tfoot .add-file-btn'),
-        newItemAppend: $newItem => $('.fichier-projets-container').append($newItem),
-        initSelect2: {
-            placeholder: function(){
-                $(this).data('placeholder');
-            }
-        },
-    });
-    $('.fichier-projets-container').on('click', '.remove-file-btn', function () {
-        files_list_dt.row( $(this).parents('tr') ).remove().draw();
-    });
-} );
-
 // form projet
 EmbedForm.init($('#projet_form_projetUrls'), {
     $addButton: $('.add-external-link'),
 });
+EmbedForm.init($('#projet_form_dossierFichierProjets'), {
+    $addButton: $('.add-folder-file'),
+});
 $('#projet_form_projetUrls').on('click', '.remove-row-btn', function (e) {
+    e.preventDefault();
+    $(this).closest('.row').remove();
+});
+$('#projet_form_dossierFichierProjets').on('click', '.remove-row-btn', function (e) {
     e.preventDefault();
     $(this).closest('.row').remove();
 });

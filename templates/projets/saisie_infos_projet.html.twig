@@ -25,10 +25,17 @@
         {{ form_row(form.titre) }}
         {{ form_row(form.resume) }}
 
-		<div class="d-md-flex justify-content-between">
+		<div class="d-md-flex justify-content-between mt-3">
         	{{ form_row(form.dateDebut) }}
         	{{ form_row(form.dateFin) }}
 		</div>
+
+        {{ form_row(form.dossierFichierProjets) }}
+
+		<button class="btn btn-outline-primary add-folder-file mb-4">
+			<i class="fa fa-plus" aria-hidden="true"></i>
+			{{ 'add_folder_file_project'|trans }}
+		</button>
 
         {{ form_row(form.projetUrls) }}
 

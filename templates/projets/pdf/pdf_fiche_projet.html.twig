@@ -235,6 +235,7 @@
     <table class="light w-100 m-auto">
         <thead>
             <tr>
+                <th class="p-2">Dossier</th>
                 <th class="p-2">Fichier</th>
                 <th class="text-center p-2">Auteur</th>
                 <th class="text-center p-2">Date</th>
@@ -242,9 +243,10 @@
         </thead>
         <tbody>
             {% set count = 0 %}
-            {% for fichierProjet in projet.fichierProjets %}
+            {% for fichierProjet in projet.accessibleFichierProjets(app.user.currentSocieteUser) %}
                 {% if (not fichierProjet.faitMarquant or (fichierProjet.faitMarquant and fichierProjet.faitMarquant.trashedAt is null)) and (customTime.dateDebut is null or fichierProjet.fichier.dateUpload >= customTime.dateDebut) and (customTime.dateFin is null or fichierProjet.fichier.dateUpload <= customTime.dateFin) %}
                 <tr>
+                    <td class="p-2">{{ fichierProjet.dossierFichierProjet ? fichierProjet.dossierFichierProjet.nom : "" }}</td>
                     <td class="p-2">{{ fichierProjet.fichier.nomFichier }}</td>
                     <td class="text-center p-2">{{ fichierProjet.uploadedBy.user.fullname }}</td>
                     <td class="text-center p-2">{{ fichierProjet.fichier.dateUpload|format_date }}</td>

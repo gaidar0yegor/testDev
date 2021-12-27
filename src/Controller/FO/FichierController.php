@@ -2,6 +2,7 @@
 
 namespace App\Controller\FO;
 
+use App\Entity\DossierFichierProjet;
 use App\Entity\Projet;
 use App\Entity\FichierProjet;
 use App\Form\ProjetFichierProjetsType;
@@ -9,7 +10,7 @@ use App\Notification\Event\FichierProjetAddedEvent;
 use App\ProjetResourceInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use App\File\FileHandler\ProjectFileHandler;
-use App\Form\FichierProjetRenameType;
+use App\Form\FichierProjetModifierType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,9 +59,9 @@ class FichierController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}/rename", name="app_fo_projet_fichier_rename")
+     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}/modifier", name="app_fo_projet_fichier_modifier")
      */
-    public function rename($projetId, $fichierProjetId, Request $request, EntityManagerInterface $em, TranslatorInterface $translator){
+    public function modifier($projetId, $fichierProjetId, Request $request, EntityManagerInterface $em, TranslatorInterface $translator){
 
         $fichierProjet = $this->getDoctrine()->getRepository(FichierProjet ::class)->find($fichierProjetId);
 
@@ -68,7 +69,7 @@ class FichierController extends AbstractController
 
         $fichier = $fichierProjet->getFichier();
 
-        $form = $this->createForm(FichierProjetRenameType::class, $fichierProjet);
+        $form = $this->createForm(FichierProjetModifierType::class, $fichierProjet);
 
         $oldName = $fichier->getNomFichier();
 
@@ -104,7 +105,7 @@ class FichierController extends AbstractController
 
         
 
-        return $this->render('fichier/rename_fichiers.html.twig', [
+        return $this->render('fichier/modifier_fichiers.html.twig', [
             'form' => $form->createView(),
             'id' => $projetId,
         ]);
@@ -144,6 +145,6 @@ class FichierController extends AbstractController
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::VIEW, $fichierProjet);
 
-        return $projectFileHandler->createDownloadResponse($fichierProjet->getFichier());
+        return $projectFileHandler->createDownloadResponse($fichierProjet);
     }
 }

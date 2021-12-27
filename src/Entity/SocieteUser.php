@@ -193,6 +193,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $fichierProjets;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DossierFichierProjet::class, mappedBy="createdBy")
+     */
+    private $dossierFichierProjets;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -206,6 +211,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->notificationOnboardingFinished = false;
         $this->societeUserPeriods = new ArrayCollection();
         $this->fichierProjets = new ArrayCollection();
+        $this->dossierFichierProjets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -627,6 +633,36 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     {
         if ($this->fichierProjets->removeElement($fichierProjet)) {
             $fichierProjet->removeSocieteUser($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DossierFichierProjet[]
+     */
+    public function getDossierFichierProjets(): Collection
+    {
+        return $this->dossierFichierProjets;
+    }
+
+    public function addDossierFichierProjet(DossierFichierProjet $dossierFichierProjet): self
+    {
+        if (!$this->dossierFichierProjets->contains($dossierFichierProjet)) {
+            $this->dossierFichierProjets[] = $dossierFichierProjet;
+            $dossierFichierProjet->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDossierFichierProjet(DossierFichierProjet $dossierFichierProjet): self
+    {
+        if ($this->dossierFichierProjets->removeElement($dossierFichierProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($dossierFichierProjet->getCreatedBy() === $this) {
+                $dossierFichierProjet->setCreatedBy(null);
+            }
         }
 
         return $this;

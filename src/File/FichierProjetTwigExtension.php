@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Twig;
+namespace App\File;
 
 use App\Entity\FichierProjet;
 use App\Service\FichierProjetService;
@@ -8,7 +8,7 @@ use App\MultiSociete\UserContext;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class FichierProjetExtension extends AbstractExtension
+class FichierProjetTwigExtension extends AbstractExtension
 {
     private FichierProjetService $fichierProjetService;
 

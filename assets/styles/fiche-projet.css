@@ -6,6 +6,9 @@
 #fait_marquant_timeline_dt thead{
     display: none !important;
 }
+#fait_marquant_timeline_dt tbody a{
+    color: #007bff !important;
+}
 #fait_marquant_timeline_dt_filter{
     width: 100%;
     display: flex;

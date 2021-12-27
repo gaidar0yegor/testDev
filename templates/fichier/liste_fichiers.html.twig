@@ -10,6 +10,20 @@
         Retourner au projet
     </a>
 
+    <ul class="nav nav-tabs mb-3 tab-filter-fichiers">
+        <li class="nav-item">
+            <a class="nav-link all-fichiers active" href="#0">Tous</a>
+        </li>
+
+        {% for dossierFichierProjet in projet.dossierFichierProjets %}
+            <li class="nav-item">
+                <a id="dossier-{{ dossierFichierProjet.nomMd5 }}" class="nav-link" href="#0">{{ dossierFichierProjet.nom }}</a>
+            </li>
+        {% endfor %}
+
+        <input type="hidden" id="filter-files-dossier">
+    </ul>
+
     {{ form_start(form) }}
     {{ form_errors(form) }}
 

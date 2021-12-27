@@ -45,9 +45,10 @@
     {{ form_errors(form) }}
     {{ form_help(form) }}
 
-    <table id="files_list_dt" class="table datatable custom-datatable hover" data-column-defs='[{"sortable": false, "targets": [3]}]'>
+    <table id="files_list_dt" class="table datatable custom-datatable hover">
         <thead>
             <tr>
+                <th>Dossier</th>
                 <th>Fichier</th>
                 <th>Auteur</th>
                 <th><span class="d-none d-sm-table-cell">Date</span></th>
@@ -59,9 +60,9 @@
         </tbody>
         <tfoot class="fichier-projets-container-tfoot">
             {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), form.vars.projet) %}
-                <tr class="add-file-btn">
-                    <td colspan="4">
-                        <button class="btn btn-outline-primary" type="button">
+                <tr>
+                    <td colspan="5">
+                        <button class="btn btn-outline-primary add-file-btn" type="button">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             Ajouter un fichier
                         </button>
@@ -81,6 +82,11 @@
         {% if form.vars.data %}
                 <tr class="{{ isAccessibleFichierProjet(form.vars.data) ? '' : 'd-none' }}">
                     <td>
+                        {% if form.vars.data.dossierFichierProjet %}
+                            <i class="fa fa-folder"></i> {{ form.vars.data.dossierFichierProjet.nom }}
+                        {% endif %}
+                    </td>
+                    <td>
                         <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
                         <a
                             href="{{ path('app_fo_projet_fichier', {
@@ -91,6 +97,7 @@
                         </a>
                         <div class="d-none">
                             {{ form_row(form.children.accessesChoices) }}
+                            {{ form_row(form.children.dossierFichierProjet) }}
                         </div>
                     </td>
                     <td>{{ form.vars.data.uploadedBy.user.fullname }}</td>
@@ -100,7 +107,7 @@
                         </span>
                     </td>
                     <td class="d-flex">
-                        <a href="{{ path('app_fo_projet_fichier_rename', {
+                        <a href="{{ path('app_fo_projet_fichier_modifier', {
                                 'projetId': form.vars.data.projet.id,
                                 'fichierProjetId': form.vars.data.id
                             }) }}"
@@ -136,8 +143,11 @@
                         <div class="col-md-8 col-sm-12 input-group-sm">
                             {{ form_row(form.children.fichier.nomFichier) }}
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-8 col-sm-12">
                             {{ form_row(form.accessesChoices) }}
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            {{ form_row(form.dossierFichierProjet) }}
                         </div>
                     </div>
                 </td>
@@ -251,6 +261,22 @@
                 {{ form_errors(form.text) }}
                 {{ form_widget(form.text) }}
                 {{ form_help(form.text) }}
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="mb-3 text-right">
+                <button class="btn btn-outline-danger remove-row-btn"><i class="fa fa-trash" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block dossier_fichier_projet_row %}
+    <div class="row">
+        <div class="col-10">
+            <div class="mb-3">
+                {{ form_errors(form.nom) }}
+                {{ form_widget(form.nom) }}
             </div>
         </div>
         <div class="col-2">

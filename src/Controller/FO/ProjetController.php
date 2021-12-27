@@ -66,7 +66,7 @@ class ProjetController extends AbstractController
      *
      * @IsGranted("SOCIETE_CDP")
      */
-    public function creation(Request $rq, UserContext $userContext) : Response
+    public function creation(Request $request, UserContext $userContext) : Response
     {
         $projet = new Projet();
         $participant = new ProjetParticipant();
@@ -84,7 +84,7 @@ class ProjetController extends AbstractController
 
         $form = $this->createForm(ProjetFormType::class, $projet);
 
-        $form->handleRequest($rq);
+        $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();

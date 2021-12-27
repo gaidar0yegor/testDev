@@ -29,6 +29,7 @@ import './js/admin-projet-chart-temps-users';
 import './js/fait-marquant-highlight';
 import './js/filter-projets-by-selected-year';
 import './js/main';
+import './js/fichier-projet';
 import './js/checkbox.js';
 import './js/limit-description' 
 import './js/modal' 
