@@ -116,7 +116,27 @@
 
 <h4>Fichiers</h4>
 
-{% if projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > 0 %}
+{% if projet.dossierFichierProjets|length > 0 %}
+    {% set countFichier = 0 %}
+    <ul class="list-unstyled">
+        {% for dossierFichierProjet in projet.dossierFichierProjets %}
+            <li>
+                <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id, '_fragment' : ('dossier-' ~ dossierFichierProjet.nomMd5)})  }}">
+                    <i class="fa fa-folder" aria-hidden="true"></i>
+                    {{ dossierFichierProjet.nom }} <span class="badge badge-pill badge-info">{{ dossierFichierProjet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length }}</span>
+                </a>
+            </li>
+            {% set countFichier = countFichier + dossierFichierProjet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length %}
+        {% endfor %}
+    </ul>
+
+    {% if projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > countFichier %}
+        <p>et {{ projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length - countFichier }} autres...</p>
+    {% endif %}
+
+    <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}">Voir tous les fichiers</a>
+
+{% elseif projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > 0 %}
     
     <ul class="list-unstyled">
         {% for fichierProjet in projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|reverse[0:5] %}

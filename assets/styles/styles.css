@@ -75,7 +75,10 @@ table thead tr {
     color: white;
 }
 table tbody tr {
-    background-color: #e6e6e6;
+    background-color: #ffffff !important;
+}
+table tbody tr.dtrg-group {
+    background-color: #e6e6e6 !important;
 }
 table.light tbody tr {
     background-color: #ffffff;
@@ -404,6 +407,6 @@ select.select-2{
     overflow: hidden !important;
     height: auto !important;
 }
-.select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple{
+.select2-container--default.select2-container--focus .select2-selection, .select2-container--default .select2-selection{
     border: 1px solid #ced4da !important;
 }

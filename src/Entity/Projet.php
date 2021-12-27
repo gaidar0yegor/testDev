@@ -153,6 +153,11 @@ class Projet implements HasSocieteInterface
      */
     private $projetSuspendPeriods;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DossierFichierProjet::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
+     */
+    private $dossierFichierProjets;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -168,6 +173,7 @@ class Projet implements HasSocieteInterface
         $this->projetUrls = new ArrayCollection();
         $this->colorCode = '#e9ece6';
         $this->projetSuspendPeriods = new ArrayCollection();
+        $this->dossierFichierProjets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -293,7 +299,7 @@ class Projet implements HasSocieteInterface
         $fichierProjets = [];
         foreach ($this->fichierProjets as $fichierProjet){
             if (
-                $fichierProjet->getSocieteUsers()->contains($societeUser) &&
+                ( $societeUser->isAdminFo() || $fichierProjet->getSocieteUsers()->contains($societeUser) ) &&
                 (
                     $fichierProjet->getFaitMarquant() === null ||
                     ($fichierProjet->getFaitMarquant() && $fichierProjet->getFaitMarquant()->getTrashedAt() === null)
@@ -721,6 +727,36 @@ class Projet implements HasSocieteInterface
             // set the owning side to null (unless already changed)
             if ($projetSuspendPeriod->getProjet() === $this) {
                 $projetSuspendPeriod->setProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DossierFichierProjet[]
+     */
+    public function getDossierFichierProjets(): Collection
+    {
+        return $this->dossierFichierProjets;
+    }
+
+    public function addDossierFichierProjet(DossierFichierProjet $dossierFichierProjet): self
+    {
+        if (!$this->dossierFichierProjets->contains($dossierFichierProjet)) {
+            $this->dossierFichierProjets[] = $dossierFichierProjet;
+            $dossierFichierProjet->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDossierFichierProjet(DossierFichierProjet $dossierFichierProjet): self
+    {
+        if ($this->dossierFichierProjets->removeElement($dossierFichierProjet)) {
+            // set the owning side to null (unless already changed)
+            if ($dossierFichierProjet->getProjet() === $this) {
+                $dossierFichierProjet->setProjet(null);
             }
         }
 

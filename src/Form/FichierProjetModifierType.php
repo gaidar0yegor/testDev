@@ -2,17 +2,17 @@
 
 namespace App\Form;
 
+use App\Entity\DossierFichierProjet;
 use App\Entity\FichierProjet;
-use App\Entity\Projet;
 use App\Service\FichierProjetService;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FichierProjetRenameType extends AbstractType
+class FichierProjetModifierType extends AbstractType
 {
     private FichierProjetService $fichierProjetService;
 
@@ -27,7 +27,7 @@ class FichierProjetRenameType extends AbstractType
         $projet = $fichierProjet->getProjet();
 
         $builder
-            ->add('fichier', FichierRenameType::class )
+            ->add('fichier', FichierModifierType::class )
             ->add('accessesChoices', ChoiceType::class, [
                 'label' => 'Droits de visibilité',
                 'required'    => false,
@@ -38,6 +38,23 @@ class FichierProjetRenameType extends AbstractType
                     'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)'
                 ],
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
+            ])
+            ->add('dossierFichierProjet', EntityType::class, [
+                'label' => 'Sélectionner un dossier',
+                'class' => DossierFichierProjet::class,
+                'choice_label' => 'nom',
+                'query_builder' => function (EntityRepository $er) use ($projet) {
+                    return $er->createQueryBuilder('dfp')
+                        ->where('dfp.projet = :projet')
+                        ->orderBy('dfp.nom', 'ASC')
+                        ->setParameter('projet',$projet->getId())
+                        ;
+                },
+                'placeholder' => 'Sélectionner un dossier ...',
+                'required' => false,
+                'attr' => [
+                    'class' => 'select-2 form-control',
+                ],
             ])
         ;
     }

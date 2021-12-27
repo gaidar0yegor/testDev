@@ -64,6 +64,11 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
      */
     private $accessesChoices = [];
 
+    /**
+     * @ORM\ManyToOne(targetEntity=DossierFichierProjet::class, inversedBy="fichierProjets")
+     */
+    private $dossierFichierProjet;
+
     public function __construct()
     {
         $this->societeUsers = new ArrayCollection();
@@ -192,5 +197,34 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
         $this->accessesChoices = $accessesChoices;
 
         return $this;
+    }
+
+    public function getDossierFichierProjet(): ?DossierFichierProjet
+    {
+        return $this->dossierFichierProjet;
+    }
+
+    public function setDossierFichierProjet(?DossierFichierProjet $dossierFichierProjet): self
+    {
+        $this->dossierFichierProjet = $dossierFichierProjet;
+
+        return $this;
+    }
+
+    public function getRelativeProjetLocationPath(): string
+    {
+        return "{$this->getSociete()->getId()}/{$this->getProjet()->getId()}/";
+    }
+
+    public function getRelativeFileLocationPath(): string
+    {
+        return $this->getRelativeProjetLocationPath() . ($this->getDossierFichierProjet() ? "{$this->getDossierFichierProjet()->getNomMd5()}/" : "");
+    }
+
+    public function getRelativeFilePath(): string
+    {
+        return is_object($this->getFichier()) && $this->getFichier()->getNomMd5()
+            ? $this->getRelativeFileLocationPath() . $this->getFichier()->getNomMd5()
+            : "";
     }
 }

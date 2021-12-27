@@ -6,9 +6,12 @@ use App\Entity\Projet;
 use App\Form\Custom\RadioChoiceColorsType;
 use App\Form\Custom\DatePickerType;
 use App\Form\Custom\MarkdownWysiwygType;
+use App\MultiSociete\UserContext;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -19,6 +22,13 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class ProjetFormType extends AbstractType
 {
+    private UserContext $userContext;
+
+    public function __construct(UserContext $userContext)
+    {
+        $this->userContext = $userContext;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $usedProjectColors = ($options['data'])->getSociete()->getUsedProjectColors();
@@ -83,13 +93,36 @@ class ProjetFormType extends AbstractType
                 'label' => 'Projet réalisé en interne par la société (avec ou sans prestataires)',
                 'required' => false,
             ])
+            ->add('dossierFichierProjets', CollectionType::class, [
+                'label' => 'projet.dossierFichierProjets',
+                'help' => 'projet.dossierFichierProjets.help',
+                'entry_type' => DossierFichierProjetType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre',
                 'attr' => [
                     'class' => 'mt-5 btn btn-success',
                 ],
             ])
+            ->addEventListener(FormEvents::SUBMIT, [$this, 'setDossierFichierProjet'])
         ;
+    }
+
+    public function setDossierFichierProjet(SubmitEvent $event)
+    {
+        foreach ($event->getData()->getDossierFichierProjets() as $dossierFichierProjet) {
+            if (null !== $dossierFichierProjet->getId()) {
+                continue;
+            }
+
+            $dossierFichierProjet
+                ->setDefaultFolderName()
+                ->setCreatedBy($this->userContext->getSocieteUser())
+            ;
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

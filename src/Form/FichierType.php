@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Fichier;
+use App\File\FileHandler\ProjectFileHandler;
 use App\File\FileHandlerInterface;
 use LogicException;
 use Symfony\Component\Form\AbstractType;
@@ -40,6 +41,10 @@ class FichierType extends AbstractType
 
         if (!$fileHandler instanceof FileHandlerInterface) {
             throw new LogicException('$fileHandler must be an instance of '.FileHandlerInterface::class);
+        }
+
+        if ($fileHandler instanceof ProjectFileHandler){
+            return;
         }
 
         $fichier = $event->getData();

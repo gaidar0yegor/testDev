@@ -32,10 +32,10 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         When I follow "Liste des projets"
         And I follow "PTEST"
         And I follow "Voir tous les fichiers"
-        When I click on the 1st "[href='/projets/1/fichiers/1/rename']" element
+        When I click on the 1st "[href='/projets/1/fichiers/1/modifier']" element
         Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
-            | fichier_projet_rename[fichier][nomFichier] | business-plan.txt |
+            | fichier_projet_modifier[fichier][nomFichier] | business-plan.txt |
         And I press "Modifier"
 
         And I should see "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
@@ -51,10 +51,10 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         When I follow "Liste des projets"
         And I follow "PTEST"
         And I follow "Voir tous les fichiers"
-        When I click on the 1st "[href='/projets/1/fichiers/1/rename']" element
+        When I click on the 1st "[href='/projets/1/fichiers/1/modifier']" element
         Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
-            | fichier_projet_rename[fichier][nomFichier] | business-plan.php |
+            | fichier_projet_modifier[fichier][nomFichier] | business-plan.php |
         And I press "Modifier"
 
         And I should see "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
@@ -70,8 +70,8 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         When I follow "Liste des projets"
         And I follow "PTEST"
         And I follow "Voir tous les fichiers"
-        Then I should see a "[href='/projets/1/fichiers/1/rename'].disabled" element
-        When I go to "/projets/1/fichiers/1/rename"
+        Then I should see a "[href='/projets/1/fichiers/1/modifier'].disabled" element
+        When I go to "/projets/1/fichiers/1/modifier"
         Then the response status code should be 403
 
     Scenario: Un utilisateur ne peut pas voir et télécharger les fichiers si il n'est pas au moins observateur sur le projet

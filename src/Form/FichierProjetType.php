@@ -2,10 +2,13 @@
 
 namespace App\Form;
 
+use App\Entity\DossierFichierProjet;
 use App\Entity\FichierProjet;
 use App\Entity\Projet;
 use App\File\FileHandler\ProjectFileHandler;
 use App\Service\FichierProjetService;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -28,6 +31,8 @@ class FichierProjetType extends AbstractType
     {
         $projet = $options['projet'];
 
+        if ($projet instanceof Projet)
+
         $builder
             ->add('fichier', FichierType::class, [
                 'label' => false,
@@ -43,7 +48,51 @@ class FichierProjetType extends AbstractType
                 ],
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
             ])
+            ->add('dossierFichierProjet', EntityType::class, [
+                'label' => false,
+                'class' => DossierFichierProjet::class,
+                'choice_label' => 'nom',
+                'query_builder' => function (EntityRepository $er) use ($projet) {
+                    return $er->createQueryBuilder('dfp')
+                        ->where('dfp.projet = :projet')
+                        ->orderBy('dfp.nom', 'ASC')
+                        ->setParameter('projet',$projet->getId())
+                        ;
+                },
+                'placeholder' => 'Sélectionner un dossier ...',
+                'attr' => [
+                    'class' => 'select-2 form-control',
+                ],
+            ])
+            ->addEventListener(FormEvents::POST_SUBMIT, function ($event) use ($projet){
+                $this->uploadFichier($event,$projet);
+            })
         ;
+    }
+
+    public function uploadFichier(PostSubmitEvent $event, Projet $projet)
+    {
+        $fichierProjet = $event->getData();
+
+        if (!$fichierProjet instanceof FichierProjet) {
+            return;
+        }
+
+        // In case no file has been selected
+        if (null === $fichierProjet) {
+            return;
+        }
+
+        $fichier = $fichierProjet->getFichier();
+
+        // In case file has already been imported and entity is just updating
+        if (null === $fichier->getFile()) {
+            return;
+        }
+
+        $fichierProjet->setProjet($projet);
+
+        $this->projectFileHandler->upload($fichierProjet);
     }
 
     public function configureOptions(OptionsResolver $resolver)

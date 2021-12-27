@@ -7,6 +7,7 @@ import '../../node_modules/datatables.net/js/jquery.dataTables.min';
 import './datatable/jquery.highlight';
 import '../../node_modules/datatables.net-responsive/js/dataTables.responsive.min';
 import '../../node_modules/datatables.net-buttons/js/dataTables.buttons.min';
+import '../../node_modules/datatables.net-rowgroup/js/dataTables.rowGroup.min';
 import '../../node_modules/datatables.net-buttons/js/buttons.print.min';
 import '../../node_modules/datatables.net-buttons/js/buttons.html5.min';
 import '../../node_modules/datatables.net-buttons/js/buttons.colVis.min';

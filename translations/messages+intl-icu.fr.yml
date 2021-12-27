@@ -281,6 +281,10 @@ projet.projetUrls: 'Urls externes du projet'
 projet.projetUrls.help: 'Afficher des liens externes en relation avec ce projet.'
 projet.projetUrl.text.help: 'Texte du lien'
 projet.projetUrl.url.help: Url
+add_folder_file_project: Ajouter un dossier
+projet.dossierFichierProjets: 'Dossiers des fichiers du projet'
+projet.dossierFichierProjets.help: 'Organiser le stockage des fichiers du projet'
+projet.projetUrl.nom.help: 'Nom du dossier'
 avatar_of_user: Avatar de {user}
 logo_of_socete: Logo de {societe}
 edit_my_avatar: Modifier mon avatar

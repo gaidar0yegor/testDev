@@ -3,6 +3,7 @@
 namespace App\File\FileHandler;
 
 use App\Entity\Fichier;
+use App\Entity\FichierProjet;
 use App\File\FileHandlerInterface;
 use App\File\FileResponseFactory;
 use League\Flysystem\FilesystemInterface;
@@ -23,11 +24,13 @@ class ProjectFileHandler implements FileHandlerInterface
         $this->fileResponseFactory = $fileResponseFactory;
     }
 
-    public function upload(Fichier $fichier): void
+    public function upload(FichierProjet $fichierProjet): void
     {
+        $fichier = $fichierProjet->getFichier();
+
         $fichier->setDefaultFilename();
 
-        $filename = $fichier->getNomMd5();
+        $filename = $fichierProjet->getRelativeFilePath();
         $stream = fopen($fichier->getFile()->getRealPath(), 'r+');
 
         $this->storage->writeStream($filename, $stream);
@@ -37,11 +40,16 @@ class ProjectFileHandler implements FileHandlerInterface
         }
     }
 
-    public function createDownloadResponse(Fichier $fichier): Response
+    public function replace(FichierProjet $fichierProjet, string $oldRelativeFilePath): void
+    {
+        $this->storage->rename($oldRelativeFilePath, $fichierProjet->getRelativeFilePath());
+    }
+
+    public function createDownloadResponse(FichierProjet $fichierProjet): Response
     {
         return $this->fileResponseFactory->createFileResponse(
-            $this->storage->readStream($fichier->getNomMd5()),
-            $fichier->getNomFichier()
+            $this->storage->readStream($fichierProjet->getRelativeFilePath()),
+            $fichierProjet->getFichier()->getNomFichier()
         );
     }
 
