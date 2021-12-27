@@ -6,6 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+## [0.38.2] - 2021-12-27
+### Ajouté
 - Gérer les fichiers du projet dans des dossiers
 
 ## [0.38.1] - 2021-12-22
