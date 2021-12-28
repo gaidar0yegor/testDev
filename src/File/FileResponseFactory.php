@@ -4,6 +4,7 @@ namespace App\File;
 
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class FileResponseFactory
@@ -24,7 +25,10 @@ class FileResponseFactory
                 // like "headers already sent"
                 exit;
             },
-            200
+            200,
+            [
+                ResponseHeaderBag::DISPOSITION_INLINE
+            ]
         );
 
         $filenameFallback = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $filename);

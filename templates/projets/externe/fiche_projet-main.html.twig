@@ -37,7 +37,7 @@
                                             {% if fichierProjet.isAccessibleParObservateurExterne %}
                                                 <li>
                                                     <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
-                                                    <a
+                                                    <a target="_blank"
                                                             href="{{ path('app_fo_projet_fichier', {
                                                                 'projetId': projet.id,
                                                                 'fichierProjetId': fichierProjet.id

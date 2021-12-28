@@ -2,7 +2,6 @@
 
 namespace App\Controller\FO;
 
-use App\Entity\DossierFichierProjet;
 use App\Entity\Projet;
 use App\Entity\FichierProjet;
 use App\Form\ProjetFichierProjetsType;
@@ -141,10 +140,10 @@ class FichierController extends AbstractController
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
      */
-    public function download(FichierProjet $fichierProjet, ProjectFileHandler $projectFileHandler): Response
+    public function download(Request $request, FichierProjet $fichierProjet, ProjectFileHandler $projectFileHandler): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::VIEW, $fichierProjet);
 
-        return $projectFileHandler->createDownloadResponse($fichierProjet);
+        return $projectFileHandler->createDownloadResponse($fichierProjet, $request->query->has('download'));
     }
 }

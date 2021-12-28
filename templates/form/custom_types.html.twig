@@ -88,10 +88,10 @@
                     </td>
                     <td>
                         <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
-                        <a
+                        <a target="_blank"
                             href="{{ path('app_fo_projet_fichier', {
                                 'projetId': form.vars.data.projet.id,
-                                'fichierProjetId': form.vars.data.id
+                                'fichierProjetId': form.vars.data.id,
                             }) }}" {% if form.vars.data.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
                             {{ form_row(form.children.fichier) }}
                         </a>
@@ -107,6 +107,13 @@
                         </span>
                     </td>
                     <td class="d-flex">
+                        <a href="{{ path('app_fo_projet_fichier', {
+                            'projetId': form.vars.data.projet.id,
+                            'fichierProjetId': form.vars.data.id,
+                            'download': '',
+                        }) }}" class="btn btn-outline-success btn-sm mr-2" title="{{ 'download'|trans }}">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                        </a>
                         <a href="{{ path('app_fo_projet_fichier_modifier', {
                                 'projetId': form.vars.data.projet.id,
                                 'fichierProjetId': form.vars.data.id
