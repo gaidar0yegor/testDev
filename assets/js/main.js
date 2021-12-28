@@ -144,11 +144,7 @@ $('a.link-delete-file').click(function () {
                 },
                 400,
                 () => {
-                    if ($.fn.DataTable.isDataTable( '#files_list_dt' )){
-                        files_list_dt.row( $a.parents('tr') ).remove().draw();
-                    } else {
-                        $a.closest('tr').remove();
-                    }
+                    $a.closest('tr').remove();
                 },
             );
         },

@@ -43,7 +43,7 @@ class DossierFichierProjet implements HasSocieteInterface, ProjetResourceInterfa
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="dossierFichierProjet")
+     * @ORM\OneToMany(targetEntity=FichierProjet::class, mappedBy="dossierFichierProjet", cascade={"remove"})
      */
     private $fichierProjets;
 
