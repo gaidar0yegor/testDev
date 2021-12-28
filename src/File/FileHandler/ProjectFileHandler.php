@@ -69,8 +69,8 @@ class ProjectFileHandler implements FileHandlerInterface
         }
     }
 
-    public function delete(Fichier $fichier): void
+    public function delete(FichierProjet $fichierProjet): void
     {
-        $this->storage->delete($fichier->getNomMd5());
+        $this->storage->delete($fichierProjet->getRelativeFilePath());
     }
 }

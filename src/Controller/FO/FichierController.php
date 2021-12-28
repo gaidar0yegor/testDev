@@ -124,7 +124,7 @@ class FichierController extends AbstractController
     ): Response {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::DELETE, $fichierProjet);
 
-        $projectFileHandler->delete($fichierProjet->getFichier());
+        $projectFileHandler->delete($fichierProjet);
 
         $em->remove($fichierProjet);
         $em->flush();
