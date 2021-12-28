@@ -6,9 +6,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+## [0.38.3] - 2021-12-28
+### Ajouté
 - Ajouter l'option d'ouvrir un fichier (PDF, Image) sur le navigateur 
 - Lorsque on supprime un dossier d'un projet : supprimer les fichiers qu'il contient ( de même dans le serveur )
-
 
 ## [0.38.2] - 2021-12-27
 ### Ajouté
