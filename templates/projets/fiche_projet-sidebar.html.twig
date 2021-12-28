@@ -141,7 +141,7 @@
     <ul class="list-unstyled">
         {% for fichierProjet in projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|reverse[0:5] %}
             <li>
-                <a href="{{ path('app_fo_projet_fichier', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
+                <a href="{{ path('app_fo_projet_fichier', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}" target="_blank"
                         {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
                     <i class="fa {{ fichierProjet|faFileIcon }}" aria-hidden="true"></i>
                     {{ fichierProjet.fichier.nomFichier }}

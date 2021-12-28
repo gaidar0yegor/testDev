@@ -2,6 +2,8 @@
 parameters:
     filesAvatarDir: '%kernel.project_dir%/public/avatar'
     filesAvatarUri: '/avatar/'
+    projectFileStorageUri: '%kernel.project_dir%/var/storage/default/uploads'
+    licensesStorageUri: '%kernel.project_dir%/var/storage/default/uploads'
 
 flysystem:
     storages:
@@ -12,8 +14,8 @@ flysystem:
         projectFiles.storage:
             adapter: local
             options:
-                directory: '%kernel.project_dir%/var/storage/default/uploads'
+                directory: '%projectFileStorageUri%'
         licenses.storage:
             adapter: local
             options:
-                directory: '%kernel.project_dir%/var/storage/licenses'
+                directory: '%licensesStorageUri%'
