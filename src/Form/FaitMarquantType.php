@@ -4,8 +4,8 @@ namespace App\Form;
 
 use App\Entity\FaitMarquant;
 use App\Form\Custom\FichierProjetsType;
-use App\Form\Custom\MarkdownWysiwygType;
 use App\MultiSociete\UserContext;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -43,7 +43,7 @@ class FaitMarquantType extends AbstractType
             ->add('titre', null, [
                 'attr' => ['class' => 'form-control-lg'],
             ])
-            ->add('description', MarkdownWysiwygType:: class, $descriptionOptions)
+            ->add('description', CKEditorType:: class, $descriptionOptions)
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),
                 'entry_options' => array('projet' => $builder->getData()->getProjet()),

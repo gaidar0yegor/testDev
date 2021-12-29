@@ -3,8 +3,7 @@
         {{ form_row(form.titre) }}
         {{ form_errors(form.description)}}
         {{ form_row(form.description)}}
-        <small><p class="text-muted">Texte: <span id="count-carac"></span></p></small>
-        <span id="fait_marquant_max_desc" class="d-none" data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}" data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
+        <span id="custom_ckeditor_max_char" class="d-none" data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}" data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
         {{ form_row(form.fichierProjets) }}
         {{ form_row(form.date) }}
         <div class="text-center mt-5">

@@ -1,0 +1,36 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+    default_config: my_config
+
+    configs:
+        my_config:
+            height: '40em'
+            uiColor: '#f7f7f7'
+            allowedContent: true
+            inline: true
+#            skin: "kama,/build/ckeditor/extra-plugins/kama/"
+            extraPlugins: ["wordcount","ckeditor_wiris","textwatcher","textmatch","autocomplete","mentions"]
+    plugins:
+        wordcount:
+            path: '/build/ckeditor/extra-plugins/wordcount/'
+            filename: 'plugin.js'
+        ckeditor_wiris:
+            path: '/build/ckeditor/extra-plugins/ckeditor_wiris/'
+            filename: 'plugin.js'
+        textmatch:
+            path: '/build/ckeditor/extra-plugins/textmatch/'
+            filename: 'plugin.js'
+        textwatcher:
+            path: '/build/ckeditor/extra-plugins/textwatcher/'
+            filename: 'plugin.js'
+        autocomplete:
+            path: '/build/ckeditor/extra-plugins/autocomplete/'
+            filename: 'plugin.js'
+        mentions:
+            path: '/build/ckeditor/extra-plugins/mentions/'
+            filename: 'plugin.js'

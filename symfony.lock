@@ -168,6 +168,18 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "1.x-dev"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
+        },
+        "files": [
+            "./config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "giggsey/libphonenumber-for-php": {
         "version": "8.12.15"
     },

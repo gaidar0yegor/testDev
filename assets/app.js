@@ -31,7 +31,7 @@ import './js/filter-projets-by-selected-year';
 import './js/main';
 import './js/fichier-projet';
 import './js/checkbox.js';
-import './js/limit-description' 
+// import './js/limit-description'
 import './js/modal' 
 import './js/stretched-link-fix-table';
 import './js/watch-projet';

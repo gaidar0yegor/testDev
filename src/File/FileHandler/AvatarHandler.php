@@ -17,7 +17,7 @@ class AvatarHandler implements FileHandlerInterface
 
     private FileResponseFactory $fileResponseFactory;
 
-    private string $filesAvatarUri;
+    public string $filesAvatarUri;
 
     public function __construct(
         FilesystemInterface $avatarStorage,
