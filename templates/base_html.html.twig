@@ -16,6 +16,18 @@
         {% block stylesheets %}
             {{ encore_entry_link_tags('base') }}
         {% endblock %}
+
+        <script type="text/x-mathjax-config">
+            MathJax.Hub.Config({
+                config: ["MMLorHTML.js"],
+                jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
+                extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
+                TeX: {
+                    extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+                }
+            });
+        </script>
+        <script type="text/javascript" src="{{ asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js') }}"></script>
     </head>
     <body>
         {% block base_body %}
@@ -26,5 +38,9 @@
         {% endblock %}
 
         {% include '_matomo.html.twig' %}
+
+        <script type="text/javascript">
+            MathJax.Hub.Configured()
+        </script>
     </body>
 </html>

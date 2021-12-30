@@ -9,12 +9,27 @@ fos_ck_editor:
 
     configs:
         my_config:
+            toolbar: "my_toolbar"
             height: '40em'
             uiColor: '#f7f7f7'
             allowedContent: true
-            inline: true
-#            skin: "kama,/build/ckeditor/extra-plugins/kama/"
-            extraPlugins: ["wordcount","ckeditor_wiris","textwatcher","textmatch","autocomplete","mentions"]
+            inline: false
+            input_sync: true
+            toolbarCanCollapse: true
+            #            skin: "kama,/build/ckeditor/extra-plugins/kama/"
+            extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions"
+    toolbars:
+        configs:
+            my_toolbar: [ '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@styles', '-', '@wiris' ]
+        items:
+            clipboard: ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo']
+            editing: ['Find', 'Replace', '-', 'SelectAll']
+            basic_styles: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']
+            paragraph: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+            links: ['Link', 'Unlink']
+            insert: ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar', 'Smiley']
+            styles: ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
+            wiris: ['ckeditor_wiris_formulaEditor']
     plugins:
         wordcount:
             path: '/build/ckeditor/extra-plugins/wordcount/'

@@ -97,6 +97,12 @@ services:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\FaitMarquant }
 
+    App\Activity\Type\UserMentionedFaitMarquantActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\FaitMarquant }
+
     App\Activity\Type\ProjetCreatedActivity:
         tags:
             - 'app.activity_type'

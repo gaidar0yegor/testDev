@@ -25,25 +25,11 @@ class FaitMarquantType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $societe = $this->userContext->getSocieteUser()->getSociete();
-
-        $descriptionOptions = [ 'attr' => [
-            'class' => 'text-justify',
-            'rows' => 9,
-        ]];
-
-        if ($societe->getFaitMarquantMaxDescIsblocking() && $societe->getFaitMarquantMaxDesc() !== -1){
-            $descriptionOptions['attr']['maxlength'] = $societe->getFaitMarquantMaxDesc();
-            $descriptionOptions['constraints'] = [
-                new Length(['max' => $societe->getFaitMarquantMaxDescIsblocking() ? $societe->getFaitMarquantMaxDesc() - 1 : false])
-            ];
-        }
-
         $builder
             ->add('titre', null, [
                 'attr' => ['class' => 'form-control-lg'],
             ])
-            ->add('description', CKEditorType:: class, $descriptionOptions)
+            ->add('description', CKEditorType:: class)
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),
                 'entry_options' => array('projet' => $builder->getData()->getProjet()),

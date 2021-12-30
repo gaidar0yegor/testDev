@@ -46,7 +46,7 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         ]);
 
         $resolver->setAllowedTypes('projet', 'integer');
-        $resolver->setAllowedTypes('createdByBy', 'integer');
+        $resolver->setAllowedTypes('createdBy', 'integer');
         $resolver->setAllowedTypes('modifiedBy', 'integer');
         $resolver->setAllowedTypes('faitMarquant', 'integer');
     }
@@ -120,6 +120,5 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         $em->persist($activity);
         $em->persist($societeUserActivity);
         $em->persist($projetActivity);
-        $em->flush();
     }
 }
