@@ -5,7 +5,7 @@ twig:
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
 
 fos_ck_editor:
-    default_config: my_config
+    default_config: "my_config"
 
     configs:
         my_config:
@@ -16,7 +16,6 @@ fos_ck_editor:
             inline: false
             input_sync: true
             toolbarCanCollapse: true
-            #            skin: "kama,/build/ckeditor/extra-plugins/kama/"
             extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions"
     toolbars:
         configs:

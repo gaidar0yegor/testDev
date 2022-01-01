@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\FaitMarquant;
+use App\Form\Custom\DatePickerType;
 use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -27,16 +28,28 @@ class FaitMarquantType extends AbstractType
     {
         $builder
             ->add('titre', null, [
-                'attr' => ['class' => 'form-control-lg'],
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'projet.titre'
+                ],
             ])
-            ->add('description', CKEditorType:: class)
+            ->add('description', CKEditorType:: class, [
+                'label' => false,
+            ])
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),
                 'entry_options' => array('projet' => $builder->getData()->getProjet()),
-                'label' => 'Fichiers joints',
+                'label' => false,
             ])
             ->add('date', DateType::class, [
                 'attr' => ['format' => 'yyyy-MM-dd'],
+            ])
+            ->add('date', DatePickerType::class, [
+                'label' => false,
+                'attr' => [
+                    'class' => 'text-center date-picker',
+                    'placeholder' => 'projet.date',
+                ],
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
         ;
