@@ -44,6 +44,7 @@ class SocieteType extends AbstractType
                 'choices' => [
                     '750 caractères' => 751,
                     '1000 caractères' => 1001,
+                    '1500 caractères' => 1501,
                     'Illimité' => -1,
                 ],
             ])

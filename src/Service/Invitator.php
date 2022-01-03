@@ -13,6 +13,7 @@ use App\Exception\RdiException;
 use App\Notification\Event\SocieteUserInvitationNotification;
 use App\Security\Role\RoleSociete;
 use Doctrine\ORM\EntityManagerInterface;
+use libphonenumber\PhoneNumber;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
@@ -148,5 +149,30 @@ class Invitator
 
         $societeUser->setInvitationSentAt(new \DateTime());
         $this->em->persist($societeUser);
+    }
+
+    public function sendAutomaticInvitation(SocieteUser $societeUser, string $role, string $invitationEmail = null, PhoneNumber $invitationTelephone = null): SocieteUser
+    {
+        $newSocieteUser = $this->initUser($societeUser->getSociete());
+        $newSocieteUser->getLastSocieteUserPeriod()->setDateEntry(new \DateTime());
+
+        if ($invitationEmail !== null){
+            $newSocieteUser->setInvitationEmail($invitationEmail);
+        } elseif ($invitationTelephone !== null){
+            $newSocieteUser->setInvitationTelephone($invitationTelephone);
+        } else{
+            throw new RdiException('Erreur lors de l\'invitation');
+        }
+
+        if (!in_array($role, RoleSociete::getRoles())){
+            throw new RdiException('Erreur lors de l\'invitation');
+        }
+
+        $newSocieteUser->setRole($role);
+        $this->check($newSocieteUser);
+        $this->sendInvitation($newSocieteUser, $societeUser->getUser());
+        $this->em->flush();
+
+        return $newSocieteUser;
     }
 }

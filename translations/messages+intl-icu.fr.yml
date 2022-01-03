@@ -285,6 +285,7 @@ add_folder_file_project: Ajouter un dossier
 projet.dossierFichierProjets: 'Dossiers des fichiers du projet'
 projet.dossierFichierProjets.help: 'Organiser le stockage des fichiers du projet'
 projet.dossierFichierProjets.delete.help: 'Tous les fichiers de ce dossier seront automatiquement supprimés !!'
+faitMarquant.sendedToSocieteUsers.text.help: 'Sélectionner et/ou ajouter des destinataires'
 avatar_of_user: Avatar de {user}
 logo_of_socete: Logo de {societe}
 edit_my_avatar: Modifier mon avatar

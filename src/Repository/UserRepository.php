@@ -2,8 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Societe;
 use App\Entity\User;
+use App\File\FileHandler\AvatarHandler;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use libphonenumber\PhoneNumber;
 
@@ -17,20 +20,47 @@ use libphonenumber\PhoneNumber;
  */
 class UserRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private AvatarHandler $avatarHandler;
+
+    public function __construct(ManagerRegistry $registry, AvatarHandler $avatarHandler)
     {
         parent::__construct($registry, User::class);
+        $this->avatarHandler = $avatarHandler;
     }
 
     public function findCreatedAt(int $year): array
     {
         return $this
-        ->createQueryBuilder('user')
-        ->select('MONTH(user.createdAt) AS mois, count(user) as total')
-        ->where('YEAR(user.createdAt) = :year')
-        ->setParameter('year', $year)
-        ->groupBy('mois') 
-        ->getQuery()
-        ->getResult();
+            ->createQueryBuilder('user')
+            ->select('MONTH(user.createdAt) AS mois, count(user) as total')
+            ->where('YEAR(user.createdAt) = :year')
+            ->setParameter('year', $year)
+            ->groupBy('mois')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findMentionedUserBySociete(Societe $societe, string $searchQuery): array
+    {
+        $qb = $this->createQueryBuilder('user');
+        $qb
+            ->select("CONCAT(user.prenom, ' ', user.nom) AS name, CONCAT(:filesAvatarUri, avatar.nomMd5) AS iconSrc, societeUser.id AS id")
+            ->leftJoin('user.societeUsers', 'societeUser')
+            ->leftJoin('user.avatar', 'avatar')
+            ->leftJoin('societeUser.societe', 'societe')
+            ->andWhere('societe.id = :societe')
+            ->andWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->like('user.prenom', ':searchQuery'),
+                    $qb->expr()->like('user.nom', ':searchQuery')
+                )
+            )
+            ->setParameters([
+                'societe' => $societe->getId(),
+                'filesAvatarUri' => $this->avatarHandler->filesAvatarUri,
+                'searchQuery' => $searchQuery.'%'
+            ]);
+
+        return $qb->getQuery()->getResult(Query::HYDRATE_OBJECT);
     }
 }	

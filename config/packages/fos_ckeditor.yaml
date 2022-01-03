@@ -1,0 +1,50 @@
+# Read the documentation: https://symfony.com/doc/current/bundles/FOSCKEditorBundle/index.html
+
+twig:
+    form_themes:
+        - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+
+fos_ck_editor:
+    default_config: "my_config"
+
+    configs:
+        my_config:
+            toolbar: "my_toolbar"
+            height: '40em'
+            uiColor: '#f7f7f7'
+            allowedContent: true
+            inline: false
+            input_sync: true
+            toolbarCanCollapse: true
+            extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions"
+    toolbars:
+        configs:
+            my_toolbar: [ '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@styles', '-', '@wiris' ]
+        items:
+            clipboard: ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo']
+            editing: ['Find', 'Replace', '-', 'SelectAll']
+            basic_styles: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']
+            paragraph: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock']
+            links: ['Link', 'Unlink']
+            insert: ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar', 'Smiley']
+            styles: ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
+            wiris: ['ckeditor_wiris_formulaEditor']
+    plugins:
+        wordcount:
+            path: '/build/ckeditor/extra-plugins/wordcount/'
+            filename: 'plugin.js'
+        ckeditor_wiris:
+            path: '/build/ckeditor/extra-plugins/ckeditor_wiris/'
+            filename: 'plugin.js'
+        textmatch:
+            path: '/build/ckeditor/extra-plugins/textmatch/'
+            filename: 'plugin.js'
+        textwatcher:
+            path: '/build/ckeditor/extra-plugins/textwatcher/'
+            filename: 'plugin.js'
+        autocomplete:
+            path: '/build/ckeditor/extra-plugins/autocomplete/'
+            filename: 'plugin.js'
+        mentions:
+            path: '/build/ckeditor/extra-plugins/mentions/'
+            filename: 'plugin.js'

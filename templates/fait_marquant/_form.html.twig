@@ -1,16 +1,32 @@
- {{ form_start(form) }}
-        {{ form_errors(form) }}
+{{ form_start(form) }}
+
+<div class="row">
+    {{ form_errors(form) }}
+    <div class="col-lg-9 col-md-12">
         {{ form_row(form.titre) }}
-        {{ form_errors(form.description)}}
-        {{ form_row(form.description)}}
-        <small><p class="text-muted">Texte: <span id="count-carac"></span></p></small>
-        <span id="fait_marquant_max_desc" class="d-none" data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}" data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
-        {{ form_row(form.fichierProjets) }}
+    </div>
+    <div class="col-lg-3 col-md-12">
         {{ form_row(form.date) }}
-        <div class="text-center mt-5">
-            <button class="btn btn-success">
-                {{ button_label|default('Sauvegarder') }}
-            </button>
-        </div>
+    </div>
+    <div class="col-md-12">
+        {{ form_errors(form.description) }}
+        {{ form_row(form.description) }}
+        <span id="custom_ckeditor_max_char" class="d-none"
+              data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}"
+              data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
+
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.sendedToSocieteUsers) }}
+    </div>
+    <div class="col-md-12">
+        {{ form_row(form.fichierProjets) }}
+    </div>
+    <div class="col-md-12 text-center mt-5">
+        <button class="btn btn-success">
+            {{ button_label|default('Sauvegarder') }}
+        </button>
+    </div>
+</div>
 
 {{ form_end(form) }}

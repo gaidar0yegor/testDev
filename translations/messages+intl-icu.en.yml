@@ -290,6 +290,7 @@ add_folder_file_project: Add a folder
 projet.dossierFichierProjets: Project files folders
 projet.dossierFichierProjets.help: Organize the storage of project files
 projet.dossierFichierProjets.delete.help: All files in this folder will be automatically deleted !!
+faitMarquant.sendedToSocieteUsers.text.help: Select and/or add recipients
 download: Download
 delete_user.projects.warning: "{user} is part of <strong>{n, plural, =1 {a project} other {# projects}}</strong> :"
 delete_user.projects.safe: '{user} is not part of any project.'
