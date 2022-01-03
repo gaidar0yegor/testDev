@@ -67,6 +67,7 @@ class UserMentionedFaitMarquantActivity implements ActivityInterface
         $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($faitMarquant);
 
         if (!isset($changes['description'])){
+            $args->getEntityManager()->flush();
             return;
         }
 

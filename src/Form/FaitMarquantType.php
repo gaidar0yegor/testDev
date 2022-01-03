@@ -59,6 +59,7 @@ class FaitMarquantType extends AbstractType
                 'class' => SocieteUser::class,
                 'multiple'    => true,
                 'expanded' 	  => false,
+                'required' 	  => false,
                 'attr' => [
                     'class' => 'select-2 select2-with-add form-control',
                     'data-placeholder' => 'Sélectionner des destinataires ...'
@@ -87,14 +88,16 @@ class FaitMarquantType extends AbstractType
     public function createSendedToSocieteUsers(PreSubmitEvent $event)
     {
         $data = $event->getData();
-        foreach ($data['sendedToSocieteUsers'] as $key => $email){
-            if ($email[0] === '@'){
-                $email = ltrim($email, $email[0]);
-                $invite = $this->invitator->sendAutomaticInvitation($this->userContext->getSocieteUser(),RoleSociete::USER, $email);
-                $data['sendedToSocieteUsers'][$key] = $invite->getInvitationEmail();
+        if (isset($data['sendedToSocieteUsers'])){
+            foreach ($data['sendedToSocieteUsers'] as $key => $email){
+                if ($email[0] === '@'){
+                    $email = ltrim($email, $email[0]);
+                    $invite = $this->invitator->sendAutomaticInvitation($this->userContext->getSocieteUser(),RoleSociete::USER, $email);
+                    $data['sendedToSocieteUsers'][$key] = $invite->getInvitationEmail();
+                }
             }
+            $event->setData($data);
         }
-        $event->setData($data);
     }
 
     public function setFichierProjetFaitMarquant(SubmitEvent $event)
