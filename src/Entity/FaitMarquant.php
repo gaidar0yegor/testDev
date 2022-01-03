@@ -74,10 +74,16 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
      */
     private $trashedBy;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=SocieteUser::class)
+     */
+    private $sendedToSocieteUsers;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->sendedToSocieteUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +235,30 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     public function setTrashedBy(?SocieteUser $trashedBy): self
     {
         $this->trashedBy = $trashedBy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SocieteUser[]
+     */
+    public function getSendedToSocieteUsers(): Collection
+    {
+        return $this->sendedToSocieteUsers;
+    }
+
+    public function addSendedToSocieteUser(SocieteUser $sendedToSocieteUser): self
+    {
+        if (!$this->sendedToSocieteUsers->contains($sendedToSocieteUser)) {
+            $this->sendedToSocieteUsers[] = $sendedToSocieteUser;
+        }
+
+        return $this;
+    }
+
+    public function removeSendedToSocieteUser(SocieteUser $sendedToSocieteUser): self
+    {
+        $this->sendedToSocieteUsers->removeElement($sendedToSocieteUser);
 
         return $this;
     }

@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import EmbedForm from './EmbedForm';
 import datesLocalize from './dates.localize';
+import {hexIsLight} from "./utils";
 import {detectedLocale, language_dt} from './translation';
 
 import { domDatatable, btnsDatatable } from './datatable';
@@ -219,15 +220,6 @@ $(document).on('change', '.input-color-container input[type=color]', function (e
         $radioColors.prop("checked", false);
     }
 });
-
-function hexIsLight(color){
-    const hex = color.replace('#', '');
-    const c_r = parseInt(hex.substr(0, 2), 16);
-    const c_g = parseInt(hex.substr(2, 2), 16);
-    const c_b = parseInt(hex.substr(4, 2), 16);
-    const brightness = ((c_r * 299) + (c_g * 587) + (c_b * 114)) / 1000;
-    return brightness > 155;
-}
 
 // change societe color
 $(document).on('input', 'input#societe_colorCode', function (e) {
