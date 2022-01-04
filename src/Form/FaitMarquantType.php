@@ -95,11 +95,13 @@ class FaitMarquantType extends AbstractType
     {
         $form = $event->getForm();
         $data = $event->getData();
-        $form->add('sendedToEmails', ChoiceType::class, [
-            'multiple' => true,
-            'expanded' => false,
-            'choices' => array_unique(array_merge($this->getSendedToEmailsChoices($form->getData()), array_combine($data['sendedToEmails'], $data['sendedToEmails'])))
-        ]);
+        if (isset($data['sendedToEmails'])){
+            $form->add('sendedToEmails', ChoiceType::class, [
+                'multiple' => true,
+                'expanded' => false,
+                'choices' => array_unique(array_merge($this->getSendedToEmailsChoices($form->getData()), array_combine($data['sendedToEmails'], $data['sendedToEmails'])))
+            ]);
+        }
     }
 
     public function setFichierProjetFaitMarquant(SubmitEvent $event)
