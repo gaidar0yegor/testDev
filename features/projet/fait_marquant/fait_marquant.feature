@@ -102,18 +102,3 @@ Feature: Gestion des faits marquants d'un projet
         And I should see an "img[alt='Avatar de Contributeur Eureka']" element
         And I should see an "img[alt='Avatar de Contributeur2 Eureka']" element
         And I should see "Observateur Eureka"
-
-    Scenario: On peut mettre un lien hypertexte dans le fait marquant en markdown
-        Given I am on "/connexion"
-        And I fill in the following:
-            | _username | contributeur@societe.dev  |
-            | _password | contributeur              |
-        And I press "Connexion"
-        And I am on "/projets/1"
-
-        When I follow "Ajouter un fait marquant"
-        And I fill in the following:
-            | fait_marquant[titre]       | Mon fait marquant markdown          |
-            | fait_marquant[description] | Voir le [Site vitrine](https://rdimanager.com). |
-        And I press "Sauvegarder"
-        And I should see an "a[href='https://rdimanager.com']:contains('Site vitrine')" element

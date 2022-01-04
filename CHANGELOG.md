@@ -8,6 +8,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 
 
+## [0.38.5] - 2022-01-04
+### Réparé
+- Réparer l'ajout des nouvelles adresse e-mail dans un fait marquant
+
 ## [0.38.4] - 2022-01-04
 ### Ajouté
 - Mentionner des participants du projet dans le fait marquant

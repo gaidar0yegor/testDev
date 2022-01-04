@@ -3,7 +3,7 @@
 Vous avez été mentionné sur le fait marquant "{{ faitMarquant.titre }}" du projet "{{ faitMarquant.projet.acronyme }}" sous RDI-Manager.
 
 {% if sendFm %}
-{{ faitMarquant.description }}
+{{ faitMarquant.description|markdown }}
 
 {% if invitationSended %}
 {% if faitMarquant.fichierProjets | length > 0 %}
