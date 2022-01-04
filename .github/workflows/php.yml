@@ -45,7 +45,7 @@ jobs:
 
     - name: Install dependencies
       if: steps.composer-cache.outputs.cache-hit != 'true'
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress --no-suggest && php bin/console assets:install
 
     - name: Setup node
       uses: actions/setup-node@v2
