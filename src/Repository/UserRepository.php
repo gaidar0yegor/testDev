@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Projet;
 use App\Entity\Societe;
 use App\Entity\User;
 use App\File\FileHandler\AvatarHandler;
@@ -62,5 +63,37 @@ class UserRepository extends ServiceEntityRepository
             ]);
 
         return $qb->getQuery()->getResult(Query::HYDRATE_OBJECT);
+    }
+
+    public function findByEmailAndSociete(Societe $societe, string $email): ?User
+    {
+        $qb = $this->createQueryBuilder('user');
+        $qb
+            ->leftJoin('user.societeUsers', 'societeUser')
+            ->leftJoin('societeUser.societe', 'societe')
+            ->andWhere('societe = :societe')
+            ->andWhere('user.email = :email')
+            ->setParameters([
+                'societe' => $societe,
+                'email' => $email
+            ]);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
+
+    public function findExterneByEmailAndProjet(Projet $projet, string $email): ?User
+    {
+        $qb = $this->createQueryBuilder('user');
+        $qb
+            ->leftJoin('user.projetObservateurExternes', 'projetObservateurExterne')
+            ->leftJoin('projetObservateurExterne.projet', 'projet')
+            ->andWhere('projet = :projet')
+            ->andWhere('user.email = :email')
+            ->setParameters([
+                'projet' => $projet,
+                'email' => $email
+            ]);
+
+        return $qb->getQuery()->getOneOrNullResult();
     }
 }	

@@ -10,8 +10,8 @@ const initSelect2 = ($element = null, options = {}) => {
 };
 
 const initFmSendedToSelect2 = () => {
-    if ($('#fait_marquant_sendedToSocieteUsers.select-2.select2-with-add')) {
-        var $elem = $('#fait_marquant_sendedToSocieteUsers.select-2.select2-with-add');
+    if ($('#fait_marquant_sendedToEmails.select-2.select2-with-add')) {
+        var $elem = $('#fait_marquant_sendedToEmails.select-2.select2-with-add');
 
         $($elem).select2({
             placeholder: function () {
@@ -20,7 +20,7 @@ const initFmSendedToSelect2 = () => {
             tags: true,
             createTag: function (params) {
                 return {
-                    id: '@' + params.term,
+                    id: params.term,
                     text: params.term,
                     newOption: true
                 }
@@ -33,23 +33,7 @@ const initFmSendedToSelect2 = () => {
                 }
                 return $result;
             }
-        }).on('select2:select', function (e) {
-            var data = e.params.data,
-                vars = [];
-            if (data.newOption){
-                if (validateEmail(data.text)){
-                    if ($($elem).find("option[value='" + data.text + "']").length){
-                        vars = $($elem).val();
-                        $($elem).find("option[value='" + data.id + "']").remove();
-                        vars.indexOf(data.text) === -1 ? vars.push(data.text) : false;
-                        $($elem).val(vars);
-                    }
-                } else {
-                    $($elem).find("option[value='" + data.id + "']").remove();
-                }
-                $($elem).trigger('change');
-            }
-        });
+        })
     }
 };
 

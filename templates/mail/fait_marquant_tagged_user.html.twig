@@ -1,0 +1,54 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}
+    {{ faitMarquant.createdBy.user.shortname }} vous a mentionné dans un fait marquant ajouté sur le projet {{ faitMarquant.projet.acronyme }}
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Vous avez été mentionné sur le fait marquant <strong>{{ faitMarquant.titre }}</strong> du projet <strong>{{ faitMarquant.projet.acronyme }}</strong> sous RDI-Manager.
+            </p>
+
+            <spacer size="8"></spacer>
+
+            {% if sendFm %}
+            <h3>{{ faitMarquant.titre }}</h3>
+
+            <p>
+                <small>
+                    Ajouté le <strong>{{ faitMarquant.date|format_date }}</strong>
+                    par <strong>{{ faitMarquant.createdBy.user.fullname }}</strong>.
+                </small>
+
+                <br />
+
+                {{ faitMarquant.description|nl2br }}
+
+                <br />
+
+                <small>
+                    {% if invitationSended %}
+                        {% if faitMarquant.fichierProjets | length > 0 %}<cite>Ce fait marquant contient des fichiers joints.</cite><br>{% endif %}
+                        Pour plus de détails, vous avez été invité en tant qu'un observateur interne sur le projet {{ faitMarquant.projet.acronyme }}.
+                    {% endif %}
+                        <a href="{{ url('app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}">Voir sur RDI-Manager</a>.
+                </small>
+            </p>
+            {% else %}
+
+                {% if invitationSended %}
+                    <p>
+                        Pour plus de détails, veuillez accepter l'invitation de RDI-Manager.
+                    </p>
+                {% else %}
+                    <p>
+                        Rapprochez vous du chef de projet si vous voulez suivre l'avancement de ce projet.
+                    </p>
+                {% endif %}
+
+            {% endif %}
+
+        </columns>
+    </row>
+{% endblock %}

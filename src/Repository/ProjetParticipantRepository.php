@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
 use App\Entity\User;
@@ -39,6 +40,23 @@ class ProjetParticipantRepository extends ServiceEntityRepository
             ])
             ->getQuery()
             ->getResult()
+            ;
+    }
+
+    public function findByUserAndProjet(User $user, Projet $projet): ?ProjetParticipant
+    {
+        return $this->createQueryBuilder('projetParticipant')
+            ->leftJoin('projetParticipant.projet', 'projet')
+            ->leftJoin('projetParticipant.societeUser', 'societeUser')
+            ->leftJoin('societeUser.user', 'user')
+            ->where('user = :user')
+            ->andWhere('projet = :projet')
+            ->setParameters([
+                'user' => $user,
+                'projet' => $projet,
+            ])
+            ->getQuery()
+            ->getOneOrNullResult()
             ;
     }
 }

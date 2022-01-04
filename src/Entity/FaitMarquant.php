@@ -75,15 +75,14 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     private $trashedBy;
 
     /**
-     * @ORM\ManyToMany(targetEntity=SocieteUser::class)
+     * @ORM\Column(type="array", nullable=true)
      */
-    private $sendedToSocieteUsers;
+    private $sendedToEmails = [];
 
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->sendedToSocieteUsers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -239,26 +238,14 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
         return $this;
     }
 
-    /**
-     * @return Collection|SocieteUser[]
-     */
-    public function getSendedToSocieteUsers(): Collection
+    public function getSendedToEmails(): ?array
     {
-        return $this->sendedToSocieteUsers;
+        return $this->sendedToEmails;
     }
 
-    public function addSendedToSocieteUser(SocieteUser $sendedToSocieteUser): self
+    public function setSendedToEmails(?array $sendedToEmails): self
     {
-        if (!$this->sendedToSocieteUsers->contains($sendedToSocieteUser)) {
-            $this->sendedToSocieteUsers[] = $sendedToSocieteUser;
-        }
-
-        return $this;
-    }
-
-    public function removeSendedToSocieteUser(SocieteUser $sendedToSocieteUser): self
-    {
-        $this->sendedToSocieteUsers->removeElement($sendedToSocieteUser);
+        $this->sendedToEmails = $sendedToEmails;
 
         return $this;
     }

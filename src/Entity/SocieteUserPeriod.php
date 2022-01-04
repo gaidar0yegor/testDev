@@ -40,6 +40,13 @@ class SocieteUserPeriod
      */
     private $societeUser;
 
+    public static function create(\DateTime $dateEntry): self
+    {
+        return (new self())
+            ->setDateEntry($dateEntry)
+            ;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

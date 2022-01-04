@@ -58,7 +58,6 @@ class SocieteUserController extends AbstractController
         Invitator $invitator
     ): Response {
         $societeUser = $invitator->initUser($userContext->getSocieteUser()->getSociete());
-        $societeUser->getLastSocieteUserPeriod()->setDateEntry(new \DateTime());
         $form = $this->createForm(InviteUserType::class, $societeUser);
 
         $form->handleRequest($request);
