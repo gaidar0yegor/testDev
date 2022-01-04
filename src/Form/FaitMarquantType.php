@@ -60,6 +60,7 @@ class FaitMarquantType extends AbstractType
             ])
             ->add('description', CKEditorType:: class, [
                 'label' => false,
+                'required' => true
             ])
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),
@@ -85,29 +86,20 @@ class FaitMarquantType extends AbstractType
                 'choices' => $sendedToEmailsChoices,
                 'help' => 'faitMarquant.sendedToSocieteUsers.text.help',
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'createSendedToSocieteUsers'])
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'updateChoices'])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
         ;
-        $builder->get('sendedToEmails')->resetViewTransformers();
     }
 
-    public function createSendedToSocieteUsers(PreSubmitEvent $event)
+    public function updateChoices(PreSubmitEvent $event)
     {
         $form = $event->getForm();
         $data = $event->getData();
         if (isset($data['sendedToEmails'])){
-            $form->remove('sendedToEmails');
             $form->add('sendedToEmails', ChoiceType::class, [
-                'label' => false,
-                'multiple'    => true,
-                'expanded' 	  => false,
-                'required' 	  => false,
-                'attr' => [
-                    'class' => 'select-2 select2-with-add form-control',
-                    'data-placeholder' => 'Sélectionner des destinataires ...'
-                ],
-                'choices' => array_unique(array_merge($this->getSendedToEmailsChoices($form->getData()), array_combine($data['sendedToEmails'], $data['sendedToEmails']))),
-                'help' => 'faitMarquant.sendedToSocieteUsers.text.help',
+                'multiple' => true,
+                'expanded' => false,
+                'choices' => array_unique(array_merge($this->getSendedToEmailsChoices($form->getData()), array_combine($data['sendedToEmails'], $data['sendedToEmails'])))
             ]);
         }
     }
