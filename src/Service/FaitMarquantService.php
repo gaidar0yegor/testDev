@@ -4,19 +4,35 @@ namespace App\Service;
 
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
+use App\Entity\ProjetParticipant;
+use App\Entity\User;
 use App\MultiSociete\UserContext;
+use App\ObservateurExterne\InvitationService;
+use App\Security\Role\RoleProjet;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class FaitMarquantService
 {
     private EntityManagerInterface $em;
-
     private UserContext $userContext;
+    private InvitationService $externeInvitationService;
+    private Invitator $invitationService;
+    private AuthorizationCheckerInterface $authChecker;
 
-    public function __construct(EntityManagerInterface $em, UserContext $userContext)
+    public function __construct(
+        EntityManagerInterface $em,
+        UserContext $userContext,
+        InvitationService $externeInvitationService,
+        Invitator $invitationService,
+        AuthorizationCheckerInterface $authChecker
+    )
     {
         $this->em = $em;
         $this->userContext = $userContext;
+        $this->externeInvitationService = $externeInvitationService;
+        $this->invitationService = $invitationService;
+        $this->authChecker = $authChecker;
     }
 
     /**
@@ -51,5 +67,43 @@ class FaitMarquantService
         $faitMarquant->setCreatedBy($this->userContext->getSocieteUser());
 
         return $faitMarquant;
+    }
+
+    /**
+     * inviter users tagués sur un fait marquant
+     */
+    public function inviteUserTaggedSurFm(Projet $projet, string $email) : array
+    {
+        $invitationSended = false;
+        $sendFm = false;
+        $canInvite = $this->authChecker->isGranted('edit', $projet);
+
+        $user = $this->em->getRepository(User::class)->findByEmailAndSociete($projet->getSociete(), $email);
+
+        if ($user instanceof User){
+            $sendFm = true;
+            $projetParticipant = $this->em->getRepository(ProjetParticipant::class)->findByUserAndProjet($user,$projet);
+
+            if ($canInvite && $projetParticipant === null){
+                $invitationSended = true;
+                $user->getSocieteUsers()->map(function($societeUser) use ($projet){
+                    if ($societeUser->getSociete()->getId() === $projet->getSociete()->getId()){
+                        $this->invitationService->addParticipation($societeUser, $projet, RoleProjet::OBSERVATEUR);
+                    }
+                    return;
+                });
+            }
+        } else {
+            $exUser = $this->em->getRepository(User::class)->findExterneByEmailAndProjet($projet, $email);
+            if ($canInvite && $exUser === null){
+                $invitationSended = true;
+                $this->externeInvitationService->sendAutomaticInvitationSurProjet($projet,$email);
+            }
+        }
+
+        return [
+            'invitationSended' => $invitationSended,
+            'sendFm' => $sendFm,
+        ];
     }
 }

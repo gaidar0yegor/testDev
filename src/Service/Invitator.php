@@ -14,10 +14,8 @@ use App\Notification\Event\SocieteUserInvitationNotification;
 use App\Security\Role\RoleSociete;
 use Doctrine\ORM\EntityManagerInterface;
 use libphonenumber\PhoneNumber;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -79,7 +77,7 @@ class Invitator
 
         $this->em->persist($societeUser);
 
-        $societeUser->addSocieteUserPeriod(new SocieteUserPeriod());
+        $societeUser->addSocieteUserPeriod(SocieteUserPeriod::create(new \DateTime()));
 
         $societeUser
             ->setSociete($societe)
@@ -151,10 +149,9 @@ class Invitator
         $this->em->persist($societeUser);
     }
 
-    public function sendAutomaticInvitation(SocieteUser $societeUser, string $role, string $invitationEmail = null, PhoneNumber $invitationTelephone = null): SocieteUser
+    public function sendAutomaticInvitationSurSociete(SocieteUser $inviteBy, string $role, string $invitationEmail = null, PhoneNumber $invitationTelephone = null): SocieteUser
     {
-        $newSocieteUser = $this->initUser($societeUser->getSociete());
-        $newSocieteUser->getLastSocieteUserPeriod()->setDateEntry(new \DateTime());
+        $newSocieteUser = $this->initUser($inviteBy->getSociete());
 
         if ($invitationEmail !== null){
             $newSocieteUser->setInvitationEmail($invitationEmail);
@@ -164,13 +161,22 @@ class Invitator
             throw new RdiException('Erreur lors de l\'invitation');
         }
 
-        if (!in_array($role, RoleSociete::getRoles())){
-            throw new RdiException('Erreur lors de l\'invitation');
-        }
-
         $newSocieteUser->setRole($role);
         $this->check($newSocieteUser);
-        $this->sendInvitation($newSocieteUser, $societeUser->getUser());
+        $this->sendInvitation($newSocieteUser, $inviteBy->getUser());
+        $this->em->flush();
+
+        return $newSocieteUser;
+    }
+
+    public function sendAutomaticInvitationSurProjet(SocieteUser $inviteBy, Projet $projet, string $role, string $invitationEmail): SocieteUser
+    {
+        $newSocieteUser = $this->initUser($inviteBy->getSociete());
+        $newSocieteUser->setInvitationEmail($invitationEmail);
+        $this->addParticipation($newSocieteUser, $projet, $role);
+        $this->check($newSocieteUser);
+        $this->sendInvitation($newSocieteUser, $inviteBy->getUser());
+
         $this->em->flush();
 
         return $newSocieteUser;

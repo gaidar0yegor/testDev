@@ -4,12 +4,13 @@ namespace App\Notification\Mail;
 
 use App\Entity\FaitMarquant;
 use App\Entity\ProjetParticipant;
-use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
+use App\Service\FaitMarquantService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class FaitMarquantCreated
 {
@@ -17,10 +18,21 @@ class FaitMarquantCreated
 
     private UserContext $userContext;
 
-    public function __construct(MailerInterface $mailer, UserContext $userContext)
+    private AuthorizationCheckerInterface $authChecker;
+
+    private FaitMarquantService $faitMarquantService;
+
+    public function __construct(
+        MailerInterface $mailer,
+        UserContext $userContext,
+        AuthorizationCheckerInterface $authChecker,
+        FaitMarquantService $faitMarquantService
+    )
     {
         $this->mailer = $mailer;
         $this->userContext = $userContext;
+        $this->authChecker = $authChecker;
+        $this->faitMarquantService = $faitMarquantService;
     }
 
     public function postPersist(FaitMarquant $faitMarquant, LifecycleEventArgs $args): void
@@ -35,12 +47,12 @@ class FaitMarquantCreated
             ])
         ;
 
-        $sendedTo = new ArrayCollection();
+        $excluEmails = new ArrayCollection();
 
         $faitMarquant
             ->getProjet()
             ->getProjetParticipants()
-            ->map(function (ProjetParticipant $projetParticipant) use ($email, $sendedTo) {
+            ->map(function (ProjetParticipant $projetParticipant) use ($email, $excluEmails) {
                 if (!$projetParticipant->getWatching()) {
                     return;
                 }
@@ -61,28 +73,34 @@ class FaitMarquantCreated
                 }
 
                 $this->mailer->send($email->to($projetParticipant->getSocieteUser()->getUser()->getEmail()));
-                $sendedTo->add($projetParticipant->getSocieteUser());
+                $excluEmails->add($projetParticipant->getSocieteUser()->getUser()->getEmail());
             });
 
-        $emailToMentions = (new TemplatedEmail())
-            ->subject("{$faitMarquant->getCreatedBy()->getUser()->getShortname()} vous a envoyé un fait marquant ajouté sur le projet {$faitMarquant->getProjet()->getAcronyme()}")
-            ->htmlTemplate('mail/fait_marquant_envoye.html.twig')
-            ->textTemplate('mail/fait_marquant_envoye.txt.twig')
-        ;
+        $this->sendToTaggedUsers($faitMarquant, $excluEmails);
+    }
+
+    private function sendToTaggedUsers(FaitMarquant $faitMarquant, ArrayCollection $excluEmails)
+    {
+        $templatedEmail = (new TemplatedEmail())
+            ->subject("{$faitMarquant->getCreatedBy()->getUser()->getShortname()} vous a mentionné dans un fait marquant")
+            ->htmlTemplate('mail/fait_marquant_tagged_user.html.twig')
+            ->textTemplate('mail/fait_marquant_tagged_user.txt.twig');
+
         $context = [
             'faitMarquant' => $faitMarquant,
-            'societe' => $faitMarquant->getSociete()
+            'societe' => $faitMarquant->getSociete(),
         ];
 
-        $faitMarquant->getSendedToSocieteUsers()->map(function (SocieteUser $societeUser) use ($sendedTo, $emailToMentions, $context) {
-            if (!$sendedTo->contains($societeUser)) {
-                $context['receiver'] = $societeUser;
-                $emailToMentions->context($context);
-                $this->mailer->send($emailToMentions->to(
-                    $societeUser->hasUser() ? $societeUser->getUser()->getEmail() : $societeUser->getInvitationEmail()
-                ));
+
+
+        foreach ($faitMarquant->getSendedToEmails() as $email){
+            if ($excluEmails->contains($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)){
+                continue;
             }
-        })
-        ;
+
+            $result = $this->faitMarquantService->inviteUserTaggedSurFm($faitMarquant->getProjet(),$email);
+            $templatedEmail->context(array_merge($context,$result));
+            $this->mailer->send($templatedEmail->to($email));
+        }
     }
 }

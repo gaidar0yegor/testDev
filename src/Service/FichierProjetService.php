@@ -16,6 +16,7 @@ class FichierProjetService
 {
     private EntityManagerInterface $em;
     private UserContext $userContext;
+    const OBSERVATEUR_EXTERNE = 'PROJET_OBSERVATEUR_EXTERNE';
 
     public function __construct(EntityManagerInterface $em, UserContext $userContext)
     {
@@ -30,7 +31,7 @@ class FichierProjetService
             RoleProjet::CDP => RoleProjet::CDP,
             RoleProjet::CONTRIBUTEUR => RoleProjet::CONTRIBUTEUR,
             RoleProjet::OBSERVATEUR => RoleProjet::OBSERVATEUR,
-            RoleProjet::OBSERVATEUR_EXTERNE => RoleProjet::OBSERVATEUR_EXTERNE,
+            self::OBSERVATEUR_EXTERNE => self::OBSERVATEUR_EXTERNE,
         ];
 
         foreach ($projet->getProjetParticipants() as $projetParticipant) {
@@ -44,7 +45,7 @@ class FichierProjetService
     {
         $fichierProjet->setAccessesChoices($accessChoices);
         $fichierProjet->addSocieteUser($fichierProjet->getUploadedBy());
-        $fichierProjet->setIsAccessibleParObservateurExterne(in_array(RoleProjet::OBSERVATEUR_EXTERNE, $accessChoices) || in_array('all', $accessChoices));
+        $fichierProjet->setIsAccessibleParObservateurExterne(in_array(self::OBSERVATEUR_EXTERNE, $accessChoices) || in_array('all', $accessChoices));
 
         if (in_array('all', $accessChoices) || empty($accessChoices)) {
             foreach ($projet->getProjetParticipants() as $projetParticipant) {

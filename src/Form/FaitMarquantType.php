@@ -3,18 +3,14 @@
 namespace App\Form;
 
 use App\Entity\FaitMarquant;
-use App\Entity\SocieteUser;
 use App\Form\Custom\DatePickerType;
 use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
-use App\Repository\SocieteUserRepository;
-use App\Security\Role\RoleSociete;
-use App\Service\Invitator;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Event\SubmitEvent;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
@@ -22,16 +18,39 @@ use Symfony\Component\Form\FormEvents;
 class FaitMarquantType extends AbstractType
 {
     private UserContext $userContext;
-    private Invitator $invitator;
 
-    public function __construct(UserContext $userContext, Invitator $invitator)
+    public function __construct(UserContext $userContext)
     {
         $this->userContext = $userContext;
-        $this->invitator = $invitator;
+    }
+
+    private function getSendedToEmailsChoices(FaitMarquant $faitMarquant)
+    {
+        $sendedToEmailsChoices = [];
+
+        foreach ($faitMarquant->getProjet()->getSociete()->getSocieteUsers() as $societeUser){
+            $sendedToEmailsChoices["{$societeUser->getUser()->getShortname()} ({$societeUser->getUser()->getEmail()})"] = $societeUser->getUser()->getEmail();
+        }
+        foreach ($faitMarquant->getProjet()->getProjetObservateurExternes() as $observateurExterne){
+            $email = $observateurExterne->getUser() ? $observateurExterne->getUser()->getEmail() : $observateurExterne->getInvitationEmail();
+            $sendedToEmailsChoices[($observateurExterne->getUser() ? "{$observateurExterne->getUser()->getShortname()} ({$email})" : $email)] = $email;
+        }
+
+        if (count($faitMarquant->getSendedToEmails())){
+            foreach ($faitMarquant->getSendedToEmails() as $sendedToEmail){
+                if (!in_array($sendedToEmail,$sendedToEmailsChoices)){
+                    $sendedToEmailsChoices[$sendedToEmail] = $sendedToEmail;
+                }
+            }
+        }
+
+        return array_unique($sendedToEmailsChoices);
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $sendedToEmailsChoices = $this->getSendedToEmailsChoices($builder->getData());
+
         $builder
             ->add('titre', null, [
                 'label' => false,
@@ -54,9 +73,8 @@ class FaitMarquantType extends AbstractType
                     'placeholder' => 'projet.date',
                 ],
             ])
-            ->add('sendedToSocieteUsers', EntityType::class, [
+            ->add('sendedToEmails', ChoiceType::class, [
                 'label' => false,
-                'class' => SocieteUser::class,
                 'multiple'    => true,
                 'expanded' 	  => false,
                 'required' 	  => false,
@@ -64,39 +82,33 @@ class FaitMarquantType extends AbstractType
                     'class' => 'select-2 select2-with-add form-control',
                     'data-placeholder' => 'Sélectionner des destinataires ...'
                 ],
-                'query_builder' => function (SocieteUserRepository $repository) {
-                    return $repository
-                        ->whereSociete($this->userContext->getSocieteUser()->getSociete())
-                        ->andWhere('societeUser != :me')
-                        ->setParameter('me', $this->userContext->getSocieteUser())
-                        ->andWhere('societeUser.enabled = true')
-                        ;
-                },
-                'choice_label' => function (SocieteUser $societeUser) {
-                    return "{$societeUser->getUser()->getShortname()} ({$societeUser->getUser()->getEmail()})";
-                },
-                'choice_value' => function (SocieteUser $societeUser) {
-                    return $societeUser->getUser()->getEmail();
-                },
+                'choices' => $sendedToEmailsChoices,
                 'help' => 'faitMarquant.sendedToSocieteUsers.text.help',
             ])
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'createSendedToSocieteUsers'])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
         ;
+        $builder->get('sendedToEmails')->resetViewTransformers();
     }
 
     public function createSendedToSocieteUsers(PreSubmitEvent $event)
     {
+        $form = $event->getForm();
         $data = $event->getData();
-        if (isset($data['sendedToSocieteUsers'])){
-            foreach ($data['sendedToSocieteUsers'] as $key => $email){
-                if ($email[0] === '@'){
-                    $email = ltrim($email, $email[0]);
-                    $invite = $this->invitator->sendAutomaticInvitation($this->userContext->getSocieteUser(),RoleSociete::USER, $email);
-                    $data['sendedToSocieteUsers'][$key] = $invite->getInvitationEmail();
-                }
-            }
-            $event->setData($data);
+        if (isset($data['sendedToEmails'])){
+            $form->remove('sendedToEmails');
+            $form->add('sendedToEmails', ChoiceType::class, [
+                'label' => false,
+                'multiple'    => true,
+                'expanded' 	  => false,
+                'required' 	  => false,
+                'attr' => [
+                    'class' => 'select-2 select2-with-add form-control',
+                    'data-placeholder' => 'Sélectionner des destinataires ...'
+                ],
+                'choices' => array_unique(array_merge($this->getSendedToEmailsChoices($form->getData()), array_combine($data['sendedToEmails'], $data['sendedToEmails']))),
+                'help' => 'faitMarquant.sendedToSocieteUsers.text.help',
+            ]);
         }
     }
 
