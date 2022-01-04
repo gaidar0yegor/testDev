@@ -89,6 +89,8 @@ class FaitMarquantType extends AbstractType
             ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'updateChoices'])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
         ;
+        $builder->get('sendedToEmails')->resetViewTransformers();
+        $builder->get('sendedToEmails')->resetModelTransformers();
     }
 
     public function updateChoices(PreSubmitEvent $event)
