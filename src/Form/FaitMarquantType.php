@@ -8,10 +8,13 @@ use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Event\PreSubmitEvent;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
 
@@ -80,29 +83,39 @@ class FaitMarquantType extends AbstractType
                 'expanded' 	  => false,
                 'required' 	  => false,
                 'attr' => [
-                    'class' => 'select-2 select2-with-add form-control',
-                    'data-placeholder' => 'Sélectionner des destinataires ...'
+                    'class' => 'select-2 form-control',
+                    'data-placeholder' => 'Sélectionner des adresses e-mail ...'
                 ],
                 'choices' => $sendedToEmailsChoices,
-                'help' => 'faitMarquant.sendedToSocieteUsers.text.help',
             ])
-            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'updateChoices'])
+            ->add('extraSendedToEmails', TextType::class, [
+                'label' => false,
+                'required' 	  => false,
+                'mapped' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Ajouter des nouvelles adresses e-mail séparées par un point-virgule " ; "'
+                ],
+            ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
+            ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'addExtraSendedToEmails'])
         ;
-        $builder->get('sendedToEmails')->resetViewTransformers();
-        $builder->get('sendedToEmails')->resetModelTransformers();
+        $builder->get('extraSendedToEmails')
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'verifExtraSendedToEmails']);
     }
 
-    public function updateChoices(PreSubmitEvent $event)
+    public function verifExtraSendedToEmails(PreSubmitEvent $event)
     {
         $form = $event->getForm();
-        $data = $event->getData();
-        if (isset($data['sendedToEmails'])){
-            $form->add('sendedToEmails', ChoiceType::class, [
-                'multiple' => true,
-                'expanded' => false,
-                'choices' => array_unique(array_merge($this->getSendedToEmailsChoices($form->getData()), array_combine($data['sendedToEmails'], $data['sendedToEmails'])))
-            ]);
+        $extraSendedToEmails = $event->getData();
+        if ($extraSendedToEmails){
+            $extraSendedToEmails = explode(';', $extraSendedToEmails);
+            foreach ($extraSendedToEmails as $email){
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)){
+                    $form->addError(new FormError('Des adresses e-mail invalides.'));
+                    break;
+                }
+            }
         }
     }
 
@@ -120,6 +133,18 @@ class FaitMarquantType extends AbstractType
                 ->setFaitMarquant($faitMarquant)
                 ->setUploadedBy($this->userContext->getSocieteUser())
             ;
+        }
+    }
+
+    public function addExtraSendedToEmails(PostSubmitEvent $event)
+    {
+        $extraSendedToEmails = $event->getForm()->get('extraSendedToEmails')->getData();
+        $faitMarquant = $event->getData();
+        if ($extraSendedToEmails){
+            $extraSendedToEmails = explode(';',$extraSendedToEmails);
+            $sendedToEmails = $faitMarquant->getSendedToEmails();
+            $sendedToEmails = array_unique(array_merge($sendedToEmails, $extraSendedToEmails));
+            $faitMarquant->setSendedToEmails($sendedToEmails);
         }
     }
 
