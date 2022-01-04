@@ -8,6 +8,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 
 
+## [0.38.4] - 2022-01-04
+### Ajouté
+- Mentionner des participants du projet dans le fait marquant
+- Ajouter la possibilité d'envoyer le fait marquant à des personnes (hors/dans projet ou hors/dans société)
 
 ## [0.38.3] - 2021-12-28
 ### Ajouté
