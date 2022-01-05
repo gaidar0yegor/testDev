@@ -51,6 +51,7 @@ services:
         $smsDsn: '%env(SMS_DSN)%'
 
     Twig\Extensions\IntlExtension: ~
+    App\Twig\DatabaseGlobalsExtension: null
 
     App\Form\MonCompteType:
         $locales: '%locales%'

@@ -36,7 +36,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
 
     Scenario: Le référent peut désactiver et réactiver un utilisateur
         When I click on the 1st "[href='/utilisateur/2']" element
-        Then I should see "Actif" in the ".badge" element
+        Then I should see "Actif"
 
         When I follow "Mettre à jour"
         And I press "Désactiver"
@@ -51,7 +51,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         Then I should see "Utilisateur Eureka a été désactivé, il ne pourra plus se connecter"
         When I follow "Utilisateurs"
         And I click on the 1st "[href='/utilisateur/2']" element
-        And I should see "Désactivé" in the ".badge" element
+        And I should see "Désactivé"
 
         When I follow "Mettre à jour"
         And I press "Ré-activer"
@@ -66,7 +66,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         Then I should see "Utilisateur Eureka a été activé, il pourra se connecter de nouveau"
         When I follow "Utilisateurs"
         And I click on the 1st "[href='/utilisateur/2']" element
-        And I should see "Actif" in the ".badge" element
+        And I should see "Actif"
 
     Scenario: Le référent ne peut pas se désactiver lui-même car il serait bloqué
         When I click on the 1st "[href='/utilisateur/1']" element
