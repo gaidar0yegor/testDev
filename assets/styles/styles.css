@@ -197,6 +197,46 @@ nav.navbar{
     width: 1.5rem;
 }
 
+/*****************************SIDEBAR Projects **********************/
+.sidebar.sidebar-projects{
+    position: fixed;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    background-color: #ce352c;
+    color: white;
+    width: auto;
+}
+.sidebar.sidebar-projects a{
+    text-decoration: none !important;
+    color: white;
+}
+.sidebar.sidebar-projects .projects-list{
+    display: none;
+    min-width: 66px;
+}
+.sidebar.sidebar-projects .arrow{
+    position: absolute;
+    padding: 5px;
+    width: 34px;
+    text-align: center;
+    background: rgb(230,33,23);
+    background: linear-gradient(90deg, rgba(230,33,23,1) 74%, rgba(206,53,44,1) 100%);
+    top: 0;
+    left: -34px;
+    -webkit-border-top-left-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    cursor: pointer;
+}
+.sidebar.sidebar-projects .projects-list .project-item{
+    margin: 10px 0;
+}
+
+
 /*****************************HEADER **********************/
 header {
     display: flex;

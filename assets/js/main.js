@@ -254,3 +254,10 @@ $(document).ready(function(){
         $(this).removeClass('expend-transition');
     });
 });
+
+$('.sidebar.sidebar-projects .arrow').on('click', function (e) {
+    $('.sidebar.sidebar-projects .projects-list').toggle( "slide" );
+    $('.sidebar.sidebar-projects .arrow .fa')
+        .toggleClass( "fa-arrow-left" )
+        .toggleClass( "fa-arrow-right" );
+});
