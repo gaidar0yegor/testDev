@@ -6,6 +6,12 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+## [0.38.6] - 2022-01-05
+### Réparé
 - Ajouter sidebar pour les accès rapides aux projets
 
 ## [0.38.5] - 2022-01-04
