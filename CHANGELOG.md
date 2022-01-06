@@ -6,13 +6,17 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+## [0.38.7] - 2022-01-06
+### Ajouté
 - Limiter la taille des fichiers à ajouter à 5MB
 - Afficher le side bar lorsque on survole le flèche
 - Modifier l'editeur de text d'ajout d'un projet 
 ### Réparé
 - Les invitation en tant qu'un observateur interne lors d'un tag dans un fait marquant
-
-
 
 ## [0.38.6] - 2022-01-05
 ### Réparé
