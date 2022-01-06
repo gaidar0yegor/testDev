@@ -7,10 +7,12 @@ use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\User;
 use App\MultiSociete\UserContext;
+use App\Notification\Event\ProjetParticipantAddedEvent;
 use App\ObservateurExterne\InvitationService;
 use App\Security\Role\RoleProjet;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class FaitMarquantService
 {
@@ -19,13 +21,15 @@ class FaitMarquantService
     private InvitationService $externeInvitationService;
     private Invitator $invitationService;
     private AuthorizationCheckerInterface $authChecker;
+    private EventDispatcherInterface $dispatcher;
 
     public function __construct(
         EntityManagerInterface $em,
         UserContext $userContext,
         InvitationService $externeInvitationService,
         Invitator $invitationService,
-        AuthorizationCheckerInterface $authChecker
+        AuthorizationCheckerInterface $authChecker,
+        EventDispatcherInterface $dispatcher
     )
     {
         $this->em = $em;
@@ -33,6 +37,7 @@ class FaitMarquantService
         $this->externeInvitationService = $externeInvitationService;
         $this->invitationService = $invitationService;
         $this->authChecker = $authChecker;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -88,7 +93,9 @@ class FaitMarquantService
                 $invitationSended = true;
                 $user->getSocieteUsers()->map(function($societeUser) use ($projet){
                     if ($societeUser->getSociete()->getId() === $projet->getSociete()->getId()){
-                        $this->invitationService->addParticipation($societeUser, $projet, RoleProjet::OBSERVATEUR);
+                        $projetParticipant = $this->invitationService->addParticipation($societeUser, $projet, RoleProjet::OBSERVATEUR);
+                        $this->em->flush();
+                        $this->dispatcher->dispatch(new ProjetParticipantAddedEvent($projetParticipant));
                     }
                     return;
                 });
@@ -100,6 +107,8 @@ class FaitMarquantService
                 $this->externeInvitationService->sendAutomaticInvitationSurProjet($projet,$email);
             }
         }
+
+        $this->em->flush();
 
         return [
             'invitationSended' => $invitationSended,
