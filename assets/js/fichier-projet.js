@@ -6,7 +6,7 @@ import {domDatatable, btnsDatatable} from './datatable';
 
 $.fn.dataTable.ext.search.push(
     function (settings, data, dataIndex) {
-        if (settings.sInstance === 'files_list_dt') {
+        if (settings.sInstance === 'files_list_dt' && $('#filter-files-dossier').length > 0) {
             var dossier = (data[0]).replace(/\s/g, ''),
                 tab = $('#filter-files-dossier').val().replace(/\s/g, '');
 
@@ -43,9 +43,9 @@ const activeDossierFichierTab = () => {
 };
 
 var files_list_dt = $('#files_list_dt').DataTable({
-    rowGroup: {dataSrc: [0], emptyDataGroup: null},
+    rowGroup: $('#filter-files-dossier').length > 0 ? {dataSrc: [0], emptyDataGroup: null} : false,
     order: [[0, 'asc'], [3, 'desc']],
-    columnDefs: [{visible: false, targets: 0}, {sortable: false, targets: [4]}],
+    columnDefs: [{visible: $('#filter-files-dossier').length === 0, targets: 0}, {sortable: false, targets: [4]}],
     info: false,
     paging: false,
     dom: domDatatable,
