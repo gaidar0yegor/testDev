@@ -255,9 +255,19 @@ $(document).ready(function(){
     });
 });
 
-$('.sidebar.sidebar-projects .arrow').on('click', function (e) {
-    $('.sidebar.sidebar-projects .projects-list').toggle( "slide" );
-    $('.sidebar.sidebar-projects .arrow .fa')
-        .toggleClass( "fa-arrow-left" )
-        .toggleClass( "fa-arrow-right" );
+$('.sidebar.sidebar-projects .arrow').mouseenter(function() {
+    if (!$('.sidebar.sidebar-projects .projects-list').is(":visible")){
+        $('.sidebar.sidebar-projects .projects-list').toggle( "slide" );
+        $('.sidebar.sidebar-projects .arrow .fa')
+            .toggleClass( "fa-arrow-left" )
+            .toggleClass( "fa-arrow-right" );
+    }
+})
+$('.sidebar.sidebar-projects').mouseleave(function() {
+    if ($('.sidebar.sidebar-projects .projects-list').is(":visible")){
+        $('.sidebar.sidebar-projects .projects-list').toggle( "slide" );
+        $('.sidebar.sidebar-projects .arrow .fa')
+            .toggleClass( "fa-arrow-left" )
+            .toggleClass( "fa-arrow-right" );
+    }
 });

@@ -5,8 +5,8 @@ namespace App\Form;
 use App\Entity\Projet;
 use App\Form\Custom\RadioChoiceColorsType;
 use App\Form\Custom\DatePickerType;
-use App\Form\Custom\MarkdownWysiwygType;
 use App\MultiSociete\UserContext;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -37,6 +37,7 @@ class ProjetFormType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'label' => 'Titre descriptif',
+                'required' => true,
             ])
             ->add('colorCode', ColorType::class, [
                 'label' => 'Code couleur',
@@ -55,15 +56,11 @@ class ProjetFormType extends AbstractType
             ])
             ->add('acronyme', TextType::class, [
                 'label' => 'Titre réduit / Acronyme',
-                'attr' => ['class' => 'form-control-lg'],
+                'required' => true,
             ])
-            ->add('resume', MarkdownWysiwygType::class, [
+            ->add('resume', CKEditorType::class, [
                 'label' => 'Résumé',
-                'required' => false,
-                'attr' => [
-                    'class' => 'text-justify',
-                    'rows' => 15,
-                ],
+                'required' => true,
             ])
             ->add('dateDebut', DatePickerType::class, [
                 'required' => false,
