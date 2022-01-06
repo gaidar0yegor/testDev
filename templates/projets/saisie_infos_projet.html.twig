@@ -21,9 +21,19 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-md-12">
+				{{ form_row(form.titre) }}
+			</div>
+			<div class="col-md-12">
+				{{ form_errors(form.resume) }}
+				{{ form_row(form.resume) }}
+				<span id="custom_ckeditor_max_char" class="d-none"
+					  data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}"
+					  data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
 
-        {{ form_row(form.titre) }}
-        {{ form_row(form.resume) }}
+			</div>
+		</div>
 
 		<div class="d-md-flex justify-content-between mt-3">
         	{{ form_row(form.dateDebut) }}
