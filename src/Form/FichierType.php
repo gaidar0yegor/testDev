@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 
 class FichierType extends AbstractType
@@ -23,6 +24,11 @@ class FichierType extends AbstractType
             ->add('file', FileType::class, [
                 'label' => false,
                 'required' 	=> true,
+                'constraints' => [
+                    new File([
+                        'maxSize' => Fichier::MAX_FILE_SIZE,
+                    ]),
+                ],
             ])
             ->add('nomFichier', TextType::class, [
                 'label' => false,

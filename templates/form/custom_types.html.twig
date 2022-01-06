@@ -51,7 +51,7 @@
                 <th>Dossier</th>
                 <th>Fichier</th>
                 <th>Auteur</th>
-                <th><span class="d-none d-sm-table-cell">Date</span></th>
+                <th>Date</th>
                 <th></th>
             </tr>
         </thead>
@@ -79,7 +79,7 @@
 
 {% block fichier_projet_row %}
 
-        {% if form.vars.data %}
+        {% if form.vars.data and form.vars.data.id %}
                 <tr class="{{ isAccessibleFichierProjet(form.vars.data) ? '' : 'd-none' }}">
                     <td>
                         {% if form.vars.data.dossierFichierProjet %}
@@ -142,19 +142,22 @@
                 </tr>
         {% else %}
             <tr>
-                <td colspan="3">
+                <td colspan="4">
                     <div class="row">
-                        <div class="col-md-4 col-sm-12 input-group-sm">
-                            {{ form_row(form.children.fichier.file) }}
+                        <div class="col-md-12 mb-1">
+                            {{ form_errors(form.children.fichier.file) }}
                         </div>
-                        <div class="col-md-8 col-sm-12 input-group-sm">
-                            {{ form_row(form.children.fichier.nomFichier) }}
+                        <div class="col-md-4 col-sm-12 mb-1">
+                            {{ form_widget(form.children.fichier.file) }}
                         </div>
-                        <div class="col-md-8 col-sm-12">
-                            {{ form_row(form.accessesChoices) }}
+                        <div class="col-md-8 col-sm-12 mb-1">
+                            {{ form_widget(form.children.fichier.nomFichier) }}
                         </div>
-                        <div class="col-md-4 col-sm-12">
-                            {{ form_row(form.dossierFichierProjet) }}
+                        <div class="col-md-8 col-sm-12 mb-1">
+                            {{ form_widget(form.accessesChoices) }}
+                        </div>
+                        <div class="col-md-4 col-sm-12 mb-1">
+                            {{ form_widget(form.dossierFichierProjet) }}
                         </div>
                     </div>
                 </td>

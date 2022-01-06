@@ -13,6 +13,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Fichier implements Serializable
 {
     /**
+     * Max file size en byte
+     *
+     * @var string
+     */
+    const MAX_FILE_SIZE = 5000000;
+
+    /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
