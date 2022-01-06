@@ -9,7 +9,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Limiter la taille des fichiers à ajouter à 5MB
 - Afficher le side bar lorsque on survole le flèche
 - Modifier l'editeur de text d'ajout d'un projet 
-
 ### Réparé
 - Les invitation en tant qu'un observateur interne lors d'un tag dans un fait marquant
 
