@@ -5,10 +5,15 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+
+
+
+
+
+## [0.38.9] - 2022-01-10
 ### Réparé
 - Corriger erreur : modification fait marquant
-
-
 
 ## [0.38.8] - 2022-01-10
 ### Ajouté
