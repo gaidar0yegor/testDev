@@ -10,7 +10,7 @@ fos_ck_editor:
     configs:
         my_config:
             toolbar: "my_toolbar"
-            height: '40em'
+            height: '25em'
             uiColor: '#f7f7f7'
             allowedContent: true
             inline: false
@@ -19,7 +19,7 @@ fos_ck_editor:
             extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions"
     toolbars:
         configs:
-            my_toolbar: [ '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@styles', '-', '@wiris' ]
+            my_toolbar: [ '@styles', '-', '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@wiris' ]
         items:
             clipboard: ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo']
             editing: ['Find', 'Replace', '-', 'SelectAll']

@@ -1,9 +1,7 @@
-{{ faitMarquant.createdBy.user.shortname }} vous a mentionné dans un fait marquant ajouté sur le projet {{ faitMarquant.projet.acronyme }} :
-
-Vous avez été mentionné sur le fait marquant "{{ faitMarquant.titre }}" du projet "{{ faitMarquant.projet.acronyme }}" sous RDI-Manager.
+{{ faitMarquant.createdBy.user.shortname }} vous a mentionné dans le fait marquant "{{ faitMarquant.titre }}" du projet {{ faitMarquant.projet.acronyme }} sous RDI-Manager.
 
 {% if sendFm %}
-{{ faitMarquant.description|markdown }}
+{{ faitMarquant.description|raw }}
 
 {% if invitationSended %}
 {% if faitMarquant.fichierProjets | length > 0 %}
