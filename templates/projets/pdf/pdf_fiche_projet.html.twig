@@ -11,6 +11,17 @@
     {% for file in encore_entry_css_files('app') %}
         <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet"/>
     {% endfor %}
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            config: ["MMLorHTML.js"],
+            jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
+            extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
+            TeX: {
+                extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+            }
+        });
+    </script>
+    <script type="text/javascript" src="{{ absolute_url(asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js')) }}"></script>
 </head>
 <body>
 
@@ -85,7 +96,7 @@
                         </h4>
                         <h3>{{ faitMarquant.titre }}</h3>
                         <p class="text-justify">
-                            {{ faitMarquant.description|nl2br }}
+                            {{ faitMarquant.description|raw }}
                         </p>
                     </li>
                 {% endif %}
