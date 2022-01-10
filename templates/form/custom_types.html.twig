@@ -45,7 +45,7 @@
     {{ form_errors(form) }}
     {{ form_help(form) }}
 
-    <table id="files_list_dt" class="table datatable custom-datatable hover">
+    <table id="files_list_dt" class="table datatable custom-datatable hover {{ form.vars.attr.class is defined ? form.vars.attr.class : '' }}">
         <thead>
             <tr>
                 <th>Dossier</th>
