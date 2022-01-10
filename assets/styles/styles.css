@@ -29,6 +29,38 @@ option:disabled {
 .custom-file-label{
     overflow: hidden;
 }
+
+@media (max-width: 576px) {
+    .d-xs-none {
+        display: none !important;
+    }
+    .d-xs-inline {
+        display: inline !important;
+    }
+    .d-xs-inline-block {
+        display: inline-block !important;
+    }
+    .d-xs-block {
+        display: block !important;
+    }
+    .d-xs-table {
+        display: table !important;
+    }
+    .d-xs-table-row {
+        display: table-row !important;
+    }
+    .d-xs-table-cell {
+        display: table-cell !important;
+    }
+    .d-xs-flex {
+        display: -ms-flexbox !important;
+        display: flex !important;
+    }
+    .d-xs-inline-flex {
+        display: -ms-inline-flexbox !important;
+        display: inline-flex !important;
+    }
+}
 /*****************************HTML*************************/
 h1, h2 {
     text-align: center;
@@ -214,7 +246,7 @@ nav.navbar{
 }
 .sidebar.sidebar-projects .projects-list{
     display: none;
-    min-width: 70px;
+    min-width: 80px;
     overflow-y: scroll;
 }
 .sidebar.sidebar-projects .projects-list::-webkit-scrollbar {

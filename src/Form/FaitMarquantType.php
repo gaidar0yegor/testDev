@@ -39,7 +39,7 @@ class FaitMarquantType extends AbstractType
             $sendedToEmailsChoices[($observateurExterne->getUser() ? "{$observateurExterne->getUser()->getShortname()} ({$email})" : $email)] = $email;
         }
 
-        if (count($faitMarquant->getSendedToEmails())){
+        if ($faitMarquant->getSendedToEmails() && count($faitMarquant->getSendedToEmails())){
             foreach ($faitMarquant->getSendedToEmails() as $sendedToEmail){
                 if (!in_array($sendedToEmail,$sendedToEmailsChoices)){
                     $sendedToEmailsChoices[$sendedToEmail] = $sendedToEmail;

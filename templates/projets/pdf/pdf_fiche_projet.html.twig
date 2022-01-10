@@ -96,7 +96,7 @@
                         </h4>
                         <h3>{{ faitMarquant.titre }}</h3>
                         <p class="text-justify">
-                            {{ faitMarquant.description|raw }}
+                            {{ faitMarquant.description|markdown|raw }}
                         </p>
                     </li>
                 {% endif %}

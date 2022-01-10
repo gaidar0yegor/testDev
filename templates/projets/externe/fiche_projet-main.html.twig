@@ -30,7 +30,7 @@
                                     </h4>
                                     <h3>{{ faitMarquant.titre }}</h3>
                                     <div class="event-content text-justify text-word-break">
-                                        {{ faitMarquant.description|raw }}
+                                        {{ faitMarquant.description|markdown|raw }}
                                     </div>
                                     <ul class="list-unstyled">
                                         {% for fichierProjet in faitMarquant.fichierProjets %}

@@ -36,13 +36,6 @@
     box-shadow: 0 0 5px #719ECE;
 }
 @media (max-width: 640px) {
-    #fait_marquant_timeline_dt_filter{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-    }
     .add-fait-marquant{
         padding-bottom: 10px;
     }
