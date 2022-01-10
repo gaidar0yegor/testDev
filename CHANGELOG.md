@@ -12,7 +12,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [0.38.8] - 2022-01-10
 ### Ajouté
-- Afficher que les boutons necessaire dans l'editeur de text
+- Afficher que les boutons nécessaires dans l'éditeur de texte
 
 ## [0.38.7] - 2022-01-06
 ### Ajouté
