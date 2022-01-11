@@ -6,14 +6,17 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+## [0.39.0] - 2022-01-11
+### Ajouté
 - Afficher les dernières actualités dans un slider
 - Mettre à jour la page Ajout/Modification du projet
 - Mettre à jour la page Ajout/Modification du fait marquant
 ### Réparé
 - Erreur : Licenses
-
-
-
 
 ## [0.38.9] - 2022-01-10
 ### Réparé
