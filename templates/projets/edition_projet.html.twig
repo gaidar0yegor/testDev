@@ -5,7 +5,8 @@
 {% block body %}
 
     <div class="row">
-        <div class="col-lg-8 offset-lg-2">
+        <div class="col-lg-10 offset-lg-1">
+
             <h1>Modification du projet {{ projet.acronyme }}</h1>
 
             <a class="d-block mb-4" href="{{ path('app_fo_projet', {id: projet.id}) }}">
@@ -14,20 +15,23 @@
             </a>
 
             {{ form_start(form) }}
-
-            {{ form_row(form.acronyme) }}
-
-            {{ form_label(form.colorCode) }}
-            <div class="row">
-                <div class="col-12 d-flex flex-row justify-content-start align-items-center">
-                    {{ form_row(form.usedColorCodes) }}
-                    {{ form_widget(form.colorCode) }}
-                </div>
-            </div>
+            {{ form_errors(form) }}
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-sm-8">
                     {{ form_row(form.titre) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.acronyme) }}
+                </div>
+                <div class="col-md-12">
+                    {{ form_label(form.colorCode) }}
+                    <div class="row">
+                        <div class="col-12 d-flex flex-row justify-content-center align-items-center">
+                            {{ form_row(form.usedColorCodes) }}
+                            {{ form_widget(form.colorCode) }}
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     {{ form_errors(form.resume) }}
@@ -39,28 +43,64 @@
                 </div>
             </div>
 
-            <div class="d-md-flex justify-content-between">
+            <div class="d-md-flex justify-content-between mt-3">
                 {{ form_row(form.dateDebut) }}
                 {{ form_row(form.dateFin) }}
             </div>
 
-            {{ form_row(form.dossierFichierProjets) }}
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" id="toggle_target_dossierFichierProjets"
+                                   class="custom-control-input toggle-target"
+                                   data-target="dossierFichierProjets" {% if projet.dossierFichierProjets|length > 0 %} checked {% endif %}>
+                            <label class="switch-custom custom-control-label" for="toggle_target_dossierFichierProjets">
+                                Voulez-vous gérer les fichier du projet dans des dossier ?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 dossierFichierProjets"
+                     style="{% if projet.dossierFichierProjets|length == 0 %} display: none; {% endif %}">
+                    {{ form_row(form.dossierFichierProjets) }}
 
-            <button class="btn btn-outline-primary add-folder-file mb-4">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                {{ 'add_folder_file_project'|trans }}
-            </button>
+                    <button class="btn btn-outline-primary add-folder-file mb-4">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        {{ 'add_folder_file_project'|trans }}
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" id="toggle_target_projetUrls"
+                                   class="custom-control-input toggle-target"
+                                   data-target="projetUrls" {% if projet.projetUrls|length > 0 %} checked {% endif %}>
+                            <label class="switch-custom custom-control-label" for="toggle_target_projetUrls">
+                                Voulez-vous ajouter des liens externes du projet ?
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 projetUrls"
+                     style="{% if projet.projetUrls|length == 0 %} display: none; {% endif %}">
+                    {{ form_row(form.projetUrls) }}
 
-            {{ form_row(form.projetUrls) }}
-
-            <button class="btn btn-outline-primary add-external-link mb-4">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-                {{ 'add_external_link'|trans }}
-            </button>
-
-            {{ form_row(form.projetInterne) }}
-            {{ form_row(form.projetCollaboratif) }}
-            {{ form_row(form.projetPpp) }}
+                    <button class="btn btn-outline-primary add-external-link mb-4">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        {{ 'add_external_link'|trans }}
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    {{ form_row(form.projetInterne) }}
+                </div>
+                <div class="col-md-12">
+                    {{ form_row(form.projetPpp) }}
+                </div>
+                <div class="col-md-12">
+                    {{ form_row(form.projetCollaboratif) }}
+                </div>
+            </div>
 
             <div class="text-center">
                 {{ form_row(form.submit, { 'label' : bouton }) }}
@@ -68,6 +108,8 @@
 
             {{ form_end(form) }}
         </div>
+    </div>
+    <div class="row">
         <div class="col-lg-4 offset-lg-2">
             <div class="card border-danger mb-3">
                 <div class="card-body text-danger">
@@ -76,7 +118,7 @@
                         {{ 'delete_project_link_description'|trans }}
                         <a
                                 href="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
-                                class="btn btn-outline-danger mt-4"
+                                class="btn btn-danger mt-4 btn-block"
                         >{{ 'verify_and_delete_project'|trans }}</a>
                     </p>
                 </div>
@@ -90,7 +132,7 @@
                         <p class="card-text">
                             <a
                                     href="{{ path('app_fo_projet_resume', {'id': projet.id}) }}"
-                                    class="btn btn-outline-success mt-4"
+                                    class="btn btn-success mt-4 btn-block"
                             >{{ 'resume_project'|trans }}</a>
                         </p>
                     </div>
@@ -104,7 +146,7 @@
                         <p class="card-text">
                             <a
                                     href="{{ path('app_fo_projet_suspend', {'id': projet.id}) }}"
-                                    class="btn btn-outline-warning mt-4"
+                                    class="btn btn-warning mt-4 btn-block"
                             >{{ 'suspend_project'|trans }}</a>
                         </p>
                     </div>
