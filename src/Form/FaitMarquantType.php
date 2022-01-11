@@ -69,6 +69,9 @@ class FaitMarquantType extends AbstractType
                 'projet' => $builder->getData()->getProjet(),
                 'entry_options' => array('projet' => $builder->getData()->getProjet()),
                 'label' => false,
+                'attr' => [
+                    'class' => 'no-searchBar no-exportBtn'
+                ],
             ])
             ->add('date', DatePickerType::class, [
                 'label' => false,
@@ -83,7 +86,7 @@ class FaitMarquantType extends AbstractType
                 'expanded' 	  => false,
                 'required' 	  => false,
                 'attr' => [
-                    'class' => 'select-2 form-control',
+                    'class' => 'select-2 form-control w-100',
                     'data-placeholder' => 'Sélectionner des adresses e-mail ...'
                 ],
                 'choices' => $sendedToEmailsChoices,
@@ -93,7 +96,7 @@ class FaitMarquantType extends AbstractType
                 'required' 	  => false,
                 'mapped' => false,
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control w-100',
                     'placeholder' => 'Ajouter des nouvelles adresses e-mail séparées par un point-virgule " ; "'
                 ],
             ])

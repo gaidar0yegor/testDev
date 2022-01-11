@@ -51,8 +51,6 @@ class OrganizeFilesIntoFoldersCommand extends Command
                 foreach ($projet->getFichierProjets() as $fichierProjet) {
                     if ($this->storage->has($fichierProjet->getFichier()->getNomMd5())) {
                         $this->storage->rename($fichierProjet->getFichier()->getNomMd5(), $fichierProjet->getRelativeFilePath());
-                    } else {
-                        $this->em->remove($fichierProjet);
                     }
                 }
             }

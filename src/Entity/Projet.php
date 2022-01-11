@@ -27,7 +27,7 @@ class Projet implements HasSocieteInterface
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      *
-     * @Serializer\Groups({"recentProjets", "saisieTemps"})
+     * @Serializer\Groups({"recentProjets", "saisieTemps","lastActivities"})
      */
     private $id;
 
@@ -104,7 +104,7 @@ class Projet implements HasSocieteInterface
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Serializer\Groups({"recentProjets", "saisieTemps"})
+     * @Serializer\Groups({"recentProjets", "saisieTemps","lastActivities"})
      */
     private $acronyme;
 

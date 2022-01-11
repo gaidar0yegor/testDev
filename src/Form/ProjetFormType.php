@@ -81,14 +81,17 @@ class ProjetFormType extends AbstractType
             ->add('projetCollaboratif', CheckboxType::class, [
                 'label' => 'Projet en collaboration avec au moins un partenaire externe',
                 'required' => false,
+                'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('projetPpp', CheckboxType::class, [
                 'label' => 'Projet en collaboration avec un partenaire universitaire',
                 'required' => false,
+                'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('projetInterne', CheckboxType::class, [
                 'label' => 'Projet réalisé en interne par la société (avec ou sans prestataires)',
                 'required' => false,
+                'label_attr' => ['class' => 'switch-custom'],
             ])
             ->add('dossierFichierProjets', CollectionType::class, [
                 'label' => 'projet.dossierFichierProjets',

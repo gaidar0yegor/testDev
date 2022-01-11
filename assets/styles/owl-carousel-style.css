@@ -1,0 +1,26 @@
+.owl-carousel .owl-stage{
+    display: flex;
+}
+.owl-carousel .item {
+    display: flex;
+    flex: 1 0 auto;
+    height: 100%;
+}
+.owl-carousel .item .card-body {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+.owl-carousel .owl-nav {
+    text-align: center;
+}
+.owl-prev, .owl-next {
+    display: inline-block;
+    margin: 5px 10px;
+    color: #d9d9d9;
+}
+.owl-prev:hover, .owl-next:hover {
+    color: #c1c1c1;
+}

@@ -36,9 +36,6 @@
     box-shadow: 0 0 5px #719ECE;
 }
 @media (max-width: 640px) {
-    .add-fait-marquant{
-        padding-bottom: 10px;
-    }
     .add-fait-marquant p{
         padding-top: 0;
     }

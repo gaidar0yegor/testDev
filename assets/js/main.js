@@ -246,6 +246,18 @@ $(document).on('change', 'input#societe_colorCode', function (e) {
 
     return false;
 });
+$('.toggle-target').on('click', function (e) {
+    var $target = $('.' + $(this).data( "target" ));
+    if ($(this).is(":checked")){
+        $($target).slideDown();
+    } else {
+        $($target).slideUp();
+        var $btns = $($target).find('.remove-row-btn');
+        $($btns).each((i, btn) => {
+            $(btn).trigger('click');
+        });
+    }
+});
 
 $(document).ready(function(){
     $(document).find('.img-expend').hover(function() {

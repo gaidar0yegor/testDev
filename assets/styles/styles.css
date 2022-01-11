@@ -101,7 +101,11 @@ h1 select {
     padding-left: 0;
     margin-left: 0;
 }
-
+.custom-control-input:checked ~ .switch-custom::before{
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745;
+}
 table thead tr {
     background-color: #ce352c;
     color: white;
