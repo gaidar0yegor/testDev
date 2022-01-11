@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProjetActivityRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation as Serializer;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetActivityRepository::class)
@@ -20,12 +21,16 @@ class ProjetActivity
     /**
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="projetActivities")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Serializer\Groups({"lastActivities"})
      */
     private $projet;
 
     /**
      * @ORM\ManyToOne(targetEntity=Activity::class, inversedBy="projetActivities")
      * @ORM\JoinColumn(nullable=false)
+     *
+     * @Serializer\Groups({"lastActivities"})
      */
     private $activity;
 

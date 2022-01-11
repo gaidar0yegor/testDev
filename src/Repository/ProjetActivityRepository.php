@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Projet;
 use App\Entity\ProjetActivity;
+use App\Entity\SocieteUser;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -47,6 +48,22 @@ class ProjetActivityRepository extends ServiceEntityRepository
         }
 
         return $qb
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findBySocieteUser(SocieteUser $societeUser, int $limit = 5)
+    {
+        return $this->createQueryBuilder('projetActivity')
+            ->leftJoin('projetActivity.activity', 'activity')
+            ->leftJoin('projetActivity.projet', 'projet')
+            ->leftJoin('projet.projetParticipants', 'projetParticipant')
+            ->andWhere('projetParticipant.societeUser = :societeUser')
+            ->setParameters([
+                'societeUser' => $societeUser,
+            ])
+            ->orderBy('activity.datetime', 'desc')
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult();
     }

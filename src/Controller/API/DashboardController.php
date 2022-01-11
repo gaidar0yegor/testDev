@@ -3,6 +3,7 @@
 namespace App\Controller\API;
 
 use App\Activity\ActivityService;
+use App\Entity\ProjetActivity;
 use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
 use App\Security\Role\RoleProjet;
@@ -71,28 +72,25 @@ class DashboardController extends AbstractController
      * )
      */
     public function getRecentsProjets(
-        ProjetLastActionService $projetLastActionService,
+        UserContext $userContext,
         ProjetActivityRepository $projetActivityRepository,
         ActivityService $activityService,
         NormalizerInterface $normalizer
     ): JsonResponse {
-        $recentProjets = $projetLastActionService->findRecentProjetsForUser();
-        $normalizedProjets = $normalizer->normalize($recentProjets, null, [
-            'groups' => 'recentProjets',
-        ]);
+        $lastProjetActivities = $projetActivityRepository->findBySocieteUser($userContext->getSocieteUser());
+        $normalizedLastProjetActivities = [];
 
-        foreach ($recentProjets as $key => $projet) {
-            $projetActivities = $projetActivityRepository->findByProjet($projet, 1);
-            $normalizedProjets[$key]['activities'] = [];
-
-            foreach ($projetActivities as $projetActivity) {
-                $normalizedProjets[$key]['activities'][] = [
-                    'text' => $activityService->render($projetActivity->getActivity()),
-                ];
-            }
+        foreach ($lastProjetActivities as $key => $projetActivity) {
+            if ($projetActivity instanceof ProjetActivity)
+            array_push($normalizedLastProjetActivities,[
+                "id" => $projetActivity->getProjet()->getId(),
+                "acronyme" => $projetActivity->getProjet()->getAcronyme(),
+                "activity" => $activityService->render($projetActivity->getActivity()),
+                "datetime" => $projetActivity->getActivity()->getDatetime()->format('d/m/Y H:i')
+            ]);
         }
 
-        return new JsonResponse(['recentsProjets' => $normalizedProjets]);
+        return new JsonResponse(['recentsProjets' => $normalizedLastProjetActivities]);
     }
 
     /**

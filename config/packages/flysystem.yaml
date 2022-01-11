@@ -3,7 +3,7 @@ parameters:
     filesAvatarDir: '%kernel.project_dir%/public/avatar'
     filesAvatarUri: '/avatar/'
     projectFileStorageUri: '%kernel.project_dir%/var/storage/default/uploads'
-    licensesStorageUri: '%kernel.project_dir%/var/storage/default/uploads'
+    licensesStorageUri: '%kernel.project_dir%/var/storage/licenses'
 
 flysystem:
     storages:
