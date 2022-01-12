@@ -10,6 +10,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.40.0] - 2022-01-12
+### Ajouté
+- Mettre à jour style page Saisie Temps
 
 ## [0.39.1] - 2022-01-12
 ### Réparé
