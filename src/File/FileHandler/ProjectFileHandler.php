@@ -54,19 +54,11 @@ class ProjectFileHandler implements FileHandlerInterface
 
     public function createDownloadResponse(FichierProjet $fichierProjet, bool $toDownload = false): Response
     {
-        if ($toDownload){
-            // to open stream in browser
-            return $this->fileResponseFactory->createFileResponse(
-                $this->storage->readStream($fichierProjet->getRelativeFilePath()),
-                $fichierProjet->getFichier()->getNomFichier()
-            );
-        } else {
-            // to downlowd the stream
-            $file = new File("{$this->appKernel->getContainer()->getParameter('projectFileStorageUri')}/{$fichierProjet->getRelativeFilePath()}");
-            $response = new BinaryFileResponse($file);
-            $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_INLINE, $fichierProjet->getFichier()->getNomFichier());
-            return $response;
-        }
+        return $this->fileResponseFactory->createFileResponse(
+            $this->storage->readStream($fichierProjet->getRelativeFilePath()),
+            $fichierProjet->getFichier()->getNomFichier(),
+            $toDownload
+        );
     }
 
     public function delete(FichierProjet $fichierProjet): void

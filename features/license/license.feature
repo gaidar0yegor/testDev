@@ -36,7 +36,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
             | projet_form[titre]    | Projet Test 2 |
         And I press "Soumettre"
         Then I should not see "Le projet \"Projet Test 2\" a été créé"
-        But I should see "Vous ne pouvez pas faire cette action car ca dépasserait votre quota \"activeProjet\" qui sera alors de 2 sur 1"
+        But I should see "Vous ne pouvez pas faire cette action car ça dépasserait votre quota \"activeProjet\" qui sera alors de 2 sur 1"
 
     Scenario: Je ne peux pas ajouter de contributeur si ca dépasse mon quota de contributeurs
         Given societe "Société" reset licenses
@@ -49,7 +49,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         And I fill in the following:
             | liste_projet_participants[projetParticipants][1][role] | PROJET_CONTRIBUTEUR |
         And I press "Mettre à jour"
-        Then I should see "Vous ne pouvez pas faire cette action car ca dépasserait votre quota \"contributeurs\" qui sera alors de 2 sur 1"
+        Then I should see "Vous ne pouvez pas faire cette action car ça dépasserait votre quota \"contributeurs\" qui sera alors de 2 sur 1"
 
     Scenario: Je peux ajouter un fait marquant si mes licenses sont valides
         Given societe "Société" reset licenses
