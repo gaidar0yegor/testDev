@@ -12,7 +12,7 @@ class LicenseQuotaReachedException extends LicenseException
     public function __construct(string $limitedElement, Quota $quotaAfter)
     {
         parent::__construct(sprintf(
-            'Vous ne pouvez pas faire cette action car ca dépasserait votre quota "%s" qui sera alors de %d sur %d.',
+            'Vous ne pouvez pas faire cette action car ça dépasserait votre quota "%s" qui sera alors de %d sur %d.',
             $limitedElement,
             $quotaAfter->getCurrent(),
             $quotaAfter->getLimit()
