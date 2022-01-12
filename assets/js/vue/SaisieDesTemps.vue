@@ -45,9 +45,10 @@
 
                     <div
                         v-for="tempsPasse in cra.tempsPasses" :key="tempsPasse.id"
-                        class="row mb-2 align-items-center"
+                        class="mb-2 d-flex flex-row justify-content-center align-items-center"
                     >
-                        <div class="col text-right lead">
+                        <div class="col d-none d-sm-block"></div>
+                        <div class="col text-center lead">
                             <label
                                 :for="'temps_passe_pourcentage_' + tempsPasse.id"
                                 v-tippy="{content: tempsPasse.projet.titre}"
@@ -72,8 +73,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col d-none d-sm-block">
-                        </div>
+                        <div class="col d-none d-sm-block"></div>
                     </div>
                     <p 
                         v-if="!validCra(cra)" 
