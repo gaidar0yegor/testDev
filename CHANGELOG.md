@@ -7,7 +7,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Mettre à jour la notification du onBoarding lors de la création d'un projet
-
+### Réparé
+- Exportation Tableau de bord to PDF
 
 
 ## [0.40.0] - 2022-01-12
