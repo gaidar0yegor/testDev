@@ -10,12 +10,35 @@ $(document).on('click', '#btnHtmlToPdf', function (e) {
     });
     $(elem).find('.not-printable').remove();
 
+    $(elem).find('svg').each((i, mySVG) => {
+        var tgtImage = $(mySVG).parent(),
+            can      = document.createElement('canvas'),
+            ctx      = can.getContext('2d'),
+            loader   = new Image;
+
+        loader.width  = can.width  = $(mySVG).width();
+        loader.height = can.height = $(mySVG).height();
+        loader.onload = function(){
+            ctx.drawImage( loader, 0, 0, loader.width, loader.height );
+            tgtImage.src = can.toDataURL();
+        };
+        var svgAsXML = (new XMLSerializer).serializeToString( mySVG );
+        loader.src = 'data:image/svg+xml,' + encodeURIComponent( svgAsXML );
+        $(loader).addClass('svg-to-img');
+        $(mySVG).parent().html(loader);
+    });
+
+    $(elem).find('img.svg-to-img').each((i, img) => {
+        $(img).width('100%');
+        $(img).height('100%');
+    });
+
     var opt = {
-        margin: [0.2, 0],
+        margin: [0.1, 0.1],
         enableLinks:    false,
         image:  { type: 'jpeg', quality: 1 },
         html2canvas:    { scale: 4, dpi: 300, letterRendering: true },
-        jsPDF:  { unit: 'in', format: 'A3', orientation: 'l' }
+        jsPDF:  { unit: 'in', format: 'A4', orientation: 'p' }
     };
 
     html2pdf().set(opt).from(elem).toPdf().get('pdf').then(function (pdf) {
