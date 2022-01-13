@@ -29,7 +29,7 @@ $(() => {
                     <div class="item card">
                         <div class="card-body">
                             <h5 class="card-title"><a href="${projetPath}">${projet.acronyme}</a></h5>
-                            <ul class="list-unstyled mb-0">${projet.activity}</ul>
+                            <ul class="list-unstyled">${projet.activity}</ul>
                             <small><i>${projet.datetime}</i></small>
                         </div>
                     </div>

@@ -5,9 +5,11 @@
 {% block body %}
     <row>
         <columns>
+            {% if societe.projets|length <= 1 %}
             <p>
                 <strong>Félicitations, vous avez validé votre compte utilisateur RDI-Manager</strong>
             </p>
+            {% endif %}
 
             <p>
                 <strong>En qualité d’Administrateur, vous devez maintenant inviter vos chefs de projets et collaborateurs</strong>,
