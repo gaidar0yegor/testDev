@@ -45,6 +45,7 @@ $(() => {
     $('.year-switch').each((_, divSwitch) => {
         const $divSwitch = $(divSwitch);
         const withUnit = divSwitch.dataset.withUnit ? divSwitch.dataset.withUnit : false;
+        const societeUser = divSwitch.dataset.societeUser ? divSwitch.dataset.societeUser : false;
         const yearFrom = divSwitch.dataset.yearFrom ? parseInt(divSwitch.dataset.yearFrom, 10) : currentYear - 5;
         const toYear = divSwitch.dataset.yearTo ? parseInt(divSwitch.dataset.yearTo, 10) : currentYear;
         const selectedYear = divSwitch.dataset.yearSelected ? parseInt(divSwitch.dataset.yearSelected, 10) : currentYear;
@@ -67,7 +68,7 @@ $(() => {
             if (withUnit){
                 unit = $('.' + withUnit + ' select').val()
             }
-            const dispatchEvent = (year, unit) => {
+            const dispatchEvent = (year, unit, societeUser) => {
                 window.dispatchEvent(
                     new CustomEvent(
                         divSwitch.dataset.eventName,
@@ -75,20 +76,21 @@ $(() => {
                             detail:{
                                 year: year,
                                 unit: unit,
+                                societeUser: societeUser,
                             }
                         }
                     ));
             };
 
             $select.on('change', function () {
-                dispatchEvent(parseInt(this.value, 10), $('.' + withUnit + ' select').val());
+                dispatchEvent(parseInt(this.value, 10), $('.' + withUnit + ' select').val(), societeUser);
             });
             if (withUnit){
                 $('.' + withUnit + ' select').on('change', function () {
-                    dispatchEvent(parseInt($(".year-switch[data-with-unit='"+ withUnit +"'] select").val(), 10), this.value);
+                    dispatchEvent(parseInt($(".year-switch[data-with-unit='"+ withUnit +"'] select").val(), 10), this.value, societeUser);
                 });
             }
-            dispatchEvent(selectedYear, unit);
+            dispatchEvent(selectedYear, unit, societeUser);
         }
     });
 });

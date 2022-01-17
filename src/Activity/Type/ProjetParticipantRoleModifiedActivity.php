@@ -54,15 +54,27 @@ class ProjetParticipantRoleModifiedActivity implements ActivityInterface
 
     public function render(array $activityParameters, Activity $activity): string
     {
-        return sprintf(
-            "%s %s a modifié le rôle de %s de %s à %s, sur le projet %s.",
-            '<i class="fa fa-refresh" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['modifiedBy']),
-            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['participant']),
-            $this->translator->trans($activityParameters['oldRole']),
-            $this->translator->trans($activityParameters['newRole']),
-            $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
-         );
+        if ($activityParameters['modifiedBy'] === $activityParameters['participant']){
+            return sprintf(
+                "%s %s a modifié son rôle de %s à %s, sur le projet %s.",
+                '<i class="fa fa-refresh" aria-hidden="true"></i>',
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['modifiedBy']),
+                $this->translator->trans($activityParameters['oldRole']),
+                $this->translator->trans($activityParameters['newRole']),
+                $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
+            );
+        } else {
+            return sprintf(
+                "%s %s a modifié le rôle de %s de %s à %s, sur le projet %s.",
+                '<i class="fa fa-refresh" aria-hidden="true"></i>',
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['modifiedBy']),
+                $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['participant']),
+                $this->translator->trans($activityParameters['oldRole']),
+                $this->translator->trans($activityParameters['newRole']),
+                $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
+            );
+        }
+
     }
 
     public function postUpdate(ProjetParticipant $projetParticipant, LifecycleEventArgs $args): void
