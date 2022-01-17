@@ -26,6 +26,9 @@ cd rdi_manager_01/
 # Install php dependencies
 composer install
 
+# Install Assests
+php bin/console assets:install
+
 # - Editez votre .env.local (base de données, ... voir plus bas)
 
 # Si la base de données existe déjà
