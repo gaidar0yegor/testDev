@@ -6,10 +6,12 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+## [0.40.11] - 2022-01-17
+### Ajouté
 - Tableau de bord pour la multi-société
-
-
-
 
 ## [0.40.1] - 2022-01-13
 ### Ajouté
