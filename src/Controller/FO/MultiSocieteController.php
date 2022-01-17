@@ -59,4 +59,21 @@ class MultiSocieteController extends AbstractController
 
         return $this->redirectToRoute('app_home');
     }
+
+    /**
+     * @Route("/mes-societes/dashboard", name="app_fo_multi_societe_dashboard")
+     */
+    public function dashboard(
+        UserContext $userContext,
+        EntityManagerInterface $em
+    ): Response {
+        $userContext->disconnectSociete();
+        $em->flush();
+
+        $user = $userContext->getUser();
+
+        return $this->render('multi_societe/dashboard.html.twig',[
+            'societeUsers' => $user->getSocieteUsers()
+        ]);
+    }
 }
