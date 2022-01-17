@@ -26,6 +26,9 @@ cd rdi_manager_01/
 # Install php dependencies
 composer install
 
+# Install CKEditor
+php bin/console ckeditor:install --clear=skip
+
 # Install Assests
 php bin/console assets:install
 
