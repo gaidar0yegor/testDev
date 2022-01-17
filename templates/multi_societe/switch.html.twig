@@ -6,8 +6,8 @@
 
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
     {% for societeUser in app.user.societeUsers %}
-        <div class="col mb-4">
-            <div data-societe-user-id="{{ societeUser.id }}" class="card {% if societeUser == app.user.currentSocieteUser %}border-success{% endif %} {% if not societeUser.enabled %}bg-light{% endif %}">
+        <div class="col-md-4 mb-4">
+            <div data-societe-user-id="{{ societeUser.id }}" class="card h-100 {% if societeUser == app.user.currentSocieteUser %}border-success{% endif %} {% if not societeUser.enabled %}bg-light{% endif %}">
                 <div class="card-body" style="border-top: 5px solid {{ societeUser.societe.colorCode }}">
                     {% if not societeUser.enabled %}
                         <span
@@ -57,9 +57,9 @@
             </div>
         </div>
     {% endfor %}
-    <div class="col mb-4">
-        <div class="card mes-societes-create">
-            <div class="card-body text-center">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 mes-societes-create">
+            <div class="card-body text-center d-flex justify-content-center align-items-center">
                 <a href="{{ path('app_register') }}" class="stretched-link lead">
                     <i class="fa fa-2x fa-building-o" aria-hidden="true"></i>
                     <br>
