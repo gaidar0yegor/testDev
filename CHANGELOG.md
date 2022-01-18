@@ -6,8 +6,16 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-- La page : Projets consolidés dans la multi-société
 
+
+
+
+
+## [0.40.12] - 2022-01-18
+### Ajouté
+- La page : Projets consolidés dans la multi-société
+### Réparé
+- Erreur dans la création d'un société
 
 ## [0.40.11] - 2022-01-17
 ### Ajouté
