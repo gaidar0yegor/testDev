@@ -145,7 +145,7 @@ class User implements UserInterface
     /**
      * All the SocieteUser this user has access to.
      *
-     * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="user", cascade={"persist"})
      */
     private $societeUsers;
 

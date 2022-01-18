@@ -70,7 +70,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * Représente le compte RDI-Manager qui a accès à cette société.
      * Peut être null si l'user n'a pas encore rejoint, dans le cas d'une invitation en attente.
      *
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="societeUsers")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="societeUsers", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $user;
