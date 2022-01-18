@@ -41,6 +41,7 @@ class DashboardController extends AbstractController
             array_push($normalizedLastProjetActivities,[
                 "id" => $projetActivity->getProjet()->getId(),
                 "acronyme" => $projetActivity->getProjet()->getAcronyme(),
+                "colorCode" => $projetActivity->getProjet()->getColorCode(),
                 "activity" => $activityService->render($projetActivity->getActivity()),
                 "datetime" => $projetActivity->getActivity()->getDatetime()->format('d/m/Y H:i')
             ]);

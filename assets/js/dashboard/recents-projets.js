@@ -28,9 +28,14 @@ $(() => {
                 const $projet = $(`
                     <div class="item card">
                         <div class="card-body">
-                            <h5 class="card-title"><a href="${projetPath}">${projet.acronyme}</a></h5>
+                            <h5 class="card-title">
+                                <a href="${projetPath}">${projet.acronyme}</a>
+                                <span class="badge d-inline-block rounded-circle mt-1 float-right" style="background-color: ${projet.colorCode};width: 15px;height: 15px;"></span>
+                            </h5>
                             <ul class="list-unstyled">${projet.activity}</ul>
-                            <small><i>${projet.datetime}</i></small>
+                            <div class="card-footer">
+                                <small><i>${projet.datetime}</i></small>
+                            </div>
                         </div>
                     </div>
                 `);
