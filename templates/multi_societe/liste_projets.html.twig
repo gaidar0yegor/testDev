@@ -60,20 +60,17 @@
         </thead>
         <tbody>
 
-            {% for projet in app.user.projetObservateurExternes %}
-                <tr
-                    data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
-                    data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
-                >
-                    <td class="text-center" data-sort='{{ projet.colorCode }}'>
-                        {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
+            {% for projetObservateurExterne in app.user.projetObservateurExternes %}
+                <tr>
+                    <td class="text-center" data-sort='{{ projetObservateurExterne.projet.colorCode }}'>
+                        {% include 'utils/_code_color.html.twig' with {color: projetObservateurExterne.projet.colorCode, size: 15} %}
                     </td>
-                    <td class="text-left"><a title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
-                    <td class="text-center">{{ projet.societe.raisonSociale }}</td>
-                    <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center">{{ projet.statut }}</td>
-                    <td class="text-center">{{ projet.projetParticipants|length }}</td>
+                    <td class="text-left"><a title="{{ projetObservateurExterne.projet.titre }}">{{ projetObservateurExterne.projet.acronyme }}</a></td>
+                    <td class="text-center">{{ projetObservateurExterne.projet.societe.raisonSociale }}</td>
+                    <td class="text-center" data-sort='{{ projetObservateurExterne.projet.dateDebut ? projetObservateurExterne.projet.dateDebut|date('Ymd') : '' }}'>{{ projetObservateurExterne.projet.dateDebut ? projetObservateurExterne.projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center" data-sort='{{ projetObservateurExterne.projet.dateFin ? projetObservateurExterne.projet.dateFin|date('Ymd') : '' }}'>{{ projetObservateurExterne.projet.dateFin ? projetObservateurExterne.projet.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center">{{ projetObservateurExterne.projet.statut }}</td>
+                    <td class="text-center">{{ projetObservateurExterne.projet.projetParticipants|length }}</td>
                 </tr>
             {% endfor %}
 
