@@ -19,7 +19,7 @@ use function Clue\StreamFilter\fun;
 class MultiSocieteController extends AbstractController
 {
     /**
-     * @Route("/", name="app_fo_multi_societe_switch")
+     * @Route("", name="app_fo_multi_societe_switch")
      */
     public function switch(
         UserContext $userContext,
