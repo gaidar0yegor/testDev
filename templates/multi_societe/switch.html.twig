@@ -4,7 +4,7 @@
 
 <h1>Mes sociétés</h1>
 
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3">
+<div class="row row-flex row-cols-1 row-cols-md-2 row-cols-lg-3">
     {% for societeUser in app.user.societeUsers %}
         <div class="col-md-4 mb-4">
             <div data-societe-user-id="{{ societeUser.id }}" class="card h-100 {% if societeUser == app.user.currentSocieteUser %}border-success{% endif %} {% if not societeUser.enabled %}bg-light{% endif %}">

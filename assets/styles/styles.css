@@ -92,14 +92,14 @@ h1 select {
   margin-top: 1em;
 }
 
-.row {
+.row.row-flex {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
 }
-.row > [class*="col-"] {
+.row.row-flex > [class*="col-"] {
   display: flex;
   flex-direction: column;
 }

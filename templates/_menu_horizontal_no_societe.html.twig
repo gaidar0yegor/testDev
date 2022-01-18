@@ -23,7 +23,9 @@
 
         </div>
     </li>
-    <li class="nav-item {{ activeOn('app_fo_observateur_externe_list', 'app_fo_observateur_externe_view') }}">
-        <a class="nav-link" href="{{ path('app_fo_observateur_externe_list') }}">{{ 'menu.projects.external'|trans }}</a>
+    <li class="nav-item {{ activeOn('app_fo_multi_societe_projets', 'app_fo_observateur_externe_view') }}">
+        <a class="nav-link" href="{{ path('app_fo_multi_societe_projets') }}">
+            <i class="fa fa-list-ul" aria-hidden="true"></i> {{ 'menu.projects'|trans }}
+        </a>
     </li>
 </ul>
