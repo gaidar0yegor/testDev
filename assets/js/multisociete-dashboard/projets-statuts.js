@@ -6,8 +6,8 @@ const generateChart = bindtoId => {
         data: {
             type : 'pie',
             columns: [
-                ['En cours', 3],
-                ['Terminés', 1],
+                ['En cours', 0],
+                ['Terminés', 0],
                 ['Suspendus', 0], // Fake data, commercial purpose
             ],
         },

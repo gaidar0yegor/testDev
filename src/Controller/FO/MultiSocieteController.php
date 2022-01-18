@@ -2,17 +2,24 @@
 
 namespace App\Controller\FO;
 
+use App\Entity\Projet;
+use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use function Clue\StreamFilter\fun;
 
+/**
+ * @Route("/mes-societes")
+ */
 class MultiSocieteController extends AbstractController
 {
     /**
-     * @Route("/mes-societes", name="app_fo_multi_societe_switch")
+     * @Route("", name="app_fo_multi_societe_switch")
      */
     public function switch(
         UserContext $userContext,
@@ -26,7 +33,7 @@ class MultiSocieteController extends AbstractController
 
     /**
      * @Route(
-     *      "/mes-societes/{id}",
+     *      "/{id}",
      *      requirements={"id": "\d+"},
      *      methods={"POST"},
      *      name="app_fo_multi_societe_switch_post"
@@ -45,7 +52,7 @@ class MultiSocieteController extends AbstractController
 
     /**
      * @Route(
-     *      "/mes-societes/deconnexion",
+     *      "/deconnexion",
      *      methods={"POST"},
      *      name="app_fo_multi_societe_switch_disconnect"
      * )
@@ -61,7 +68,10 @@ class MultiSocieteController extends AbstractController
     }
 
     /**
-     * @Route("/mes-societes/dashboard", name="app_fo_multi_societe_dashboard")
+     * @Route(
+     *     "/dashboard",
+     *     name="app_fo_multi_societe_dashboard"
+     * )
      */
     public function dashboard(
         UserContext $userContext,
@@ -75,5 +85,16 @@ class MultiSocieteController extends AbstractController
         return $this->render('multi_societe/dashboard.html.twig',[
             'societeUsers' => $user->getSocieteUsers()
         ]);
+    }
+
+    /**
+     * @Route(
+     *     "/projets",
+     *     name="app_fo_multi_societe_projets"
+     * )
+     */
+    public function projets(): Response
+    {
+        return $this->render('multi_societe/liste_projets.html.twig');
     }
 }
