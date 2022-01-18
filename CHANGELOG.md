@@ -6,7 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
+- La page : Projets consolidés dans la multi-société
 
 
 ## [0.40.11] - 2022-01-17
