@@ -10,6 +10,7 @@ if (chartDiv) {
             type: 'bar',
             order: 'asc',
             columns: [],
+            groups: []
         },
         axis: {
             x: {
