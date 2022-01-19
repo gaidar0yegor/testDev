@@ -63,6 +63,7 @@ menu.admin.licenses: 'Mes licences'
 loading: Chargement…
 projects_analyse_of_year: 'Analyse des projets de l''année'
 hours_by_project: 'Nombre d''heures par projet'
+hours_by_project_by_month: 'Nombre d''heures par projet et par mois'
 my_contributions: 'Mes contributions'
 my_contributions.me: Moi
 my_contributions.team: Équipe

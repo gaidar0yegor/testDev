@@ -5,6 +5,7 @@ import './styles/dashboard.scss';
 
 import './js/dashboard/temps-saisis';
 
+import './js/dashboard/user-heures-par-projet-par-mois';
 import './js/dashboard/heures-par-projet';
 import './js/dashboard/recents-projets';
 import './js/dashboard/moi-vs-equipe';

@@ -97,6 +97,40 @@ class StatisticsService
     }
 
     /**
+     * @return array
+     */
+    public function calculateHeuresMensuelUserParProjet(SocieteUser $societeUser, int $year): array
+    {
+        $tempsPasses = $this->tempsPasseRepository->findAllForUserInYear($societeUser, $year);
+        $heuresPasseesPerMonth = [];
+
+        foreach ($tempsPasses as $tempsPasse) {
+            $projetIndex = $tempsPasse->getProjet()->getAcronyme();
+            $numMonth = (int)$tempsPasse->getCra()->getMois()->format('m');
+
+            if (!array_key_exists($projetIndex, $heuresPasseesPerMonth) ||
+                (array_key_exists($projetIndex, $heuresPasseesPerMonth) && !array_key_exists($numMonth, $heuresPasseesPerMonth[$projetIndex]))
+            ) {
+                $heuresPasseesPerMonth[$projetIndex][$numMonth] = 0.0;
+            }
+
+            $hoursPerDay = $this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse);
+
+            $heuresPasseesPerMonth[$projetIndex][$numMonth] += array_sum($hoursPerDay);
+        }
+        foreach ($heuresPasseesPerMonth as $projet => $heures ){
+            for($i = 1; $i <= 12; $i++){
+                if (!key_exists($i,$heures)){
+                    $heuresPasseesPerMonth[$projet][$i] = 0.0;
+                }
+            }
+            ksort($heuresPasseesPerMonth[$projet]);
+        }
+
+        return $heuresPasseesPerMonth;
+    }
+
+    /**
      * @return int
      */
     public function calculateMonthsValidByYear(SocieteUser $societeUser, int $year): int

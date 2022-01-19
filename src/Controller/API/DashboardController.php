@@ -63,6 +63,35 @@ class DashboardController extends AbstractController
     }
 
     /**
+     * @Route(
+     *   "/mes-temps-annee/{year}",
+     *   methods={"GET"},
+     *   requirements={"year"="\d{4}"},
+     *   name="api_dashboard_temps_yearly"
+     * )
+     */
+    public function getTempsYearly(
+        int $year,
+        UserContext $userContext,
+        StatisticsService $statisticsService
+    ): JsonResponse {
+
+        $HeuresMensuel = $statisticsService->calculateHeuresMensuelUserParProjet($userContext->getSocieteUser(), $year);
+        $tempsPerProjetPerMonth = [
+            'projets' => array_keys($HeuresMensuel),
+            'heures' => []
+        ];
+
+        foreach ($HeuresMensuel as $projet => $heure){
+            $temps = array_values($heure);
+            array_unshift($temps,$projet);
+            array_push($tempsPerProjetPerMonth['heures'],$temps);
+        }
+
+        return new JsonResponse($tempsPerProjetPerMonth);
+    }
+
+    /**
      * Retourne les derniers projets accédés.
      *
      * @Route(
