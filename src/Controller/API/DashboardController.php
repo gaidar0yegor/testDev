@@ -10,7 +10,6 @@ use App\Security\Role\RoleProjet;
 use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\Service\ParticipantService;
-use App\Service\ProjetLastActionService;
 use App\Service\StatisticsService;
 use App\MultiSociete\UserContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -60,35 +59,6 @@ class DashboardController extends AbstractController
                 : $cra->getTempsPassesModifiedAt()->format('d M Y')
             ,
         ]);
-    }
-
-    /**
-     * @Route(
-     *   "/mes-temps-annee/{year}",
-     *   methods={"GET"},
-     *   requirements={"year"="\d{4}"},
-     *   name="api_dashboard_temps_yearly"
-     * )
-     */
-    public function getTempsYearly(
-        int $year,
-        UserContext $userContext,
-        StatisticsService $statisticsService
-    ): JsonResponse {
-
-        $HeuresMensuel = $statisticsService->calculateHeuresMensuelUserParProjet($userContext->getSocieteUser(), $year);
-        $tempsPerProjetPerMonth = [
-            'projets' => array_keys($HeuresMensuel),
-            'heures' => []
-        ];
-
-        foreach ($HeuresMensuel as $projet => $heure){
-            $temps = array_values($heure);
-            array_unshift($temps,$projet);
-            array_push($tempsPerProjetPerMonth['heures'],$temps);
-        }
-
-        return new JsonResponse($tempsPerProjetPerMonth);
     }
 
     /**
