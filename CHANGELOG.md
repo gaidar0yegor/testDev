@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Le user puisse voir son graphique de ses temps passés sur les projets personnellement dans le Dashboard
+- Dashboard : Afficher "Vous n'avez pas saisis vos temps de Janvier" si la date d'entrée est connue
 ### Modifié
 - Style des cartes des actualités dans le tableau de bord
 ### Réparé
