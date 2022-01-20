@@ -1,3 +1,4 @@
+import '../../node_modules/c3/c3.css';
 import c3 from 'c3';
 import datesLocalize from './dates.localize';
 
@@ -16,19 +17,16 @@ if (chartDiv) {
             x: {
                 type: 'category',
                 categories: datesLocalize.monthsShort,
+                tick: {
+                    rotate: 30,
+                }
             },
-        },
-        bar: {
-            width: {
-                ratio: 0.8,
-            },
-        },
+        }
     });
 
-    window.addEventListener(
-        'user-chart-year-changed',
-        e => {
-            fetch(`/api/stats/admin/temps-par-projet/${chartDiv.dataset.userId}/${e.detail.year}/${e.detail.unit}`)
+    window.addEventListener('user-chart-year-changed', event => {
+            chart.unload();
+            fetch(`/api/stats/admin/temps-par-projet/${chartDiv.dataset.userId}/${event.detail.year}/${event.detail.unit}`)
                 .then(response => response.json())
                 .then(tempsParProjets => {
                     const total = {};
@@ -53,19 +51,18 @@ if (chartDiv) {
                     ;
 
                     if (0 === columns.length) {
-                        chart.unload();
                         return;
                     }
 
                     chart.load({
-                        columns,
+                        columns: columns
                     });
 
                     chart.groups([
                         Object.keys(total),
                     ]);
-                })
-            ;
+
+                });
         },
     );
 }
