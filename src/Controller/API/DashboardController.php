@@ -10,7 +10,6 @@ use App\Security\Role\RoleProjet;
 use App\Service\CraService;
 use App\Service\DateMonthService;
 use App\Service\ParticipantService;
-use App\Service\ProjetLastActionService;
 use App\Service\StatisticsService;
 use App\MultiSociete\UserContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,21 +43,22 @@ class DashboardController extends AbstractController
             $dateMonthService->getCurrentMonth(null === $month ? 'now' : $month)
         );
 
+        $notValidMois = $craService->getFirstNotValidMonth($userContext->getSocieteUser());
+
         return new JsonResponse([
             'month' => $cra->getMois()->format('Y-m'),
             'isCraSubmitted' => $cra->isCraSubmitted(),
             'isTempsPassesSubmitted' => $cra->isTempsPassesSubmitted(),
             'hasTempsPasses' => $cra->hasTempsPasses(),
-
             'craModifiedAt' => null === $cra->getCraModifiedAt()
                 ? null
                 : $cra->getCraModifiedAt()->format('d M Y')
             ,
-
             'tempsPassesModifiedAt' => null === $cra->getTempsPassesModifiedAt()
                 ? null
                 : $cra->getTempsPassesModifiedAt()->format('d M Y')
             ,
+            'notValidMois' => $notValidMois
         ]);
     }
 
