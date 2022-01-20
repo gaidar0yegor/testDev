@@ -63,4 +63,17 @@ class CraRepository extends ServiceEntityRepository implements UserMonthCraRepos
             ->getSingleScalarResult()
             ;
     }
+
+    public function findValidMoisByUser(SocieteUser $societeUser): array
+    {
+        $array = $this->createQueryBuilder('cra')
+            ->select('cra.mois')
+            ->where('cra.societeUser = :societeUser')
+            ->andWhere('cra.tempsPassesModifiedAt is NOT NULL')
+            ->orderBy('cra.mois', 'asc')
+            ->setParameter('societeUser',$societeUser)
+            ->getQuery()->getResult();
+
+        return array_column($array, 'mois');
+    }
 }

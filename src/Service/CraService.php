@@ -215,6 +215,32 @@ class CraService
         return $boolCra;
     }
 
+    public function getFirstNotValidMonth(SocieteUser $societeUser)
+    {
+        $craValidMois = $this->craRepository->findValidMoisByUser($societeUser);
+        $firstPeriod = $societeUser->getSocieteUserPeriods()->first();
+        $notValidMois = null;
+        if ($firstPeriod instanceof SocieteUserPeriod && null !== $firstPeriod->getDateEntry()){
+            $month = $firstPeriod->getDateEntry()->getTimestamp();
+            $end = (new \DateTime(date('01-m-Y')))->getTimestamp();
+
+            while($month < $end)
+            {
+                if (
+                    $this->dateMonthService->isUserBelongingToSocieteByDate($societeUser,(new \DateTime())->setTimestamp($month)) &&
+                    !in_array((new \DateTime())->setTimestamp($month), $craValidMois)
+                ){
+                    $notValidMois = (new \DateTime())->setTimestamp($month)->format('M Y');
+                    break;
+                }
+
+                $month = strtotime("+1 month", $month);
+            }
+        }
+
+        return $notValidMois;
+    }
+
     /**
      * @param TempsPasse[] $tempsPasses Liste de temps passés à verifier si un est lié au $projet.
      * @param Projet $projet

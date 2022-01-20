@@ -11,14 +11,19 @@ $(() => {
 
     const addAlert = (type, icon, html) => {
         mesTempsRappel.innerHTML += `
-            <div class="alert alert-${type}" role="alert">
-                <i class="fa fa-${icon}" aria-hidden="true"></i>
-                ${html}
-            </div>
+               <span class="badge badge-${type} d-block mb-1"><i class="fa fa-${icon}" aria-hidden="true"></i> ${html}</span>
         `;
     };
 
     const addAlertForCra = cra => {
+        if (cra.notValidMois) {
+            addAlert(
+                'danger',
+                'calendar-times-o',
+                `Vous n'avez pas saisi vos temps passés de ${cra.notValidMois}.`,
+            );
+        }
+
         if (!cra.hasTempsPasses) {
             addAlert(
                 'success',
