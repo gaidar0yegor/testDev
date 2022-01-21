@@ -7,11 +7,11 @@ $(() => {
     const clearAlerts = () => mesTempsRappel.innerHTML = '';
 
     const monthName = n => ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'][n];
-    const craMonthName = cra => monthName(parseInt(cra.month.split('-')[1], 10) - 1);
+    const craMonthName = month => monthName(parseInt(month.split('-')[1], 10) - 1);
 
     const addAlert = (type, icon, html) => {
         mesTempsRappel.innerHTML += `
-               <span class="badge badge-${type} d-block mb-1"><i class="fa fa-${icon}" aria-hidden="true"></i> ${html}</span>
+               <span class="badge badge-${type} mb-1"><i class="fa fa-${icon}" aria-hidden="true"></i> ${html}</span><br>
         `;
     };
 
@@ -20,7 +20,7 @@ $(() => {
             addAlert(
                 'danger',
                 'calendar-times-o',
-                `Vous n'avez pas saisi vos temps passés de ${cra.notValidMois}.`,
+                `Vous n'avez pas saisi vos temps passés de ${craMonthName(cra.notValidMois)} ${cra.notValidMois.split('-')[0]}.`,
             );
         }
 
@@ -28,7 +28,7 @@ $(() => {
             addAlert(
                 'success',
                 'check',
-                `Pour ${craMonthName(cra)}, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.`,
+                `Pour ${craMonthName(cra.month)}, vous n'avez pas de temps à saisir car vous n'étiez contributeur sur aucun projet.`,
             );
 
             return;
@@ -38,7 +38,7 @@ $(() => {
             addAlert(
                 'success',
                 'calendar-check-o',
-                `Vous avez saisi vos temps passés de ${craMonthName(cra)} le ${cra.tempsPassesModifiedAt}.`,
+                `Vous avez saisi vos temps passés de ${craMonthName(cra.month)} le ${cra.tempsPassesModifiedAt}.`,
             );
 
             return;
@@ -47,7 +47,7 @@ $(() => {
         addAlert(
             'warning',
             'calendar-times-o',
-            `Vous devriez <a href="${urlTempsPasses}/${cra.month.replace('-', '/')}" class="alert-link">enregistrer vos temps passés de ${craMonthName(cra)}</a>.`,
+            `Vous devriez <a href="${urlTempsPasses}/${cra.month.replace('-', '/')}" class="alert-link">enregistrer vos temps passés de ${craMonthName(cra.month)}</a>.`,
         );
     };
 

@@ -230,7 +230,7 @@ class CraService
                     $this->dateMonthService->isUserBelongingToSocieteByDate($societeUser,(new \DateTime())->setTimestamp($month)) &&
                     !in_array((new \DateTime())->setTimestamp($month), $craValidMois)
                 ){
-                    $notValidMois = (new \DateTime())->setTimestamp($month)->format('M Y');
+                    $notValidMois = (new \DateTime())->setTimestamp($month)->format('Y-m');
                     break;
                 }
 
