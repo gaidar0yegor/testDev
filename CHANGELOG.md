@@ -10,6 +10,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.41.1] - 2022-01-21
+### Modifié
+- Style des notifications de saisie temps
+
 ## [0.41.0] - 2022-01-21
 ### Ajouté
 - Le user puisse voir son graphique de ses temps passés sur les projets personnellement dans le Dashboard
