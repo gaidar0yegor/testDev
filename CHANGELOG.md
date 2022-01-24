@@ -10,6 +10,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.41.3] - 2022-01-24
+### Réparé
+- Généraliser la correction sur tous les graphs
+
 ## [0.41.2] - 2022-01-24
 ### Réparé
 - Erreur : chargement des graphiques
