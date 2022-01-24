@@ -18,7 +18,9 @@ const formsWithDraftSupport = [
 const options = new FormDataJsonOptions({
     inputFilter: input => {
         const inputType = input.type.toLowerCase();
-
+        if (input.classList.contains('ckeditor-instance')){
+            input.value = CKEDITOR.instances[input.id].getData();
+        }
         return inputType !== 'hidden' && inputType !== 'password';
     },
 });
@@ -51,6 +53,9 @@ const loadDraft = form => {
 
     FormDataJson.fillFormFromJsonValues(form, JSON.parse(localStorage.getItem(itemKey(form))));
     form.querySelectorAll('input, textarea').forEach(input => {
+        if (input.classList.contains('ckeditor-instance')){
+            CKEDITOR.instances[input.id].setData(input.value);
+        }
         input.dispatchEvent(new CustomEvent('change'));
     });
 };

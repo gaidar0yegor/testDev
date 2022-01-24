@@ -63,7 +63,10 @@ class FaitMarquantType extends AbstractType
             ])
             ->add('description', CKEditorType:: class, [
                 'label' => false,
-                'required' => true
+                'required' => true,
+                'attr' => [
+                    'class' => 'ckeditor-instance',
+                ],
             ])
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),

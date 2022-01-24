@@ -61,6 +61,9 @@ class ProjetFormType extends AbstractType
             ->add('resume', CKEditorType::class, [
                 'label' => 'Résumé',
                 'required' => true,
+                'attr' => [
+                    'class' => 'ckeditor-instance',
+                ],
             ])
             ->add('dateDebut', DatePickerType::class, [
                 'required' => false,
