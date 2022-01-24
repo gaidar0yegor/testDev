@@ -1,5 +1,5 @@
 import c3 from 'c3';
-import {formatHours} from './utils';
+import {formatHours} from './../dashboard/utils';
 import datesLocalize from './../dates.localize';
 import userContext from './../userContext';
 
@@ -75,3 +75,4 @@ window.addEventListener('loadYearlyCharts', event => {
     }, 1000);
 
 });
+

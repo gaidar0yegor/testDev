@@ -48,6 +48,7 @@ menu.projects.external: 'Projets externes'
 menu.time_tracking: 'Suivi temps'
 menu.time_tracking.time_spent: 'Temps passés'
 menu.time_tracking.absences: Absences
+menu.time_tracking.my_tracking: Mon suivi
 menu.admin: Administration
 create_project_requires_project_manager_role: 'Vous devez avoir le rôle de chef de
   projet pour créer un nouveau projet.'

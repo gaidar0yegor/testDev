@@ -28,6 +28,7 @@ Encore
     .addEntry('multisociete-dashboard', './assets/multisociete-dashboard.js')
     .addEntry('login', './assets/login.js')
     .addEntry('timesheet-pdf', './assets/timesheet-pdf.js')
+    .addEntry('mon-suivi', './assets/mon-suivi.js')
     .addEntry('back-office', './assets/back-office.js')
     .addEntry('foundation', './assets/foundation.js')
     .addEntry('fiche-projet', './assets/fiche-projet.js')

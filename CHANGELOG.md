@@ -5,6 +5,8 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Page Mon suivi dans "Suivi temps"
 ### Réparé
 - Sauvegarder et remplir le formulaire pour continuer la saisie des données non soumises.
 

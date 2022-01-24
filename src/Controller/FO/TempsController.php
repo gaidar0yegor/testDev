@@ -51,4 +51,12 @@ class TempsController extends AbstractController
             'cra' => $craService->loadCraForUser($userContext->getSocieteUser(), $month),
         ]);
     }
+
+    /**
+     * @Route("/mon-suivi", name="app_fo_mon_suivi")
+     */
+    public function monSuivi(UserContext $userContext) {
+
+        return $this->render('temps/mon-suivi.html.twig');
+    }
 }
