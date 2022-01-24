@@ -10,6 +10,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.41.2] - 2022-01-24
+### Réparé
+- Erreur : chargement des graphiques
+
 ## [0.41.1] - 2022-01-21
 ### Modifié
 - Style des notifications de saisie temps
