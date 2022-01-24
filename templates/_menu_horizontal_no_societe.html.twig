@@ -3,29 +3,34 @@
 </div>
 
 <ul class="navbar-nav mr-auto">
-    <li class="nav-item dropdown {{ activeOn('app_fo_multi_societe_switch','app_fo_multi_societe_dashboard') }}">
+    <li class="nav-item {{ activeOn('app_fo_multi_societe_switch') }}">
+        <a class="nav-link" href="{{ path('app_fo_multi_societe_switch') }}">
+            <i class="fa fa-building" aria-hidden="true"></i> {{ 'my_companies'|trans }}
+        </a>
+    </li>
+    <li class="nav-item dropdown {{ activeOn('app_fo_multi_societe_dashboard') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-building" aria-hidden="true"></i> <span class="nav-item-title">{{ 'my_companies'|trans }}</span>
+            <i class="fa fa-tachometer" aria-hidden="true"></i> <span class="nav-item-title">{{ 'dashboard'|trans }}</span>
         </a>
         <div class="dropdown-menu">
             <a
                     class="dropdown-item"
-                    href="{{ path('app_fo_multi_societe_switch') }}"
-            >
-                <i class="fa fa-building" aria-hidden="true"></i>{{ 'my_companies'|trans }}
+                    href="{{ path('app_fo_multi_societe_dashboard') }}">
+                <i class="fa fa-bar-chart-o" aria-hidden="true"></i> {{ 'menu.dashboard.general'|trans }}
             </a>
             <a
-                    class="dropdown-item"
-                    href="{{ path('app_fo_multi_societe_dashboard') }}"
-            >
-                <i class="fa fa-tachometer" aria-hidden="true"></i>{{ 'dashboard'|trans }}
+                    class="dropdown-item" href="#">
+                <i class="fa fa-line-chart" aria-hidden="true"></i> {{ 'menu.dashboard.consolide'|trans }}
             </a>
-
+            <a
+                    class="dropdown-item" href="#">
+                <i class="fa fa-search-plus" aria-hidden="true"></i> {{ 'menu.dashboard.create_page'|trans }}
+            </a>
         </div>
     </li>
     <li class="nav-item {{ activeOn('app_fo_multi_societe_projets', 'app_fo_observateur_externe_view') }}">
         <a class="nav-link" href="{{ path('app_fo_multi_societe_projets') }}">
-            <i class="fa fa-list-ul" aria-hidden="true"></i> {{ 'menu.projects'|trans }}
+            <i class="fa fa-list-ul" aria-hidden="true"></i> {{ 'menu.all_projects'|trans }}
         </a>
     </li>
 </ul>
