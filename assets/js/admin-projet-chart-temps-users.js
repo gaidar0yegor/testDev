@@ -27,46 +27,45 @@ if (chartDiv) {
         },
     });
 
-    window.addEventListener(
-        'projet-chart-year-changed',
-        e => {
+    window.addEventListener('projet-chart-year-changed', event => {
             chart.unload();
 
-            fetch(`/api/stats/admin/temps-par-user/${chartDiv.dataset.projetId}/${e.detail.year}/${e.detail.unit}`)
-                .then(response => response.json())
-                .then(tempsParUsers => {
-                    const total = {};
+            setTimeout(() => {
+                fetch(`/api/stats/admin/temps-par-user/${chartDiv.dataset.projetId}/${event.detail.year}/${event.detail.unit}`)
+                    .then(response => response.json())
+                    .then(tempsParUsers => {
+                        const total = {};
 
-                    tempsParUsers.months.forEach(month => {
-                        Object.entries(month).forEach(([user, value]) => {
-                            if (!total[user]) {
-                                total[user] = 0;
-                            }
+                        tempsParUsers.months.forEach(month => {
+                            Object.entries(month).forEach(([user, value]) => {
+                                if (!total[user]) {
+                                    total[user] = 0;
+                                }
 
-                            total[user] += value;
+                                total[user] += value;
+                            });
                         });
-                    });
 
-                    const columns = Object
-                        .keys(total)
-                        .sort((a, b) => total[b] - total[a])
-                        .map(projet => ([
-                            projet,
-                            ...tempsParUsers.months.map(month => month[projet] ?? 0),
-                        ]))
-                    ;
+                        const columns = Object
+                            .keys(total)
+                            .sort((a, b) => total[b] - total[a])
+                            .map(projet => ([
+                                projet,
+                                ...tempsParUsers.months.map(month => month[projet] ?? 0),
+                            ]))
+                        ;
 
-                    setTimeout(() => {
                         chart.load({
-                            columns,
+                            unload: true,
+                            columns: columns
                         });
 
                         chart.groups([
                             Object.keys(total),
                         ]);
-                    }, 500);
-                })
-            ;
+                    })
+                ;
+            }, 1000);
         },
     );
 }
