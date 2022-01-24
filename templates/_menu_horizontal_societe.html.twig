@@ -33,7 +33,7 @@
             {% endif %}
         </div>
     </li>
-    <li class="nav-item dropdown {{ activeOn('app_fo_temps', 'app_fo_absences') }}">
+    <li class="nav-item dropdown {{ activeOn('app_fo_temps', 'app_fo_absences', 'app_fo_mon_suivi') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.time_tracking'|trans }}</span>
         </a>
@@ -42,13 +42,19 @@
                 class="dropdown-item"
                 href="{{ path('app_fo_temps') }}"
             >
-                <i class="fa fa-tasks" aria-hidden="true"></i>{{ 'menu.time_tracking.time_spent'|trans }}
+                <i class="fa fa-clock-o" aria-hidden="true"></i>{{ 'menu.time_tracking.time_spent'|trans }}
             </a>
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_absences') }}"
             >
                 <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.time_tracking.absences'|trans }}
+            </a>
+            <a
+                class="dropdown-item"
+                href="{{ path('app_fo_mon_suivi') }}"
+            >
+                <i class="fa fa-tasks" aria-hidden="true"></i>{{ 'menu.time_tracking.my_tracking'|trans }}
             </a>
         </div>
     </li>
