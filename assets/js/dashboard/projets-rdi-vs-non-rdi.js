@@ -35,24 +35,29 @@ const yearsAxisSince = sinceYear => {
 window.addEventListener('loadSinceYearCharts', event => {
     const {year} = event.detail;
 
-    fetch(`/api/dashboard/projets-type/since-${year}`)
-        .then(response => response.json())
-        .then(projetsType => {
-            const nbProjets = ['Projets'];
-            const nbProjetsRdi = ['dont projets RDI'];
+    chart.unload();
 
-            for (let i = year; i <= currentYear; ++i) {
-                nbProjets.push(projetsType[i].projets);
-                nbProjetsRdi.push(projetsType[i].projetsRdi);
-            }
+    setTimeout(() => {
+        fetch(`/api/dashboard/projets-type/since-${year}`)
+            .then(response => response.json())
+            .then(projetsType => {
+                const nbProjets = ['Projets'];
+                const nbProjetsRdi = ['dont projets RDI'];
 
-            chart.load({
-                columns: [
-                    yearsAxisSince(year),
-                    nbProjets,
-                    nbProjetsRdi,
-                ],
-            });
-        })
-    ;
+                for (let i = year; i <= currentYear; ++i) {
+                    nbProjets.push(projetsType[i].projets);
+                    nbProjetsRdi.push(projetsType[i].projetsRdi);
+                }
+
+                chart.load({
+                    unload: true,
+                    columns: [
+                        yearsAxisSince(year),
+                        nbProjets,
+                        nbProjetsRdi,
+                    ],
+                });
+            })
+        ;
+    }, 1000);
 });

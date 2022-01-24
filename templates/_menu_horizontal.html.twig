@@ -16,7 +16,7 @@
             {% endif %}
 
             {% if app.user.currentSocieteUser %}
-            <div class="btn-group user-menu">
+            <div class="btn-group user-menu ml-2">
                 <a href="#" style="{{ userContext|apply_code_color_societe('background-color') }}" class="btn btn-outline-light border-0 dropdown-toggle dropdown-societe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% include 'utils/_avatar.html.twig' with {societe: app.user.currentSocieteUser.societe, size: 24} %}
                     {{ app.user.currentSocieteUser.societe.raisonSociale }}
@@ -38,7 +38,7 @@
             </div>
             {% endif %}
 
-            <div class="btn-group user-menu">
+            <div class="btn-group user-menu ml-2">
                 <a href="#" class="btn btn-outline-light border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {% include 'utils/_avatar.html.twig' with {user: app.user, size: 24} %}
                     {{ app.user.prenom }}

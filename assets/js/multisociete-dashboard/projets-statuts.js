@@ -33,16 +33,21 @@ window.addEventListener('loadSinceYearCharts', event => {
     const {year} = event.detail;
     const chart = generateChart(`projets-statuts-${societeUser}`);
 
-    fetch(`/api/multiSociete/dashboard/projets-statuts/${societeUser}/since-${year}`)
-        .then(response => response.json())
-        .then(heuresParProjet => {
-            chart.load({
-                columns: [
-                    ['En cours', heuresParProjet.active],
-                    ['Terminés', heuresParProjet.finished],
-                    ['Suspendus', heuresParProjet.suspended]
-                ],
-            });
-        })
-    ;
+    chart.unload();
+
+    setTimeout(() => {
+        fetch(`/api/multiSociete/dashboard/projets-statuts/${societeUser}/since-${year}`)
+            .then(response => response.json())
+            .then(heuresParProjet => {
+                chart.load({
+                    unload: true,
+                    columns: [
+                        ['En cours', heuresParProjet.active],
+                        ['Terminés', heuresParProjet.finished],
+                        ['Suspendus', heuresParProjet.suspended]
+                    ],
+                });
+            })
+        ;
+    }, 1000);
 });
