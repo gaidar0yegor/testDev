@@ -1,9 +1,9 @@
 import c3 from 'c3';
-import {formatHours} from '../dashboard/utils';
+import {formatHours} from '../../dashboard/utils';
 
 const generateChart = bindtoId => {
     return c3.generate({
-        bindto: `#${bindtoId}`,
+        bindto: `#dashboard-general #${bindtoId}`,
         data: {
             type: 'bar',
             x: '_projects_year',
@@ -34,7 +34,7 @@ window.addEventListener('loadYearlyCharts', event => {
     chart.unload();
 
     setTimeout(() => {
-        fetch(`/api/multiSociete/dashboard/heures-par-projet/${societeUser}/${year}`)
+        fetch(`/api/multiSociete/dashboard/general/heures-par-projet/${societeUser}/${year}`)
             .then(response => response.json())
             .then(heuresParProjet => {
 

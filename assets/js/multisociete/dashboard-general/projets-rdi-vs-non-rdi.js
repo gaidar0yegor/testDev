@@ -1,12 +1,11 @@
 import c3 from 'c3';
-import {formatHours} from "../dashboard/utils";
 
 const currentYear = (new Date()).getFullYear();
 
 
 const generateChart = bindtoId => {
     return c3.generate({
-        bindto: `#${bindtoId}`,
+        bindto: `#dashboard-general #${bindtoId}`,
         data: {
             type: 'bar',
             x: '_projects_year',
@@ -44,7 +43,7 @@ window.addEventListener('loadSinceYearCharts', event => {
     chart.unload();
 
     setTimeout(() => {
-        fetch(`/api/multiSociete/dashboard/projets-type/${societeUser}/since-${year}`)
+        fetch(`/api/multiSociete/dashboard/general/projets-type/${societeUser}/since-${year}`)
             .then(response => response.json())
             .then(projetsType => {
                 const nbProjets = ['Projets'];

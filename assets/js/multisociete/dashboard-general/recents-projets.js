@@ -1,14 +1,14 @@
 import 'owl.carousel2/dist/assets/owl.carousel.css';
-import '../../styles/owl-carousel-style.css'
+import '../../../styles/owl-carousel-style.css'
 import $ from 'jquery';
 import 'owl.carousel2/dist/owl.carousel.min';
 
 $(() => {
 
-    $('.recent-activity').each((_, divActivities) => {
+    $('#dashboard-general .recent-activity').each((_, divActivities) => {
         const societeUser = divActivities.dataset.societeUser;
 
-        fetch(`/api/multiSociete/dashboard/recents-projets/${societeUser}`)
+        fetch(`/api/multiSociete/dashboard/general/recents-projets/${societeUser}`)
             .then(response => response.json())
             .then(({recentsProjets}) => {
                 if (0 === recentsProjets.length) {

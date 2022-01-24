@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/multiSociete/dashboard")
+ * @Route("/api/multiSociete/dashboard/general")
  */
-class DashboardController extends AbstractController
+class DashboardGeneralController extends AbstractController
 {
     /**
      * Retourne les derniéres activités par societe

@@ -2,7 +2,7 @@ import c3 from 'c3';
 
 const generateChart = bindtoId => {
     return c3.generate({
-        bindto: `#${bindtoId}`,
+        bindto: `#dashboard-general #${bindtoId}`,
         data: {
             type : 'pie',
             columns: [
@@ -36,7 +36,7 @@ window.addEventListener('loadSinceYearCharts', event => {
     chart.unload();
 
     setTimeout(() => {
-        fetch(`/api/multiSociete/dashboard/projets-statuts/${societeUser}/since-${year}`)
+        fetch(`/api/multiSociete/dashboard/general/projets-statuts/${societeUser}/since-${year}`)
             .then(response => response.json())
             .then(heuresParProjet => {
                 chart.load({

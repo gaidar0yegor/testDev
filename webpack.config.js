@@ -25,7 +25,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('vueapp', './assets/vueapp.js')
     .addEntry('dashboard', './assets/dashboard.js')
-    .addEntry('multisociete-dashboard', './assets/multisociete-dashboard.js')
+    .addEntry('multisociete', './assets/multisociete.js')
     .addEntry('login', './assets/login.js')
     .addEntry('timesheet-pdf', './assets/timesheet-pdf.js')
     .addEntry('mon-suivi', './assets/mon-suivi.js')
