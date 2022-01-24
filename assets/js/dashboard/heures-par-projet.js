@@ -27,15 +27,18 @@ window.addEventListener('loadYearlyCharts', event => {
 
     chart.unload();
 
-    fetch(`/api/dashboard/heures-par-projet/${year}`)
-        .then(response => response.json())
-        .then(heuresParProjet => {
+    setTimeout(function () {
+        fetch(`/api/dashboard/heures-par-projet/${year}`)
+            .then(response => response.json())
+            .then(heuresParProjet => {
 
-            heuresParProjet._projects_year = year;
+                heuresParProjet._projects_year = year;
 
-            chart.load({
-                columns: Object.keys(heuresParProjet).map(projetName => [projetName, heuresParProjet[projetName]]),
-            });
-        })
-    ;
+                chart.load({
+                    unload: true,
+                    columns: Object.keys(heuresParProjet).map(projetName => [projetName, heuresParProjet[projetName]]),
+                });
+            })
+        ;
+    }, 1000);
 });

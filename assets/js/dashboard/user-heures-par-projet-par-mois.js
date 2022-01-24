@@ -31,41 +31,47 @@ window.addEventListener('loadYearlyCharts', event => {
     const {year} = event.detail;
 
     chart.unload();
-    fetch(`/api/stats/admin/temps-par-projet/${userContext.societeUserId}/${year}/hour`)
-        .then(response => response.json())
-        .then(tempsParProjets => {
-            const total = {};
 
-            tempsParProjets.months.forEach(month => {
-                Object.entries(month).forEach(([projet, value]) => {
-                    if (!total[projet]) {
-                        total[projet] = 0;
-                    }
+    setTimeout(function () {
+        fetch(`/api/stats/admin/temps-par-projet/${userContext.societeUserId}/${year}/hour`)
+            .then(response => response.json())
+            .then(tempsParProjets => {
+                const total = {};
 
-                    total[projet] += value;
+                tempsParProjets.months.forEach(month => {
+                    Object.entries(month).forEach(([projet, value]) => {
+                        if (!total[projet]) {
+                            total[projet] = 0;
+                        }
+
+                        total[projet] += value;
+                    });
                 });
-            });
 
-            const columns = Object
-                .keys(total)
-                .sort((a, b) => total[b] - total[a])
-                .map(projet => ([
-                    projet,
-                    ...tempsParProjets.months.map(month => month[projet] ?? 0),
-                ]))
-            ;
+                const columns = Object
+                    .keys(total)
+                    .sort((a, b) => total[b] - total[a])
+                    .map(projet => ([
+                        projet,
+                        ...tempsParProjets.months.map(month => month[projet] ?? 0),
+                    ]))
+                ;
 
-            if (0 === columns.length) {
-                return;
-            }
+                if (0 === columns.length) {
+                    return;
+                }
 
-            chart.load({
-                columns: columns
-            });
+                chart.load({
+                    unload: true,
+                    columns: columns
+                });
 
-            chart.groups([
-                Object.keys(total),
-            ]);
+                chart.groups([
+                    Object.keys(total),
+                ]);
 
-        });
+            })
+        ;
+    }, 1000);
+
 });

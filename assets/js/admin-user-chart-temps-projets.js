@@ -26,43 +26,47 @@ if (chartDiv) {
 
     window.addEventListener('user-chart-year-changed', event => {
             chart.unload();
-            fetch(`/api/stats/admin/temps-par-projet/${chartDiv.dataset.userId}/${event.detail.year}/${event.detail.unit}`)
-                .then(response => response.json())
-                .then(tempsParProjets => {
-                    const total = {};
 
-                    tempsParProjets.months.forEach(month => {
-                        Object.entries(month).forEach(([projet, value]) => {
-                            if (!total[projet]) {
-                                total[projet] = 0;
-                            }
+            setTimeout(function () {
+                fetch(`/api/stats/admin/temps-par-projet/${chartDiv.dataset.userId}/${event.detail.year}/${event.detail.unit}`)
+                    .then(response => response.json())
+                    .then(tempsParProjets => {
+                        const total = {};
 
-                            total[projet] += value;
+                        tempsParProjets.months.forEach(month => {
+                            Object.entries(month).forEach(([projet, value]) => {
+                                if (!total[projet]) {
+                                    total[projet] = 0;
+                                }
+
+                                total[projet] += value;
+                            });
                         });
+
+                        const columns = Object
+                            .keys(total)
+                            .sort((a, b) => total[b] - total[a])
+                            .map(projet => ([
+                                projet,
+                                ...tempsParProjets.months.map(month => month[projet] ?? 0),
+                            ]))
+                        ;
+
+                        if (0 === columns.length) {
+                            return;
+                        }
+
+                        chart.load({
+                            unload:true,
+                            columns: columns
+                        });
+
+                        chart.groups([
+                            Object.keys(total),
+                        ]);
+
                     });
-
-                    const columns = Object
-                        .keys(total)
-                        .sort((a, b) => total[b] - total[a])
-                        .map(projet => ([
-                            projet,
-                            ...tempsParProjets.months.map(month => month[projet] ?? 0),
-                        ]))
-                    ;
-
-                    if (0 === columns.length) {
-                        return;
-                    }
-
-                    chart.load({
-                        columns: columns
-                    });
-
-                    chart.groups([
-                        Object.keys(total),
-                    ]);
-
-                });
+            }, 1000);
         },
     );
 }
