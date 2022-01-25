@@ -1,31 +1,34 @@
-import 'owl.carousel2/dist/assets/owl.carousel.css';
-import '../../../styles/owl-carousel-style.css'
 import $ from 'jquery';
-import 'owl.carousel2/dist/owl.carousel.min';
+import {initOwlCarousel} from '../../owl-carousel';
+import {dashboardContentsId} from '../utils';
 
-$(() => {
+const contentDiv = window[dashboardContentsId.general];
 
-    $('#dashboard-general .recent-activity').each((_, divActivities) => {
-        const societeUser = divActivities.dataset.societeUser;
+if (contentDiv){
 
-        fetch(`/api/multiSociete/dashboard/general/recents-projets/${societeUser}`)
-            .then(response => response.json())
-            .then(({recentsProjets}) => {
-                if (0 === recentsProjets.length) {
-                    return;
-                }
+    $(() => {
 
-                const $wrapper = $(divActivities);
-                const $cards = $('<div class="owl-carousel owl-theme">');
+        $(`#${dashboardContentsId.general} .recent-activity`).each((_, divActivities) => {
+            const societeUser = divActivities.dataset.societeUser;
 
-                $wrapper.append($cards);
+            fetch(`/api/mes-societes/dashboard/general/recents-projets/${societeUser}`)
+                .then(response => response.json())
+                .then(({recentsProjets}) => {
+                    if (0 === recentsProjets.length) {
+                        return;
+                    }
 
-                recentsProjets.forEach(projet => {
+                    const $wrapper = $(divActivities);
+                    const $cards = $('<div class="owl-carousel owl-theme">');
 
-                    var activity = document.createElement('div');
-                    activity.innerHTML = projet.activity.trim();
+                    $wrapper.append($cards);
 
-                    const $projet = $(`
+                    recentsProjets.forEach(projet => {
+
+                        var activity = document.createElement('div');
+                        activity.innerHTML = projet.activity.trim();
+
+                        const $projet = $(`
                     <div class="item card">
                         <div class="card-body">
                           <h5 class="card-title">
@@ -40,31 +43,15 @@ $(() => {
                     </div>
                 `);
 
-                    $cards.append($projet);
-                });
-
-                $(document).ready(function(){
-                    $($cards).owlCarousel({
-                        loop:true,
-                        margin:10,
-                        nav:true,
-                        dots: false,
-                        autoplay: true,
-                        navText: [
-                            '<i class="fa fa-arrow-left" aria-hidden="true"></i>',
-                            '<i class="fa fa-arrow-right" aria-hidden="true"></i>'
-                        ],
-                        items:2,
-                        responsive:{
-                            0:{items: 1},
-                            600:{items: 2},
-                            1000:{items: 3}
-                        }
+                        $cards.append($projet);
                     });
-                });
-            })
-        ;
+
+                    initOwlCarousel($cards);
+                })
+            ;
+        });
+
     });
 
-});
 
+}

@@ -8,7 +8,7 @@
             <i class="fa fa-building" aria-hidden="true"></i> {{ 'my_companies'|trans }}
         </a>
     </li>
-    <li class="nav-item dropdown {{ activeOn('app_fo_multi_societe_dashboard_general') }}">
+    <li class="nav-item dropdown {{ activeOn('app_fo_multi_societe_dashboard_general','app_fo_multi_societe_dashboard_consolide','app_fo_multi_societe_dashboard_consolide_ajouter') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-tachometer" aria-hidden="true"></i> <span class="nav-item-title">{{ 'dashboard'|trans }}</span>
         </a>
@@ -22,8 +22,14 @@
                     class="dropdown-item" href="{{ path('app_fo_multi_societe_dashboard_consolide') }}">
                 <i class="fa fa-line-chart" aria-hidden="true"></i> {{ 'menu.dashboard.consolide'|trans }}
             </a>
+            {% for dashboardConsolide in userContext.user.dashboardConsolides %}
+                <a
+                        class="dropdown-item" href="{{ path('app_fo_multi_societe_dashboard_consolide', {'id' : dashboardConsolide.id}) }}">
+                    <i class="fa fa-pie-chart" aria-hidden="true"></i> {{ dashboardConsolide.title }}
+                </a>
+            {% endfor %}
             <a
-                    class="dropdown-item" href="#">
+                    class="dropdown-item" href="{{ path('app_fo_multi_societe_dashboard_consolide_ajouter') }}">
                 <i class="fa fa-search-plus" aria-hidden="true"></i> {{ 'menu.dashboard.create_page'|trans }}
             </a>
         </div>

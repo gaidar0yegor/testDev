@@ -310,3 +310,4 @@ user_have_been_deleted: "{User}'s account has been deleted !"
 see_more: "See more ..."
 verif_date_leave_on_disable_user: "To deactivate {user}'s account, please specify its exit date."
 verif_date_entry_on_enable_user: "To activate {user}'s account, please specify its entry date."
+'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'The dashboard "{titre_dashboard_consolide}" was successfully created.'

@@ -1,12 +1,12 @@
 import c3 from 'c3';
 import {dashboardContentsId} from '../utils';
 
-const contentDiv = window[dashboardContentsId.general];
+const contentDiv = window[dashboardContentsId.consolide];
 
 if (contentDiv){
     const generateChart = bindtoId => {
         return c3.generate({
-            bindto: `#${dashboardContentsId.general} #${bindtoId}`,
+            bindto: `#${dashboardContentsId.consolide} #${bindtoId}`,
             data: {
                 type : 'pie',
                 columns: [
@@ -33,14 +33,14 @@ if (contentDiv){
     };
 
     window.addEventListener('loadSinceYearCharts', event => {
-        const {societeUser} = event.detail;
+        const {dashboardConsolide} = event.detail;
         const {year} = event.detail;
-        const chart = generateChart(`projets-statuts-${societeUser}`);
+        const chart = generateChart(`projets-statuts`);
 
         chart.unload();
 
         setTimeout(() => {
-            fetch(`/api/mes-societes/dashboard/general/projets-statuts/${societeUser}/since-${year}`)
+            fetch(`/api/mes-societes/dashboard/consolide/projets-statuts/since-${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
                 .then(response => response.json())
                 .then(heuresParProjet => {
                     chart.load({

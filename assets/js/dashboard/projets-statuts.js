@@ -7,7 +7,7 @@ const chart = c3.generate({
         columns: [
             ['En cours', 0],
             ['Terminés', 0],
-            ['Suspendus', 0], // Fake data, commercial purpose
+            ['Suspendus', 0],
         ],
     },
     pie: {

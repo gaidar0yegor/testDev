@@ -2,14 +2,14 @@ import c3 from 'c3';
 import {dashboardContentsId} from '../utils';
 
 
-const contentDiv = window[dashboardContentsId.general];
+const contentDiv = window[dashboardContentsId.consolide];
 
 if (contentDiv){
     const currentYear = (new Date()).getFullYear();
 
     const generateChart = bindtoId => {
         return c3.generate({
-            bindto: `#${dashboardContentsId.general} #${bindtoId}`,
+            bindto: `#${dashboardContentsId.consolide} #${bindtoId}`,
             data: {
                 type: 'bar',
                 x: '_projects_year',
@@ -40,14 +40,14 @@ if (contentDiv){
     }
 
     window.addEventListener('loadSinceYearCharts', event => {
-        const {societeUser} = event.detail;
+        const {dashboardConsolide} = event.detail;
         const {year} = event.detail;
-        const chart = generateChart(`projets-rdi-vs-non-rdi-${societeUser}`);
+        const chart = generateChart(`projets-rdi-vs-non-rdi`);
 
         chart.unload();
 
         setTimeout(() => {
-            fetch(`/api/mes-societes/dashboard/general/projets-type/${societeUser}/since-${year}`)
+            fetch(`/api/mes-societes/dashboard/consolide/projets-type/since-${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
                 .then(response => response.json())
                 .then(projetsType => {
                     const nbProjets = ['Projets'];

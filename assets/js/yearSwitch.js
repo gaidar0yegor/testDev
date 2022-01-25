@@ -46,6 +46,7 @@ $(() => {
         const $divSwitch = $(divSwitch);
         const withUnit = divSwitch.dataset.withUnit ? divSwitch.dataset.withUnit : false;
         const societeUser = divSwitch.dataset.societeUser ? divSwitch.dataset.societeUser : false;
+        const dashboardConsolide = divSwitch.dataset.dashboardConsolide ? divSwitch.dataset.dashboardConsolide : false;
         const yearFrom = divSwitch.dataset.yearFrom ? parseInt(divSwitch.dataset.yearFrom, 10) : currentYear - 5;
         const toYear = divSwitch.dataset.yearTo ? parseInt(divSwitch.dataset.yearTo, 10) : currentYear;
         const selectedYear = divSwitch.dataset.yearSelected ? parseInt(divSwitch.dataset.yearSelected, 10) : currentYear;
@@ -68,7 +69,7 @@ $(() => {
             if (withUnit){
                 unit = $('.' + withUnit + ' select').val()
             }
-            const dispatchEvent = (year, unit, societeUser) => {
+            const dispatchEvent = (year, unit, societeUser, dashboardConsolide) => {
                 window.dispatchEvent(
                     new CustomEvent(
                         divSwitch.dataset.eventName,
@@ -77,20 +78,21 @@ $(() => {
                                 year: year,
                                 unit: unit,
                                 societeUser: societeUser,
+                                dashboardConsolide: dashboardConsolide,
                             }
                         }
                     ));
             };
 
             $select.on('change', function () {
-                dispatchEvent(parseInt(this.value, 10), $('.' + withUnit + ' select').val(), societeUser);
+                dispatchEvent(parseInt(this.value, 10), $('.' + withUnit + ' select').val(), societeUser, dashboardConsolide);
             });
             if (withUnit){
                 $('.' + withUnit + ' select').on('change', function () {
-                    dispatchEvent(parseInt($(".year-switch[data-with-unit='"+ withUnit +"'] select").val(), 10), this.value, societeUser);
+                    dispatchEvent(parseInt($(".year-switch[data-with-unit='"+ withUnit +"'] select").val(), 10), this.value, societeUser, dashboardConsolide);
                 });
             }
-            dispatchEvent(selectedYear, unit, societeUser);
+            dispatchEvent(selectedYear, unit, societeUser, dashboardConsolide);
         }
     });
 });
