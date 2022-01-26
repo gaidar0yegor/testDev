@@ -6,13 +6,18 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [0.41.4] - 2022-01-26
+### Ajouté
 - Page Mon suivi dans "Suivi temps"
 - Ajouter un tableau de bord consolidé pour toutes les sociétés
 - Ajouter un tableau de bord consolidé personnalisé
 ### Réparé
 - Sauvegarder et remplir le formulaire pour continuer la saisie des données non soumises.
-
-
 
 ## [0.41.3] - 2022-01-24
 ### Réparé
