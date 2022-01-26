@@ -1,4 +1,5 @@
 dashboard: My dashboard
+dashboards: My dashboards
 PROJET_CDP: Project Manager
 PROJET_CONTRIBUTEUR: Contributor
 PROJET_OBSERVATEUR: Observer
@@ -8,12 +9,13 @@ SOCIETE_ADMIN: Administrator
 my_contributions: My contributions
 my_contributions.me: Me
 my_contributions.team: Team
+my_contributions.teams: Teams
 my_contributions.projects: Projects
 my_contributions.rdi_projects: RDI projects
 my_contributions.total: Total contribution time
-menu.dashboard.general: General
-menu.dashboard.consolide: Consolidated
-menu.dashboard.create_page: Create a consolidated view
+menu.dashboard.general: Consolidated view
+menu.dashboard.consolide: General view
+menu.dashboard.create_view: Create a consolidated view
 menu.all_projects: All my projects
 menu.projects: My projects
 menu.projects.list: Projects list

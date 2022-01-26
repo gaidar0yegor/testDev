@@ -40,10 +40,11 @@ n_contributeur: "{n, plural,\n    =0 {Contributeur}\n    one {Contributeur}\n   
   \ {Contributeurs}\n}"
 my_dashboard: 'Mon tableau de bord'
 dashboard: 'Tableau de bord'
+dashboards: 'Tableaux de bord'
 dashboard.today: 'Actualité'
-menu.dashboard.general: 'Général'
-menu.dashboard.consolide: 'Consolidé'
-menu.dashboard.create_page: 'Créer une vue consolidée'
+menu.dashboard.general: 'Vue générale'
+menu.dashboard.consolide: 'Vue consolidée'
+menu.dashboard.create_view: 'Créer une vue consolidée'
 menu.all_projects: 'Tous mes projets'
 menu.projects: 'Mes projets'
 menu.projects.list: 'Liste des projets'
@@ -72,6 +73,7 @@ hours_by_project_by_month: 'Nombre d''heures par projet et par mois'
 my_contributions: 'Mes contributions'
 my_contributions.me: Moi
 my_contributions.team: Équipe
+my_contributions.teams: Équipes
 my_contributions.projects: Projets
 my_contributions.rdi_projects: 'Projets de type RDI'
 my_contributions.total: 'Temps total de contribution'
@@ -354,4 +356,4 @@ verif_date_leave_on_disable_user: 'Pour désactiver le compte de {user}, veuille
 verif_date_entry_on_enable_user: 'Pour activer le compte de {user}, veuillez préciser sa date d''entrèe.'
 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.'
 dashboard_consolide.titre: 'Titre descriptif'
-'dashboard_consolide.societes': 'Mes sociétés'
+dashboard_consolide.societes: 'Mes sociétés'
