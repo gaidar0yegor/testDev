@@ -2,9 +2,21 @@
 
 {% block body %}
 
-    <h1>{{ dashboardConsolide ? dashboardConsolide.title : "Tableau de bord consolidé" }}</h1>
+    <h1>{{ 'dashboards'|trans }}</h1>
+
+    <h2>{{ dashboardConsolide ? dashboardConsolide.title : 'menu.dashboard.consolide'|trans }}</h2>
 
     <div id="dashboard-consolide">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <p class="text-center">
+                    {% for societeUser in dashboardConsolide.societeUsers %}
+                        <span class="badge badge-success">{{ societeUser.societe.raisonSociale }}</span>
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-lg-12">
@@ -38,7 +50,7 @@
                     <tr>
                         <th></th>
                         <th>{{ 'my_contributions.me'|trans }}</th>
-                        <th>{{ 'my_contributions.team'|trans }}</th>
+                        <th>{{ 'my_contributions.teams'|trans }}</th>
                     </tr>
                     </thead>
                     <tbody>
