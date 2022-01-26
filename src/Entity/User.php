@@ -177,6 +177,11 @@ class User implements UserInterface
      */
     private $cguCgvAcceptedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity=DashboardConsolide::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $dashboardConsolides;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -192,6 +197,7 @@ class User implements UserInterface
         $this->societeUsers = new ArrayCollection();
         $this->projetObservateurExternes = new ArrayCollection();
         $this->locale = 'fr';
+        $this->dashboardConsolides = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -620,6 +626,36 @@ class User implements UserInterface
     public function setCguCgvAcceptedAt(?\DateTimeInterface $cguCgvAcceptedAt): self
     {
         $this->cguCgvAcceptedAt = $cguCgvAcceptedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DashboardConsolide[]
+     */
+    public function getDashboardConsolides(): Collection
+    {
+        return $this->dashboardConsolides;
+    }
+
+    public function addDashboardConsolide(DashboardConsolide $dashboardConsolide): self
+    {
+        if (!$this->dashboardConsolides->contains($dashboardConsolide)) {
+            $this->dashboardConsolides[] = $dashboardConsolide;
+            $dashboardConsolide->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDashboardConsolide(DashboardConsolide $dashboardConsolide): self
+    {
+        if ($this->dashboardConsolides->removeElement($dashboardConsolide)) {
+            // set the owning side to null (unless already changed)
+            if ($dashboardConsolide->getUser() === $this) {
+                $dashboardConsolide->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -2,9 +2,11 @@
 
 namespace App\Service;
 
+use App\Entity\DashboardConsolide;
 use App\Entity\Projet;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
+use App\Entity\User;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
 use App\Repository\TempsPasseRepository;
@@ -55,6 +57,37 @@ class StatisticsService
         }
 
         return $userProjetsHeuresPassees;
+    }
+
+    /**
+     * Retourne les heures passées par projet sur les projets pour un tableau de bord consolidé.
+     *
+     * @return array Array of hours contributed on projets.
+     */
+    public function calculateHeuresMultisocieteParProjetForUser(User $user, int $year, DashboardConsolide $dashboardConsolide = null, string $roleMinimum = RoleProjet::OBSERVATEUR): array
+    {
+        RoleProjet::checkRole($roleMinimum);
+
+        $societeUsers = $dashboardConsolide ? $dashboardConsolide->getSocieteUsers() : $user->getSocieteUsers();
+
+        $multisosieteProjetsHeuresPassees = [];
+
+        foreach ($societeUsers as $societeUser) {
+            $heuresPassees = $this->calculateHeuresParProjet($societeUser->getSociete(), $year);
+            $userProjets = $societeUser->isAdminFo()
+                ? $this->projetRepository->findAllProjectsPerSociete($societeUser->getSociete(), $year, $year)
+                : $this->projetRepository->findAllForUserInYear($societeUser, $roleMinimum, $year);
+
+            $userProjetsHeuresPassees = [];
+
+            foreach ($userProjets as $userProjet) {
+                $userProjetsHeuresPassees["{$societeUser->getSociete()->getRaisonSociale()} / {$userProjet->getAcronyme()}"] = $heuresPassees[$userProjet->getAcronyme()] ?? 0.0;
+            }
+
+            $multisosieteProjetsHeuresPassees = array_merge($multisosieteProjetsHeuresPassees, $userProjetsHeuresPassees);
+        }
+
+        return $multisosieteProjetsHeuresPassees;
     }
 
     /**

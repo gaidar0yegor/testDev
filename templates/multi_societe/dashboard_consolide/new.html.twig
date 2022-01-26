@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-sm-12">
+            <h1>Ajouter un tableau de bord consolidé</h1>
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {{ form_widget(form) }}
+
+            <button type="submit" class="btn btn-success">Créer</button>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

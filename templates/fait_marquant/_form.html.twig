@@ -14,7 +14,6 @@
         <span id="custom_ckeditor_max_char" class="d-none"
               data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}"
               data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
-
     </div>
     <div class="col-md-12">
         {{ form_row(form.sendedToEmails) }}
@@ -25,7 +24,7 @@
     <div class="col-md-12">
         {{ form_row(form.fichierProjets) }}
     </div>
-    <div class="col-md-12 text-center mt-5">
+    <div class="col-sm-12 text-center mt-2">
         <button class="btn btn-success">
             {{ button_label|default('Sauvegarder') }}
         </button>

@@ -198,6 +198,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $dossierFichierProjets;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=DashboardConsolide::class, mappedBy="societeUsers")
+     */
+    private $dashboardConsolides;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -212,6 +217,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->societeUserPeriods = new ArrayCollection();
         $this->fichierProjets = new ArrayCollection();
         $this->dossierFichierProjets = new ArrayCollection();
+        $this->dashboardConsolides = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -663,6 +669,33 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
             if ($dossierFichierProjet->getCreatedBy() === $this) {
                 $dossierFichierProjet->setCreatedBy(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|DashboardConsolide[]
+     */
+    public function getDashboardConsolides(): Collection
+    {
+        return $this->dashboardConsolides;
+    }
+
+    public function addDashboardConsolide(DashboardConsolide $dashboardConsolide): self
+    {
+        if (!$this->dashboardConsolides->contains($dashboardConsolide)) {
+            $this->dashboardConsolides[] = $dashboardConsolide;
+            $dashboardConsolide->addSocieteUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDashboardConsolide(DashboardConsolide $dashboardConsolide): self
+    {
+        if ($this->dashboardConsolides->removeElement($dashboardConsolide)) {
+            $dashboardConsolide->removeSocieteUser($this);
         }
 
         return $this;

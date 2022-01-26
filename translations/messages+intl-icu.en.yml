@@ -11,6 +11,10 @@ my_contributions.team: Team
 my_contributions.projects: Projects
 my_contributions.rdi_projects: RDI projects
 my_contributions.total: Total contribution time
+menu.dashboard.general: General
+menu.dashboard.consolide: Consolidated
+menu.dashboard.create_page: Create a consolidated view
+menu.all_projects: All my projects
 menu.projects: My projects
 menu.projects.list: Projects list
 menu.projects.create: Create a project
@@ -306,3 +310,4 @@ user_have_been_deleted: "{User}'s account has been deleted !"
 see_more: "See more ..."
 verif_date_leave_on_disable_user: "To deactivate {user}'s account, please specify its exit date."
 verif_date_entry_on_enable_user: "To activate {user}'s account, please specify its entry date."
+'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'The dashboard "{titre_dashboard_consolide}" was successfully created.'

@@ -14,9 +14,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/api/multiSociete/dashboard")
+ * @Route("/api/mes-societes/dashboard/general")
  */
-class DashboardController extends AbstractController
+class DashboardGeneralController extends AbstractController
 {
     /**
      * Retourne les derniéres activités par societe
@@ -24,7 +24,7 @@ class DashboardController extends AbstractController
      * @Route(
      *      "/recents-projets/{id}",
      *      methods={"GET"},
-     *      name="api_multiSociete_dashboard_projets_recent"
+     *      name="api_multisociete_dashboard_general_projets_recent"
      * )
      */
     public function getRecentProjets(
@@ -57,7 +57,7 @@ class DashboardController extends AbstractController
      *      "/heures-par-projet/{id}/{year}",
      *      methods={"GET"},
      *      requirements={"year"="\d{4}"},
-     *      name="api_multiSociete_dashboard_heures_passees_par_projet"
+     *      name="api_multisociete_dashboard_general_heures_passees_par_projet"
      * )
      */
     public function getHeuresPasseesParProjet(
@@ -81,7 +81,7 @@ class DashboardController extends AbstractController
      *      "/projets-statuts/{id}/since-{sinceYear}",
      *      methods={"GET"},
      *      requirements={"sinceYear"="\d{4}"},
-     *      name="api_multiSociete_dashboard_projets_statuts"
+     *      name="api_multisociete_dashboard_general_projets_statuts"
      * )
      */
     public function getProjetsStatuts(
@@ -124,7 +124,7 @@ class DashboardController extends AbstractController
      *      "/projets-type/{id}/since-{sinceYear}",
      *      methods={"GET"},
      *      requirements={"sinceYear"="\d{4}"},
-     *      name="api_multiSociete_dashboard_projets_type"
+     *      name="api_multisociete_dashboard_general_projets_type"
      * )
      */
     public function getProjetsTypesSinceYear(
