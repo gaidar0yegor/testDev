@@ -5,11 +5,14 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+
+
+
+
+## [0.41.5] - 2022-01-27
 ### Réparé
 - Fix bug : Dashboard consolidé
-
-
-
 
 ## [0.41.4] - 2022-01-26
 ### Ajouté
