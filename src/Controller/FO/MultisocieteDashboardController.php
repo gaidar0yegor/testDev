@@ -50,7 +50,8 @@ class MultisocieteDashboardController extends AbstractController
         $em->flush();
 
         return $this->render('multi_societe/dashboard_consolide/show.html.twig',[
-            'dashboardConsolide' => $dashboardConsolide
+            'dashboardConsolide' => $dashboardConsolide,
+            'societeUsers' => $dashboardConsolide ? $dashboardConsolide->getSocieteUsers() : $userContext->getUser()->getSocieteUsers(),
         ]);
     }
 
