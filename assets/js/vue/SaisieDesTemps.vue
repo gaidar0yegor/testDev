@@ -188,7 +188,7 @@ export default {
                     if (this.urlToAbsences) {
                         const url = this.urlToAbsences
                             .replace('1111', this.selectedDate.getFullYear())
-                            .replace('22', ('0' + (this.selectedDate.getMonth() + 1)).substr(-2))
+                            .replace('99', ('0' + (this.selectedDate.getMonth() + 1)).substr(-2))
                         ;
 
                         addFlashMessage('warning', t('enter_absences_if_taken_this_month', {
