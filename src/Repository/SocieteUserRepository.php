@@ -7,6 +7,7 @@ use App\Entity\SocieteUser;
 use App\HasSocieteInterface;
 use App\Security\Role\RoleProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
@@ -148,5 +149,27 @@ class SocieteUserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    /**
+     * Find all my hierarchical links : N-1 et N-2
+     *
+     * @return SocieteUser[]
+     */
+    public function findTeamMembers(SocieteUser $societeUser): ArrayCollection
+    {
+        $levelN_1SocieteUsers =  $societeUser->getTeamMembersN_1()->toArray();
+        $levelN_2SocieteUsers = [];
+
+        if(count($levelN_1SocieteUsers)){
+            $levelN_2SocieteUsers = $this->createQueryBuilder('societeUser')
+                ->where('societeUser.mySuperior in (:levelN_1SocieteUsers)')
+                ->setParameter('levelN_1SocieteUsers',$levelN_1SocieteUsers)
+                ->getQuery()->getResult();
+        }
+
+        return new ArrayCollection(
+            array_merge($levelN_1SocieteUsers, $levelN_2SocieteUsers)
+        );
     }
 }

@@ -23,7 +23,7 @@
 
 <div class="d-flex justify-content-around">
     <div class="form-group mt-5">
-        <a href="{{ path('app_fo_admin_utilisateurs') }}" class="btn btn-outline-warning">{{ 'cancel'|trans }}</a>
+        <a href="{{ path('app_fo_utilisateurs') }}" class="btn btn-outline-warning">{{ 'cancel'|trans }}</a>
     </div>
     <div class="form-group mt-5">
         <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
@@ -54,7 +54,7 @@
                         </ul>
                     {% endif %}
                     <form
-                        action="{{ path('utilisateur_fo_disable', { id: societeUser.id }) }}"
+                        action="{{ path('app_fo_utilisateur_disable', { id: societeUser.id }) }}"
                         method="POST"
                         class="form"
                     >
@@ -78,7 +78,7 @@
                         {{ 're_enable_account_explain'|trans({'%user%': societeUser.user.fullname}) }}
                     </p>
                     <form
-                        action="{{ path('utilisateur_fo_enable', { id: societeUser.id }) }}"
+                        action="{{ path('app_fo_utilisateur_enable', { id: societeUser.id }) }}"
                         method="POST"
                         class="form d-inline-block"
                     >
@@ -86,7 +86,7 @@
                         <input type="submit" value="{{ 're_enable_account'|trans }}" class="btn btn-warning" />
                     </form>
                     <a
-                            href="{{ path('utilisateur_fo_delete', {'id': societeUser.id}) }}"
+                            href="{{ path('app_fo_utilisateur_delete', {'id': societeUser.id}) }}"
                             class="btn btn-danger"
                     >{{ 'verify_and_delete_user'|trans }}</a>
                 {% endif %}

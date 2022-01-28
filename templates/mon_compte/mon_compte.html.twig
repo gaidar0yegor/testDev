@@ -73,6 +73,22 @@
                             <div class="col-md-3"><strong>{{ 'role'|trans }}</strong></div>
                             <div class="col-md-9">{{ userContext.societeUser.role|trans }}</div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'my_superior'|trans }} (N+1)</strong></div>
+                            <div class="col-md-9">
+                                {{ form_start(mySuperiorForm) }}
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        {{ form_errors(mySuperiorForm) }}
+                                        {{ form_widget(mySuperiorForm) }}
+                                    </div>
+                                    <div class="col-md-3 d-flex flex-column justify-content-start align-items-start">
+                                        <button type="submit" class="btn btn-primary">{{ 'update'|trans }}</button>
+                                    </div>
+                                </div>
+                                {{ form_end(mySuperiorForm) }}
+                            </div>
+                        </div>
 
                         <div class="mt-5">
                             <a

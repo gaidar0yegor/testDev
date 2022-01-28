@@ -6,6 +6,7 @@ use App\DTO\UpdatePassword;
 use App\Entity\Fichier;
 use App\Form\AvatarType;
 use App\Form\MonCompteType;
+use App\Form\SocieteUserSuperiorType;
 use App\Form\UpdatePasswordType;
 use App\Form\UserNotificationType;
 use App\Repository\SocieteUserActivityRepository;
@@ -21,14 +22,20 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class MonCompteController extends AbstractController
 {
+    private UserContext $userContext;
+
+    public function __construct(UserContext $userContext)
+    {
+        $this->userContext = $userContext;
+    }
+
     /**
      * @Route("", name="app_fo_mon_compte")
      */
     public function monCompte(Request $request, EntityManagerInterface $em)
     {
-        $notificationForm = $this->createForm(UserNotificationType::class, $this->getUser());
-
-        $notificationForm->handleRequest($request);
+        $notificationForm = $this->createForm(UserNotificationType::class, $this->userContext->getUser())
+            ->handleRequest($request);
 
         if ($notificationForm->isSubmitted() && $notificationForm->isValid()) {
             $em->flush();
@@ -38,8 +45,22 @@ class MonCompteController extends AbstractController
             return $this->redirectToRoute('app_fo_mon_compte');
         }
 
+        if ($this->userContext->hasSocieteUser()){
+            $mySuperiorForm = $this->createForm(SocieteUserSuperiorType::class, $this->userContext->getSocieteUser())
+                ->handleRequest($request);
+
+            if ($mySuperiorForm->isSubmitted() && $mySuperiorForm->isValid()) {
+                $em->flush();
+
+                $this->addFlash('success', 'Votre supérieur hiérarchique (N+1) a été mis à jour.');
+
+                return $this->redirectToRoute('app_fo_mon_compte');
+            }
+        }
+
         return $this->render('mon_compte/mon_compte.html.twig', [
             'notificationForm' => $notificationForm->createView(),
+            'mySuperiorForm' => isset($mySuperiorForm) ? $mySuperiorForm->createView() : null,
         ]);
     }
 

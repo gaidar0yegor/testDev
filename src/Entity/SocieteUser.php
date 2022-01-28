@@ -203,6 +203,16 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $dashboardConsolides;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="teamMembers")
+     */
+    private $mySuperior;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="mySuperior")
+     */
+    private $teamMembers;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -218,6 +228,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->fichierProjets = new ArrayCollection();
         $this->dossierFichierProjets = new ArrayCollection();
         $this->dashboardConsolides = new ArrayCollection();
+        $this->teamMembers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -696,6 +707,63 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     {
         if ($this->dashboardConsolides->removeElement($dashboardConsolide)) {
             $dashboardConsolide->removeSocieteUser($this);
+        }
+
+        return $this;
+    }
+
+    public function getMySuperior(): ?self
+    {
+        return $this->mySuperior;
+    }
+
+    public function setMySuperior(?self $mySuperior): self
+    {
+        $this->mySuperior = $mySuperior;
+
+        return $this;
+    }
+
+    public function isSuperiorFo(): bool
+    {
+        return $this->getTeamMembersN_1()->count() > 0;
+    }
+
+    /**
+     * je suis N.
+     * Retourner les N-1
+     * @return Collection|self[]
+     */
+    public function getTeamMembersN_1(): Collection
+    {
+        return $this->teamMembers;
+    }
+
+    /**
+     * je suis N.
+     * Ajouter un N-1
+     */
+    public function addTeamMemberN_1(self $teamMember): self
+    {
+        if (!$this->teamMembers->contains($teamMember)) {
+            $this->teamMembers[] = $teamMember;
+            $teamMember->setMySuperior($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * je suis N.
+     * supprimer un N-1
+     */
+    public function removeTeamMemberN_1(self $teamMember): self
+    {
+        if ($this->teamMembers->removeElement($teamMember)) {
+            // set the owning side to null (unless already changed)
+            if ($teamMember->getMySuperior() === $this) {
+                $teamMember->setMySuperior(null);
+            }
         }
 
         return $this;
