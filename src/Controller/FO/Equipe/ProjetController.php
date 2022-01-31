@@ -18,7 +18,7 @@ use App\MultiSociete\UserContext;
 use App\Service\ParticipantService;
 
 /**
- * @Route("/mon-equipe/projets")
+ * @Route("/projets")
  */
 class ProjetController extends AbstractController
 {

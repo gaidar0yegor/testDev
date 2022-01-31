@@ -134,16 +134,23 @@
         </a>
         <div class="dropdown-menu">
             <a
+                    class="dropdown-item"
+                    href="{{ path('app_fo_utilisateurs') }}"
+            >
+                <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
+            </a>
+            <a
                 class="dropdown-item"
                 href="{{ path('app_fo_mon_equipe_projets') }}"
             >
                 <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.admin.projects'|trans }}
             </a>
+            <div class="dropdown-divider"></div>
             <a
                 class="dropdown-item"
-                href="{{ path('app_fo_utilisateurs') }}"
+                href="{{ path('app_fo_mon_equipe_cra_validation') }}"
             >
-                <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{{ 'menu.admin.timesheet_check'|trans }}
             </a>
         </div>
     </li>

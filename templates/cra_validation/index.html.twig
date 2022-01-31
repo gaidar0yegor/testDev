@@ -12,7 +12,7 @@
                 <li class="list-inline-item m-0">{{ yearSwitch }}</li>
             {% else %}
                 <li class="list-inline-item m-0">
-                    <a href="{{ path('app_fo_admin_cra_validation', {year: yearSwitch}) }}">{{ yearSwitch }}</a>
+                    <a href="{{ path( is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? 'app_fo_admin_cra_validation' : 'app_fo_mon_equipe_cra_validation', {year: yearSwitch}) }}">{{ yearSwitch }}</a>
                 </li>
             {% endif %}
 

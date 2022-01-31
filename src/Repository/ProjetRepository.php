@@ -133,16 +133,12 @@ class ProjetRepository extends ServiceEntityRepository
      */
     public function findAllForUsers(iterable $societeUsers): ArrayCollection
     {
-        $societeUserIds = $societeUsers->map(function (SocieteUser $societeUser){
-            return $societeUser->getId();
-        })->toArray();
-
         $projets =  $this
             ->createQueryBuilder('projet')
             ->leftJoin('projet.projetParticipants','projetParticipant')
             ->leftJoin('projetParticipant.societeUser', 'societeUser')
-            ->where('societeUser.id in (:societeUserIds)')
-            ->setParameter('societeUserIds',$societeUserIds)
+            ->where('societeUser.id in (:societeUsers)')
+            ->setParameter('societeUsers',$societeUsers)
             ->getQuery()
             ->getResult()
         ;
