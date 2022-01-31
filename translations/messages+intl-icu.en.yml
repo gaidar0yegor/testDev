@@ -67,7 +67,8 @@ menu.admin.timesheet_export: Export your timesheets
 hours_by_project: Number of hours per projects
 loading: Loading…
 projects_analyse_of_year: Analyse this year's projects
-my_projects_of_year: This year's projects
+my_projects_of_year: My projects of the year
+my_team_projects_of_year: The projects of my team of the year
 project_analyse_from: Analysis of the projects since
 projects_realisations: Realization of projects
 realized_projects_type: Type of projects realized

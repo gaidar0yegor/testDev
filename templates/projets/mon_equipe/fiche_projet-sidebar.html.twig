@@ -1,6 +1,4 @@
 <dl>
-    <p>Je suis <strong>observateur externe</strong> sur ce projet.</p>
-
     {% if projet.projetUrls|length > 0 %}
         <ul class="list-unstyled">
             {% for projetUrl in projet.projetUrls %}
@@ -44,15 +42,16 @@
     <h4>Fichiers</h4>
 
     <ul class="list-unstyled">
-        {% for fichierProjet in projet.accessibleExterneFichierProjets %}
+        {% for fichierProjet in projet.fichierProjets %}
+            {% if fichierProjet.isPublic %}
             <li>
-                <a target="_blank"
-                   href="{{ path('app_fo_observateur_externe_view_file', {'projetId': projet.id,'fichierProjetId': fichierProjet.id}) }}"
+                <a target="_blank" href="{{ path('app_fo_mon_equipe_projet_view_file', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
                         {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
                     <i class="fa {{ fichierProjet|faFileIcon }}" aria-hidden="true"></i>
                     {{ fichierProjet.fichier.nomFichier }}
                 </a>
             </li>
+            {% endif %}
         {% endfor %}
     </ul>
 {% endif %}
