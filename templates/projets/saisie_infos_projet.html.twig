@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Ajouter un nouveau projet | {{ parent() }}{% endblock %}
+{% block title %}{{ "add-new-projec"|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-    <h1>Ajouter un nouveau projet</h1>
+    <h1>{{ "add-new-projec"|trans }}</h1>
 
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" id="toggle_target_dossierFichierProjets" class="custom-control-input toggle-target" data-target="dossierFichierProjets">
-                            <label class="switch-custom custom-control-label" for="toggle_target_dossierFichierProjets">Voulez-vous gérer les fichier du projet dans des dossier ?</label>
+                            <label class="switch-custom custom-control-label" for="toggle_target_dossierFichierProjets">{{ "want-case-project"|trans }}</label>
                         </div>
                     </div>
                 </div>
@@ -63,7 +63,7 @@
                     <div class="form-group">
                         <div class="custom-control custom-switch">
                             <input type="checkbox" id="toggle_target_projetUrls" class="custom-control-input toggle-target" data-target="projetUrls">
-                            <label class="switch-custom custom-control-label" for="toggle_target_projetUrls">Voulez-vous ajouter des liens externes du projet ?</label>
+                            <label class="switch-custom custom-control-label" for="toggle_target_projetUrls">{{ "want-ext-link-project"|trans }}</label>
                         </div>
                     </div>
                 </div>

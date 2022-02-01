@@ -1,5 +1,5 @@
 <dl>
-    <p>Je suis <strong>observateur externe</strong> sur ce projet.</p>
+    <p>{{ "obs-ext-proj"|trans }}</p>
 
     {% if projet.projetUrls|length > 0 %}
         <ul class="list-unstyled">
@@ -34,7 +34,7 @@
             {{ contributeur.societeUser.user.fullname }}
         </li>
     {% else %}
-        <li>Il n'y a pas de contributeur pour l'instant.</li>
+        <li>{{ "no-contrib-proj"|trans }}</li>
     {% endfor %}
 </ul>
 

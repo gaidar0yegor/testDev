@@ -1,20 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inviter un observateur externe sur {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ "invite-obs-ext"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Inviter un observateur externe</h1>
+<h1>{{ "invite-obs-ext"|trans }}</h1>
 
-<h2>Sur votre projet {{ projet.acronyme }}</h2>
+<h2>{{ "your-project"|trans }} {{ projet.acronyme }}</h2>
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <p>
-            Saisissez l'email ou le numéro de téléphone portable de l'observateur que vous souhaitez inviter.
-            Il recevra un lien d'invitation qu'il pourra accepter pour obtenir
-            l'<strong>accès observateur externe sur votre projet {{ projet.acronyme }}</strong>.
-        </p>
+        <p>{{ "para-invite-obs"|trans }}</p>
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
@@ -25,7 +21,7 @@
         <button
             class="btn btn-success"
             type="submit"
-        >Inviter en tant qu'observateur externe</button>
+        >{{ "invite-obs-ext-2"|trans }}</button>
 
         {{ form_end(form) }}
     </div>

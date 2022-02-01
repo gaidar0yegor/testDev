@@ -1,14 +1,14 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Mon activité | {{ parent() }}{% endblock %}
+{% block title %}{{ "my_activity"|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Mon activité</h1>
+<h1>{{ "my_activity"|trans }}</h1>
 
 <a class="d-block mb-4" href="{{ path('app_fo_mon_compte') }}">
     <i class="fa fa-chevron-left" aria-hidden="true"></i>
-    Retourner à mon compte
+    {{ "account-goBack"|trans }}
 </a>
 
 {% include '_activity-list.html.twig' %}

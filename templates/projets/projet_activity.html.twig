@@ -1,15 +1,15 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Activité du projet {{ projet.titre }} | {{ parent() }}{% endblock %}
+{% block title %}{{ "activity-project"|trans }} {{ projet.titre }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Projet {{ projet.acronyme }}</h1>
+<h1>{{ "projectString"|trans }} {{ projet.acronyme }}</h1>
 
     <div class="d-flex flex-row justify-content-between align-items-center">
         <a class="d-block mb-4" href="{{ path('app_fo_projet', {'id': projet.id}) }}">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            Retourner au projet
+            {{ "return-to-project"|trans }}
         </a>
 
         {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}

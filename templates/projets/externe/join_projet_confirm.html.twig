@@ -1,22 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rejoindre le projet {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'join-project'|trans }} {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Rejoindre le projet {{ projetObservateurExterne.projet.acronyme }}</h1>
+<h1>{{ 'join-project'|trans }} {{ projetObservateurExterne.projet.acronyme }}</h1>
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <p>
-            Vous êtes sur le point de rejoindre en tant qu'observateur externe, le projet
-            <strong>{{ projetObservateurExterne.projet.acronyme }}</strong> :
-            "{{ projetObservateurExterne.projet.titre }}".
-        </p>
+        <p>{{ 'para-join-project'|trans }}</p>
 
         <form method="post">
             <input type="hidden" name="csrf_token" value="{{ csrf_token('invitation_join_projet_observateur_externe') }}" />
-            <button type="submit" class="btn btn-lg btn-success">Rejoindre le projet {{ projetObservateurExterne.projet.acronyme }} en tant qu'observateur externe</button>
+            <button type="submit" class="btn btn-lg btn-success">{{ "join-project-obs"|trans }}</button>
         </form>
     </div>
 </div>

@@ -1,16 +1,16 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Projet {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ "projectString"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
 
 
 {% block body %}
 
-    <h1>Projet {{ projet.acronyme }}</h1>
+    <h1>{{ "projectString"|trans }} {{ projet.acronyme }}</h1>
 
     <div class="col-md-12">
         <a class="d-block mb-4" href="{{ path('app_fo_projet', {'id': projet.id}) }}">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            Retourner au projet
+            {{"return-to-project"|trans }}
         </a>
     </div>
 
@@ -46,33 +46,33 @@
     <div class="card bg-light-grey border-light mt-3">
         <div class="card-body">
             <div class="row mb-3">
-                <div class="col-md-2"><strong>Titre : </strong></div>
+                <div class="col-md-2"><strong>{{ "title"|trans }} : </strong></div>
                 <div class="col-md-10">{{ projet.titre }}</div>
             </div>
             <div class="row mb-3">
-                <div class="col-md-2"><strong>Résumé : </strong></div>
+                <div class="col-md-2"><strong>{{ "resume"|trans }} : </strong></div>
                 <div class="col-md-10 text-justify">{{ projet.resume|nl2br }}</div>
             </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="row mb-3">
-                        <div class="col-md-4"><strong>Chef de projet : </strong></div>
+                        <div class="col-md-4"><strong>{{ "PROJET_CDP"|trans }} : </strong></div>
                         <div class="col-md-6">{{ projet.chefDeProjet.user.fullname }}</div>
                     </div>
                     {% if projet.dateDebut %}
                         <div class="row mb-3">
-                            <div class="col-md-4"><strong>Date de début : </strong></div>
+                            <div class="col-md-4"><strong>{{ "date-debut"|trans }}  : </strong></div>
                             <div class="col-md-6">{{ projet.dateDebut|format_date }}</div>
                         </div>
                     {% endif %}
                     {% if projet.dateFin %}
                         <div class="row mb-3">
-                            <div class="col-md-4"><strong>Date de fin : </strong></div>
+                            <div class="col-md-4"><strong>{{ "date-fin"|trans }}  : </strong></div>
                             <div class="col-md-6">{{ projet.dateFin|format_date }}</div>
                         </div>
                     {% endif %}
                     <div class="row mb-3">
-                        <div class="col-md-4"><strong>Statut : </strong></div>
+                        <div class="col-md-4"><strong>{{ "status"|trans }}  : </strong></div>
                         <div class="col-md-6">{{ projet.statut }}</div>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>Ce projet n'a pas encore de fait marquants.</p>
+            <p>{{ "no-fm"|trans }}</p>
         {% endif %}
     </section>
 

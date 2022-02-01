@@ -1,22 +1,22 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Projets externe | {{ parent() }}{% endblock %}
+{% block title %}{{ "menu.projects.external"|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Projets externes</h1>
+<h1>{{ "menu.projects.external"|trans }}</h1>
 
-<p>Liste des projets dont j'ai un accès en tant qu'observateur externe.</p>
+<p>{{ "list-project-access"|trans }}</p>
 
 <table class="table datatable hover">
     <thead>
         <tr>
-            <th class="text-left">Projet</th>
-            <th>Société</th>
-            <th>Début</th>
-            <th>Fin</th>
-            <th>Statut</th>
-            <th>Participants</th>
+            <th class="text-left">{{ "projectString"|trans }}</th>
+            <th>{{ "societyString"|trans }}</th>
+            <th>{{ "start"|trans }}</th>
+            <th>{{ "end"|trans }}</th>
+            <th>{{ "status"|trans }}</th>
+            <th>{{ "PARTICIPANTS"|trans }}</th>
         </tr>
     </thead>
     <tbody class="filter-projets-by-selected-year">

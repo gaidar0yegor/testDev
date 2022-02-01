@@ -1,9 +1,9 @@
 <dl>
     {% if participation %}
-        <p>Je suis <strong>{{ participation.role|trans }}</strong> sur ce projet.</p>
+        <p>{{ "my-role-project"|trans }}</p>
     {% else %}
         {# participation can be null when admin view a projet of his societe but without access #}
-        <p>Vous n'avez <strong>pas de rôle</strong> sur ce projet.</p>
+        <p>{{ "no-role-project"|trans }}</p>
     {% endif %}
 
     {% if projet.projetUrls|length > 0 %}
@@ -18,14 +18,14 @@
     {% endif %}
 
     {% if projet.dateDebut %}
-        <dt>Date de début</dt>
+        <dt>{{ "date-debut"|trans }}</dt>
         <dd>{{ projet.dateDebut|format_date }}</dd>
     {% endif %}
     {% if projet.dateFin %}
-        <dt>Date de fin</dt>
+        <dt>{{ "date-fin"|trans }}</dt>
         <dd>{{ projet.dateFin|format_date }}</dd>
     {% endif %}
-    <dt>Statut</dt>
+    <dt>{{ "status"|trans }}</dt>
     <dd>{{ projet.statut }} <small><i>{{ projet.isSuspended ? '(' ~ projet.projetSuspendPeriods.last.suspendedAt | date("d/m/Y") ~ ')' : '' }}</i></small></dd>
 </dl>
 
@@ -36,32 +36,30 @@
         {% if participation.watching %}
             <button class="btn btn-block btn-primary">
                 <i class="fa fa-eye"></i>
-                Suivre le projet
+                {{ "follow-project"|trans }}
                 <i class="fa fa-check"></i>
             </button>
         {% else %}
             <button class="btn btn-block btn-outline-primary">
                 <i class="fa fa-eye"></i>
-                Suivre le projet
+                {{ "follow-project"|trans }}
             </button>
         {% endif %}
 
         <p class="text-muted">
             <small>
-                Suivez ce projet pour recevoir une notification
-                en temps réel à chaque mise à jour de ce projet.
+            {{ "para-follow-project"|trans }}
             </small>
         </p>
     </div>
 {% else %}
     <button class="btn btn-block btn-outline-primary" disabled>
         <i class="fa fa-eye"></i>
-        Suivre le projet
+        {{ "follow-project"|trans }}
     </button>
     <p class="text-muted">
         <small>
-            Vous ne pouvez pas suivre ce projet
-            car vous devez avoir au moins le rôle d'observateur sur ce projet.
+        {{ "cant-follow-project"|trans }}
         </small>
     </p>
 {% endif %}
@@ -78,7 +76,7 @@
     {% endif %}
 ><i class="fa fa-cog"></i></a>
 
-<h4>Contributeurs ({{ contributeurs|length }})</h4>
+<h4>{{ "quota.contributeurs.name"|trans }} ({{ contributeurs|length }})</h4>
 
 <ul class="list-inline">
     {% for contributeur in contributeurs|slice(0, 4) %}
@@ -88,7 +86,7 @@
             </a>
         </li>
     {% else %}
-        <li>Il n'y a pas de contributeur pour l'instant.</li>
+        <li>{{ "no-contrib-now"|trans }}</li>
     {% endfor %}
     {% if contributeurs|length > 4 %}
         <a href="javascript:;" data-toggle="modal" data-target="#contributeurModal" class="btn btn-outline-primary rounded-circle"><i class="fa fa-ellipsis-h"></i></a>
@@ -96,7 +94,7 @@
 </ul>
 
 <button type="button" class="mt-3 btn btn-block btn-primary" data-toggle="modal" data-target="#observateursModal">
-    Voir les observateurs
+    {{ "see-obs-project"|trans }}
 </button>
 
 <hr>
@@ -114,7 +112,7 @@
 ><i class="fa fa-upload" aria-hidden="true"></i>
 </a>
 
-<h4>Fichiers</h4>
+<h4>{{ "filesString"|trans }}</h4>
 
 {% if projet.dossierFichierProjets|length > 0 %}
     {% set countFichier = 0 %}
@@ -134,7 +132,7 @@
         <p>et {{ projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length - countFichier }} autres...</p>
     {% endif %}
 
-    <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}">Voir tous les fichiers</a>
+    <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list-files"|trans }}</a>
 
 {% elseif projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > 0 %}
     
@@ -154,13 +152,13 @@
         <p>et {{ projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length - 5 }} autres...</p>
     {% endif %}
 
-    <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}">Voir tous les fichiers</a>
+    <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list-files"|trans }}</a>
 
 {% else %}
 
 <p class="text-muted">
     <small>
-        Il n'y pas de fichier associé à ce projet.
+        {{ "no-files-here"|trans }}
     </small>
 </p>
 

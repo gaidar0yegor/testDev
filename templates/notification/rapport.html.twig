@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Dernières notifications envoyées | {{ parent() }}{% endblock %}
+{% block title %}{{ "last-notif-send"|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Dernières notifications envoyées</h1>
+    <h1>{{ "last-notif-send"|trans }}</h1>
 
     <a class="d-block mb-4" href="{{ path('app_fo_admin_notification') }}">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Retourner aux paramètres des notifications
+        {{ "goBack-params-notif"|trans }}
     </a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Date</th>
-                <th>Temps</th>
-                <th>Résultat</th>
+                <th>{{ "timeString"|trans }}</th>
+                <th>{{ "resultString"|trans }}Résultat</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3" class="text-center"><i>Aucune notification n'a encore été envoyée.</i></td>
+                    <td colspan="3" class="text-center"><i>{{ "no-notif-send"|trans }}Aucune notification n'a encore été envoyée.</i></td>
                 </tr>
             {% endfor %}
         </tbody>

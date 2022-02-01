@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier un fichier | {{ parent() }}{% endblock %}
+{% block title %}{{ 'editFile'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Modifier un fichier</h1>
+<h1>{{ 'editFile'|trans }}</h1>
 
 <a class="d-block mb-4" href="{{ path('app_fo_projet_fichiers', {id: id}) }}">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        Retourner à la liste des fichiers
+        {{ 'go-back-go-files'|trans }}
     </a>
 
 <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
@@ -20,7 +20,7 @@
 
     <div class="text-center">
 
-        <button class="btn btn-success" type="submit">Modifier</button>
+        <button class="btn btn-success" type="submit">{{ 'edit-btn'|trans }}</button>
 
     </div>
 
