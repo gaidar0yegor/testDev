@@ -9,6 +9,7 @@ use App\Form\MonCompteType;
 use App\Form\SocieteUserSuperiorType;
 use App\Form\UpdatePasswordType;
 use App\Form\UserNotificationType;
+use App\Notification\Event\SuperiorHierarchicalAddedEvent;
 use App\Repository\SocieteUserActivityRepository;
 use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/mon-compte")
@@ -23,10 +25,12 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class MonCompteController extends AbstractController
 {
     private UserContext $userContext;
+    private EventDispatcherInterface $dispatcher;
 
-    public function __construct(UserContext $userContext)
+    public function __construct(UserContext $userContext, EventDispatcherInterface $dispatcher)
     {
         $this->userContext = $userContext;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -50,6 +54,8 @@ class MonCompteController extends AbstractController
                 ->handleRequest($request);
 
             if ($mySuperiorForm->isSubmitted() && $mySuperiorForm->isValid()) {
+                $this->dispatcher->dispatch(new SuperiorHierarchicalAddedEvent($this->userContext->getSocieteUser()));
+
                 $em->flush();
 
                 $this->addFlash('success', 'Votre supérieur hiérarchique (N+1) a été mis à jour.');
