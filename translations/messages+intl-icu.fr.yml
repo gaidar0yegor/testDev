@@ -59,7 +59,7 @@ menu.mon_equipe: "Mon équipe"
 create_project_requires_project_manager_role: 'Vous devez avoir le rôle de chef de
   projet pour créer un nouveau projet.'
 admin_requires_admin_role: 'Menu réservé à l''administrateur de votre société.'
-admin_requires_superior_role: 'Menu réservé aux chefs d''équipes de votre société.'
+admin_requires_superior_role: 'Menu réservé aux chefs d''équipes.'
 menu.admin.company: 'Ma société'
 menu.admin.projects: 'Tous les projets'
 menu.admin.users: Utilisateurs

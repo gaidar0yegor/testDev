@@ -116,7 +116,7 @@ you_can_invite_by_email_or_sms_to_make_him_join_company.: You can send an invita
 BACK_OFFICE: Back-Office
 welcome_on_rdi_manager: Welcome to RDI-Manager !
 admin_requires_admin_role: Menu reserved to your company's administrator.
-admin_requires_superior_role: Menu reserved to your the team leaders.
+admin_requires_superior_role: Menu reserved to the team leaders.
 menu.admin.company: My company
 list_of_projects_i_participate: List of projects in which I participate.
 switch_company: Switch company
