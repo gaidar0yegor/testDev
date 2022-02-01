@@ -66,7 +66,7 @@ class ViewProjetHierarchicalSuperiorVoter extends Voter
             $this->societeUserRepository->findTeamMembers($this->userContext->getSocieteUser())
         );
 
-        if (!$projets->contains($subject)) {
+        if (!in_array($subject,$projets)) {
             throw new AccessDeniedException('Aucun membre de votre équipe fait partie de ce projet.');
         }
 

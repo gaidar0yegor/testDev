@@ -5,6 +5,7 @@ namespace App\Form;
 use App\DTO\FilterTimesheet;
 use App\Form\Custom\MonthType;
 use App\Form\Custom\SameSocieteUserType;
+use App\Form\Custom\SameTeamUserType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -36,7 +37,7 @@ class FilterTimesheetType extends AbstractType
                     'Page html' => 'html',
                 ],
             ])
-            ->add('users', SameSocieteUserType::class, [
+            ->add('users', $options['forTeamMembers'] ? SameTeamUserType::class : SameSocieteUserType::class, [
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
@@ -55,6 +56,7 @@ class FilterTimesheetType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => FilterTimesheet::class,
+            'forTeamMembers' => false
         ]);
     }
 }

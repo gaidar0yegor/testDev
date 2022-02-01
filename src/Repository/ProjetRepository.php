@@ -131,7 +131,7 @@ class ProjetRepository extends ServiceEntityRepository
      *
      * @return Projet[]
      */
-    public function findAllForUsers(iterable $societeUsers): ArrayCollection
+    public function findAllForUsers(array $societeUsers): array
     {
         $projets =  $this
             ->createQueryBuilder('projet')
@@ -143,7 +143,7 @@ class ProjetRepository extends ServiceEntityRepository
             ->getResult()
         ;
 
-        return new ArrayCollection($projets);
+        return $projets;
     }
 
     /**

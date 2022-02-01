@@ -7,7 +7,6 @@ use App\Entity\SocieteUser;
 use App\HasSocieteInterface;
 use App\Security\Role\RoleProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use InvalidArgumentException;
@@ -178,25 +177,35 @@ class SocieteUserRepository extends ServiceEntityRepository
         ;
     }
 
+    public function queryBuilderTeamMembers(SocieteUser $societeUser): QueryBuilder
+    {
+        $expr = $this->getEntityManager()->getExpressionBuilder();
+
+        return $this->createQueryBuilder('societeUser')
+            ->leftJoin('societeUser.mySuperior','mySuperior')
+            ->where('societeUser.mySuperior = :superior')
+            ->orWhere(
+                $expr->in(
+                    'mySuperior.id',
+                    $this->createQueryBuilder('societeUserN_1')
+                        ->select('societeUserN_1.id')
+                        ->where('societeUserN_1.mySuperior = :superior')
+                        ->getDQL()
+                )
+            )
+            ->setParameter('superior',$societeUser);
+    }
+
     /**
      * Find all my hierarchical links : N-1 et N-2
      *
      * @return SocieteUser[]
      */
-    public function findTeamMembers(SocieteUser $societeUser): ArrayCollection
+    public function findTeamMembers(SocieteUser $societeUser): array
     {
-        $levelN_1SocieteUsers =  $societeUser->getTeamMembersN_1()->toArray();
-        $levelN_2SocieteUsers = [];
-
-        if(count($levelN_1SocieteUsers)){
-            $levelN_2SocieteUsers = $this->createQueryBuilder('societeUser')
-                ->where('societeUser.mySuperior in (:levelN_1SocieteUsers)')
-                ->setParameter('levelN_1SocieteUsers',$levelN_1SocieteUsers)
-                ->getQuery()->getResult();
-        }
-
-        return new ArrayCollection(
-            array_merge($levelN_1SocieteUsers, $levelN_2SocieteUsers)
-        );
+        return $this
+            ->queryBuilderTeamMembers($societeUser)
+            ->getQuery()
+            ->getResult();
     }
 }
