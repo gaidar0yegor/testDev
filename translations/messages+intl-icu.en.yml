@@ -192,8 +192,8 @@ projet.titre: Descriptive title
 projet.acronyme: Acronymn
 user.role: Role
 user.heuresParJours: Hours worked per day
-user.dateEntree: Date of entry
-user.dateSortie: Date of exit
+societeUserPeriod.dateEntry: Date of entry
+societeUserPeriod.dateLeave: Date of exit
 default_value_used_in_timesheets.: Value by default, used to create timesheets.
 'Un email de recommandation a bien été envoyé à "{to}". Merci !':
   A recommendation
@@ -274,6 +274,7 @@ his_projects: His projects
 manage_his_projects_access: Manage his access to projects
 .on_the_project: on the project
 time_spent_in_percent_unit: Time spent in %
+time_spent_in: Time spent in
 .at_date: the {date}
 SOCIETE_CDP.small: PM
 disable_account_explain:
@@ -328,6 +329,14 @@ projet.dossierFichierProjets: Project files folders
 projet.dossierFichierProjets.help: Organize the storage of project files
 projet.dossierFichierProjets.delete.help: All files in this folder will be automatically deleted !!
 faitMarquant.sendedToSocieteUsers.text.help: Select and/or add recipients
+verify_and_delete_project: Check and delete project
+resume_project: "Reactivate the project"
+project_have_been_resumed: "Project {projectAcronym} has been reactivated!"
+n_contributors_added: "{n, plural, =1 {The contributor has been added to the project.} other {The # contributors have been added to the project.}}"
+parameter.bo.onboarding.notification_every: "Send an onboarding email every..."
+parameter.bo.onboarding.notification_every.help: 'Example of accepted format : "2 days", "3 weeks", "1 month", ...'
+i_accept_cgu_and_cgv: 'I accept the <a href="https://rdimanager.com/fr/cgu.html" target="_blank">general conditions of use</a> and the <a href="https://rdimanager.com/fr/cgv.html" target="_blank">general conditions of sale</a>.'
+edit_file_success: "Your file {oldName} has been changed to {newName}"
 download: Download
 delete_user.projects.warning: "{user} is part of <strong>{n, plural, =1 {a project} other {# projects}}</strong> :"
 delete_user.projects.safe: "{user} is not part of any project."
@@ -343,99 +352,106 @@ see_more: "See more ..."
 verif_date_leave_on_disable_user: "To deactivate {user}'s account, please specify its exit date."
 verif_date_entry_on_enable_user: "To activate {user}'s account, please specify its entry date."
 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'The dashboard "{titre_dashboard_consolide}" was successfully created.'
-modifier-FM: Edit your Remarkable Fact
-go-back-go-project: Cancel and return to project
-addNew-FM: Add a new Remarkable Fact
+dashboard_consolide.titre: Descriptive title
+dashboard_consolide.societes: My companies
+modifier_FM: Edit your Remarkable Fact
+go_back_go_project: Cancel and return to project
+addNew_FM: Add a new Remarkable Fact
 projectString: Project
 trashString: Trash can
-beenOf-FM: Trash can of Remarkable Fact
-list-files: Files list
+beenOf_FM: Trash can of Remarkable Fact
+list_files: Files list
 allString: All
 editFile: Edit a file
-go-back-go-files: Return to files list
-edit-btn: Edit
-add-file-btn: Add a file
+go_back_go_files: Return to files list
+edit_btn: Edit
+add_file_btn: Add a file
 caseString: Case
 fileString: File
 autorString: Autor
-suspend-project: The project is suspended
-cant-rename-file: You can't rename files that don't belong to you
-cant-delete-file: You can't delete files that don't belong to you
-last-notif-send: Last notification send
-notif-never-program: Notification never scheduled before
-gen-time-sheet: Generation of timesheets
-gen-time-sheet-msg-one: Generate timesheets for one or more users, over the period of time you want.
-gen-time-sheet-msg-two: You can then download in a single PDF or excel everyone's timesheets.
+suspend_project: The project is suspended
+cant_rename_file: You can't rename files that don't belong to you
+cant_delete_file: You can't delete files that don't belong to you
+last_notif_send: Last notification send
+notif_never_program: Notification never scheduled before
+gen_time_sheet: Generation of timesheets
+gen_time_sheet_msg_one: Generate timesheets for one or more users, over the period of time you want.
+gen_time_sheet_msg_two: You can then download in a single PDF or excel everyone's timesheets.
 understandString: It's understood !
-tell-abs-one: Here you can indicate the days on which you were absent or on half-days.
-tell-abs-two: By default, if you do not validate, you are considered present for the whole month.
+tell_abs_one: Here you can indicate the days on which you were absent or on half-days.
+tell_abs_two: By default, if you do not validate, you are considered present for the whole month.
 legendString: "Legend :"
 presentString: Presence
 halfDayString: Half-day
-time-spend-one: Here you can enter the percentage of time you spent on average on your projects that you have contributed to this month.
-time-spend-two: The sum may not add up to 100%, for example if you have spent time on projects not listed here.
-time-spend-three: If you were absent, fill in your percentages for the days you were present.
-licence-title: "License RDI-Manager :"
-tied-society: Related to society
-valid-until: Valid until
-max-contrib: "Maximum number of contributors: "
-max-projects: "Maximum number of projects:"
-license-notRelate: This license is not linked to your company.
-account-goBack: Go back to my account
-access-disabled: Access disabled
+time_spend_one: Here you can enter the percentage of time you spent on average on your projects that you have contributed to this month.
+time_spend_two: The sum may not add up to 100%, for example if you have spent time on projects not listed here.
+time_spend_three: If you were absent, fill in your percentages for the days you were present.
+licence_title: "License RDI-Manager :"
+tied_society: Related to society
+valid_until: Valid until
+max_contrib: "Maximum number of contributors: "
+max_projects: "Maximum number of projects:"
+license_notRelate: This license is not linked to your company.
+account_goBack: Go back to my account
+access_disabled: Access disabled
 goOn: Go on
 timeString: Time
 resultString: Result
-goBack-params-notif: Go back to notification settings
-no-notif-send: No notification has been sent yet.
-obs-ext-proj: "I'm <strong>external observer</strong> on this project."
-no-contrib-proj: There are currently no contributors.
-invite-obs-ext: Invite an external observer to
-invite-obs-ext-2: Invite an external observer
-your-project: Your project
-para-invite-obs: Enter the email or mobile number of the observer you want to invite. He will receive an invitation link that he can accept to obtain <strong>external observer access to your project {{ project.acronym }}</strong>.
-join-project: Join the project
-para-join-project: "You are about to join as an external observer, the project <strong>{{ projectExternalObserver.project.acronym }}</strong>: '{{ ExternalObserverproject.project.title }}'."
-join-project-obs: "Join the project {{ projectExternalObserver.project.acronym }} as an external observer"
-para-join-rdi: "You are about to join the <strong>{{ projectExternalObserver.project.acronym }}</strong> project: '{{ externalObserverproject.project.title }}'."
-new-on-rdi: If you are new to RDI-Manager or do not have an account yet, you can create one now.
-also-an-account: If you already have an account, you can link your new company to this account. You will be prompted to sign in if you are not already.
-list-project-access: List of projects to which I have access as an external observer.
+goBack_params_notif: Go back to notification settings
+no_notif_send: No notification has been sent yet.
+obs_ext_proj: "I'm <strong>external observer</strong> on this project."
+no_contrib_proj: There are currently no contributors.
+invite_obs_ext: Invite an external observer to
+invite_obs_ext_2: Invite an external observer
+your_project: Your project
+para_invite_obs: Enter the email or mobile number of the observer you want to invite. He will receive an invitation link that he can accept to obtain <strong>external observer access to your project { projectAcronyme }</strong>.
+join_project: Join the project
+para_join_project: "You are about to join as an external observer, the project <strong>{ projectAcronyme }</strong>: '{ projectTitre }'."
+join_project_obs: "Join the project { projectAcronyme } as an external observer"
+para_join_rdi: "You are about to join the <strong>{ projectAcronyme }</strong> project: '{ projectTitre }'."
+new_on_rdi: If you are new to RDI-Manager or do not have an account yet, you can create one now.
+also_an_account: If you already have an account, you can link your new company to this account. You will be prompted to sign in if you are not already.
+list_project_access: List of projects to which I have access as an external observer.
 societyString: Society
-part-on-project: Participants on the project
-gest-of-part: Participant management
-add-part: Add a participant
-obs-ext: External observers
-want-new-user: You want to invite a user to your project and also invite him to your company?
-want-new-obs: You want to give observer access to a user on this project, but without inviting him to your company?
-invite-on: Invite on
-para-invite-on: You can invite on this project a user not yet registered in your company from his email.
-add-cont-later: I will add contributors later
-go-on-project: Go on the project
-edit-of-project: Editing the project
-manage-file-project: Do you want to manage project files in folders?
-ext-link-project: Do you want to add external project links?
-only-contrib: Only contributors can add a highlight
-my-role-project: "I am <strong>{{ participation.role|trans }}</strong> on this project."
-no-role-project: "You have <strong>no role</strong> on this project."
-date-debut: Start date
-date-fin: End date
-follow-project: Follow the project
-para-follow-project: Follow this project to receive a notification in real time with each update of this project.
-cant-follow-project: You cannot follow this project because you must have at least the observer role on this project.
-no-contrib-now: There are no contributors yet
-see-obs-project: Voir les Observateurs
+part_on_project: Participants on the project
+gest_of_part: Participant management
+add_part: Add a participant
+obs_ext: External observers
+want_new_user: You want to invite a user to your project and also invite him to your company?
+want_new_obs: You want to give observer access to a user on this project, but without inviting him to your company?
+invite_on: Invite on
+para_invite_on: You can invite on this project a user not yet registered in your company from his email.
+add_cont_later: I will add contributors later
+go_on_project: Go on the project
+edit_of_project: Editing the project
+manage_file_project: Do you want to manage project files in folders?
+ext_link_project: Do you want to add external project links?
+only_contrib: Only contributors can add a highlight
+my_role_project: "I am <strong>{ userRole }</strong> on this project."
+no_role_project: "You have <strong>no role</strong> on this project."
+date_debut: Start date
+date_fin: End date
+follow_project: Follow the project
+para_follow_project: Follow this project to receive a notification in real time with each update of this project.
+cant_follow_project: You cannot follow this project because you must have at least the observer role on this project.
+no_contrib_now: There are no contributors yet
+see_obs_project: Voir les Observateurs
 filesString: Files
-no-files-here: No files found here...
+no_files_here: No files found here...
 collaboratif: Collaborative
 interne: Internal
 externe: External
 close: Close
-return-to-project: Go back to the project
-no-fm: This doesn't contain Remarkable fact.
+return_to_project: Go back to the project
+no_fm: This doesn't contain Remarkable fact.
 title: Title
 resume: Summary
-activity-project: Project activity
-add-new-project: Add a new project
-want-case-project: Do you want to manage project files in folders?
-want-ext-link-project: Do you want to add external project links?
+activity_project: Project activity
+add_new_project: Add a new project
+want_case_project: Do you want to manage project files in folders?
+want_ext_link_project: Do you want to add external project links?
+suspended_project: The project is suspended
+license_notRelated: Cette license n'est pas liée à votre société.
+add_contributors: "Add Contributors"
+add_contributors_help: "Without other contributors, you will be the only one who can add remarkable facts, attach files... Add contributors to this project so that they can enrich it and enter their time spent on it."
+who_is_working_on_this_project: "Qui contribue à ce projet ?"

@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "part-on-project"|trans }} {{ projet.titre }}{% endblock %}
+{% block title %}{{ "part_on_project"|trans }} {{ projet.titre }}{% endblock %}
 
 {% block body %}
 
-    <h1>{{ "gest-of-part"|trans }}</h1>
+    <h1>{{ "gest_of_part"|trans }}</h1>
 
     <div class="col-md-12">
         <a class="d-block mb-4" href="{{ path('app_fo_projet', {'id': projet.id}) }}">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            {{ "go-back-go-project"|trans }}
+            {{ "go_back_go_project"|trans }}
         </a>
     </div>
 
@@ -25,7 +25,7 @@
             style="display: none"
     >
         <i class="fa fa-plus" aria-hidden="true"></i>
-        {{ "add-part"|trans }}
+        {{ "add_part"|trans }}
     </button>
 
     <br>
@@ -40,12 +40,12 @@
     {{ form_end(form) }}
 
     {% if projet.projetObservateurExternes|length > 0 %}
-        <h2>{{ "obs-ext"|trans }}</h2>
+        <h2>{{ "obs_ext"|trans }}</h2>
 
         <table class="table datatable">
             <thead>
             <tr>
-                <th>{{ "lastName"|trans }}</th>
+                <th>{{ "lastname"|trans }}</th>
                 <th>Contact</th>
                 <th>{{ "status"|trans }}</th>
                 <th></th>
@@ -104,7 +104,7 @@
                         {{ "invite_new_user"|trans }}
                     </h5>
                     <p class="card-text">
-                        {{ "want-new-user"|trans }}
+                        {{ "want_new_user"|trans }}
                     </p>
                     <a
                             href="{{ path('app_fo_projet_participant_invite', {'id': projet.id}) }}"
@@ -118,15 +118,15 @@
                 <div class="card-body">
                     <h5 class="card-title">
                         <i class="fa fa-share-alt" aria-hidden="true"></i>
-                        {{ "invite-obs-ext-2"|trans }}
+                        {{ "invite_obs_ext_2"|trans }}
                     </h5>
                     <p class="card-text">
-                       {{ "want-new-obs"|trans }}
+                       {{ "want_new_obs"|trans }}
                     </p>
                     <a
                             href="{{ path('app_fo_observateur_externe_invite', {'id': projet.id}) }}"
                             class="btn btn-outline-primary stretched-link"
-                    > {{ "invite-obs-ext-2"|trans }}</a>
+                    > {{ "invite_obs_ext_2"|trans }}</a>
                 </div>
             </div>
         </div>

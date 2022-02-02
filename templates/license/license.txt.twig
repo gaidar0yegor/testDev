@@ -1,19 +1,19 @@
-{{ "licence-title"|trans }} {{ license.name }}
+{{ "licence_title"|trans }} {{ license.name }}
 
-{{ "tied-society"|trans }} {{ license.societe.raisonSociale }}
+{{ "tied_society"|trans }} {{ license.societe.raisonSociale }}
 
 {% if license.description %}
     {{- license.description }}
 
 {% endif -%}
 
-{{ "valid-until"|trasn }} {{ license.expirationDate|format_date(pattern='d MMMM yyyy') }}.
+{{ "valid_until"|trans }} {{ license.expirationDate|format_date(pattern='d MMMM yyyy') }}.
 
 {% if license.quotas.contributeurs is defined -%}
-    {{ "max-contrib"|trans }} {{ license.quotas.contributeurs }}
+    {{ "max_contrib"|trans }} {{ license.quotas.contributeurs }}
 {% endif %}
 {% if license.quotas.activeProjet is defined -%}
-    {{ "max-projects"|trans }} {{ license.quotas.activeProjet }}
+    {{ "max_projects"|trans }} {{ license.quotas.activeProjet }}
 {% endif %}
 
 {{ separator }}

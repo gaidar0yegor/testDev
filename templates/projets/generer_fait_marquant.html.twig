@@ -10,7 +10,7 @@
     <div class="col-md-12">
         <a class="d-block mb-4" href="{{ path('app_fo_projet', {'id': projet.id}) }}">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
-            {{"return-to-project"|trans }}
+            {{"return_to_project"|trans }}
         </a>
     </div>
 
@@ -61,13 +61,13 @@
                     </div>
                     {% if projet.dateDebut %}
                         <div class="row mb-3">
-                            <div class="col-md-4"><strong>{{ "date-debut"|trans }}  : </strong></div>
+                            <div class="col-md-4"><strong>{{ "date_debut"|trans }}  : </strong></div>
                             <div class="col-md-6">{{ projet.dateDebut|format_date }}</div>
                         </div>
                     {% endif %}
                     {% if projet.dateFin %}
                         <div class="row mb-3">
-                            <div class="col-md-4"><strong>{{ "date-fin"|trans }}  : </strong></div>
+                            <div class="col-md-4"><strong>{{ "date_fin"|trans }}  : </strong></div>
                             <div class="col-md-6">{{ projet.dateFin|format_date }}</div>
                         </div>
                     {% endif %}
@@ -116,7 +116,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <p>{{ "no-fm"|trans }}</p>
+            <p>{{ "no_fm"|trans }}</p>
         {% endif %}
     </section>
 

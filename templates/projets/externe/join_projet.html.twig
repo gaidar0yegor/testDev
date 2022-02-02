@@ -1,16 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'join-project'|trans }} {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>{{ 'join-project'|trans }} {{ projetObservateurExterne.projet.acronyme }}</h1>
+<h1>{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }}</h1>
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <p>{{ "para-join-rdi"|trans }}</p>
+        <p>{{ 'para_join_rdi'|trans({
+                'projectAcronyme': projetObservateurExterne.projet.acronyme,
+                'projectTitre': projetObservateurExterne.projet.titre
+            })|raw|striptags('<strong>')|raw }}</p>
 
-        <p>{{ "new-on-rdi"|trans }}</p>
+        <p>{{ "new_on_rdi"|trans }}</p>
 
         <a
             href="{{ path('app_signup', {
@@ -21,7 +24,7 @@
             class="mt-1 btn btn-lg btn-success"
         >{{ "create_my_rdi_manager_account"|trans }}</a>
 
-        <p class="mt-4">{{ "also-an-account"|trans }}</p>
+        <p class="mt-4">{{ "also_an_account"|trans }}</p>
 
         <a
             href="{{ path('app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}) }}"

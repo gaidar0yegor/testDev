@@ -1,15 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ "invite-on"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ "invite_on"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>{{ "invite-on"|trans }} {{ projet.acronyme }}</h1>
+<h1>{{ "invite_on"|trans }} {{ projet.acronyme }}</h1>
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <p>
-        {{ "para-invite-on"|trans }}
+        {{ "para_invite_on"|trans }}
         </p>
 
         {{ form_start(form) }}

@@ -26,12 +26,12 @@
             {% elseif projet.isSuspended %}
                 <p class="text-muted text-left">
                     <i class="fa fa-ban" aria-hidden="true"></i>
-                    {{ "suspend-project"|trans }}
+                    {{ "suspended_project"|trans }}
                 </p>
             {% else %}
                 <p class="text-muted text-left">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                    {{ "only-contrib"|trans }}
+                    {{ "only_contrib"|trans }}
                 </p>
             {% endif %}
         </div>
@@ -86,7 +86,7 @@
                                             {% endif %}
                                     >
                                         <i class="fa fa-pencil"></i>
-                                        {{ "edit-btn"|trans }}
+                                        {{ "edit_btn"|trans }}
                                     </a>
                                 </div>
                             </li>

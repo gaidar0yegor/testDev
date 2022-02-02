@@ -390,101 +390,99 @@ verif_date_entry_on_enable_user: "Pour activer le compte de {user}, veuillez pr�
 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.'
 dashboard_consolide.titre: "Titre descriptif"
 dashboard_consolide.societes: "Mes sociétés"
-modifier-FM: Modifiez votre Fait Marquant
-go-back-go-project: Annuler et retourner au projet
-addNew-FM: Ajouter un fait marquant
+modifier_FM: Modifiez votre Fait Marquant
+go_back_go_project: Annuler et retourner au projet
+addNew_FM: Ajouter un fait marquant
 projectString: Projet
-beenOf-FM: Corbeille des faits marquants
+beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille
-list-files: Liste des fichiers
+list_files: Liste des fichiers
 allString: Tous
 editFile: Modifier un fichier
-go-back-go-files: Retourner à la liste des fichiers
-edit-btn: Modifier
-add-file-btn: Ajouter un fichier
+go_back_go_files: Retourner à la liste des fichiers
+edit_btn: Modifier
+add_file_btn: Ajouter un fichier
 caseString: Dossier
 fileString: Fichier
 autorString: Auteur
-suspend-project: Le project est suspendu
-cant-rename-file: Vous ne pouvez pas renommer les fichiers qui ne vous appartiennent pas
-cant-delete-file: Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas
-last-notif-send: Dernières notifications envoyées
-notif-never-program: Notification encore jamais programmée
-gen-time-sheet: Génération des feuilles de temps
-gen-time-sheet-msg-one: Générez les feuilles de temps d'un ou plusieurs utilisateurs, sur la période de temps que vous souhaitez.
-gen-time-sheet-msg-two: Vous pouvez alors télécharger en un seul PDF ou excel toutes les feuilles de temps de tout le monde.
+suspended_project: Le projet est suspendu
+cant_rename_file: Vous ne pouvez pas renommer les fichiers qui ne vous appartiennent pas
+cant_delete_file: Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas
+last_notif_send: Dernières notifications envoyées
+notif_never_program: Notification encore jamais programmée
+gen_time_sheet: Génération des feuilles de temps
+gen_time_sheet_msg_one: Générez les feuilles de temps d'un ou plusieurs utilisateurs, sur la période de temps que vous souhaitez.
+gen_time_sheet_msg_two: Vous pouvez alors télécharger en un seul PDF ou excel toutes les feuilles de temps de tout le monde.
 understandString: C'est compris !
-tell-abs-one: Vous pouvez ici indiquer les jours où vous avez été absent ou en demi-journée.
-tell-abs-two: Par défaut, si vous ne validez pas, vous êtes considérés comme présent tout le mois.
+tell_abs_one: Vous pouvez ici indiquer les jours où vous avez été absent ou en demi-journée.
+tell_abs_two: Par défaut, si vous ne validez pas, vous êtes considérés comme présent tout le mois.
 legendString: "Légende :"
 presentString: Présence
 halfDayString: Demi-journée
-time-spend-one:
-  Vous pouvez ici saisir en pourcentage le temps que vous avez passé
-  en moyenne sur vos projets dont vous avez contribué dans ce mois.
-time-spend-two: La somme peut ne pas faire 100%, par exemple si vous avez passé du temps sur des projets non listés ici.
-time-spend-three: Si vous avez été absent, remplissez vos pourcentages pour les jours où vous avez été present.
-licence-title: "Licence RDI-Manager :"
-tied-society: Liée à la société
-valid-until: Valide jusqu'au
-max-contrib: "Nombre de contributeurs max : "
-max-projects: "Nombre de projets max :"
-license-notRelate: Cette license n'est pas liée à votre société.
-account-goBack: Retourner à mon compte
-access-disabled: Accès désactivé
+time_spend_one: Vous pouvez ici saisir en pourcentage le temps que vous avez passé en moyenne sur vos projets dont vous avez contribué dans ce mois.
+time_spend_two: La somme peut ne pas faire 100%, par exemple si vous avez passé du temps sur des projets non listés ici.
+time_spend_three: Si vous avez été absent, remplissez vos pourcentages pour les jours où vous avez été present.
+licence_title: "Licence RDI-Manager :"
+tied_society: Liée à la société
+valid_until: Valide jusqu'au
+max_contrib: "Nombre de contributeurs max : "
+max_projects: "Nombre de projets max :"
+license_notRelated: Cette license n'est pas liée à votre société.
+account_goBack: Retourner à mon compte
+access_disabled: Accès désactivé
 goOn: Aller sur
 timeString: Temps
 resultString: Résultat
-goBack-params-notif: Retourner aux paramètres des notifications
-no-notif-send: Aucune notification n'a encore été envoyée.
-obs-ext-proj: "Je suis <strong>observateur externe</strong> sur ce projet."
-no-contrib-proj: Il n'y a pas de contributeur pour l'instant.
-invite-obs-ext: Inviter un observateur externe sur
-invite-obs-ext-2: Inviter un observateur externe
-your-project: Votre projet
-para-invite-obs: "Saisissez l'email ou le numéro de téléphone portable de l'observateur que vous souhaitez inviter. Il recevra un lien d'invitation qu'il pourra accepter pour obtenir l'<strong>accès observateur externe sur votre projet {{ projet.acronyme }}</strong>."
-join-project: Rejoindre le projet
-para-join-project: "Vous êtes sur le point de rejoindre en tant qu'observateur externe, le projet <strong>{{ projetObservateurExterne.projet.acronyme }}</strong> : '{{ projetObservateurExterne.projet.titre }}'."
-join-project-obs: "Rejoindre le projet {{ projetObservateurExterne.projet.acronyme }} en tant qu'observateur externe"
-para-join-rdi: "Vous êtes sur le point de rejoindre le projet <strong>{{ projetObservateurExterne.projet.acronyme }}</strong> : '{{ projetObservateurExterne.projet.titre }}'."
-new-on-rdi: Si êtes nouveau sur RDI-Manager ou que vous n'avez pas encore de compte, vous pouvez en créer un maintenant.
-also-an-account: Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte. Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
-list-project-access: Liste des projets dont j'ai un accès en tant qu'observateur externe.
+goBack_params_notif: Retourner aux paramètres des notifications
+no_notif_send: Aucune notification n'a encore été envoyée.
+obs_ext_proj: "Je suis <strong>observateur externe</strong> sur ce projet."
+no_contrib_proj: Il n'y a pas de contributeur pour l'instant.
+invite_obs_ext: Inviter un observateur externe sur
+invite_obs_ext_2: Inviter un observateur externe
+your_project: Votre projet
+para_invite_obs: "Saisissez l'email ou le numéro de téléphone portable de l'observateur que vous souhaitez inviter. Il recevra un lien d'invitation qu'il pourra accepter pour obtenir l'<strong>accès observateur externe sur votre projet { projectAcronyme }</strong>."
+join_project: Rejoindre le projet
+para_join_project: "Vous êtes sur le point de rejoindre en tant qu'observateur externe, le projet <strong>{ projectAcronyme }</strong> : { projectTitre }."
+join_project_obs: "Rejoindre le projet { projectAcronyme } en tant qu'observateur externe"
+para_join_rdi: "Vous êtes sur le point de rejoindre le projet <strong>{ projectAcronyme }</strong> : { projectTitre }."
+new_on_rdi: Si êtes nouveau sur RDI-Manager ou que vous n'avez pas encore de compte, vous pouvez en créer un maintenant.
+also_an_account: Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte. Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
+list_project_access: Liste des projets dont j'ai un accès en tant qu'observateur externe.
 societyString: Société
-part-on-project: Participants sur le projet
-gest-of-part: Gestion des participants
-add-part: Ajouter un participant
-obs-ext: Observateurs externes
-want-new-user: Vous souhaitez inviter un utilisateur sur votre projet et l'inviter aussi dans votre société ?
-want-new-obs: Vous souhaitez donner un accès observateur à un utilisateur sur ce projet, mais sans l'inviter dans votre société ?
-invite-on: Inviter sur
-para-invite-on: Vous pouvez inviter sur ce projet un utilisateur pas encore inscrit dans votre société à partir de son email.
-add-cont-later: J'ajouterai des contributeurs plus tard
-go-on-project: Aller sur le projet
-edit-of-project: Edition du projet
-manage-file-project: Voulez-vous gérer les fichiers du projet dans des dossiers ?
-ext-link-project: Voulez-vous ajouter des liens externes du projet ?
-only-contrib: Seuls les contributeurs peuvent ajouter un fait marquant
-my-role-project: "Je suis <strong>{{ participation.role|trans }}</strong> sur ce projet."
-no-role-project: "Vous n'avez <strong>pas de rôle</strong> sur ce projet."
-date-debut: Date de début
-date-fin: Date de fin
-follow-project: Suivre le projet
-para-follow-project: Suivez ce projet pour recevoir une notification en temps réel à chaque mise à jour de ce projet.
-cant-follow-project: Vous ne pouvez pas suivre ce projet car vous devez avoir au moins le rôle d'observateur sur ce projet.
-no-contrib-now: Il n'y a pas de contributeurs pour l'instant
-see-obs-project: Voir les Observateurs
+part_on_project: Participants sur le projet
+gest_of_part: Gestion des participants
+add_part: Ajouter un participant
+obs_ext: Observateurs externes
+want_new_user: Vous souhaitez inviter un utilisateur sur votre projet et l'inviter aussi dans votre société ?
+want_new_obs: Vous souhaitez donner un accès observateur à un utilisateur sur ce projet, mais sans l'inviter dans votre société ?
+invite_on: Inviter sur
+para_invite_on: Vous pouvez inviter sur ce projet un utilisateur pas encore inscrit dans votre société à partir de son email.
+add_cont_later: J'ajouterai des contributeurs plus tard
+go_on_project: Aller sur le projet
+edit_of_project: Edition du projet
+manage_file_project: Voulez-vous gérer les fichiers du projet dans des dossiers ?
+ext_link_project: Voulez-vous ajouter des liens externes du projet ?
+only_contrib: Seuls les contributeurs peuvent ajouter un fait marquant
+my_role_project: "Je suis <strong>{ userRole }</strong> sur ce projet."
+no_role_project: "Vous n'avez <strong>pas de rôle</strong> sur ce projet."
+date_debut: Date de début
+date_fin: Date de fin
+follow_project: Suivre le projet
+para_follow_project: Suivez ce projet pour recevoir une notification en temps réel à chaque mise à jour de ce projet.
+cant_follow_project: Vous ne pouvez pas suivre ce projet car vous devez avoir au moins le rôle d'observateur sur ce projet.
+no_contrib_now: Il n'y a pas de contributeurs pour l'instant
+see_obs_project: Voir les Observateurs
 filesString: Fichiers
-no-files-here: Il n'y a pas de fichiers ici...
+no_files_here: Il n'y a pas de fichiers ici...
 collaboratif: Collaboratif
 interne: Interne
 externe: Externe
 close: Fermer
-return-to-project: Retourner au projet
-no-fm: Ce projet n'a pas encore de fait marquants.
+return_to_project: Retourner au projet
+no_fm: Ce projet n'a pas encore de fait marquants.
 title: Titre
 resume: Résumé
-activity-project: Activité du projet
-add-new-project: Ajouter un nouveau projet
-want-case-project: Voulez-vous gérer les fichier du projet dans des dossier ?
-want-ext-link-project: Voulez-vous ajouter des liens externes du projet ?
+activity_project: Activité du projet
+add_new_project: Ajouter un nouveau projet
+want_case_project: Voulez_vous gérer les fichier du projet dans des dossier ?
+want_ext_link_project: Voulez-vous ajouter des liens externes du projet ?

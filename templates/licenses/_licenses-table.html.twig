@@ -1,8 +1,8 @@
 <table class="table mx-auto m-5">
     <thead>
         <tr>
-            <th>{{ "lastName"|trans }}</th>
-            <th>{{ "valid-until"|trasn }}</th>
+            <th>{{ "lastname"|trans }}</th>
+            <th>{{ "valid_until"|trans }}</th>
             <th>Quotas</th>
             <th></th>
         </tr>
@@ -12,7 +12,7 @@
             {% if not isLicenseSameSociete(license, entity) %}
                 <tr>
                     <td colspan="4" class="text-muted">
-                        {{ "license-notRelated"|trans }}
+                        {{ "license_notRelated"|trans }}
                     </td>
                 </tr>
             {% else %}

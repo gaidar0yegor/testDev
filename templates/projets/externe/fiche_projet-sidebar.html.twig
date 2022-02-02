@@ -1,5 +1,5 @@
 <dl>
-    <p>{{ "obs-ext-proj"|trans }}</p>
+    <p>{{ "obs_ext_proj"|trans|raw|striptags('<strong>')|raw }}</p>
 
     {% if projet.projetUrls|length > 0 %}
         <ul class="list-unstyled">
@@ -34,7 +34,7 @@
             {{ contributeur.societeUser.user.fullname }}
         </li>
     {% else %}
-        <li>{{ "no-contrib-proj"|trans }}</li>
+        <li>{{ "no_contrib_proj"|trans }}</li>
     {% endfor %}
 </ul>
 
