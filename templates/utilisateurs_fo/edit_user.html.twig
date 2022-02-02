@@ -10,7 +10,7 @@
 {{ form_errors(form) }}
 
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-6 {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? "" : "d-none" }}">
         {{ form_row(form.role) }}
     </div>
     <div class="col-sm-6">

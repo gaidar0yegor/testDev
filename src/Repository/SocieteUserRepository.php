@@ -179,21 +179,22 @@ class SocieteUserRepository extends ServiceEntityRepository
 
     public function queryBuilderTeamMembers(SocieteUser $societeUser): QueryBuilder
     {
-        $expr = $this->getEntityManager()->getExpressionBuilder();
-
-        return $this->createQueryBuilder('societeUser')
-            ->leftJoin('societeUser.mySuperior','mySuperior')
-            ->where('societeUser.mySuperior = :superior')
+        $qb = $this->createQueryBuilder('societeUser');
+        return $qb->leftJoin('societeUser.mySuperior', 'mySuperior')
+            ->where('societeUser = :superior')
             ->orWhere(
-                $expr->in(
-                    'mySuperior.id',
-                    $this->createQueryBuilder('societeUserN_1')
-                        ->select('societeUserN_1.id')
-                        ->where('societeUserN_1.mySuperior = :superior')
-                        ->getDQL()
+                $qb->expr()->orX(
+                    $qb->expr()->eq('societeUser.mySuperior', ':superior'),
+                    $qb->expr()->in(
+                        'mySuperior.id',
+                        $this->createQueryBuilder('societeUserN_1')
+                            ->select('societeUserN_1.id')
+                            ->where('societeUserN_1.mySuperior = :superior')
+                            ->getDQL()
+                    )
                 )
             )
-            ->setParameter('superior',$societeUser);
+            ->setParameter('superior', $societeUser);
     }
 
     /**

@@ -26,7 +26,8 @@ class EquipeChecker
      */
     public function isSameEquipe(SocieteUser $equipeMember, SocieteUser $societeUserSuperior): bool
     {
-        return $equipeMember->getMySuperior() === $societeUserSuperior ||
+        return $equipeMember === $societeUserSuperior ||
+            $equipeMember->getMySuperior() === $societeUserSuperior ||
             (null !== $equipeMember->getMySuperior() && $equipeMember->getMySuperior()->getMySuperior() === $societeUserSuperior);
     }
 
