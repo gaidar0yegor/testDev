@@ -11,7 +11,7 @@ Feature: Le chef de projet doit pouvoir inviter un nouvel utilisateur
         And I press "Connexion"
         And I am on "/projets/1/participants"
 
-        When I follow "Inviter un nouvel utilisateur sur ce projet"
+        When I follow "Inviter un nouvel utilisateur"
         And I fill in the following:
             | invite_user_sur_projet[email] | invite@societe.dev  |
             | invite_user_sur_projet[role]  | PROJET_CONTRIBUTEUR |

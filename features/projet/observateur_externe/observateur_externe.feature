@@ -18,7 +18,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
         When I follow "Inviter un observateur externe"
         And I fill in the following:
             | invite_observateur_externe[invitationEmail] | observateur_externe@externe.dev |
-        And I press "Inviter en tant qu'observateur externe"
+        And I press "Inviter un observateur externe"
         Then I should see "Une notification avec un lien d'invitation a été envoyée à votre observateur externe"
         And I should see "En cours d'invitation..." in the "observateur_externe@externe.dev" row
 

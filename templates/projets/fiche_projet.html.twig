@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Projet {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ "projectString"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
@@ -8,7 +8,7 @@
     <div class="col-12 col-lg-8">
         <h1>
             {% include 'utils/_code_color.html.twig' with {color: projet.colorCode} %}
-            Projet {{ projet.acronyme }}
+            {{ "projectString"|trans }} {{ projet.acronyme }}
         </h1>
 
         <p class="lead text-center">{{ projet.titre }}</p>
@@ -21,10 +21,10 @@
 
         <p class="text-center">
             {% if projet.projetCollaboratif %}
-                <span class="badge badge-success">Collaboratif</span>
+                <span class="badge badge-success">{{ "collaboratif"|trans }}</span>
             {% endif %}
             {% if projet.projetInterne %}
-                <span class="badge badge-success">Interne</span>
+                <span class="badge badge-success">{{ "interne"|trans }}</span>
             {% endif %}
             {% if projet.projetPpp %}
                 <span class="badge badge-success">PPP - R&amp;D</span>
@@ -106,7 +106,7 @@
 
                     {% for projetObservateurExterne in projet.projetObservateurExternes %}
                         {% if projetObservateurExterne.user is not null %}
-                            <li><strong>Externe</strong> : {{ projetObservateurExterne.user.fullname }} </li>
+                            <li><strong>{{ "externe"|trans }}</strong> : {{ projetObservateurExterne.user.fullname }} </li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -137,7 +137,7 @@
                 </ul>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ "close"|trans }}</button>
             </div>
         </div>
     </div>

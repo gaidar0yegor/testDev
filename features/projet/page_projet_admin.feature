@@ -17,7 +17,7 @@ Feature: Affichage de la page d'un projet en tant qu'admin
         Then I should see "Gestion des participants" in the "h1" element
 
         When I go to "/projets/1/modifier"
-        Then I should see "Modification du projet P1"
+        Then I should see "Edition du projet P1"
 
     Scenario: Un admin peut tout faire sur un projet de sa société même s'il n'y participe pas
         When I go to "/projets/2"
@@ -27,4 +27,4 @@ Feature: Affichage de la page d'un projet en tant qu'admin
         Then I should see "Gestion des participants" in the "h1" element
 
         When I go to "/projets/2/modifier"
-        Then I should see "Modification du projet P2"
+        Then I should see "Edition du projet P2"

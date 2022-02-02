@@ -48,9 +48,9 @@
     <table id="files_list_dt" class="table datatable custom-datatable hover {{ form.vars.attr.class is defined ? form.vars.attr.class : '' }}">
         <thead>
             <tr>
-                <th>Dossier</th>
-                <th>Fichier</th>
-                <th>Auteur</th>
+                <th>{{ 'caseString'|trans }}</th>
+                <th>{{ 'fileString'|trans }}</th>
+                <th>{{ 'autorString'|trans }}</th>
                 <th>Date</th>
                 <th></th>
             </tr>
@@ -62,9 +62,9 @@
             {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), form.vars.projet) %}
                 <tr>
                     <td colspan="5">
-                        <button class="btn btn-outline-primary add-file-btn" type="button">
+                        <button class="btn btn-outline-primary add_file_btn" type="button">
                             <i class="fa fa-plus" aria-hidden="true"></i>
-                            Ajouter un fichier
+                            {{ 'add_file_btn'|trans }}
                         </button>
                     </td>
                 </tr>
@@ -120,9 +120,9 @@
                             }) }}"
                             class="btn btn-outline-primary btn-sm mr-2 {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}disabled{% endif %}"
                             {% if form.vars.data.projet.isSuspended %}
-                                title="Le projet est suspendu"
+                                title="{{'suspended_project'|trans }}"
                             {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), form.vars.data) %}
-                                title="Vous ne pouvez pas renommer les fichiers qui ne vous appartiennent pas"
+                                title="{{ 'cant_rename_file'|trans }}"
                             {% endif %}
                             >
                             <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -131,9 +131,9 @@
                             href="{{ path('app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
                             class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
                                 {% if form.vars.data.projet.isSuspended %}
-                                    title="Le projet est suspendu"
+                                    title="{{'suspended_project'|trans }}"
                                 {% elseif not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}
-                                title="Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas"
+                                title="{{ 'cant_delete_file'|trans }}"
                             {% endif %}
                         >
                             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -210,9 +210,9 @@
             {{ form_errors(form) }}
             <br>
             {% if form.vars.data.id %}
-                <small class="card-text"><a href="{{ path('app_fo_admin_notification_rapport', {'id': form.vars.data.id}) }}">Dernières notifications envoyées</a></small>
+                <small class="card-text"><a href="{{ path('app_fo_admin_notification_rapport', {'id': form.vars.data.id}) }}">{{ 'last_notif_send'|trans }}</a></small>
             {% else %}
-                <small class="card-text text-muted">Notification encore jamais programmée</small>
+                <small class="card-text text-muted">{{ 'notif_never_program'|trans }}</small>
             {% endif %}
         </div>
     </div>

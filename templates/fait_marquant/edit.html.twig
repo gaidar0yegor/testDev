@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifiez votre fait marquant | {{ parent() }}{% endblock %}
+{% block title %}{{ 'modifier_FM'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
 <div class="row">
     <div class="col-md-10 offset-md-1">
-        <h1>Modifiez votre fait marquant</h1>
+        <h1>{{ 'modifier_FM'|trans }}</h1>
 
         <div class="row">
             <div class="col-sm-8">
                 <a class="d-block mb-4" href="{{ path('app_fo_projet', {id: faitMarquant.projet.id}) }}">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    Annuler et retourner au projet
+                    {{ 'go_back_go_project'|trans }}
                 </a>
             </div>
             <div class="col-sm-4 text-right">

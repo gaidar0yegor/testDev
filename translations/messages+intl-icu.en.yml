@@ -26,7 +26,7 @@ menu.time_tracking.time_spent: Time spent
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: My tracking
 menu.admin: Administration
-my_account: 'My account'
+my_account: "My account"
 PRESENTATION: Project's presentation
 FAITS_MARQUANTS: Remarkable fact
 LISTE_FICHIERS: Files list
@@ -39,7 +39,8 @@ ROLE_USER: User
 SOCIETE_ADMIN.small: Admin
 SOCIETE_USER.small: User
 quota.contributeurs.name: Contributors
-quota.contributeurs.description: User not detected, and contributor (or project manager)
+quota.contributeurs.description:
+  User not detected, and contributor (or project manager)
   on at least one project.
 None: None
 INSCRIPTION: Registration form
@@ -50,13 +51,16 @@ SOCIETE_USER_STATUT_DISABLED: Deactivated
 monthly: Monthly
 weekly: Weekly
 daily: Daily
-n_observateur: "{n, plural,\n    =0 {Observator}\n    one {Observator}\n    other\
+n_observateur:
+  "{n, plural,\n    =0 {Observator}\n    one {Observator}\n    other\
   \ {Observators}\n}"
-n_contributeur: "{n, plural,\n    =0 {Contributor}\n    one {Contributor}\n    other\
+n_contributeur:
+  "{n, plural,\n    =0 {Contributor}\n    one {Contributor}\n    other\
   \ {Contributors}\n}"
 my_dashboard: My dashboard
 dashboard.today: News
-create_project_requires_project_manager_role: You need to be project manager to create
+create_project_requires_project_manager_role:
+  You need to be project manager to create
   a new project.
 menu.admin.projects: All my projects
 menu.admin.users: Users
@@ -93,23 +97,27 @@ edit_societe_logo: Update logo
 worked_hours: Hours worked
 worked_hours_per_day: Hours per day
 .in_days_unit: in days
-n_hours_short: '{n} h'
+n_hours_short: "{n} h"
 SOCIETE_CDP: Project Manager
 quota.activeProjet.name: Active projects
-quota.activeProjet.description: Projects in progress taking into account the starting
+quota.activeProjet.description:
+  Projects in progress taking into account the starting
   and ending dates.
-n_nouveaux_faits_marquants: "{n, plural,\n    =0    {no new remarkable fact}\n   \
+n_nouveaux_faits_marquants:
+  "{n, plural,\n    =0    {no new remarkable fact}\n   \
   \ one   {one new remarkable fact}\n    other {# new remarkable facts}\n}"
 menu.admin.notification_parameters: Notifications parameters
 menu.admin.licenses: My licences
-as_admin_i_can_also_access_all_projects: As an administrator, I can as well {link_start}access
+as_admin_i_can_also_access_all_projects:
+  As an administrator, I can as well {link_start}access
   to all of my projects{link_end}.
 logout: Logout
 you_submitted_this_month_on: You have validated this month the {date}.
 update: Update
 enter_your_time_spent: Enter your time spent on each project
 .per_day_per_default: per day, by default
-you_can_invite_by_email_or_sms_to_make_him_join_company.: You can send an invitation
+you_can_invite_by_email_or_sms_to_make_him_join_company.:
+  You can send an invitation
   by email or SMS to a user for him to join your company.
 BACK_OFFICE: Back-Office
 welcome_on_rdi_manager: Welcome to RDI-Manager !
@@ -117,11 +125,11 @@ admin_requires_admin_role: Menu reserved to your company's administrator.
 menu.admin.company: My company
 list_of_projects_i_participate: List of projects in which I participate.
 switch_company: Switch company
-'legend:': 'Key:'
+"legend:": "Key:"
 presence: Presence
-'business_identification_number:': 'Siret:'
-n_days_short: '{n} j'
-'total_hours_in_month:': 'Total of hours in {month} :'
+"business_identification_number:": "Siret:"
+n_days_short: "{n} j"
+"total_hours_in_month:": "Total of hours in {month} :"
 .or_n_percent: that is {n} %
 edit_my_company: Modify my company
 back: Return
@@ -136,10 +144,10 @@ to_be_defined: To define
 edit_hours_number: Modify the number of hours
 time_spent_recording: Enter the time
 max_legnth_fait_marquant_desc: Description of the remarkable fact
-.in_number_of_char: 'in number of characters'
+.in_number_of_char: "in number of characters"
 change_max_legnth_fait_marquant_desc: Modify the length of the text
-isBlocking: 'Is the limit Blocking ?'
-illimited: 'Illimited'
+isBlocking: "Is the limit Blocking ?"
+illimited: "Illimited"
 change_granularity: Modify the granularity
 company: Company
 company_projects: Projects of the company
@@ -151,7 +159,8 @@ account_disabled: Account deactivated
 select_unselect_all: Select all / unselect
 slack_integration: Integration of Slack
 time_spent_recording_granularity: Granularity of the time entry
-send_slack_reminder_in_your_team_channel: Send the notifications of reminders to your
+send_slack_reminder_in_your_team_channel:
+  Send the notifications of reminders to your
   team in one of your Slack channels.
 add_to_slack: Add to Slack
 channels_currently_connected: Channels currently connected
@@ -160,17 +169,21 @@ not_known: Not indicated
 change_password: Change my password
 my_account_on_societe_x: My account on {societe}
 my_activity: My activity
-your_collaborators_will_enrich_this_project: Your collaborators will be able to enter
+your_collaborators_will_enrich_this_project:
+  Your collaborators will be able to enter
   their time spent on this project, or even add the remarkable facts.
 .that_i_want_to_track: that I wish to follow
 my_collaborators: My collaborators
 .to_invite: to invite
 finished!: Done !
-you_still_can_create_project_later: You will always be able to create your project
+you_still_can_create_project_later:
+  You will always be able to create your project
   later.
-welcome_on_rdi_manager_long: Welcome to RDI-Manager, here you will create your company
+welcome_on_rdi_manager_long:
+  Welcome to RDI-Manager, here you will create your company
   and your administrator access that will allow you to follow your projects.
-if_you_want_join_already_existing_company_ask_your_admin: If you would rather join
+if_you_want_join_already_existing_company_ask_your_admin:
+  If you would rather join
   an existing company, please ask your administrator to invite you.
 create_my_project: Create my project
 create_my_company: Create my company
@@ -179,14 +192,16 @@ projet.titre: Descriptive title
 projet.acronyme: Acronymn
 user.role: Role
 user.heuresParJours: Hours worked per day
-user.dateEntree: Date of entry
-user.dateSortie: Date of exit
+societeUserPeriod.dateEntry: Date of entry
+societeUserPeriod.dateLeave: Date of exit
 default_value_used_in_timesheets.: Value by default, used to create timesheets.
-'Un email de recommandation a bien été envoyé à "{to}". Merci !': A recommendation
+'Un email de recommandation a bien été envoyé à "{to}". Merci !':
+  A recommendation
   email have been sent to "{to}". Thank you!
-'Une notification avec un lien d''invitation a été envoyée à votre observateur externe.': A
+"Une notification avec un lien d'invitation a été envoyée à votre observateur externe.":
+  A
   notification with a invitation link have been sent to the external observer.
-'Cet observateur externe a été retiré.': This External Observer have been removed.
+"Cet observateur externe a été retiré.": This External Observer have been removed.
 my_account_edition: Modification of my account
 username: Username
 password: Password
@@ -194,87 +209,103 @@ login: Connection
 cannot_disable_self: Unable to deactivate your own account, you will be blocked.
 cannot_disable_cdp: You cannot deactivate an account of a Project Manager.
 csrf_token_invalid: Error, it seems that the form just expired. please try again.
-'Vous avez rejoint la société !': You have joined the company!
-'Vous avez rejoint le projet !': You have joined the project!
+"Vous avez rejoint la société !": You have joined the company!
+"Vous avez rejoint le projet !": You have joined the project!
 username_or_phone: Email or phone number
 request_reset_password_link: Ask a reset link
 validate_my_password: Validate my password
-'Votre compte a été créée avec succès !': Your account have successfully been created!
-'Votre projet a bien été ajouté.': Your project have been added.
-'Bienvenue à {user} !': Welcome to {user} !
-'Un lien de réinitialisation de mot de passe vous a été envoyé.': A reset link of
+"Votre compte a été créée avec succès !": Your account have successfully been created!
+"Votre projet a bien été ajouté.": Your project have been added.
+"Bienvenue à {user} !": Welcome to {user} !
+"Un lien de réinitialisation de mot de passe vous a été envoyé.":
+  A reset link of
   your password have been sent to you.
 welcome_user_you_can_reset_password: Hello {user}, now you can define your new password.
 password_reset: Password reset
 your_new_password: Your new password
-'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.': The striking fact
+'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.':
+  The striking fact
   "{titre_fait_marquant}" have been added to the project.
-'Le fait marquant "{titre_fait_marquant}" a été modifié.': The striking fact "{titre_fait_marquant}"
+'Le fait marquant "{titre_fait_marquant}" a été modifié.':
+  The striking fact "{titre_fait_marquant}"
   have been modified.
-'Le code n''est pas valide.': The code is not valid.
+"Le code n'est pas valide.": The code is not valid.
 my_notifications: My notifications
-if_provided_you_can_receive_important_notification_by_sms.: If provided, you will
+if_provided_you_can_receive_important_notification_by_sms.:
+  If provided, you will
   receive important notifications by text.
-'Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.': Your
+"Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.":
+  Your
   password have been changed. Now you can connect to your account.
 roles_on_projects_of_user: Roles on {user}'s projects
-'Le fait marquant "{titre_fait_marquant}" a été supprimé.': The striking fact "{titre_fait_marquant}"
+'Le fait marquant "{titre_fait_marquant}" a été supprimé.':
+  The striking fact "{titre_fait_marquant}"
   have been deleted.
-'Le fait marquant "{titre_fait_marquant}" a été déplacé dans la corbeille.': The striking fact "{titre_fait_marquant}"
+'Le fait marquant "{titre_fait_marquant}" a été déplacé dans la corbeille.':
+  The striking fact "{titre_fait_marquant}"
   has been moved to the trash.
-'Le fait marquant "{titre_fait_marquant}" a été restauré': The striking fact "{titre_fait_marquant}"
+'Le fait marquant "{titre_fait_marquant}" a été restauré':
+  The striking fact "{titre_fait_marquant}"
   has been restored.
 edit_user_user: Modification of {user}
 delete_user_user: Suppression of {user}'s account
-re_enable_account_explain: Reactivating the {user}'s account will allow him to access
+re_enable_account_explain:
+  Reactivating the {user}'s account will allow him to access
   your company again.
 cancel: Cancel
 disable_account: Deactivate account
 re_enable_account: Reactivate account
 verify_and_delete_user: Verify and delete the account
-delete_project_title: 'Delete the project {projectAcronyme}'
-suspend_project_title: 'Suspend the project {projectAcronyme}'
-resume_project_title: 'Resume the project {projectAcronyme}'
-project_have_been_deleted: 'The project {projectAcronyme} has been deleted !'
-project_have_been_suspended: 'The project {projectAcronyme} has been suspended !'
-project_already_suspended: 'The project {projectAcronyme} is already suspended.'
-your_are_about_to_delete_project: 'You are about to permanently delete the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
-your_are_about_to_suspend_project: 'You are about to suspend the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
-your_are_about_to_resume_project: 'You are about to resume the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
+delete_project_title: "Delete the project {projectAcronyme}"
+suspend_project_title: "Suspend the project {projectAcronyme}"
+resume_project_title: "Resume the project {projectAcronyme}"
+project_have_been_deleted: "The project {projectAcronyme} has been deleted !"
+project_have_been_suspended: "The project {projectAcronyme} has been suspended !"
+project_already_suspended: "The project {projectAcronyme} is already suspended."
+your_are_about_to_delete_project: "You are about to permanently delete the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>."
+your_are_about_to_suspend_project: "You are about to suspend the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>."
+your_are_about_to_resume_project: "You are about to resume the project <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>."
 delete_account: Delete account
 your_are_about_to_delete_user: "You are about to permanently delete the <strong>{user}</strong> account with the role of <strong>{userRole}</strong>."
-this_action_can_have_effect_on_linked_data_user: 'This action can have an impact on the data related to this user :'
+this_action_can_have_effect_on_linked_data_user: "This action can have an impact on the data related to this user :"
 activity_of_user: "{user}'s Activity"
 activity: Activity
 his_projects: His projects
 manage_his_projects_access: Manage his access to projects
 .on_the_project: on the project
 time_spent_in_percent_unit: Time spent in %
+time_spent_in: Time spent in
 .at_date: the {date}
 SOCIETE_CDP.small: PM
-disable_account_explain: To deactivate the account of {user} will prevent him from
+disable_account_explain:
+  To deactivate the account of {user} will prevent him from
   connecting to this company. You will keep his projects, striking facts, necessary
   data so to generate the timesheets. You can reactivate the account anytime you wish.
-disable_account_with_CDP_roles_explain: 'Please change the roles of {user} in these projects :'
-creation_of_your_admin_account_on_company: Creation of your administrator's account
+disable_account_with_CDP_roles_explain: "Please change the roles of {user} in these projects :"
+creation_of_your_admin_account_on_company:
+  Creation of your administrator's account
   in the company
 continue: Continue
 my_rdi_manager_account: My RDI-Manager account
 create_my_rdi_manager_account: Create my RDI-Manager account
 join_company: Join the company
 create_my_account: Create my account
-you_received_6_digit_code_enter_it: You received a 6 numbers verification code in
+you_received_6_digit_code_enter_it:
+  You received a 6 numbers verification code in
   your mailbox. Please enter it here.
 code_non_received: Verification code not received ?
 re_verify_my_email_address: Recheck my email address
-if_you_are_new_create_an_account: If you are new to RDI-Manager or if you don't have
+if_you_are_new_create_an_account:
+  If you are new to RDI-Manager or if you don't have
   any account yet, you can create one now.
 i_already_have_a_rdi_manager_account: I already have an RDI-Manager account
-already_have_account_explain: If you already have an account, you can link your new
+already_have_account_explain:
+  If you already have an account, you can link your new
   company to this account. You will be invited to connect yourself if you have not
   yet.
 invite_my_collaborators: Invite my collaborators
-you_can_invite_two_collaborators: You can invite your two first collaborators that
+you_can_invite_two_collaborators:
+  You can invite your two first collaborators that
   work on your projects and that will enter the time spent on it.
 you_can_still_invite_later: You can always invite your collaborators later.
 skip_this_step: Skip this step
@@ -298,18 +329,129 @@ projet.dossierFichierProjets: Project files folders
 projet.dossierFichierProjets.help: Organize the storage of project files
 projet.dossierFichierProjets.delete.help: All files in this folder will be automatically deleted !!
 faitMarquant.sendedToSocieteUsers.text.help: Select and/or add recipients
+verify_and_delete_project: Check and delete project
+resume_project: "Reactivate the project"
+project_have_been_resumed: "Project {projectAcronym} has been reactivated!"
+n_contributors_added: "{n, plural, =1 {The contributor has been added to the project.} other {The # contributors have been added to the project.}}"
+parameter.bo.onboarding.notification_every: "Send an onboarding email every..."
+parameter.bo.onboarding.notification_every.help: 'Example of accepted format : "2 days", "3 weeks", "1 month", ...'
+i_accept_cgu_and_cgv: 'I accept the <a href="https://rdimanager.com/fr/cgu.html" target="_blank">general conditions of use</a> and the <a href="https://rdimanager.com/fr/cgv.html" target="_blank">general conditions of sale</a>.'
+edit_file_success: "Your file {oldName} has been changed to {newName}"
 download: Download
 delete_user.projects.warning: "{user} is part of <strong>{n, plural, =1 {a project} other {# projects}}</strong> :"
-delete_user.projects.safe: '{user} is not part of any project.'
-delete_user.fait_marquant.warning: '{user} created <strong>{n, plural, =1 {a striking fact} other {# striking facts}}</strong>, {n, plural, =1 {it will be deleted} other {they will be deleted}} également :'
-delete_user.fait_marquant.safe: '{user} does not have a striking fact.'
-delete_user.activities.warning: '{user} has <strong>{n, plural, =1 {an activity} other {# activities}}</strong>, {n, plural, =1 {it will be deleted} other {they will be deleted}}.'
-delete_user.activities.safe: '{user} does not have any activity.'
-delete_user.time_tracking.warning: '{user} has entered time spent in <strong>{n, plural, =1 {a timesheet} other {# timesheets}}</strong>. These past times will be deleted, and there will be a difference with the potential timesheets you have already printed :'
-delete_user.time_tracking.safe: 'No time spent was entered by {user}.'
+delete_user.projects.safe: "{user} is not part of any project."
+delete_user.fait_marquant.warning: "{user} created <strong>{n, plural, =1 {a striking fact} other {# striking facts}}</strong>, {n, plural, =1 {it will be deleted} other {they will be deleted}} également :"
+delete_user.fait_marquant.safe: "{user} does not have a striking fact."
+delete_user.activities.warning: "{user} has <strong>{n, plural, =1 {an activity} other {# activities}}</strong>, {n, plural, =1 {it will be deleted} other {they will be deleted}}."
+delete_user.activities.safe: "{user} does not have any activity."
+delete_user.time_tracking.warning: "{user} has entered time spent in <strong>{n, plural, =1 {a timesheet} other {# timesheets}}</strong>. These past times will be deleted, and there will be a difference with the potential timesheets you have already printed :"
+delete_user.time_tracking.safe: "No time spent was entered by {user}."
 are_you_sure_delete_user: "Are you sure you want to delete {user }'s account ?"
 user_have_been_deleted: "{User}'s account has been deleted !"
 see_more: "See more ..."
 verif_date_leave_on_disable_user: "To deactivate {user}'s account, please specify its exit date."
 verif_date_entry_on_enable_user: "To activate {user}'s account, please specify its entry date."
 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'The dashboard "{titre_dashboard_consolide}" was successfully created.'
+dashboard_consolide.titre: Descriptive title
+dashboard_consolide.societes: My companies
+modifier_FM: Edit your Remarkable Fact
+go_back_go_project: Cancel and return to project
+addNew_FM: Add a new Remarkable Fact
+projectString: Project
+trashString: Trash can
+beenOf_FM: Trash can of Remarkable Fact
+list_files: Files list
+allString: All
+editFile: Edit a file
+go_back_go_files: Return to files list
+edit_btn: Edit
+add_file_btn: Add a file
+caseString: Case
+fileString: File
+autorString: Autor
+suspend_project: The project is suspended
+cant_rename_file: You can't rename files that don't belong to you
+cant_delete_file: You can't delete files that don't belong to you
+last_notif_send: Last notification send
+notif_never_program: Notification never scheduled before
+gen_time_sheet: Generation of timesheets
+gen_time_sheet_msg_one: Generate timesheets for one or more users, over the period of time you want.
+gen_time_sheet_msg_two: You can then download in a single PDF or excel everyone's timesheets.
+understandString: It's understood !
+tell_abs_one: Here you can indicate the days on which you were absent or on half-days.
+tell_abs_two: By default, if you do not validate, you are considered present for the whole month.
+legendString: "Legend :"
+presentString: Presence
+halfDayString: Half-day
+time_spend_one: Here you can enter the percentage of time you spent on average on your projects that you have contributed to this month.
+time_spend_two: The sum may not add up to 100%, for example if you have spent time on projects not listed here.
+time_spend_three: If you were absent, fill in your percentages for the days you were present.
+licence_title: "License RDI-Manager :"
+tied_society: Related to society
+valid_until: Valid until
+max_contrib: "Maximum number of contributors: "
+max_projects: "Maximum number of projects:"
+license_notRelate: This license is not linked to your company.
+account_goBack: Go back to my account
+access_disabled: Access disabled
+goOn: Go on
+timeString: Time
+resultString: Result
+goBack_params_notif: Go back to notification settings
+no_notif_send: No notification has been sent yet.
+obs_ext_proj: "I'm <strong>external observer</strong> on this project."
+no_contrib_proj: There are currently no contributors.
+invite_obs_ext: Invite an external observer to
+invite_obs_ext_2: Invite an external observer
+your_project: Your project
+para_invite_obs: Enter the email or mobile number of the observer you want to invite. He will receive an invitation link that he can accept to obtain <strong>external observer access to your project { projectAcronyme }</strong>.
+join_project: Join the project
+para_join_project: "You are about to join as an external observer, the project <strong>{ projectAcronyme }</strong>: '{ projectTitre }'."
+join_project_obs: "Join the project { projectAcronyme } as an external observer"
+para_join_rdi: "You are about to join the <strong>{ projectAcronyme }</strong> project: '{ projectTitre }'."
+new_on_rdi: If you are new to RDI-Manager or do not have an account yet, you can create one now.
+also_an_account: If you already have an account, you can link your new company to this account. You will be prompted to sign in if you are not already.
+list_project_access: List of projects to which I have access as an external observer.
+societyString: Society
+part_on_project: Participants on the project
+gest_of_part: Participant management
+add_part: Add a participant
+obs_ext: External observers
+want_new_user: You want to invite a user to your project and also invite him to your company?
+want_new_obs: You want to give observer access to a user on this project, but without inviting him to your company?
+invite_on: Invite on
+para_invite_on: You can invite on this project a user not yet registered in your company from his email.
+add_cont_later: I will add contributors later
+go_on_project: Go on the project
+edit_of_project: Editing the project
+manage_file_project: Do you want to manage project files in folders?
+ext_link_project: Do you want to add external project links?
+only_contrib: Only contributors can add a highlight
+my_role_project: "I am <strong>{ userRole }</strong> on this project."
+no_role_project: "You have <strong>no role</strong> on this project."
+date_debut: Start date
+date_fin: End date
+follow_project: Follow the project
+para_follow_project: Follow this project to receive a notification in real time with each update of this project.
+cant_follow_project: You cannot follow this project because you must have at least the observer role on this project.
+no_contrib_now: There are no contributors yet
+see_obs_project: Voir les Observateurs
+filesString: Files
+no_files_here: No files found here...
+collaboratif: Collaborative
+interne: Internal
+externe: External
+close: Close
+return_to_project: Go back to the project
+no_fm: This doesn't contain Remarkable fact.
+title: Title
+resume: Summary
+activity_project: Project activity
+add_new_project: Add a new project
+want_case_project: Do you want to manage project files in folders?
+want_ext_link_project: Do you want to add external project links?
+suspended_project: The project is suspended
+license_notRelated: Cette license n'est pas liée à votre société.
+add_contributors: "Add Contributors"
+add_contributors_help: "Without other contributors, you will be the only one who can add remarkable facts, attach files... Add contributors to this project so that they can enrich it and enter their time spent on it."
+who_is_working_on_this_project: "Qui contribue à ce projet ?"

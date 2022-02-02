@@ -1,19 +1,19 @@
 {% extends 'help/layout.html.twig' %}
 
 {% block content %}
-    <h5 class="card-title">Saisie de vos absences</h5>
+    <h5 class="card-title">{{ 'enter_your_absences'|trans }}</h5>
 
     <p class="card-text">
-        Vous pouvez ici indiquer les jours où vous avez été absent ou en demi-journée.
+        {{ 'tell_abs_one'|trans }}
         <br>
-        Par défaut, si vous ne validez pas, vous êtes considérés comme présent tout le mois.
+         {{ 'tell_abs_two'|trans }}
     </p>
 
-    <p>Légende :</p>
+    <p>{{ 'legendString'|trans }}</p>
 
     <ul class="list-unstyled">
-        <li><span class="badge badge-success px-3 py-1">&nbsp;</span> Présence (1 click)</li>
+        <li><span class="badge badge-success px-3 py-1">&nbsp;</span> {{'presentString'|trans }} (1 click)</li>
         <li><span class="badge badge-secondary px-3 py-1">&nbsp;</span> Absence (2 clicks)</li>
-        <li><span class="badge badge-info px-3 py-1">&nbsp;</span> Demi-journée (3 clicks)</li>
+        <li><span class="badge badge-info px-3 py-1">&nbsp;</span> {{ 'halfDayString'|trans }} (3 clicks)</li>
     </ul>
 {% endblock %}

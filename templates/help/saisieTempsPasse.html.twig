@@ -1,14 +1,13 @@
 {% extends 'help/layout.html.twig' %}
 
 {% block content %}
-    <h5 class="card-title">Saisie de vos temps passés sur vos projets</h5>
+    <h5 class="card-title">{{ 'enter_your_time_spent'|trans}} </h5>
 
     <p class="card-text">
-        Vous pouvez ici saisir en pourcentage le temps que vous avez passé
-        en moyenne sur vos projets dont vous avez contribué dans ce mois.
+        {{ 'time_spend_one'|trans }}
         <ul>
-            <li>La somme peut ne pas faire 100%, par exemple si vous avez passé du temps sur des projets non listés ici.</li>
-            <li>Si vous avez été absent, remplissez vos pourcentages pour les jours où vous avez été present.</li>
+            <li>{{ 'time_spend_two'|trans }}</li>
+            <li>{{ 'time_spend_three'|trans }}</li>
         </ul>
     </p>
 {% endblock %}
