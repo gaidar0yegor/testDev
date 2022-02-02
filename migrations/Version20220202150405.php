@@ -23,9 +23,6 @@ final class Version20220202150405 extends AbstractMigration
         $this->addSql('ALTER TABLE dossier_fichier_projet DROP FOREIGN KEY FK_91599B20B03A8386');
         $this->addSql('DROP INDEX IDX_91599B20B03A8386 ON dossier_fichier_projet');
         $this->addSql('ALTER TABLE dossier_fichier_projet DROP created_by_id');
-        $this->addSql('ALTER TABLE societe_user DROP FOREIGN KEY FK_EFBCEA58914229B9');
-        $this->addSql('DROP INDEX IDX_EFBCEA58914229B9 ON societe_user');
-        $this->addSql('ALTER TABLE societe_user DROP my_superior_id');
     }
 
     public function down(Schema $schema): void
@@ -34,8 +31,5 @@ final class Version20220202150405 extends AbstractMigration
         $this->addSql('ALTER TABLE dossier_fichier_projet ADD created_by_id INT NOT NULL');
         $this->addSql('ALTER TABLE dossier_fichier_projet ADD CONSTRAINT FK_91599B20B03A8386 FOREIGN KEY (created_by_id) REFERENCES societe_user (id)');
         $this->addSql('CREATE INDEX IDX_91599B20B03A8386 ON dossier_fichier_projet (created_by_id)');
-        $this->addSql('ALTER TABLE societe_user ADD my_superior_id INT DEFAULT NULL');
-        $this->addSql('ALTER TABLE societe_user ADD CONSTRAINT FK_EFBCEA58914229B9 FOREIGN KEY (my_superior_id) REFERENCES societe_user (id)');
-        $this->addSql('CREATE INDEX IDX_EFBCEA58914229B9 ON societe_user (my_superior_id)');
     }
 }
