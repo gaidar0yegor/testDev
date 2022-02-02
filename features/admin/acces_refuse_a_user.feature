@@ -24,7 +24,7 @@ Feature: Il faut être référent pour pouvoir gérer les utilisateurs.
         And I should not see "Téléphone"
 
     Scenario: L'utilisateur ne doit pas pouvoir modifier les infos d'un utilisateur
-        When I go to "/admin/utilisateurs/1/modifier"
+        When I go to "/utilisateur/1/modifier"
         Then the response status code should be 403
         And I should not see "Modification de"
 

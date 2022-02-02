@@ -91,7 +91,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | user              |
         And I press "Connexion"
 
-        When I go to "/admin/utilisateurs/2/activite"
+        When I go to "/utilisateur/2/activite"
         Then the response status code should be 403
         And I should not see "Activité de Admin Eureka" in the "h1" element
 
@@ -101,10 +101,10 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/admin/utilisateurs/1/modifier"
+        And I am on "/utilisateur/1/modifier"
         And I press "Désactiver le compte"
 
-        When I go to "/admin/utilisateurs/1/activite"
+        When I go to "/utilisateur/1/activite"
         Then I should see "Admin Eureka a desactivé le compte de User Eureka"
 
     Scenario: L'administrateur réactive un utilisateur
@@ -113,16 +113,16 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/admin/utilisateurs/1/modifier"
+        And I am on "/utilisateur/1/modifier"
         And I press "Désactiver le compte"
         And I fill in the following:
             | societe_user[societeUserPeriods][1][dateEntry] | 1 janvier 2021 |
         And I press "Mettre à jour"
 
-        When I go to "/admin/utilisateurs/1/modifier"
+        When I go to "/utilisateur/1/modifier"
         And I press "Ré-activer le compte"
 
-        When I go to "/admin/utilisateurs/1/activite"
+        When I go to "/utilisateur/1/activite"
         Then I should see "Admin Eureka a ré-activé le compte de User Eureka"
 
     Scenario: L'administrateur désactive un utilisateur
@@ -131,8 +131,8 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/admin/utilisateurs/1/modifier"
+        And I am on "/utilisateur/1/modifier"
         And I press "Désactiver le compte"
 
-        When I go to "/admin/utilisateurs/3/activite"
+        When I go to "/utilisateur/3/activite"
         Then I should see "Admin Eureka a desactivé le compte de User Eureka"

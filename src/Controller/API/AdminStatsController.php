@@ -6,6 +6,7 @@ use App\Entity\Projet;
 use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
 use App\Repository\TempsPasseRepository;
+use App\Security\Voter\TeamManagementVoter;
 use App\Security\Voter\SameSocieteVoter;
 use App\Service\EquipeChecker;
 use App\Service\StatisticsService;
@@ -63,11 +64,7 @@ class AdminStatsController extends AbstractController
         string $unit,
         UserContext $userContext
     ) {
-        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
-
-        if (!$this->equipeChecker->hasPermission($societeUser) && $userContext->getSocieteUser() !== $societeUser){
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         $data = $this->statisticsService->getTempsUserParProjet($societeUser,$year,$unit);
 

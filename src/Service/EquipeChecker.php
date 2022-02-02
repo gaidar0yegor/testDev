@@ -9,14 +9,18 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EquipeChecker
 {
+    private SocieteChecker $societeChecker;
+
     private AuthorizationCheckerInterface $authChecker;
 
     private UserContext $userContext;
 
     public function __construct(
+        SocieteChecker $societeChecker,
         AuthorizationCheckerInterface $authChecker,
         UserContext $userContext
     ) {
+        $this->societeChecker = $societeChecker;
         $this->authChecker = $authChecker;
         $this->userContext = $userContext;
     }
@@ -26,9 +30,16 @@ class EquipeChecker
      */
     public function isSameEquipe(SocieteUser $equipeMember, SocieteUser $societeUserSuperior): bool
     {
-        return $equipeMember === $societeUserSuperior ||
-            $equipeMember->getMySuperior() === $societeUserSuperior ||
-            (null !== $equipeMember->getMySuperior() && $equipeMember->getMySuperior()->getMySuperior() === $societeUserSuperior);
+        return
+            $this->societeChecker->isSameSociete($equipeMember,$societeUserSuperior) &&
+            (
+                $equipeMember === $societeUserSuperior ||
+                $equipeMember->getMySuperior() === $societeUserSuperior ||
+                (
+                    null !== $equipeMember->getMySuperior() &&
+                    $equipeMember->getMySuperior()->getMySuperior() === $societeUserSuperior
+                )
+            );
     }
 
     /*
@@ -38,6 +49,9 @@ class EquipeChecker
      */
     public function hasPermission(SocieteUser $societeUser = null):bool
     {
+        if ($societeUser instanceof SocieteUser && !$this->societeChecker->isSameSociete($societeUser,$this->userContext->getSocieteUser())){
+            return false;
+        }
         if ($this->authChecker->isGranted(RoleSociete::ADMIN)){
             return true;
         }

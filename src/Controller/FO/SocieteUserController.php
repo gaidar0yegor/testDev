@@ -12,6 +12,7 @@ use App\Notification\Event\ProjetParticipantRemovedEvent;
 use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleProjet;
 use App\Security\Role\RoleSociete;
+use App\Security\Voter\TeamManagementVoter;
 use App\Security\Voter\SameSocieteVoter;
 use App\Service\EnableDisableSocieteUserChecker;
 use App\Service\EquipeChecker;
@@ -58,9 +59,7 @@ class SocieteUserController extends AbstractController
      */
     public function listerUtilisateurs(SocieteUserRepository $societeUserRepository, UserContext $userContext)
     {
-        if (!$this->equipeChecker->hasPermission()){
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $userContext->getSocieteUser());
 
         $societeUsers = $this->isGranted(RoleSociete::ADMIN)
             ? $societeUserRepository->findBySameSociete($userContext->getSocieteUser())
@@ -80,9 +79,7 @@ class SocieteUserController extends AbstractController
         EntityManagerInterface $em
     )
     {
-        if (!$this->equipeChecker->hasPermission($societeUser)){
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         $form = $this->createForm(SocieteUserType::class, $societeUser);
 
@@ -123,9 +120,7 @@ class SocieteUserController extends AbstractController
         EnableDisableSocieteUserChecker $enableDisableSocieteUserChecker
     )
     {
-        if (!$this->equipeChecker->hasPermission($societeUser)){
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         if (!$this->isCsrfTokenValid('disable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
             $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
@@ -189,9 +184,7 @@ class SocieteUserController extends AbstractController
         EnableDisableSocieteUserChecker $enableDisableSocieteUserChecker
     )
     {
-        if (!$this->equipeChecker->hasPermission($societeUser)){
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         if (!$this->isCsrfTokenValid('re_enable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
             $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
@@ -240,9 +233,7 @@ class SocieteUserController extends AbstractController
         EntityManagerInterface $em
     )
     {
-        if (!$this->equipeChecker->hasPermission($societeUser)){
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         if ($request->isMethod('POST')) {
 
@@ -287,9 +278,7 @@ class SocieteUserController extends AbstractController
         EntityManagerInterface $em
     )
     {
-        if (!$this->equipeChecker->hasPermission($societeUser)){
-            throw new AccessDeniedException();
-        }
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         return $this->render('utilisateurs_fo/user_activity.html.twig', [
             'societeUser' => $societeUser,
