@@ -1,13 +1,10 @@
 {% extends 'help/layout.html.twig' %}
 
 {% block content %}
-    <h5 class="card-title">Génération des feuilles de temps</h5>
+    <h5 class="card-title">{{ 'gen_time_sheet'|trans }}</h5>
 
     <p class="card-text">
-        Générez les feuilles de temps d'un ou plusieurs utilisateurs,
-        sur la période de temps que vous souhaitez.
+        {{ 'gen_time_sheet_msg_one'|trans }}
         <br>
-        Vous pouvez alors télécharger en un seul PDF ou excel
-        toutes les feuilles de temps de tout le monde.
-    </p>
+        {{ 'gen_time_sheet_msg_two'|trans }}
 {% endblock %}

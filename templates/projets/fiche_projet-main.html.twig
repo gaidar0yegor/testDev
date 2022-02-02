@@ -11,7 +11,7 @@
 </div>
 
 <section id="timeline">
-    <h2 class="facts">Faits marquants</h2>
+    <h2 class="facts">{{ 'FAITS_MARQUANTS'|trans }}</h2>
 
     <ul class="timeline">
         <div class="add-fait-marquant">
@@ -26,17 +26,17 @@
             {% elseif projet.isSuspended %}
                 <p class="text-muted text-left">
                     <i class="fa fa-ban" aria-hidden="true"></i>
-                    Le projet est suspendu
+                    {{ "suspended_project"|trans }}
                 </p>
             {% else %}
                 <p class="text-muted text-left">
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                    Seuls les contributeurs peuvent ajouter un fait marquant
+                    {{ "only_contrib"|trans }}
                 </p>
             {% endif %}
         </div>
         <table id="fait_marquant_timeline_dt" class="table datatable custom-datatable text-word-break">
-            <thead><tr><th>Faits marquants</th></tr></thead>
+            <thead><tr><th>{{ 'FAITS_MARQUANTS'|trans }}</th></tr></thead>
             <tbody>
             {% for faitMarquant in projet.faitMarquants %}
                 {% if faitMarquant.trashedAt is null %}
@@ -86,7 +86,7 @@
                                             {% endif %}
                                     >
                                         <i class="fa fa-pencil"></i>
-                                        Modifier
+                                        {{ "edit_btn"|trans }}
                                     </a>
                                 </div>
                             </li>

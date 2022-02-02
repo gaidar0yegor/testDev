@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<h1>Mes sociétés</h1>
+<h1>{{ "my_companies"|trans }}</h1>
 
 <div class="row row-flex row-cols-1 row-cols-md-2 row-cols-lg-3">
     {% for societeUser in app.user.societeUsers %}
@@ -13,7 +13,7 @@
                         <span
                             class="badge badge-secondary float-right"
                             title="L'accès à cette société vous a été désactivé par un administrateur."
-                        >Accès désactivé</span>
+                        >{{ "access_disabled"|trans }}</span>
                     {% endif %}
 
                     <div class="notif-container float-right"></div>
@@ -34,10 +34,10 @@
                         {% if not societeUser.enabled %}
                             {% for societeUserPeriod in societeUser.societeUserPeriods %}
                                 {% if societeUserPeriod.dateEntry %}
-                                    <li>Date d'entrée : {{ societeUserPeriod.dateEntry|format_date }}</li>
+                                    <li>{{ "societeUserPeriod.dateEntry"|trans }} : {{ societeUserPeriod.dateEntry|format_date }}</li>
                                 {% endif %}
                                 {% if societeUserPeriod.dateLeave %}
-                                    <li>Date de sortie : {{ societeUserPeriod.dateLeave|format_date }}</li>
+                                    <li>{{ "societeUserPeriod.dateLeave"|trans }} : {{ societeUserPeriod.dateLeave|format_date }}</li>
                                 {% endif %}
                             {% endfor %}
                         {% endif %}
@@ -45,11 +45,11 @@
                     {% if societeUser.enabled %}
                         {% if societeUser == app.user.currentSocieteUser %}
                             <form action="{{ path('app_fo_multi_societe_switch_disconnect') }}" method="post">
-                                <button type="submit" class="stretched-link mt-2 btn btn-outline-danger">Déconnexion</button>
+                                <button type="submit" class="stretched-link mt-2 btn btn-outline-danger">{{ "logout"|trans }}</button>
                             </form>
                         {% else %}
                             <form action="{{ path('app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
-                                <button type="submit" class="stretched-link mt-2 btn btn-primary">Aller sur {{ societeUser.societe.raisonSociale }}</button>
+                                <button type="submit" class="stretched-link mt-2 btn btn-primary">{{ "goOn"|trans }} {{ societeUser.societe.raisonSociale }}</button>
                             </form>
                         {% endif %}
                     {% endif %}
@@ -63,7 +63,7 @@
                 <a href="{{ path('app_register') }}" class="stretched-link lead">
                     <i class="fa fa-2x fa-building-o" aria-hidden="true"></i>
                     <br>
-                    Créer ma société
+                    {{ "create_my_company"|trans }}
                 </a>
             </div>
         </div>

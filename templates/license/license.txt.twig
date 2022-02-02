@@ -1,19 +1,19 @@
-License RDI-Manager : {{ license.name }}
+{{ "licence_title"|trans }} {{ license.name }}
 
-Liée à la société {{ license.societe.raisonSociale }}
+{{ "tied_society"|trans }} {{ license.societe.raisonSociale }}
 
 {% if license.description %}
     {{- license.description }}
 
 {% endif -%}
 
-Valable jusqu'au {{ license.expirationDate|format_date(pattern='d MMMM yyyy') }}.
+{{ "valid_until"|trans }} {{ license.expirationDate|format_date(pattern='d MMMM yyyy') }}.
 
 {% if license.quotas.contributeurs is defined -%}
-    Nombre de contributeurs max : {{ license.quotas.contributeurs }}
+    {{ "max_contrib"|trans }} {{ license.quotas.contributeurs }}
 {% endif %}
 {% if license.quotas.activeProjet is defined -%}
-    Nombre de projets max : {{ license.quotas.activeProjet }}
+    {{ "max_projects"|trans }} {{ license.quotas.activeProjet }}
 {% endif %}
 
 {{ separator }}

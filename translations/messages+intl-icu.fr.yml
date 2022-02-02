@@ -1,10 +1,10 @@
-PROJET_CDP: 'Chef de Projet'
+PROJET_CDP: "Chef de Projet"
 PROJET_CONTRIBUTEUR: Contributeur
 PROJET_OBSERVATEUR: Observateur
 PROJET_OBSERVATEUR_EXTERNE: Observateur externe
-ROLE_BO_USER: 'Utilisateur back-office'
+ROLE_BO_USER: "Utilisateur back-office"
 SOCIETE_ADMIN: Administrateur
-SOCIETE_CDP: 'Chef de Projet'
+SOCIETE_CDP: "Chef de Projet"
 SOCIETE_USER: Utilisateur
 ROLE_USER: Utilisateur
 SOCIETE_CDP.small: CdP
@@ -16,348 +16,473 @@ LISTE_FICHIERS: Liste des fichiers
 ACTIVITES: Activités
 PARTICIPANTS: Participants
 STATISTIQUES: Statistiques
-quota.activeProjet.name: 'Projets actifs'
-quota.activeProjet.description: 'Projet en cours en prennant en compte ses dates de
-  début et de fin.'
+quota.activeProjet.name: "Projets actifs"
+quota.activeProjet.description:
+  "Projet en cours en prennant en compte ses dates de
+  début et de fin."
 quota.contributeurs.name: Contributeurs
-quota.contributeurs.description: 'Utilisateur non désactivé, et contributeur (ou chef
-  de projet) sur au moins un projet de la société.'
+quota.contributeurs.description:
+  "Utilisateur non désactivé, et contributeur (ou chef
+  de projet) sur au moins un projet de la société."
 None: Aucun
 BACK_OFFICE: Back-Office
-INSCRIPTION: 'Formulaire d''inscription'
-COMMAND: 'Ligne de commande'
-SOCIETE_USER_STATUT_INVITATION: 'Invitation envoyée, en attente d''inscription…'
+INSCRIPTION: "Formulaire d'inscription"
+COMMAND: "Ligne de commande"
+SOCIETE_USER_STATUT_INVITATION: "Invitation envoyée, en attente d'inscription…"
 SOCIETE_USER_STATUT_ACTIVE: Actif
 SOCIETE_USER_STATUT_DISABLED: Désactivé
-monthly: 'Au mois'
-weekly: 'À la semaine'
-daily: 'Au jour'
-n_nouveaux_faits_marquants: "{n, plural,\n    =0    {aucun nouveau fait marquant}\n\
+monthly: "Au mois"
+weekly: "À la semaine"
+daily: "Au jour"
+n_nouveaux_faits_marquants:
+  "{n, plural,\n    =0    {aucun nouveau fait marquant}\n\
   \    one   {un nouveau fait marquant}\n    other {# nouveaux faits marquants}\n}"
-n_observateur: "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other\
+n_observateur:
+  "{n, plural,\n    =0 {Observateur}\n    one {Observateur}\n    other\
   \ {Observateurs}\n}"
-n_contributeur: "{n, plural,\n    =0 {Contributeur}\n    one {Contributeur}\n    other\
+n_contributeur:
+  "{n, plural,\n    =0 {Contributeur}\n    one {Contributeur}\n    other\
   \ {Contributeurs}\n}"
-my_dashboard: 'Mon tableau de bord'
-dashboard: 'Tableau de bord'
-dashboards: 'Tableaux de bord'
-dashboard.today: 'Actualité'
-menu.dashboard.general: 'Vue générale'
-menu.dashboard.consolide: 'Vue consolidée'
-menu.dashboard.create_view: 'Créer une vue consolidée'
-menu.all_projects: 'Tous mes projets'
-menu.projects: 'Mes projets'
-menu.projects.list: 'Liste des projets'
-menu.projects.create: 'Créer un projet'
-menu.projects.external: 'Projets externes'
-menu.time_tracking: 'Suivi temps'
-menu.time_tracking.time_spent: 'Temps passés'
+my_dashboard: "Mon tableau de bord"
+dashboard: "Tableau de bord"
+dashboards: "Tableaux de bord"
+dashboard.today: "Actualité"
+menu.dashboard.general: "Vue générale"
+menu.dashboard.consolide: "Vue consolidée"
+menu.dashboard.create_view: "Créer une vue consolidée"
+menu.all_projects: "Tous mes projets"
+menu.projects: "Mes projets"
+menu.projects.list: "Liste des projets"
+menu.projects.create: "Créer un projet"
+menu.projects.external: "Projets externes"
+menu.time_tracking: "Suivi temps"
+menu.time_tracking.time_spent: "Temps passés"
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: Mon suivi
 menu.admin: Administration
 menu.mon_equipe: "Mon équipe"
-create_project_requires_project_manager_role: 'Vous devez avoir le rôle de chef de
-  projet pour créer un nouveau projet.'
-admin_requires_admin_role: 'Menu réservé à l''administrateur de votre société.'
+create_project_requires_project_manager_role: "Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
 admin_requires_superior_role: 'Menu réservé aux chefs d''équipes.'
-menu.admin.company: 'Ma société'
-menu.admin.projects: 'Tous les projets'
+admin_requires_admin_role: "Menu réservé à l'administrateur de votre société."
+menu.admin.company: "Ma société"
+menu.admin.projects: "Tous les projets"
 menu.admin.users: Utilisateurs
-menu.admin.invite_user: 'Inviter un utilisateur'
-menu.admin.timesheet_check: 'Validation des temps'
-menu.admin.timesheet_export: 'Export feuilles de temps'
-menu.admin.notification_parameters: 'Paramètres notifications'
-menu.admin.licenses: 'Mes licences'
+menu.admin.invite_user: "Inviter un utilisateur"
+menu.admin.timesheet_check: "Validation des temps"
+menu.admin.timesheet_export: "Export feuilles de temps"
+menu.admin.notification_parameters: "Paramètres notifications"
+menu.admin.licenses: "Mes licences"
 loading: Chargement…
-projects_analyse_of_year: 'Analyse des projets de l''année'
-hours_by_project: 'Nombre d''heures par projet'
-hours_by_project_by_month: 'Nombre d''heures par projet et par mois'
-my_contributions: 'Mes contributions'
+projects_analyse_of_year: "Analyse des projets de l'année"
+hours_by_project: "Nombre d'heures par projet"
+hours_by_project_by_month: "Nombre d'heures par projet et par mois"
+my_contributions: "Mes contributions"
 my_contributions.me: Moi
 my_contributions.team: Équipe
 my_contributions.teams: Équipes
 my_contributions.projects: Projets
-my_contributions.rdi_projects: 'Projets de type RDI'
-my_contributions.total: 'Temps total de contribution'
-my_projects_of_year: 'Mes projets de l''année'
-my_team_projects_of_year: 'Les projets de mon équipe de l''année'
-list_of_projects_i_participate: 'Liste des projets auxquels je participe.'
-as_admin_i_can_also_access_all_projects: 'En tant qu''administrateur, je peux aussi
-  {link_start}accéder à tous les projets de la société{link_end}.'
-project_analyse_from: 'Analyse des projets depuis'
-projects_realisations: 'Réalisation des projets'
-realized_projects_type: 'Type de projets réalisés'
+my_team_projects_of_year: "Les projets de mon équipe de l'année"
+my_contributions.rdi_projects: "Projets de type RDI"
+my_contributions.total: "Temps total de contribution"
+my_projects_of_year: "Mes projets de l'année"
+list_of_projects_i_participate: "Liste des projets auxquels je participe."
+as_admin_i_can_also_access_all_projects: "En tant qu'administrateur, je peux aussi {link_start}accéder à tous les projets de la société{link_end}."
+project_analyse_from: "Analyse des projets depuis"
+projects_realisations: "Réalisation des projets"
+realized_projects_type: "Type de projets réalisés"
 project: Projet
-my_role: 'Mon rôle'
+my_role: "Mon rôle"
 start: Début
 end: Fin
 all: Tous
 status: Statut
 participants: Participants
-back_office: 'Back office'
-my_account: 'Mon compte'
-switch_company: 'Changer de société'
+back_office: "Back office"
+my_account: "Mon compte"
+switch_company: "Changer de société"
 logout: Déconnexion
-my_companies: 'Mes sociétés'
-you_submitted_this_month_on: 'Vous avez validé ce mois le {date}.'
-this_month_not_in_company: 'Ce mois-ci, vous n''étiez pas dans la société.'
-you_should_validate_this_month: 'Vous devriez valider ce mois.'
-enter_your_absences: 'Saisissez vos absences'
+my_companies: "Mes sociétés"
+you_submitted_this_month_on: "Vous avez validé ce mois le {date}."
+this_month_not_in_company: "Ce mois-ci, vous n'étiez pas dans la société."
+you_should_validate_this_month: "Vous devriez valider ce mois."
+enter_your_absences: "Saisissez vos absences"
 save: Enregistrer
-'legend:': 'Légende :'
+"legend:": "Légende :"
 presence: Présence
 absence: Absence
 half_day: Demi-journée
-enter_your_time_spent: 'Saisissez vos temps passés'
-'business_identification_number:': 'Siret :'
-edit_my_company_data: 'Modifier les infos de ma société'
-users_number: 'Nombre d''utilisateurs'
-.attached_to_my_company: 'rattachés à ma société'
-display_users_list: 'Liste des utilisateurs'
-edit_societe_logo: 'Mettre à jour le logo'
-worked_hours: 'Heures travaillées'
-worked_hours_per_day: 'Heures par jours'
-.in_days_unit: 'en jours'
-.per_day_per_default: 'par jours, par défaut'
+enter_your_time_spent: "Saisissez vos temps passés"
+"business_identification_number:": "Siret :"
+edit_my_company_data: "Modifier les infos de ma société"
+users_number: "Nombre d'utilisateurs"
+.attached_to_my_company: "rattachés à ma société"
+display_users_list: "Liste des utilisateurs"
+edit_societe_logo: "Mettre à jour le logo"
+worked_hours: "Heures travaillées"
+worked_hours_per_day: "Heures par jours"
+.in_days_unit: "en jours"
+.per_day_per_default: "par jours, par défaut"
 n_hours_short: "{n} h"
 n_days_short: "{n} j"
-'total_hours_in_month:': "Total des heures en {month} :"
+"total_hours_in_month:": "Total des heures en {month} :"
 .or_n_percent: "soit {n} %"
-to_be_defined: 'À définir'
-default_value_used_in_timesheets.: 'Valeur par défaut, utilisée lors de la génération
-  des feuilles de temps.'
-edit_hours_number: 'Modifier le nombre d''heures'
-time_spent_recording: 'Saisie de temps'
-time_spent_recording_granularity: 'Granularité de saisie des temps'
-max_legnth_fait_marquant_desc: 'Description du fait marquant'
-.in_number_of_char: 'en nombre de caractères'
-change_max_legnth_fait_marquant_desc: 'Modifier la longueur du texte'
-isBlocking: 'La limite est Bloquante ?'
-illimited: 'Illimité'
-change_granularity: 'Modifier la granularité'
+to_be_defined: "À définir"
+default_value_used_in_timesheets.:
+  "Valeur par défaut, utilisée lors de la génération
+  des feuilles de temps."
+edit_hours_number: "Modifier le nombre d'heures"
+time_spent_recording: "Saisie de temps"
+time_spent_recording_granularity: "Granularité de saisie des temps"
+max_legnth_fait_marquant_desc: "Description du fait marquant"
+.in_number_of_char: "en nombre de caractères"
+change_max_legnth_fait_marquant_desc: "Modifier la longueur du texte"
+isBlocking: "La limite est Bloquante ?"
+illimited: "Illimité"
+change_granularity: "Modifier la granularité"
 company: Société
-company_projects: 'Projets de la société'
-edit_my_company: 'Modifier ma société'
+company_projects: "Projets de la société"
+edit_my_company: "Modifier ma société"
 back: Retour
-update: 'Mettre à jour'
-users_list: 'Liste des utilisateurs'
+update: "Mettre à jour"
+users_list: "Liste des utilisateurs"
 lastname: Nom
 firstname: Prénom
 email: Email
 role: Rôle
 my_superior: "Mon supérieur hiérarchique"
 projects: Projets
-invite_new_user: 'Inviter un nouvel utilisateur'
-you_can_invite_by_email_or_sms_to_make_him_join_company.: 'Vous pouvez envoyer une
-  invitation par email ou sms à un utilisateur pour qu''il rejoigne votre société.'
+invite_new_user: "Inviter un nouvel utilisateur"
+you_can_invite_by_email_or_sms_to_make_him_join_company.:
+  "Vous pouvez envoyer une
+  invitation par email ou sms à un utilisateur pour qu'il rejoigne votre société."
 invite: Inviter
 phone: Téléphone
-timesheet_validation_of_year_n: 'Validation des temps de {year}'
+timesheet_validation_of_year_n: "Validation des temps de {year}"
 user: Utilisateur
-account_disabled: 'Compte désactivé'
-select_unselect_all: 'Tout sélectionner / désélectionner'
-slack_integration: 'Intégration Slack'
-send_slack_reminder_in_your_team_channel: 'Envoyez les notifications de rappel à votre
-  équipe dans une de vos chaînes Slack.'
-add_to_slack: 'Ajouter à Slack'
-channels_currently_connected: 'Chaînes actuellement connectées'
+account_disabled: "Compte désactivé"
+select_unselect_all: "Tout sélectionner / désélectionner"
+slack_integration: "Intégration Slack"
+send_slack_reminder_in_your_team_channel:
+  "Envoyez les notifications de rappel à votre
+  équipe dans une de vos chaînes Slack."
+add_to_slack: "Ajouter à Slack"
+channels_currently_connected: "Chaînes actuellement connectées"
 quotas: Quotas
-not_known: 'Non renseigné'
-change_password: 'Changer mon mot de passe'
-my_account_on_societe_x: 'Mon compte sur {societe}'
-my_activity: 'Mon activité'
-my_notifications: 'Mes notifications'
-my_account_edition: 'Modification de mon compte'
-if_provided_you_can_receive_important_notification_by_sms.: 'Si fourni, vous pourrez
-  recevoir les notifications importantes par SMS.'
+not_known: "Non renseigné"
+change_password: "Changer mon mot de passe"
+my_account_on_societe_x: "Mon compte sur {societe}"
+my_activity: "Mon activité"
+my_notifications: "Mes notifications"
+my_account_edition: "Modification de mon compte"
+if_provided_you_can_receive_important_notification_by_sms.:
+  "Si fourni, vous pourrez
+  recevoir les notifications importantes par SMS."
 locale: Langue
 username: Identifiant
-password: 'Mot de passe'
+password: "Mot de passe"
 login: Connexion
-cannot_disable_self: 'Impossible de désactiver votre propre compte, vous seriez bloqué.'
+cannot_disable_self: "Impossible de désactiver votre propre compte, vous seriez bloqué."
 cannot_disable_cdp: "Vous ne pouvez pas désactiver un compte d'un Chef de projet."
-csrf_token_invalid: 'Erreur, il semblerai que le formulaire ait expiré, veuillez réessayer.'
-'Vous avez rejoint la société !': 'Vous avez rejoint la société !'
-'Vous avez rejoint le projet !': 'Vous avez rejoint le projet !'
-'Un email de recommandation a bien été envoyé à "{to}". Merci !': 'Un email de recommandation
+csrf_token_invalid: "Erreur, il semblerai que le formulaire ait expiré, veuillez réessayer."
+"Vous avez rejoint la société !": "Vous avez rejoint la société !"
+"Vous avez rejoint le projet !": "Vous avez rejoint le projet !"
+'Un email de recommandation a bien été envoyé à "{to}". Merci !':
+  'Un email de recommandation
   a bien été envoyé à "{to}". Merci !'
-username_or_phone: 'Email ou n° de téléphone'
-request_reset_password_link: 'Demander un lien de réinitialisation'
-validate_my_password: 'Valider mon mot de passe'
-'Une notification avec un lien d''invitation a été envoyée à votre observateur externe.': 'Une
-  notification avec un lien d''invitation a été envoyée à votre observateur externe.'
-'Cet observateur externe a été retiré.': 'Cet observateur externe a été retiré.'
-'Votre compte a été créée avec succès !': 'Votre compte a été créée avec succès !'
-'Le code n''est pas valide.': 'Le code n''est pas valide.'
-'Votre projet a bien été ajouté.': 'Votre projet a bien été ajouté.'
-'Bienvenue à {user} !': 'Bienvenue à {user} !'
-'Un lien de réinitialisation de mot de passe vous a été envoyé.': 'Un lien de réinitialisation
-  de mot de passe vous a été envoyé.'
-'Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.': 'Votre
-  mot de passe a été changé. Vous pouvez maintenant vous connecter avec.'
-welcome_user_you_can_reset_password: 'Bonjour {user}, vous pouvez maintenant définir
-  votre nouveau mot de passe.'
-password_reset: 'Réinitialisation de mot de passe'
-your_new_password: 'Votre nouveau mot de passe'
-'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.': 'Le fait marquant
+username_or_phone: "Email ou n° de téléphone"
+request_reset_password_link: "Demander un lien de réinitialisation"
+validate_my_password: "Valider mon mot de passe"
+"Une notification avec un lien d'invitation a été envoyée à votre observateur externe.":
+  "Une
+  notification avec un lien d'invitation a été envoyée à votre observateur externe."
+"Cet observateur externe a été retiré.": "Cet observateur externe a été retiré."
+"Votre compte a été créée avec succès !": "Votre compte a été créée avec succès !"
+"Le code n'est pas valide.": "Le code n'est pas valide."
+"Votre projet a bien été ajouté.": "Votre projet a bien été ajouté."
+"Bienvenue à {user} !": "Bienvenue à {user} !"
+"Un lien de réinitialisation de mot de passe vous a été envoyé.":
+  "Un lien de réinitialisation
+  de mot de passe vous a été envoyé."
+"Votre mot de passe a été changé. Vous pouvez maintenant vous connecter avec.":
+  "Votre
+  mot de passe a été changé. Vous pouvez maintenant vous connecter avec."
+welcome_user_you_can_reset_password:
+  "Bonjour {user}, vous pouvez maintenant définir
+  votre nouveau mot de passe."
+password_reset: "Réinitialisation de mot de passe"
+your_new_password: "Votre nouveau mot de passe"
+'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.':
+  'Le fait marquant
   "{titre_fait_marquant}" a été ajouté au projet.'
-'Le fait marquant "{titre_fait_marquant}" a été modifié.': 'Le fait marquant "{titre_fait_marquant}"
+'Le fait marquant "{titre_fait_marquant}" a été modifié.':
+  'Le fait marquant "{titre_fait_marquant}"
   a été modifié.'
-'Le fait marquant "{titre_fait_marquant}" a été supprimé.': 'Le fait marquant "{titre_fait_marquant}"
+'Le fait marquant "{titre_fait_marquant}" a été supprimé.':
+  'Le fait marquant "{titre_fait_marquant}"
   a été supprimé.'
-'Le fait marquant "{titre_fait_marquant}" a été déplacé dans la corbeille.': 'Le fait marquant "{titre_fait_marquant}"
+'Le fait marquant "{titre_fait_marquant}" a été déplacé dans la corbeille.':
+  'Le fait marquant "{titre_fait_marquant}"
   a été déplacé dans la corbeille.'
 'Le fait marquant "{titre_fait_marquant}" a été restauré': 'Le fait marquant "{titre_fait_marquant}" a été réstauré.'
-edit_user_user: 'Modification de {user}'
-verify_and_delete_user: 'Vérifier et supprimer le compte'
-delete_user_user: 'Suppression du compte de {user}'
-disable_account_explain: 'Désactiver le compte de {user} l''empêchera de se connecter
+edit_user_user: "Modification de {user}"
+verify_and_delete_user: "Vérifier et supprimer le compte"
+delete_user_user: "Suppression du compte de {user}"
+disable_account_explain:
+  "Désactiver le compte de {user} l'empêchera de se connecter
   sur cette société. Vous conserverez ses projets, faits marquants, les données nécessaires
-  pour générer les feuilles de temps. Vous pourrez ré-activer le compte à tout moment.'
+  pour générer les feuilles de temps. Vous pourrez ré-activer le compte à tout moment."
 disable_account_with_CDP_roles_explain: "Merci de modifier les rôles de {user} dans ces projets :"
-re_enable_account_explain: 'Ré-activer le compte de {user} lui permettra d''accéder
-  à nouveau à votre société.'
+re_enable_account_explain:
+  "Ré-activer le compte de {user} lui permettra d'accéder
+  à nouveau à votre société."
 cancel: Annuler
-disable_account: 'Désactiver le compte'
-re_enable_account: 'Ré-activer le compte'
-delete_account: 'Supprimer le compte'
+disable_account: "Désactiver le compte"
+re_enable_account: "Ré-activer le compte"
+delete_account: "Supprimer le compte"
 your_are_about_to_delete_user: "Vous êtes sur le point de supprimer définitivement le compte de <strong>{user}</strong> ayant le rôle d'un <strong>{userRole}</strong>."
-this_action_can_have_effect_on_linked_data_user: 'Cette action peut avoir un impact sur les données liées à cet utilisateur :'
-roles_on_projects_of_user: 'Rôles sur projets de {user}'
-activity_of_user: 'Activité de {user}'
+this_action_can_have_effect_on_linked_data_user: "Cette action peut avoir un impact sur les données liées à cet utilisateur :"
+roles_on_projects_of_user: "Rôles sur projets de {user}"
+activity_of_user: "Activité de {user}"
 activity: Activité
-his_projects: 'Ses projets'
-manage_his_projects_access: 'Gérer ses accès aux projets'
-.on_the_project: 'sur le projet'
-time_spent_in: 'Temps passés en'
-.at_date: 'le {date}'
-creation_of_your_admin_account_on_company: 'Création de votre compte administrateur
-  sur la société'
+his_projects: "Ses projets"
+manage_his_projects_access: "Gérer ses accès aux projets"
+.on_the_project: "sur le projet"
+time_spent_in: "Temps passés en"
+.at_date: "le {date}"
+creation_of_your_admin_account_on_company:
+  "Création de votre compte administrateur
+  sur la société"
 continue: Continuer
-my_rdi_manager_account: 'Mon compte RDI-Manager'
-create_my_rdi_manager_account: 'Créer mon compte RDI-Manager'
-join_company: 'Rejoindre la société'
-create_my_account: 'Créer mon compte'
-you_received_6_digit_code_enter_it: 'Vous avez reçu un code de vérification à 6 chiffres
-  sur votre boîte email. Veuillez le saisir ici.'
-code_non_received: 'Code de vérification non reçu ?'
-re_verify_my_email_address: 'Revérifier mon adresse email'
-if_you_are_new_create_an_account: 'Si êtes nouveau sur RDI-Manager ou que vous n''avez
-  pas encore de compte, vous pouvez en créer un maintenant.'
-i_already_have_a_rdi_manager_account: 'J''ai déjà un compte RDI-Manager'
-already_have_account_explain: 'Si vous avez déjà un compte, vous pouvez lier votre
-  nouvelle société à ce compte. Vous serez invité à vous connecter si vous ne l''êtes
-  pas déjà.'
-invite_my_collaborators: 'Inviter mes collaborateurs'
-you_can_invite_two_collaborators: 'Vous pouvez inviter vos deux premiers collaborateurs
-  qui travaillent sur votre projets et qui pourront saisir du temps passé dessus.'
-you_can_still_invite_later: 'Vous pourrez toujours inviter vos collaborateurs plus
-  tard.'
-skip_this_step: 'Passer cette étape'
-first_collaborator: 'Premier collaborateur'
-second_collaborator: 'Second collaborateur'
-registration_finished: 'Inscription terminée !'
-your_rdi_manager_account_is_now_created: 'Votre compte RDI-Manager est maintenant
-  créé.'
-go_to_my_dashboard: 'Aller sur mon tableau de bord'
-my_company: 'Ma société'
-.to_register_on_rdi_manager: 'à inscrire sur RDI-Manager'
+my_rdi_manager_account: "Mon compte RDI-Manager"
+create_my_rdi_manager_account: "Créer mon compte RDI-Manager"
+join_company: "Rejoindre la société"
+create_my_account: "Créer mon compte"
+you_received_6_digit_code_enter_it:
+  "Vous avez reçu un code de vérification à 6 chiffres
+  sur votre boîte email. Veuillez le saisir ici."
+code_non_received: "Code de vérification non reçu ?"
+re_verify_my_email_address: "Revérifier mon adresse email"
+if_you_are_new_create_an_account:
+  "Si êtes nouveau sur RDI-Manager ou que vous n'avez
+  pas encore de compte, vous pouvez en créer un maintenant."
+i_already_have_a_rdi_manager_account: "J'ai déjà un compte RDI-Manager"
+already_have_account_explain:
+  "Si vous avez déjà un compte, vous pouvez lier votre
+  nouvelle société à ce compte. Vous serez invité à vous connecter si vous ne l'êtes
+  pas déjà."
+invite_my_collaborators: "Inviter mes collaborateurs"
+you_can_invite_two_collaborators:
+  "Vous pouvez inviter vos deux premiers collaborateurs
+  qui travaillent sur votre projets et qui pourront saisir du temps passé dessus."
+you_can_still_invite_later:
+  "Vous pourrez toujours inviter vos collaborateurs plus
+  tard."
+skip_this_step: "Passer cette étape"
+first_collaborator: "Premier collaborateur"
+second_collaborator: "Second collaborateur"
+registration_finished: "Inscription terminée !"
+your_rdi_manager_account_is_now_created:
+  "Votre compte RDI-Manager est maintenant
+  créé."
+go_to_my_dashboard: "Aller sur mon tableau de bord"
+my_company: "Ma société"
+.to_register_on_rdi_manager: "à inscrire sur RDI-Manager"
 .administrator: administrateur
-my_project: 'Mon projet'
-.that_i_want_to_track: 'que je souhaite suivre'
-my_collaborators: 'Mes collaborateur'
-.to_invite: 'à inviter'
-finished!: 'Terminé !'
-welcome_on_rdi_manager: 'Bienvenue sur RDI-Manager !'
-your_collaborators_will_enrich_this_project: 'Vos collaborateurs pourront saisir leurs
-  temps passé sur ce projet, ou encore ajouter les faits marquants.'
-you_still_can_create_project_later: 'Vous pourrez toujours créer votre projet plus
-  tard.'
-welcome_on_rdi_manager_long: 'Bienvenue sur RDI-Manager, vous allez ici créer votre
-  société et votre accès administrateur afin de suivre vos projets.'
-if_you_want_join_already_existing_company_ask_your_admin: 'Si vous souhaitez plutôt
+my_project: "Mon projet"
+.that_i_want_to_track: "que je souhaite suivre"
+my_collaborators: "Mes collaborateur"
+.to_invite: "à inviter"
+finished!: "Terminé !"
+welcome_on_rdi_manager: "Bienvenue sur RDI-Manager !"
+your_collaborators_will_enrich_this_project:
+  "Vos collaborateurs pourront saisir leurs
+  temps passé sur ce projet, ou encore ajouter les faits marquants."
+you_still_can_create_project_later:
+  "Vous pourrez toujours créer votre projet plus
+  tard."
+welcome_on_rdi_manager_long:
+  "Bienvenue sur RDI-Manager, vous allez ici créer votre
+  société et votre accès administrateur afin de suivre vos projets."
+if_you_want_join_already_existing_company_ask_your_admin:
+  "Si vous souhaitez plutôt
   rejoindre une société déjà existante, veuillez demander à votre administrateur de
-  vous inviter.'
-create_my_company: 'Créer ma société'
-create_my_project: 'Créer mon projet'
-societe.raisonSociale: 'Raison sociale / Organisation'
+  vous inviter."
+create_my_company: "Créer ma société"
+create_my_project: "Créer mon projet"
+societe.raisonSociale: "Raison sociale / Organisation"
 societe.siret: Siret
-projet.titre: 'Titre descriptif'
+projet.titre: "Titre descriptif"
 projet.acronyme: Acronyme
 user.role: Rôle
-user.heuresParJours: 'Heures travaillées par jour'
+user.heuresParJours: "Heures travaillées par jour"
 societeUserPeriod.dateEntry: Date d'entrée
 societeUserPeriod.dateLeave: Date de sortie
 add_external_link: Ajouter un lien externe
-projet.projetUrls: 'Urls externes du projet'
-projet.projetUrls.help: 'Afficher des liens externes en relation avec ce projet.'
-projet.projetUrl.text.help: 'Texte du lien'
+projet.projetUrls: "Urls externes du projet"
+projet.projetUrls.help: "Afficher des liens externes en relation avec ce projet."
+projet.projetUrl.text.help: "Texte du lien"
 projet.projetUrl.url.help: Url
 add_folder_file_project: Ajouter un dossier
-projet.dossierFichierProjets: 'Dossiers des fichiers du projet'
-projet.dossierFichierProjets.help: 'Organiser le stockage des fichiers du projet'
-projet.dossierFichierProjets.delete.help: 'Tous les fichiers de ce dossier seront automatiquement supprimés !!'
-faitMarquant.sendedToSocieteUsers.text.help: 'Sélectionner et/ou ajouter des destinataires'
+projet.dossierFichierProjets: "Dossiers des fichiers du projet"
+projet.dossierFichierProjets.help: "Organiser le stockage des fichiers du projet"
+projet.dossierFichierProjets.delete.help: "Tous les fichiers de ce dossier seront automatiquement supprimés !!"
+faitMarquant.sendedToSocieteUsers.text.help: "Sélectionner et/ou ajouter des destinataires"
 avatar_of_user: Avatar de {user}
 logo_of_socete: Logo de {societe}
 edit_my_avatar: Modifier mon avatar
-'current_avatar:': 'Avatar actuel :'
-'current_logo:': 'Logo actuel :'
-'new_avatar:': 'Nouvel avatar :'
-'new_logo:': 'Nouveau logo :'
-'color_code:': 'Code couleur :'
-delete_project_title: 'Supprimer le projet {projectAcronyme}'
-suspend_project_title: 'Suspendre le projet {projectAcronyme}'
-resume_project_title: 'Ré-activer le projet {projectAcronyme}'
-delete_project_link_description: 'Pour supprimer ce projet, vous pourrez vérifier les données liées au projet puis valider la suppression définitive ici :'
-verify_and_delete_project: 'Vérifier et supprimer le projet'
-suspend_project: 'Suspendre le projet'
-resume_project: 'Ré-activer le projet'
-project_have_been_deleted: 'Le projet {projectAcronyme} a été supprimé !'
-project_have_been_suspended: 'Le projet {projectAcronyme} a été suspendu !'
-project_already_suspended: 'Le projet {projectAcronyme} est déjà suspendu.'
-project_have_been_resumed: 'Le projet {projectAcronyme} a été ré-activé !'
-project_already_resumed: 'Le projet {projectAcronyme} est déjà ré-activé.'
-your_are_about_to_delete_project: 'Vous êtes sur le point de supprimer le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
-your_are_about_to_suspend_project: 'Vous êtes sur le point de suspendre le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
-your_are_about_to_resume_project: 'Vous êtes sur le point de ré-activer le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>.'
-'this_action_can_have_effect_on_linked_data:': 'Cette action peut avoir un impact sur les données liées à ce projet :'
-'...and_n_others': "… et {n, plural, =0 {pas d'autres} =1 {un autre} other {# autres}}"
-delete_project.time_tracking.warning: 'Les contributeurs ont saisis du temps passé sur ce projet dans <strong>{n, plural, =1 {une feuille de temps} other {# feuilles de temps}}</strong>. Ces temps passés seront supprimés, et il y aura une différence avec les potentielles feuilles de temps que vous avez déjà imprimé :'
-delete_project.time_tracking.safe: 'Aucun temps passé n''a été saisi sur ce projet.'
-delete_project.fait_marquant.warning: 'Le projet a <strong>{n, plural, =1 {un fait marquant} other {# faits marquants}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :'
-delete_project.fait_marquant.safe: 'Le projet n''a pas de fait marquant.'
-delete_project.project_file.warning: 'Le projet a <strong>{n, plural, =1 {un fichier rattaché} other {# fichiers rattachés}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :'
-delete_project.project_file.safe: 'Le projet n''a pas de fichiers rattachés.'
-delete_project.external_observator.warning: 'Le projet a <strong>{n, plural, =1 {un observateur externe} other {# observateurs externes}}</strong>, {n, plural, =1 {il ne pourra} other {ils ne pourront}} plus consulter le projet :'
-delete_project.external_observator.safe: 'Le projet n''a pas d''observateur externe.'
-delete_project.project_participant.warning: 'Le projet a <strong>{n, plural, =1 {un participant} other {# participants}}</strong>, {n, plural, =1 {il sera détaché} other {ils seront détachés}} du projet :'
-delete_project.project_participant.safe: 'Le projet n''a pas de participants.'
-are_you_sure_delete_project: 'Êtes-vous sûr de vouloir supprimer le projet {projectAcronyme} ?'
+"current_avatar:": "Avatar actuel :"
+"current_logo:": "Logo actuel :"
+"new_avatar:": "Nouvel avatar :"
+"new_logo:": "Nouveau logo :"
+"color_code:": "Code couleur :"
+delete_project_title: "Supprimer le projet {projectAcronyme}"
+suspend_project_title: "Suspendre le projet {projectAcronyme}"
+resume_project_title: "Ré-activer le projet {projectAcronyme}"
+delete_project_link_description: "Pour supprimer ce projet, vous pourrez vérifier les données liées au projet puis valider la suppression définitive ici :"
+verify_and_delete_project: "Vérifier et supprimer le projet"
+suspend_project: "Suspendre le projet"
+resume_project: "Ré-activer le projet"
+project_have_been_deleted: "Le projet {projectAcronyme} a été supprimé !"
+project_have_been_suspended: "Le projet {projectAcronyme} a été suspendu !"
+project_already_suspended: "Le projet {projectAcronyme} est déjà suspendu."
+project_have_been_resumed: "Le projet {projectAcronyme} a été ré-activé !"
+project_already_resumed: "Le projet {projectAcronyme} est déjà ré-activé."
+your_are_about_to_delete_project: "Vous êtes sur le point de supprimer le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>."
+your_are_about_to_suspend_project: "Vous êtes sur le point de suspendre le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>."
+your_are_about_to_resume_project: "Vous êtes sur le point de ré-activer le projet <strong>{projectAcronyme}</strong>, <strong>{projectTitle}</strong>."
+"this_action_can_have_effect_on_linked_data:": "Cette action peut avoir un impact sur les données liées à ce projet :"
+"...and_n_others": "… et {n, plural, =0 {pas d'autres} =1 {un autre} other {# autres}}"
+delete_project.time_tracking.warning: "Les contributeurs ont saisis du temps passé sur ce projet dans <strong>{n, plural, =1 {une feuille de temps} other {# feuilles de temps}}</strong>. Ces temps passés seront supprimés, et il y aura une différence avec les potentielles feuilles de temps que vous avez déjà imprimé :"
+delete_project.time_tracking.safe: "Aucun temps passé n'a été saisi sur ce projet."
+delete_project.fait_marquant.warning: "Le projet a <strong>{n, plural, =1 {un fait marquant} other {# faits marquants}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :"
+delete_project.fait_marquant.safe: "Le projet n'a pas de fait marquant."
+delete_project.project_file.warning: "Le projet a <strong>{n, plural, =1 {un fichier rattaché} other {# fichiers rattachés}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :"
+delete_project.project_file.safe: "Le projet n'a pas de fichiers rattachés."
+delete_project.external_observator.warning: "Le projet a <strong>{n, plural, =1 {un observateur externe} other {# observateurs externes}}</strong>, {n, plural, =1 {il ne pourra} other {ils ne pourront}} plus consulter le projet :"
+delete_project.external_observator.safe: "Le projet n'a pas d'observateur externe."
+delete_project.project_participant.warning: "Le projet a <strong>{n, plural, =1 {un participant} other {# participants}}</strong>, {n, plural, =1 {il sera détaché} other {ils seront détachés}} du projet :"
+delete_project.project_participant.safe: "Le projet n'a pas de participants."
+are_you_sure_delete_project: "Êtes-vous sûr de vouloir supprimer le projet {projectAcronyme} ?"
 delete_user.projects.warning: "{user} fait partie <strong>{n, plural, =1 {d'un projet} other {de # projets}}</strong> :"
-delete_user.projects.safe: '{user} ne fait partie d''aucun projet.'
-delete_user.fait_marquant.warning: '{user} a créé <strong>{n, plural, =1 {un fait marquant} other {# faits marquants}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :'
-delete_user.fait_marquant.safe: '{user} n''a pas de fait marquant.'
-delete_user.activities.warning: '{user} a <strong>{n, plural, =1 {une activité} other {# activités}}</strong>, {n, plural, =1 {elle sera supprimée} other {elles seront supprimées}}.'
-delete_user.activities.safe: '{user} n''a pas d''activité.'
-delete_user.time_tracking.warning: '{user} a saisi du temps passé dans <strong>{n, plural, =1 {une feuille de temps} other {# feuilles de temps}}</strong>. Ces temps passés seront supprimés, et il y aura une différence avec les potentielles feuilles de temps que vous avez déjà imprimé :'
-delete_user.time_tracking.safe: 'Aucun temps passé n''a été saisi par {user}.'
-are_you_sure_delete_user: 'Êtes-vous sûr de vouloir supprimer le compte de {user} ?'
-user_have_been_deleted: 'Le compte de {user} a été supprimé !'
+delete_user.projects.safe: "{user} ne fait partie d'aucun projet."
+delete_user.fait_marquant.warning: "{user} a créé <strong>{n, plural, =1 {un fait marquant} other {# faits marquants}}</strong>, {n, plural, =1 {il sera supprimé} other {ils seront supprimés}} également :"
+delete_user.fait_marquant.safe: "{user} n'a pas de fait marquant."
+delete_user.activities.warning: "{user} a <strong>{n, plural, =1 {une activité} other {# activités}}</strong>, {n, plural, =1 {elle sera supprimée} other {elles seront supprimées}}."
+delete_user.activities.safe: "{user} n'a pas d'activité."
+delete_user.time_tracking.warning: "{user} a saisi du temps passé dans <strong>{n, plural, =1 {une feuille de temps} other {# feuilles de temps}}</strong>. Ces temps passés seront supprimés, et il y aura une différence avec les potentielles feuilles de temps que vous avez déjà imprimé :"
+delete_user.time_tracking.safe: "Aucun temps passé n'a été saisi par {user}."
+are_you_sure_delete_user: "Êtes-vous sûr de vouloir supprimer le compte de {user} ?"
+user_have_been_deleted: "Le compte de {user} a été supprimé !"
 delete: Supprimer
-add_contributors: 'Ajouter des contributeurs'
-add_contributors_help: 'Sans autres contributeurs, vous serez le seul à pouvoir ajouter des faits marquant, joindre des fichiers... Ajoutez les contributeurs sur ce projet afin qu''ils puissent l''enrichir et saisir leurs temps passé dessus.'
-who_is_working_on_this_project: 'Qui contribue à ce projet ?'
-n_contributors_added: '{n, plural, =1 {Le contributeur a été ajouté au projet.} other {Les # contributeurs ont été ajoutés au projet.}}'
-parameter.bo.onboarding.notification_every: 'Envoyer un email d''onboarding tout les...'
+add_contributors: "Ajouter des contributeurs"
+add_contributors_help: "Sans autres contributeurs, vous serez le seul à pouvoir ajouter des faits marquant, joindre des fichiers... Ajoutez les contributeurs sur ce projet afin qu'ils puissent l'enrichir et saisir leurs temps passé dessus."
+who_is_working_on_this_project: "Qui contribue à ce projet ?"
+n_contributors_added: "{n, plural, =1 {Le contributeur a été ajouté au projet.} other {Les # contributeurs ont été ajoutés au projet.}}"
+parameter.bo.onboarding.notification_every: "Envoyer un email d'onboarding tout les..."
 parameter.bo.onboarding.notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.html" target="_blank">conditions générales d''utilisation</a> et les <a href="https://rdimanager.com/fr/cgv.html" target="_blank">conditions générales de vente</a>.'
-edit_file_success: 'Votre fichier {oldName} à bien été modifié en {newName}'
-download: 'Télécharger'
-see_more: 'Voir plus ...'
-societeUser.societeUserPeriods: 'Les périodes'
-verif_date_leave_on_disable_user: 'Pour désactiver le compte de {user}, veuillez préciser sa date de sortie.'
-verif_date_entry_on_enable_user: 'Pour activer le compte de {user}, veuillez préciser sa date d''entrèe.'
+edit_file_success: "Votre fichier {oldName} à bien été modifié en {newName}"
+download: "Télécharger"
+see_more: "Voir plus ..."
+societeUser.societeUserPeriods: "Les périodes"
+verif_date_leave_on_disable_user: "Pour désactiver le compte de {user}, veuillez préciser sa date de sortie."
+verif_date_entry_on_enable_user: "Pour activer le compte de {user}, veuillez préciser sa date d'entrèe."
 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.'
-dashboard_consolide.titre: 'Titre descriptif'
-dashboard_consolide.societes: 'Mes sociétés'
+dashboard_consolide.titre: "Titre descriptif"
+dashboard_consolide.societes: "Mes sociétés"
+modifier_FM: Modifiez votre Fait Marquant
+go_back_go_project: Annuler et retourner au projet
+addNew_FM: Ajouter un fait marquant
+projectString: Projet
+beenOf_FM: Corbeille des faits marquants
+trashString: Corbeille
+list_files: Liste des fichiers
+allString: Tous
+editFile: Modifier un fichier
+go_back_go_files: Retourner à la liste des fichiers
+edit_btn: Modifier
+add_file_btn: Ajouter un fichier
+caseString: Dossier
+fileString: Fichier
+autorString: Auteur
+suspended_project: Le projet est suspendu
+cant_rename_file: Vous ne pouvez pas renommer les fichiers qui ne vous appartiennent pas
+cant_delete_file: Vous ne pouvez pas supprimer les fichiers qui ne vous appartiennent pas
+last_notif_send: Dernières notifications envoyées
+notif_never_program: Notification encore jamais programmée
+gen_time_sheet: Génération des feuilles de temps
+gen_time_sheet_msg_one: Générez les feuilles de temps d'un ou plusieurs utilisateurs, sur la période de temps que vous souhaitez.
+gen_time_sheet_msg_two: Vous pouvez alors télécharger en un seul PDF ou excel toutes les feuilles de temps de tout le monde.
+understandString: C'est compris !
+tell_abs_one: Vous pouvez ici indiquer les jours où vous avez été absent ou en demi-journée.
+tell_abs_two: Par défaut, si vous ne validez pas, vous êtes considérés comme présent tout le mois.
+legendString: "Légende :"
+presentString: Présence
+halfDayString: Demi-journée
+time_spend_one: Vous pouvez ici saisir en pourcentage le temps que vous avez passé en moyenne sur vos projets dont vous avez contribué dans ce mois.
+time_spend_two: La somme peut ne pas faire 100%, par exemple si vous avez passé du temps sur des projets non listés ici.
+time_spend_three: Si vous avez été absent, remplissez vos pourcentages pour les jours où vous avez été present.
+licence_title: "Licence RDI-Manager :"
+tied_society: Liée à la société
+valid_until: Valide jusqu'au
+max_contrib: "Nombre de contributeurs max : "
+max_projects: "Nombre de projets max :"
+license_notRelated: Cette license n'est pas liée à votre société.
+account_goBack: Retourner à mon compte
+access_disabled: Accès désactivé
+goOn: Aller sur
+timeString: Temps
+resultString: Résultat
+goBack_params_notif: Retourner aux paramètres des notifications
+no_notif_send: Aucune notification n'a encore été envoyée.
+obs_ext_proj: "Je suis <strong>observateur externe</strong> sur ce projet."
+no_contrib_proj: Il n'y a pas de contributeur pour l'instant.
+invite_obs_ext: Inviter un observateur externe sur
+invite_obs_ext_2: Inviter un observateur externe
+your_project: Votre projet
+para_invite_obs: "Saisissez l'email ou le numéro de téléphone portable de l'observateur que vous souhaitez inviter. Il recevra un lien d'invitation qu'il pourra accepter pour obtenir l'<strong>accès observateur externe sur votre projet { projectAcronyme }</strong>."
+join_project: Rejoindre le projet
+para_join_project: "Vous êtes sur le point de rejoindre en tant qu'observateur externe, le projet <strong>{ projectAcronyme }</strong> : { projectTitre }."
+join_project_obs: "Rejoindre le projet { projectAcronyme } en tant qu'observateur externe"
+para_join_rdi: "Vous êtes sur le point de rejoindre le projet <strong>{ projectAcronyme }</strong> : { projectTitre }."
+new_on_rdi: Si êtes nouveau sur RDI-Manager ou que vous n'avez pas encore de compte, vous pouvez en créer un maintenant.
+also_an_account: Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte. Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
+list_project_access: Liste des projets dont j'ai un accès en tant qu'observateur externe.
+societyString: Société
+part_on_project: Participants sur le projet
+gest_of_part: Gestion des participants
+add_part: Ajouter un participant
+obs_ext: Observateurs externes
+want_new_user: Vous souhaitez inviter un utilisateur sur votre projet et l'inviter aussi dans votre société ?
+want_new_obs: Vous souhaitez donner un accès observateur à un utilisateur sur ce projet, mais sans l'inviter dans votre société ?
+invite_on: Inviter sur
+para_invite_on: Vous pouvez inviter sur ce projet un utilisateur pas encore inscrit dans votre société à partir de son email.
+add_cont_later: J'ajouterai des contributeurs plus tard
+go_on_project: Aller sur le projet
+edit_of_project: Edition du projet
+manage_file_project: Voulez-vous gérer les fichiers du projet dans des dossiers ?
+ext_link_project: Voulez-vous ajouter des liens externes du projet ?
+only_contrib: Seuls les contributeurs peuvent ajouter un fait marquant
+my_role_project: "Je suis <strong>{ userRole }</strong> sur ce projet."
+no_role_project: "Vous n'avez <strong>pas de rôle</strong> sur ce projet."
+date_debut: Date de début
+date_fin: Date de fin
+follow_project: Suivre le projet
+para_follow_project: Suivez ce projet pour recevoir une notification en temps réel à chaque mise à jour de ce projet.
+cant_follow_project: Vous ne pouvez pas suivre ce projet car vous devez avoir au moins le rôle d'observateur sur ce projet.
+no_contrib_now: Il n'y a pas de contributeurs pour l'instant
+see_obs_project: Voir les Observateurs
+filesString: Fichiers
+no_files_here: Il n'y a pas de fichiers ici...
+collaboratif: Collaboratif
+interne: Interne
+externe: Externe
+close: Fermer
+return_to_project: Retourner au projet
+no_fm: Ce projet n'a pas encore de fait marquants.
+title: Titre
+resume: Résumé
+activity_project: Activité du projet
+add_new_project: Ajouter un nouveau projet
+want_case_project: Voulez_vous gérer les fichier du projet dans des dossier ?
+want_ext_link_project: Voulez-vous ajouter des liens externes du projet ?

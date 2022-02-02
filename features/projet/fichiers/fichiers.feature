@@ -13,7 +13,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
 
         When I follow "Liste des projets"
         And I follow "PTEST"
-        And I follow "Voir tous les fichiers"
+        And I follow "Liste des fichiers"
         Then I should see "Liste des fichiers" in the "h1" element
         And I should see "fichier_de_contributeur.txt"
         And I should see "fichier_de_cdp.txt"
@@ -31,7 +31,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
 
         When I follow "Liste des projets"
         And I follow "PTEST"
-        And I follow "Voir tous les fichiers"
+        And I follow "Liste des fichiers"
         When I click on the 1st "[href='/projets/1/fichiers/1/modifier']" element
         Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
@@ -50,7 +50,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
 
         When I follow "Liste des projets"
         And I follow "PTEST"
-        And I follow "Voir tous les fichiers"
+        And I follow "Liste des fichiers"
         When I click on the 1st "[href='/projets/1/fichiers/1/modifier']" element
         Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
@@ -69,7 +69,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
 
         When I follow "Liste des projets"
         And I follow "PTEST"
-        And I follow "Voir tous les fichiers"
+        And I follow "Liste des fichiers"
         Then I should see a "[href='/projets/1/fichiers/1/modifier'].disabled" element
         When I go to "/projets/1/fichiers/1/modifier"
         Then the response status code should be 403

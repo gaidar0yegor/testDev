@@ -1,24 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Rejoindre le projet {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Rejoindre le projet {{ projetObservateurExterne.projet.acronyme }}</h1>
+<h1>{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }}</h1>
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
-        <p>
-            Vous êtes sur le point de rejoindre le projet
-            <strong>{{ projetObservateurExterne.projet.acronyme }}</strong> :
-            "{{ projetObservateurExterne.projet.titre }}".
-        </p>
+        <p>{{ 'para_join_rdi'|trans({
+                'projectAcronyme': projetObservateurExterne.projet.acronyme,
+                'projectTitre': projetObservateurExterne.projet.titre
+            })|raw|striptags('<strong>')|raw }}</p>
 
-
-        <p>
-            Si êtes nouveau sur RDI-Manager ou que vous n'avez pas encore de compte,
-            vous pouvez en créer un maintenant.
-        </p>
+        <p>{{ "new_on_rdi"|trans }}</p>
 
         <a
             href="{{ path('app_signup', {
@@ -27,17 +22,14 @@
                 'user_telephone': projetObservateurExterne.invitationTelephone,
             }) }}"
             class="mt-1 btn btn-lg btn-success"
-        >Créer mon compte RDI-Manager</a>
+        >{{ "create_my_rdi_manager_account"|trans }}</a>
 
-        <p class="mt-4">
-            Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte.
-            Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
-        </p>
+        <p class="mt-4">{{ "also_an_account"|trans }}</p>
 
         <a
             href="{{ path('app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}) }}"
             class="mt-1 btn btn-outline-primary"
-        >J'ai déjà un compte RDI-Manager</a>
+        >{{ "i_already_have_a_rdi_manager_account"|trans }}</a>
     </div>
 </div>
 

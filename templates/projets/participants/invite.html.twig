@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inviter sur {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}{{ "invite_on"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>Inviter sur {{ projet.acronyme }}</h1>
+<h1>{{ "invite_on"|trans }} {{ projet.acronyme }}</h1>
 
 <div class="row">
     <div class="col-md-6 offset-md-3">
         <p>
-            Vous pouvez inviter sur ce projet
-            un utilisateur pas encore inscrit dans votre société
-            à partir de son email.
+        {{ "para_invite_on"|trans }}
         </p>
 
         {{ form_start(form) }}
