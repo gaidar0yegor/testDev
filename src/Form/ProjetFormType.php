@@ -121,10 +121,7 @@ class ProjetFormType extends AbstractType
                 continue;
             }
 
-            $dossierFichierProjet
-                ->setDefaultFolderName()
-                ->setCreatedBy($this->userContext->getSocieteUser())
-            ;
+            $dossierFichierProjet->setDefaultFolderName();
         }
     }
 
