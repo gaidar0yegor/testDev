@@ -59,7 +59,7 @@
         </div>
     </li>
     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
-    <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_utilisateurs', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_projet', 'app_fo_admin_notification', 'app_fo_admin_licenses') }}">
+    <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_utilisateurs', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_notification', 'app_fo_admin_licenses') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-cogs" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.admin'|trans }}</span>
         </a>
@@ -118,7 +118,7 @@
         </div>
     </li>
     {% else %}
-    <li class="nav-item dropdown {{ activeOn('app_fo_utilisateurs') }}">
+    <li class="nav-item dropdown {{ activeOn('app_fo_utilisateurs','app_fo_mon_equipe_projets','app_fo_mon_equipe_cra_validation','app_fo_mon_equipe_timesheet_generate') }}">
         <a
             class="nav-link dropdown-toggle {{ userContext.societeUser.superiorFo ? '' : 'disabled' }}"
             {% if not userContext.societeUser.superiorFo %}
