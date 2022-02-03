@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\HasSocieteInterface;
-use App\ProjetResourceInterface;
 use App\Repository\DossierFichierProjetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -12,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=DossierFichierProjetRepository::class)
  */
-class DossierFichierProjet implements HasSocieteInterface, ProjetResourceInterface
+class DossierFichierProjet implements HasSocieteInterface
 {
     /**
      * @ORM\Id
@@ -30,12 +29,6 @@ class DossierFichierProjet implements HasSocieteInterface, ProjetResourceInterfa
      * @ORM\Column(name="nom", type="string", length=255)
      */
     private $nom;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="dossierFichierProjets")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $createdBy;
 
     /**
      * @ORM\Column(type="datetime")
@@ -79,18 +72,6 @@ class DossierFichierProjet implements HasSocieteInterface, ProjetResourceInterfa
     public function setDefaultFolderName(): self
     {
         $this->setNomMd5(md5(uniqid()));
-
-        return $this;
-    }
-
-    public function getCreatedBy(): ?SocieteUser
-    {
-        return $this->createdBy;
-    }
-
-    public function setCreatedBy(?SocieteUser $createdBy): self
-    {
-        $this->createdBy = $createdBy;
 
         return $this;
     }
@@ -160,11 +141,6 @@ class DossierFichierProjet implements HasSocieteInterface, ProjetResourceInterfa
     public function getSociete(): ?Societe
     {
         return $this->getProjet()->getSociete();
-    }
-
-    public function getOwner(): SocieteUser
-    {
-        return $this->createdBy;
     }
 
     public function getNomMd5(): ?string

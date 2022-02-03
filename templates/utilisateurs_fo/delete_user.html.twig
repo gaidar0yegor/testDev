@@ -104,7 +104,9 @@
     {% else %}
         <div class="alert alert-success">
             <i class="fa fa-check" aria-hidden="true"></i>
-            {{ 'delete_user.fait_marquant.safe'|trans }}
+            {{ 'delete_user.fait_marquant.safe'|trans({
+                'user': societeUser.user.fullname
+            }) }}
         </div>
     {% endif %}
 
@@ -122,7 +124,9 @@
     {% else %}
         <div class="alert alert-success">
             <i class="fa fa-check" aria-hidden="true"></i>
-            {{ 'delete_user.fait_marquant.safe'|trans }}
+            {{ 'delete_user.fait_marquant.safe'|trans({
+                'user': societeUser.user.fullname
+            }) }}
         </div>
     {% endif %}
 
