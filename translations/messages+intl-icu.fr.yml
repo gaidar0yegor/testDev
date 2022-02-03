@@ -55,7 +55,7 @@ menu.projects: "Mes projets"
 menu.projects.list: "Liste des projets"
 menu.projects.create: "Créer un projet"
 menu.projects.external: "Projets externes"
-menu.time_tracking: "Suivi temps"
+menu.time_tracking: "Mon suivi de temps"
 menu.time_tracking.time_spent: "Temps passés"
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: Mon suivi
