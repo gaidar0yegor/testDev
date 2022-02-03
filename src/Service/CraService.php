@@ -78,6 +78,26 @@ class CraService
     }
 
     /**
+     * Retourner le nombre des projets actives et aux quels l'user participe
+     */
+    public function getActiveProjectsByUserAndMois(SocieteUser $societeUser, \DateTime $mois): array
+    {
+        $userProjets = $this
+            ->projetRepository
+            ->findAllForUser($societeUser, RoleProjet::CONTRIBUTEUR, $mois)
+        ;
+        $activeProjects = [];
+
+        foreach ($userProjets as $userProjet) {
+            if (!$this->dateMonthService->isSuspendedProjectByMonth($userProjet, $mois)){
+                array_push($activeProjects,$userProjet);
+            }
+        }
+
+        return $activeProjects;
+    }
+
+    /**
      * Initialize la liste des temps passés du Cra.
      */
     public function prefillTempsPasses(Cra $cra): void
@@ -217,16 +237,17 @@ class CraService
 
     public function getFirstNotValidMonth(SocieteUser $societeUser)
     {
-        $craValidMois = $this->craRepository->findValidMoisByUser($societeUser);
         $firstPeriod = $societeUser->getSocieteUserPeriods()->first();
         $notValidMois = null;
         if ($firstPeriod instanceof SocieteUserPeriod && null !== $firstPeriod->getDateEntry()){
+            $craValidMois = $this->craRepository->findValidMoisByUser($societeUser);
             $month = $firstPeriod->getDateEntry()->getTimestamp();
             $end = (new \DateTime(date('01-m-Y')))->getTimestamp();
 
             while($month < $end)
             {
                 if (
+                    count($this->getActiveProjectsByUserAndMois($societeUser, (new \DateTime())->setTimestamp($month))) &&
                     $this->dateMonthService->isUserBelongingToSocieteByDate($societeUser,(new \DateTime())->setTimestamp($month)) &&
                     !in_array((new \DateTime())->setTimestamp($month), $craValidMois)
                 ){

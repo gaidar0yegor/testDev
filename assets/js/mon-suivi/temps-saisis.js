@@ -20,7 +20,7 @@ $(() => {
             addAlert(
                 'danger',
                 'calendar-times-o',
-                `Vous n'avez pas saisi vos temps passés de ${craMonthName(cra.notValidMois)} ${cra.notValidMois.split('-')[0]}.`,
+                `Vous n'avez pas saisi vos temps passés de <a href="${urlTempsPasses}/${cra.notValidMois.replace('-', '/')}" class="alert-link">${craMonthName(cra.notValidMois)} ${cra.notValidMois.split('-')[0]}</a>`,
             );
         }
 
