@@ -21,10 +21,10 @@ menu.projects: My projects
 menu.projects.list: Projects list
 menu.projects.create: Create a project
 menu.projects.external: Externals projects
-menu.time_tracking: My time tracker
+menu.time_tracking: Time tracking
 menu.time_tracking.time_spent: Time spent
 menu.time_tracking.absences: Absences
-menu.time_tracking.my_tracking: My tracking
+menu.time_tracking.my_tracking: My time tracker
 menu.admin: Administration
 menu.mon_equipe: My team
 my_account: 'My account'
