@@ -6,12 +6,16 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+## [0.41.6] - 2022-02-03
+### Ajouté
 - La traduction de l'application en anglais
 - Liens hiérarchiques (N+1 , N, N-1)
 ### Réparé
 - Réparer le lien de la saisie des absences
-
-
 
 ## [0.41.5] - 2022-01-27
 ### Réparé
