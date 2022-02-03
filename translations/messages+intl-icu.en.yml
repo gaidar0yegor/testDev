@@ -26,7 +26,8 @@ menu.time_tracking.time_spent: Time spent
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: My tracking
 menu.admin: Administration
-my_account: "My account"
+menu.mon_equipe: My team
+my_account: 'My account'
 PRESENTATION: Project's presentation
 FAITS_MARQUANTS: Remarkable fact
 LISTE_FICHIERS: Files list
@@ -70,7 +71,8 @@ menu.admin.timesheet_export: Export your timesheets
 hours_by_project: Number of hours per projects
 loading: Loading…
 projects_analyse_of_year: Analyse this year's projects
-my_projects_of_year: This year's projects
+my_projects_of_year: My projects of the year
+my_team_projects_of_year: The projects of my team of the year
 project_analyse_from: Analysis of the projects since
 projects_realisations: Realization of projects
 realized_projects_type: Type of projects realized
@@ -122,6 +124,7 @@ you_can_invite_by_email_or_sms_to_make_him_join_company.:
 BACK_OFFICE: Back-Office
 welcome_on_rdi_manager: Welcome to RDI-Manager !
 admin_requires_admin_role: Menu reserved to your company's administrator.
+admin_requires_superior_role: Menu reserved to the team leaders.
 menu.admin.company: My company
 list_of_projects_i_participate: List of projects in which I participate.
 switch_company: Switch company

@@ -65,6 +65,33 @@ class SocieteUserRepository extends ServiceEntityRepository
     }
 
     /**
+     * Find SocieteUser of Mon Equipe in a Societe with their Cra
+     *
+     * @return SocieteUser[]
+     */
+    public function findWithCraOfMonEquipe(SocieteUser $superior, int $year): array
+    {
+        $teamMembers = $this->findTeamMembers($superior);
+
+        return $this->whereSociete($superior->getSociete())
+            ->addSelect('cra')
+            ->addSelect('tempsPasse')
+            ->leftJoin('societeUser.cras', 'cra', 'WITH', 'societeUser = cra.societeUser and YEAR(cra.mois) = :year')
+            ->leftJoin('cra.tempsPasses', 'tempsPasse')
+            ->leftJoin('societeUser.user', 'user')
+            ->andWhere('societeUser in (:teamMembers)')
+            ->andWhere('societeUser.invitationToken is null')
+            ->addOrderBy('user.prenom')
+            ->addOrderBy('user.nom')
+            ->addOrderBy('cra.mois')
+            ->setParameter('year', $year)
+            ->setParameter('teamMembers', $teamMembers)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    /**
      * @param string $notificationSetting Nom du flag (champ de l'entité User)
      *                                    qui doit être à true pour envoyer la notification.
      *                                    (Utiliser 'notificationEnabled' si pas de champ specifique.)
@@ -148,5 +175,38 @@ class SocieteUserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult()
         ;
+    }
+
+    public function queryBuilderTeamMembers(SocieteUser $societeUser): QueryBuilder
+    {
+        $qb = $this->createQueryBuilder('societeUser');
+        return $qb->leftJoin('societeUser.mySuperior', 'mySuperior')
+            ->where('societeUser = :superior')
+            ->orWhere(
+                $qb->expr()->orX(
+                    $qb->expr()->eq('societeUser.mySuperior', ':superior'),
+                    $qb->expr()->in(
+                        'mySuperior.id',
+                        $this->createQueryBuilder('societeUserN_1')
+                            ->select('societeUserN_1.id')
+                            ->where('societeUserN_1.mySuperior = :superior')
+                            ->getDQL()
+                    )
+                )
+            )
+            ->setParameter('superior', $societeUser);
+    }
+
+    /**
+     * Find all my hierarchical links : N-1 et N-2
+     *
+     * @return SocieteUser[]
+     */
+    public function findTeamMembers(SocieteUser $societeUser): array
+    {
+        return $this
+            ->queryBuilderTeamMembers($societeUser)
+            ->getQuery()
+            ->getResult();
     }
 }

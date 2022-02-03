@@ -60,9 +60,9 @@ menu.time_tracking.time_spent: "Temps passés"
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: Mon suivi
 menu.admin: Administration
-create_project_requires_project_manager_role:
-  "Vous devez avoir le rôle de chef de
-  projet pour créer un nouveau projet."
+menu.mon_equipe: "Mon équipe"
+create_project_requires_project_manager_role: "Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
+admin_requires_superior_role: 'Menu réservé aux chefs d''équipes.'
 admin_requires_admin_role: "Menu réservé à l'administrateur de votre société."
 menu.admin.company: "Ma société"
 menu.admin.projects: "Tous les projets"
@@ -81,13 +81,12 @@ my_contributions.me: Moi
 my_contributions.team: Équipe
 my_contributions.teams: Équipes
 my_contributions.projects: Projets
+my_team_projects_of_year: "Les projets de mon équipe de l'année"
 my_contributions.rdi_projects: "Projets de type RDI"
 my_contributions.total: "Temps total de contribution"
 my_projects_of_year: "Mes projets de l'année"
 list_of_projects_i_participate: "Liste des projets auxquels je participe."
-as_admin_i_can_also_access_all_projects:
-  "En tant qu'administrateur, je peux aussi
-  {link_start}accéder à tous les projets de la société{link_end}."
+as_admin_i_can_also_access_all_projects: "En tant qu'administrateur, je peux aussi {link_start}accéder à tous les projets de la société{link_end}."
 project_analyse_from: "Analyse des projets depuis"
 projects_realisations: "Réalisation des projets"
 realized_projects_type: "Type de projets réalisés"
@@ -150,6 +149,7 @@ lastname: Nom
 firstname: Prénom
 email: Email
 role: Rôle
+my_superior: "Mon supérieur hiérarchique"
 projects: Projets
 invite_new_user: "Inviter un nouvel utilisateur"
 you_can_invite_by_email_or_sms_to_make_him_join_company.:

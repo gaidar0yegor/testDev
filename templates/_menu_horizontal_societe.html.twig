@@ -58,18 +58,9 @@
             </a>
         </div>
     </li>
-    <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_admin_utilisateurs', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_projet', 'app_fo_admin_notification', 'app_fo_admin_licenses') }}">
-        <a
-            class="nav-link dropdown-toggle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}"
-            {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
-                title="{{ 'admin_requires_admin_role'|trans }}"
-            {% endif %}
-            href="#"
-            role="button"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-            aria-expanded="false"
-        >
+    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
+    <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_utilisateurs', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_projet', 'app_fo_admin_notification', 'app_fo_admin_licenses') }}">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-cogs" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.admin'|trans }}</span>
         </a>
         <div class="dropdown-menu">
@@ -88,7 +79,7 @@
             <div class="dropdown-divider"></div>
             <a
                 class="dropdown-item"
-                href="{{ path('app_fo_admin_utilisateurs') }}"
+                href="{{ path('app_fo_utilisateurs') }}"
             >
                 <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
             </a>
@@ -126,6 +117,50 @@
             </a>
         </div>
     </li>
+    {% else %}
+    <li class="nav-item dropdown {{ activeOn('app_fo_utilisateurs') }}">
+        <a
+            class="nav-link dropdown-toggle {{ userContext.societeUser.superiorFo ? '' : 'disabled' }}"
+            {% if not userContext.societeUser.superiorFo %}
+                title="{{ 'admin_requires_superior_role'|trans }}"
+            {% endif %}
+            href="#"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+        >
+            <i class="fa fa-users" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.mon_equipe'|trans }}</span>
+        </a>
+        <div class="dropdown-menu">
+            <a
+                    class="dropdown-item"
+                    href="{{ path('app_fo_utilisateurs') }}"
+            >
+                <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
+            </a>
+            <a
+                class="dropdown-item"
+                href="{{ path('app_fo_mon_equipe_projets') }}"
+            >
+                <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.admin.projects'|trans }}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a
+                class="dropdown-item"
+                href="{{ path('app_fo_mon_equipe_cra_validation') }}"
+            >
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{{ 'menu.admin.timesheet_check'|trans }}
+            </a>
+            <a
+                class="dropdown-item"
+                href="{{ path('app_fo_mon_equipe_timesheet_generate') }}"
+            >
+                <i class="fa fa-download" aria-hidden="true"></i>{{ 'menu.admin.timesheet_export'|trans }}
+            </a>
+        </div>
+    </li>
+    {% endif %}
 </ul>
 
 <div class="d-inline-block">

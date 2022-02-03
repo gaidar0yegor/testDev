@@ -4,30 +4,33 @@ namespace App\Controller\API;
 
 use App\Entity\Projet;
 use App\Entity\SocieteUser;
-use App\Repository\CraRepository;
+use App\MultiSociete\UserContext;
 use App\Repository\TempsPasseRepository;
+use App\Security\Voter\TeamManagementVoter;
 use App\Security\Voter\SameSocieteVoter;
+use App\Service\EquipeChecker;
 use App\Service\StatisticsService;
 use App\Service\Timesheet\TimesheetCalculator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use function Symfony\Component\String\u;
 
 /**
  * Returns statistics about users or projets
- * to generate charts dedicated to the admin.
+ * to generate charts dedicated to the admin and superiors.
  *
- * @IsGranted("SOCIETE_ADMIN")
- * @Route("/api/stats/admin")
+ * @Route("/api/stats")
  */
 class AdminStatsController extends AbstractController
 {
     private StatisticsService $statisticsService;
+    private EquipeChecker $equipeChecker;
 
-    public function __construct(StatisticsService $statisticsService)
+    public function __construct(StatisticsService $statisticsService, EquipeChecker $equipeChecker)
     {
+        $this->equipeChecker = $equipeChecker;
         $this->statisticsService = $statisticsService;
     }
 
@@ -58,9 +61,10 @@ class AdminStatsController extends AbstractController
     public function getTempsUserParProjet(
         SocieteUser $societeUser,
         string $year,
-        string $unit
+        string $unit,
+        UserContext $userContext
     ) {
-        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $societeUser);
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         $data = $this->statisticsService->getTempsUserParProjet($societeUser,$year,$unit);
 
@@ -92,6 +96,7 @@ class AdminStatsController extends AbstractController
      *      requirements={"year"="\d{4}", "unit"="^[a-z]+$"},
      *      name="api_stats_admin_temps_projet_users"
      * )
+     * @IsGranted("SOCIETE_ADMIN")
      */
     public function getTempsProjetParUsers(
         Projet $projet,

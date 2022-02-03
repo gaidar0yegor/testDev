@@ -1,6 +1,6 @@
 {% extends "base.html.twig" %}
 
-{% block title %}{{ "projectString"|trans }} {{ projet.societe.raisonSociale }} / {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+{% block title %}Projet {{ projet.societe.raisonSociale }} / {{ projet.acronyme }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
@@ -8,12 +8,12 @@
     <div class="col-12 col-lg-8">
         <h1>
             {% include 'utils/_code_color.html.twig' with {color: projet.colorCode} %}
-            {{ "projectString"|trans }} {{ projet.societe.raisonSociale }} / {{ projet.acronyme }}
+            Projet {{ projet.societe.raisonSociale }} / {{ projet.acronyme }}
         </h1>
 
         <p class="lead text-center">{{ projet.titre }}</p>
 
-        <p class="text-center">{{ "PROJET_CDP"|trans }} : {{ projet.chefDeProjet.user.fullname }}</p>
+        <p class="text-center">Chef de projet : {{ projet.chefDeProjet.user.fullname }}</p>
 
         <p class="text-center">
             {% if projet.projetCollaboratif %}
@@ -34,10 +34,10 @@
 
 <div class="row">
     <div class="col-12 col-lg-8">
-        {% include 'projets/externe/fiche_projet-main.html.twig' %}
+        {% include 'projets/mon_equipe/fiche_projet-main.html.twig' %}
     </div>
     <aside class="col-12 col-lg-4">
-        {% include 'projets/externe/fiche_projet-sidebar.html.twig' %}
+        {% include 'projets/mon_equipe/fiche_projet-sidebar.html.twig' %}
     </aside>
 </div>
 

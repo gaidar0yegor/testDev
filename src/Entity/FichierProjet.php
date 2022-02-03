@@ -192,6 +192,11 @@ class FichierProjet implements HasSocieteInterface, ProjetResourceInterface
         return $this->accessesChoices;
     }
 
+    public function isPublic(): bool
+    {
+        return count($this->accessesChoices) === 0 || in_array('all',$this->accessesChoices);
+    }
+
     public function setAccessesChoices(array $accessesChoices): self
     {
         $this->accessesChoices = $accessesChoices;

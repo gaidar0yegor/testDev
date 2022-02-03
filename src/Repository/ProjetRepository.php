@@ -7,6 +7,7 @@ use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Security\Role\RoleProjet;
 use App\Service\DateMonthService;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
@@ -124,7 +125,29 @@ class ProjetRepository extends ServiceEntityRepository
     }
 
     /**
-     * Recupère tous les projet auxquels $societeUser participe.
+     * Recupère tous les projet auxquels une collection de societeUsers participent.
+     *
+     * @param SocieteUser[] $societeUsers
+     *
+     * @return Projet[]
+     */
+    public function findAllForUsers(array $societeUsers): array
+    {
+        $projets =  $this
+            ->createQueryBuilder('projet')
+            ->leftJoin('projet.projetParticipants','projetParticipant')
+            ->leftJoin('projetParticipant.societeUser', 'societeUser')
+            ->where('societeUser.id in (:societeUsers)')
+            ->setParameter('societeUsers',$societeUsers)
+            ->getQuery()
+            ->getResult()
+        ;
+
+        return $projets;
+    }
+
+    /**
+     * Recupère tous les projet auxquels les n-1 et les n-2 de $societeUser participent.
      *
      * @param SocieteUser $societeUser
      * @param null|string $roleMinimum Rôle minimum sur le projet

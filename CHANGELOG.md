@@ -5,6 +5,9 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- La traduction de l'application en anglais
+- Liens hiérarchiques (N+1 , N, N-1)
 ### Réparé
 - Réparer le lien de la saisie des absences
 

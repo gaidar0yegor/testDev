@@ -3,6 +3,11 @@ admin:
     prefix: /admin/
     resource: ../src/Controller/FO/Admin/
 
+mon_equipe:
+    type: annotation
+    prefix: /mon_equipe/
+    resource: ../src/Controller/FO/Equipe/
+
 back_office:
     type: annotation
     prefix: /back-office/

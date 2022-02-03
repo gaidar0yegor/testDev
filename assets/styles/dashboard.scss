@@ -24,6 +24,11 @@
     }
 }
 #mes-temps-rappel{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+
     .alert{
         padding: 0.3rem 1.25rem;
         display: inline-block;
