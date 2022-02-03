@@ -8,7 +8,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 
 
-
+## [0.41.7] - 2022-02-03
+### Réparé
+- Problème de cohérence entre l’affichage et la réalité dans le suivi du temps.
+- Mettre « Mon suivi de temps » dans la page plutôt que la forme abrégée de la barre de menu.
 
 ## [0.41.6] - 2022-02-03
 ### Ajouté
