@@ -29,13 +29,16 @@
 
 <p class="text-center">
     {% if projet.projetCollaboratif %}
-        <span class="badge badge-success">Collaboratif</span>
+        <span class="badge badge-success">{{ "collaboratif"|trans }}</span>
     {% endif %}
     {% if projet.projetInterne %}
-        <span class="badge badge-success">Interne</span>
+        <span class="badge badge-success">{{ "interne"|trans }}</span>
     {% endif %}
     {% if projet.projetPpp %}
         <span class="badge badge-success">PPP - R&amp;D</span>
+    {% endif %}
+    {% if projet.isRdi %}
+        <span class="badge badge-success">Elligible RDI</span>
     {% endif %}
 </p>
 

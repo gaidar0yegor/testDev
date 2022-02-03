@@ -98,6 +98,16 @@ display_users_list: List of users
 edit_societe_logo: Update logo
 worked_hours: Hours worked
 worked_hours_per_day: Hours per day
+hours_by_project_by_month: Number of hours per project per month
+my_superior: My supervisor
+avatar_of_user: Avatar of {user}
+logo_of_socete: Logo of {societe}
+edit_my_avatar: Edit my avatar
+"current_avatar:": "Current avatar :"
+"current_logo:": "Current logo :"
+"new_avatar:": "New avatar :"
+"new_logo:": "New logo :"
+"color_code:": "Color code :"
 .in_days_unit: in days
 n_hours_short: "{n} h"
 SOCIETE_CDP: Project Manager
@@ -116,6 +126,7 @@ as_admin_i_can_also_access_all_projects:
 logout: Logout
 you_submitted_this_month_on: You have validated this month the {date}.
 update: Update
+finish: Finish
 enter_your_time_spent: Enter your time spent on each project
 .per_day_per_default: per day, by default
 you_can_invite_by_email_or_sms_to_make_him_join_company.:
@@ -323,6 +334,7 @@ my_company: My company
 my_project: My project
 societe.siret: Siret number
 add_external_link: Add an external link
+societeUser.societeUserPeriods: Periods
 projet.projetUrls: External urls of this project
 projet.projetUrls.help: Display external urls related to this project.
 projet.projetUrl.text.help: Link text
@@ -351,6 +363,21 @@ delete_user.time_tracking.warning: "{user} has entered time spent in <strong>{n,
 delete_user.time_tracking.safe: "No time spent was entered by {user}."
 are_you_sure_delete_user: "Are you sure you want to delete {user }'s account ?"
 user_have_been_deleted: "{User}'s account has been deleted !"
+delete_project_link_description: "To delete this project, you can check the data linked to the project then validate the permanent deletion here :"
+project_already_resumed: "The {projectAcronyme} project is already resumed."
+"this_action_can_have_effect_on_linked_data:": "This action may have an impact on the data related to this project :"
+"...and_n_others": "… et {n, plural, =0 {no others} =1 {another} other {# others}}"
+delete_project.time_tracking.warning: "Contributors have entered time spent on this project in <strong>{n, plural, =1 {a timesheet} other {# timesheets}}</strong>. These past times will be deleted, and there will be a difference with the potential timesheets that you have already printed :"
+delete_project.time_tracking.safe: "No time spent has been entered on this project."
+delete_project.fait_marquant.warning: "The project has <strong>{n, plural, =1 {remarkable fact} other {# Remarkable facts}}</strong>, {n, plural, =1 {it} other {they}} will be deleted also :"
+delete_project.fait_marquant.safe: "The project has no remarkable facts."
+delete_project.project_file.warning: "The project has <strong>{n, plural, =1 {an attached file} other {# attached files}}</strong>, {n, plural, =1 {it} other {they}} will be deleted also :"
+delete_project.project_file.safe: "The project has no attached files."
+delete_project.external_observator.warning: "The project has <strong>{n, plural, =1 {an external observer} other {# external observers}}</strong>, {n, plural, =1 {he} other {they}} will no longer be able to consult the project :"
+delete_project.external_observator.safe: "The project has no external observer."
+delete_project.project_participant.warning: "The project has <strong>{n, plural, =1 {a participant} other {# participants}}</strong>, {n, plural, =1 {he} other {they}} will be detached from the project :"
+delete_project.project_participant.safe: "The project has no participants."
+are_you_sure_delete_project: "Are you sure you want to delete the project {projectAcronyme} ?"
 see_more: "See more ..."
 verif_date_leave_on_disable_user: "To deactivate {user}'s account, please specify its exit date."
 verif_date_entry_on_enable_user: "To activate {user}'s account, please specify its entry date."
@@ -397,6 +424,7 @@ max_projects: "Maximum number of projects:"
 license_notRelate: This license is not linked to your company.
 account_goBack: Go back to my account
 access_disabled: Access disabled
+delete: Delete
 goOn: Go on
 timeString: Time
 resultString: Result
@@ -415,7 +443,7 @@ para_join_rdi: "You are about to join the <strong>{ projectAcronyme }</strong> p
 new_on_rdi: If you are new to RDI-Manager or do not have an account yet, you can create one now.
 also_an_account: If you already have an account, you can link your new company to this account. You will be prompted to sign in if you are not already.
 list_project_access: List of projects to which I have access as an external observer.
-societyString: Society
+societyString: Company
 part_on_project: Participants on the project
 gest_of_part: Participant management
 add_part: Add a participant
@@ -438,7 +466,7 @@ follow_project: Follow the project
 para_follow_project: Follow this project to receive a notification in real time with each update of this project.
 cant_follow_project: You cannot follow this project because you must have at least the observer role on this project.
 no_contrib_now: There are no contributors yet
-see_obs_project: Voir les Observateurs
+see_obs_project: View Observers
 filesString: Files
 no_files_here: No files found here...
 collaboratif: Collaborative
@@ -448,13 +476,16 @@ close: Close
 return_to_project: Go back to the project
 no_fm: This doesn't contain Remarkable fact.
 title: Title
+added_at: Added at
+deleted_at: Deleted at
+deleted_by: Deleted by
 resume: Summary
 activity_project: Project activity
 add_new_project: Add a new project
 want_case_project: Do you want to manage project files in folders?
 want_ext_link_project: Do you want to add external project links?
 suspended_project: The project is suspended
-license_notRelated: Cette license n'est pas liée à votre société.
-add_contributors: "Add Contributors"
-add_contributors_help: "Without other contributors, you will be the only one who can add remarkable facts, attach files... Add contributors to this project so that they can enrich it and enter their time spent on it."
-who_is_working_on_this_project: "Qui contribue à ce projet ?"
+license_notRelated: This license is not linked to your company.
+add_contributors: Add Contributors
+add_contributors_help: Without other contributors, you will be the only one who can add remarkable facts, attach files... Add contributors to this project so that they can enrich it and enter their time spent on it.
+who_is_working_on_this_project: Who contributes to this project?

@@ -14,9 +14,9 @@
 
         {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
             {% if edit is defined %}
-                <a href="{{ path('app_fo_projet_activity', {'id' : projet.id}) }}" class="btn btn-success" type="submit">Terminer</a>
+                <a href="{{ path('app_fo_projet_activity', {'id' : projet.id}) }}" class="btn btn-success" type="submit">{{ 'finish'|trans }}</a>
             {% else %}
-                <a href="{{ path('app_fo_projet_activity_edit', {'id' : projet.id}) }}" class="btn btn-warning" type="submit">Mettre à jour</a>
+                <a href="{{ path('app_fo_projet_activity_edit', {'id' : projet.id}) }}" class="btn btn-warning" type="submit">{{ 'update'|trans }}</a>
             {% endif %}
         {% endif %}
     </div>

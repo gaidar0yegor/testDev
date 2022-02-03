@@ -15,7 +15,7 @@
             <tr>
                 <th>Date</th>
                 <th>{{ "timeString"|trans }}</th>
-                <th>{{ "resultString"|trans }}Résultat</th>
+                <th>{{ "resultString"|trans }}</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +27,7 @@
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="3" class="text-center"><i>{{ "no_notif_send"|trans }}Aucune notification n'a encore été envoyée.</i></td>
+                    <td colspan="3" class="text-center"><i>{{ "no_notif_send"|trans }}</i></td>
                 </tr>
             {% endfor %}
         </tbody>
