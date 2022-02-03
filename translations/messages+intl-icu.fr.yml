@@ -144,6 +144,7 @@ company_projects: "Projets de la société"
 edit_my_company: "Modifier ma société"
 back: Retour
 update: "Mettre à jour"
+finish: "Terminer"
 users_list: "Liste des utilisateurs"
 lastname: Nom
 firstname: Prénom
@@ -481,6 +482,9 @@ close: Fermer
 return_to_project: Retourner au projet
 no_fm: Ce projet n'a pas encore de fait marquants.
 title: Titre
+added_at: Ajouté à
+deleted_at: Supprimé à
+deleted_by: Supprimé par
 resume: Résumé
 activity_project: Activité du projet
 add_new_project: Ajouter un nouveau projet

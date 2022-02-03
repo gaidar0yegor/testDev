@@ -5,13 +5,13 @@
 </div>
 
 <section id="timeline">
-    <h2 class="facts">Faits marquants</h2>
+    <h2 class="facts">{{ "FAITS_MARQUANTS"|trans }}</h2>
 
     {% if projet.faitMarquants|length > 0 %}
         <ul class="timeline text-word-break">
 
             <table id="fait_marquant_timeline_dt" class="table datatable custom-datatable text-word-break">
-                <thead><tr><th>Faits marquants</th></tr></thead>
+                <thead><tr><th>{{ "FAITS_MARQUANTS"|trans }}</th></tr></thead>
                 <tbody>
                 {% for faitMarquant in projet.faitMarquants %}
                     {% if faitMarquant.trashedAt is null %}
@@ -57,7 +57,7 @@
             </table>
         </ul>
     {% else %}
-        <p>Ce projet n'a pas encore de fait marquant.</p>
+        <p>{{ 'no_fm'|trans }}</p>
     {% endif %}
 
 </section>

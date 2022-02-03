@@ -14,7 +14,7 @@
         <p class="lead text-center">{{ projet.titre }}</p>
 
         <p class="text-center">
-            {{ 'PROJET_CDP'|trans }}
+            {{ 'PROJET_CDP'|trans }} :
             {% include 'utils/_avatar.html.twig' with {user: projet.chefDeProjet.user, size: 28, toExpend: true} %}
             {{ projet.chefDeProjet|entityLink }}
         </p>
