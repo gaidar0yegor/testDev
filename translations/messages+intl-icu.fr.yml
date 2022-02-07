@@ -16,6 +16,7 @@ LISTE_FICHIERS: Liste des fichiers
 ACTIVITES: Activités
 PARTICIPANTS: Participants
 STATISTIQUES: Statistiques
+product_privilege_no_dispo: 'Indisponible avec votre license'
 quota.activeProjet.name: "Projets actifs"
 quota.activeProjet.description:
   "Projet en cours en prennant en compte ses dates de

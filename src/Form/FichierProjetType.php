@@ -7,6 +7,8 @@ use App\Entity\FichierProjet;
 use App\Entity\Projet;
 use App\File\FileHandler\ProjectFileHandler;
 use App\Service\FichierProjetService;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
@@ -15,23 +17,33 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FichierProjetType extends AbstractType
 {
     private ProjectFileHandler $projectFileHandler;
     private FichierProjetService $fichierProjetService;
+    private TranslatorInterface $translator;
 
-    public function __construct(ProjectFileHandler $projectFileHandler, FichierProjetService $fichierProjetService)
+    public function __construct(
+        ProjectFileHandler $projectFileHandler,
+        FichierProjetService $fichierProjetService,
+        TranslatorInterface $translator
+    )
     {
         $this->projectFileHandler = $projectFileHandler;
         $this->fichierProjetService = $fichierProjetService;
+        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $projet = $options['projet'];
 
-        if ($projet instanceof Projet)
+        $hasPrivilegeFichierProjetAccesses = ProductPrivilegeCheker::checkProductPrivilege(
+            $projet->getSociete(),
+            ProductPrivileges::FICHIER_PROJET_ACCESSES
+        );
 
         $builder
             ->add('fichier', FichierType::class, [
@@ -44,8 +56,10 @@ class FichierProjetType extends AbstractType
                 'expanded' 	  => false,
                 'attr' => [
                     'class' => 'select-2 form-control',
-                    'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)'
+                    'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)',
+                    'title' => !$hasPrivilegeFichierProjetAccesses ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
+                'disabled' => !$hasPrivilegeFichierProjetAccesses,
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
             ])
             ->add('dossierFichierProjet', EntityType::class, [

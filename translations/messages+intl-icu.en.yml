@@ -6,6 +6,7 @@ PROJET_OBSERVATEUR: Observer
 PROJET_OBSERVATEUR_EXTERNE: External observer
 ROLE_BO_USER: Back-office user
 SOCIETE_ADMIN: Administrator
+product_privilege_no_dispo: Not available with your license
 my_contributions: My contributions
 my_contributions.me: Me
 my_contributions.team: Team

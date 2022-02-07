@@ -1,6 +1,7 @@
 import $ from 'jquery';
 
 import { initSelect2 } from './select2';
+import initTippyTitle from './popper';
 
 const EmbedForm = {};
 
@@ -62,6 +63,8 @@ EmbedForm.addPrototypedItem = function ($prototypeContainer, options) {
             initSelect2($('select.select-2:not(.select2-hidden-accessible)'))
         }
     }
+
+    initTippyTitle()
 };
 
 export default EmbedForm;

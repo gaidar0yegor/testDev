@@ -120,9 +120,14 @@
     {% else %}
     <li class="nav-item dropdown {{ activeOn('app_fo_utilisateurs','app_fo_mon_equipe_projets','app_fo_mon_equipe_cra_validation','app_fo_mon_equipe_timesheet_generate') }}">
         <a
-            class="nav-link dropdown-toggle {{ userContext.societeUser.superiorFo ? '' : 'disabled' }}"
-            {% if not userContext.societeUser.superiorFo %}
-                title="{{ 'admin_requires_superior_role'|trans }}"
+            {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) %}
+                class="nav-link dropdown-toggle {{ userContext.societeUser.superiorFo ? '' : 'disabled' }}"
+                {% if not userContext.societeUser.superiorFo %}
+                    title="{{ 'admin_requires_superior_role'|trans }}"
+                {% endif %}
+            {% else %}
+                class="nav-link dropdown-toggle disabled"
+                title="{{ 'product_privilege_no_dispo'|trans }}"
             {% endif %}
             href="#"
             role="button"

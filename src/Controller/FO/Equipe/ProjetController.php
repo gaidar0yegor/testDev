@@ -4,6 +4,8 @@ namespace App\Controller\FO\Equipe;
 
 use App\Entity\FichierProjet;
 use App\Entity\Projet;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\Voter\HasProductPrivilegeVoter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\File\FileHandler\ProjectFileHandler;
 use App\HierarchicalSuperior\Security\Voter\ViewProjetHierarchicalSuperiorVoter;
@@ -30,6 +32,8 @@ class ProjetController extends AbstractController
         ProjetRepository $projetRepository,
         SocieteUserRepository $societeUserRepository
     ) {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::SOCIETE_HIERARCHICAL_SUPERIOR);
+
         if (!$userContext->getSocieteUser()->isSuperiorFo()){
             throw new AccessDeniedException();
         }

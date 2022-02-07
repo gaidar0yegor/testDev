@@ -3,6 +3,15 @@ import 'tippy.js/dist/tippy.css';
 
 import $ from 'jquery';
 
+const initTippyTitle = () => {
+    tippy('[title]:not([title=""]', {
+        content: element => element.getAttribute('title'),
+        onCreate(instance) {
+            instance.reference.removeAttribute('title');
+        },
+    });
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     // Wrap disabled elements to make sure tooltip appears
     document.querySelectorAll('[title]').forEach(element => {
@@ -14,12 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
         element.removeAttribute('title');
     });
 
-    tippy('[title]', {
-        content: element => element.getAttribute('title'),
-        onCreate(instance) {
-            instance.reference.removeAttribute('title');
-        },
-    });
+    initTippyTitle();
 
     $('[miniature]').mouseover(function(elem) {
         let img_url = $(this).attr('href');
@@ -42,3 +46,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+export default initTippyTitle;

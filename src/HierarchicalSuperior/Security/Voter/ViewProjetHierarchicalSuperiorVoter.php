@@ -7,6 +7,8 @@ use App\MultiSociete\UserContext;
 use App\Repository\ProjetRepository;
 use App\Repository\SocieteUserRepository;
 use App\Service\SocieteChecker;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -56,6 +58,10 @@ class ViewProjetHierarchicalSuperiorVoter extends Voter
 
         if (!$this->societeChecker->isSameSociete($subject, $this->userContext->getSocieteUser())){
             throw new AccessDeniedException();
+        }
+
+        if (!ProductPrivilegeCheker::checkProductPrivilege($this->userContext->getSocieteUser()->getSociete(), ProductPrivileges::SOCIETE_HIERARCHICAL_SUPERIOR)){
+            throw new RuntimeException("Indisponible avec votre license.");
         }
 
         if (!$this->userContext->getSocieteUser()->isSuperiorFo()){

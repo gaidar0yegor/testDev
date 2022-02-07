@@ -9,6 +9,8 @@ use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
 use App\Security\Role\RoleProjet;
 use App\Service\StatisticsService;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\Voter\HasProductPrivilegeVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,6 +34,7 @@ class DashboardGeneralController extends AbstractController
         ProjetActivityRepository $projetActivityRepository,
         ActivityService $activityService
     ): JsonResponse {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
 
         $lastProjetActivities = $projetActivityRepository->findBySocieteUser($societeUser);
         $normalizedLastProjetActivities = [];
@@ -65,6 +68,8 @@ class DashboardGeneralController extends AbstractController
         int $year,
         StatisticsService $statisticsService
     ) {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $heuresParProjet = $statisticsService->calculateHeuresParProjetForUser(
             $societeUser,
             $year
@@ -89,6 +94,8 @@ class DashboardGeneralController extends AbstractController
         int $sinceYear,
         ProjetRepository $projetRepository
     ) {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $now = new \DateTime();
         $projets = $societeUser->isAdminFo()
             ? $projetRepository->findAllProjectsPerSociete($societeUser->getSociete(), $sinceYear)
@@ -132,6 +139,8 @@ class DashboardGeneralController extends AbstractController
         int $sinceYear,
         ProjetRepository $projetRepository
     ) {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $projets = $societeUser->isAdminFo()
             ? $projetRepository->findAllProjectsPerSociete($societeUser->getSociete(), $sinceYear)
             : $projetRepository->findAllForUserSinceYear($societeUser, RoleProjet::OBSERVATEUR, $sinceYear)

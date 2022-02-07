@@ -11,6 +11,8 @@ use App\Repository\ProjetRepository;
 use App\Security\Role\RoleProjet;
 use App\Service\ParticipantService;
 use App\Service\StatisticsService;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\Voter\HasProductPrivilegeVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,6 +39,8 @@ class DashboardConsolideController extends AbstractController
         ActivityService $activityService,
         UserContext $userContext
     ): JsonResponse {
+
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
 
         $societeUsers = $dashboardConsolide ? $dashboardConsolide->getSocieteUsers() : $userContext->getUser()->getSocieteUsers();
         $normalizedLastProjetActivities = [];
@@ -77,6 +81,8 @@ class DashboardConsolideController extends AbstractController
         StatisticsService $statisticsService,
         UserContext $userContext
     ): JsonResponse {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $heuresParProjet = $statisticsService->calculateHeuresMultisocieteParProjetForUser(
             $userContext->getUser(),
             $year,
@@ -104,6 +110,8 @@ class DashboardConsolideController extends AbstractController
         ProjetRepository $projetRepository,
         UserContext $userContext
     ): JsonResponse {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $societeUsers = $dashboardConsolide ? $dashboardConsolide->getSocieteUsers() : $userContext->getUser()->getSocieteUsers();
 
         $now = new \DateTime();
@@ -154,6 +162,8 @@ class DashboardConsolideController extends AbstractController
         ProjetRepository $projetRepository,
         UserContext $userContext
     ): JsonResponse {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $societeUsers = $dashboardConsolide ? $dashboardConsolide->getSocieteUsers() : $userContext->getUser()->getSocieteUsers();
 
         $projets = [];
@@ -222,6 +232,8 @@ class DashboardConsolideController extends AbstractController
         UserContext $userContext,
         ParticipantService $participantService
     ): JsonResponse {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $societeUsers = $dashboardConsolide ? $dashboardConsolide->getSocieteUsers() : $userContext->getUser()->getSocieteUsers();
 
         $stats = [

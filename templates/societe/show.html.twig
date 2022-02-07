@@ -122,7 +122,13 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_max_legnth_fait_marquant_desc'|trans }}</a>
+                    <a
+                    {% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::FAIT_MARQUANT_DESCRIPTION_SIZE')) %}
+                    href="{{ path('app_fo_admin_societe_edit')}}" class="card-link"
+                    {% else %}
+                    href="#" title="{{ 'product_privilege_no_dispo'|trans }}" class="disabled"
+                    {% endif %}>
+                        {{ 'change_max_legnth_fait_marquant_desc'|trans }}</a>
                 </div>
             </div>
         </div>

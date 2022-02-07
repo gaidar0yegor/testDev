@@ -6,6 +6,8 @@ use App\Entity\FaitMarquant;
 use App\Form\Custom\DatePickerType;
 use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
@@ -17,14 +19,17 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FaitMarquantType extends AbstractType
 {
     private UserContext $userContext;
+    private TranslatorInterface $translator;
 
-    public function __construct(UserContext $userContext)
+    public function __construct(UserContext $userContext, TranslatorInterface $translator)
     {
         $this->userContext = $userContext;
+        $this->translator = $translator;
     }
 
     private function getSendedToEmailsChoices(FaitMarquant $faitMarquant)
@@ -54,6 +59,16 @@ class FaitMarquantType extends AbstractType
     {
         $sendedToEmailsChoices = $this->getSendedToEmailsChoices($builder->getData());
 
+        $hasPrivilegeFmDate = ProductPrivilegeCheker::checkProductPrivilege(
+            $builder->getData()->getProjet()->getSociete(),
+            ProductPrivileges::FAIT_MARQUANT_DATE
+        );
+
+        $hasPrivilegeFmSendMail = ProductPrivilegeCheker::checkProductPrivilege(
+            $builder->getData()->getProjet()->getSociete(),
+            ProductPrivileges::FAIT_MARQUANT_SEND_MAIL
+        );
+
         $builder
             ->add('titre', null, [
                 'label' => false,
@@ -81,7 +96,9 @@ class FaitMarquantType extends AbstractType
                 'attr' => [
                     'class' => 'text-center date-picker',
                     'placeholder' => 'projet.date',
+                    'title' => !$hasPrivilegeFmDate ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
+                'disabled' => !$hasPrivilegeFmDate
             ])
             ->add('sendedToEmails', ChoiceType::class, [
                 'label' => false,
@@ -90,8 +107,10 @@ class FaitMarquantType extends AbstractType
                 'required' 	  => false,
                 'attr' => [
                     'class' => 'select-2 form-control w-100',
-                    'data-placeholder' => 'Sélectionner des adresses e-mail ...'
+                    'data-placeholder' => 'Sélectionner des adresses e-mail ...',
+                    'title' => !$hasPrivilegeFmSendMail ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
+                'disabled' => !$hasPrivilegeFmSendMail,
                 'choices' => $sendedToEmailsChoices,
             ])
             ->add('extraSendedToEmails', TextType::class, [
@@ -100,8 +119,10 @@ class FaitMarquantType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'class' => 'form-control w-100',
-                    'placeholder' => 'Ajouter des nouvelles adresses e-mail séparées par un point-virgule " ; "'
+                    'placeholder' => 'Ajouter des nouvelles adresses e-mail séparées par un point-virgule " ; "',
+                    'title' => !$hasPrivilegeFmSendMail ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
+                'disabled' => !$hasPrivilegeFmSendMail,
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
             ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'addExtraSendedToEmails'])

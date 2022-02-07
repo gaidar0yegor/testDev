@@ -4,6 +4,8 @@ namespace App\Controller\FO\Equipe;
 
 use App\Repository\SocieteUserRepository;
 use App\MultiSociete\UserContext;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\Voter\HasProductPrivilegeVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,6 +23,8 @@ class CraValidationController extends AbstractController
      */
     public function index(string $year = null, SocieteUserRepository $societeUserRepository, UserContext $userContext)
     {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::SOCIETE_HIERARCHICAL_SUPERIOR);
+
         if (null === $year) {
             $year = intval(date('Y'));
         }

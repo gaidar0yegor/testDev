@@ -4,10 +4,10 @@ namespace App\Entity;
 
 use App\HasSocieteInterface;
 use App\Repository\SocieteRepository;
+use App\SocieteProduct\Product\StarterProduct;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -175,6 +175,11 @@ class Societe implements HasSocieteInterface
      */
     private $colorCode;
 
+    /**
+     * @ORM\Column(type="string", length=255, options={"default" : "STARTER"})
+     */
+    private $productKey;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -188,6 +193,7 @@ class Societe implements HasSocieteInterface
         $this->faitMarquantMaxDesc = 751;
         $this->faitMarquantMaxDescIsblocking = true;
         $this->colorCode = '#ce352c';
+        $this->productKey = StarterProduct::PRODUCT_KEY;
     }
 
     public function getId(): ?int
@@ -492,6 +498,18 @@ class Societe implements HasSocieteInterface
     public function setColorCode(string $colorCode): self
     {
         $this->colorCode = $colorCode;
+
+        return $this;
+    }
+
+    public function getProductKey(): ?string
+    {
+        return $this->productKey;
+    }
+
+    public function setProductKey(string $productKey): self
+    {
+        $this->productKey = $productKey;
 
         return $this;
     }

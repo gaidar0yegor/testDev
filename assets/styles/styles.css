@@ -139,7 +139,12 @@ table.light tbody tr {
 table tbody a {
   color: black;
 }
-
+a.disabled {
+  pointer-events: none;
+  cursor: default;
+  color: #798187;
+  font-style: italic;
+}
 .facts {
   border-radius: 2em;
   background-color: #ce352c;

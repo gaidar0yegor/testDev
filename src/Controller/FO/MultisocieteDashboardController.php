@@ -5,6 +5,8 @@ namespace App\Controller\FO;
 use App\Entity\DashboardConsolide;
 use App\Form\DashboardConsolideType;
 use App\MultiSociete\UserContext;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\Voter\HasProductPrivilegeVoter;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +26,8 @@ class MultisocieteDashboardController extends AbstractController
         UserContext $userContext,
         EntityManagerInterface $em
     ): Response {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $userContext->disconnectSociete();
         $em->flush();
 
@@ -46,6 +50,8 @@ class MultisocieteDashboardController extends AbstractController
         UserContext $userContext,
         EntityManagerInterface $em
     ): Response {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+
         $userContext->disconnectSociete();
         $em->flush();
 
@@ -71,7 +77,8 @@ class MultisocieteDashboardController extends AbstractController
         TranslatorInterface $translator,
         UserContext $userContext
     ): Response {
-
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
+        
         if (null === $dashboardConsolide){
             $dashboardConsolide = new DashboardConsolide();
             $dashboardConsolide

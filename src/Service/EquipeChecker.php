@@ -5,6 +5,8 @@ namespace App\Service;
 use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
 use App\Security\Role\RoleSociete;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class EquipeChecker
@@ -52,8 +54,13 @@ class EquipeChecker
         if ($societeUser instanceof SocieteUser && !$this->societeChecker->isSameSociete($societeUser,$this->userContext->getSocieteUser())){
             return false;
         }
+
         if ($this->authChecker->isGranted(RoleSociete::ADMIN)){
             return true;
+        }
+
+        if (!ProductPrivilegeCheker::checkProductPrivilege($this->userContext->getSocieteUser()->getSociete(), ProductPrivileges::SOCIETE_HIERARCHICAL_SUPERIOR)){
+            return false;
         }
 
         if ($this->userContext->getSocieteUser()->isSuperiorFo()){
