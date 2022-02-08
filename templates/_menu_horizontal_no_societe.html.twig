@@ -9,7 +9,18 @@
         </a>
     </li>
     <li class="nav-item dropdown {{ activeOn('app_fo_multi_societe_dashboard_general','app_fo_multi_societe_dashboard_consolide','app_fo_multi_societe_dashboard_consolide_ajouter') }}">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a
+                {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) %}
+                    class="nav-link dropdown-toggle"
+                {% else %}
+                    class="nav-link dropdown-toggle disabled"
+                    title="{{ 'product_privilege_no_dispo'|trans }}"
+                {% endif %}
+                href="#" role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+        >
             <i class="fa fa-tachometer" aria-hidden="true"></i> <span class="nav-item-title">{{ 'dashboards'|trans }}</span>
         </a>
         <div class="dropdown-menu">

@@ -4,10 +4,10 @@ namespace App\Entity;
 
 use App\HasSocieteInterface;
 use App\Repository\SocieteRepository;
+use App\SocieteProduct\Product\StarterProduct;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -175,6 +175,18 @@ class Societe implements HasSocieteInterface
      */
     private $colorCode;
 
+    /**
+     * @ORM\Column(type="string", length=255, options={"default" : "STARTER"})
+     */
+    private $productKey;
+
+    /**
+     * Time to wait before sending another onboarding notification.
+     *
+     * @ORM\Column(type="string", length=255, options={"default" : "2 weeks"})
+     */
+    private $onboardingNotificationEvery;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -188,6 +200,8 @@ class Societe implements HasSocieteInterface
         $this->faitMarquantMaxDesc = 751;
         $this->faitMarquantMaxDescIsblocking = true;
         $this->colorCode = '#ce352c';
+        $this->productKey = StarterProduct::PRODUCT_KEY;
+        $this->onboardingNotificationEvery = '2 weeks';
     }
 
     public function getId(): ?int
@@ -492,6 +506,30 @@ class Societe implements HasSocieteInterface
     public function setColorCode(string $colorCode): self
     {
         $this->colorCode = $colorCode;
+
+        return $this;
+    }
+
+    public function getProductKey(): ?string
+    {
+        return $this->productKey;
+    }
+
+    public function setProductKey(string $productKey): self
+    {
+        $this->productKey = $productKey;
+
+        return $this;
+    }
+
+    public function getOnboardingNotificationEvery(): ?string
+    {
+        return $this->onboardingNotificationEvery;
+    }
+
+    public function setOnboardingNotificationEvery(string $onboardingNotificationEvery): self
+    {
+        $this->onboardingNotificationEvery = $onboardingNotificationEvery;
 
         return $this;
     }

@@ -16,6 +16,17 @@ LISTE_FICHIERS: Liste des fichiers
 ACTIVITES: Activités
 PARTICIPANTS: Participants
 STATISTIQUES: Statistiques
+STARTER: Starter
+STANDARD: Standard
+PREMIUM: Premium
+product_privilege_no_dispo: 'Indisponible avec votre license'
+FAIT_MARQUANT_DESCRIPTION_SIZE: Taille de la description des faits marquants
+FAIT_MARQUANT_DATE: Date des faits marquants
+FAIT_MARQUANT_SEND_MAIL: Envoie des faits marquants par mail
+SMS_NOTIFICATION_SAISIE_TEMPS: Relance SMS du suivi du temps
+FICHIER_PROJET_ACCESSES: Droit de visibilité des fichiers
+MULTI_SOCIETE_DASHBOARD: Tableaux de bord multi-société
+SOCIETE_HIERARCHICAL_SUPERIOR: Liens hiérarchiques
 quota.activeProjet.name: "Projets actifs"
 quota.activeProjet.description:
   "Projet en cours en prennant en compte ses dates de
@@ -379,8 +390,8 @@ add_contributors: "Ajouter des contributeurs"
 add_contributors_help: "Sans autres contributeurs, vous serez le seul à pouvoir ajouter des faits marquant, joindre des fichiers... Ajoutez les contributeurs sur ce projet afin qu'ils puissent l'enrichir et saisir leurs temps passé dessus."
 who_is_working_on_this_project: "Qui contribue à ce projet ?"
 n_contributors_added: "{n, plural, =1 {Le contributeur a été ajouté au projet.} other {Les # contributeurs ont été ajoutés au projet.}}"
-parameter.bo.onboarding.notification_every: "Envoyer un email d'onboarding tout les..."
-parameter.bo.onboarding.notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
+bo.onboarding_notification_every: "Envoyer un email d'onboarding tout les..."
+bo.onboarding_notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.html" target="_blank">conditions générales d''utilisation</a> et les <a href="https://rdimanager.com/fr/cgv.html" target="_blank">conditions générales de vente</a>.'
 edit_file_success: "Votre fichier {oldName} à bien été modifié en {newName}"
 download: "Télécharger"

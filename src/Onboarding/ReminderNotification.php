@@ -9,7 +9,6 @@ use App\Onboarding\Notification\FinalSuccess;
 use App\Onboarding\Notification\InviteCollaborators;
 use App\Onboarding\Step\AddProjetStep;
 use App\Onboarding\Step\InviteUserStep;
-use App\Repository\ParameterRepository;
 use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleSociete;
 use DateTime;
@@ -27,25 +26,14 @@ class ReminderNotification
 
     private EventDispatcherInterface $dispatcher;
 
-    /**
-     * Time to wait before sending another onboarding notification.
-     */
-    private string $sendNotificationEvery;
-
     public function __construct(
         SocieteUserRepository $societeUserRepository,
         Onboarding $onboarding,
-        ParameterRepository $parameterRepository,
         EventDispatcherInterface $dispatcher
     ) {
         $this->societeUserRepository = $societeUserRepository;
         $this->onboarding = $onboarding;
         $this->dispatcher = $dispatcher;
-
-        $this->sendNotificationEvery = $parameterRepository
-            ->getParameter('bo.onboarding.notification_every', '2 weeks')
-            ->getValue()
-        ;
     }
 
     public function dispatchReminderNotifications(): void
@@ -139,7 +127,7 @@ class ReminderNotification
 
         if (null !== $societeUser->getNotificationOnboardingLastSentAt()) {
             $timeThreshold = (new DateTime())
-                ->modify('-'.$this->sendNotificationEvery)
+                ->modify('-' . $societeUser->getSociete()->getOnboardingNotificationEvery())
                 ->modify('+2 hours')
             ;
 

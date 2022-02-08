@@ -9,6 +9,8 @@ use App\Service\Timesheet\Event\TimesheetEvent;
 use App\Service\Timesheet\Export\TimesheetExporter;
 use App\Service\Timesheet\TimesheetCalculator;
 use App\MultiSociete\UserContext;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\Voter\HasProductPrivilegeVoter;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,6 +33,8 @@ class TimesheetController extends AbstractController
         UserContext $userContext,
         SocieteUserRepository $societeUserRepository
     ) {
+        $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::SOCIETE_HIERARCHICAL_SUPERIOR);
+
         $societeUsers = $societeUserRepository->findTeamMembers($userContext->getSocieteUser());
 
         $filter = new FilterTimesheet();
