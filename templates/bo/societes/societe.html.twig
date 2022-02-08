@@ -49,6 +49,14 @@
                 <td>
                     {% if admin.invitationToken %}
                         <form
+                                method="post" class="mb-2"
+                                action="{{ path('app_bo_societe_invite_delete', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
+                                onsubmit="return confirm('Supprimer cette invitation ?');"
+                        >
+                            <button type="submit" class="btn btn-sm btn-warning">Supprimer l'invitation</button>
+                            <input type="hidden" name="token" value="{{ csrf_token('delete-invitation-admin') }}"/>
+                        </form>
+                        <form
                                 method="post"
                                 action="{{ path('app_bo_societe_invite', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
                                 onsubmit="return confirm('Envoyer un email d\'invitation à cet administrateur ?');"

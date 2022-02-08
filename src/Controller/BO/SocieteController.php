@@ -224,6 +224,45 @@ class SocieteController extends AbstractController
     }
 
     /**
+     * @Route(
+     *      "/societes/{societeId}/invitation/{societeUserId}/supprimer",
+     *      name="app_bo_societe_invite_delete",
+     *      methods={"POST"},
+     *      requirements={"id"="\d+"}
+     * )
+     *
+     * @ParamConverter("societe", options={"id" = "societeId"})
+     * @ParamConverter("societeUser", options={"id" = "societeUserId"})
+     */
+    public function societeInviteDelete(
+        Request $request,
+        Societe $societe,
+        SocieteUser $societeUser,
+        EntityManagerInterface $em
+    ) {
+        if (!$this->isCsrfTokenValid('delete-invitation-admin', $request->get('token'))) {
+            throw new BadRequestHttpException('Csrf token invalid');
+        }
+
+        if (!$societeUser->getInvitationToken()){
+            $this->addFlash('warning', 'Vous ne pouvez pas supprimer une invitation acceptée.');
+        } else {
+            $invitationEmail = $societeUser->getInvitationEmail();
+            $em->remove($societeUser);
+            $em->flush();
+
+            $this->addFlash('success', sprintf(
+                'L\'invitation de "%s" a été supprimée avec succès.',
+                $invitationEmail
+            ));
+        }
+
+        return $this->redirectToRoute('app_bo_societe', [
+            'id' => $societe->getId(),
+        ]);
+    }
+
+    /**
      * @Route("/societes/creer", name="app_bo_societes_creer")
      */
     public function create(
