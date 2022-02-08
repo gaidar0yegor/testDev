@@ -16,7 +16,17 @@ LISTE_FICHIERS: Liste des fichiers
 ACTIVITES: Activités
 PARTICIPANTS: Participants
 STATISTIQUES: Statistiques
+STARTER: Starter
+STANDARD: Standard
+PREMIUM: Premium
 product_privilege_no_dispo: 'Indisponible avec votre license'
+FAIT_MARQUANT_DESCRIPTION_SIZE: Taille de la description des faits marquants
+FAIT_MARQUANT_DATE: Date des faits marquants
+FAIT_MARQUANT_SEND_MAIL: Envoie des faits marquants par mail
+SMS_NOTIFICATION_SAISIE_TEMPS: Relance SMS du suivi du temps
+FICHIER_PROJET_ACCESSES: Droit de visibilité des fichiers
+MULTI_SOCIETE_DASHBOARD: Tableaux de bord multi-société
+SOCIETE_HIERARCHICAL_SUPERIOR: Liens hiérarchiques
 quota.activeProjet.name: "Projets actifs"
 quota.activeProjet.description:
   "Projet en cours en prennant en compte ses dates de

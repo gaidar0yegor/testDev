@@ -2,35 +2,35 @@
 
 {% block body %}
 
-<h1>Société {{ societe.raisonSociale }}</h1>
+    <h1>Société {{ societe.raisonSociale }}</h1>
 
-<ul>
-    <li>Créée le <strong>{{ societe.createdAt|format_datetime }}</strong></li>
-    {% if societe.createdFrom %}
-        <li>Créée depuis : <strong>{{ societe.createdFrom|trans }}</strong></li>
-    {% endif %}
-    {% if societe.createdBy %}
-        <li>Créée par <strong>{{ societe.createdBy.fullname }}</strong></li>
-    {% endif %}
-</ul>
+    <ul>
+        <li>Créée le <strong>{{ societe.createdAt|format_datetime }}</strong></li>
+        {% if societe.createdFrom %}
+            <li>Créée depuis : <strong>{{ societe.createdFrom|trans }}</strong></li>
+        {% endif %}
+        {% if societe.createdBy %}
+            <li>Créée par <strong>{{ societe.createdBy.fullname }}</strong></li>
+        {% endif %}
+    </ul>
 
-<a class="d-block mb-4" href="{{ path('app_bo_societes') }}">
-    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-    Retourner à la liste des sociétés
-</a>
+    <a class="d-block mb-4" href="{{ path('app_bo_societes') }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        Retourner à la liste des sociétés
+    </a>
 
-<h3>Administrateurs</h3>
+    <h3>Administrateurs</h3>
 
-<table class="table">
-    <thead>
+    <table class="table datatable mb-3" data-info="false" data-paging="false">
+        <thead>
         <tr>
             <th>Nom</th>
             <th>Email</th>
             <th>Statut</th>
             <th></th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for admin in societe.admins %}
             <tr>
                 <td>{{ admin.user.fullname }}</td>
@@ -49,42 +49,46 @@
                 <td>
                     {% if admin.invitationToken %}
                         <form
-                            method="post"
-                            action="{{ path('app_bo_societe_invite', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
-                            onsubmit="return confirm('Envoyer un email d\'invitation à cet administrateur ?');"
+                                method="post"
+                                action="{{ path('app_bo_societe_invite', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
+                                onsubmit="return confirm('Envoyer un email d\'invitation à cet administrateur ?');"
                         >
                             <button type="submit" class="btn btn-sm btn-info">Envoyer un email d'invitation</button>
                             <input type="hidden" name="token" value="{{ csrf_token('send-invitation-admin') }}"/>
                         </form>
 
                         <small><i>
-                            {% if admin.invitationSentAt %}
-                                Dernière invitation envoyée le <b>{{ admin.invitationSentAt|format_datetime }}</b>.
-                            {% else %}
-                                Invitation pas encore envoyée.
-                            {% endif %}
-                        </i></small>
+                                {% if admin.invitationSentAt %}
+                                    Dernière invitation envoyée le <b>{{ admin.invitationSentAt|format_datetime }}</b>.
+                                {% else %}
+                                    Invitation pas encore envoyée.
+                                {% endif %}
+                            </i></small>
                     {% endif %}
                 </td>
             </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-{% include 'bo/societes/_form-add-admin.html.twig' %}
+    {% include 'bo/societes/_form-add-admin.html.twig' %}
 
-<h3>Licenses</h3>
+    <h3>Packs de fonctionnalités</h3>
 
-{% include 'licenses/_societe-quotas.html.twig' %}
+    {% include 'bo/societes/_form-choose-product.html.twig' %}
 
-{% include 'licenses/_licenses-table.html.twig' with {
-    'entity': societe,
-    'downloadRoute': 'app_bo_license_download',
-} %}
+    <h3>Licenses</h3>
 
-<a
-    href="{{ path('app_bo_societe_generate_license', {'id': societe.id}) }}"
-    class="btn btn-outline-primary"
->Générer une license</a>
+    {% include 'licenses/_societe-quotas.html.twig' %}
+
+    {% include 'licenses/_licenses-table.html.twig' with {
+        'entity': societe,
+        'downloadRoute': 'app_bo_license_download',
+    } %}
+
+    <a
+            href="{{ path('app_bo_societe_generate_license', {'id': societe.id}) }}"
+            class="btn btn-outline-primary"
+    >Générer une license</a>
 
 {% endblock %}

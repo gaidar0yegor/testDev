@@ -7,7 +7,6 @@ use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Form\InitSocieteType;
 use App\Form\UserEmailType;
-use App\License\DTO\License;
 use App\License\Factory\OffreStarterLicenseFactory;
 use App\License\LicenseService;
 use App\LicenseGeneration\Exception\EncryptionKeysException;
@@ -19,8 +18,8 @@ use App\File\FileResponseFactory;
 use App\Form\ParameterType;
 use App\Repository\ParameterRepository;
 use App\Service\Invitator;
+use App\SocieteProduct\Product\ProductPrivileges;
 use Doctrine\ORM\EntityManagerInterface;
-use League\Flysystem\FilesystemInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +27,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SocieteController extends AbstractController
 {
@@ -67,7 +65,8 @@ class SocieteController extends AbstractController
         Societe $societe,
         Invitator $invitator,
         EntityManagerInterface $em,
-        LicenseService $licenseService
+        LicenseService $licenseService,
+        ProductPrivileges $productPrivileges
     ): Response {
         $admin = $invitator->initUser($societe, RoleSociete::ADMIN);
         $form = $this->createForm(UserEmailType::class, $admin);
@@ -97,6 +96,38 @@ class SocieteController extends AbstractController
             'societe' => $societe,
             'form' => $form->createView(),
             'licenses' => $licenseService->retrieveAllLicenses($societe),
+            'societeProducts' => $productPrivileges->getAllProducts()
+        ]);
+    }
+
+
+    /**
+     * @Route(
+     *     "/societes/product-packs/{id}/{product}",
+     *     name="app_bo_societe_product_packs_switch",
+     *     requirements={"id"="\d+", "product": "^STARTER|STANDARD|PREMIUM$"},
+     *     )
+     */
+    public function societeProductPacks(
+        Societe $societe,
+        string $product,
+        EntityManagerInterface $em,
+        ProductPrivileges $productPrivileges
+    ): Response {
+        $products = $productPrivileges->getAllProducts();
+
+        if (key_exists($product,$products)){
+            $societe->setProductKey($product);
+            $em->persist($societe);
+            $em->flush();
+
+            $this->addFlash('success', "Le pack de fonctionnalités a été mis à jour avec succès.");
+        } else {
+            $this->addFlash('danger', "Une erreur est survenue !!");
+        }
+
+        return $this->redirectToRoute('app_bo_societe', [
+            'id' => $societe->getId(),
         ]);
     }
 

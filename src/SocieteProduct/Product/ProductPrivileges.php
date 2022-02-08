@@ -45,4 +45,13 @@ class ProductPrivileges
      * Liens hiérarchiques
      */
     public const SOCIETE_HIERARCHICAL_SUPERIOR = 'SOCIETE_HIERARCHICAL_SUPERIOR';
+
+    public function getAllProducts()
+    {
+        return [
+            StarterProduct::PRODUCT_KEY => (new StarterProduct())->allPrivileges,
+            StandardProduct::PRODUCT_KEY => (new StandardProduct())->allPrivileges,
+            PremiumProduct::PRODUCT_KEY => (new PremiumProduct())->allPrivileges,
+        ];
+    }
 }
