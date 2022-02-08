@@ -359,8 +359,8 @@ verify_and_delete_project: Check and delete project
 resume_project: "Reactivate the project"
 project_have_been_resumed: "Project {projectAcronym} has been reactivated!"
 n_contributors_added: "{n, plural, =1 {The contributor has been added to the project.} other {The # contributors have been added to the project.}}"
-parameter.bo.onboarding.notification_every: "Send an onboarding email every..."
-parameter.bo.onboarding.notification_every.help: 'Example of accepted format : "2 days", "3 weeks", "1 month", ...'
+bo.onboarding_notification_every: "Send an onboarding email every..."
+bo.onboarding_notification_every.help: 'Example of accepted format : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'I accept the <a href="https://rdimanager.com/fr/cgu.html" target="_blank">general conditions of use</a> and the <a href="https://rdimanager.com/fr/cgv.html" target="_blank">general conditions of sale</a>.'
 edit_file_success: "Your file {oldName} has been changed to {newName}"
 download: Download

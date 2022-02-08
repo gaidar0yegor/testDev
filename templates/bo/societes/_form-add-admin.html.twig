@@ -1,12 +1,12 @@
 <span>Ajouter un autre administrateur</span>
 
-{{ form_start(form) }}
-{{ form_errors(form) }}
+{{ form_start(formUserEmail) }}
+{{ form_errors(formUserEmail) }}
 
 <div class="row mb-4 mt-2">
     <div class="col-lg-8">
         <div class="input-group">
-            {{ form_widget(form.invitationEmail, {
+            {{ form_widget(formUserEmail.invitationEmail, {
                 'attr': {
                     'placeholder': 'Email de l\'administrateur'
                 }
@@ -22,4 +22,4 @@
     </div>
 </div>
 
-{{ form_end(form) }}
+{{ form_end(formUserEmail) }}

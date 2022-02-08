@@ -4,10 +4,11 @@
 
 <h1>Sociétés</h1>
 
-<table class="table">
+<table class="table datatable" data-column-defs='[{"sortable": false, "targets": [0]}]' data-order='[[ 1, "asc" ]]'>
     <thead>
         <tr>
-            <th colspan="2">Société</th>
+            <th>Logo</th>
+            <th>Société</th>
             <th>Administrateurs</th>
             <th>Utilisateurs</th>
             <th>Projets</th>
@@ -39,23 +40,5 @@
     <i class="fa fa-plus" aria-hidden="true"></i>
     Créer une nouvelle société
 </a>
-
-<div class="row mt-4">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Notifications d'onboarding</h5>
-                {{ form_start(form) }}
-                {{ form_errors(form) }}
-
-                {{ form_row(form.value) }}
-
-                <button class="btn btn-primary" type="submit">Mettre à jour</button>
-
-                {{ form_end(form) }}
-            </div>
-        </div>
-    </div>
-</div>
 
 {% endblock %}

@@ -390,8 +390,8 @@ add_contributors: "Ajouter des contributeurs"
 add_contributors_help: "Sans autres contributeurs, vous serez le seul à pouvoir ajouter des faits marquant, joindre des fichiers... Ajoutez les contributeurs sur ce projet afin qu'ils puissent l'enrichir et saisir leurs temps passé dessus."
 who_is_working_on_this_project: "Qui contribue à ce projet ?"
 n_contributors_added: "{n, plural, =1 {Le contributeur a été ajouté au projet.} other {Les # contributeurs ont été ajoutés au projet.}}"
-parameter.bo.onboarding.notification_every: "Envoyer un email d'onboarding tout les..."
-parameter.bo.onboarding.notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
+bo.onboarding_notification_every: "Envoyer un email d'onboarding tout les..."
+bo.onboarding_notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.html" target="_blank">conditions générales d''utilisation</a> et les <a href="https://rdimanager.com/fr/cgv.html" target="_blank">conditions générales de vente</a>.'
 edit_file_success: "Votre fichier {oldName} à bien été modifié en {newName}"
 download: "Télécharger"

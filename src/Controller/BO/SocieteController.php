@@ -6,6 +6,7 @@ use App\DTO\InitSociete;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Form\InitSocieteType;
+use App\Form\OnboardingNotificationEveryType;
 use App\Form\UserEmailType;
 use App\License\Factory\OffreStarterLicenseFactory;
 use App\License\LicenseService;
@@ -15,8 +16,6 @@ use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
 use App\Security\Role\RoleSociete;
 use App\File\FileResponseFactory;
-use App\Form\ParameterType;
-use App\Repository\ParameterRepository;
 use App\Service\Invitator;
 use App\SocieteProduct\Product\ProductPrivileges;
 use Doctrine\ORM\EntityManagerInterface;
@@ -33,27 +32,10 @@ class SocieteController extends AbstractController
     /**
      * @Route("/societes", name="app_bo_societes")
      */
-    public function societes(
-        Request $request,
-        SocieteRepository $societeRepository,
-        ParameterRepository $parameterRepository,
-        EntityManagerInterface $em
-    ) {
-        $onboardingParameter = $parameterRepository->getParameter('bo.onboarding.notification_every', '2 weeks');
-        $form = $this->createForm(ParameterType::class, $onboardingParameter);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            $this->addFlash('success', 'Interval d\'envoi des emails d\'onboarding mis à jour.');
-
-            return $this->redirectToRoute('app_bo_societes');
-        }
+    public function societes(SocieteRepository $societeRepository) {
 
         return $this->render('bo/societes/societes.html.twig', [
             'societes' => $societeRepository->findAll(),
-            'form' => $form->createView(),
         ]);
     }
 
@@ -69,12 +51,15 @@ class SocieteController extends AbstractController
         ProductPrivileges $productPrivileges
     ): Response {
         $admin = $invitator->initUser($societe, RoleSociete::ADMIN);
-        $form = $this->createForm(UserEmailType::class, $admin);
 
-        $form->handleRequest($request);
+        $formUserEmail = $this->createForm(UserEmailType::class, $admin);
+        $formUserEmail->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $invitator->check($admin, $form);
+        $formOnboardingNotificationEvery = $this->createForm(OnboardingNotificationEveryType::class, $societe);
+        $formOnboardingNotificationEvery->handleRequest($request);
+
+        if ($formUserEmail->isSubmitted() && $formUserEmail->isValid()) {
+            $invitator->check($admin, $formUserEmail);
 
             $em->persist($admin);
             $em->flush();
@@ -90,11 +75,23 @@ class SocieteController extends AbstractController
             ]);
         }
 
+        if ($formOnboardingNotificationEvery->isSubmitted() && $formOnboardingNotificationEvery->isValid()) {
+            $em->persist($societe);
+            $em->flush();
+
+            $this->addFlash('success', 'Interval d\'envoi des emails d\'onboarding mis à jour.');
+
+            return $this->redirectToRoute('app_bo_societe', [
+                'id' => $societe->getId(),
+            ]);
+        }
+
         $this->addWarningIfNotInvitationSent($societe);
 
         return $this->render('bo/societes/societe.html.twig', [
             'societe' => $societe,
-            'form' => $form->createView(),
+            'formUserEmail' => $formUserEmail->createView(),
+            'formOnboardingNotificationEvery' => $formOnboardingNotificationEvery->createView(),
             'licenses' => $licenseService->retrieveAllLicenses($societe),
             'societeProducts' => $productPrivileges->getAllProducts()
         ]);

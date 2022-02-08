@@ -180,6 +180,13 @@ class Societe implements HasSocieteInterface
      */
     private $productKey;
 
+    /**
+     * Time to wait before sending another onboarding notification.
+     *
+     * @ORM\Column(type="string", length=255, options={"default" : "2 weeks"})
+     */
+    private $onboardingNotificationEvery;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -194,6 +201,7 @@ class Societe implements HasSocieteInterface
         $this->faitMarquantMaxDescIsblocking = true;
         $this->colorCode = '#ce352c';
         $this->productKey = StarterProduct::PRODUCT_KEY;
+        $this->onboardingNotificationEvery = '2 weeks';
     }
 
     public function getId(): ?int
@@ -510,6 +518,18 @@ class Societe implements HasSocieteInterface
     public function setProductKey(string $productKey): self
     {
         $this->productKey = $productKey;
+
+        return $this;
+    }
+
+    public function getOnboardingNotificationEvery(): ?string
+    {
+        return $this->onboardingNotificationEvery;
+    }
+
+    public function setOnboardingNotificationEvery(string $onboardingNotificationEvery): self
+    {
+        $this->onboardingNotificationEvery = $onboardingNotificationEvery;
 
         return $this;
     }
