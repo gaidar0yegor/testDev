@@ -6,8 +6,15 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+## [0.41.8] - 2022-02-08
+### Ajouté
 - Ajouter le système des Packs de fonctionnalités pour les sociétés (Starter / Standard / Premium)
-- Gestion des Notifications d'onboarding pour chaque société
+## Modifié
+- Gestion des Notifications d'onboarding pour chaque société (et non plus un paramétre général)
 
 ## [0.41.7] - 2022-02-03
 ### Réparé
