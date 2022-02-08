@@ -259,7 +259,7 @@ class SocieteUserController extends AbstractController
                 'user' => $user->getFullname(),
             ]));
 
-            return $this->redirectToRoute('app_fo_utilisateur_modifier');
+            return $this->redirectToRoute('app_fo_utilisateurs');
         }
 
         return $this->render('utilisateurs_fo/delete_user.html.twig', [
