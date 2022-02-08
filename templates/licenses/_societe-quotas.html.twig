@@ -3,7 +3,7 @@
 
         <p class="mb-0">{{ ('quota.' ~ quotaName ~ '.name')|trans }}</p>
 
-        <div class="progress" style="height: 1.5em; font-size:1em">
+        <div class="progress" style="position: relative; height: 1.5em; font-size:1em; line-height: initial !important;">
             <div
                 class="progress-bar {{ percent < 70 ? 'bg-success' : percent < 100 ? 'bg-warning' : 'bg-danger' }}"
                 role="progressbar"
@@ -11,7 +11,9 @@
                 aria-valuenow="{{ percent }}"
                 aria-valuemin="0"
                 aria-valuemax="100"
-            >{{ quota.current }} / {{ quota.limit }}</div>
+            ></div>
+            <div class="text-center text-dark font-weight-bold font-italic w-100"
+            style="position: absolute; left: 0; right: 0; top: 0; bottom: 0;">{{ quota.current }} / <small>{{ quota.limit }}</small></div>
         </div>
 
         <p class="text-muted mb-4"><small>{{ ('quota.' ~ quotaName ~ '.description')|trans }}</small></p>
