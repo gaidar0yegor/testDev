@@ -206,7 +206,10 @@ class SocieteController extends AbstractController
         Invitator $invitator,
         EntityManagerInterface $em
     ) {
-        if (!$this->isCsrfTokenValid('send-invitation-admin', $request->get('token'))) {
+        if (
+            !$this->isCsrfTokenValid('send-invitation-admin', $request->get('token')) ||
+            $societeUser->getSociete() !== $societe
+        ) {
             throw new BadRequestHttpException('Csrf token invalid');
         }
 
@@ -240,7 +243,10 @@ class SocieteController extends AbstractController
         SocieteUser $societeUser,
         EntityManagerInterface $em
     ) {
-        if (!$this->isCsrfTokenValid('delete-invitation-admin', $request->get('token'))) {
+        if (
+            !$this->isCsrfTokenValid('delete-invitation-admin', $request->get('token')) ||
+            $societeUser->getSociete() !== $societe
+        ) {
             throw new BadRequestHttpException('Csrf token invalid');
         }
 
