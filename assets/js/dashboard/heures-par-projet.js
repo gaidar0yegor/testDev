@@ -7,6 +7,7 @@ const chart = c3.generate({
         type: 'bar',
         x: '_projects_year',
         columns: [],
+        colors: [],
     },
     bar: {
         width: {
@@ -30,13 +31,15 @@ window.addEventListener('loadYearlyCharts', event => {
     setTimeout(function () {
         fetch(`/api/dashboard/heures-par-projet/${year}`)
             .then(response => response.json())
-            .then(heuresParProjet => {
+            .then(datas => {
+                let heuresParProjet = datas.userProjetsHeuresPassees;
 
                 heuresParProjet._projects_year = year;
 
                 chart.load({
                     unload: true,
                     columns: Object.keys(heuresParProjet).map(projetName => [projetName, heuresParProjet[projetName]]),
+                    colors: datas.codeColors,
                 });
             })
         ;

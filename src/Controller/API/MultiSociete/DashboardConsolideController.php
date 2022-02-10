@@ -83,13 +83,13 @@ class DashboardConsolideController extends AbstractController
     ): JsonResponse {
         $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
 
-        $heuresParProjet = $statisticsService->calculateHeuresMultisocieteParProjetForUser(
+        $datas = $statisticsService->calculateHeuresMultisocieteParProjetForUser(
             $userContext->getUser(),
             $year,
             $dashboardConsolide
         );
 
-        return new JsonResponse($heuresParProjet);
+        return new JsonResponse($datas);
     }
 
     /**

@@ -51,12 +51,17 @@ class StatisticsService
         ;
 
         $userProjetsHeuresPassees = [];
+        $codeColors = [];
 
         foreach ($userProjets as $userProjet) {
             $userProjetsHeuresPassees[$userProjet->getAcronyme()] = $heuresPassees[$userProjet->getAcronyme()] ?? 0.0;
+            if ($userProjet->getColorCode()) $codeColors[$userProjet->getAcronyme()] = $userProjet->getColorCode();
         }
 
-        return $userProjetsHeuresPassees;
+        return [
+            'userProjetsHeuresPassees' => $userProjetsHeuresPassees,
+            'codeColors' => $codeColors,
+        ];
     }
 
     /**
@@ -71,6 +76,7 @@ class StatisticsService
         $societeUsers = $dashboardConsolide ? $dashboardConsolide->getSocieteUsers() : $user->getSocieteUsers();
 
         $multisosieteProjetsHeuresPassees = [];
+        $codeColors = [];
 
         foreach ($societeUsers as $societeUser) {
             $heuresPassees = $this->calculateHeuresParProjet($societeUser->getSociete(), $year);
@@ -82,12 +88,16 @@ class StatisticsService
 
             foreach ($userProjets as $userProjet) {
                 $userProjetsHeuresPassees["{$societeUser->getSociete()->getRaisonSociale()} / {$userProjet->getAcronyme()}"] = $heuresPassees[$userProjet->getAcronyme()] ?? 0.0;
+                if ($userProjet->getColorCode()) $codeColors["{$societeUser->getSociete()->getRaisonSociale()} / {$userProjet->getAcronyme()}"] = $userProjet->getColorCode();
             }
 
             $multisosieteProjetsHeuresPassees = array_merge($multisosieteProjetsHeuresPassees, $userProjetsHeuresPassees);
         }
 
-        return $multisosieteProjetsHeuresPassees;
+        return [
+            'multisosieteProjetsHeuresPassees' => $multisosieteProjetsHeuresPassees,
+            'codeColors' => $codeColors,
+        ];
     }
 
     /**
