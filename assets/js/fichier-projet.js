@@ -8,10 +8,7 @@ var files_list_dt = $('#files_list_dt').DataTable({
     rowGroup: $('#filter-files-dossier').length > 0
         ? {
             dataSrc: [0],
-            emptyDataGroup: null,
-            startRender: function ( rows, group ) {
-                return group == "" ? null : `${group} (${rows.count()} ${rows.count() === 1 ? 'fichier' : 'fichiers'})`;
-            }
+            emptyDataGroup: null
         }
         : false,
     order: [[0, 'asc'], [3, 'desc']],
@@ -48,6 +45,8 @@ $.fn.dataTable.ext.search.push(
             var dossier = (data[0]).replace(/\s/g, ''),
                 tab = $('#filter-files-dossier').val().replace(/\s/g, '');
 
+            tab !== '' ? files_list_dt.rowGroup().disable() : files_list_dt.rowGroup().enable();
+
             ((tab !== '' && tab === dossier) || (tab === ''))
                 ? $(settings.oInstance.fnGetNodes(dataIndex)).show()
                 : $(settings.oInstance.fnGetNodes(dataIndex)).hide();
@@ -62,7 +61,7 @@ $('.tab-filter-fichiers')
     .on('click', '.nav-link', function () {
         $('.tab-filter-fichiers').find('.nav-link').removeClass('active');
         $(this).addClass('active');
-        $('#filter-files-dossier').val($(this).hasClass('all-fichiers') ? '' : $(this).text()).trigger('change');
+        $('#filter-files-dossier').val($(this).hasClass('all-fichiers') ? '' : $(this).find('.dossier-name').text()).trigger('change');
     })
     .on('change', '#filter-files-dossier', function () {
         $('#files_list_dt').DataTable().draw();
