@@ -19,6 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class FaitMarquantType extends AbstractType
@@ -82,6 +83,9 @@ class FaitMarquantType extends AbstractType
                 'attr' => [
                     'class' => 'ckeditor-instance',
                 ],
+                'constraints'=>[
+                    new NotBlank(),
+                ]
             ])
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),

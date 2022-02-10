@@ -65,13 +65,13 @@
                             <input type="hidden" name="token" value="{{ csrf_token('send-invitation-admin') }}"/>
                         </form>
 
-                        <small><i>
-                                {% if admin.invitationSentAt %}
-                                    Dernière invitation envoyée le <b>{{ admin.invitationSentAt|format_datetime }}</b>.
-                                {% else %}
-                                    Invitation pas encore envoyée.
-                                {% endif %}
-                            </i></small>
+                        <small>
+                            {% if admin.invitationSentAt %}
+                                <i>Dernière invitation envoyée le <b>{{ admin.invitationSentAt|format_datetime }}</b>.</i>
+                            {% else %}
+                                <i class="text-danger"><b>Invitation pas encore envoyée !!</b></i>
+                            {% endif %}
+                        </small>
                     {% endif %}
                 </td>
             </tr>
