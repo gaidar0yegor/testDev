@@ -112,6 +112,7 @@ back_office: "Back office"
 my_account: "Mon compte"
 switch_company: "Changer de société"
 logout: Déconnexion
+publish: Publier
 my_companies: "Mes sociétés"
 you_submitted_this_month_on: "Vous avez validé ce mois le {date}."
 this_month_not_in_company: "Ce mois-ci, vous n'étiez pas dans la société."
