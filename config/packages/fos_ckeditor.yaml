@@ -16,10 +16,10 @@ fos_ck_editor:
             inline: false
             input_sync: true
             toolbarCanCollapse: true
-            extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions"
+            extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions,scayt"
     toolbars:
         configs:
-            my_toolbar: [ '@styles', '-', '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@wiris' ]
+            my_toolbar: [ '@styles', '-', '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@wiris', '-', '@scayt' ]
         items:
             clipboard: ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo']
             editing: ['Find', 'Replace', '-', 'SelectAll']
@@ -29,6 +29,7 @@ fos_ck_editor:
             insert: ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar', 'Smiley']
             styles: ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
             wiris: ['ckeditor_wiris_formulaEditor']
+            scayt: ['Scayt']
     plugins:
         wordcount:
             path: '/build/ckeditor/extra-plugins/wordcount/'
@@ -47,4 +48,7 @@ fos_ck_editor:
             filename: 'plugin.js'
         mentions:
             path: '/build/ckeditor/extra-plugins/mentions/'
+            filename: 'plugin.js'
+        scayt:
+            path: '/build/ckeditor/extra-plugins/scayt/'
             filename: 'plugin.js'
