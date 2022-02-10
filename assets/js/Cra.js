@@ -17,7 +17,12 @@ const day1 = 'calmonth-day-1 btn-success';
 function initAbsences(date, craJours) {
     initCalMonth($('.calmonth'), date.year, date.month, craJours);
 
+    const $btnSubmit = $('.btn-validate-cra');
+
     $('.calmonth').on('click', 'button', function () {
+        $btnSubmit.html(t('save'));
+        $(".flash-messages").empty();
+
         const $btn = $(this);
         const dayNumber = parseInt($btn.data('daynumber'), 10);
 
@@ -38,8 +43,6 @@ function initAbsences(date, craJours) {
         }
     });
 
-    const $btnSubmit = $('.btn-validate-cra');
-
     $btnSubmit.click(function () {
         $btnSubmit.prop('disabled', true);
         $btnSubmit.text(t('updating...'));
@@ -53,9 +56,6 @@ function initAbsences(date, craJours) {
                 $btnSubmit.html('<i class="fa fa-check" aria-hidden="true"></i> ' + t('updated!'));
                 $('.message-validation .text-warning').remove();
                 addFlashMessage('alerte alert alert-success text-center w-25 m-auto', '<i class="fa fa-check" aria-hidden="true"></i> ' + t('your_absences_have_been_updated'));
-                setTimeout(function() { 
-                    $(".flash-messages").remove(); 
-                }, 10000);
             })
         ;
     });
