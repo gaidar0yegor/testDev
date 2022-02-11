@@ -109,12 +109,12 @@ class DashboardController extends AbstractController
         StatisticsService $statisticsService,
         UserContext $userContext
     ) {
-        $heuresParProjet = $statisticsService->calculateHeuresParProjetForUser(
+        $datas = $statisticsService->calculateHeuresParProjetForUser(
             $userContext->getSocieteUser(),
             $year
         );
-
-        return new JsonResponse($heuresParProjet);
+//dump($datas);exit;
+        return new JsonResponse($datas);
     }
 
     /**

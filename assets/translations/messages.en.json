@@ -8,6 +8,7 @@
     "time_spent_updated": "Time spent updated",
     "enter_absences_if_taken_this_month": "{{link_start}}Enter your absences{{link_end}} if you have taken any this month.",
     "updated!": "Registered !",
+    "save": "Register",
     "editions_updated": "Modification(s) registered",
     "project_heading": "Project {{project_name}}",
     "invalid_hours": "Total number of hours must not be more than {{max}} hours.",

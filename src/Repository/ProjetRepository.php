@@ -85,7 +85,7 @@ class ProjetRepository extends ServiceEntityRepository
             $nextMonth = $this->dateMonthService->getNextMonth($month);
 
             $qb
-                ->andWhere('projet.dateDebut is null OR :nextMonth >= projet.dateDebut')
+                ->andWhere('projet.dateDebut is null OR :nextMonth > projet.dateDebut')
                 ->andWhere('projet.dateFin is null OR :currentMonth <= projet.dateFin')
                 ->setParameter('nextMonth', $nextMonth)
                 ->setParameter('currentMonth', $month)

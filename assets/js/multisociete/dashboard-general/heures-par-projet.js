@@ -13,6 +13,7 @@ if (contentDiv){
                 type: 'bar',
                 x: '_projects_year',
                 columns: [],
+                colors: [],
             },
             bar: {
                 width: {
@@ -41,13 +42,15 @@ if (contentDiv){
         setTimeout(() => {
             fetch(`/api/mes-societes/dashboard/general/heures-par-projet/${societeUser}/${year}`)
                 .then(response => response.json())
-                .then(heuresParProjet => {
+                .then(datas => {
+                    let heuresParProjet = datas.userProjetsHeuresPassees;
 
                     heuresParProjet._projects_year = year;
 
                     chart.load({
                         unload: true,
                         columns: Object.keys(heuresParProjet).map(projetName => [projetName, heuresParProjet[projetName]]),
+                        colors: datas.codeColors,
                     });
                 })
             ;

@@ -70,12 +70,12 @@ class DashboardGeneralController extends AbstractController
     ) {
         $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
 
-        $heuresParProjet = $statisticsService->calculateHeuresParProjetForUser(
+        $datas = $statisticsService->calculateHeuresParProjetForUser(
             $societeUser,
             $year
         );
 
-        return new JsonResponse($heuresParProjet);
+        return new JsonResponse($datas);
     }
 
     /**

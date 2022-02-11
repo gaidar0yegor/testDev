@@ -6,7 +6,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-- Supprimer une invitation non acceptée depuis le Back-Office
+- Supprimer une invitation non acceptée depuis le Back-Office.
+- Les codes couleur des projets s’appliquent aux graphiques.
+#Réparé
+- Message d'erreur lors de l’ajout d'un fait marquant sans mettre de texte dans la description.
+- Réparer la saisie du temps par rapport la date de début et la date de fin du projet. 
+- Lors de la saisie et l'enregistrement des absences, mettre à jour le message et le bouton « enregistrer »
+#Modifié
+- "Publier" à la place de "Sauvegarder" dans la page de l'ajout d'un Fait Marquant. 
 
 
 

@@ -18,7 +18,7 @@ Feature: Gestion des faits marquants d'un projet
         When I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
-        And I press "Sauvegarder"
+        And I press "Publier"
         Then I should see "Le fait marquant \"Mon fait marquant\" a été ajouté au projet"
         And I should see "J'ai créé un fait marquant" in the ".timeline" element
 
@@ -49,7 +49,7 @@ Feature: Gestion des faits marquants d'un projet
         When I fill in the following:
             | fait_marquant[titre]       | Fait marquant déjà créé et modifié            |
             | fait_marquant[description] | J'ai créé un fait marquant et je l'ai modifié |
-        And I press "Sauvegarder"
+        And I press "Publier"
         Then I should see "Le fait marquant \"Fait marquant déjà créé et modifié\" a été modifié"
         And I should see "J'ai créé un fait marquant et je l'ai modifié" in the ".timeline" element
 

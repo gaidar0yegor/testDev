@@ -135,6 +135,7 @@ as_admin_i_can_also_access_all_projects:
   As an administrator, I can as well {link_start}access
   to all of my projects{link_end}.
 logout: Logout
+publish: Publish
 you_submitted_this_month_on: You have validated this month the {date}.
 update: Update
 finish: Finish
