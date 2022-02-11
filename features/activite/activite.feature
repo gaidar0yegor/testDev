@@ -36,7 +36,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
-        And I press "Sauvegarder"
+        And I press "Publier"
         And I follow "Activité"
         Then I should see "User Eureka a ajouté le fait marquant Mon fait marquant sur le projet PTEST"
 
@@ -56,7 +56,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
         And I fill in the following:
             | fait_marquant[titre]       | FM_cdp |
             | fait_marquant[description] | Edit   |
-        And I press "Sauvegarder"
+        And I press "Publier"
         And I follow "Activité"
         Then I should see "Chef de projet Eureka a modifié son fait marquant FM_cdp sur le projet PTEST"
 
@@ -76,7 +76,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
         And I fill in the following:
             | fait_marquant[titre]       | FM_user |
             | fait_marquant[description] | Edit    |
-        And I press "Sauvegarder"
+        And I press "Publier"
         And I follow "Activité"
         Then I should see "Chef de projet Eureka a modifié le fait marquant FM_user créé par User Eureka sur le projet PTEST"
 

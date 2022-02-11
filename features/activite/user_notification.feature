@@ -14,7 +14,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
-        And I press "Sauvegarder"
+        And I press "Publier"
         And I follow "Déconnexion"
         And I go to "/connexion"
         And I fill in the following:
@@ -62,7 +62,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
-        And I press "Sauvegarder"
+        And I press "Publier"
         When I go to "/api/user-notifications/2"
         Then the response status code should be 403
 
@@ -75,7 +75,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And I go to "/fait-marquants/1/modifier"
         And I fill in the following:
             | fait_marquant[titre] | FM_Modifié |
-        And I press "Sauvegarder"
+        And I press "Publier"
         And I follow "Déconnexion"
         And I go to "/connexion"
         And I fill in the following:

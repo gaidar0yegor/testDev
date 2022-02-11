@@ -62,7 +62,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
-        And I press "Sauvegarder"
+        And I press "Publier"
         Then I should see "Le fait marquant \"Mon fait marquant\" a été ajouté au projet"
 
     Scenario: Je ne peux pas ajouter de fait marquant si je n'ai aucune license
@@ -74,7 +74,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
-        And I press "Sauvegarder"
+        And I press "Publier"
         Then I should not see "Le fait marquant \"Mon fait marquant\" a été ajouté au projet"
         But I should see "Votre accès est en lecture seule car un ou plusieurs quotas de vos licenses actives ont été dépassés. Veuillez ajouter une nouvelle license."
 
@@ -88,6 +88,6 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
-        And I press "Sauvegarder"
+        And I press "Publier"
         Then I should not see "Le fait marquant \"Mon fait marquant\" a été ajouté au projet"
         But I should see "Votre accès est en lecture seule car un ou plusieurs quotas de vos licenses actives ont été dépassés. Veuillez ajouter une nouvelle license."
