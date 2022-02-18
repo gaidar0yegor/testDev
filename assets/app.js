@@ -25,6 +25,7 @@ import './js/syntax-highlighter';
 // import './js/markdown-wysiwyg';
 import './ckeditor/custom-ckeditor'
 import './js/slack';
+import './js/annual-rdi-scores';
 import './js/admin-user-chart-temps-projets';
 import './js/admin-projet-chart-temps-users';
 import './js/fait-marquant-highlight';

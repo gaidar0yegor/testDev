@@ -11,13 +11,8 @@
     </a>
 
     <ul class="nav nav-tabs mb-3 tab-filter-fichiers">
-        {% set nbrFichierProjets = 0 %}
-        {% for dossierFichierProjet in projet.dossierFichierProjets %}
-            {% set nbrFichierProjets = nbrFichierProjets + dossierFichierProjet.fichierProjets|length %}
-        {% endfor %}
-
         <li class="nav-item">
-            <a class="nav-link all-fichiers active" href="#0"><span class="dossier-name">{{ 'allString'|trans }}</span> <span class="badge badge-pill badge-info">{{ nbrFichierProjets }}</span></a>
+            <a class="nav-link all-fichiers active" href="#0"><span class="dossier-name">{{ 'allString'|trans }}</span> <span class="badge badge-pill badge-info">{{ projet.fichierProjets | length }}</span></a>
         </li>
 
         {% for dossierFichierProjet in projet.dossierFichierProjets %}

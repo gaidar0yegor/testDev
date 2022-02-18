@@ -2,7 +2,7 @@
 
 namespace App\Command;
 
-use App\Service\RdiScore\ScoreUpdater;
+use App\Service\RdiScore\ProjetScoreRdiUpdater;
 use Psr\Log\LogLevel;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,13 +14,13 @@ class UpdateProjetsRdiScoreCommand extends Command
 {
     protected static $defaultName = 'app:update-projets-rdi-score';
 
-    private ScoreUpdater $scoreUpdater;
+    private ProjetScoreRdiUpdater $projetScoreRdiUpdater;
 
-    public function __construct(ScoreUpdater $scoreUpdater)
+    public function __construct(ProjetScoreRdiUpdater $projetScoreRdiUpdater)
     {
         parent::__construct();
 
-        $this->scoreUpdater = $scoreUpdater;
+        $this->projetScoreRdiUpdater = $projetScoreRdiUpdater;
     }
 
     protected function configure()
@@ -40,10 +40,9 @@ class UpdateProjetsRdiScoreCommand extends Command
             LogLevel::INFO => OutputInterface::VERBOSITY_NORMAL,
         ];
 
-        $this->scoreUpdater
-            ->setLogger(new ConsoleLogger($output, $verbosityLevelMap))
-            ->updateAllProjetScore()
-        ;
+        $logger = new ConsoleLogger($output, $verbosityLevelMap);
+
+        $this->projetScoreRdiUpdater->updateProjetsScore($logger);
 
         $io->success('All projets RDI score have been re-calculated.');
 

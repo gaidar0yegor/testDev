@@ -21,6 +21,8 @@ use Psr\Log\NullLogger;
  * Pour cela, il indexe les projets dans un index Elasic Search,
  * puis effectue une recherche par mots clés dans les textes du projet,
  * et se sert du score attribué aux projets pour définir un coefficient.
+ *
+ * ----------------- NOT USED ----------------------
  */
 class ScoreUpdater
 {

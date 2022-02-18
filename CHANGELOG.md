@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Supprimer une invitation non acceptée depuis le Back-Office.
 - Les codes couleur des projets s’appliquent aux graphiques.
+- Intégrer un correcteur orthographique dans la saisie des Faits marquants et du résumé du projet
 #Réparé
 - Message d'erreur lors de l’ajout d'un fait marquant sans mettre de texte dans la description.
 - Réparer la saisie du temps par rapport la date de début et la date de fin du projet. 
