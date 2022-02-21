@@ -6,6 +6,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [0.41.9] - 2022-02-21
+### Ajouté
 - Supprimer une invitation non acceptée depuis le Back-Office.
 - Les codes couleur des projets s’appliquent aux graphiques.
 #Réparé
@@ -15,8 +22,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Réparer la liste des fichiers et le nombre de fichiers dans chaque dossier. 
 #Modifié
 - "Publier" à la place de "Sauvegarder" dans la page de l'ajout d'un Fait Marquant. 
-
-
 
 ## [0.41.8] - 2022-02-08
 ### Ajouté
