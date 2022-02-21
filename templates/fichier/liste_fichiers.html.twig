@@ -11,18 +11,13 @@
     </a>
 
     <ul class="nav nav-tabs mb-3 tab-filter-fichiers">
-        {% set nbrFichierProjets = 0 %}
-        {% for dossierFichierProjet in projet.dossierFichierProjets %}
-            {% set nbrFichierProjets = nbrFichierProjets + dossierFichierProjet.fichierProjets|length %}
-        {% endfor %}
-
         <li class="nav-item">
-            <a class="nav-link all-fichiers active" href="#0"><span class="dossier-name">{{ 'allString'|trans }}</span> <span class="badge badge-pill badge-info">{{ nbrFichierProjets }}</span></a>
+            <a class="nav-link all-fichiers active" href="#0"><span class="dossier-name">{{ 'allString'|trans }}</span> <span class="badge badge-pill badge-info">{{ projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length | length }}</span></a>
         </li>
 
         {% for dossierFichierProjet in projet.dossierFichierProjets %}
             <li class="nav-item">
-                <a id="dossier-{{ dossierFichierProjet.nomMd5 }}" class="nav-link" href="#0"><span class="dossier-name">{{ dossierFichierProjet.nom }}</span> <span class="badge badge-pill badge-info">{{ dossierFichierProjet.fichierProjets|length }}</span></a>
+                <a id="dossier-{{ dossierFichierProjet.nomMd5 }}" class="nav-link" href="#0"><span class="dossier-name">{{ dossierFichierProjet.nom }}</span> <span class="badge badge-pill badge-info">{{ dossierFichierProjet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length }}</span></a>
             </li>
         {% endfor %}
 
