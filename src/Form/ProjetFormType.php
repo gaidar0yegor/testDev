@@ -3,10 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Projet;
+use App\Entity\RdiDomain;
 use App\Form\Custom\RadioChoiceColorsType;
 use App\Form\Custom\DatePickerType;
 use App\MultiSociete\UserContext;
+use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
@@ -14,7 +17,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -103,6 +105,24 @@ class ProjetFormType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+            ])
+            ->add('rdiDomains', EntityType::class, [
+                'label' => 'Un ou plusieurs domaines de votre projet',
+                'class' => RdiDomain::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('rdiDomain')
+                        ->where('rdiDomain.level != 0')
+                        ->orderBy('rdiDomain.nom', 'ASC');
+                },
+                'choice_label' => function (RdiDomain $rdiDomain) {
+                    return $rdiDomain->getNom();
+                },
+                'required' => false,
+                'multiple'    => true,
+                'expanded' 	  => false,
+                'attr' => [
+                    'class' => 'select-2 form-control',
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Soumettre',

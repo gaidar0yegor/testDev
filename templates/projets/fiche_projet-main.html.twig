@@ -1,6 +1,11 @@
 <div class="card bg-light-grey border-light">
-    <div class="card-body text-justify">
-        <p class="m-0">{{ projet.resume|markdown }}</p>
+    <div class="card-body">
+        <div class="text-justify">
+            <p class="m-0">{{ projet.resume|markdown }}</p>
+        </div>
+        {% for rdiDomain in projet.rdiDomains %}
+            <p class="hashtag ml-3 mb-2"><i class="fa fa-hashtag"></i>{{ rdiDomain.nom }}</p>
+        {% endfor %}
     </div>
 </div>
 

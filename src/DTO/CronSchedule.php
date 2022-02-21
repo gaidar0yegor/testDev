@@ -26,6 +26,16 @@ class CronSchedule
         return $cronSchedule;
     }
 
+    public static function everyDay(int $hour, int $minute): self
+    {
+        $cronSchedule = new self();
+
+        $cronSchedule->hour = $hour;
+        $cronSchedule->minute = $minute;
+
+        return $cronSchedule;
+    }
+
     public static function everyWeek(int $dayOfWeek, int $hour, int $minute): self
     {
         $cronSchedule = new self();

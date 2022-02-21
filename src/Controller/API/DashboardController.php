@@ -113,7 +113,7 @@ class DashboardController extends AbstractController
             $userContext->getSocieteUser(),
             $year
         );
-//dump($datas);exit;
+
         return new JsonResponse($datas);
     }
 

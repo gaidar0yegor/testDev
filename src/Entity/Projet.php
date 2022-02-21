@@ -119,16 +119,6 @@ class Projet implements HasSocieteInterface
     private $projetActivities;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $rdiScore;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $rdiScoreReliability;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -158,6 +148,16 @@ class Projet implements HasSocieteInterface
      */
     private $dossierFichierProjets;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=RdiDomain::class, inversedBy="projets")
+     */
+    private $rdiDomains;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $annualRdiScores = [];
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -174,6 +174,8 @@ class Projet implements HasSocieteInterface
         $this->colorCode = '#e9ece6';
         $this->projetSuspendPeriods = new ArrayCollection();
         $this->dossierFichierProjets = new ArrayCollection();
+        $this->rdiDomains = new ArrayCollection();
+        $this->annualRdiScores = [];
     }
 
     public function getId(): ?int
@@ -613,30 +615,6 @@ class Projet implements HasSocieteInterface
         return $this;
     }
 
-    public function getRdiScore(): ?float
-    {
-        return $this->rdiScore;
-    }
-
-    public function setRdiScore(?float $rdiScore): self
-    {
-        $this->rdiScore = $rdiScore;
-
-        return $this;
-    }
-
-    public function getRdiScoreReliability(): ?float
-    {
-        return $this->rdiScoreReliability;
-    }
-
-    public function setRdiScoreReliability(?float $rdiScoreReliability): self
-    {
-        $this->rdiScoreReliability = $rdiScoreReliability;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -759,6 +737,42 @@ class Projet implements HasSocieteInterface
                 $dossierFichierProjet->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RdiDomain[]
+     */
+    public function getRdiDomains(): Collection
+    {
+        return $this->rdiDomains;
+    }
+
+    public function addRdiDomain(RdiDomain $rdiDomain): self
+    {
+        if (!$this->rdiDomains->contains($rdiDomain)) {
+            $this->rdiDomains[] = $rdiDomain;
+        }
+
+        return $this;
+    }
+
+    public function removeRdiDomain(RdiDomain $rdiDomain): self
+    {
+        $this->rdiDomains->removeElement($rdiDomain);
+
+        return $this;
+    }
+
+    public function getAnnualRdiScores(): ?array
+    {
+        return $this->annualRdiScores;
+    }
+
+    public function setAnnualRdiScores(array $annualRdiScores): self
+    {
+        $this->annualRdiScores = $annualRdiScores;
 
         return $this;
     }

@@ -109,6 +109,12 @@ services:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Projet }
 
+    App\Service\RdiScore\ProjetDomainKeywordsListener:
+        tags:
+            - 'app.domain_keywords_generator'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Projet }
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\Projet }
+
     App\Activity\Type\ProjetSuspendedActivity:
         tags:
             - 'app.activity_type'
@@ -163,6 +169,9 @@ services:
 
     App\Service\RdiScore\ScoreUpdater:
         $projetIndex: '%env(ELASTIC_SEARCH_INDEX_PROJET)%'
+
+    App\Service\RdiScore\RdiKeywordsGeneratorFromAPI:
+        $apiUrl: '%env(ARCHIVES_OUVERTES_KEYWORDS_API)%'
 
     App\Onboarding\Step\:
         resource: '../src/Onboarding/Step/'

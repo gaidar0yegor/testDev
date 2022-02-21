@@ -130,29 +130,29 @@
                             {{ projet.faitMarquants|length }}
                         </p>
                     </td>
-                    {% if projet.rdiScore is not null %}
-                    <td>
-                        <h5 class="card-title">Score RDI</h5>
-                        <h6 class="card-subtitle mb-2 deck text-muted">elligibilité RDI évaluée par l'algorithme RDI-Manager</h6>
-                        <p class="card-text display-4 mb-0">
-                            {% if projet.rdiScoreReliability > 0.5 %}
-                                <span class="rdi-percent text-success">{{ (projet.rdiScore * 100)|round }}<sup>/ 100</sup></span>
-                            {% else %}
-                                <span class="rdi-percent text-muted">N/A</span>
-                            {% endif %}
-                        </p>
-                        {% if projet.rdiScoreReliability > 0.5 %}
-                        <small class="text-muted">
-                            Score fiable à {{ (projet.rdiScoreReliability * 100)|round }} %.
-                        </small>
-                        {% else %}
-                        <small class="text-muted">
-                            Ce projet ne contient pas encore assez de texte et de faits marquants
-                            pour calculer un score précis.
-                        </small>
-                        {% endif %}
-                    </td>
-                    {% endif %}
+{#                    {% if projet.rdiScore is not null %}#}
+{#                    <td>#}
+{#                        <h5 class="card-title">Score RDI</h5>#}
+{#                        <h6 class="card-subtitle mb-2 deck text-muted">elligibilité RDI évaluée par l'algorithme RDI-Manager</h6>#}
+{#                        <p class="card-text display-4 mb-0">#}
+{#                            {% if projet.rdiScoreReliability > 0.5 %}#}
+{#                                <span class="rdi-percent text-success">{{ (projet.rdiScore * 100)|round }}<sup>/ 100</sup></span>#}
+{#                            {% else %}#}
+{#                                <span class="rdi-percent text-muted">N/A</span>#}
+{#                            {% endif %}#}
+{#                        </p>#}
+{#                        {% if projet.rdiScoreReliability > 0.5 %}#}
+{#                        <small class="text-muted">#}
+{#                            Score fiable à {{ (projet.rdiScoreReliability * 100)|round }} %.#}
+{#                        </small>#}
+{#                        {% else %}#}
+{#                        <small class="text-muted">#}
+{#                            Ce projet ne contient pas encore assez de texte et de faits marquants#}
+{#                            pour calculer un score précis.#}
+{#                        </small>#}
+{#                        {% endif %}#}
+{#                    </td>#}
+{#                    {% endif %}#}
                 </tr>
             </tbody>
         </table>
