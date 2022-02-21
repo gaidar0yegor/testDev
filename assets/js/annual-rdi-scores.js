@@ -48,6 +48,6 @@ window.addEventListener('projet-score-rdi-year-changed', event => {
     const {annualRdiScores} = yearSwitcher.dataset;
     const object = JSON.parse(annualRdiScores);
     let rdiValueElement = document.querySelector('.rdi-percent .rdi-value');
-    rdiValueElement.innerText = object[event.detail.year] * 100;
+    rdiValueElement.innerText = Math.ceil(object[event.detail.year] * 100);
 });
 
