@@ -48,6 +48,7 @@ class FichierProjetService
         $fichierProjet->setIsAccessibleParObservateurExterne(in_array(self::OBSERVATEUR_EXTERNE, $accessChoices) || in_array('all', $accessChoices));
 
         if (in_array('all', $accessChoices) || empty($accessChoices)) {
+            $fichierProjet->setAccessesChoices(['all']);
             foreach ($projet->getProjetParticipants() as $projetParticipant) {
                 $fichierProjet->addSocieteUser($projetParticipant->getSocieteUser());
             }
