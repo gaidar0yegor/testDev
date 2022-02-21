@@ -85,7 +85,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
 
     Scenario: L'admin peut voir le graphique des temps passés de l'utilisateurs sur ses projets
         When I click on the 1st "[href='/utilisateur/2']" element
-        Then I should see "Temps passés en" in the "h2" element containing "Temps passés en"
+        Then I should see "Temps passé en" in the "h2" element containing "Temps passé en"
 
     Scenario: L'admin peut définir une date d'entrée d'un user
         When I click on the 1st "[href='/utilisateur/2/modifier']" element
