@@ -6,7 +6,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-- Algorithme I.A 2 : Qualification RDI des projets
+
+
+
+
 
 ## [0.42.0] - 2022-02-21
 ### Ajouté
