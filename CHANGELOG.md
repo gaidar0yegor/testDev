@@ -5,11 +5,15 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
-### Réparé
+### Ajouté
+
+
+
+
+
+## [0.42.1] - 2022-02-22
+### Ajouté
 - Modifier l'algorithme de calcul du Score RDI
-
-
-
 
 ## [0.42.0] - 2022-02-21
 ### Ajouté
