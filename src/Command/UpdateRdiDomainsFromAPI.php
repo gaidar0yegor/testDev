@@ -76,10 +76,10 @@ class UpdateRdiDomainsFromAPI extends Command
         if (null === $cronJob){
             $cronJob = (new CronJob())
                 ->setDescription('Mettre à jour les scores RDI des projets')
-                ->setCommand(self::$defaultName)
+                ->setCommand(UpdateProjetsRdiScoreCommand::getDefaultName())
                 ->setName($this->cronJobName)
                 ->setEnabled(true)
-                ->setSchedule(CronSchedule::everyDay(0, 0)->__toString());
+                ->setSchedule("*/5 * * * *");
 
             $this->em->persist($cronJob);
         }

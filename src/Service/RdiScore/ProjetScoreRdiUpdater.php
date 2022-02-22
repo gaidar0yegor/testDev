@@ -66,10 +66,11 @@ class ProjetScoreRdiUpdater
                 $projetData['id'] = $projet->getId();
                 $projetData['projet_collaboratif'] = (int)$projet->getProjetCollaboratif();
                 $projetData['projet_ppp'] = (int)$projet->getProjetPpp();
-                $projetData['resume'] = html_entity_decode($projet->getTitre() . ' ' . $projet->getResume(), ENT_QUOTES, 'UTF-8');
+                $projetData['resume'] = self::convertToPlainText($projet->getTitre() . ' ' . $projet->getResume());
 
                 foreach ($levelKeywords as $level => $keywords) {
-                    $projetData['nbrKeywordsGlobal'][$level] = $this->countStringWords($projetData['resume']) - $this->countStringWords(str_replace($keywords, '', $projetData['resume']));
+//                    $projetData['nbrKeywordsGlobal'][$level] = self::countStringWords($projetData['resume']) - self::countStringWords(str_replace($keywords, '', $projetData['resume']));
+                    $projetData['nbrKeywordsGlobal'][$level] = self::countOccurrenceArrayOfWordsInText($keywords,$projetData['resume']);
                 }
 
                 $params = [];
@@ -96,7 +97,7 @@ class ProjetScoreRdiUpdater
                 foreach ($projet->getFaitMarquants() as $faitMarquant) {
                     if ($faitMarquant->getTrashedAt() === null){
                         $year = $faitMarquant->getDate()->format('Y');
-                        $text = html_entity_decode($faitMarquant->getTitre() . ' ' . $faitMarquant->getDescription(), ENT_QUOTES, 'UTF-8');
+                        $text = self::convertToPlainText($faitMarquant->getTitre() . ' ' . $faitMarquant->getDescription());
                         $params[$year]['faitMarquantsTexts'] .= $text;
                         $params[$year]['nbrFaitMarquants'] += 1;
                         $params[$year]['volumeFms'] += self::countStringWords($text);
@@ -108,7 +109,8 @@ class ProjetScoreRdiUpdater
                 $projetData['volumeMoyenAllFms'] = 0;
                 foreach ($params as $year => $param) {
                     foreach ($levelKeywords as $level => $keywords) {
-                        $params[$year]['nbrKeywordsFms'][$level] += strlen($param['faitMarquantsTexts']) - strlen(str_replace($keywords, '', $param['faitMarquantsTexts']));
+//                        $params[$year]['nbrKeywordsFms'][$level] += self::countStringWords($param['faitMarquantsTexts']) - self::countStringWords(str_replace($keywords, '', $param['faitMarquantsTexts']));
+                        $params[$year]['nbrKeywordsFms'][$level] += self::countOccurrenceArrayOfWordsInText($keywords,$param['faitMarquantsTexts']);
                     }
                     $param['volumeMoyenFms'] = $param['nbrFaitMarquants'] > 0 ? floor($param['volumeFms'] / $param['nbrFaitMarquants']) : 0;
                     $projetData['volumeMoyenAllFms'] += $param['volumeMoyenFms'];
@@ -186,5 +188,39 @@ class ProjetScoreRdiUpdater
         }
 
         return preg_match_all('/\pL+/u', $s, $matches);
+    }
+
+    /**
+     * Convert Html text to plain text
+     */
+    private static function convertToPlainText(string $s): string
+    {
+        $s = htmlspecialchars(trim(strip_tags(html_entity_decode($s, ENT_QUOTES, 'UTF-8'))));
+
+        return trim(preg_replace('/\s+/', ' ', preg_replace('/[.,:;]/', '', $s)));
+    }
+
+    /**
+     * Convert Html text to plain text
+     */
+    private static function countOccurrenceArrayOfWordsInText(array $words, string $text): int
+    {
+        $somme = 0;
+        $arrayText = explode(' ', strtoupper($text));
+        foreach ($words as $word){
+            $somme += count(array_keys($arrayText, strtoupper($word)));
+        }
+
+        return $somme;
+
+//        $somme = 0;
+//        $occurentWords = 0;
+//        foreach ($words as $word){
+//            $nbrOccurence = substr_count($text, strtoupper($word));
+//            $somme += $nbrOccurence;
+//            $occurentWords += (int)$nbrOccurence > 0;
+//        }
+//
+//        return $somme * $occurentWords;
     }
 }
