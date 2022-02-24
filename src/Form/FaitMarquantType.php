@@ -159,6 +159,8 @@ class FaitMarquantType extends AbstractType
                 continue;
             }
 
+            $fichierProjet->getFichier()->setDateUpload($faitMarquant->getDate());
+
             $fichierProjet
                 ->setProjet($faitMarquant->getProjet())
                 ->setFaitMarquant($faitMarquant)
