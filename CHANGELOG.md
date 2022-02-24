@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Modifié
 - Les fichier prennent la date de leur fait marquant
+- Responsibe de la page projet
 
 
 

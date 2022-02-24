@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="card border-light d-lg-none">
+<div class="card border-light d-md-none">
     <div class="card-body">
         {% include 'projets/fiche_projet-sidebar.html.twig' %}
     </div>
@@ -26,7 +26,7 @@
                         class="btn btn-lg btn-outline-primary"
                 >
                     <i class="fa fa-plus" aria-hidden="true"></i>
-                    <span class="d-xs-none d-sm-none d-xl-inline-block d-lg-inline-block d-md-inline-block">{{ 'addNew_FM'|trans }}</span>
+                    <span class="d-xs-none d-sm-none d-md-none d-xl-inline-block d-lg-inline-block">{{ 'addNew_FM'|trans }}</span>
                 </a>
             {% elseif projet.isSuspended %}
                 <p class="text-muted text-left">

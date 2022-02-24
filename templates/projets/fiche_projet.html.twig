@@ -5,7 +5,7 @@
 {% block body %}
 
 <div class="row">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-md-8">
         <h1>
             {% include 'utils/_code_color.html.twig' with {color: projet.colorCode} %}
             {{ "projectString"|trans }} {{ projet.acronyme }}
@@ -34,7 +34,7 @@
             {% endif %}
         </p>
     </div>
-    <div class="col-12 col-lg-4">
+    <div class="col-12 col-md-4">
         <div class="projet-actions">
             <a
                 href="{{ path('app_fo_projet_modifier', {'id': projet.id}) }}"
@@ -77,10 +77,10 @@
 </div>
 
 <div class="row">
-    <div class="col-12 col-lg-8">
+    <div class="col-12 col-md-8">
         {% include 'projets/fiche_projet-main.html.twig' %}
     </div>
-    <aside class="col-12 col-lg-4 d-none d-md-block">
+    <aside class="col-12 col-md-4 d-none d-md-block">
         {% include 'projets/fiche_projet-sidebar.html.twig' %}
     </aside>
 </div>
