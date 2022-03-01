@@ -4,6 +4,7 @@ namespace App\MultiSociete;
 
 use App\Entity\SocieteUser;
 use App\Entity\User;
+use App\License\LicenseService;
 use App\MultiSociete\Exception\CurrentSocieteUserAccessDeniedException;
 use App\MultiSociete\Exception\NoCurrentSocieteException;
 use App\Security\Exception\UnexpectedUserException;
@@ -17,10 +18,12 @@ use Symfony\Component\Security\Core\Security;
 class UserContext
 {
     private Security $security;
+    private LicenseService $licenseService;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, LicenseService $licenseService)
     {
         $this->security = $security;
+        $this->licenseService = $licenseService;
     }
 
     public function hasUser(): bool
@@ -106,6 +109,20 @@ class UserContext
         }
 
         $this->getUser()->setCurrentSocieteUser($societeUser);
+    }
+
+    /**
+     * Check if societe has a try license
+     */
+    public function hasTryLicense(): bool
+    {
+        if (!$this->hasSocieteUser()){
+            throw new NoLoggedInUserException(
+                'Cannot retrieve your access to a Societe.'
+            );
+        }
+
+        return $this->licenseService->checkHasTryLicense($this->getSocieteUser()->getSociete());
     }
 
     /**

@@ -6,6 +6,7 @@ use App\License\Factory\LicenseFactoryInterface;
 use App\License\LicenseService;
 use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,11 +22,14 @@ class GenerateLicensesCommand extends Command
 
     private LicenseService $licenseService;
 
+    private EntityManagerInterface $entityManager;
+
     public function __construct(
         LicenseFactoryInterface $licenseFactory,
         SocieteRepository $societeRepository,
         LicenseGeneration $licenseGeneration,
-        LicenseService $licenseService
+        LicenseService $licenseService,
+        EntityManagerInterface $entityManager
     ) {
         parent::__construct();
 
@@ -33,6 +37,7 @@ class GenerateLicensesCommand extends Command
         $this->societeRepository = $societeRepository;
         $this->licenseGeneration = $licenseGeneration;
         $this->licenseService = $licenseService;
+        $this->entityManager = $entityManager;
     }
 
     protected function configure()
@@ -60,7 +65,12 @@ class GenerateLicensesCommand extends Command
             $licenseContent = $this->licenseGeneration->generateLicenseFile($license);
 
             $this->licenseService->storeLicense($licenseContent);
+
+            $societe->setProductKey($license->getProductKey());
+            $this->entityManager->persist($societe);
         }
+
+        $this->entityManager->flush();
 
         return 0;
     }

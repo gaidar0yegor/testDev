@@ -4,6 +4,7 @@
             <th>{{ "lastname"|trans }}</th>
             <th>{{ "valid_until"|trans }}</th>
             <th>Quotas</th>
+            <th>{{ "try_offer"|trans }}</th>
             <th></th>
         </tr>
     </thead>
@@ -33,6 +34,7 @@
                             <li class="list-inline-item"><strong>{{ license.quotas.activeProjet }}</strong> projets</li>
                         </ul>
                     </td>
+                    <td>{{ license.isTryLicense ? ("yes"|trans) : ("no"|trans) }}</td>
                     <td>
                         <a href="{{ path(downloadRoute|default('app_fo_admin_license_download'), {'filename': filename}) }}">
                             <i class="fa fa-download"></i>

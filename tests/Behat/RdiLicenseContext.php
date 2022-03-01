@@ -10,6 +10,7 @@ use App\License\Quota\ActiveProjetQuota;
 use App\License\Quota\ContributeurQuota;
 use App\LicenseGeneration\LicenseGeneration;
 use App\Repository\SocieteRepository;
+use App\SocieteProduct\Product\PremiumProduct;
 use Behat\MinkExtension\Context\RawMinkContext;
 use DateTime;
 
@@ -50,9 +51,9 @@ final class RdiLicenseContext extends RawMinkContext
     }
 
     /**
-     * @Given societe :raisonSociale has a license with :quotaProjet projets
+     * @Given societe :raisonSociale has a license with :quotaProjet projets and :quotaContributeurs contributeurs
      */
-    public function iHaveALicenseWithNProjets($raisonSociale, $quotaProjet)
+    public function iHaveALicenseWithNProjetsAndMContributeurs($raisonSociale, $quotaProjet, $quotaContributeurs)
     {
         $societe = $this->societeRepository->findOneBy([
             'raisonSociale' => $raisonSociale,
@@ -61,34 +62,12 @@ final class RdiLicenseContext extends RawMinkContext
         $license = new License();
 
         $license
+            ->setProductKey(PremiumProduct::PRODUCT_KEY)
             ->setName('Unlimited license for dev or test')
             ->setSociete($societe)
             ->setExpirationDate((new DateTime())->modify('+1 day'))
             ->setQuotas([
                 ActiveProjetQuota::NAME => $quotaProjet,
-            ])
-        ;
-
-        $licenseContent = $this->licenseGeneration->generateLicenseFile($license);
-        $this->licenseService->storeLicense($licenseContent);
-    }
-
-    /**
-     * @Given societe :raisonSociale has a license with :quotaContributeurs contributeurs
-     */
-    public function iHaveALicenseWithNContributeurs($raisonSociale, $quotaContributeurs)
-    {
-        $societe = $this->societeRepository->findOneBy([
-            'raisonSociale' => $raisonSociale,
-        ]);
-
-        $license = new License();
-
-        $license
-            ->setName('Unlimited license for dev or test')
-            ->setSociete($societe)
-            ->setExpirationDate((new DateTime())->modify('+1 day'))
-            ->setQuotas([
                 ContributeurQuota::NAME => $quotaContributeurs,
             ])
         ;
@@ -109,6 +88,7 @@ final class RdiLicenseContext extends RawMinkContext
         $license = new License();
 
         $license
+            ->setProductKey(PremiumProduct::PRODUCT_KEY)
             ->setName('Unlimited license for dev or test, yes, but expired')
             ->setSociete($societe)
             ->setExpirationDate((new DateTime())->modify('-6 months'))

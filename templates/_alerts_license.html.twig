@@ -1,0 +1,17 @@
+{% set hasTryLicense = hasTryLicense(userContext.societeUser.societe) %}
+{% set hasNotActiveLicense = not hasActiveLicense(userContext.societeUser.societe) or hasQuotaOverflow(userContext.societeUser.societe) %}
+
+{% if hasTryLicense or hasNotActiveLicense %}
+<section id="alerts-license">
+    {% if hasTryLicense %}
+        <div class="alert-license">
+            <i class="fa fa-warning text-warning" aria-hidden="true"></i> Vous utilisez une offre d'essai de RDI-Manager.
+        </div>
+    {% endif %}
+    {% if hasNotActiveLicense %}
+        <div class="alert-license">
+            <i class="fa fa-warning text-warning" aria-hidden="true"></i> Votre société n'a pas de licence active, ou les quotas sont dépassés.
+        </div>
+    {% endif %}
+</section>
+{% endif %}

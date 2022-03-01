@@ -8,6 +8,10 @@ use DateTime;
 
 class License implements HasSocieteInterface
 {
+    private string $productKey;
+
+    private bool $isTryLicense;
+
     private string $name;
 
     private ?string $description;
@@ -20,8 +24,33 @@ class License implements HasSocieteInterface
 
     public function __construct()
     {
+        $this->isTryLicense = false;
         $this->description = null;
         $this->quotas = [];
+    }
+
+    public function getIsTryLicense(): bool
+    {
+        return $this->isTryLicense;
+    }
+
+    public function setIsTryLicense(bool $isTryLicense): self
+    {
+        $this->isTryLicense = $isTryLicense;
+
+        return $this;
+    }
+
+    public function getProductKey(): string
+    {
+        return $this->productKey;
+    }
+
+    public function setProductKey(string $productKey): self
+    {
+        $this->productKey = $productKey;
+
+        return $this;
     }
 
     public function getName(): string

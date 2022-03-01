@@ -19,6 +19,9 @@ STATISTIQUES: Statistiques
 STARTER: Starter
 STANDARD: Standard
 PREMIUM: Premium
+try_offer: Offre d'essai
+yes: Oui
+no: Non
 product_privilege_no_dispo: 'Indisponible avec votre license'
 FAIT_MARQUANT_DESCRIPTION_SIZE: Taille de la description des faits marquants
 FAIT_MARQUANT_DATE: Date des faits marquants

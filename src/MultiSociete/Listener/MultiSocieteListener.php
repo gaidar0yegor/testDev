@@ -28,12 +28,10 @@ class MultiSocieteListener implements EventSubscriberInterface {
     }
 
     public function onLogin(InteractiveLoginEvent $event)
-    { 
-        $user = $event->getAuthenticationToken()->getUser();
-
+    {
         if (count($this->userContext->getUser()->getSocieteUsers()) > 1)
         {
-            $this->userContext->disconnectSociete($user);
+            $this->userContext->disconnectSociete();
             $this->em->flush();
         }
     }

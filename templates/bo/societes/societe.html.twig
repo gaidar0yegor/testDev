@@ -81,15 +81,7 @@
 
     {% include 'bo/societes/_form-add-admin.html.twig' %}
 
-    <h3>Packs de fonctionnalités</h3>
-
-    {% include 'bo/societes/_form-choose-product.html.twig' %}
-
-    <h3>Notifications d'onboarding</h3>
-
-    {% include 'bo/societes/_form-onboarding-notification-every.html.twig' %}
-
-    <h3>Licenses</h3>
+    <h3>Licences</h3>
 
     {% include 'licenses/_societe-quotas.html.twig' %}
 
@@ -98,9 +90,10 @@
         'downloadRoute': 'app_bo_license_download',
     } %}
 
-    <a
-            href="{{ path('app_bo_societe_generate_license', {'id': societe.id}) }}"
-            class="btn btn-outline-primary"
-    >Générer une license</a>
+    {% include 'bo/societes/_form-choose-product.html.twig' %}
+
+    <h3>Notifications d'onboarding</h3>
+
+    {% include 'bo/societes/_form-onboarding-notification-every.html.twig' %}
 
 {% endblock %}
