@@ -5,12 +5,19 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+
+
+
+
+
+## [0.42.2] - 2022-03-01
+### Ajouté
+- Une licence par société
+- Possibilité de générer une licence d'essai
 ### Modifié
-- Les fichier prennent la date de leur fait marquant
-- Responsibe de la page projet
-
-
-
+- Les fichiers prennent la date de leur fait marquant
+- Responsive de la page projet
 
 ## [0.42.1] - 2022-02-22
 ### Ajouté
