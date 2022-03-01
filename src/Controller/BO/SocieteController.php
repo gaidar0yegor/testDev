@@ -8,7 +8,9 @@ use App\Entity\SocieteUser;
 use App\Form\InitSocieteType;
 use App\Form\OnboardingNotificationEveryType;
 use App\Form\UserEmailType;
-use App\License\Factory\OffreStarterLicenseFactory;
+use App\License\Factory\PremiumLicenseFactory;
+use App\License\Factory\StandardLicenseFactory;
+use App\License\Factory\StarterLicenseFactory;
 use App\License\LicenseService;
 use App\LicenseGeneration\Exception\EncryptionKeysException;
 use App\LicenseGeneration\Form\GenerateLicenseType;
@@ -17,7 +19,10 @@ use App\Repository\SocieteRepository;
 use App\Security\Role\RoleSociete;
 use App\File\FileResponseFactory;
 use App\Service\Invitator;
+use App\SocieteProduct\Product\PremiumProduct;
 use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\Product\StandardProduct;
+use App\SocieteProduct\Product\StarterProduct;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,48 +102,39 @@ class SocieteController extends AbstractController
         ]);
     }
 
-
     /**
-     * @Route(
-     *     "/societes/product-packs/{id}/{product}",
-     *     name="app_bo_societe_product_packs_switch",
+     * @Route("/societes/{id}/generer-license/{product}",
+     *     name="app_bo_societe_generate_license",
      *     requirements={"id"="\d+", "product": "^STARTER|STANDARD|PREMIUM$"},
      *     )
-     */
-    public function societeProductPacks(
-        Societe $societe,
-        string $product,
-        EntityManagerInterface $em,
-        ProductPrivileges $productPrivileges
-    ): Response {
-        $products = $productPrivileges->getAllProducts();
-
-        if (key_exists($product,$products)){
-            $societe->setProductKey($product);
-            $em->persist($societe);
-            $em->flush();
-
-            $this->addFlash('success', "Le pack de fonctionnalités a été mis à jour avec succès.");
-        } else {
-            $this->addFlash('danger', "Une erreur est survenue !!");
-        }
-
-        return $this->redirectToRoute('app_bo_societe', [
-            'id' => $societe->getId(),
-        ]);
-    }
-
-    /**
-     * @Route("/societes/{id}/generer-license", name="app_bo_societe_generate_license", requirements={"id"="\d+"})
      */
     public function societeGenerateLicense(
         Request $request,
         Societe $societe,
+        string $product,
         LicenseGeneration $licenseGeneration,
-        OffreStarterLicenseFactory $licenseFactory,
+        StarterLicenseFactory $starterLicenseFactory,
+        StandardLicenseFactory $standardLicenseFactory,
+        PremiumLicenseFactory $premiumLicenseFactory,
         LicenseService $licenseService
     ) {
-        $license = $licenseFactory->createLicense($societe);
+        switch ($product){
+            case StarterProduct::PRODUCT_KEY:
+                $license = $starterLicenseFactory->createLicense($societe);
+                break;
+            case StandardProduct::PRODUCT_KEY:
+                $license = $standardLicenseFactory->createLicense($societe);
+                break;
+            case PremiumProduct::PRODUCT_KEY:
+                $license = $premiumLicenseFactory->createLicense($societe);
+                break;
+            default:
+                throw new HttpException(
+                    Response::HTTP_NOT_IMPLEMENTED,
+                    'La génération de licenses semble ne pas être configurée.'
+                );
+        }
+
         $form = $this->createForm(GenerateLicenseType::class, $license);
 
         $form->handleRequest($request);
@@ -168,6 +164,7 @@ class SocieteController extends AbstractController
         return $this->render('bo/societes/generate-license.html.twig', [
             'form' => $form->createView(),
             'societe' => $societe,
+            'license' => $license,
         ]);
     }
 

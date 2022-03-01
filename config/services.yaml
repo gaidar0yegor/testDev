@@ -226,26 +226,26 @@ services:
     App\LicenseGeneration\Command\GenerateLicensesCommand:
         autoconfigure: false
 
-    app.license_generation.command.generate_license.offre_starter:
+    app.license_generation.command.generate_license.starter:
         class: App\LicenseGeneration\Command\GenerateLicensesCommand
         arguments:
-            $licenseFactory: '@App\License\Factory\OffreStarterLicenseFactory'
+            $licenseFactory: '@App\License\Factory\StarterLicenseFactory'
         tags:
-            - { name: console.command, command: app:license-generation:generate:starter-offer }
+            - { name: console.command, command: app:license-generation:generate:starter-license }
 
-    app.license_generation.command.generate_license.try_offer:
+    app.license_generation.command.generate_license.standard:
         class: App\LicenseGeneration\Command\GenerateLicensesCommand
         arguments:
-            $licenseFactory: '@App\License\Factory\TryOfferLicenseFactory'
+            $licenseFactory: '@App\License\Factory\StandardLicenseFactory'
         tags:
-            - { name: console.command, command: app:license-generation:generate:try-offer }
+            - { name: console.command, command: app:license-generation:generate:standard-license }
 
-    app.license_generation.command.generate_license.unlimited:
+    app.license_generation.command.generate_license.premium:
         class: App\LicenseGeneration\Command\GenerateLicensesCommand
         arguments:
-            $licenseFactory: '@App\License\Factory\UnlimitedLicenseFactory'
+            $licenseFactory: '@App\License\Factory\PremiumLicenseFactory'
         tags:
-            - { name: console.command, command: app:license-generation:generate:unlimited }
+            - { name: console.command, command: app:license-generation:generate:premium-license }
 
     App\LicenseGeneration\Command\GeneratePrivateKeyCommand:
         $privateKeyFile: '%env(resolve:LICENSE_GENERATION_PRIVATE_KEY)%'

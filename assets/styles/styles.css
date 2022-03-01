@@ -544,3 +544,19 @@ select.select-2 {
 .select2-container--default .select2-selection {
   border: 1px solid #ced4da !important;
 }
+
+/* alerts-license */
+
+#alerts-license{
+  position: fixed;
+  bottom: 3.6rem;
+  right: 1rem;
+  background-color: gainsboro;
+  opacity: 0.5;
+  z-index: 9999;
+  width: 16rem;
+  padding: 10px;
+  cursor: help;
+  text-align: justify;
+  box-shadow: rgba(0, 0, 0, 1) 1.95px 1.95px 2.6px;
+}

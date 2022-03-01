@@ -10,6 +10,10 @@
 
         {% block body %}
         {% endblock %}
+
+        {% if userContext.hasSocieteUser %}
+            {% include '_alerts_license.html.twig' %}
+        {% endif %}
     </div>
 
     {% include('_footer.html.twig') %}

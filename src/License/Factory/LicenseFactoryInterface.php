@@ -13,4 +13,9 @@ interface LicenseFactoryInterface
      * The license instance can then be used to generate a license file.
      */
     public function createLicense(Societe $societe, DateTime $expirationDate = null): License;
+
+    /**
+     * Get Societe Product Name
+     */
+    public function getSocieteProductKey(): string ;
 }

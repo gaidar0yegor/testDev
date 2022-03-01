@@ -9,6 +9,9 @@ SOCIETE_ADMIN: Administrator
 STARTER: Starter
 STANDARD: Standard
 PREMIUM: Premium
+try_offer: Try offer
+yes: Yes
+no: No
 product_privilege_no_dispo: Not available with your license
 FAIT_MARQUANT_DESCRIPTION_SIZE: Remarkable fact's description size
 FAIT_MARQUANT_DATE: Date of remarkable fact

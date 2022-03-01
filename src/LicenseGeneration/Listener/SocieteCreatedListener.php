@@ -4,7 +4,7 @@ namespace App\LicenseGeneration\Listener;
 
 use App\Entity\Societe;
 use App\License\Factory\LicenseFactoryInterface;
-use App\License\Factory\TryOfferLicenseFactory;
+use App\License\Factory\TryStandardLicenseFactory;
 use App\License\LicenseService;
 use App\LicenseGeneration\Exception\EncryptionKeysException;
 use App\LicenseGeneration\LicenseGeneration;
@@ -20,20 +20,20 @@ class SocieteCreatedListener
 
     private LicenseGeneration $licenseGeneration;
 
-    private LicenseFactoryInterface $licenseFactory;
+    private TryStandardLicenseFactory $tryStandardLicenseFactory;
 
     private FlashBagInterface $flashBag;
 
     public function __construct(
         LicenseService $licenseService,
         LicenseGeneration $licenseGeneration,
-        FlashBagInterface $flashBag
+        FlashBagInterface $flashBag,
+        TryStandardLicenseFactory $tryStandardLicenseFactory
     ) {
         $this->licenseService = $licenseService;
         $this->licenseGeneration = $licenseGeneration;
         $this->flashBag = $flashBag;
-
-        $this->licenseFactory = new TryOfferLicenseFactory();
+        $this->tryStandardLicenseFactory = $tryStandardLicenseFactory;
     }
 
     /**
@@ -47,11 +47,17 @@ class SocieteCreatedListener
     public function postPersist(Societe $societe, LifecycleEventArgs $args): void
     {
         try {
-            $license = $this->licenseFactory->createLicense($societe);
+            $license = $this->tryStandardLicenseFactory->createLicense($societe);
 
             $licenseContent = $this->licenseGeneration->generateLicenseFile($license);
 
             $this->licenseService->storeLicense($licenseContent);
+
+            if ($this->tryStandardLicenseFactory instanceof TryStandardLicenseFactory){
+                $societe->setProductKey($license->getProductKey());
+                $args->getEntityManager()->persist($societe);
+                $args->getEntityManager()->flush();
+            }
         } catch (EncryptionKeysException $e) {
             $this->flashBag->add('danger', 'Impossible de générer une license gratuite par défaut.');
         }

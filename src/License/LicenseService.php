@@ -48,6 +48,7 @@ class LicenseService
         $societeUuid = $license->getSociete()->getUuid();
         $fileUniqueName = $license->getExpirationDate()->format('Ymd').'-'.dechex(rand(0x100000, 0xFFFFFF));
 
+        $this->removeAllLicenses($license->getSociete());
         $this->licensesStorage->write("$societeUuid/rdi-manager-license-$fileUniqueName.txt", $licenseContent);
     }
 
@@ -112,6 +113,20 @@ class LicenseService
 
             return $scoreB - $scoreA;
         });
+    }
+
+    /*
+     * check if the license is for try offer or not
+     */
+    public function checkHasTryLicense(Societe $societe): bool
+    {
+        $licenses = $this->retrieveAllLicenses($societe);
+        $isTryLicense = false;
+        foreach ($licenses as $license) {
+            $isTryLicense = $license->getIsTryLicense();
+        }
+
+        return $isTryLicense;
     }
 
     public function calculateSocieteMaxQuota(Societe $societe, string $quotaName): int

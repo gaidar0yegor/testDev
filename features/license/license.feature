@@ -11,8 +11,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
     Scenario: Je peux créer un nouveau projet tant que je ne dépasse pas mon quota
         Given societe "Société" reset licenses
-        And societe "Société" has a license with "2" projets
-        And societe "Société" has a license with "10" contributeurs
+        And societe "Société" has a license with "2" projets and "10" contributeurs
 
         And I am on "/projets"
         When I follow "Créer un projet"
@@ -25,8 +24,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
     Scenario: Je ne peux pas créer de nouveau projet si ca dépasse mon quota
         Given societe "Société" reset licenses
-        And societe "Société" has a license with "1" projets
-        And societe "Société" has a license with "10" contributeurs
+        And societe "Société" has a license with "1" projets and "10" contributeurs
 
         When I am on "/projets"
         And I follow "Créer un projet"
@@ -40,8 +38,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
     Scenario: Je ne peux pas ajouter de contributeur si ca dépasse mon quota de contributeurs
         Given societe "Société" reset licenses
-        And societe "Société" has a license with "1" projets
-        And societe "Société" has a license with "1" contributeurs
+        And societe "Société" has a license with "1" projets and "1" contributeurs
 
         When I go to "/projets"
         And I follow "PTEST"
@@ -53,8 +50,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
     Scenario: Je peux ajouter un fait marquant si mes licenses sont valides
         Given societe "Société" reset licenses
-        And societe "Société" has a license with "1" projets
-        And societe "Société" has a license with "1" contributeurs
+        And societe "Société" has a license with "1" projets and "1" contributeurs
 
         When I go to "/projets"
         And I follow "PTEST"

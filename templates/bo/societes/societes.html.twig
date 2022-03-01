@@ -12,7 +12,7 @@
             <th>Administrateurs</th>
             <th>Utilisateurs</th>
             <th>Projets</th>
-            <th></th>
+            <th>Licence</th>
         </tr>
     </thead>
     <tbody>
@@ -24,12 +24,19 @@
                 <td>{{ societe.societeUsers|length }}</td>
                 <td>{{ societe.projets|length }}</td>
                 <td>
-                    {% if not hasActiveLicense(societe) or hasQuotaOverflow(societe) %}
-                        <span class="text-warning" title="Cette société n'a pas de license active, ou les quotas sont dépassés.">
-                            <i class="fa fa-warning" aria-hidden="true"></i>
-                            License
-                        </span>
-                    {% endif %}
+                    <ul>
+                        <li>{{ societe.productKey|trans }}</li>
+                        {% if hasTryLicense(societe) %}
+                            <li>{{ "try_offer"|trans }}</li>
+                        {% endif %}
+                        {% if not hasActiveLicense(societe) or hasQuotaOverflow(societe) %}
+                        <li>
+                            <span class="text-warning" title="Cette société n'a pas de licence active, ou les quotas sont dépassés.">
+                                <i class="fa fa-warning" aria-hidden="true"></i> Licence
+                            </span>
+                        </li>
+                        {% endif %}
+                    </ul>
                 </td>
             </tr>
         {% endfor %}

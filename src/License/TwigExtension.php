@@ -36,6 +36,7 @@ class TwigExtension extends AbstractExtension
             new TwigFunction('isLicenseExpired', [$this, 'isLicenseExpired']),
             new TwigFunction('isLicenseSameSociete', [$this, 'isLicenseSameSociete']),
             new TwigFunction('hasActiveLicense', [$this, 'hasActiveLicense']),
+            new TwigFunction('hasTryLicense', [$this, 'hasTryLicense']),
             new TwigFunction('hasQuotaOverflow', [$this, 'hasQuotaOverflow']),
             new TwigFunction('usedQuotas', [$this, 'usedQuotas']),
         ];
@@ -54,6 +55,11 @@ class TwigExtension extends AbstractExtension
     public function hasActiveLicense(Societe $societe): bool
     {
         return count($this->licenseService->retrieveAllActiveLicenses($societe));
+    }
+
+    public function hasTryLicense(Societe $societe): bool
+    {
+        return $this->licenseService->checkHasTryLicense($societe);
     }
 
     public function hasQuotaOverflow(Societe $societe): bool
