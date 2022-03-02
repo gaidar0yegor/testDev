@@ -129,6 +129,22 @@ class LicenseService
         return $isTryLicense;
     }
 
+    /*
+     * check if the license is for try offer expired or not
+     */
+    public function checkHasTryLicenseExpired(Societe $societe): bool
+    {
+        $licenses = $this->retrieveAllLicenses($societe);
+        $isTryLicenseExpired = false;
+        foreach ($licenses as $license) {
+            if ($license->getIsTryLicense()){
+                $isTryLicenseExpired = $this->isExpired($license);
+            }
+        }
+
+        return $isTryLicenseExpired;
+    }
+
     public function calculateSocieteMaxQuota(Societe $societe, string $quotaName): int
     {
         $licenses = $this->retrieveAllActiveLicenses($societe);
