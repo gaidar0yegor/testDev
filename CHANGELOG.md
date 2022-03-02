@@ -11,6 +11,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.42.3] - 2022-03-02
+### Ajouté
+- Ajouter un Cron pour générer une licence Starter si l'offre d'essai est expirée
+
 ## [0.42.2] - 2022-03-01
 ### Ajouté
 - Une licence par société
