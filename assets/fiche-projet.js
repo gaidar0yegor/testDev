@@ -22,5 +22,17 @@ $(document).ready( function () {
             $('div.add-fait-marquant').prependTo('#fait_marquant_timeline_dt_filter');
         },
     });
+
+    $('#fait_marquant_timeline_dt').find('.fait-marquant-content').each((i, div) => {
+        if ($(div).height() > 200){
+            $(div).height(200);
+            $(div).find('.read-more').show();
+        }
+    });
+
+    $( '.read-more' ).click(function() {
+        $(this).parents('.fait-marquant-content').css('height','auto');
+        $(this).hide();
+    });
 });
 
