@@ -410,6 +410,7 @@ projectString: Project
 trashString: Trash can
 beenOf_FM: Trash can of Remarkable Fact
 list_files: Files list
+planning: Planning
 allString: All
 editFile: Edit a file
 go_back_go_files: Return to files list
@@ -501,8 +502,6 @@ deleted_by: Deleted by
 resume: Summary
 activity_project: Project activity
 add_new_project: Add a new project
-want_case_project: Do you want to manage project files in folders?
-want_ext_link_project: Do you want to add external project links?
 suspended_project: The project is suspended
 license_notRelated: This license is not linked to your company.
 add_contributors: Add Contributors

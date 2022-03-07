@@ -74,6 +74,7 @@ menu.time_tracking.time_spent: "Temps passés"
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: "Mon suivi de temps"
 menu.admin: Administration
+menu.mon_equipe: "Mon équipe"
 suspended: "Suspendu"
 upcoming: "À venir"
 ended: "Terminé"
@@ -416,6 +417,7 @@ projectString: Projet
 beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille
 list_files: Liste des fichiers
+planning: Planification
 allString: Tous
 editFile: Modifier un fichier
 go_back_go_files: Retourner à la liste des fichiers
@@ -506,5 +508,3 @@ deleted_by: Supprimé par
 resume: Résumé
 activity_project: Activité du projet
 add_new_project: Ajouter un nouveau projet
-want_case_project: Voulez_vous gérer les fichiers du projet dans des dossier ?
-want_ext_link_project: Voulez-vous ajouter des liens externes du projet ?
