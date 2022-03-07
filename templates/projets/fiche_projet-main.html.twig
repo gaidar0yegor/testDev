@@ -59,10 +59,12 @@
                                     </a>
                                 </h4>
                                 <h3>{{ faitMarquant.titre }}</h3>
-                                <div class="event-content text-justify text-word-break">
+                                <div class="fait-marquant-content event-content text-justify text-word-break position-relative overflow-hidden">
                                     {{ faitMarquant.description|markdown|raw }}
+
+                                    <div class="read-more">{{ 'see_more'|trans }}</div>
                                 </div>
-                                <ul class="list-unstyled">
+                                <ul class="list-unstyled mt-3">
                                     {% for fichierProjet in faitMarquant.fichierProjets %}
                                         {% if isAccessibleFichierProjet(fichierProjet) %}
                                             <li>
@@ -78,7 +80,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ul>
-                                <div class="text-right">
+                                <div class="text-right mt-3">
                                     <a
                                             href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
                                             class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
