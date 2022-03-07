@@ -74,7 +74,10 @@ menu.time_tracking.time_spent: "Temps passés"
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: "Mon suivi de temps"
 menu.admin: Administration
-menu.mon_equipe: "Mon équipe"
+suspended: "Suspendu"
+upcoming: "À venir"
+ended: "Terminé"
+in_progress: "En cours"
 create_project_requires_project_manager_role: "Vous devez avoir le rôle de chef de projet pour créer un nouveau projet."
 admin_requires_superior_role: 'Menu réservé aux chefs d''équipes.'
 admin_requires_admin_role: "Menu réservé à l'administrateur de votre société."

@@ -39,7 +39,7 @@
                     <td>{{ projet.chefDeProjet.user.fullName }}</td>
                     <td data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td>{{ projet.statut }}</td>
+                    <td>{{ projet.statut | trans }}</td>
                     <td  data-sort='{{ projet.activeProjetParticipants|length }}'>{{ projet.activeProjetParticipants|length }}<small> / {{ projet.projetParticipants|length }}</small></td>
                     <td>
                         <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">

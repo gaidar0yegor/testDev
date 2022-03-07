@@ -50,7 +50,7 @@
                     <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
                     <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center">{{ projet.statut }}</td>
+                    <td class="text-center">{{ projet.statut | trans }}</td>
                     <td class="text-center">{{ projet.projetParticipants|length }}</td>
                 </tr>
             {% endfor %}

@@ -47,7 +47,7 @@
                     <td class="text-left"><a href="{{ path('app_fo_mon_equipe_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
                     <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center">{{ projet.statut }}</td>
+                    <td class="text-center">{{ projet.statut | trans }}</td>
                 </tr>
             {% endfor %}
         </tbody>

@@ -360,18 +360,18 @@ class Projet implements HasSocieteInterface
         $now = new \DateTime();
 
         if ($this->isSuspended) {
-            return 'Suspendu';
+            return 'suspended';
         }
 
         if (null !== $this->dateDebut && $now < $this->dateDebut) {
-            return 'À venir';
+            return 'upcoming';
         }
 
         if (null !== $this->dateFin && $now > $this->dateFin) {
-            return 'Terminé';
+            return 'ended';
         }
 
-        return 'En cours';
+        return 'in_progress';
     }
 
     /**
