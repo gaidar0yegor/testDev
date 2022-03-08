@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'planning'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'planning'|trans }} : {{ projet.acronyme }}</h1>
+
+    <a class="d-block mb-4" href="{{ path('app_fo_projet', {id: projet.id}) }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        {{ 'go_back_go_project'|trans }}
+    </a>
+
+    {% if projet.projetPlanning %}
+
+        <p class="mb-1">
+            <i class="fa fa-plus-square" aria-hidden="true"></i>
+            Date de création : {{ projet.projetPlanning.createdAt|format_datetime }}
+        </p>
+        {% if projet.projetPlanning.updatedAt %}
+            <p>
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+                Date de la dernière mise à jour : {{ projet.projetPlanning.updatedAt|format_datetime }}
+            </p>
+        {% endif %}
+
+    {% endif %}
+
+    <div id="project_planning_content" data-project-id="{{ projet.id }}"></div>
+
+{% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('projet-gantt') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('projet-gantt') }}
+    {% endblock %}

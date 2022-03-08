@@ -230,6 +230,18 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * @Route("/{id}/planning", name="app_fo_projet_planning", requirements={"id"="\d+"})
+     */
+    public function projetPlanning(Projet $projet)
+    {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        return $this->render('projets/planning.html.twig', [
+            'projet' => $projet,
+        ]);
+    }
+
+    /**
      * @Route("/{id}/activite", name="app_fo_projet_activity", requirements={"id"="\d+"})
      */
     public function projetActivity(Projet $projet, ProjetActivityRepository $projetActivityRepository)

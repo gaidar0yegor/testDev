@@ -1,0 +1,208 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\ProjetPlanningTaskRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation as Serializer;
+
+/**
+ * @ORM\Entity(repositoryClass=ProjetPlanningTaskRepository::class)
+ */
+class ProjetPlanningTask
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProjetPlanning::class, inversedBy="projetPlanningTasks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $projetPlanning;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $text;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $startDate;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $duration;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $progress;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ProjetPlanningTask::class, inversedBy="children")
+     */
+    private $parentTask;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetPlanningTask::class, mappedBy="parentTask")
+     */
+    private $children;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FaitMarquant::class, mappedBy="projetPlanningTask")
+     */
+    private $faitMarquants;
+
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+        $this->duration = 1;
+        $this->progress = 0;
+        $this->faitMarquants = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getProjetPlanning(): ?ProjetPlanning
+    {
+        return $this->projetPlanning;
+    }
+
+    public function setProjetPlanning(?ProjetPlanning $projetPlanning): self
+    {
+        $this->projetPlanning = $projetPlanning;
+
+        return $this;
+    }
+
+    public function getText(): ?string
+    {
+        return $this->text;
+    }
+
+    public function setText(string $text): self
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    public function getStartDate(): ?\DateTimeInterface
+    {
+        return $this->startDate;
+    }
+
+    public function setStartDate(\DateTimeInterface $startDate): self
+    {
+        $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): self
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getProgress(): ?float
+    {
+        return $this->progress;
+    }
+
+    public function setProgress(float $progress): self
+    {
+        $this->progress = $progress;
+
+        return $this;
+    }
+
+    public function getParentTask(): ?self
+    {
+        return $this->parentTask;
+    }
+
+    public function setParentTask(?self $parentTask): self
+    {
+        $this->parentTask = $parentTask;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getChildren(): Collection
+    {
+        return $this->children;
+    }
+
+    public function addChild(self $child): self
+    {
+        if (!$this->children->contains($child)) {
+            $this->children[] = $child;
+            $child->setParentTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChild(self $child): self
+    {
+        if ($this->children->removeElement($child)) {
+            // set the owning side to null (unless already changed)
+            if ($child->getParentTask() === $this) {
+                $child->setParentTask(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FaitMarquant[]
+     */
+    public function getFaitMarquants(): Collection
+    {
+        return $this->faitMarquants;
+    }
+
+    public function addFaitMarquant(FaitMarquant $faitMarquant): self
+    {
+        if (!$this->faitMarquants->contains($faitMarquant)) {
+            $this->faitMarquants[] = $faitMarquant;
+            $faitMarquant->setProjetPlanningTask($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFaitMarquant(FaitMarquant $faitMarquant): self
+    {
+        if ($this->faitMarquants->removeElement($faitMarquant)) {
+            // set the owning side to null (unless already changed)
+            if ($faitMarquant->getProjetPlanningTask() === $this) {
+                $faitMarquant->setProjetPlanningTask(null);
+            }
+        }
+
+        return $this;
+    }
+}

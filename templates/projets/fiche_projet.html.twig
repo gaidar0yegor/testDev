@@ -40,16 +40,16 @@
                 href="{{ path('app_fo_projet_modifier', {'id': projet.id}) }}"
                 class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
                 {% if not userCanEditProjet %}
-                    title="Seul le chef de projet peut modifier"
+                    title="Seul le chef de projet peut accéder"
                 {% else %}
-                    title="Modifier les informations du projet"
+                    title="Paramétrage du projet"
                 {% endif %}
             ><i class="fa fa-cog"></i></a>
             <a
-                href="{{ path('app_fo_projet_custom', {'id': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle"
-                title="Exporter le projet"
-            ><i class="fa fa-download"></i></a>
+                href="{{ path('app_fo_projet_planning', {'id': projet.id}) }}"
+                class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }}"
+                title="Planification du projet"
+            ><i class="fa fa-tasks"></i></a>
             <a
                 href="{{ path('app_fo_projet_activity', {'id': projet.id}) }}"
                 class="btn btn-outline-primary rounded-circle"
@@ -65,11 +65,12 @@
                 {% endif %}
             ><i class="fa fa-bar-chart"></i></a>
             <div class="dropdown">
-                <a href="javascript:;" class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}" id="dropdownOtherMenuButton" data-toggle="dropdown">
+                <a href="javascript:;" class="btn btn-outline-primary rounded-circle" id="dropdownOtherMenuButton" data-toggle="dropdown">
                     <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownOtherMenuButton">
-                    <a class="dropdown-item m-0" href="{{ path('app_fo_fait_marquant_trash', { 'id' : projet.id }) }}"><i class="fa fa-trash"></i> Corbeille des FM</a>
+                    <a class="dropdown-item m-0 " href="{{ path('app_fo_projet_custom', { 'id' : projet.id }) }}"><i class="fa fa-download"></i> Exporter le projet</a>
+                    <a class="dropdown-item m-0 {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}" href="{{ path('app_fo_fait_marquant_trash', { 'id' : projet.id }) }}"><i class="fa fa-trash"></i> {{ 'beenOf_FM'|trans }}</a>
                 </div>
             </div>
         </div>

@@ -158,6 +158,11 @@ class Projet implements HasSocieteInterface
      */
     private $annualRdiScores = [];
 
+    /**
+     * @ORM\OneToOne(targetEntity=ProjetPlanning::class, mappedBy="projet", cascade={"persist", "remove"})
+     */
+    private $projetPlanning;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -773,6 +778,23 @@ class Projet implements HasSocieteInterface
     public function setAnnualRdiScores(array $annualRdiScores): self
     {
         $this->annualRdiScores = $annualRdiScores;
+
+        return $this;
+    }
+
+    public function getProjetPlanning(): ?ProjetPlanning
+    {
+        return $this->projetPlanning;
+    }
+
+    public function setProjetPlanning(ProjetPlanning $projetPlanning): self
+    {
+        // set the owning side of the relation if necessary
+        if ($projetPlanning->getProjet() !== $this) {
+            $projetPlanning->setProjet($this);
+        }
+
+        $this->projetPlanning = $projetPlanning;
 
         return $this;
     }
