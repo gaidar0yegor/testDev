@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\HasSocieteInterface;
+use App\ProjetResourceInterface;
 use App\Repository\ProjetPlanningTaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +13,7 @@ use Symfony\Component\Serializer\Annotation as Serializer;
 /**
  * @ORM\Entity(repositoryClass=ProjetPlanningTaskRepository::class)
  */
-class ProjetPlanningTask
+class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
 {
     /**
      * @ORM\Id
@@ -204,5 +206,20 @@ class ProjetPlanningTask
         }
 
         return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->projetPlanning->getProjet()->getSociete();
+    }
+
+    public function getOwner(): SocieteUser
+    {
+        return $this->projetPlanning->getProjet()->getChefDeProjet();
+    }
+
+    public function getProjet(): Projet
+    {
+        return $this->projetPlanning->getProjet();
     }
 }

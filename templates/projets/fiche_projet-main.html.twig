@@ -48,14 +48,31 @@
                     <tr>
                         <td>
                             <li class="event" id="fait-marquant-{{ faitMarquant.id }}">
-                                <h4 data-date="{{ faitMarquant.date|format_date }}">
-                                    {{ faitMarquant.date|format_date }}
-                                    -
+                                <h4 class="d-flex flex-row justify-content-between align-items-center" data-date="{{ faitMarquant.date|format_date }}">
+                                    <span>
+                                        {{ faitMarquant.date|format_date }}
+                                        -
+                                        <a
+                                                href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                                        >
+                                            {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24, toExpend: true} %}
+                                            {{ faitMarquant.createdBy.user.fullname }}
+                                        </a>
+                                    </span>
                                     <a
-                                            href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                                            href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}" style="font-size: 1.2rem;"
+                                            class="{% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                                            {% if projet.isSuspended %}
+                                                disabled
+                                                title="Le projet est suspendu"
+                                            {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
+                                                disabled
+                                                title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
+                                            {% else %}
+                                                title="{{ "edit_btn"|trans }}"
+                                            {% endif %}
                                     >
-                                        {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24, toExpend: true} %}
-                                        {{ faitMarquant.createdBy.user.fullname }}
+                                        <i class="fa fa-pencil"></i>
                                     </a>
                                 </h4>
                                 <h3>{{ faitMarquant.titre }}</h3>
@@ -64,6 +81,13 @@
 
                                     <div class="read-more">{{ 'see_more'|trans }}</div>
                                 </div>
+                                {% if faitMarquant.projetPlanningTask %}
+                                <ul class="list-unstyled mt-3">
+                                    <li>
+                                        <i class="fa fa-tasks"></i> <a href="#"> {{ faitMarquant.projetPlanningTask.text }}</a>
+                                    </li>
+                                </ul>
+                                {% endif %}
                                 <ul class="list-unstyled mt-3">
                                     {% for fichierProjet in faitMarquant.fichierProjets %}
                                         {% if isAccessibleFichierProjet(fichierProjet) %}
@@ -80,22 +104,6 @@
                                         {% endif %}
                                     {% endfor %}
                                 </ul>
-                                <div class="text-right mt-3">
-                                    <a
-                                            href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}"
-                                            class="btn btn-sm btn-outline-primary {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
-                                            {% if projet.isSuspended %}
-                                                disabled
-                                                title="Le projet est suspendu"
-                                            {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
-                                                disabled
-                                                title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
-                                            {% endif %}
-                                    >
-                                        <i class="fa fa-pencil"></i>
-                                        {{ "edit_btn"|trans }}
-                                    </a>
-                                </div>
                             </li>
                         </td>
                     </tr>

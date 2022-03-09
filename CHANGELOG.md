@@ -7,7 +7,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - "Voir plus ..." pour les longs faits marquant
-
+- Ajouter planification du projet
+- Ajouter la possibilité de lier un fait marquant à un Lot de la planification
+### Modifié
+- L'emplacement du bouton "Modifier" d'un fait marquant
 
 
 

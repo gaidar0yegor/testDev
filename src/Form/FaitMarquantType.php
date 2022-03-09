@@ -3,12 +3,15 @@
 namespace App\Form;
 
 use App\Entity\FaitMarquant;
+use App\Entity\ProjetPlanningTask;
 use App\Form\Custom\DatePickerType;
 use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
+use App\Repository\ProjetPlanningTaskRepository;
 use App\SocieteProduct\Product\ProductPrivileges;
 use App\SocieteProduct\ProductPrivilegeCheker;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\PostSubmitEvent;
 use Symfony\Component\Form\Event\PreSubmitEvent;
@@ -86,6 +89,27 @@ class FaitMarquantType extends AbstractType
                 'constraints'=>[
                     new NotBlank(),
                 ]
+            ])
+            ->add('projetPlanningTask', EntityType::class, [
+                'label' => false,
+                'class' => ProjetPlanningTask::class,
+                'query_builder' => function (ProjetPlanningTaskRepository $repository) use ($builder) {
+                    $projet = $builder->getData()->getProjet();
+
+                    return $repository
+                        ->createQueryBuilder('ppt')
+                        ->join('ppt.projetPlanning', 'pp', 'WITH', 'ppt.projetPlanning = pp')
+                        ->where('pp.projet = :projet')
+                        ->andWhere('ppt.parentTask IS NULL')
+                        ->setParameter('projet', $projet)
+                        ;
+                },
+                'choice_label' => 'text',
+                'required' 	  => false,
+                'attr' => [
+                    'class' => 'select-2 form-control w-100',
+                    'data-placeholder' => 'Lier ce fait marquant à une tâche du planning',
+                ],
             ])
             ->add('fichierProjets', FichierProjetsType::class, [
                 'projet' => $builder->getData()->getProjet(),

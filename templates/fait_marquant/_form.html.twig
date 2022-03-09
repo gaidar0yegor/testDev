@@ -9,6 +9,9 @@
         {{ form_row(form.date) }}
     </div>
     <div class="col-md-12">
+        {{ form_row(form.projetPlanningTask) }}
+    </div>
+    <div class="col-md-12">
         {{ form_row(form.description) }}
         <span id="custom_ckeditor_max_char" class="d-none"
               data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}"
