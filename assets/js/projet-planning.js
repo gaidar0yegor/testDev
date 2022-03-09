@@ -25,7 +25,8 @@ $(() => {
         {name: "text", tree: true, width: 200, resize: true},
         {name: "start_date", width:80, align: "center", editor: {type: "date", map_to: "start_date"}, resize: true},
         {name: "duration", width:40, align: "center", editor: {type: "number", map_to: "duration", min:1}, resize: true},
-        {name: 'add', width: 44, min_width: 44, max_width: 44}
+        {name: "add", width: 44, min_width: 44, max_width: 44},
+        {name: "fait_marquants", align: "center",label:"FM(s)", width: 44, min_width: 44, max_width: 44, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-link"></i></a>` : '' } }
     ];
 
     gantt.config.scales = [

@@ -18,6 +18,16 @@
 <section id="timeline">
     <h2 class="facts">{{ 'FAITS_MARQUANTS'|trans }}</h2>
 
+    {% if projetPlanningTask is defined and projetPlanningTask %}
+        <div id="planning-task-content">
+            <p class="text">{{ projetPlanningTask.text|capitalize }}</p>
+            <div class="d-flex flex-row justify-content-between align-items-center font-italic">
+                <p>Commence le {{ projetPlanningTask.startDate|date('d/m/Y') }} pour {{ projetPlanningTask.duration }} jour(s)</p>
+                <a href="{{ path('app_fo_projet', {id: projet.id}) }}">Voir tous les faits marquant ...</a>
+            </div>
+        </div>
+    {% endif %}
+
     <ul class="timeline">
         <div class="add-fait-marquant">
             {% if userCanAddFaitMarquant %}
@@ -43,7 +53,7 @@
         <table id="fait_marquant_timeline_dt" class="table datatable custom-datatable text-word-break">
             <thead><tr><th>{{ 'FAITS_MARQUANTS'|trans }}</th></tr></thead>
             <tbody>
-            {% for faitMarquant in projet.faitMarquants %}
+            {% for faitMarquant in faitMarquants %}
                 {% if faitMarquant.trashedAt is null %}
                     <tr>
                         <td>
@@ -84,7 +94,7 @@
                                 {% if faitMarquant.projetPlanningTask %}
                                 <ul class="list-unstyled mt-3">
                                     <li>
-                                        <i class="fa fa-tasks"></i> <a href="#"> {{ faitMarquant.projetPlanningTask.text }}</a>
+                                        <i class="fa fa-tasks"></i> <a href="{{ path('app_fo_projet_fm_per_planning_task', { 'projetId' : projet.id, 'planningTaskId' : faitMarquant.projetPlanningTask.id }) }}"> {{ faitMarquant.projetPlanningTask.text }}</a>
                                     </li>
                                 </ul>
                                 {% endif %}

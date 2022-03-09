@@ -35,6 +35,37 @@
     border:1px solid #007BFF;
     box-shadow: 0 0 5px #719ECE;
 }
+#planning-task-content {
+    position:relative;
+    padding: 10px;
+}
+#planning-task-content:before, #planning-task-content:after, #planning-task-content>:first-child:before, #planning-task-content>:first-child:after {
+    position:absolute;
+    content:' ';
+    width:25px;
+    height: 25px;
+    border: #ce352c solid;
+}
+#planning-task-content:before {top:0;left:0;border-width: 3px 0 0 3px; border-top-left-radius: 10px 10px;}
+#planning-task-content:after {top:0;right:0;border-width: 3px 3px 0 0; border-top-right-radius: 10px 10px;}
+#planning-task-content>:first-child:before {bottom:0;right:0;border-width: 0 3px 3px 0; border-bottom-right-radius: 10px 10px;}
+#planning-task-content>:first-child:after {bottom:0;left:0;border-width: 0 0 3px 3px; border-bottom-left-radius: 10px 10px;}
+
+#planning-task-content * {
+    margin: 0;
+}
+
+#planning-task-content .text{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 5px 0 10px 0;
+}
+
+#planning-task-content *:not(.text) {
+    font-size: 0.9rem;
+}
+
 @media (max-width: 640px) {
     .add-fait-marquant p{
         padding-top: 0;

@@ -46,7 +46,7 @@
                 {% endif %}
             ><i class="fa fa-cog"></i></a>
             <a
-                href="{{ path('app_fo_projet_planning', {'id': projet.id}) }}"
+                href="{{ path('app_fo_projet_planning', {'projetId': projet.id}) }}"
                 class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }}"
                 title="Planification du projet"
             ><i class="fa fa-tasks"></i></a>

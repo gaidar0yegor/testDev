@@ -219,6 +219,7 @@ class ProjetController extends AbstractController
 
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
+            'faitMarquants' => $projet->getFaitMarquants(),
             'participation' => $participantService->getProjetParticipant($userContext->getSocieteUser(), $projet),
             'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
                 $projet->getActiveProjetParticipants(),
@@ -226,18 +227,6 @@ class ProjetController extends AbstractController
             ),
             'userCanEditProjet' => $this->isGranted('edit', $projet),
             'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/planning", name="app_fo_projet_planning", requirements={"id"="\d+"})
-     */
-    public function projetPlanning(Projet $projet)
-    {
-        $this->denyAccessUnlessGranted('edit', $projet);
-
-        return $this->render('projets/planning.html.twig', [
-            'projet' => $projet,
         ]);
     }
 
