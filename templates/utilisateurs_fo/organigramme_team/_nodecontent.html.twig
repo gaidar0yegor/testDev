@@ -1,0 +1,32 @@
+<div class="nodecontent">
+    <div class="avatar">
+        <div>
+            {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 70} %}
+        </div>
+    </div>
+    <div class="infos">
+        <p><strong>{{ societeUser.user.fullname }}</strong></p>
+        <span>{{ societeUser.user.email }}</span>
+        <span>{{ societeUser.role|trans }} <b>|</b> {{ societeUser.projetParticipants|length }} projets</span>
+
+        <div class="d-flex flex-row justify-content-end align-items-center mt-2">
+
+            {% if societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_ACTIVE') %}
+                <span class="badge badge-success p-1">{{ constant('App\\Entity\\SocieteUser::STATUT_ACTIVE')|trans }}</span>
+            {% elseif societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_DISABLED') %}
+                <span class="badge badge-warning p-1">{{ constant('App\\Entity\\SocieteUser::STATUT_DISABLED')|trans }}</span>
+            {% elseif societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_INVITATION') %}
+                <span class="badge badge-primary p-1">{{ constant('App\\Entity\\SocieteUser::STATUT_INVITATION')|trans }}</span>
+            {% else %}
+                <span class="badge badge-secondary p-1">{{ 'not_known'|trans }}</span>
+            {% endif %}
+
+            <a class="ml-2" href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
+                <i class="fa fa-eye"></i>
+            </a>
+            <a class="ml-2" href="{{ path('app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">
+                <i class="fa fa-edit"></i>
+            </a>
+        </div>
+    </div>
+</div>
