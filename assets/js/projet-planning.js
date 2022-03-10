@@ -13,6 +13,7 @@ $(() => {
     };
 
     const projectId = window['project_planning_content'].dataset.projectId;
+    const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
     gantt.i18n.setLocale(detectedLocale);
 
@@ -37,6 +38,7 @@ $(() => {
     gantt.plugins({
         tooltip: true
     });
+    gantt.config.readonly = readonly;
     gantt.config.xml_date = "%d/%m/%Y";
     gantt.config.autosize = true;
     gantt.config.scroll_size = 20;

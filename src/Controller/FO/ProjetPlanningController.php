@@ -32,10 +32,11 @@ class ProjetPlanningController extends AbstractController
      */
     public function show(Projet $projet)
     {
-        $this->denyAccessUnlessGranted('edit', $projet);
+        $this->denyAccessUnlessGranted('view', $projet);
 
         return $this->render('projets/planning.html.twig', [
             'projet' => $projet,
+            'userCanEditProjet' => $this->isGranted('edit', $projet),
         ]);
     }
 

@@ -25,7 +25,7 @@
 
     {% endif %}
 
-    <div id="project_planning_content" data-project-id="{{ projet.id }}"></div>
+    <div id="project_planning_content" data-project-id="{{ projet.id }}" data-can-edit="{{ userCanEditProjet ? 1 : 0 }}"></div>
 
 {% endblock %}
 
