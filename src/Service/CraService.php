@@ -241,7 +241,7 @@ class CraService
         $notValidMois = null;
         if ($firstPeriod instanceof SocieteUserPeriod && null !== $firstPeriod->getDateEntry()){
             $craValidMois = $this->craRepository->findValidMoisByUser($societeUser);
-            $month = $firstPeriod->getDateEntry()->getTimestamp();
+            $month = (new \DateTime(date('01-' . $firstPeriod->getDateEntry()->format('m-Y'))))->getTimestamp();
             $end = (new \DateTime(date('01-m-Y')))->getTimestamp();
 
             while($month < $end)
