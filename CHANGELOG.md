@@ -11,6 +11,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter la possibilité de lier un fait marquant à un Lot de la planification
 ### Modifié
 - L'emplacement du bouton "Modifier" d'un fait marquant
+### Réparé
+- Initialiser date d'entrée à la société lors de l'invitation d'un ADMIN
+
 
 
 

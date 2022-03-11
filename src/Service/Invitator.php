@@ -77,7 +77,11 @@ class Invitator
 
         $this->em->persist($societeUser);
 
-        $societeUser->addSocieteUserPeriod(SocieteUserPeriod::create(new \DateTime()));
+        $societeUserPeriod = SocieteUserPeriod::create(new \DateTime());
+
+        $this->em->persist($societeUserPeriod);
+
+        $societeUser->addSocieteUserPeriod($societeUserPeriod);
 
         $societeUser
             ->setSociete($societe)
