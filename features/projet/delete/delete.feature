@@ -12,7 +12,7 @@ Feature: Suppression d'un projet
     Scenario: Le chef de projet peut supprimer un projet de test, la vérification lui indique que rien ne sera supprimé.
         When I go to "/projets"
         And I follow "PEMPTY"
-        And I follow "Modifier les informations du projet"
+        And I follow "Paramétrage du projet"
         And I follow "Vérifier et supprimer le projet"
         Then I should see "Supprimer le projet PEMPTY"
         And I should see 4 ".alert-success" elements
@@ -29,7 +29,7 @@ Feature: Suppression d'un projet
     Scenario: Le chef de projet peut supprimer un projet bien rempli, la vérification lui indique toutes les données liées qui seront supprimées.
         When I go to "/projets"
         And I follow "PFULL"
-        And I follow "Modifier les informations du projet"
+        And I follow "Paramétrage du projet"
         And I follow "Vérifier et supprimer le projet"
         Then I should see "Supprimer le projet PFULL"
         And I should see 3 ".alert-danger" elements

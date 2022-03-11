@@ -219,6 +219,7 @@ class ProjetController extends AbstractController
 
         return $this->render('projets/fiche_projet.html.twig', [
             'projet' => $projet,
+            'faitMarquants' => $projet->getFaitMarquants(),
             'participation' => $participantService->getProjetParticipant($userContext->getSocieteUser(), $projet),
             'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
                 $projet->getActiveProjetParticipants(),

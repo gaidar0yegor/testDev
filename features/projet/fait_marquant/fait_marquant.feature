@@ -43,7 +43,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/projets/1"
 
-        When I click on the 1st ".timeline a:contains('Modifier')" element
+        When I click on the 1st ".timeline a.edit-fait-marquant" element
         Then I should see "Modifiez votre fait marquant" in the "h1" element
 
         When I fill in the following:
@@ -63,7 +63,7 @@ Feature: Gestion des faits marquants d'un projet
 
         Then I should see "Contenu du fait marquant déjà créé"
 
-        When I click on the 1st ".timeline a:contains('Modifier')" element
+        When I click on the 1st ".timeline a.edit-fait-marquant" element
         And I press "Supprimer"
         Then I should see "Le fait marquant \"Fait marquant déjà créé\" a été supprimé"
         But I should not see "Contenu du fait marquant déjà créé"
@@ -76,7 +76,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/projets/1"
 
-        When I click on the 1st ".timeline a:contains('Modifier')" element
+        When I click on the 1st ".timeline a.edit-fait-marquant" element
         Then I should not see "Modifiez votre fait marquant" in the "h1" element
 
     Scenario: Un chef de projet peut modifier les faits marquants des autres contributeurs
@@ -87,7 +87,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/projets/1"
 
-        When I click on the 1st ".timeline a:contains('Modifier')" element
+        When I click on the 1st ".timeline a.edit-fait-marquant" element
         Then I should see "Modifiez votre fait marquant" in the "h1" element
 
      Scenario: Un collaborateur peut voir les contributeur du projet
