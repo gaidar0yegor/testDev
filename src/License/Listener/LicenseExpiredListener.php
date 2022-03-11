@@ -5,6 +5,8 @@ namespace App\License\Listener;
 use App\Entity\Cra;
 use App\Entity\FaitMarquant;
 use App\Entity\FichierProjet;
+use App\Entity\ProjetPlanning;
+use App\Entity\ProjetPlanningTask;
 use App\Entity\TempsPasse;
 use App\HasSocieteInterface;
 use App\License\Exception\OverflowQuotasException;
@@ -53,6 +55,8 @@ class LicenseExpiredListener implements EventSubscriber
             FaitMarquant::class,
             FichierProjet::class,
             TempsPasse::class,
+            ProjetPlanning::class,
+            ProjetPlanningTask::class,
         ];
 
         if (!in_array(get_class($entity), $readOnlyEntities, true)) {

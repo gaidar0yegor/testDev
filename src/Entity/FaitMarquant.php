@@ -79,6 +79,11 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
      */
     private $sendedToEmails = [];
 
+    /**
+     * @ORM\ManyToOne(targetEntity=ProjetPlanningTask::class, inversedBy="faitMarquants")
+     */
+    private $projetPlanningTask;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -246,6 +251,18 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     public function setSendedToEmails(?array $sendedToEmails): self
     {
         $this->sendedToEmails = $sendedToEmails;
+
+        return $this;
+    }
+
+    public function getProjetPlanningTask(): ?ProjetPlanningTask
+    {
+        return $this->projetPlanningTask;
+    }
+
+    public function setProjetPlanningTask(?ProjetPlanningTask $projetPlanningTask): self
+    {
+        $this->projetPlanningTask = $projetPlanningTask;
 
         return $this;
     }
