@@ -64,7 +64,9 @@ class AdminStatsController extends AbstractController
         string $unit,
         UserContext $userContext
     ) {
-        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
+        if ($societeUser !== $userContext->getSocieteUser()){
+            $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
+        }
 
         $data = $this->statisticsService->getTempsUserParProjet($societeUser,$year,$unit);
 
