@@ -208,6 +208,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $teamMembers;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetPlanning::class, mappedBy="createdBy")
+     */
+    private $projetPlannings;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -223,6 +228,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->fichierProjets = new ArrayCollection();
         $this->dashboardConsolides = new ArrayCollection();
         $this->teamMembers = new ArrayCollection();
+        $this->projetPlannings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -727,6 +733,36 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
             // set the owning side to null (unless already changed)
             if ($teamMember->getMySuperior() === $this) {
                 $teamMember->setMySuperior(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetPlanning[]
+     */
+    public function getProjetPlannings(): Collection
+    {
+        return $this->projetPlannings;
+    }
+
+    public function addProjetPlanning(ProjetPlanning $projetPlanning): self
+    {
+        if (!$this->projetPlannings->contains($projetPlanning)) {
+            $this->projetPlannings[] = $projetPlanning;
+            $projetPlanning->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetPlanning(ProjetPlanning $projetPlanning): self
+    {
+        if ($this->projetPlannings->removeElement($projetPlanning)) {
+            // set the owning side to null (unless already changed)
+            if ($projetPlanning->getCreatedBy() === $this) {
+                $projetPlanning->setCreatedBy(null);
             }
         }
 
