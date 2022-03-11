@@ -61,12 +61,18 @@ class SocieteUserController extends AbstractController
     {
         $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $userContext->getSocieteUser());
 
-        $societeUsers = $this->isGranted(RoleSociete::ADMIN)
-            ? $societeUserRepository->findBySameSociete($userContext->getSocieteUser())
-            : $societeUserRepository->findTeamMembers($userContext->getSocieteUser());
+        $isTeamUsers = false;
+
+        if ($this->isGranted(RoleSociete::ADMIN)){
+            $societeUsers = $societeUserRepository->findBySameSociete($userContext->getSocieteUser());
+        } else {
+            $societeUsers = $societeUserRepository->findTeamMembers($userContext->getSocieteUser());
+            $isTeamUsers = true;
+        }
 
         return $this->render('utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
             'societeUsers' => $societeUsers,
+            'isTeamUsers' => $isTeamUsers
         ]);
     }
 

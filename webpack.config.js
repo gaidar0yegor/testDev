@@ -32,7 +32,9 @@ Encore
     .addEntry('back-office', './assets/back-office.js')
     .addEntry('foundation', './assets/foundation.js')
     .addEntry('fiche-projet', './assets/fiche-projet.js')
+    .addEntry('users-list', './assets/users-list.js')
     .addEntry('projet-gantt', './assets/projet-gantt.js')
+
 
     .addPlugin(new CopyPlugin({
         patterns: [

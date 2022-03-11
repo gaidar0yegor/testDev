@@ -59,8 +59,12 @@ $(document).ready( function () {
 
     $('.tab-filter-users')
         .on('click', '.nav-link', function () {
-        $('.tab-filter-users').find('.nav-link').removeClass('active');
-        $(this).addClass('active');
+            $('.tab-filter-users').find('.nav-link').removeClass('active');
+            $(this).addClass('active');
+        })
+        .on('click', '.nav-link:not(.organigramme-team)', function () {
+            $('#users_list_dt_wrapper').slideDown(500);
+            $('#users_list_organigramme').slideUp(500);
         })
         .on('click', '.enabled-users', function () {
             $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
