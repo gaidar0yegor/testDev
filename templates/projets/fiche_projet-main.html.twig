@@ -20,6 +20,7 @@
 
     {% if projetPlanningTask is defined and projetPlanningTask %}
         <div id="planning-task-content">
+            <p>Lot :</p>
             <p class="text">{{ projetPlanningTask.text|capitalize }}</p>
             <div class="d-flex flex-row justify-content-between align-items-center font-italic">
                 <p>Commence le {{ projetPlanningTask.startDate|date('d/m/Y') }} pour {{ projetPlanningTask.duration }} jour(s)</p>
@@ -69,21 +70,32 @@
                                             {{ faitMarquant.createdBy.user.fullname }}
                                         </a>
                                     </span>
-                                    <a
-                                            href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}" style="font-size: 1.2rem;"
-                                            class="edit-fait-marquant {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
-                                            {% if projet.isSuspended %}
-                                                disabled
-                                                title="Le projet est suspendu"
-                                            {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
-                                                disabled
-                                                title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
-                                            {% else %}
-                                                title="{{ "edit_btn"|trans }}"
-                                            {% endif %}
-                                    >
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
+                                    <div>
+                                        {% if faitMarquant.projetPlanningTask %}
+                                            <a
+                                                    href="{{ path('app_fo_projet_fm_per_planning_task', { 'projetId' : projet.id, 'planningTaskId' : faitMarquant.projetPlanningTask.id }) }}" style="font-size: 1.2rem;"
+                                                    title="{{ 'Lot associé : ' ~ faitMarquant.projetPlanningTask.text }}" class="mr-2"
+                                            >
+                                                <i class="fa fa-tasks"></i>
+                                            </a>
+                                        {% endif %}
+                                        <a
+                                                href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}" style="font-size: 1.2rem;"
+                                                class="edit-fait-marquant {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                                                {% if projet.isSuspended %}
+                                                    disabled
+                                                    title="Le projet est suspendu"
+                                                {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
+                                                    disabled
+                                                    title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
+                                                {% else %}
+                                                    title="{{ "edit_btn"|trans }}"
+                                                {% endif %}
+                                        >
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </div>
+
                                 </h4>
                                 <h3>{{ faitMarquant.titre }}</h3>
                                 <div class="fait-marquant-content event-content text-justify text-word-break position-relative overflow-hidden">
@@ -91,13 +103,6 @@
 
                                     <div class="read-more">{{ 'see_more'|trans }}</div>
                                 </div>
-                                {% if faitMarquant.projetPlanningTask %}
-                                <ul class="list-unstyled mt-3">
-                                    <li>
-                                        <i class="fa fa-tasks"></i> <a href="{{ path('app_fo_projet_fm_per_planning_task', { 'projetId' : projet.id, 'planningTaskId' : faitMarquant.projetPlanningTask.id }) }}"> {{ faitMarquant.projetPlanningTask.text }}</a>
-                                    </li>
-                                </ul>
-                                {% endif %}
                                 <ul class="list-unstyled mt-3">
                                     {% for fichierProjet in faitMarquant.fichierProjets %}
                                         {% if isAccessibleFichierProjet(fichierProjet) %}

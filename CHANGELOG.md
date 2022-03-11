@@ -10,6 +10,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Afficher les membres de mon équipe sous la forme d'un organigramme
 - Ajouter planification du projet
 - Ajouter la possibilité de lier un fait marquant à un Lot de la planification
+- Ajouter des activités lors de la mise à jour de la planification
 ### Modifié
 - L'emplacement du bouton "Modifier" d'un fait marquant
 ### Réparé

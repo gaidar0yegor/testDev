@@ -39,10 +39,16 @@ class ProjetPlanning implements ProjetResourceInterface, HasSocieteInterface
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetPlanningTask::class, mappedBy="projetPlanning", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ProjetPlanningTask::class, mappedBy="projetPlanning", orphanRemoval=true, cascade={"persist", "remove"})
      * @Serializer\Groups({"gantt"})
      */
     private $projetPlanningTasks;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="projetPlannings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $createdBy;
 
     public function __construct()
     {
@@ -128,5 +134,17 @@ class ProjetPlanning implements ProjetResourceInterface, HasSocieteInterface
     public function getOwner(): SocieteUser
     {
         return $this->projet->getChefDeProjet();
+    }
+
+    public function getCreatedBy(): ?SocieteUser
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?SocieteUser $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 }

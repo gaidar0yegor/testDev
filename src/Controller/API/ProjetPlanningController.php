@@ -5,6 +5,7 @@ namespace App\Controller\API;
 use App\Entity\Projet;
 use App\Entity\ProjetPlanning;
 use App\Entity\ProjetPlanningTask;
+use App\MultiSociete\UserContext;
 use DateTime;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,10 +20,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class ProjetPlanningController extends AbstractController
 {
     protected EntityManagerInterface $em;
+    protected UserContext $userContext;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, UserContext $userContext)
     {
         $this->em = $em;
+        $this->userContext = $userContext;
     }
 
     /**
@@ -66,9 +69,10 @@ class ProjetPlanningController extends AbstractController
             $planning = new ProjetPlanning();
             $planning->setProjet($projet);
             $planning->setCreatedAt(new DateTime());
+            $planning->setCreatedBy($this->userContext->getSocieteUser());
+        } else {
+            $planning->setUpdatedAt(new DateTime());
         }
-
-        $planning->setUpdatedAt(new DateTime());
 
         $projetPlanningTask = new ProjetPlanningTask();
         $projetPlanningTask->setText($request->request->get('text'));

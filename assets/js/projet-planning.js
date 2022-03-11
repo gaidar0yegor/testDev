@@ -38,6 +38,7 @@ $(() => {
     gantt.plugins({
         tooltip: true
     });
+    gantt.config.auto_scheduling = true;
     gantt.config.readonly = readonly;
     gantt.config.xml_date = "%d/%m/%Y";
     gantt.config.autosize = true;
