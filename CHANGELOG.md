@@ -7,7 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - "Voir plus ..." pour les longs faits marquant
-
+- Afficher les membres de mon équipe sous la forme d'un organigramme
 
 
 
