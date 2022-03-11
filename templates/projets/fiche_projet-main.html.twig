@@ -71,7 +71,7 @@
                                     </span>
                                     <a
                                             href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}" style="font-size: 1.2rem;"
-                                            class="{% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
+                                            class="edit-fait-marquant {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
                                             {% if projet.isSuspended %}
                                                 disabled
                                                 title="Le projet est suspendu"
