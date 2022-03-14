@@ -631,7 +631,7 @@ CKEDITOR.plugins.add('scayt', {
 		}
 
 		if(!editor.config.scayt_sLang) {
-			editor.config.scayt_sLang = 'en_US';
+			editor.config.scayt_sLang = 'fr_FR';
 		}
 
 		if(editor.config.scayt_maxSuggestions === undefined || typeof editor.config.scayt_maxSuggestions != 'number' || editor.config.scayt_maxSuggestions < 0) {

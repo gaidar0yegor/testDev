@@ -6,19 +6,18 @@ $(() => {
         return;
     }
 
-    var weekScaleTemplate = function(date){
-        var dateToStr = gantt.date.date_to_str("%d %M");
-        var endDate = gantt.date.add(gantt.date.add(date, 1, "week"), -1, "day");
-        return dateToStr(date) + " - " + dateToStr(endDate);
-    };
-
     const projectId = window['project_planning_content'].dataset.projectId;
     const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
     gantt.i18n.setLocale(detectedLocale);
 
     gantt.templates.grid_row_class = function( start, end, task ){
-        return task.$level === 0 ? "lot_task" : "";
+        switch (task.$level) {
+            case 0: return "lot_level";
+            case 1: return "task_level";
+            case 2: return "subtask_level";
+            default: return "";
+        }
     };
 
     gantt.config.columns = [
@@ -30,10 +29,20 @@ $(() => {
         {name: "fait_marquants", align: "center",label:"FM(s)", width: 44, min_width: 44, max_width: 44, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-link"></i></a>` : '' } }
     ];
 
+    var weekScaleTemplate = function(date){
+        var dateToStr = gantt.date.date_to_str("%d %M");
+        var endDate = gantt.date.add(gantt.date.add(date, 1, "week"), -1, "day");
+        return dateToStr(date) + " - " + dateToStr(endDate);
+    };
+
     gantt.config.scales = [
         {unit: "month", step: 1, format: "%F, %Y"},
         {unit: "week", step: 1, format: weekScaleTemplate},
     ];
+
+    gantt.attachEvent("onTaskCreated", function(task){
+        return gantt.calculateTaskLevel(task) <= 2;
+    });
 
     gantt.plugins({
         tooltip: true

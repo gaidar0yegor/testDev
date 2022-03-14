@@ -41,7 +41,7 @@ class FaitMarquantType extends AbstractType
         $sendedToEmailsChoices = [];
 
         foreach ($faitMarquant->getProjet()->getSociete()->getSocieteUsers() as $societeUser){
-            $sendedToEmailsChoices["{$societeUser->getUser()->getShortname()} ({$societeUser->getUser()->getEmail()})"] = $societeUser->getUser()->getEmail();
+            $sendedToEmailsChoices[$societeUser->getUser()->getFullname()] = $societeUser->getUser()->getEmail();
         }
         foreach ($faitMarquant->getProjet()->getProjetObservateurExternes() as $observateurExterne){
             $email = $observateurExterne->getUser() ? $observateurExterne->getUser()->getEmail() : $observateurExterne->getInvitationEmail();
@@ -135,7 +135,7 @@ class FaitMarquantType extends AbstractType
                 'required' 	  => false,
                 'attr' => [
                     'class' => 'select-2 form-control w-100',
-                    'data-placeholder' => 'Sélectionner des adresses e-mail ...',
+                    'data-placeholder' => 'Envoyer immédiatement par e-mail en interne',
                     'title' => !$hasPrivilegeFmSendMail ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
                 'disabled' => !$hasPrivilegeFmSendMail,
@@ -147,7 +147,7 @@ class FaitMarquantType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'class' => 'form-control w-100',
-                    'placeholder' => 'Ajouter des nouvelles adresses e-mail séparées par un point-virgule " ; "',
+                    'placeholder' => 'Partager par e-mail en externe',
                     'title' => !$hasPrivilegeFmSendMail ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
                 'disabled' => !$hasPrivilegeFmSendMail,
