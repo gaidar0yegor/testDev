@@ -576,3 +576,14 @@ select.select-2 {
   font-style: italic;
   box-shadow: 0px -8px 12px 0px rgba(255,255,255,0.91);
 }
+
+/*.input-group > .select2-container--default {*/
+/*  width: auto;*/
+/*  flex: 1 1 auto;*/
+/*}*/
+
+/*.input-group > .select2-container--default .select2-selection--single {*/
+/*  height: 100%;*/
+/*  line-height: inherit;*/
+/*  padding: 0.5rem 1rem;*/
+/*}*/
