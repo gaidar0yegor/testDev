@@ -14,6 +14,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - L'emplacement du bouton "Modifier" d'un fait marquant
 - Modifier la conception de la page d'ajout/modification Fait Marquant
+- Fixer la date d'entée à la société lors de l'invitation d'un administrateur à partir du Back-Office
 ### Réparé
 - Initialiser date d'entrée à la société lors de l'invitation d'un ADMIN
 
