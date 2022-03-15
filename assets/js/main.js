@@ -137,6 +137,7 @@ $('#projet_form_dossierFichierProjets').on('click', '.remove-row-btn', function 
 const $participants = $('#liste_projet_participants_projetParticipants');
 EmbedForm.init($participants, {
     $addButton: $('#btn-ajouter-participant'),
+    initSelect2: {},
 });
 $participants.on('click', '.embed-form-remove', function () {
     $(this).closest('.projet-participant-row').remove();
