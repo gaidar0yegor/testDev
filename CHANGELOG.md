@@ -6,6 +6,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+
+## [0.42.4] - 2022-03-15
+### Ajouté
 - "Voir plus ..." pour les longs faits marquant
 - Afficher les membres de mon équipe sous la forme d'un organigramme
 - Ajouter planification du projet
@@ -18,10 +26,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Fixer la date d'entée à la société lors de l'invitation d'un administrateur à partir du Back-Office
 ### Réparé
 - Initialiser date d'entrée à la société lors de l'invitation d'un ADMIN
-
-
-
-
 
 ## [0.42.3] - 2022-03-02
 ### Ajouté
