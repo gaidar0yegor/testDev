@@ -1,0 +1,36 @@
+<section id="custom-fixed-alerts">
+
+{% set hasTryLicense = hasTryLicense(userContext.societeUser.societe) %}
+{% set hasNotActiveLicense = not hasActiveLicense(userContext.societeUser.societe) or hasQuotaOverflow(userContext.societeUser.societe) %}
+
+{% if hasTryLicense or hasNotActiveLicense %}
+    {% if hasTryLicense %}
+        <div class="custom-alert">
+            <i class="fa fa-warning text-warning" aria-hidden="true"></i> Vous utilisez une offre d'essai de
+            RDI-Manager.
+        </div>
+    {% endif %}
+    {% if hasNotActiveLicense %}
+        <div class="custom-alert">
+            <i class="fa fa-warning text-warning" aria-hidden="true"></i> Votre société n'a pas de licence active,
+            ou les quotas sont dépassés.
+        </div>
+    {% endif %}
+{% endif %}
+
+{% if (userContext.societeUser.societeUserPeriods | length == 0) or
+    (userContext.societeUser.societeUserPeriods | length > 0 and userContext.societeUser.societeUserPeriods.first.dateEntry is null) %}
+
+    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
+        <div class="custom-alert">
+            <i class="fa fa-clock-o text-warning" aria-hidden="true"></i> <a href="{{ path('app_fo_utilisateur_modifier', { 'id': userContext.societeUser.id }) }}">Merci de saisir votre date d'entrée à la société.</a>
+        </div>
+    {% else %}
+        <div class="custom-alert">
+            <i class="fa fa-clock-o text-warning" aria-hidden="true"></i> Merci de contacter votre administrateur pour saisir votre date d'entrée à la société.
+        </div>
+    {% endif %}
+
+{% endif %}
+
+</section>

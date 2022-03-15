@@ -77,17 +77,11 @@ class Invitator
 
         $this->em->persist($societeUser);
 
-        $societeUserPeriod = SocieteUserPeriod::create(new \DateTime());
-
-        $this->em->persist($societeUserPeriod);
-
-        $societeUser->addSocieteUserPeriod($societeUserPeriod);
-
         $societeUser
             ->setSociete($societe)
             ->setRole($role)
             ->setInvitationToken($this->tokenGenerator->generateUrlToken())
-        ;
+            ->addSocieteUserPeriod(new SocieteUserPeriod());
 
         return $societeUser;
     }
