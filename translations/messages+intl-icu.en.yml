@@ -225,8 +225,8 @@ projet.titre: Descriptive title
 projet.acronyme: Acronymn
 user.role: Role
 user.heuresParJours: Hours worked per day
-societeUserPeriod.dateEntry: Date of entry
-societeUserPeriod.dateLeave: Date of exit
+societeUserPeriod.dateEntry: Date of entry into the company
+societeUserPeriod.dateLeave: Date of exit from the company
 default_value_used_in_timesheets.: Value by default, used to create timesheets.
 'Un email de recommandation a bien été envoyé à "{to}". Merci !':
   A recommendation

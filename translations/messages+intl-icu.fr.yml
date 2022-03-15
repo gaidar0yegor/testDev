@@ -335,8 +335,8 @@ projet.titre: "Titre descriptif"
 projet.acronyme: Acronyme
 user.role: Rôle
 user.heuresParJours: "Heures travaillées par jour"
-societeUserPeriod.dateEntry: Date d'entrée
-societeUserPeriod.dateLeave: Date de sortie
+societeUserPeriod.dateEntry: Date d'entrée à la société
+societeUserPeriod.dateLeave: Date de sortie de la société
 add_external_link: Ajouter un lien externe
 projet.projetUrls: "Urls externes du projet"
 projet.projetUrls.help: "Afficher des liens externes en relation avec ce projet."
