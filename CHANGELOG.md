@@ -11,6 +11,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter planification du projet
 - Ajouter la possibilité de lier un fait marquant à un Lot de la planification
 - Ajouter des activités lors de la mise à jour de la planification
+- Afficher une alerte s'il manque la date d'entrée à la société 
 ### Modifié
 - L'emplacement du bouton "Modifier" d'un fait marquant
 - Modifier la conception de la page d'ajout/modification Fait Marquant
