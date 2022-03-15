@@ -417,7 +417,7 @@ projectString: Projet
 beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille
 list_files: Liste des fichiers
-planning: Planification
+planning: "Planification du projet : { projectAcronyme }"
 allString: Tous
 editFile: Modifier un fichier
 go_back_go_files: Retourner à la liste des fichiers

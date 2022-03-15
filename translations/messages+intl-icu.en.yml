@@ -410,7 +410,7 @@ projectString: Project
 trashString: Trash can
 beenOf_FM: Trash can of Remarkable Fact
 list_files: Files list
-planning: Planning
+planning: "Planning of the project : { projectAcronyme }"
 allString: All
 editFile: Edit a file
 go_back_go_files: Return to files list
