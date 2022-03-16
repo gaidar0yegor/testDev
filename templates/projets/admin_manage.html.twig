@@ -13,18 +13,13 @@
             <small class="text-muted">{{ "SOCIETE_CDP"|trans }} : {{ projet.chefDeProjet|entityLink }}</small>
         </h1>
 
-        <a class="d-block mb-4 text-center not-printable" href="{{ path('app_fo_projet', {'id': projet.id}) }}">
-            {{ "go_on_project"|trans }}
+        <a class="d-block mb-4 not-printable" href="{{ path('app_fo_projet', {id: projet.id}) }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'go_back_go_project'|trans }}
         </a>
 
         <div class="row">
             <div class="col-lg-10 offset-lg-1">
-                <a class="d-block mb-4 not-printable" href="{{ path('app_fo_admin_projets') }}">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                    {{ "menu.projects.list"|trans }}
-                </a>
-
-
                 <div class="card-deck mb-4">
                     <div class="card rdi-card-icon text-center">
                         <i class="fa fa-users" aria-hidden="true"></i>

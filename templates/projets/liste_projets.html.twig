@@ -33,6 +33,7 @@
                 <th>{{ 'start'|trans }}</th>
                 <th>{{ 'end'|trans }}</th>
                 <th>{{ 'status'|trans }}</th>
+                <th>{{ 'last_activity'|trans }}</th>
                 <th>{{ 'participants'|trans }}</th>
             </tr>
         </thead>
@@ -51,6 +52,7 @@
                     <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td class="text-center">{{ projet.statut | trans }}</td>
+                    <td class="text-center">{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime | format_datetime : '' }}</td>
                     <td class="text-center">{{ projet.projetParticipants|length }}</td>
                 </tr>
             {% endfor %}

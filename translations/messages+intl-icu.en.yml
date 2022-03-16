@@ -100,6 +100,7 @@ start: Start
 end: End
 all: All
 status: Status
+last_activity: Last activity
 participants: Participants
 back_office: Back Office
 my_companies: My companies

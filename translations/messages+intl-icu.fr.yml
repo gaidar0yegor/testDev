@@ -114,6 +114,7 @@ start: Début
 end: Fin
 all: Tous
 status: Statut
+last_activity: Dernière activité
 participants: Participants
 back_office: "Back office"
 my_account: "Mon compte"
