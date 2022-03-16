@@ -41,11 +41,11 @@ class FaitMarquantType extends AbstractType
         $sendedToEmailsChoices = [];
 
         foreach ($faitMarquant->getProjet()->getSociete()->getSocieteUsers() as $societeUser){
-            $sendedToEmailsChoices[$societeUser->getUser()->getFullname()] = $societeUser->getUser()->getEmail();
+            $sendedToEmailsChoices[$societeUser->getUser()->getFullnameOrEmail()] = $societeUser->getUser()->getEmail();
         }
         foreach ($faitMarquant->getProjet()->getProjetObservateurExternes() as $observateurExterne){
             $email = $observateurExterne->getUser() ? $observateurExterne->getUser()->getEmail() : $observateurExterne->getInvitationEmail();
-            $sendedToEmailsChoices[($observateurExterne->getUser() ? "{$observateurExterne->getUser()->getShortname()} ({$email})" : $email)] = $email;
+            $sendedToEmailsChoices[$observateurExterne->getUser() ? $observateurExterne->getUser()->getFullnameOrEmail() : $email] = $email;
         }
 
         if ($faitMarquant->getSendedToEmails() && count($faitMarquant->getSendedToEmails())){
@@ -108,7 +108,7 @@ class FaitMarquantType extends AbstractType
                 'required' 	  => false,
                 'attr' => [
                     'class' => 'select-2 form-control w-100',
-                    'data-placeholder' => 'Lier ce fait marquant à une tâche du planning',
+                    'data-placeholder' => 'Lier ce fait marquant à un lot du planning',
                 ],
             ])
             ->add('fichierProjets', FichierProjetsType::class, [

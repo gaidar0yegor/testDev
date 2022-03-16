@@ -47,7 +47,7 @@
             ><i class="fa fa-cog"></i></a>
             <a
                 href="{{ path('app_fo_projet_planning', {'projetId': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }}"
+                class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
                 title="Planification du projet"
             ><i class="fa fa-tasks"></i></a>
             <a
@@ -85,8 +85,6 @@
         {% include 'projets/fiche_projet-sidebar.html.twig' %}
     </aside>
 </div>
-
-
 
 <div class="modal fade" id="observateursModal" tabindex="-1" aria-labelledby="observateursModalLabel" aria-hidden="true">
     <div class="modal-dialog">
