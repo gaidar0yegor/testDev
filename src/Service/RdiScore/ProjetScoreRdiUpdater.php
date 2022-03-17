@@ -14,12 +14,12 @@ use Psr\Log\NullLogger;
  */
 class ProjetScoreRdiUpdater
 {
-    private const COEF_GLOBAL = 0.5;
+    private const COEF_GLOBAL = 0.4;
     private const COEF_GLOBAL_TEXT = 0.5;
     private const COEF_GLOBAL_PPP = 0.35;
     private const COEF_GLOBAL_COLLABORATIF = 0.15;
 
-    private const COEF_FAIT_MARQUANT = 0.5;
+    private const COEF_FAIT_MARQUANT = 0.6;
     private const COEF_FAIT_MARQUANT_TEXT = 0.8;
     private const COEF_FAIT_MARQUANT_MEDIA = 0.2;
 

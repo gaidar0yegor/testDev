@@ -12,5 +12,8 @@
     "editions_updated": "Modification(s) registered",
     "project_heading": "Project {{project_name}}",
     "invalid_hours": "Total number of hours must not be more than {{max}} hours.",
-    "updating...": "Updating…"
+    "updating...": "Updating…",
+    "SOCIETE_ADMIN": "Administrator",
+    "SOCIETE_CDP": "Project Manager",
+    "SOCIETE_USER": "User"
 }

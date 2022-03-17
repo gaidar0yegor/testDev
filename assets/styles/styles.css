@@ -10,7 +10,7 @@ body {
   .container-md,
   .container-lg,
   .container-xl {
-    max-width: 1300px !important;
+    max-width: 80% !important;
   }
 }
 

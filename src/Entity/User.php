@@ -12,6 +12,7 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Représente un compte RDI-Manager d'un utilisateur.
@@ -55,6 +56,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=63, nullable=true)
      *
      * @Assert\NotBlank(groups={"registration"})
+     *
+     * @Groups("organigramme")
      */
     private $nom;
 
@@ -62,6 +65,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=63, nullable=true)
      *
      * @Assert\NotBlank(groups={"registration"})
+     *
+     * @Groups("organigramme")
      */
     private $prenom;
 
@@ -69,6 +74,8 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      *
      * @Assert\Email(mode="strict")
+     *
+     * @Groups("organigramme")
      */
     private $email;
 
@@ -169,6 +176,8 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToOne(targetEntity=Fichier::class, cascade={"persist", "remove"})
+     *
+     * @Groups("organigramme")
      */
     private $avatar;
 

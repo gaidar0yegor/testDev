@@ -12,5 +12,8 @@
     "save": "Enregistrer",
     "editions_updated": "Modification(s) enregistrée(s)",
     "invalid_hours": "Le total d'heures ne doit pas dépasser {{max}} heures.",
-    "project_heading": "Projet {{project_name}}"
+    "project_heading": "Projet {{project_name}}",
+    "SOCIETE_ADMIN": "Administrateur",
+    "SOCIETE_CDP": "Chef de Projet",
+    "SOCIETE_USER": "Utilisateur"
 }
