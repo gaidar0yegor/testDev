@@ -501,6 +501,7 @@ added_at: Added at
 deleted_at: Deleted at
 deleted_by: Deleted by
 resume: Summary
+domain: Domain
 activity_project: Project activity
 add_new_project: Add a new project
 suspended_project: The project is suspended
