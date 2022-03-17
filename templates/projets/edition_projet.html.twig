@@ -34,6 +34,17 @@
                     </div>
                 </div>
                 <div class="col-md-12">
+                    {{ form_label(form.rdiDomains) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.rdiDomains) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
                     {{ form_errors(form.resume) }}
                     {{ form_row(form.resume) }}
                     <span id="custom_ckeditor_max_char" class="d-none"
@@ -43,13 +54,29 @@
                 </div>
             </div>
 
-            <div class="mt-3 w-100">
-                {{ form_row(form.rdiDomains) }}
-            </div>
-
-            <div class="d-md-flex justify-content-between mt-3">
-                {{ form_row(form.dateDebut) }}
-                {{ form_row(form.dateFin) }}
+            <div class="d-md-flex justify-content-between mt-2">
+                <div>
+                    {{ form_label(form.dateDebut) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.dateDebut) }}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    {{ form_label(form.dateFin) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.dateFin) }}
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row mt-3">

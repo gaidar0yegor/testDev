@@ -55,7 +55,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-2"><strong>Résumé : </strong></div>
-                <div class="col-md-10 text-justify">{{ projet.resume|nl2br }}</div>
+                <div class="col-md-10 text-justify">{{ projet.resume|markdown|raw }}</div>
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -269,7 +269,7 @@
                 {% endif %}
             {% endfor %}
             <tr>
-                <td colspan="3" class="bg-secondary text-white text-right pr-5"><b>{{ count }} fichiers</b></td>
+                <td colspan="4" class="bg-secondary text-white text-right pr-5"><b>{{ count }} fichiers</b></td>
             </tr>
         </tbody>
     </table>
