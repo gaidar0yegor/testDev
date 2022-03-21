@@ -11,6 +11,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Améliorer l'algorithme IA du score RDI
 - Améliorer l'organigramme de l'équipe
+### Réparé
+- La visualisation des fichiers pour les nouvaux participants au projet
 
 
 
