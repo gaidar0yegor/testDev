@@ -6,6 +6,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [0.42.5] - 2022-03-21
+### Ajouté
 - Ajouter des options (zoom, exportation, ...) à la planification du projet
 - Nom et la date d'expiration de l'offre dans la page du multisociété
 ### Modifié
@@ -13,10 +20,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Améliorer l'organigramme de l'équipe
 ### Réparé
 - La visualisation des fichiers pour les nouvaux participants au projet
-
-
-
-
 
 ## [0.42.4] - 2022-03-15
 ### Ajouté
