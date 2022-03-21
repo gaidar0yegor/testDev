@@ -217,7 +217,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="mySuperior")
      *
      *
-     * @MaxDepth(2)
+     * @MaxDepth(1)
      * @Groups("organigramme")
      */
     private $teamMembers;
