@@ -71,9 +71,6 @@ CKEDITOR.dialog.add( 'scaytDialog', function( editor ) {
 	var dialogTabs = [{
 		id : 'options',
 		label : scayt_instance.getLocal('tab_options'),
-		onShow: function() {
-			// console.log("tab show");
-		},
 		elements : [
 			{
 				type: 'vbox',
