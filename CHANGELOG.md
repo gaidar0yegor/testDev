@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Ajouter des options (zoom, exportation, ...) à la planification du projet
+- Nom et la date d'expiration de l'offre dans la page du multisociété
 ### Modifié
 - Améliorer l'algorithme IA du score RDI
 - Améliorer l'organigramme de l'équipe
