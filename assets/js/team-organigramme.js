@@ -39,7 +39,7 @@ function pushRow(data, parent) {
         parent + ''
     ])
 
-    if (data.teamMembers.length > 0){
+    if (data.hasOwnProperty('teamMembers') && data.teamMembers.length > 0){
         $.each(data.teamMembers, function(i, obj) {
             pushRow(obj, data.id)
         });
