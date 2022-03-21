@@ -587,7 +587,18 @@ class Projet implements HasSocieteInterface
 
     public function isRdi(): bool
     {
-        return $this->projetPpp;
+        if($this->getAnnualRdiScores()){
+            if (count($this->getAnnualRdiScores()) === 1){
+                return
+                    isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y')]) &&
+                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y')] >= 0.5;
+            } elseif (count($this->getAnnualRdiScores()) > 1){
+                return
+                    isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1]) &&
+                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1] >= 0.5;
+            }
+        }
+        return false;
     }
 
     /**

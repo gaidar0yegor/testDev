@@ -86,6 +86,16 @@ class LicenseService
         });
     }
 
+    public function getLicenseExpirationDate(Societe $societe): DateTime
+    {
+        $expirationDate = null;
+        foreach ($this->retrieveAllLicenses($societe) as $license){
+            $expirationDate =  $license->getExpirationDate();
+        }
+
+        return $expirationDate;
+    }
+
     /**
      * Remove all licenses of a societe.
      */

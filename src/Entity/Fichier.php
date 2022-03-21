@@ -6,6 +6,7 @@ use App\Repository\FichierRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FichierRepository::class)
@@ -28,6 +29,8 @@ class Fichier implements Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Groups("organigramme")
      */
     private $nomMd5;
 

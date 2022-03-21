@@ -1,132 +1,43 @@
 #users_list_organigramme{
     display: none;
+    overflow-x: auto;
+    padding: 20px 0;
 }
 
-.tree, .tree * {
-    margin: 0;
-    padding: 0;
+#users_list_organigramme::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
 }
 
-.tree ul.has-one-child {
-    padding-top: 40px;
+#users_list_organigramme::-webkit-scrollbar
+{
+    height: 6px;
+    background-color: #F5F5F5;
 }
 
-.tree ul.has-multi-child {
-    padding-top: 20px;
+#users_list_organigramme::-webkit-scrollbar-thumb
+{
+    background-color: #ff9c69;
 }
 
-.tree ul {
-    position: relative;
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-}
-
-.tree li {
-    float: left;
-    text-align: center;
-    list-style-type: none;
-    position: relative;
-    padding: 20px 5px 0 5px;
-
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-}
-
-.tree li::before, .tree li::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 50%;
-    border-top: 1px solid #878787;
-    width: 50%;
-    height: 20px;
-}
-
-.tree li::after {
-    right: auto;
-    left: 50%;
-    border-left: 1px solid #878787;
-}
-
-.tree li:only-child::after, .tree li:only-child::before {
+.scrollbar-hidden::-webkit-scrollbar {
     display: none;
 }
 
-.tree li:only-child {
-    padding-top: 0;
-    float: none !important;
+#users_list_organigramme .google-visualization-orgchart-node{
+    min-width: 150px;
+    background: unset;
 }
 
-.tree li:first-child::before, .tree li:last-child::after {
-    border: 0 none;
+#users_list_organigramme .google-visualization-orgchart-lineleft {
+    border-left: 1px solid #dd3333;
 }
 
-.tree li:last-child::before {
-    border-right: 1px solid #878787;
-    border-radius: 0 5px 0 0;
-    -webkit-border-radius: 0 5px 0 0;
-    -moz-border-radius: 0 5px 0 0;
+#users_list_organigramme .google-visualization-orgchart-lineright {
+    border-right: 1px solid #dd3333;
 }
 
-.tree li:first-child::after {
-    border-radius: 5px 0 0 0;
-    -webkit-border-radius: 5px 0 0 0;
-    -moz-border-radius: 5px 0 0 0;
-}
-
-.tree ul ul.has-one-child::before {
-    height: 40px;
-}
-
-.tree ul ul.has-multi-child::before {
-    height: 20px;
-}
-
-.tree ul ul::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    border-left: 1px solid #878787;
-    width: 0;
-}
-
-.tree li .nodecontent {
-    display: inline-block;
-    padding: 10px;
-    border-radius: 10px;
-    color: #0a0a0a;
-    border: 1px solid #878787;
-
-    text-decoration: none;
-
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-
-    transition: all 0.5s;
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-}
-
-.tree li .nodecontent > div {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.tree li .nodecontent .avatar > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.tree li .nodecontent .infos {
-    text-align: left;
-    margin-left: 10px;
-}
-
-.tree li .nodecontent .infos > * {
-    display: block;
+#users_list_organigramme .google-visualization-orgchart-linebottom {
+    border-bottom: 1px solid #dd3333;
 }

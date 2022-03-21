@@ -44,7 +44,8 @@ class RdiKeywordsGeneratorFromAPI
                 $keywords[$word] = $results[$key + 1];
             }
         }
-        arsort($keywords);
+
+        return array_keys($keywords);
 
         $cumul = 0;
         $keywords1 = [];

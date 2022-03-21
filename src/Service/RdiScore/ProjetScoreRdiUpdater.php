@@ -14,24 +14,20 @@ use Psr\Log\NullLogger;
  */
 class ProjetScoreRdiUpdater
 {
-    private const COEF_GLOBAL = 0.5;
+    private const COEF_GLOBAL = 0.4;
     private const COEF_GLOBAL_TEXT = 0.5;
     private const COEF_GLOBAL_PPP = 0.35;
     private const COEF_GLOBAL_COLLABORATIF = 0.15;
 
-    private const COEF_FAIT_MARQUANT = 0.5;
+    private const COEF_FAIT_MARQUANT = 0.6;
     private const COEF_FAIT_MARQUANT_TEXT = 0.8;
     private const COEF_FAIT_MARQUANT_MEDIA = 0.2;
 
     private const COEF_KEYWORD_1 = 1;
-    private const COEF_KEYWORD_2 = 0.38;
-    private const COEF_KEYWORD_3 = 0.15;
+    private const COEF_KEYWORD_2 = 0.5;
     private const COEF_EQUATION = 1.23;
     private const COEF_FILE = 0.15;
     private const COEF_IMAGE = 0.15;
-
-    private const COEF_SEUIL_FM_RDI = (self::COEF_KEYWORD_1 * self::COEF_KEYWORD_2 * self::COEF_KEYWORD_3 * self::COEF_FAIT_MARQUANT_TEXT * self::COEF_FAIT_MARQUANT) / 100;
-    private const COEF_SEUIL_MEDIA_RDI = 9 * self::COEF_EQUATION + self::COEF_IMAGE + self::COEF_FILE * self::COEF_FAIT_MARQUANT_MEDIA * self::COEF_FAIT_MARQUANT;
 
     private EntityManagerInterface $em;
 
@@ -52,13 +48,11 @@ class ProjetScoreRdiUpdater
 
         foreach ($projets as $projet) {
             if ($projet->getRdiDomains()->count() > 0) {
-                $levelKeywords = ['keywords_1' => [], 'keywords_2' => [], 'keywords_3' => []];
+                $levelKeywords = ['keywords_1' => [], 'keywords_2' => []];
 
                 foreach ($projet->getRdiDomains() as $rdiDomain) {
                     if (count($rdiDomain->getKeywords()) > 0) {
-                        $levelKeywords['keywords_1'] = array_merge($levelKeywords['keywords_1'], $rdiDomain->getKeywords()['keywords_1']);
-                        $levelKeywords['keywords_2'] = array_merge($levelKeywords['keywords_2'], $rdiDomain->getKeywords()['keywords_2']);
-                        $levelKeywords['keywords_3'] = array_merge($levelKeywords['keywords_3'], $rdiDomain->getKeywords()['keywords_3']);
+                        $levelKeywords['keywords_1'] = array_merge($levelKeywords['keywords_1'], $rdiDomain->getKeywords());
                     }
                 }
 
@@ -69,7 +63,6 @@ class ProjetScoreRdiUpdater
                 $projetData['resume'] = self::convertToPlainText($projet->getTitre() . ' ' . $projet->getResume());
 
                 foreach ($levelKeywords as $level => $keywords) {
-//                    $projetData['nbrKeywordsGlobal'][$level] = self::countStringWords($projetData['resume']) - self::countStringWords(str_replace($keywords, '', $projetData['resume']));
                     $projetData['nbrKeywordsGlobal'][$level] = self::countOccurrenceArrayOfWordsInText($keywords,$projetData['resume']);
                 }
 
@@ -80,7 +73,7 @@ class ProjetScoreRdiUpdater
                     $params[$i] = [
                         'nbrFaitMarquants' => 0,
                         'faitMarquantsTexts' => '',
-                        'nbrKeywordsFms' => ['keywords_1' => 0, 'keywords_2' => 0, 'keywords_3' => 0],
+                        'nbrKeywordsFms' => ['keywords_1' => 0, 'keywords_2' => 0],
                         'nbrFiles' => 0,
                         'nbrEquation' => 0,
                         'nbrImage' => 0,
@@ -101,15 +94,14 @@ class ProjetScoreRdiUpdater
                         $params[$year]['faitMarquantsTexts'] .= $text;
                         $params[$year]['nbrFaitMarquants'] += 1;
                         $params[$year]['volumeFms'] += self::countStringWords($text);
-                        $params[$year]['nbrEquation'] += substr_count($text, '</math>');
-                        $params[$year]['nbrImage'] += substr_count($text, '<img ');
+                        $params[$year]['nbrEquation'] += substr_count($faitMarquant->getTitre() . ' ' . $faitMarquant->getDescription(), '</math>');
+                        $params[$year]['nbrImage'] += substr_count($faitMarquant->getTitre() . ' ' . $faitMarquant->getDescription(), '<img ');
                     }
                 }
 
                 $projetData['volumeMoyenAllFms'] = 0;
                 foreach ($params as $year => $param) {
                     foreach ($levelKeywords as $level => $keywords) {
-//                        $params[$year]['nbrKeywordsFms'][$level] += self::countStringWords($param['faitMarquantsTexts']) - self::countStringWords(str_replace($keywords, '', $param['faitMarquantsTexts']));
                         $params[$year]['nbrKeywordsFms'][$level] += self::countOccurrenceArrayOfWordsInText($keywords,$param['faitMarquantsTexts']);
                     }
                     $param['volumeMoyenFms'] = $param['nbrFaitMarquants'] > 0 ? floor($param['volumeFms'] / $param['nbrFaitMarquants']) : 0;
@@ -132,9 +124,9 @@ class ProjetScoreRdiUpdater
 
     private function calculGlobalProjetScore(array $projetData): float
     {
-        $seuilFmRDI = $projetData['volumeMoyenAllFms'] * self::COEF_SEUIL_FM_RDI;
+        $seuilFmRDI = 5 / $projetData['volumeMoyenAllFms'];
 
-        $scoreKeywordsGlobal = $projetData['volumeMoyenAllFms'] > 0 ? ($projetData['nbrKeywordsGlobal']['keywords_1'] * self::COEF_KEYWORD_1 + $projetData['nbrKeywordsGlobal']['keywords_2'] * self::COEF_KEYWORD_2 + $projetData['nbrKeywordsGlobal']['keywords_3'] * self::COEF_KEYWORD_3) / $projetData['volumeMoyenAllFms'] : 0;
+        $scoreKeywordsGlobal = $projetData['volumeMoyenAllFms'] > 0 ? ($projetData['nbrKeywordsGlobal']['keywords_1'] * self::COEF_KEYWORD_1 + $projetData['nbrKeywordsGlobal']['keywords_2'] * self::COEF_KEYWORD_2) / $projetData['volumeMoyenAllFms'] : 0;
 
         $scoreKeywordsGlobal = $scoreKeywordsGlobal < $seuilFmRDI ? self::COEF_GLOBAL_TEXT * ($scoreKeywordsGlobal / $seuilFmRDI) : self::COEF_GLOBAL_TEXT;
 
@@ -147,20 +139,21 @@ class ProjetScoreRdiUpdater
 
         foreach ($projetData['params'] as $year => $param) {
 
-            $seuilFmRDI = ($param['nbrFaitMarquants'] > 0 ? $param['volumeFms'] / $param['nbrFaitMarquants'] : 0) * self::COEF_SEUIL_FM_RDI;
+            if ($param['volumeFms'] === 0){
+                $annualScores[$year] = 0;
+            } else {
+                $seuilFmRDI = $param['volumeFms'] * 5 / 250;
+                $totalKeyword = array_sum($param['nbrKeywordsFms']);
 
-            $scoreKeywordsFms =  $param['volumeFms'] > 0 ? ($param['nbrKeywordsFms']['keywords_1'] * self::COEF_KEYWORD_1 + $param['nbrKeywordsFms']['keywords_2'] * self::COEF_KEYWORD_2 + $param['nbrKeywordsFms']['keywords_3'] * self::COEF_KEYWORD_3) / $param['volumeFms'] : 0;
+                $scoreKeywordsFms = $totalKeyword > $seuilFmRDI ? self::COEF_FAIT_MARQUANT_TEXT : ($totalKeyword / $seuilFmRDI) * self::COEF_FAIT_MARQUANT_TEXT;
 
-            if ($scoreKeywordsFms > 0){
-                $scoreKeywordsFms = $scoreKeywordsFms < $seuilFmRDI ? self::COEF_FAIT_MARQUANT_TEXT * ($scoreKeywordsFms / $seuilFmRDI) : self::COEF_FAIT_MARQUANT_TEXT;
+
+                $totalMedia = $param['nbrEquation'] * self::COEF_EQUATION + $param['nbrFiles'] * self::COEF_FILE + $param['nbrImage'] * self::COEF_IMAGE;
+                $scoreMedia = $totalMedia > ($param['nbrFaitMarquants'] * self::COEF_EQUATION) ? self::COEF_FAIT_MARQUANT_MEDIA : ($totalMedia / ($param['nbrFaitMarquants'] * self::COEF_EQUATION)) * self::COEF_FAIT_MARQUANT_MEDIA ;
+
+
+                $annualScores[$year] = ($scoreKeywordsFms + $scoreMedia) * self::COEF_FAIT_MARQUANT;
             }
-
-            $scoreMedia = $param['nbrFaitMarquants'] > 0 ? ($param['nbrEquation'] * self::COEF_EQUATION + $param['nbrFiles'] * self::COEF_FILE + $param['nbrImage'] * self::COEF_IMAGE) / $param['nbrFaitMarquants'] : 0;
-            if ($scoreMedia > 0){
-                $scoreMedia = $scoreMedia < self::COEF_SEUIL_MEDIA_RDI ? self::COEF_FAIT_MARQUANT_MEDIA * ($scoreMedia / self::COEF_SEUIL_MEDIA_RDI) : self::COEF_FAIT_MARQUANT_MEDIA;
-            }
-
-            $annualScores[$year] = ($scoreKeywordsFms + $scoreMedia) * self::COEF_FAIT_MARQUANT;
         }
 
         return $annualScores;

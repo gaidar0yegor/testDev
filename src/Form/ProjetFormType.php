@@ -107,7 +107,7 @@ class ProjetFormType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('rdiDomains', EntityType::class, [
-                'label' => 'Un ou plusieurs domaines de votre projet',
+                'label' => 'Domaine(s) du projet',
                 'class' => RdiDomain::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('rdiDomain')

@@ -1,4 +1,6 @@
 import './styles/organigramme-users.css';
+import './js/team-organigramme';
+
 import $ from "jquery";
 
 $('.tab-filter-users')

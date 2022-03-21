@@ -14,6 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
 use libphonenumber\PhoneNumber;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Représente un utilisateur qui a un rôle sur une société.
@@ -55,6 +57,8 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @Groups("organigramme")
      */
     private $id;
 
@@ -72,11 +76,15 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      *
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="societeUsers", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
+     *
+     * @Groups("organigramme")
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=31)
+     *
+     * @Groups("organigramme")
      */
     private $role;
 
@@ -111,6 +119,8 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * mais n'a pas l'accès à cette société.
      *
      * @ORM\Column(type="boolean")
+     *
+     * @Groups("organigramme")
      */
     private $enabled;
 
@@ -205,6 +215,10 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
 
     /**
      * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="mySuperior")
+     *
+     *
+     * @MaxDepth(2)
+     * @Groups("organigramme")
      */
     private $teamMembers;
 
@@ -696,7 +710,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
 
     public function isSuperiorFo(): bool
     {
-        return $this->getTeamMembersN_1()->count() > 0;
+        return $this->getTeamMembers()->count() > 0;
     }
 
     /**
@@ -704,7 +718,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * Retourner les N-1
      * @return Collection|self[]
      */
-    public function getTeamMembersN_1(): Collection
+    public function getTeamMembers(): Collection
     {
         return $this->teamMembers;
     }
@@ -713,7 +727,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * je suis N.
      * Ajouter un N-1
      */
-    public function addTeamMemberN_1(self $teamMember): self
+    public function addTeamMember(self $teamMember): self
     {
         if (!$this->teamMembers->contains($teamMember)) {
             $this->teamMembers[] = $teamMember;
@@ -727,7 +741,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * je suis N.
      * supprimer un N-1
      */
-    public function removeTeamMemberN_1(self $teamMember): self
+    public function removeTeamMember(self $teamMember): self
     {
         if ($this->teamMembers->removeElement($teamMember)) {
             // set the owning side to null (unless already changed)

@@ -3,116 +3,87 @@
 {% block title %}{{ 'users_list'|trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-	<h1>{{ 'users_list'|trans }}</h1>
+    <h1>{{ 'users_list'|trans }}</h1>
 
-	<ul class="nav nav-tabs mb-3 tab-filter-users">
-		<li class="nav-item">
-			<a class="nav-link enabled-users active" href="#0">Actifs</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link disabled-users" href="#0">Désactivés</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link all-users" href="#0">{{ 'allString'|trans }}</a>
-		</li>
-		<input type="hidden" id="filter-users-statut">
-		{% if isTeamUsers is defined and isTeamUsers %}
-		<li class="nav-item ml-auto">
-			<a class="nav-link organigramme-team" href="#0">Organigramme</a>
-		</li>
-		{% endif %}
-	</ul>
+    <ul class="nav nav-tabs mb-3 tab-filter-users">
+        <li class="nav-item">
+            <a class="nav-link enabled-users active" href="#0">Actifs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled-users" href="#0">Désactivés</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link all-users" href="#0">{{ 'allString'|trans }}</a>
+        </li>
+        <input type="hidden" id="filter-users-statut">
+        {% if isTeamUsers is defined and isTeamUsers %}
+            <li class="nav-item ml-auto">
+                <a class="nav-link organigramme-team" href="#0">Organigramme</a>
+            </li>
+        {% endif %}
+    </ul>
 
-	<table id="users_list_dt" class="table datatable custom-datatable hover">
-		<thead>
-			<tr>
-				<th class="text-left">Avatar</th>
-				<th class="text-center">{{ 'lastname'|trans }}</th>
-				<th class="text-center">{{ 'firstname'|trans }}</th>
-				<th class="text-center">{{ 'email'|trans }}</th>
-				<th class="text-center">{{ 'role'|trans }}</th>
-				<th class="text-center">{{ 'status'|trans }}</th>
-				<th class="text-center">{{ 'projects'|trans }}</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for societeUser in societeUsers %}
-				<tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
-					<td class="text-center"> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
-					<td class="text-center">{{ societeUser.user.nom }}</td>
-					<td class="text-center">{{ societeUser.user.prenom }}</td>
-					<td class="text-center">{{ societeUser.user.email }}</td>
-					<td class="text-center" data-sort='{{ societeUser.role|trans }}'>
-						<span class="d-none d-sm-block">{{ societeUser.role|trans }}</span>
-						<span class="d-sm-none">{{ (societeUser.role ~'.small')|trans }}</span>
-					</td>
-					<td class="text-center" data-search='{{ societeUser.statut }}'>{{ societeUser.statut|trans }}</td>
-					<td class="text-center">{{ societeUser.projetParticipants|length }}</td>
-					<td class="text-center">
-						<a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
-							<i class="fa fa-lg fa-eye"></i>
-						</a>
-						<a href="{{ path('app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">
-							<i class="fa fa-lg fa-edit"></i>
-						</a>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+    <table id="users_list_dt" class="table datatable custom-datatable hover">
+        <thead>
+        <tr>
+            <th class="text-left">Avatar</th>
+            <th class="text-center">{{ 'lastname'|trans }}</th>
+            <th class="text-center">{{ 'firstname'|trans }}</th>
+            <th class="text-center">{{ 'email'|trans }}</th>
+            <th class="text-center">{{ 'role'|trans }}</th>
+            <th class="text-center">{{ 'status'|trans }}</th>
+            <th class="text-center">{{ 'projects'|trans }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for societeUser in societeUsers %}
+            <tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
+                <td class="text-center"> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
+                <td class="text-center">{{ societeUser.user.nom }}</td>
+                <td class="text-center">{{ societeUser.user.prenom }}</td>
+                <td class="text-center">{{ societeUser.user.email }}</td>
+                <td class="text-center" data-sort='{{ societeUser.role|trans }}'>
+                    <span class="d-none d-sm-block">{{ societeUser.role|trans }}</span>
+                    <span class="d-sm-none">{{ (societeUser.role ~'.small')|trans }}</span>
+                </td>
+                <td class="text-center" data-search='{{ societeUser.statut }}'>{{ societeUser.statut|trans }}</td>
+                <td class="text-center">{{ societeUser.projetParticipants|length }}</td>
+                <td class="text-center">
+                    <a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
+                        <i class="fa fa-lg fa-eye"></i>
+                    </a>
+                    <a href="{{ path('app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">
+                        <i class="fa fa-lg fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-	{% if isTeamUsers is defined and isTeamUsers %}
+    {% if isTeamUsers is defined and isTeamUsers %}
+        <div id="users_list_organigramme" data-societe-user-id="{{ userContext.societeUser.id }}"></div>
+    {% endif %}
 
-	<div id="users_list_organigramme">
-		<div class="tree d-flex flex-column justify-content-center align-items-center">
-			<ul>
-				<li>
-					{% include 'utilisateurs_fo/organigramme_team/_nodecontent.html.twig' with {societeUser: userContext.societeUser} %}
-
-					{% if userContext.societeUser.teamMembersN_1 | length > 0 %}
-						<ul class="{{ userContext.societeUser.teamMembersN_1 | length == 1 ? "has-one-child" : "has-multi-child" }}">
-							{% for societeUser_N1 in userContext.societeUser.teamMembersN_1 %}
-								<li>
-									{% include 'utilisateurs_fo/organigramme_team/_nodecontent.html.twig' with {societeUser: societeUser_N1} %}
-
-									{% if societeUser_N1.teamMembersN_1 | length > 0 %}
-										<ul class="{{ societeUser_N1.teamMembersN_1 | length == 1 ? "has-one-child" : "has-multi-child" }}">
-											{% for societeUser_N2 in societeUser_N1.teamMembersN_1 %}
-												<li>
-													{% include 'utilisateurs_fo/organigramme_team/_nodecontent.html.twig' with {societeUser: societeUser_N2} %}
-												</li>
-											{% endfor %}
-										</ul>
-									{% endif %}
-								</li>
-							{% endfor %}
-						</ul>
-					{% endif %}
-				</li>
-			</ul>
-		</div>
-	</div>
-
-	{% endif %}
-
-	{% if userContext.societeUser.isAdminFo %}
-	<div class="my-3 text-right">
-		<a href="{{ path('app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
-			<i class="fa fa-user-plus" aria-hidden="true"></i>
-			{{ 'invite_new_user'|trans }}
-		</a>
-	</div>
-	{% endif %}
+    {% if userContext.societeUser.isAdminFo %}
+        <div class="my-3 text-right">
+            <a href="{{ path('app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                {{ 'invite_new_user'|trans }}
+            </a>
+        </div>
+    {% endif %}
 
 {% endblock %}
 
 {% block stylesheets %}
-	{{ parent() }}
-	{{ encore_entry_link_tags('users-list') }}
+    {{ parent() }}
+    {{ encore_entry_link_tags('users-list') }}
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}
-	{{ encore_entry_script_tags('users-list') }}
+    {{ parent() }}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    {{ encore_entry_script_tags('users-list') }}
 {% endblock %}

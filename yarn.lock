@@ -3147,10 +3147,10 @@
   "resolved" "https://registry.npmjs.org/detect-node/-/detect-node-2.0.4.tgz"
   "version" "2.0.4"
 
-"dhtmlx-gantt@^7.1.9":
-  "integrity" "sha512-a1zFTg5kv21qqdAvkhFIItsuxXDR5e9IL9xCJS38VWfkY2n2WKXbiSxXHCiSg+S9lF6asAnkl09PAWaNSJIeyw=="
-  "resolved" "https://registry.npmjs.org/dhtmlx-gantt/-/dhtmlx-gantt-7.1.9.tgz"
-  "version" "7.1.9"
+"dhtmlx-gantt@^6.3.7":
+  "integrity" "sha512-U1stvcbDKDMZLJ/84ifUbOBlEm1Gwx5n+9HwuowK2pUb0JKZHYr2GIHyvej0UqK9+Uk45G2AVd2BmXULgjkSbg=="
+  "resolved" "https://registry.npmjs.org/dhtmlx-gantt/-/dhtmlx-gantt-6.3.7.tgz"
+  "version" "6.3.7"
 
 "diffie-hellman@^5.0.0":
   "integrity" "sha512-kqag/Nl+f3GwyK25fhUMYj81BUOrZ9IuJsjIcDE5icNM9FJHAVm3VcUDxdLPoQtTuUylWm6ZIknYJwwaPxsUzg=="

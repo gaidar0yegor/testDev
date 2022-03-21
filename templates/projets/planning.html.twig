@@ -25,7 +25,23 @@
 
     {% endif %}
 
-    <div id="project_planning_content" data-project-id="{{ projet.id }}" data-can-edit="{{ userCanEditProjet ? 1 : 0 }}"></div>
+    <div class="header gantt-demo-header">
+        <ul class="gantt-controls">
+            <li class="gantt-menu-item"><a data-action="collapseAll"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_collapse_all_24.png') }}"></a></li>
+            <li class="gantt-menu-item gantt-menu-item-last"><a data-action="expandAll"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_expand_all_24.png') }}"></a></li>
+            <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_export_24.png') }}">Export</a>
+                <ul class="gantt-controls">
+                    <li class="gantt-menu-item"><a data-action="toPDF"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_file_pdf.png') }}">PDF</a></li>
+                    <li class="gantt-menu-item"><a data-action="toPNG"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_file_png.png') }}">PNG</a></li>
+                    <li class="gantt-menu-item"><a data-action="toExcel"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_file_xlsx.png') }}">Excel</a></li>
+                    <li class="gantt-menu-item"><a data-action="toMSProject"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_file_xml.png') }}">MS Project</a></li>
+                </ul>
+            </li>
+            <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a data-action="zoomIn"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_zoom_in.png') }}">Zoom In</a></li>
+            <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a data-action="zoomOut"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_zoom_out.png') }}">Zoom Out</a></li>
+        </ul>
+    </div>
+    <div id="project_planning_content" data-societe-raison-sociale="{{ projet.societe.raisonSociale }}" data-project-id="{{ projet.id }}" data-project-acronyme="{{ projet.acronyme }}" data-can-edit="{{ userCanEditProjet ? 1 : 0 }}"></div>
 
 {% endblock %}
 

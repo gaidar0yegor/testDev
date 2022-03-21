@@ -14,8 +14,7 @@ cards.forEach(card => {
 
             if (societeNotif > 0) {
 
-                card.querySelector('.notif-container').innerHTML += `<i class="fa fa-lg fa-bell" aria-hidden="true"></i>
-                <span class="badge badge-danger badge-pill">` + societeNotif + `</span>`;
+                card.querySelector('.notif-container').innerHTML += `<i class="fa fa-lg fa-bell" aria-hidden="true"></i><span class="badge badge-danger badge-pill">` + societeNotif + `</span>`;
 
             }
         });

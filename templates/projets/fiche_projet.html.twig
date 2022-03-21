@@ -13,6 +13,14 @@
 
         <p class="lead text-center">{{ projet.titre }}</p>
 
+        {% if projet.rdiDomains | length > 0 %}
+            <p class="text-center">
+                {% for rdiDomain in projet.rdiDomains %}
+                    <span class="badge badge-info">{{ rdiDomain.nom }}</span>
+                {% endfor %}
+            </p>
+        {% endif %}
+
         <p class="text-center">
             {{ 'PROJET_CDP'|trans }} :
             {% include 'utils/_avatar.html.twig' with {user: projet.chefDeProjet.user, size: 28, toExpend: true} %}
@@ -29,8 +37,12 @@
             {% if projet.projetPpp %}
                 <span class="badge badge-success">PPP - R&amp;D</span>
             {% endif %}
-            {% if projet.isRdi %}
-                <span class="badge badge-success">Elligible RDI</span>
+            {% if projet.annualRdiScores | length > 0 %}
+                {% set danger = true %}
+                <span title="{% for year, score in projet.annualRdiScores %} {% set danger = score < 0.5 %} {{ year }} : <strong>{{ score * 100 }}%</strong><br> {% endfor %}"
+                      class="badge badge-{{ projet.rdi ? 'success' : ( danger ? 'danger' : 'warning') }}">
+                    {{ projet.rdi ? 'Éligible RDI' : 'Éligibilité' }}
+                </span>
             {% endif %}
         </p>
     </div>
@@ -39,15 +51,11 @@
             <a
                 href="{{ path('app_fo_projet_modifier', {'id': projet.id}) }}"
                 class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
-                {% if not userCanEditProjet %}
-                    title="Seul le chef de projet peut accéder"
-                {% else %}
-                    title="Paramétrage du projet"
-                {% endif %}
+                title="Paramétrage du projet {{ userCanEditProjet ? '' : '(Pas d\'accès)' }}"
             ><i class="fa fa-cog"></i></a>
             <a
                 href="{{ path('app_fo_projet_planning', {'projetId': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }}"
+                class="btn btn-outline-primary rounded-circle"
                 title="Planification du projet"
             ><i class="fa fa-tasks"></i></a>
             <a
@@ -57,12 +65,8 @@
             ><i class="fa fa-rss"></i></a>
             <a
                 href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}"
-                {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
-                    title="Seuls les administrateurs ont accès aux métriques du projet"
-                {% else %}
-                    title="Statistiques du projet"
-                {% endif %}
+                class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
+                title="Statistiques du projet {{ userCanEditProjet ? '' : '(Pas d\'accès)' }}"
             ><i class="fa fa-bar-chart"></i></a>
             <div class="dropdown">
                 <a href="javascript:;" class="btn btn-outline-primary rounded-circle" id="dropdownOtherMenuButton" data-toggle="dropdown">
@@ -70,7 +74,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownOtherMenuButton">
                     <a class="dropdown-item m-0 " href="{{ path('app_fo_projet_custom', { 'id' : projet.id }) }}"><i class="fa fa-download"></i> Exporter le projet</a>
-                    <a class="dropdown-item m-0 {{ is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? '' : 'disabled' }}" href="{{ path('app_fo_fait_marquant_trash', { 'id' : projet.id }) }}"><i class="fa fa-trash"></i> {{ 'beenOf_FM'|trans }}</a>
+                    <a class="dropdown-item m-0 {{ userCanEditProjet ? '' : 'disabled' }}" href="{{ path('app_fo_fait_marquant_trash', { 'id' : projet.id }) }}"><i class="fa fa-trash"></i> {{ 'beenOf_FM'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -85,8 +89,6 @@
         {% include 'projets/fiche_projet-sidebar.html.twig' %}
     </aside>
 </div>
-
-
 
 <div class="modal fade" id="observateursModal" tabindex="-1" aria-labelledby="observateursModalLabel" aria-hidden="true">
     <div class="modal-dialog">

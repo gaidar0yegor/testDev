@@ -11,6 +11,7 @@ use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
 use App\Entity\SocieteUserNotification;
 use App\Notification\Event\ProjetParticipantAddedEvent;
+use App\Security\Role\RoleProjet;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
@@ -121,5 +122,22 @@ class ProjetParticipantAdded implements ActivityInterface, EventSubscriberInterf
         $this->em->persist($projetActivity);
         $this->em->persist($societeUserActivity);
         $this->em->persist($societeUserNotification);
+        $this->addAccessesFichierProjet($projet, $projetParticipant);
+    }
+
+    private function addAccessesFichierProjet(Projet $projet, ProjetParticipant $projetParticipant)
+    {
+        foreach ($projet->getFichierProjets() as $fichierProjet) {
+            $accessChoices = $fichierProjet->getAccessesChoices();
+            if (
+                empty($accessChoices) || in_array('all', $accessChoices) ||
+                (in_array(RoleProjet::CDP, $accessChoices) && RoleProjet::CDP === $projetParticipant->getRole()) ||
+                (in_array(RoleProjet::CONTRIBUTEUR, $accessChoices) && RoleProjet::CONTRIBUTEUR === $projetParticipant->getRole()) ||
+                (in_array(RoleProjet::OBSERVATEUR, $accessChoices) && RoleProjet::OBSERVATEUR === $projetParticipant->getRole())
+            ) {
+                $fichierProjet->addSocieteUser($projetParticipant->getSocieteUser());
+                $this->em->persist($fichierProjet);
+            }
+        }
     }
 }

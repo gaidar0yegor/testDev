@@ -100,6 +100,7 @@ start: Start
 end: End
 all: All
 status: Status
+last_activity: Last activity
 participants: Participants
 back_office: Back Office
 my_companies: My companies
@@ -500,6 +501,7 @@ added_at: Added at
 deleted_at: Deleted at
 deleted_by: Deleted by
 resume: Summary
+domain: Domain
 activity_project: Project activity
 add_new_project: Add a new project
 suspended_project: The project is suspended

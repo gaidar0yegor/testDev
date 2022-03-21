@@ -10,7 +10,7 @@ body {
   .container-md,
   .container-lg,
   .container-xl {
-    max-width: 1300px !important;
+    max-width: 80% !important;
   }
 }
 
@@ -458,13 +458,6 @@ h5 {
   background: linear-gradient(to top, #28a745a0 40%, transparent 40%);
   animation-name: "highlight";
   animation-duration: 0.75s;
-}
-.hashtag{
-  color: #1876f2;
-  font-style: italic;
-  text-decoration: underline;
-  font-size: 0.8em;
-  font-weight: bold;
 }
 
 @keyframes highlight {

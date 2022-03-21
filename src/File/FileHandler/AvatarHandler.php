@@ -29,9 +29,9 @@ class AvatarHandler implements FileHandlerInterface
         $this->filesAvatarUri = $filesAvatarUri;
     }
 
-    public function getPublicUrl(Fichier $fichier): string
+    public function getPublicUrl(Fichier $fichier = null): string
     {
-        return $this->filesAvatarUri.$fichier->getNomMd5();
+        return $this->filesAvatarUri. ($fichier ? $fichier->getNomMd5() : '');
     }
 
     public function upload(Fichier $fichier): void

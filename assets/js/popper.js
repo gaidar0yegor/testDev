@@ -4,7 +4,8 @@ import 'tippy.js/dist/tippy.css';
 import $ from 'jquery';
 
 const initTippyTitle = () => {
-    tippy('[title]:not([title=""]', {
+    tippy('[title]:not([title=""]):not(.cke [title])', {
+        allowHTML: true,
         content: element => element.getAttribute('title'),
         onCreate(instance) {
             instance.reference.removeAttribute('title');

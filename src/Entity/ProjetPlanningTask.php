@@ -60,6 +60,7 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
 
     /**
      * @ORM\OneToMany(targetEntity=FaitMarquant::class, mappedBy="projetPlanningTask")
+     * @ORM\OrderBy({"date" = "DESC", "id" = "DESC"})
      */
     private $faitMarquants;
 
