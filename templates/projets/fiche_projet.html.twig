@@ -39,7 +39,7 @@
             {% endif %}
             {% if projet.annualRdiScores | length > 0 %}
                 {% set danger = true %}
-                <span title="{% for year, score in projet.annualRdiScores %} {% set danger = score < 0.5 %} {{ year }} : <strong>{{ score * 100 }}%</strong><br> {% endfor %}"
+                <span style="cursor: help;" title="{% for year, score in projet.annualRdiScores %} {% set danger = score < 0.5 %} {{ year }} : <strong>{{ score * 100 }}%</strong><br> {% endfor %}"
                       class="badge badge-{{ projet.rdi ? 'success' : ( danger ? 'danger' : 'warning') }}">
                     {{ projet.rdi ? 'Éligible RDI' : 'Éligibilité' }}
                 </span>
