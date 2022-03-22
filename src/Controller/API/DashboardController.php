@@ -281,7 +281,6 @@ class DashboardController extends AbstractController
         }
 
         foreach ($projets as $projet) {
-            $isRdi = $projet->isRdi();
             $projetYearStart = null === $projet->getDateDebut()
                 ? $sinceYear
                 : intval($projet->getDateDebut()->format('Y'))
@@ -297,7 +296,7 @@ class DashboardController extends AbstractController
             for ($i = $from; $i <= $to; ++$i) {
                 ++$stats[$i]['projets'];
 
-                if ($isRdi) {
+                if ($projet->isRdi((int)$i)) {
                     ++$stats[$i]['projetsRdi'];
                 }
             }

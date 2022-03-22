@@ -24,7 +24,7 @@ $(document).ready( function () {
     });
 
     $('#fait_marquant_timeline_dt').find('.fait-marquant-content').each((i, div) => {
-        if ($(div).height() > 200){
+        if (i >= 2 && $(div).height() > 200){
             $(div).height(200);
             $(div).find('.read-more').show();
         }
