@@ -11,6 +11,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.42.7] - 2022-03-22
+### Modifié
+- Affichage des projets RDI dans le tableau de bord
+
 ## [0.42.6] - 2022-03-21
 ### Ajouté
 - Tri les projets par la date de la dernière activité
