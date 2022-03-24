@@ -59,7 +59,7 @@
         </div>
     </li>
     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
-    <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_utilisateurs', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_notification', 'app_fo_admin_licenses') }}">
+    <li class="nav-item dropdown {{ activeOn('app_fo_admin_societe_show', 'app_fo_admin_timesheet_generate', 'app_fo_utilisateurs',  'app_fo_utilisateurs_team', 'app_fo_admin_user_invite', 'app_fo_admin_projets', 'app_fo_admin_notification', 'app_fo_admin_licenses') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fa fa-cogs" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.admin'|trans }}</span>
         </a>
@@ -77,6 +77,14 @@
                 <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.admin.projects'|trans }}
             </a>
             <div class="dropdown-divider"></div>
+            {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) and userContext.societeUser.superiorFo %}
+                <a
+                        class="dropdown-item"
+                        href="{{ path('app_fo_utilisateurs_team') }}"
+                >
+                    <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.mon_equipe'|trans }}
+                </a>
+            {% endif %}
             <a
                 class="dropdown-item"
                 href="{{ path('app_fo_utilisateurs') }}"
@@ -118,7 +126,7 @@
         </div>
     </li>
     {% else %}
-    <li class="nav-item dropdown {{ activeOn('app_fo_utilisateurs','app_fo_mon_equipe_projets','app_fo_mon_equipe_cra_validation','app_fo_mon_equipe_timesheet_generate') }}">
+    <li class="nav-item dropdown {{ activeOn('app_fo_utilisateurs_team','app_fo_mon_equipe_projets','app_fo_mon_equipe_cra_validation','app_fo_mon_equipe_timesheet_generate') }}">
         <a
             {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) %}
                 class="nav-link dropdown-toggle {{ userContext.societeUser.superiorFo ? '' : 'disabled' }}"
@@ -140,7 +148,7 @@
         <div class="dropdown-menu">
             <a
                     class="dropdown-item"
-                    href="{{ path('app_fo_utilisateurs') }}"
+                    href="{{ path('app_fo_utilisateurs_team') }}"
             >
                 <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
             </a>
