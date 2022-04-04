@@ -95,8 +95,11 @@ $(document).ready( function () {
         dom: domDatatable,
         buttons: btnsDatatable,
         responsive: true,
-        order: [[ 5, "desc" ]],
-        columnDefs: [{"sortable": false, "searchable": false, "targets": [6]}],
+        order: [[ 6, "desc" ]],
+        columnDefs: [
+            { "sortable": false, "searchable": false, "targets": [7] },
+            { "width": "10%", "targets": [5,6] }
+        ],
         searchHighlight: true,
         language: language_dt,
         initComplete: function(settings, json) {

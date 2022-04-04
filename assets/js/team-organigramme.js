@@ -8,15 +8,27 @@ let orgChartRows = [];
 if (chartDiv){
     google.charts.load('current', {packages:["orgchart"]});
     google.charts.setOnLoadCallback(drawChart);
+
+    $(document).on('click', '.show_user_organigramme', function () {
+        $('#users_list_organigramme').hide();
+        chartDiv.dataset.societeUserId = $(this).data('societeUserId');
+        drawChart();
+        $('#users_list_organigramme').show();
+
+        $([document.documentElement, document.body]).animate({
+            scrollTop: $('#users_list_organigramme').offset().top
+        }, 1000);
+    });
 }
 
 function drawChart() {
     var superiorId = chartDiv.dataset.societeUserId;
-
+    chartDiv.innerHTML = "";
     fetch(`/api/utilisateurs/equipe/organigramme/${superiorId}`)
         .then(response => response.json())
         .then(response => {
             avatarPublicUrl = response.avatarPublicUrl;
+            orgChartRows = [];
             pushRow(response.data, '');
 
 
@@ -37,7 +49,7 @@ function pushRow(data, parent) {
             'f' : generateHtmlBloc(data),
         },
         parent + ''
-    ])
+    ]);
 
     if (data.hasOwnProperty('teamMembers') && data.teamMembers.length > 0){
         $.each(data.teamMembers, function(i, obj) {
