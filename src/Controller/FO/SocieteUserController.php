@@ -61,18 +61,26 @@ class SocieteUserController extends AbstractController
     {
         $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $userContext->getSocieteUser());
 
-        $isTeamUsers = false;
-
-        if ($this->isGranted(RoleSociete::ADMIN)){
-            $societeUsers = $societeUserRepository->findBySameSociete($userContext->getSocieteUser());
-        } else {
-            $societeUsers = $societeUserRepository->findTeamMembers($userContext->getSocieteUser());
-            $isTeamUsers = true;
+        if (!$this->isGranted(RoleSociete::ADMIN)){
+            return $this->redirectToRoute('app_fo_utilisateurs_team');
         }
 
         return $this->render('utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
-            'societeUsers' => $societeUsers,
-            'isTeamUsers' => $isTeamUsers
+            'societeUsers' => $societeUserRepository->findBySameSociete($userContext->getSocieteUser()),
+            'isTeamUsers' => false
+        ]);
+    }
+
+    /**
+     * @Route("/equipe/utilisateurs", name="app_fo_utilisateurs_team")
+     */
+    public function listerEquipe(SocieteUserRepository $societeUserRepository, UserContext $userContext)
+    {
+        $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $userContext->getSocieteUser());
+
+        return $this->render('utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
+            'societeUsers' => $societeUserRepository->findTeamMembers($userContext->getSocieteUser()),
+            'isTeamUsers' => true
         ]);
     }
 
