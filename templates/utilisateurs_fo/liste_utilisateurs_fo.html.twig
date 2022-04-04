@@ -16,7 +16,7 @@
             <a class="nav-link all-users" href="#0">{{ 'allString'|trans }}</a>
         </li>
         <input type="hidden" id="filter-users-statut">
-        {% if isTeamUsers is defined and isTeamUsers %}
+        {% if isTeamUsers %}
             <li class="nav-item ml-auto">
                 <a class="nav-link organigramme-team" href="#0">Organigramme</a>
             </li>
@@ -56,15 +56,16 @@
                     <a href="{{ path('app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">
                         <i class="fa fa-lg fa-edit"></i>
                     </a>
+                    {% if not isTeamUsers and societeUser.teamMembers | length > 0 %}
+                    <a href="javascript:;" class="show_user_organigramme" data-societe-user-id="{{ societeUser.id }}">
+                        <i class="fa fa-lg fa-sitemap"></i>
+                    </a>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    {% if isTeamUsers is defined and isTeamUsers %}
-        <div id="users_list_organigramme" data-societe-user-id="{{ userContext.societeUser.id }}"></div>
-    {% endif %}
 
     {% if userContext.societeUser.isAdminFo %}
         <div class="my-3 text-right">
@@ -74,6 +75,8 @@
             </a>
         </div>
     {% endif %}
+
+    <div id="users_list_organigramme" data-societe-user-id="{{ userContext.societeUser.id }}"></div>
 
 {% endblock %}
 
