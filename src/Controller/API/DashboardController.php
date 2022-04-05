@@ -276,7 +276,8 @@ class DashboardController extends AbstractController
         for ($i = $sinceYear; $i <= $currentYear; ++$i) {
             $stats[$i] = [
                 'projets' => 0,
-                'projetsRdi' => 0,
+                'projetsRdi50' => 0,
+                'projetsRdi30' => 0,
             ];
         }
 
@@ -296,9 +297,12 @@ class DashboardController extends AbstractController
             for ($i = $from; $i <= $to; ++$i) {
                 ++$stats[$i]['projets'];
 
-                if ($projet->isRdi((int)$i)) {
-                    ++$stats[$i]['projetsRdi'];
+                if ($projet->isRdi((int)$i, 0.5)) {
+                    ++$stats[$i]['projetsRdi50'];
+                } elseif ($projet->isRdi((int)$i, 0.3)) {
+                    ++$stats[$i]['projetsRdi30'];
                 }
+
             }
         }
 

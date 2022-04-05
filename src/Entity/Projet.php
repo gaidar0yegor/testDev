@@ -585,21 +585,21 @@ class Projet implements HasSocieteInterface
         return $observatuers;
     }
 
-    public function isRdi(?int $year = null): bool
+    public function isRdi(?int $year = null, ?float $seuil = 0.5): bool
     {
         if (null !== $year){
-            return isset($this->getAnnualRdiScores()[$year]) && $this->getAnnualRdiScores()[$year] >= 0.5;
+            return isset($this->getAnnualRdiScores()[$year]) && $this->getAnnualRdiScores()[$year] >= $seuil;
         }
 
         if($this->getAnnualRdiScores()){
             if (count($this->getAnnualRdiScores()) === 1){
                 return
                     isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y')]) &&
-                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y')] >= 0.5;
+                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y')] >= $seuil;
             } elseif (count($this->getAnnualRdiScores()) > 1){
                 return
                     isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1]) &&
-                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1] >= 0.5;
+                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1] >= $seuil;
             }
         }
         return false;
