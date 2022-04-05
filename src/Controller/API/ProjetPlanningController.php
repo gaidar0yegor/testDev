@@ -3,16 +3,22 @@
 namespace App\Controller\API;
 
 use App\Entity\Projet;
+use App\Entity\ProjetParticipant;
 use App\Entity\ProjetPlanning;
 use App\Entity\ProjetPlanningTask;
 use App\MultiSociete\UserContext;
+use App\Notification\Event\ProjetParticipantTaskAssignedEvent;
+use App\Security\Role\RoleProjet;
+use App\Service\ParticipantService;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/api/projet/{projetId}/planning")
@@ -21,11 +27,13 @@ class ProjetPlanningController extends AbstractController
 {
     protected EntityManagerInterface $em;
     protected UserContext $userContext;
+    private EventDispatcherInterface $dispatcher;
 
-    public function __construct(EntityManagerInterface $em, UserContext $userContext)
+    public function __construct(EntityManagerInterface $em, UserContext $userContext, EventDispatcherInterface $dispatcher)
     {
         $this->em = $em;
         $this->userContext = $userContext;
+        $this->dispatcher = $dispatcher;
     }
 
     /**
@@ -153,6 +161,70 @@ class ProjetPlanningController extends AbstractController
         return new JsonResponse([
             "action" => "deleted"
         ]);
+    }
+
+    /**
+     * @Route(
+     *      "/participants/{taskId}",
+     *      methods={"GET"},
+     *      name="api_get_participants_for_projet_planning_task_gantt"
+     * )
+     *
+     * @ParamConverter("projet", options={"id" = "projetId"})
+     * @ParamConverter("projetPlanningTask", options={"id" = "taskId"})
+     */
+    public function getParticipantsForTak(Projet $projet, ProjetPlanningTask $projetPlanningTask, ParticipantService $participantService)
+    {
+        $contributeurs = $participantService->getProjetParticipantsWithRole(
+            $projet->getActiveProjetParticipants(),
+            RoleProjet::CONTRIBUTEUR
+        );
+
+        $data = [];
+        foreach ($contributeurs as $contributeur){
+            $data[] = [
+                'id' => $contributeur->getId(),
+                'fullName' => $contributeur->getSocieteUser()->getUser()->getFullname(),
+                'assigned' => $projetPlanningTask->getParticipants()->contains($contributeur),
+            ];
+        }
+
+        return new JsonResponse([
+            "data" => $data,
+        ]);
+    }
+
+    /**
+     * @Route(
+     *      "/participants/{taskId}",
+     *      methods={"POST"},
+     *      name="api_post_participants_for_projet_planning_task_gantt"
+     * )
+     *
+     * @ParamConverter("projet", options={"id" = "projetId"})
+     * @ParamConverter("projetPlanningTask", options={"id" = "taskId"})
+     */
+    public function postParticipantsForTak(Projet $projet, ProjetPlanningTask $projetPlanningTask, Request $request)
+    {
+        $assignedParticipants = new ArrayCollection($this->em->getRepository(ProjetParticipant::class)->findBy(array('id' => $request->request->get('assigned'))));
+
+        foreach ($assignedParticipants as $assignedParticipant){
+            if (!$projetPlanningTask->getParticipants()->contains($assignedParticipant)){
+                $projetPlanningTask->addParticipant($assignedParticipant);
+                $this->dispatcher->dispatch(new ProjetParticipantTaskAssignedEvent($projetPlanningTask, $assignedParticipant));
+            }
+        }
+
+        foreach ($projetPlanningTask->getParticipants() as $projetParticipant){
+            if (!$assignedParticipants->contains($projetParticipant)){
+                $projetPlanningTask->removeParticipant($projetParticipant);
+            }
+        }
+
+        $this->em->persist($projetPlanningTask);
+        $this->em->flush();
+
+        return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
 
 }
