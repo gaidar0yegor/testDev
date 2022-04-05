@@ -523,7 +523,7 @@ h5 {
 }
 
 /* style select2 */
-select.select-2 {
+select.select-2, .select2.select2-container  {
   width: 100%;
 }
 .select2.select2-container .select2-selection {

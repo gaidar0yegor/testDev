@@ -5,9 +5,10 @@ const readonly = parseInt(window['project_planning_content'].dataset.canEdit) ==
 
 gantt.config.columns = [
     {name: "wbs", label: "#", width: 50, align: "center", template: gantt.getWBSCode},
-    {name: "text", tree: true, width: 250, resize: true},
-    {name: "start_date", width:80, align: "center", editor: {type: "date", map_to: "start_date"}, resize: true},
-    {name: "duration", width:50, align: "center", editor: {type: "number", map_to: "duration", min:1}, resize: true},
+    {name: "text", tree: true, width: 250, min_width: 250, max_width: 250, resize: true},
+    {name: "start_date", width:80, min_width: 80, max_width: 80, align: "center", editor: {type: "date", map_to: "start_date"}, resize: true},
+    {name: "duration", width:50, min_width: 50, max_width: 50, align: "center", editor: {type: "number", map_to: "duration", min:1}, resize: true},
+    {name: "progress", label: "Progress", align:"center", template : function(obj){ return (Math.round(obj.progress * 100)) + "%" }},
     {name: "add", width: 44, min_width: 44, max_width: 44},
     {name: "fait_marquants", align: "center",label:"FM(s)", width: 44, min_width: 44, max_width: 44, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-link"></i></a>` : '' } }
 ];

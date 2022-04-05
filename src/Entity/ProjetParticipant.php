@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\HasSocieteInterface;
 use App\Repository\ProjetParticipantRepository;
 use App\Security\Role\RoleProjet;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -65,10 +67,16 @@ class ProjetParticipant implements HasSocieteInterface
      */
     private $watching;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ProjetPlanningTask::class, mappedBy="participants")
+     */
+    private $projetPlanningTasks;
+
     public function __construct()
     {
         $this->dateAjout = new \DateTime();
         $this->watching = false;
+        $this->projetPlanningTasks = new ArrayCollection();
     }
 
     public static function create(SocieteUser $societeUser, Projet $projet, ?string $role): self
@@ -170,6 +178,33 @@ class ProjetParticipant implements HasSocieteInterface
     public function setWatching(bool $watching): self
     {
         $this->watching = $watching;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetPlanningTask[]
+     */
+    public function getProjetPlanningTasks(): Collection
+    {
+        return $this->projetPlanningTasks;
+    }
+
+    public function addProjetPlanningTask(ProjetPlanningTask $projetPlanningTask): self
+    {
+        if (!$this->projetPlanningTasks->contains($projetPlanningTask)) {
+            $this->projetPlanningTasks[] = $projetPlanningTask;
+            $projetPlanningTask->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetPlanningTask(ProjetPlanningTask $projetPlanningTask): self
+    {
+        if ($this->projetPlanningTasks->removeElement($projetPlanningTask)) {
+            $projetPlanningTask->removeParticipant($this);
+        }
 
         return $this;
     }

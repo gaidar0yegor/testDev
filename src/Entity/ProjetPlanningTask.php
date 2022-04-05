@@ -64,12 +64,18 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
      */
     private $faitMarquants;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ProjetParticipant::class, inversedBy="projetPlanningTasks")
+     */
+    private $participants;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
         $this->duration = 1;
         $this->progress = 0;
         $this->faitMarquants = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -222,5 +228,29 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     public function getProjet(): Projet
     {
         return $this->projetPlanning->getProjet();
+    }
+
+    /**
+     * @return Collection|ProjetParticipant[]
+     */
+    public function getParticipants(): Collection
+    {
+        return $this->participants;
+    }
+
+    public function addParticipant(ProjetParticipant $participant): self
+    {
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+        }
+
+        return $this;
+    }
+
+    public function removeParticipant(ProjetParticipant $participant): self
+    {
+        $this->participants->removeElement($participant);
+
+        return $this;
     }
 }
