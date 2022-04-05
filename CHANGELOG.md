@@ -11,6 +11,16 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.42.8] - 2022-04-05
+### Ajouté
+- Afficher l'équipe d'un administrateur connecté
+- Afficher l'organigramme des équipes des utilisateurs
+- Ajouter colonne % Progress dans la planification du projet
+- Affecter des participants du projet à des tâches du planning
+### Modifié
+- Score RDI : Max 95% 
+- Graphique du score RDI
+
 ## [0.42.7] - 2022-03-22
 ### Modifié
 - Affichage des projets RDI dans le tableau de bord
