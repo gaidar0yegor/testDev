@@ -8,6 +8,9 @@ const chart = c3.generate({
         type: 'bar',
         x: '_projects_year',
         columns: [],
+        groups: [
+            ['dont RDI > 50%','dont RDI > 30%']
+        ]
     },
     bar: {
         width: {
@@ -17,6 +20,7 @@ const chart = c3.generate({
     color: {
         pattern: [
             '#1f77b4',
+            '#f58c08',
             '#28a745',
         ],
     },
@@ -42,11 +46,13 @@ window.addEventListener('loadSinceYearCharts', event => {
             .then(response => response.json())
             .then(projetsType => {
                 const nbProjets = ['Projets'];
-                const nbProjetsRdi = ['dont projets RDI'];
+                const nbProjetsRdi50 = ['dont RDI > 50%'];
+                const nbProjetsRdi30 = ['dont RDI > 30%'];
 
                 for (let i = year; i <= currentYear; ++i) {
                     nbProjets.push(projetsType[i].projets);
-                    nbProjetsRdi.push(projetsType[i].projetsRdi);
+                    nbProjetsRdi50.push(projetsType[i].projetsRdi50);
+                    nbProjetsRdi30.push(projetsType[i].projetsRdi30);
                 }
 
                 chart.load({
@@ -54,7 +60,8 @@ window.addEventListener('loadSinceYearCharts', event => {
                     columns: [
                         yearsAxisSince(year),
                         nbProjets,
-                        nbProjetsRdi,
+                        nbProjetsRdi30,
+                        nbProjetsRdi50,
                     ],
                 });
             })

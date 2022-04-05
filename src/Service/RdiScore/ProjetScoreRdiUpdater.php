@@ -29,6 +29,8 @@ class ProjetScoreRdiUpdater
     private const COEF_FILE = 0.15;
     private const COEF_IMAGE = 0.15;
 
+    private const SCORE_MAX = 0.95;
+
     private EntityManagerInterface $em;
 
     public function __construct(EntityManagerInterface $em)
@@ -161,8 +163,13 @@ class ProjetScoreRdiUpdater
 
     private function dbUpdateProjetScore(Projet $projet, float $globalScore, array $annualScores): void
     {
-        foreach ($annualScores as $year => $annualScore) {
-            $annualScores[$year] = round($globalScore + $annualScore,2);
+        foreach ($annualScores as $year => $annualScore)
+        {
+            $score = $globalScore + $annualScore;
+            if (!$projet->getProjetPpp()){
+                $score = $score * ($projet->getProjetCollaboratif() ? 1.14 : 1.2);
+            }
+            $annualScores[$year] = round($score > self::SCORE_MAX ? self::SCORE_MAX : $score,2);
         }
 
         $projet->setAnnualRdiScores($annualScores);
