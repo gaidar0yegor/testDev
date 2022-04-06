@@ -9,7 +9,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
-
+## [0.42.9] - 2022-04-06
+### Ajouté
+- Afficher la liste des users affectés à une tâche
+### Modifié
+- Alignement des boutons du Users Datatable
 
 ## [0.42.8] - 2022-04-05
 ### Ajouté
