@@ -4,13 +4,14 @@ const projectAcronyme = window['project_planning_content'].dataset.projectAcrony
 const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
 gantt.config.columns = [
-    {name: "wbs", label: "#", width: 50, align: "center", template: gantt.getWBSCode},
+    {name: "wbs", label: "#", width: 40, min_width: 40, max_width: 40, align: "center", template: gantt.getWBSCode},
     {name: "text", tree: true, width: 250, min_width: 250, max_width: 250, resize: true},
     {name: "start_date", width:80, min_width: 80, max_width: 80, align: "center", editor: {type: "date", map_to: "start_date"}, resize: true},
     {name: "duration", width:50, min_width: 50, max_width: 50, align: "center", editor: {type: "number", map_to: "duration", min:1}, resize: true},
-    {name: "progress", label: "Progress", align:"center", template : function(obj){ return (Math.round(obj.progress * 100)) + "%" }},
-    {name: "add", width: 44, min_width: 44, max_width: 44},
-    {name: "fait_marquants", align: "center",label:"FM(s)", width: 44, min_width: 44, max_width: 44, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-link"></i></a>` : '' } }
+    {name: "progress", label: "Progress", align:"center", width:50, min_width: 50, max_width: 50, editor: {type: "number", map_to: "progress", min:0}, template : function(obj){ return (Math.round(obj.progress * 100)) + "%" }},
+    {name: "add", align: "center", width: 30, min_width: 30, max_width: 30},
+    {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
+    {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
 
 gantt.templates.grid_row_class = function( start, end, task ){

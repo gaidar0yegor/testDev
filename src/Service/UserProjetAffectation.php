@@ -37,7 +37,7 @@ class UserProjetAffectation
             $societeUser->addProjetParticipant(ProjetParticipant::create(
                 $societeUser,
                 $otherProjet,
-                null,
+                null
             ));
         }
     }
