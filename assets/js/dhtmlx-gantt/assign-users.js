@@ -76,3 +76,33 @@ $($form).submit(function( event ) {
         },
     });
 });
+
+$(document).on('click', '.show-assigned-to-task', function (e) {
+    var taskId = $(this).data('taskId');
+    var $modal = $('#assignedUsers');
+
+    $($modal).find('.modal-body').empty();
+
+    $.ajax({
+        url: `/api/projet/${projectId}/planning/participants/${taskId}`,
+        method: 'GET',
+        success: function (response) {
+            let participants = response.data,
+                noAssignedUser = true,
+                $html = $('<ul></ul>');
+            $.each( participants, function (i, participant) {
+                if (participant.assigned){
+                    noAssignedUser = false;
+                    $($html).append(`<li>${participant.fullName}</li>`)
+                }
+            });
+
+            if (noAssignedUser){
+                $html = $('<p class="text-center m-2">Aucun utilisateur est affecté à cette tâche.</p>')
+            }
+
+            $($modal).find('.modal-body').html($html);
+            $($modal).modal('show');
+        },
+    });
+});

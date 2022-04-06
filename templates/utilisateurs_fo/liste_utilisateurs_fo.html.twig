@@ -49,18 +49,18 @@
                 </td>
                 <td class="text-center" data-search='{{ societeUser.statut }}'>{{ societeUser.statut|trans }}</td>
                 <td class="text-center">{{ societeUser.projetParticipants|length }}</td>
-                <td class="text-center">
+                <td class="text-right">
+                    {% if not isTeamUsers and societeUser.teamMembers | length > 0 %}
+                        <a href="javascript:;" class="show_user_organigramme" data-societe-user-id="{{ societeUser.id }}">
+                            <i class="fa fa-lg fa-sitemap"></i>
+                        </a>
+                    {% endif %}
                     <a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
                         <i class="fa fa-lg fa-eye"></i>
                     </a>
                     <a href="{{ path('app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">
                         <i class="fa fa-lg fa-edit"></i>
                     </a>
-                    {% if not isTeamUsers and societeUser.teamMembers | length > 0 %}
-                    <a href="javascript:;" class="show_user_organigramme" data-societe-user-id="{{ societeUser.id }}">
-                        <i class="fa fa-lg fa-sitemap"></i>
-                    </a>
-                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

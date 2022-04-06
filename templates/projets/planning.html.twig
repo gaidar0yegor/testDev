@@ -29,7 +29,9 @@
         <ul class="gantt-controls">
             <li class="gantt-menu-item"><a data-action="collapseAll"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_collapse_all_24.png') }}"></a></li>
             <li class="gantt-menu-item"><a data-action="expandAll"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_expand_all_24.png') }}"></a></li>
+            {% if userCanEditProjet %}
             <li class="gantt-menu-item gantt-menu-item-last"><a data-action="assignUsers"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_users_24.png') }}">Affectation</a></li>
+            {% endif %}
             <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_export_24.png') }}">Export</a>
                 <ul class="gantt-controls">
                     <li class="gantt-menu-item"><a data-action="toPDF"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_file_pdf.png') }}">PDF</a></li>
@@ -72,6 +74,23 @@
                             <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">Fermer</button>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="assignedUsers" tabindex="-1" role="dialog" aria-labelledby="assignedUsersLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="assignedUsersLabel">Utilisateurs affectés</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="overflow-y: scroll;height: 200px;"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary ml-3" data-dismiss="modal">Fermer</button>
                 </div>
             </div>
         </div>
