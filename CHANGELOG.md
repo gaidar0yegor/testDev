@@ -6,6 +6,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+- Notifications si la date fin d'une tâche = j - 3
+- Notification si progress d'une tâche = 100%
 
 
 
