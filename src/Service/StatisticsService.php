@@ -9,6 +9,7 @@ use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
+use App\Repository\SocieteUserRepository;
 use App\Repository\TempsPasseRepository;
 use App\Security\Role\RoleProjet;
 use App\Service\Timesheet\TimesheetCalculator;
@@ -19,6 +20,8 @@ class StatisticsService
 
     private ProjetRepository $projetRepository;
 
+    private SocieteUserRepository $societeUserRepository;
+
     private CraRepository $craRepository;
 
     private TimesheetCalculator $timesheetCalculator;
@@ -26,11 +29,13 @@ class StatisticsService
     public function __construct(
         TempsPasseRepository $tempsPasseRepository,
         ProjetRepository $projetRepository,
+        SocieteUserRepository $societeUserRepository,
         CraRepository $craRepository,
         TimesheetCalculator $timesheetCalculator
     ) {
         $this->tempsPasseRepository = $tempsPasseRepository;
         $this->projetRepository = $projetRepository;
+        $this->societeUserRepository = $societeUserRepository;
         $this->craRepository = $craRepository;
         $this->timesheetCalculator = $timesheetCalculator;
     }
@@ -45,10 +50,15 @@ class StatisticsService
         RoleProjet::checkRole($roleMinimum);
 
         $heuresPassees = $this->calculateHeuresParProjet($societeUser->getSociete(), $year);
-        $userProjets = $societeUser->isAdminFo()
-            ? $this->projetRepository->findAllProjectsPerSociete($societeUser->getSociete(), $year, $year)
-            : $this->projetRepository->findAllForUserInYear($societeUser, $roleMinimum, $year)
-        ;
+
+        if ($societeUser->isAdminFo()){
+            $userProjets = $this->projetRepository->findAllProjectsPerSociete($societeUser->getSociete(), $year, $year);
+        } elseif ($societeUser->isSuperiorFo()) {
+            $userProjets = $this->projetRepository->findAllForUsers($this->societeUserRepository->findTeamMembers($societeUser), $year, $year);
+        } else {
+            $userProjets = $this->projetRepository->findAllForUserInYear($societeUser, $roleMinimum, $year);
+        }
+
 
         $userProjetsHeuresPassees = [];
         $codeColors = [];

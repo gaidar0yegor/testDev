@@ -131,17 +131,32 @@ class ProjetRepository extends ServiceEntityRepository
      *
      * @return Projet[]
      */
-    public function findAllForUsers(array $societeUsers): array
+    public function findAllForUsers(array $societeUsers, int $sinceYear = null, int $toYear = null): array
     {
-        $projets =  $this
+        $qb =  $this
             ->createQueryBuilder('projet')
             ->leftJoin('projet.projetParticipants','projetParticipant')
             ->leftJoin('projetParticipant.societeUser', 'societeUser')
             ->where('societeUser.id in (:societeUsers)')
-            ->setParameter('societeUsers',$societeUsers)
-            ->getQuery()
-            ->getResult()
-        ;
+            ->setParameter('societeUsers',$societeUsers);
+
+        if (null !== $sinceYear) {
+            $qb
+                ->andWhere('projet.dateFin is null or projet.dateFin >= :year')
+                ->setParameter('year', new \DateTime("$sinceYear-01-01"))
+            ;
+
+            if (null === $toYear) {
+                $toYear = date('Y');
+            }
+
+            $qb
+                ->andWhere('projet.dateDebut is null or projet.dateDebut <= :currentYear')
+                ->setParameter('currentYear', new \DateTime("$toYear-12-31"))
+            ;
+        }
+
+        $projets = $qb->getQuery()->getResult();
 
         return $projets;
     }
