@@ -84,9 +84,13 @@ class ProjetPlanningController extends AbstractController
 
         $projetPlanningTask = new ProjetPlanningTask();
         $projetPlanningTask->setText($request->request->get('text'));
-        $projetPlanningTask->setStartDate(\DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00'));
+
+        $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');
+        $projetPlanningTask->setStartDate($startdDate);
         $projetPlanningTask->setDuration((int)$request->request->get('duration'));
         $projetPlanningTask->setProgress((float)$request->request->get('progress'));
+
+        $projetPlanningTask->setEndDate((clone $startdDate)->modify("+" . $projetPlanningTask->getDuration() - 1 . " days"));
 
         $parentTask = (int)$request->request->get('parent') === 0 ? null :
             $this->em->getRepository(ProjetPlanningTask::class)->find($request->request->get('parent'));
@@ -118,9 +122,13 @@ class ProjetPlanningController extends AbstractController
     public function updateTaskFromGantt(Projet $projet, ProjetPlanningTask $projetPlanningTask, Request $request)
     {
         $projetPlanningTask->setText($request->request->get('text'));
-        $projetPlanningTask->setStartDate(\DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00'));
+
+        $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');
+        $projetPlanningTask->setStartDate($startdDate);
         $projetPlanningTask->setDuration((int)$request->request->get('duration'));
         $projetPlanningTask->setProgress((float)$request->request->get('progress'));
+
+        $projetPlanningTask->setEndDate((clone $startdDate)->modify("+" . $projetPlanningTask->getDuration() - 1 . " days"));
 
         $parentTask = (int)$request->request->get('parent') === 0 ? null :
             $this->em->getRepository(ProjetPlanningTask::class)->find($request->request->get('parent'));

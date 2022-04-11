@@ -39,6 +39,11 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     private $startDate;
 
     /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $endDate;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $duration;
@@ -115,6 +120,18 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     public function setStartDate(\DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
+
+        return $this;
+    }
+
+    public function getEndDate(): ?\DateTimeInterface
+    {
+        return $this->endDate;
+    }
+
+    public function setEndDate(?\DateTimeInterface $endDate): self
+    {
+        $this->endDate = $endDate;
 
         return $this;
     }

@@ -12,20 +12,29 @@ use App\Entity\SocieteUserActivity;
 use App\Entity\SocieteUserNotification;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ProjetParticipantRoleModifiedActivity implements ActivityInterface
 {
+    private EntityManagerInterface $em;
+
     private EntityLinkService $entityLinkService;
 
     private UserContext $userContext;
 
     private TranslatorInterface $translator;
 
-    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext, TranslatorInterface $translator)
+    public function __construct(
+        EntityManagerInterface $em,
+        EntityLinkService $entityLinkService,
+        UserContext $userContext,
+        TranslatorInterface $translator
+    )
     {
+        $this->em = $em;
         $this->entityLinkService = $entityLinkService;
         $this->userContext = $userContext;
         $this->translator = $translator;
@@ -117,11 +126,10 @@ class ProjetParticipantRoleModifiedActivity implements ActivityInterface
             ->setActivity($activity)
         ;
 
-        $em = $args->getEntityManager();
-        $em->persist($activity);
-        $em->persist($projetActivity);
-        $em->persist($societeUserActivity);
-        $em->persist($societeUserNotification);
-        $em->flush();
+        $this->em->persist($activity);
+        $this->em->persist($projetActivity);
+        $this->em->persist($societeUserActivity);
+        $this->em->persist($societeUserNotification);
+        $this->em->flush();
     }
 }
