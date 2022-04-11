@@ -20,10 +20,7 @@ final class Version20220406105552 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('
-            ALTER TABLE projet_planning_task ADD end_date DATE NOT NULL 
-            DEFAULT DATE_ADD(projet_planning_task.start_date, INTERVAL projet_planning_task.duration DAY)
-            ');
+        $this->addSql('ALTER TABLE projet_planning_task ADD end_date DATE DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
