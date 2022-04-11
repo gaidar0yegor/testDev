@@ -24,6 +24,16 @@
         </p>
     {% endif %}
 
+    {% if userContext.societeUser.isSuperiorFo %}
+        <p>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            {{ 'as_superior_i_can_also_access_team_projects'|trans({
+                '%link_start%': '<a href="' ~ path('app_fo_mon_equipe_projets') ~ '">',
+                '%link_end%': '</a>'
+            })|raw }}
+        </p>
+    {% endif %}
+
     <table class="table datatable hover" data-order='[[ 1, "asc" ]]'>
         <thead>
             <tr>
