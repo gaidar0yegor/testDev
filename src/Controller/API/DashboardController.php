@@ -6,6 +6,7 @@ use App\Activity\ActivityService;
 use App\Entity\ProjetActivity;
 use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
+use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleProjet;
 use App\Service\CraService;
 use App\Service\DateMonthService;
@@ -208,13 +209,18 @@ class DashboardController extends AbstractController
     public function getProjetsStatuts(
         int $sinceYear,
         UserContext $userContext,
-        ProjetRepository $projetRepository
+        ProjetRepository $projetRepository,
+        SocieteUserRepository $societeUserRepository
     ) {
         $now = new \DateTime();
-        $projets = $userContext->getSocieteUser()->isAdminFo()
-            ? $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete(), $sinceYear)
-            : $projetRepository->findAllForUserSinceYear($userContext->getSocieteUser(), RoleProjet::OBSERVATEUR, $sinceYear)
-        ;
+
+        if ($userContext->getSocieteUser()->isAdminFo()){
+            $projets = $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete(), $sinceYear);
+        } elseif ($userContext->getSocieteUser()->isSuperiorFo()) {
+            $projets = $projetRepository->findAllForUsers($societeUserRepository->findTeamMembers($userContext->getSocieteUser()), $sinceYear);
+        } else {
+            $projets = $projetRepository->findAllForUserSinceYear($userContext->getSocieteUser(), RoleProjet::OBSERVATEUR, $sinceYear);
+        }
 
         $stats = [
             'active' => 0,
@@ -262,12 +268,16 @@ class DashboardController extends AbstractController
     public function getProjetsTypesSinceYear(
         int $sinceYear,
         UserContext $userContext,
-        ProjetRepository $projetRepository
+        ProjetRepository $projetRepository,
+        SocieteUserRepository $societeUserRepository
     ) {
-        $projets = $userContext->getSocieteUser()->isAdminFo()
-            ? $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete(), $sinceYear)
-            : $projetRepository->findAllForUserSinceYear($userContext->getSocieteUser(), RoleProjet::OBSERVATEUR, $sinceYear)
-        ;
+        if ($userContext->getSocieteUser()->isAdminFo()){
+            $projets = $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete(), $sinceYear);
+        } elseif ($userContext->getSocieteUser()->isSuperiorFo()) {
+            $projets = $projetRepository->findAllForUsers($societeUserRepository->findTeamMembers($userContext->getSocieteUser()), $sinceYear);
+        } else {
+            $projets = $projetRepository->findAllForUserSinceYear($userContext->getSocieteUser(), RoleProjet::OBSERVATEUR, $sinceYear);
+        }
 
         $currentYear = intval((new \DateTime())->format('Y'));
 
