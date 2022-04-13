@@ -13,7 +13,11 @@
     <div class="comment-content hide" data-fait-marquant-id="{{ faitMarquant.id }}">
         <div class="comment-content-new">
             {% include 'utils/_avatar.html.twig' with {user: app.user, size: 40} %}
-            <textarea rows="1" placeholder="{{ 'write_comment'|trans }} ..."></textarea>
+            <textarea
+                    rows="1"
+                    {% if projet.societe.faitMarquantMaxDesc > 0 %} maxlength="{{ projet.societe.faitMarquantMaxDesc }}" {% endif %}
+                    placeholder="{{ 'write_comment'|trans }} ...">
+            </textarea>
             <button type="button" class="btn btn-outline-info btn-comment-publish"><i class="fa fa-paper-plane"></i> {{ 'publish'|trans }}</button>
         </div>
         {% if faitMarquant.comments.count %}
