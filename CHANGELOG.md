@@ -6,10 +6,16 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+## [0.43.0] - 2022-04-13
+### Ajouté
 - Notifications si la date fin d'une tâche = j - 3
 - Notification si progress d'une tâche = 100%
 - Tableau de bord : afficher les statistiques de mon équipe
-
+- Commenter les faits marquants
 
 ## [0.42.9] - 2022-04-06
 ### Ajouté
