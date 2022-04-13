@@ -57,7 +57,7 @@ class User implements UserInterface
      *
      * @Assert\NotBlank(groups={"registration"})
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme","comment"})
      */
     private $nom;
 
@@ -66,7 +66,7 @@ class User implements UserInterface
      *
      * @Assert\NotBlank(groups={"registration"})
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme","comment"})
      */
     private $prenom;
 
@@ -75,7 +75,7 @@ class User implements UserInterface
      *
      * @Assert\Email(mode="strict")
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme"})
      */
     private $email;
 
@@ -177,7 +177,7 @@ class User implements UserInterface
     /**
      * @ORM\OneToOne(targetEntity=Fichier::class, cascade={"persist", "remove"})
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme","comment"})
      */
     private $avatar;
 

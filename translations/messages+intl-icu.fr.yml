@@ -91,6 +91,8 @@ menu.admin.timesheet_export: "Export feuilles de temps"
 menu.admin.notification_parameters: "Paramètres notifications"
 menu.admin.licenses: "Mes licences"
 loading: Chargement…
+to_comment: 'Commenter'
+comments: 'commentaires'
 projects_analyse_of_year: "Analyse des projets de l'année"
 hours_by_project: "Nombre d'heures par projet"
 hours_by_project_by_month: "Nombre d'heures par projet et par mois"
@@ -274,6 +276,14 @@ time_spent_in: "Temps passé en"
 creation_of_your_admin_account_on_company:
   "Création de votre compte administrateur
   sur la société"
+n_years: "{n, plural, =1 {une année} other {# années}}"
+n_months: "{n, plural, =1 {un mois} other {# mois}}"
+n_days: "{n, plural, =1 {un jour} other {# jours}}"
+n_hours: "{n, plural, =1 {une heure} other {# heures}}"
+n_minutes: "{n, plural, =1 {une minute} other {# minutes}}"
+n_seconds: "{n, plural, =1 {une seconde} other {# secondes}}"
+now: "à l'instant"
+write_comment: "Rédiger un commentaire"
 continue: Continuer
 my_rdi_manager_account: "Mon compte RDI-Manager"
 create_my_rdi_manager_account: "Créer mon compte RDI-Manager"

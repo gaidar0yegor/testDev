@@ -88,6 +88,8 @@ menu.admin.timesheet_check: Validate your time
 menu.admin.timesheet_export: Export your timesheets
 hours_by_project: Number of hours per projects
 loading: Loading…
+to_comment: 'Comment'
+comments: 'comments'
 projects_analyse_of_year: Analyse this year's projects
 my_projects_of_year: My projects of the year
 my_team_projects_of_year: The projects of my team of the year
@@ -318,6 +320,14 @@ disable_account_with_CDP_roles_explain: "Please change the roles of {user} in th
 creation_of_your_admin_account_on_company:
   Creation of your administrator's account
   in the company
+n_years: "{n, plural, =1 {one year} other {# years}}"
+n_months: "{n, plural, =1 {one month} other {# months}}"
+n_days: "{n, plural, =1 {one day} other {# days}}"
+n_hours: "{n, plural, =1 {one hour} other {# hours}}"
+n_minutes: "{n, plural, =1 {one minute} other {# minutes}}"
+n_seconds: "{n, plural, =1 {one second} other {# seconds}}"
+now: "just now"
+write_comment: "Write a comment"
 continue: Continue
 my_rdi_manager_account: My RDI-Manager account
 create_my_rdi_manager_account: Create my RDI-Manager account

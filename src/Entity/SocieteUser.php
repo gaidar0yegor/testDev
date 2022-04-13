@@ -58,7 +58,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme"})
      */
     private $id;
 
@@ -77,14 +77,14 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="societeUsers", cascade={"persist"})
      * @ORM\JoinColumn(nullable=true)
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme","comment"})
      */
     private $user;
 
     /**
      * @ORM\Column(type="string", length=31)
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme"})
      */
     private $role;
 
@@ -120,7 +120,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      *
      * @ORM\Column(type="boolean")
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme"})
      */
     private $enabled;
 
@@ -218,7 +218,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      *
      *
      * @MaxDepth(1)
-     * @Groups("organigramme")
+     * @Groups({"organigramme"})
      */
     private $teamMembers;
 

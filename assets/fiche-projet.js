@@ -4,6 +4,8 @@ import $ from 'jquery';
 import {detectedLocale,language_dt} from './js/translation';
 import './js/datatable.js';
 
+import './js/fait-marquant-comment';
+
 language_dt.searchPlaceholder = detectedLocale === "en" ? 'Search within the striking facts' : 'Rechercher dans les faits marquants';
 language_dt.emptyTable = detectedLocale === "en" ? 'There is no striking fact on this project' : "Il n'existe aucun fait marquant sur ce projet";
 
