@@ -1,0 +1,46 @@
+<div class="comment-container">
+    <div class="text-right">
+        <a href="javascript:;" class="comment-count {{ faitMarquant.comments|length == 0 ? 'empty' : '' }}">
+            {% if faitMarquant.comments|length %}
+                <span class="counter">{{ faitMarquant.comments|length }}</span>
+                {{ 'comments'|trans }}
+                <i class="fa fa-angle-down mt-1"></i>
+            {% else %}
+                {{ 'to_comment'|trans }}
+            {% endif %}
+        </a>
+    </div>
+    <div class="comment-content hide" data-fait-marquant-id="{{ faitMarquant.id }}">
+        <div class="comment-content-new">
+            {% include 'utils/_avatar.html.twig' with {user: app.user, size: 40} %}
+            <textarea rows="1" placeholder="{{ 'write_comment'|trans }} ..."></textarea>
+            <button type="button" class="btn btn-outline-info btn-comment-publish"><i class="fa fa-paper-plane"></i> {{ 'publish'|trans }}</button>
+        </div>
+        {% if faitMarquant.comments.count %}
+            <div class="comment-content-list">
+                {% for comment in faitMarquant.comments %}
+                    <div class="comment-elem">
+                        <div class="header">
+                            <div>
+                                {% include 'utils/_avatar.html.twig' with {user: comment.createdBy.user, size: 24, toExpend: true} %}
+                                <span class="text-primary">{{ comment.createdBy.user.fullname }}</span> |
+                                <span class="badge badge-secondary">{{ comment.createdByRole|trans }}</span>
+                            </div>
+                            <div class="actions">
+                                <span class="created_at"><i>{{ diffDateTimes(comment.createdAt) }}</i></span>
+                                {% if comment.createdBy.user == userContext.user or (userContext.hasSocieteUser and userContext.getSocieteUser.isAdminFo) %}
+                                | <a href="javascript:;" class="ml-1 btn-comment-delete" data-comment-id="{{ comment.id }}"><i class="fa fa-trash"></i></a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="body text-justify">
+                            {{ comment.text }}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="comment-content-list"></div>
+        {% endif %}
+    </div>
+</div>

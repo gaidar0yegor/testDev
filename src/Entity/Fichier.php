@@ -30,7 +30,7 @@ class Fichier implements Serializable
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Groups("organigramme")
+     * @Groups({"organigramme","comment"})
      */
     private $nomMd5;
 

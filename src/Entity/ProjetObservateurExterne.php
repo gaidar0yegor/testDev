@@ -12,6 +12,7 @@ use libphonenumber\PhoneNumber;
 use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Donne à un utilisateur externe
@@ -48,6 +49,8 @@ class ProjetObservateurExterne
      *
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projetObservateurExternes")
      * @ORM\JoinColumn(nullable=true)
+     *
+     * @Groups({"comment"})
      */
     private $user;
 

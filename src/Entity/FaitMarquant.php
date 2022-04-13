@@ -84,10 +84,18 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
      */
     private $projetPlanningTask;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FaitMarquantComment::class, mappedBy="faitMarquant", orphanRemoval=true)
+     *
+     * @ORM\OrderBy({"createdAt" = "DESC", "id" = "DESC"})
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -263,6 +271,36 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     public function setProjetPlanningTask(?ProjetPlanningTask $projetPlanningTask): self
     {
         $this->projetPlanningTask = $projetPlanningTask;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|FaitMarquantComment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(FaitMarquantComment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setFaitMarquant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(FaitMarquantComment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getFaitMarquant() === $this) {
+                $comment->setFaitMarquant(null);
+            }
+        }
 
         return $this;
     }
