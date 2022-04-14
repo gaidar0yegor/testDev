@@ -21,7 +21,9 @@
                         {{ societeUser.societe.raisonSociale }}
                         </div>
                         <div class="text-right">
-                            <small><strong>Offre {{ societeUser.societe.productKey|trans }}</strong></small>
+                            <small>
+                                <strong>Offre {{ societeUser.societe.productKey|trans }} {% if hasTryLicense(societeUser.societe) %}({{ 'try_offer'|trans }}){% endif %}</strong>
+                            </small>
                             {% if societeUser.isAdminFo %}
                             <br><small><i>Expirée le {{ getLicenseExpirationDate(societeUser.societe)|format_date(pattern='d MMMM yyyy') }}</i></small>
                             {% endif %}
