@@ -6,8 +6,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
-
+- Envoyer des notifications par mail si user commenter un fait marquant
+- Limiter taille max commentaire = taille max fait marquant
+### Réparé
+- Envoyer des notifications par mail si la date fin d'une tâche = j - 3
 
 
 ## [0.43.0] - 2022-04-13

@@ -10,7 +10,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class FaitMarquantCreated
 {
@@ -18,20 +17,16 @@ class FaitMarquantCreated
 
     private UserContext $userContext;
 
-    private AuthorizationCheckerInterface $authChecker;
-
     private FaitMarquantService $faitMarquantService;
 
     public function __construct(
         MailerInterface $mailer,
         UserContext $userContext,
-        AuthorizationCheckerInterface $authChecker,
         FaitMarquantService $faitMarquantService
     )
     {
         $this->mailer = $mailer;
         $this->userContext = $userContext;
-        $this->authChecker = $authChecker;
         $this->faitMarquantService = $faitMarquantService;
     }
 
