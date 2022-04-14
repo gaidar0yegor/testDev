@@ -20,7 +20,8 @@
         </h2>
 
         <p v-if="cra && cra.isUserBelongingToSociete === false" class="lead text-center">
-            Impossible de saisir les temps de cette période car vous n'étiez pas dans la société.
+            Impossible de saisir les temps de cette période car vous n'étiez pas dans la société.<br>
+            Dans le cas contraire, contactez votre administrateur RDI-Manager ou votre N+1 pour mettre à jour votre date d’entrée dans la société.
         </p>
 
         <p v-if="cra && cra.tempsPasses.length === 0 && cra.isUserBelongingToSociete === true" class="lead text-center">

@@ -540,11 +540,9 @@ select.select-2, .select2.select2-container  {
 
 /* custom-fixed-alerts */
 
-#custom-fixed-alerts{
+.custom-fixed-alerts{
   position: fixed;
-  bottom: 3.6rem;
-  right: 1rem;
-  opacity: 0.5;
+  opacity: 0.8;
   z-index: 9999;
   width: 16rem;
   cursor: help;
@@ -552,9 +550,21 @@ select.select-2, .select2.select2-container  {
   box-shadow: rgba(0, 0, 0, 1) 1.95px 1.95px 2.6px;
 }
 
-#custom-fixed-alerts .custom-alert{
+.custom-fixed-alerts .custom-alert{
   background-color: gainsboro;
   padding: 10px;
+}
+
+#buttom-fixed-alerts{
+  bottom: 3.6rem;
+  right: 1rem;
+}
+
+#center-fixed-alerts{
+  top: 50%;
+  left: 50%;
+  margin-left: -8rem;
+  margin-top: -4rem;
 }
 
 .read-more{
@@ -572,14 +582,3 @@ select.select-2, .select2.select2-container  {
   font-style: italic;
   box-shadow: 0px -8px 12px 0px rgba(255,255,255,0.91);
 }
-
-/*.input-group > .select2-container--default {*/
-/*  width: auto;*/
-/*  flex: 1 1 auto;*/
-/*}*/
-
-/*.input-group > .select2-container--default .select2-selection--single {*/
-/*  height: 100%;*/
-/*  line-height: inherit;*/
-/*  padding: 0.5rem 1rem;*/
-/*}*/
