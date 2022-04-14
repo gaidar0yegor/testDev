@@ -93,6 +93,11 @@ services:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
 
+    App\Activity\Type\FaitMarquantCommentCreated:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquantComment }
+
     App\Activity\Type\FaitMarquantModifiedActivity:
         tags:
             - 'app.activity_type'
@@ -272,6 +277,10 @@ services:
     App\Notification\Mail\FaitMarquantCreated:
         tags:
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
+
+    App\Notification\Mail\FaitMarquantCommentCreated:
+        tags:
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquantComment }
 
     App\Localization\UserEntityListener:
         tags:

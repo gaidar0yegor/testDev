@@ -16,8 +16,7 @@
             <textarea
                     rows="1"
                     {% if projet.societe.faitMarquantMaxDesc > 0 %} maxlength="{{ projet.societe.faitMarquantMaxDesc }}" {% endif %}
-                    placeholder="{{ 'write_comment'|trans }} ...">
-            </textarea>
+                    placeholder="{{ 'write_comment'|trans }} ..."></textarea>
             <button type="button" class="btn btn-outline-info btn-comment-publish"><i class="fa fa-paper-plane"></i> {{ 'publish'|trans }}</button>
         </div>
         {% if faitMarquant.comments.count %}

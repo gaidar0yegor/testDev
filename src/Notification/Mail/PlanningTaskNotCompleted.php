@@ -33,6 +33,15 @@ class PlanningTaskNotCompleted
         $projetPlanningTask = $event->getProjetPlanningTask();
         $projet = $event->getProjet();
 
+        $email = (new TemplatedEmail())
+            ->subject('Date d\'échéance d\'une tâche est dans 3 jours')
+            ->textTemplate('mail/notification_planning_task_not_completed.txt.twig')
+            ->htmlTemplate('mail/notification_planning_task_not_completed.html.twig')
+            ->context([
+                'projet' => $projet,
+                'projetPlanningTask' => $projetPlanningTask,
+            ]);
+
         $toEmails[] = $projet->getChefDeProjet()->getUser()->getEmail();
 
         foreach ($projetPlanningTask->getParticipants() as $participant){
@@ -41,17 +50,8 @@ class PlanningTaskNotCompleted
             }
         }
 
-        $email = (new TemplatedEmail())
-            ->to($toEmails)
-            ->subject('Date d\'échéance d\'une tâche est dans 3 jours')
-            ->textTemplate('mail/notification_planning_task_not_completed.txt.twig')
-            ->htmlTemplate('mail/notification_planning_task_not_completed.html.twig')
-            ->context([
-                'projet' => $projet,
-                'projetPlanningTask' => $projetPlanningTask,
-            ])
-        ;
-
-        $this->mailer->send($email);
+        foreach ($toEmails as $toEmail){
+            $this->mailer->send($email->to($toEmail));
+        }
     }
 }

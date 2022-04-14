@@ -53,6 +53,7 @@ class ProjetPlanningTaskRepository extends ServiceEntityRepository
         $todayMinus3Days = (new \DateTime('today midnight'))->modify('-3 days');
 
         return $this->createQueryBuilder('ppt')
+            ->andWhere('ppt.progress < 1')
             ->andWhere('ppt.endDate = :todayMinus3Days')
             ->setParameter('todayMinus3Days', $todayMinus3Days)
             ->getQuery()
