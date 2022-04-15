@@ -9,6 +9,8 @@ use App\Entity\ProjetPlanningTask;
 use App\Entity\SocieteUserNotification;
 use App\Notification\Event\PlanningTaskNotCompletedNotification;
 use App\Service\EntityLink\EntityLinkService;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -62,6 +64,10 @@ class PlanningTaskNotCompleted implements ActivityInterface, EventSubscriberInte
 
     public function onNotification(PlanningTaskNotCompletedNotification $event): void
     {
+        if (!ProductPrivilegeCheker::checkProductPrivilege($event->getSociete(),ProductPrivileges::NOTIFICATION_PLANIFICATION_PROJET)){
+            return;
+        }
+
         $projetPlanningTask = $event->getProjetPlanningTask();
         $projet = $event->getProjet();
 

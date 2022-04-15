@@ -10,6 +10,8 @@ use App\Entity\SocieteUser;
 use App\Entity\SocieteUserNotification;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -61,6 +63,10 @@ class PlanningTaskCompleted implements ActivityInterface
     public function postUpdate(ProjetPlanningTask $projetPlanningTask, LifecycleEventArgs $args): void
     {
         $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($projetPlanningTask);
+
+        if (!ProductPrivilegeCheker::checkProductPrivilege($projetPlanningTask->getSociete(),ProductPrivileges::NOTIFICATION_PLANIFICATION_PROJET)){
+            return;
+        }
 
         if (!isset($changes['progress']) || $changes['progress'][1] != 1) {
             return;

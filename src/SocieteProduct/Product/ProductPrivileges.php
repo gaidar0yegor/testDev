@@ -30,6 +30,11 @@ class ProductPrivileges
     public const SMS_NOTIFICATION_SAISIE_TEMPS = 'SMS_NOTIFICATION_SAISIE_TEMPS';
 
     /**
+     * Notification sur l'avancement du projet selon le planning
+     */
+    public const NOTIFICATION_PLANIFICATION_PROJET = 'NOTIFICATION_PLANIFICATION_PROJET';
+
+    /**
      * Droit de visibilité des fichiers
      */
     public const FICHIER_PROJET_ACCESSES = 'FICHIER_PROJET_ACCESSES';
