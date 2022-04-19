@@ -9,6 +9,7 @@
     },
     "dependencies": {
         "@toast-ui/editor": "^3.0.0",
+        "apexcharts": "^3.35.0",
         "bootstrap": "4.5.0",
         "bootstrap-datepicker": "^1.9.0",
         "bootstrap-table": "^1.18.2",

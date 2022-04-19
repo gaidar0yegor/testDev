@@ -4,8 +4,8 @@
 
 <h1>Statistiques</h1>
 
-<div class="row">
-    <div class="col-lg-4 offset-lg-1">
+<div class="d-flex">
+    <div class="col-lg-3 offset-lg-1">
         <div class="card rdi-card-icon text-center">
             <i class="fa fa-users" aria-hidden="true"></i>
             <div class="card-body text-center">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 offset-lg-1">
+    <div class="col-lg-3 offset-lg-1">
         <div class="card d-flex justify-content-center rdi-card-icon text-center">
             <i class="fa fa-users" aria-hidden="true"></i>
             <div class="card-body text-center">
@@ -37,50 +37,114 @@
             </div>
         </div>
     </div>
+    <div class="col-lg-3 offset-lg-1">
+        <div class="card d-flex justify-content-center rdi-card-icon text-center">
+            <i class="fa fa-users" aria-hidden="true"></i>
+            <div class="card-body text-center">
+                <div class="row">
+                    <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                        <h5 class="card-title">Nombre total de sociétés</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
+                        <p class="card-text display-4 mb-0">
+                            {{ societe|length }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<table class="table mt-5">
-    <thead>
-        <tr>
-            <th>Indice par mois</th>
-            <th>Jan</th>
-            <th>Fev</th>
-            <th>Mars</th>
-            <th>Avr</th>
-            <th>Mai</th>
-            <th>Juin</th>
-            <th>Juil</th>
-            <th>Aout</th>
-            <th>Sept</th>
-            <th>Oct</th>
-            <th>Nov</th>
-            <th>Déc</th>
-        </tr>
-    </thead>
+<ul class="nav nav-tabs tabs-user-chart mt-5">
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" data-target="graph">Vue Graphiques</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-target="table">Vue Tableau</a>
+    </li>
+</ul>
 
-    <tbody>
-        <tr>
-            <td>
-                Utilisateurs créés
-            </td>
-            {% for userData in userCreatedAt %}
-            <td>
-                {{ userData }}
-            </td>
-            {% endfor %}
-        </tr>
-        <tr>
-            <td>
-                Projets créés
-            </td>
-            {% for projetData in projetCreatedAt %}
-            <td>
-                {{ projetData }}
-            </td>
-            {% endfor %}
-        </tr>
-    </tbody>
+<div id="graph" class="tab-target">
+    <div class="mt-5" id="allTimeUserChart"></div>
+    <div class="mt-5" id="allTimeSocieteChart"></div>
+    <div class="mt-5" id="allTimeProjetChart"></div>
+</div>
 
-</table>
+<div id="table" class="tab-target mt-5" style="display: none;">
 
+    <h1>
+        <span
+            class="year-switch"
+            data-event-name="bo-table-by-year"
+            data-year-from="2020"
+            data-year-to="{{ "now"|date('Y') }}"
+        ></span>
+    </h1>
+
+    <table id="table-sequences" class="table mt-5">
+        <thead>
+            <tr>
+                <th>Indice par mois</th>
+                <th>Jan</th>
+                <th>Fev</th>
+                <th>Mars</th>
+                <th>Avr</th>
+                <th>Mai</th>
+                <th>Juin</th>
+                <th>Juil</th>
+                <th>Aout</th>
+                <th>Sept</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Déc</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr id="users">
+                <td>
+                    Utilisateurs créés
+                </td>
+                {% for userData in userCreatedAt %}
+                <td>
+                    {{ userData }}
+                </td>
+                {% endfor %}
+            </tr>
+            <tr id="projets">
+                <td>
+                    Projets créés
+                </td>
+                {% for projetData in projetCreatedAt %}
+                <td>
+                    {{ projetData }}
+                </td>
+                {% endfor %}
+            </tr>
+            <tr id="societes">
+                <td>
+                    Sociétés créés
+                </td>
+                {% for societeData in societeCreatedAt %}
+                <td>
+                    {{ societeData }}
+                </td>
+                {% endfor %}
+            </tr>
+        </tbody>
+
+    </table>
+</div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+{{ parent() }}
+{{ encore_entry_link_tags('bo-dashboard') }}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+{{ encore_entry_script_tags('bo-dashboard') }}
 {% endblock %}
