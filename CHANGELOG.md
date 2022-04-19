@@ -6,6 +6,15 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+
+
+## [0.43.1] - 2022-04-19
+### Ajouté
 - Envoyer des notifications par mail si user commenter un fait marquant
 - Limiter taille max commentaire = taille max fait marquant
 - Plannification dans le Pack STARTER
@@ -14,7 +23,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Envoyer des notifications par mail si la date fin d'une tâche = j - 3
 - Alerter pour saisir la date d'entrer dans la société
 - Ne pas afficher les FM supprimés dans les NewsLetters
-
 
 ## [0.43.0] - 2022-04-13
 ### Ajouté
