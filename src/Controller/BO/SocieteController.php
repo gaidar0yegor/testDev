@@ -135,6 +135,14 @@ class SocieteController extends AbstractController
                 );
         }
 
+        $oldLicenses = $licenseService->retrieveAllLicenses($societe);
+        if (count($oldLicenses) > 0){
+            $license->setExpirationDate(reset($oldLicenses)->getExpirationDate());
+            $license->setQuotas(reset($oldLicenses)->getQuotas());
+            $license->setIsTryLicense(reset($oldLicenses)->getIsTryLicense());
+            $license->setName(reset($oldLicenses)->getName());
+        }
+
         $form = $this->createForm(GenerateLicenseType::class, $license);
 
         $form->handleRequest($request);

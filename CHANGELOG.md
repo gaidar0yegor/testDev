@@ -8,9 +8,12 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Envoyer des notifications par mail si user commenter un fait marquant
 - Limiter taille max commentaire = taille max fait marquant
+- Plannification dans le Pack STARTER
+- Les relances de la plannification dans les Packs STANDARD & PREMIUM
 ### Réparé
 - Envoyer des notifications par mail si la date fin d'une tâche = j - 3
 - Alerter pour saisir la date d'entrer dans la société
+- Ne pas afficher les FM supprimés dans les NewsLetters
 
 
 ## [0.43.0] - 2022-04-13

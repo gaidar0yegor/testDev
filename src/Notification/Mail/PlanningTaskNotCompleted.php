@@ -3,6 +3,8 @@
 namespace App\Notification\Mail;
 
 use App\Notification\Event\PlanningTaskNotCompletedNotification;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -30,6 +32,10 @@ class PlanningTaskNotCompleted
 
     public function onNotification(PlanningTaskNotCompletedNotification $event): void
     {
+        if (!ProductPrivilegeCheker::checkProductPrivilege($event->getSociete(),ProductPrivileges::NOTIFICATION_PLANIFICATION_PROJET)){
+            return;
+        }
+
         $projetPlanningTask = $event->getProjetPlanningTask();
         $projet = $event->getProjet();
 
