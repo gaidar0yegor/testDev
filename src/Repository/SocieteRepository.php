@@ -18,4 +18,16 @@ class SocieteRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Societe::class);
     }
+
+    public function findCreatedAt(int $year): array
+    {
+        return $this
+            ->createQueryBuilder('societe')
+            ->select('MONTH(societe.createdAt) AS mois, count(societe) as total')
+            ->where('YEAR(societe.createdAt) = :year')
+            ->setParameter('year', $year)
+            ->groupBy('mois')
+            ->getQuery()
+            ->getResult();
+    }
 }
