@@ -30,6 +30,7 @@ class FaitMarquantRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('faitMarquant')
             ->leftJoin('faitMarquant.projet', 'projet')
             ->leftJoin('projet.projetParticipants', 'projetParticipant')
+            ->andWhere('faitMarquant.trashedAt is null')
             ->andWhere('faitMarquant.date >= :from')
             ->andWhere('projetParticipant.role in (:roles)')
             ->andWhere('projetParticipant.societeUser = :societeUser')
