@@ -4,7 +4,9 @@ namespace App\Service;
 
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
+use App\Entity\ProjetObservateurExterne;
 use App\Entity\ProjetParticipant;
+use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\MultiSociete\UserContext;
 use App\Notification\Event\ProjetParticipantAddedEvent;
@@ -83,32 +85,38 @@ class FaitMarquantService
         $sendFm = false;
         $canInvite = $this->authChecker->isGranted('edit', $projet);
 
-        $user = $this->em->getRepository(User::class)->findByEmailAndSociete($projet->getSociete(), $email);
+        if ($canInvite){
+            $user = $this->em->getRepository(User::class)->findByEmailAndSociete($projet->getSociete(), $email);
 
-        if ($user instanceof User){
-            $sendFm = true;
-            $projetParticipant = $this->em->getRepository(ProjetParticipant::class)->findByUserAndProjet($user,$projet);
+            if ($user instanceof User){
+                $sendFm = true;
+                $projetParticipant = $this->em->getRepository(ProjetParticipant::class)->findByUserAndProjet($user,$projet);
 
-            if ($canInvite && $projetParticipant === null){
-                $invitationSended = true;
-                $user->getSocieteUsers()->map(function($societeUser) use ($projet){
-                    if ($societeUser->getSociete()->getId() === $projet->getSociete()->getId()){
-                        $projetParticipant = $this->invitationService->addParticipation($societeUser, $projet, RoleProjet::OBSERVATEUR);
-                        $this->em->flush();
-                        $this->dispatcher->dispatch(new ProjetParticipantAddedEvent($projetParticipant));
+                if ($projetParticipant === null){
+                    $invitationSended = true;
+                    $user->getSocieteUsers()->map(function($societeUser) use ($projet){
+                        if ($societeUser->getSociete()->getId() === $projet->getSociete()->getId()){
+                            $projetParticipant = $this->invitationService->addParticipation($societeUser, $projet, RoleProjet::OBSERVATEUR);
+                            $this->em->flush();
+                            $this->dispatcher->dispatch(new ProjetParticipantAddedEvent($projetParticipant));
+                        }
+                        return;
+                    });
+                }
+            } else {
+                $exUser = $this->em->getRepository(User::class)->findExterneByEmailAndProjet($projet, $email);
+                if ($exUser === null){
+                    $exInvitedUser = $this->em->getRepository(ProjetObservateurExterne::class)->findOneBy(['projet' => $projet , 'invitationEmail' => $email]);
+                    $invitedSocieteUser = $this->em->getRepository(SocieteUser::class)->findOneBy(['societe' => $projet->getSociete(), 'invitationEmail' => $email]);
+                    if ($exInvitedUser === null && $invitedSocieteUser === null){
+                        $invitationSended = true;
+                        $this->externeInvitationService->sendAutomaticInvitationSurProjet($projet,$email);
                     }
-                    return;
-                });
+                }
             }
-        } else {
-            $exUser = $this->em->getRepository(User::class)->findExterneByEmailAndProjet($projet, $email);
-            if ($canInvite && $exUser === null){
-                $invitationSended = true;
-                $this->externeInvitationService->sendAutomaticInvitationSurProjet($projet,$email);
-            }
-        }
 
-        $this->em->flush();
+            $this->em->flush();
+        }
 
         return [
             'invitationSended' => $invitationSended,
