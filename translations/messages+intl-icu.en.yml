@@ -369,6 +369,7 @@ projet.projetUrls: External urls of this project
 projet.projetUrls.help: Display external urls related to this project.
 projet.projetUrl.text.help: Link text
 projet.projetUrl.url.help: Url
+projet.etp.help: "1 ETP &asymp; 1607 hours/year"
 add_folder_file_project: Add a folder
 projet.dossierFichierProjets: Project files folders
 projet.dossierFichierProjets.help: Organize the storage of project files

@@ -13,6 +13,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -74,6 +75,12 @@ class ProjetFormType extends AbstractType
             ->add('dateFin', DatePickerType::class, [
                 'required' => false,
                 'label' => 'Date de fin',
+            ])
+            ->add('etp', NumberType::class, [
+                'label' => 'ETP',
+                'help' => 'projet.etp.help',
+                'help_html' => true,
+                'required' => false,
             ])
             ->add('projetUrls', CollectionType::class, [
                 'label' => 'projet.projetUrls',

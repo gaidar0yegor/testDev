@@ -163,6 +163,11 @@ class Projet implements HasSocieteInterface
      */
     private $projetPlanning;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $etp;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -810,6 +815,18 @@ class Projet implements HasSocieteInterface
         }
 
         $this->projetPlanning = $projetPlanning;
+
+        return $this;
+    }
+
+    public function getEtp(): ?float
+    {
+        return $this->etp;
+    }
+
+    public function setEtp(?float $etp): self
+    {
+        $this->etp = $etp;
 
         return $this;
     }

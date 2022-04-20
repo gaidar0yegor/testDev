@@ -77,6 +77,18 @@
                         </div>
                     </div>
                 </div>
+                <div>
+                    {{ form_label(form.etp) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.etp) }}
+                        </div>
+                    </div>
+                    {{ form_help(form.etp) }}
+                </div>
             </div>
 
             <div class="row mt-3">
