@@ -98,6 +98,13 @@ class Societe implements HasSocieteInterface
     private $heuresParJours;
 
     /**
+     * Coût moyen d'1 ETP R&D
+     *
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $coutEtp;
+
+    /**
      * @ORM\OneToMany(targetEntity=SocieteUser::class, mappedBy="societe", orphanRemoval=true, cascade={"persist"})
      *
      * @Assert\Valid(groups={"Default", "invitation"})
@@ -530,6 +537,18 @@ class Societe implements HasSocieteInterface
     public function setOnboardingNotificationEvery(string $onboardingNotificationEvery): self
     {
         $this->onboardingNotificationEvery = $onboardingNotificationEvery;
+
+        return $this;
+    }
+
+    public function getCoutEtp(): ?string
+    {
+        return $this->coutEtp;
+    }
+
+    public function setCoutEtp(?string $coutEtp): self
+    {
+        $this->coutEtp = $coutEtp;
 
         return $this;
     }

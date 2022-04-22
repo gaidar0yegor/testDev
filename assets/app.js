@@ -27,7 +27,8 @@ import './ckeditor/custom-ckeditor'
 import './js/slack';
 import './js/annual-rdi-scores';
 import './js/admin-user-chart-temps-projets';
-import './js/admin-projet-chart-temps-users';
+import './js/projet-admin-charts/temps-users';
+import './js/projet-admin-charts/budgets';
 import './js/fait-marquant-highlight';
 import './js/filter-projets-by-selected-year';
 import './js/main';

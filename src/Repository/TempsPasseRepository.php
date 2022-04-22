@@ -88,4 +88,25 @@ class TempsPasseRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    /**
+     * @return TempsPasse[]
+     */
+    public function findAllByProjetAndUser(Projet $projet, SocieteUser $societeUser): array
+    {
+        return $this
+            ->createQueryBuilder('tempsPasse')
+            ->leftJoin('tempsPasse.cra', 'cra')
+            ->leftJoin('cra.societeUser', 'societeUser')
+            ->addSelect('cra')
+            ->andWhere('societeUser = :societeUser')
+            ->andWhere('tempsPasse.projet = :projet')
+            ->setParameters([
+                'projet' => $projet,
+                'societeUser' => $societeUser,
+            ])
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

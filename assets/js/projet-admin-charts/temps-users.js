@@ -1,5 +1,5 @@
 import c3 from 'c3';
-import datesLocalize from './dates.localize';
+import datesLocalize from './../dates.localize';
 
 const chartDiv = window['chart-projet-users-temps'];
 

@@ -227,6 +227,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $projetPlannings;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $coutEtp;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -779,6 +784,18 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
                 $projetPlanning->setCreatedBy(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCoutEtp(): ?string
+    {
+        return $this->coutEtp;
+    }
+
+    public function setCoutEtp(?string $coutEtp): self
+    {
+        $this->coutEtp = $coutEtp;
 
         return $this;
     }
