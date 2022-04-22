@@ -7,8 +7,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Langue par défaut pour l'editeur de texte
+- Analyse budgétaire pour les projets
 ### Réparé
 - Bug : les invitations externes lors du partage des FM par mails
+
 
 
 
