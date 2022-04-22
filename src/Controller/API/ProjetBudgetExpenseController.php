@@ -72,11 +72,13 @@ class ProjetBudgetExpenseController extends AbstractController
      */
     public function destroyBudgetExpense(Projet $projet, ProjetBudgetExpense $projetBudgetExpense, Request $request)
     {
+        $amount = $projetBudgetExpense->getAmount();
         $this->em->remove($projetBudgetExpense);
         $this->em->flush();
 
         return new JsonResponse([
-            "action" => "deleted"
+            "action" => "deleted",
+            "amount" => $amount,
         ]);
     }
 }

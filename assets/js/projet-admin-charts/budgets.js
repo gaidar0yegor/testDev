@@ -104,9 +104,17 @@ if (chartContents) {
                 },
                 success: function (response) {
                     $(listSpecialExpenses).find('tbody').append(`<tr>
-                                        <td>${response.titre}</td>
-                                        <td>${response.amount}</td>
-                                    </tr>`);
+                            <td>${response.titre}</td>
+                            <td>${response.amount}</td>
+                            <td><a href="javascript:;" class="text-right text-danger btn-delete-expense" data-expense-id="${response.id}"><i class="fa fa-trash"></i></a></td>
+                        </tr>`);
+
+                    euroBudgetChart.load({
+                        unload: ['Réel'],
+                        columns: [
+                            ['Réel', Math.ceil(euroBudgetChart.data("Réel")[0].values[0].value + parseFloat(response.amount))]
+                        ],
+                    });
 
                     $(modal).find('form').trigger("reset");
                 },
@@ -125,6 +133,13 @@ if (chartContents) {
                 method: 'DELETE',
                 success: function (response) {
                     $($tr).remove();
+
+                    euroBudgetChart.load({
+                        unload: ['Réel'],
+                        columns: [
+                            ['Réel', Math.ceil(euroBudgetChart.data("Réel")[0].values[0].value - parseFloat(response.amount))]
+                        ],
+                    });
                 },
             });
         }
