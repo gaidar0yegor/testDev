@@ -164,9 +164,19 @@ class Projet implements HasSocieteInterface
     private $projetPlanning;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
      */
     private $etp;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetBudgetExpense::class, mappedBy="projet", orphanRemoval=true)
+     */
+    private $projetBudgetExpenses;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $budgetEuro;
 
     public function __construct()
     {
@@ -186,6 +196,7 @@ class Projet implements HasSocieteInterface
         $this->dossierFichierProjets = new ArrayCollection();
         $this->rdiDomains = new ArrayCollection();
         $this->annualRdiScores = [];
+        $this->projetBudgetExpenses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -827,6 +838,48 @@ class Projet implements HasSocieteInterface
     public function setEtp(?float $etp): self
     {
         $this->etp = $etp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetBudgetExpense[]
+     */
+    public function getProjetBudgetExpenses(): Collection
+    {
+        return $this->projetBudgetExpenses;
+    }
+
+    public function addProjetBudgetExpense(ProjetBudgetExpense $projetBudgetExpense): self
+    {
+        if (!$this->projetBudgetExpenses->contains($projetBudgetExpense)) {
+            $this->projetBudgetExpenses[] = $projetBudgetExpense;
+            $projetBudgetExpense->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetBudgetExpense(ProjetBudgetExpense $projetBudgetExpense): self
+    {
+        if ($this->projetBudgetExpenses->removeElement($projetBudgetExpense)) {
+            // set the owning side to null (unless already changed)
+            if ($projetBudgetExpense->getProjet() === $this) {
+                $projetBudgetExpense->setProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getBudgetEuro(): ?string
+    {
+        return $this->budgetEuro;
+    }
+
+    public function setBudgetEuro(?string $budgetEuro): self
+    {
+        $this->budgetEuro = $budgetEuro;
 
         return $this;
     }

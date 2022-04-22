@@ -194,6 +194,21 @@ class StatisticsService
     }
 
     /**
+     * @return float
+     */
+    public function getTempsTotalParUserParProjet(SocieteUser $societeUser, Projet $projet): float
+    {
+        $tempsPasses = $this->tempsPasseRepository->findAllByProjetAndUser($projet, $societeUser);
+
+        $tempsTotal = 0;
+        foreach ($tempsPasses as $tempsPasse) {
+            $tempsTotal += round(array_sum($this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);
+        }
+
+        return $tempsTotal;
+    }
+
+    /**
      * @return array
      */
     public function getTempsProjetParUsers(Projet $projet, int $year, ?string $unit = 'percent'): array

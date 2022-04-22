@@ -21,15 +21,18 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 class ProjetFormType extends AbstractType
 {
     private UserContext $userContext;
+    private TranslatorInterface $translator;
 
-    public function __construct(UserContext $userContext)
+    public function __construct(UserContext $userContext, TranslatorInterface $translator)
     {
         $this->userContext = $userContext;
+        $this->translator = $translator;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -77,9 +80,15 @@ class ProjetFormType extends AbstractType
                 'label' => 'Date de fin',
             ])
             ->add('etp', NumberType::class, [
-                'label' => 'ETP',
+                'label' => 'ETP <i class="fa fa-question-circle" title="'. $this->translator->trans('projet.etp.label.help') .'"></i>',
+                'label_html' => true,
                 'help' => 'projet.etp.help',
                 'help_html' => true,
+                'required' => false,
+            ])
+            ->add('budgetEuro', NumberType::class, [
+                'label' => 'Budget (€) <i class="fa fa-question-circle" title="'. $this->translator->trans('projet.budget_euro.label.help') .'"></i>',
+                'label_html' => true,
                 'required' => false,
             ])
             ->add('projetUrls', CollectionType::class, [

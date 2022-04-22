@@ -2,15 +2,20 @@
 
 namespace App\Controller\API;
 
+use App\DTO\BudgetAnalysisProjet;
 use App\Entity\Projet;
 use App\Entity\SocieteUser;
+use App\Exception\BudgetAnalysisException;
 use App\MultiSociete\UserContext;
 use App\Repository\TempsPasseRepository;
 use App\Security\Voter\TeamManagementVoter;
 use App\Security\Voter\SameSocieteVoter;
+use App\Service\BudgetAnalysisProjetService;
 use App\Service\EquipeChecker;
 use App\Service\StatisticsService;
 use App\Service\Timesheet\TimesheetCalculator;
+use App\Twig\DiffDateTimesExtension;
+use Cassandra\Date;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
@@ -113,6 +118,33 @@ class AdminStatsController extends AbstractController
 
         return new JsonResponse([
             'months' => $data,
+        ]);
+    }
+
+    /**
+     * @Route(
+     *      "/budgets/{id}",
+     *      methods={"GET"},
+     *      name="api_stats_admin_budgets"
+     * )
+     *
+     * @IsGranted("SOCIETE_ADMIN")
+     */
+    public function getBudgetsProjet(Projet $projet, BudgetAnalysisProjetService $budgetAnalysisProjetService)
+    {
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $projet);
+
+        try{
+            $budgets = $budgetAnalysisProjetService->getBudgets($projet);
+        } catch (BudgetAnalysisException $exception){
+            return new JsonResponse(
+                [ 'message' => $exception->getMessage() ],
+                500
+            );
+        }
+
+        return new JsonResponse([
+            'budgets' => $budgets,
         ]);
     }
 }

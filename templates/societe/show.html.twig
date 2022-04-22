@@ -89,6 +89,31 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
+            <div class="card rdi-card-icon text-center  h-100">
+                <i class="fa fa-euro" aria-hidden="true"></i>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-9 offset-3 col-sm-12 offset-sm-0">
+                            <h5 class="card-title deck">{{ 'cost_worked_hours'|trans }}</h5>
+                            <p class="card-text deck display-4 mb-0">
+                                {% if societe.coutEtp %}
+                                    {{ 'cout_hours_short'|trans({'%n%': societe.coutEtp}) }}
+                                {% else %}
+                                    <small class="text-warning">{{ 'to_be_defined'|trans }}</small>
+                                {% endif %}
+                            </p>
+                            <small class="text-muted">
+                                {{ 'essential_for_budget_analysis.'|trans }}
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_cost_hours_number'|trans }}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
             <div class="card rdi-card-icon text-center h-100">
                 <i class="fa fa-calendar" aria-hidden="true"></i>
                 <div class="card-body">

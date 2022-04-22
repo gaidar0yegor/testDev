@@ -121,6 +121,8 @@ edit_societe_logo: Update logo
 worked_hours: Hours worked
 worked_hours_per_day: Hours per day
 hours_by_project_by_month: Number of hours per project per month
+cout_worked_hours: Cost of one hour worked
+cout_moyen_worked_hours: "Average cost of 1 ETP in Euro (€)"
 my_superior: My supervisor
 avatar_of_user: Avatar of {user}
 logo_of_socete: Logo of {societe}
@@ -132,6 +134,7 @@ edit_my_avatar: Edit my avatar
 "color_code:": "Color code :"
 .in_days_unit: in days
 n_hours_short: "{n} h"
+cout_hours_short: "{n} €"
 SOCIETE_CDP: Project Manager
 quota.activeProjet.name: Active projects
 quota.activeProjet.description:
@@ -231,6 +234,7 @@ user.heuresParJours: Hours worked per day
 societeUserPeriod.dateEntry: Date of entry into the company
 societeUserPeriod.dateLeave: Date of exit from the company
 default_value_used_in_timesheets.: Value by default, used to create timesheets.
+essential_for_budget_analysis.: Essential for budget analysis
 'Un email de recommandation a bien été envoyé à "{to}". Merci !':
   A recommendation
   email have been sent to "{to}". Thank you!
@@ -370,6 +374,8 @@ projet.projetUrls.help: Display external urls related to this project.
 projet.projetUrl.text.help: Link text
 projet.projetUrl.url.help: Url
 projet.etp.help: "1 ETP &asymp; 1607 hours/year"
+projet.etp.label.help: Number of full-time equivalents expected over the period
+projet.budget_euro.label.help: Estimated budget for the project over the period
 add_folder_file_project: Add a folder
 projet.dossierFichierProjets: Project files folders
 projet.dossierFichierProjets.help: Organize the storage of project files
@@ -457,6 +463,7 @@ license_notRelate: This license is not linked to your company.
 account_goBack: Go back to my account
 access_disabled: Access disabled
 delete: Delete
+budget_analysis: "Budget analysis"
 goOn: Go on
 timeString: Time
 resultString: Result
