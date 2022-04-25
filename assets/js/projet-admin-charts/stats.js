@@ -8,6 +8,26 @@ if (chartContents) {
     let efficacite = efficaciteDiv.dataset.efficacite ? parseFloat(efficaciteDiv.dataset.efficacite) : 0;
     let effectivite = effectiviteDiv.dataset.effectivite ? parseFloat(effectiviteDiv.dataset.effectivite) : 0;
 
+    Chart.defaults.gauge.responsive = true;
+    Chart.defaults.gauge.needle = {
+        radiusPercentage: 2,
+        widthPercentage: 3.2,
+        lengthPercentage: 100,
+        color: 'rgb(69,174,243)',
+    };
+    Chart.defaults.gauge.valueLabel = {
+        display: true,
+        bottomMarginPercentage: 10,
+        fontSize: 35,
+        color: 'rgba(0, 0, 0, 1)',
+        backgroundColor: 'rgb(52,92,183,0)',
+        borderRadius: 5,
+        padding: {
+            top: 10,
+            bottom: 10
+        }
+    };
+
     new Chart(
         efficaciteDiv.getContext("2d"),
         {
@@ -20,33 +40,6 @@ if (chartContents) {
                     data: [-1, -0.66, -0.33, 0, 1],
                     backgroundColor: ['', '#FF0000', '#F97600', '#F6C600', '#60B044'],
                 }]
-            },
-            options: {
-                responsive: true,
-                hover: {
-                    mode: null
-                },
-                needle: {
-                    radiusPercentage: 2,
-                    widthPercentage: 3.2,
-                    lengthPercentage: 100,
-                    color: 'rgb(69,174,243)',
-                },
-                valueLabel: {
-                    display: true,
-                    formatter: (value) => {
-                        return value;
-                    },
-                    bottomMarginPercentage: 10,
-                    fontSize: 35,
-                    color: 'rgba(0, 0, 0, 1)',
-                    backgroundColor: 'rgb(52,92,183,0)',
-                    borderRadius: 5,
-                    padding: {
-                        top: 10,
-                        bottom: 10
-                    }
-                }
             }
         });
 
@@ -64,29 +57,9 @@ if (chartContents) {
                 }]
             },
             options: {
-                responsive: true,
-                hover: {
-                    mode: null
-                },
-                needle: {
-                    radiusPercentage: 2,
-                    widthPercentage: 3.2,
-                    lengthPercentage: 100,
-                    color: 'rgb(69,174,243)',
-                },
                 valueLabel: {
-                    display: true,
                     formatter: (value) => {
                         return Math.round(value * 100) + "%";
-                    },
-                    bottomMarginPercentage: 10,
-                    fontSize: 35,
-                    color: 'rgba(0, 0, 0, 1)',
-                    backgroundColor: 'rgb(52,92,183,0)',
-                    borderRadius: 5,
-                    padding: {
-                        top: 10,
-                        bottom: 10
                     }
                 }
             }
