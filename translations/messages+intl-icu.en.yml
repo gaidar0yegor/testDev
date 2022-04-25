@@ -103,6 +103,9 @@ start: Start
 end: End
 all: All
 status: Status
+kpis_indicators: "Performance indicators (KPIs)"
+efficiency: Efficiency
+effectiveness: Effectiveness
 last_activity: Last activity
 participants: Participants
 back_office: Back Office
@@ -121,8 +124,8 @@ edit_societe_logo: Update logo
 worked_hours: Hours worked
 worked_hours_per_day: Hours per day
 hours_by_project_by_month: Number of hours per project per month
-cout_worked_hours: Cost of one hour worked
-cout_moyen_worked_hours: "Average cost of 1 ETP in Euro (€)"
+cost_worked_hours: Average hourly cost of ETP
+cost_moyen_worked_hours: "Average cost of 1 ETP in Euro (€)"
 my_superior: My supervisor
 avatar_of_user: Avatar of {user}
 logo_of_socete: Logo of {societe}
@@ -134,7 +137,7 @@ edit_my_avatar: Edit my avatar
 "color_code:": "Color code :"
 .in_days_unit: in days
 n_hours_short: "{n} h"
-cout_hours_short: "{n} €"
+cost_hours_short: "{n} €"
 SOCIETE_CDP: Project Manager
 quota.activeProjet.name: Active projects
 quota.activeProjet.description:

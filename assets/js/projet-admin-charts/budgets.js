@@ -44,7 +44,7 @@ if (chartContents) {
         .then(response => {
             if (response.status === 500){
                 response.json().then(response => {
-                    chartContents.innerHTML = `<div class="alert alert-warning w-100 mt-4" role="alert">
+                    chartContents.querySelector('.charts').innerHTML = `<div class="alert alert-warning w-100 mt-4" role="alert">
                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                             ${response.message}
                         </a></div>`
