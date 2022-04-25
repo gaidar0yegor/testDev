@@ -22,6 +22,7 @@ if (chartContents) {
                 }]
             },
             options: {
+                responsive: true,
                 hover: {
                     mode: null
                 },
@@ -63,6 +64,7 @@ if (chartContents) {
                 }]
             },
             options: {
+                responsive: true,
                 hover: {
                     mode: null
                 },
