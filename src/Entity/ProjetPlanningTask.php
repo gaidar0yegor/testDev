@@ -74,6 +74,11 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
      */
     private $participants;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $endDateReal;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -267,6 +272,18 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     public function removeParticipant(ProjetParticipant $participant): self
     {
         $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getEndDateReal(): ?\DateTimeInterface
+    {
+        return $this->endDateReal;
+    }
+
+    public function setEndDateReal(?\DateTimeInterface $endDateReal): self
+    {
+        $this->endDateReal = $endDateReal;
 
         return $this;
     }

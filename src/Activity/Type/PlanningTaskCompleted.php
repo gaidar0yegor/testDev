@@ -14,6 +14,7 @@ use App\SocieteProduct\Product\ProductPrivileges;
 use App\SocieteProduct\ProductPrivilegeCheker;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PlanningTaskCompleted implements ActivityInterface
@@ -58,6 +59,19 @@ class PlanningTaskCompleted implements ActivityInterface
             $this->entityLinkService->generateLink(ProjetPlanningTask::class, $activityParameters['task']),
             $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
         );
+    }
+
+    public function preUpdate(ProjetPlanningTask $projetPlanningTask, PreUpdateEventArgs $args): void
+    {
+        $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($projetPlanningTask);
+
+        if (!isset($changes['progress']) || $changes['progress'][1] != 1) {
+            return;
+        }
+
+        $em = $args->getEntityManager();
+        $projetPlanningTask->setEndDateReal(new \DateTime());
+        $em->persist($projetPlanningTask);
     }
 
     public function postUpdate(ProjetPlanningTask $projetPlanningTask, LifecycleEventArgs $args): void

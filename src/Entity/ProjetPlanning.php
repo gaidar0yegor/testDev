@@ -50,6 +50,16 @@ class ProjetPlanning implements ProjetResourceInterface, HasSocieteInterface
      */
     private $createdBy;
 
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    private $efficacite;
+
+    /**
+     * @ORM\Column(type="decimal", precision=5, scale=2, nullable=true)
+     */
+    private $effectivite;
+
     public function __construct()
     {
         $this->projetPlanningTasks = new ArrayCollection();
@@ -144,6 +154,30 @@ class ProjetPlanning implements ProjetResourceInterface, HasSocieteInterface
     public function setCreatedBy(?SocieteUser $createdBy): self
     {
         $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getEfficacite(): ?string
+    {
+        return $this->efficacite;
+    }
+
+    public function setEfficacite(?string $efficacite): self
+    {
+        $this->efficacite = $efficacite;
+
+        return $this;
+    }
+
+    public function getEffectivite(): ?string
+    {
+        return $this->effectivite;
+    }
+
+    public function setEffectivite(?string $effectivite): self
+    {
+        $this->effectivite = $effectivite;
 
         return $this;
     }

@@ -74,7 +74,7 @@
                                 {% if societe.heuresParJours %}
                                     {{ 'n_hours_short'|trans({'%n%': societe.heuresParJours}) }}
                                 {% else %}
-                                    <small class="text-warning">{{ 'to_be_defined'|trans }}</small>
+                                    <small class="text-danger">{{ 'to_be_defined'|trans }}</small>
                                 {% endif %}
                             </p>
                             <small class="text-muted">
@@ -99,7 +99,7 @@
                                 {% if societe.coutEtp %}
                                     {{ 'cout_hours_short'|trans({'%n%': societe.coutEtp}) }}
                                 {% else %}
-                                    <small class="text-warning">{{ 'to_be_defined'|trans }}</small>
+                                    <small class="text-danger">{{ 'to_be_defined'|trans }}</small>
                                 {% endif %}
                             </p>
                             <small class="text-muted">
