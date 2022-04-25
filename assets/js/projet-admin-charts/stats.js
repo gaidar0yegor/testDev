@@ -1,5 +1,4 @@
-import c3 from 'c3';
-import $ from "jquery";
+import gauge from 'chartjs-gauge';
 
 const chartContents = window['projet-stats-charts'];
 
@@ -9,55 +8,82 @@ if (chartContents) {
     let efficacite = efficaciteDiv.dataset.efficacite ? parseFloat(efficaciteDiv.dataset.efficacite) : 0;
     let effectivite = effectiviteDiv.dataset.effectivite ? parseFloat(effectiviteDiv.dataset.effectivite) : 0;
 
-    const efficaciteChart = c3.generate({
-        bindto: efficaciteDiv,
-        data: {
-            columns: [
-                ['Efficacite', efficacite]
-            ],
-            type: 'gauge'
-        },
-        gauge: {
-            label: {
-                format: function (value, ratio) {
-                    return value;
-                },
-                show: true // to turn off the min/max labels.
+    new Chart(
+        efficaciteDiv.getContext("2d"),
+        {
+            type: 'gauge',
+            data: {
+                datasets: [{
+                    value: efficacite,
+                    minValue: -1,
+                    maxValue: 1,
+                    data: [-1, -0.66, -0.33, 0, 1],
+                    backgroundColor: ['', '#FF0000', '#F97600', '#F6C600', '#60B044'],
+                }]
             },
-            min: -1,
-            max: 1,
-            units: '',
-        },
-        color: {
-            pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'],
-            threshold: {
-                max: 1,
-                unit: 'value',
-                values: [-0.66, -0.33, 0, 1]
+            options: {
+                hover: {
+                    mode: null
+                },
+                needle: {
+                    radiusPercentage: 2,
+                    widthPercentage: 3.2,
+                    lengthPercentage: 20,
+                    color: 'rgba(25, 154, 220, 1)'
+                },
+                valueLabel: {
+                    display: true,
+                    formatter: (value) => {
+                        return value;
+                    },
+                    color: 'rgba(255, 255, 255, 1)',
+                    backgroundColor: 'rgba(0, 0, 0, 1)',
+                    borderRadius: 5,
+                    padding: {
+                        top: 10,
+                        bottom: 10
+                    }
+                }
             }
-        },
-        size: {
-            height: 250
-        }
-    });
+        });
 
-    const effectiviteChart = c3.generate({
-        bindto: effectiviteDiv,
-        data: {
-            columns: [
-                ['Effectivite', effectivite]
-            ],
-            type: 'gauge'
-        },
-        color: {
-            pattern: ['#df7e08', '#d1d7da', '#f9ad0e'],
-            threshold: {
-                values: [33, 66, 100]
+    new Chart(
+        effectiviteDiv.getContext("2d"),
+        {
+            type: 'gauge',
+            data: {
+                datasets: [{
+                    value: effectivite,
+                    minValue: 0,
+                    maxValue: 100,
+                    data: [0, 0.33, 0.66, 1],
+                    backgroundColor: ['','#A15D3F', '#B0B6BC', '#F6C600'],
+                }]
+            },
+            options: {
+                hover: {
+                    mode: null
+                },
+                needle: {
+                    radiusPercentage: 2,
+                    widthPercentage: 3.2,
+                    lengthPercentage: 20,
+                    color: 'rgba(0, 0, 0, 1)'
+                },
+                valueLabel: {
+                    display: true,
+                    formatter: (value) => {
+                        return Math.round(value * 100) + "%";
+                    },
+                    color: 'rgba(255, 255, 255, 1)',
+                    backgroundColor: 'rgba(0, 0, 0, 1)',
+                    borderRadius: 5,
+                    padding: {
+                        top: 10,
+                        bottom: 10
+                    }
+                }
             }
-        },
-        size: {
-            height: 250
-        }
-    });
+        });
 }
 

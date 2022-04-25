@@ -106,13 +106,15 @@
                         <div class="col-sm-12">
                             <h2>{{ 'kpis_indicators'|trans }}</h2>
                         </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4 class="text-center">{{ 'efficiency'|trans }}</h4>
-                            <div id="efficacite" data-efficacite="{{ projet.projetPlanning.efficacite }}"></div>
-                        </div>
-                        <div class="col-sm-12 col-md-6">
-                            <h4 class="text-center">{{ 'effectiveness'|trans }}</h4>
-                            <div id="effectivite" data-effectivite="{{ projet.projetPlanning.effectivite }}"></div>
+                        <div class="col-sm-12 d-flex flex-row justify-content-around align-items-center">
+                            <div style="width: 30%;">
+                                <h4 class="text-center">{{ 'efficiency'|trans }}</h4>
+                                <canvas id="efficacite" data-efficacite="{{ projet.projetPlanning.efficacite }}"></canvas>
+                            </div>
+                            <div style="width: 30%;">
+                                <h4 class="text-center">{{ 'effectiveness'|trans }}</h4>
+                                <canvas id="effectivite" data-effectivite="{{ projet.projetPlanning.effectivite }}"></canvas>
+                            </div>
                         </div>
                     </div>
                 {% endif %}
