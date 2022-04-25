@@ -28,16 +28,18 @@ if (chartContents) {
                 needle: {
                     radiusPercentage: 2,
                     widthPercentage: 3.2,
-                    lengthPercentage: 20,
-                    color: 'rgba(25, 154, 220, 1)'
+                    lengthPercentage: 100,
+                    color: 'rgb(69,174,243)',
                 },
                 valueLabel: {
                     display: true,
                     formatter: (value) => {
                         return value;
                     },
-                    color: 'rgba(255, 255, 255, 1)',
-                    backgroundColor: 'rgba(0, 0, 0, 1)',
+                    bottomMarginPercentage: 10,
+                    fontSize: 35,
+                    color: 'rgba(0, 0, 0, 1)',
+                    backgroundColor: 'rgb(52,92,183,0)',
                     borderRadius: 5,
                     padding: {
                         top: 10,
@@ -67,16 +69,18 @@ if (chartContents) {
                 needle: {
                     radiusPercentage: 2,
                     widthPercentage: 3.2,
-                    lengthPercentage: 20,
-                    color: 'rgba(0, 0, 0, 1)'
+                    lengthPercentage: 100,
+                    color: 'rgb(69,174,243)',
                 },
                 valueLabel: {
                     display: true,
                     formatter: (value) => {
                         return Math.round(value * 100) + "%";
                     },
-                    color: 'rgba(255, 255, 255, 1)',
-                    backgroundColor: 'rgba(0, 0, 0, 1)',
+                    bottomMarginPercentage: 10,
+                    fontSize: 35,
+                    color: 'rgba(0, 0, 0, 1)',
+                    backgroundColor: 'rgb(52,92,183,0)',
                     borderRadius: 5,
                     padding: {
                         top: 10,

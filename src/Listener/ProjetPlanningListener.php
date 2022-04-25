@@ -39,7 +39,7 @@ class ProjetPlanningListener
                 }
             }
 
-            $projetPlanning->setEfficacite($efficacite);
+            $projetPlanning->setEfficacite($nbrTaskEnded === 0 ? 0 : $efficacite / $nbrTaskEnded);
             $projetPlanning->setEffectivite($nbrTaskEnded / $projetPlanning->getProjetPlanningTasks()->count());
         }
     }
