@@ -59,7 +59,7 @@ class BoUserNotificationController extends AbstractController
      * @Route(
      *      "/{id}",
      *      methods={"POST"},
-     *      name="api_user_notifications_acknowledge"
+     *      name="bo_api_user_notifications_acknowledge"
      * )
      */
     public function acknowledge(
