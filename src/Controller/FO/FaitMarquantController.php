@@ -153,9 +153,6 @@ class FaitMarquantController extends AbstractController
     ): Response {
         $this->denyAccessUnlessGranted('edit', $projet);
 
-        $em->remove($projet);
-        $em->flush();
-
         $faitMarquants = $em->getRepository(FaitMarquant::class)->findTrashItems($projet);
 
         return $this->render('fait_marquant/trash.html.twig', [
