@@ -67,7 +67,5 @@ class ProjetCreatedBoActivity implements ActivityInterface
         foreach ($boUsers as $boUser) {
             $em->persist(BoUserNotification::create($activity, $boUser));
         }
-
-        $em->flush();
     }
 }
