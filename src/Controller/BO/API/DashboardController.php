@@ -5,18 +5,7 @@ namespace App\Controller\BO\API;
 use App\Repository\UserRepository;
 use App\Repository\ProjetRepository;
 use App\Repository\SocieteRepository;
-use App\Entity\Projet;
-use App\Entity\SocieteUser;
-use App\MultiSociete\UserContext;
-use App\Repository\TempsPasseRepository;
-use App\Security\Voter\TeamManagementVoter;
-use App\Security\Voter\SameSocieteVoter;
-use App\Service\EquipeChecker;
-use App\Service\StatisticsService;
-use App\Service\Timesheet\TimesheetCalculator;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 

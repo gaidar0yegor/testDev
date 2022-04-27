@@ -1,0 +1,99 @@
+{% extends 'bo/base.html.twig' %}
+
+{% block body %}
+
+    <h1>Statistiques</h1>
+
+    <ul class="nav nav-tabs tabs-user-chart mt-5">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" data-target="graph" href="#Graphiques">Vue Graphiques</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-target="table" href="#Tableau">Vue Tableau</a>
+        </li>
+    </ul>
+
+    <div id="graph" class="tab-target">
+        <h1 class="mt-5">
+            Graphiques d'évolution de l'application
+        </h1>
+        <div class="mt-5" id="allTimeUserChart"></div>
+        <div class="mt-5" id="allTimeSocieteChart"></div>
+        <div class="mt-5" id="allTimeProjetChart"></div>
+    </div>
+
+    <div id="table" class="tab-target mt-5" style="display: none;">
+
+        <h1>
+            Tableau d'évolution de l'application de l'année
+            <span class="year-switch" data-event-name="bo-table-by-year" data-year-from="2020"
+                  data-year-to="{{ "now"|date('Y') }}"></span>
+        </h1>
+
+        <table id="table-sequences" class="table mt-5">
+            <thead>
+            <tr>
+                <th>Indice par mois</th>
+                <th>Jan</th>
+                <th>Fev</th>
+                <th>Mars</th>
+                <th>Avr</th>
+                <th>Mai</th>
+                <th>Juin</th>
+                <th>Juil</th>
+                <th>Aout</th>
+                <th>Sept</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Déc</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr id="users">
+                <td>
+                    Utilisateurs créés
+                </td>
+                {% for userData in userCreatedAt %}
+                    <td>
+                        {{ userData }}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr id="projets">
+                <td>
+                    Projets créés
+                </td>
+                {% for projetData in projetCreatedAt %}
+                    <td>
+                        {{ projetData }}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr id="societes">
+                <td>
+                    Sociétés créés
+                </td>
+                {% for societeData in societeCreatedAt %}
+                    <td>
+                        {{ societeData }}
+                    </td>
+                {% endfor %}
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('bo-dashboard') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('bo-dashboard') }}
+{% endblock %}

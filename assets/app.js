@@ -24,6 +24,8 @@ import './js/societe-notifications';
 import './js/syntax-highlighter';
 // import './js/markdown-wysiwyg';
 import './ckeditor/custom-ckeditor'
+
+import "./js/check-existance-bo-notification";
 import './js/slack';
 import './js/annual-rdi-scores';
 import './js/admin-user-chart-temps-projets';

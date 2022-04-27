@@ -54,12 +54,18 @@ class Activity
      */
     private $societeUserActivities;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BoUserNotification::class, mappedBy="activity", orphanRemoval=true)
+     */
+    private $boUserNotifications;
+
     public function __construct()
     {
         $this->datetime = new DateTime();
         $this->societeUserNotifications = new ArrayCollection();
         $this->projetActivities = new ArrayCollection();
         $this->societeUserActivities = new ArrayCollection();
+        $this->boUserNotifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,6 +193,36 @@ class Activity
             // set the owning side to null (unless already changed)
             if ($societeUserActivity->getActivity() === $this) {
                 $societeUserActivity->setActivity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoUserNotification[]
+     */
+    public function getBoUserNotifications(): Collection
+    {
+        return $this->boUserNotifications;
+    }
+
+    public function addBoUserNotification(BoUserNotification $boUserNotification): self
+    {
+        if (!$this->boUserNotifications->contains($boUserNotification)) {
+            $this->boUserNotifications[] = $boUserNotification;
+            $boUserNotification->setActivity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoUserNotification(BoUserNotification $boUserNotification): self
+    {
+        if ($this->boUserNotifications->removeElement($boUserNotification)) {
+            // set the owning side to null (unless already changed)
+            if ($boUserNotification->getActivity() === $this) {
+                $boUserNotification->setActivity(null);
             }
         }
 

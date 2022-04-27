@@ -8,9 +8,12 @@ use App\License\DTO\Quota;
 use App\License\Exception\LicenseQuotaReachedException;
 use App\License\LicenseQuotaInterface;
 use App\License\LicenseService;
+use App\Notification\Event\OverflowQuotasBoNotification;
 use App\Repository\ProjetRepository;
 use DateTime;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use PHPUnit\Exception;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ActiveProjetQuota implements LicenseQuotaInterface
 {
@@ -20,10 +23,13 @@ class ActiveProjetQuota implements LicenseQuotaInterface
 
     private ProjetRepository $projetRepository;
 
-    public function __construct(LicenseService $licenseService, ProjetRepository $projetRepository)
+    private EventDispatcherInterface $dispatcher;
+
+    public function __construct(LicenseService $licenseService, ProjetRepository $projetRepository, EventDispatcherInterface $dispatcher)
     {
         $this->licenseService = $licenseService;
         $this->projetRepository = $projetRepository;
+        $this->dispatcher = $dispatcher;
     }
 
     public function getName(): string
@@ -60,6 +66,7 @@ class ActiveProjetQuota implements LicenseQuotaInterface
         }
 
         if ($quotaAfter->isOverflow()) {
+            $this->dispatcher->dispatch(new OverflowQuotasBoNotification($societe, 'Projet'));
             throw new LicenseQuotaReachedException(self::NAME, $quotaAfter);
         }
     }

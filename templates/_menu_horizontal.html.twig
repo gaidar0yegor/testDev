@@ -46,10 +46,11 @@
                 <div class="dropdown-menu dropdown-menu-lg-right">
                     {% if is_granted('ROLE_BO_USER') %}
                         <a
-                            class="dropdown-item"
+                            class="dropdown-item back-office-link"
                             href="{{ path('app_bo_home') }}"
                         >
                             <i class="fa fa-rocket" aria-hidden="true"></i>{{ 'back_office'|trans }}
+                            <span class="badge notif-badge bg-danger rounded-circle mt-1 float-right" style="display: none;width: 10px;height: 10px;"></span>
                         </a>
                         <div class="dropdown-divider"></div>
                     {% endif %}

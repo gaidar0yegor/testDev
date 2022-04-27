@@ -12,6 +12,6 @@ class HomeController extends AbstractController
      */
     public function home()
     {
-        return $this->redirectToRoute('app_bo_societes');
+        return $this->redirectToRoute('app_bo_dashboard');
     }
 }

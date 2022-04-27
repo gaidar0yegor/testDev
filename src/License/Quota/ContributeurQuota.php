@@ -8,9 +8,11 @@ use App\License\DTO\Quota;
 use App\License\Exception\LicenseQuotaReachedException;
 use App\License\LicenseQuotaInterface;
 use App\License\LicenseService;
+use App\Notification\Event\OverflowQuotasBoNotification;
 use App\Repository\SocieteUserRepository;
 use App\Security\Role\RoleProjet;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class ContributeurQuota implements LicenseQuotaInterface
 {
@@ -20,12 +22,16 @@ class ContributeurQuota implements LicenseQuotaInterface
 
     private SocieteUserRepository $societeUserRepository;
 
+    private EventDispatcherInterface $dispatcher;
+
     public function __construct(
         LicenseService $licenseService,
-        SocieteUserRepository $societeUserRepository
+        SocieteUserRepository $societeUserRepository,
+        EventDispatcherInterface $dispatcher
     ) {
         $this->licenseService = $licenseService;
         $this->societeUserRepository = $societeUserRepository;
+        $this->dispatcher = $dispatcher;
     }
 
     public function getName(): string
@@ -68,6 +74,7 @@ class ContributeurQuota implements LicenseQuotaInterface
         }
 
         if ($quotaAfter->isOverflow()) {
+            $this->dispatcher->dispatch(new OverflowQuotasBoNotification($societe, 'Contributeur'));
             throw new LicenseQuotaReachedException(self::NAME, $quotaAfter);
         }
     }

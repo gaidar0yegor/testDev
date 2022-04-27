@@ -191,6 +191,11 @@ class User implements UserInterface
      */
     private $dashboardConsolides;
 
+    /**
+     * @ORM\OneToMany(targetEntity=BoUserNotification::class, mappedBy="boUser", orphanRemoval=true)
+     */
+    private $boUserNotifications;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -207,6 +212,7 @@ class User implements UserInterface
         $this->projetObservateurExternes = new ArrayCollection();
         $this->locale = 'fr';
         $this->dashboardConsolides = new ArrayCollection();
+        $this->boUserNotifications = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -663,6 +669,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($dashboardConsolide->getUser() === $this) {
                 $dashboardConsolide->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoUserNotification[]
+     */
+    public function getBoUserNotifications(): Collection
+    {
+        return $this->boUserNotifications;
+    }
+
+    public function addBoUserNotification(BoUserNotification $boUserNotification): self
+    {
+        if (!$this->boUserNotifications->contains($boUserNotification)) {
+            $this->boUserNotifications[] = $boUserNotification;
+            $boUserNotification->setBoUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBoUserNotification(BoUserNotification $boUserNotification): self
+    {
+        if ($this->boUserNotifications->removeElement($boUserNotification)) {
+            // set the owning side to null (unless already changed)
+            if ($boUserNotification->getBoUser() === $this) {
+                $boUserNotification->setBoUser(null);
             }
         }
 

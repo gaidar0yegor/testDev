@@ -9,11 +9,14 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+            <li class="nav-item {{ activeOn('app_bo_dashboard') }}">
+                <a class="nav-link" href="{{ path('app_bo_dashboard') }}">Tableau de bord</a>
+            </li>
             <li class="nav-item {{ activeOn('app_bo_societes', 'app_bo_societe', 'app_bo_societes_creer') }}">
                 <a class="nav-link" href="{{ path('app_bo_societes') }}">Sociétés</a>
             </li>
-            <li class="nav-item {{ activeOn('app_bo_dashboard') }}">
-                <a class="nav-link" href="{{ path('app_bo_dashboard') }}">Statistiques</a>
+            <li class="nav-item {{ activeOn('app_bo_stats') }}">
+                <a class="nav-link" href="{{ path('app_bo_stats') }}">Statistiques</a>
             </li>
         </ul>
 

@@ -21,6 +21,6 @@
         {% endif %}
     </div>
 
-{% include '_activity-list.html.twig' %}
+{% include '_activity-list.html.twig' with {'activities': activities} %}
 
 {% endblock %}
