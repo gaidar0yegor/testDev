@@ -162,6 +162,16 @@ services:
             - { name: doctrine.orm.entity_listener, event: preUpdate, entity: App\Entity\ProjetPlanningTask }
             - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\ProjetPlanningTask }
 
+    App\Activity\Type\SocieteCreatedBoActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Societe }
+
+    App\Activity\Type\ProjetCreatedBoActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Projet }
+
     App\Listener\ProjetPlanningListener:
         tags:
             - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\ProjetPlanning }

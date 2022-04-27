@@ -2,6 +2,15 @@
 
 namespace App\Controller\BO;
 
+use App\Activity\Type\OverflowQuotasBoActivity;
+use App\Activity\Type\ProjetCreatedBoActivity;
+use App\Activity\Type\SocieteCreatedBoActivity;
+use App\Entity\BoUserNotification;
+use App\Entity\Projet;
+use App\Entity\Societe;
+use App\Entity\User;
+use App\MultiSociete\UserContext;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
@@ -10,30 +19,58 @@ use App\Repository\SocieteRepository;
 
 class DashboardBOController extends AbstractController
 {
+    private EntityManagerInterface $em;
+    private UserContext $userContext;
 
-    /**
-    * @var UserRepository
-    */
-
-    private $userRepository;
-
-    public function __construct(ProjetRepository $projetRepository,UserRepository $userRepository, SocieteRepository $societeRepository)
+    public function __construct(UserContext $userContext, EntityManagerInterface $em)
     {
-        $this->userRepository = $userRepository;
-        $this->projetRepository = $projetRepository;
-        $this->societeRepository = $societeRepository;
+        $this->em = $em;
+        $this->userContext = $userContext;
     }
 
     /**
      * @Route("/dashboard", name="app_bo_dashboard")
      */
-    public function dashboardUser(ProjetRepository $projetRepository, UserRepository $userRepository, SocieteRepository $societeRepository)
+    public function dashboardUser()
     {
-        $index = 0;
+        $limit = 30;
 
-        $userCreatedAt = $this->userRepository->findCreatedAt((new \DateTime())->format('Y'));
+        $societeNotifs = $this->em->getRepository(BoUserNotification::class)->findByUserByActivityType(
+            $this->userContext->getUser(),
+            SocieteCreatedBoActivity::getType(),
+            $limit
+        );
 
-        $userData = [];  
+        $projetNotifs = $this->em->getRepository(BoUserNotification::class)->findByUserByActivityType(
+            $this->userContext->getUser(),
+            ProjetCreatedBoActivity::getType(),
+            $limit
+        );
+
+        $quotaNotifs = $this->em->getRepository(BoUserNotification::class)->findByUserByActivityType(
+            $this->userContext->getUser(),
+            OverflowQuotasBoActivity::getType(),
+            $limit
+        );
+
+        return $this->render('bo/dashboard/dashboard.html.twig',[
+            'societeNotifs' => $societeNotifs,
+            'projetNotifs' => $projetNotifs,
+            'quotaNotifs' => $quotaNotifs,
+            'nbrUsers' => count($this->em->getRepository(User::class)->findAll()),
+            'nbrProjets' => count($this->em->getRepository(Projet::class)->findAll()),
+            'nbrSocietes' => count($this->em->getRepository(Societe::class)->findAll()),
+        ]);
+    }
+
+    /**
+     * @Route("/stats", name="app_bo_stats")
+     */
+    public function stats(ProjetRepository $projetRepository, UserRepository $userRepository, SocieteRepository $societeRepository)
+    {
+        $userCreatedAt = $this->em->getRepository(User::class)->findCreatedAt((new \DateTime())->format('Y'));
+
+        $userData = [];
 
         for ($index = 1; $index < 13; $index++) {
             $userData[$index] = 0;
@@ -43,7 +80,7 @@ class DashboardBOController extends AbstractController
             $userData[$user['mois']] = $user['total'];
         }
 
-        $projetCreatedAt = $this->projetRepository->findCreatedAt((new \DateTime())->format('Y'));
+        $projetCreatedAt = $this->em->getRepository(Projet::class)->findCreatedAt((new \DateTime())->format('Y'));
 
         $projetData = [];
 
@@ -55,7 +92,7 @@ class DashboardBOController extends AbstractController
             $projetData[$projet['mois']] = $projet['total'];
         }
 
-        $societeCreatedAt = $this->societeRepository->findCreatedAt((new \DateTime())->format('Y'));
+        $societeCreatedAt = $this->em->getRepository(Societe::class)->findCreatedAt((new \DateTime())->format('Y'));
 
         $societeData = [];
 
@@ -66,11 +103,8 @@ class DashboardBOController extends AbstractController
         foreach ($societeCreatedAt as $societe) {
             $societeData[$societe['mois']] = $societe['total'];
         }
-        
-        return $this->render('bo/dashboard/dashboard.html.twig',[
-            'user' => $userRepository->findAll(),
-            'projet' => $projetRepository->findAll(),
-            'societe' => $societeRepository->findAll(),
+
+        return $this->render('bo/stats/stats.html.twig',[
             'userCreatedAt' => $userData,
             'projetCreatedAt' => $projetData,
             'societeCreatedAt' => $societeData,

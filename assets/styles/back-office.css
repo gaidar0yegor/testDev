@@ -8,3 +8,20 @@
     font-size: 0.6em;
     font-weight: bold;
 }
+
+.notification .card-body {
+    overflow-y: scroll;
+    max-height: 300px;
+}
+
+.notification .card-body::-webkit-scrollbar {
+    width: 10px;
+}
+
+.notification .card-body::-webkit-scrollbar-thumb {
+    background: #e62117;
+    border-radius: 10px;
+}
+.notification .card-body::-webkit-scrollbar-track {
+    border-radius: 10px;
+}

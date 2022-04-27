@@ -125,7 +125,7 @@ class FaitMarquantController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$faitMarquant->getId(), $request->request->get('_token'))) {
             $faitMarquant->setTrashedAt(new \DateTime());
             $faitMarquant->setTrashedBy($userContext->getSocieteUser());
-            $this->dispatcher->dispatch(new FaitMarquantRemovedEvent($em->getRepository(FaitMarquant::class)->find($faitMarquant->getId())));
+            $this->dispatcher->dispatch(new FaitMarquantRemovedEvent($faitMarquant));
 
             $em->flush();
 
@@ -152,6 +152,9 @@ class FaitMarquantController extends AbstractController
         EntityManagerInterface $em
     ): Response {
         $this->denyAccessUnlessGranted('edit', $projet);
+
+        $em->remove($projet);
+        $em->flush();
 
         $faitMarquants = $em->getRepository(FaitMarquant::class)->findTrashItems($projet);
 
