@@ -39,4 +39,33 @@ class BoUserNotificationRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+    public function checkExistanceNotifsByUser(User $boUser)
+    {
+        $notif = $this->createQueryBuilder('boUserNotification')
+            ->innerJoin('boUserNotification.boUser', 'boUser')
+            ->andWhere('boUser = :boUser')
+            ->andWhere('boUserNotification.acknowledged = :acknowledged')
+            ->setParameter('boUser', $boUser)
+            ->setParameter('acknowledged', 0)
+            ->setMaxResults(1)
+            ->getQuery()->getOneOrNullResult();
+
+        return $notif instanceof BoUserNotification;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function acknowledgeAllFor(User $boUser): void
+    {
+        $this->createQueryBuilder('notification')
+            ->update(BoUserNotification::class, 'notification')
+            ->set('notification.acknowledged', true)
+            ->where('notification.boUser = :boUser')
+            ->setParameter('boUser', $boUser)
+            ->getQuery()
+            ->execute()
+        ;
+    }
+
 }

@@ -10,6 +10,7 @@ use App\Entity\Projet;
 use App\Entity\Societe;
 use App\Entity\User;
 use App\MultiSociete\UserContext;
+use App\Repository\BoUserNotificationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,11 +22,13 @@ class DashboardBOController extends AbstractController
 {
     private EntityManagerInterface $em;
     private UserContext $userContext;
+    private BoUserNotificationRepository $boUserNotificationRepository;
 
-    public function __construct(UserContext $userContext, EntityManagerInterface $em)
+    public function __construct(UserContext $userContext, EntityManagerInterface $em, BoUserNotificationRepository $boUserNotificationRepository)
     {
         $this->em = $em;
         $this->userContext = $userContext;
+        $this->boUserNotificationRepository = $boUserNotificationRepository;
     }
 
     /**
@@ -52,6 +55,8 @@ class DashboardBOController extends AbstractController
             OverflowQuotasBoActivity::getType(),
             $limit
         );
+
+        $this->boUserNotificationRepository->acknowledgeAllFor($this->userContext->getUser());
 
         return $this->render('bo/dashboard/dashboard.html.twig',[
             'societeNotifs' => $societeNotifs,

@@ -29,6 +29,16 @@ class BoUserNotification
      */
     private $activity;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $acknowledged;
+
+    public function __construct()
+    {
+        $this->acknowledged = false;
+    }
+
     public static function create(Activity $activity, User $user): self
     {
         return (new self())
@@ -61,6 +71,18 @@ class BoUserNotification
     public function setActivity(?Activity $activity): self
     {
         $this->activity = $activity;
+
+        return $this;
+    }
+
+    public function getAcknowledged(): ?bool
+    {
+        return $this->acknowledged;
+    }
+
+    public function setAcknowledged(bool $acknowledged): self
+    {
+        $this->acknowledged = $acknowledged;
 
         return $this;
     }
