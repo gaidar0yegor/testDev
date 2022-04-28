@@ -12,6 +12,7 @@ twig:
         matomoConfig:
             enabled: '%env(bool:MATOMO_ENABLED)%'
             host: '%env(MATOMO_HOST)%'
-            siteId: '%env(MATOMO_SITE_ID)%'
+            prodSiteId: '%env(MATOMO_PROD_SITE_ID)%'
+            demoSiteId: '%env(MATOMO_DEMO_SITE_ID)%'
         rdiManagerDemoUrl: '%env(RDI_DEMO_URL)%'
         userContext: '@App\MultiSociete\UserContext'
