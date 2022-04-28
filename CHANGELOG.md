@@ -6,6 +6,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+
+## [0.43.2] - 2022-04-28
+### Ajouté
 - Langue par défaut pour l'editeur de texte
 - Analyse budgétaire pour les projets
 - Back Office : Graphiques d'évolution de l'application
@@ -14,12 +22,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Intégrer Matomo
 ### Réparé
 - Bug : les invitations externes lors du partage des FM par mails
-
-
-
-
-
-
 
 ## [0.43.1] - 2022-04-19
 ### Ajouté
