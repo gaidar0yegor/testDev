@@ -1,5 +1,5 @@
 {% if matomoConfig.enabled %}
     <script>
-        initMatomo({{ matomoConfig|json_encode|raw }});
+        initMatomo('{{ app.request.getSchemeAndHttpHost() }}',{{ matomoConfig|json_encode|raw }});
     </script>
 {% endif %}

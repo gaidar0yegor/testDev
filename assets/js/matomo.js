@@ -1,6 +1,8 @@
 import $ from 'jquery';
 
-const initMatomo = (config) => {
+const initMatomo = (url, config) => {
+    var siteId = url.toLowerCase().indexOf("demo") >= 0 ? config.demoSiteId : config.prodSiteId;
+
     (function () {
         var _paq = window._paq = window._paq || [];
         _paq.push(['trackPageView']);
@@ -8,7 +10,7 @@ const initMatomo = (config) => {
         (function() {
             var u=config.host;
             _paq.push(['setTrackerUrl', u+'matomo.php']);
-            _paq.push(['setSiteId', config.siteId]);
+            _paq.push(['setSiteId', siteId]);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
             g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
         })();

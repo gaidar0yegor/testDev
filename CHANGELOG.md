@@ -10,6 +10,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Analyse budgétaire pour les projets
 - Back Office : Graphiques d'évolution de l'application
 - Statistiques du projet : Efficacité & Effectivité
+- Notifications du back office
+- Intégrer Matomo
 ### Réparé
 - Bug : les invitations externes lors du partage des FM par mails
 
