@@ -5,12 +5,16 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+
+
+
+
+
+
+## [0.43.3] - 2022-05-02
 ### Modifié
 - Configurer les statistiques de Matomo dans le Back Office
-
-
-
-
 
 ## [0.43.2] - 2022-04-28
 ### Ajouté
