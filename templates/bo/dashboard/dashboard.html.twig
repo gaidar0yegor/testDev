@@ -73,4 +73,25 @@
         </div>
     </div>
 
+    <div id="statsMatomo" class="row mt-4">
+        <div id="VisitsSummary_getVisits" class="col-md-6 col-sm-12"></div>
+        <div id="UserCountry_getCountry" class="col-md-6 col-sm-12">
+            <table class="w-100 text-center visits-per-year" style="overflow-y: scroll;">
+                <thead>
+                    <tr>
+                        <th colspan="3">en {{ 'now' | date('Y') }}</th>
+                    </tr>
+                    <th>Pays</th>
+                    <th>Nbr visites</th>
+                    <th>Nbr actions</th>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    <div id="Actions_getPageUrls" class="col-md-6 col-sm-12">
+
+    </div>
+    </div>
+
 {% endblock %}

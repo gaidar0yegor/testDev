@@ -1,14 +1,14 @@
 import $ from 'jquery';
+import statsMatomo from './bo-dashboard/matomo-api';
 
-const initMatomo = (url, config) => {
-    var siteId = url.toLowerCase().indexOf("demo") >= 0 ? config.demoSiteId : config.prodSiteId;
+const initMatomo = (host, siteId) => {
 
     (function () {
         var _paq = window._paq = window._paq || [];
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-            var u=config.host;
+            var u = host;
             _paq.push(['setTrackerUrl', u+'matomo.php']);
             _paq.push(['setSiteId', siteId]);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
@@ -45,6 +45,7 @@ const initMatomo = (url, config) => {
     });
 
     window.pushEvent = pushEvent;
+    statsMatomo(host, siteId);
 };
 
 global.initMatomo = initMatomo;
