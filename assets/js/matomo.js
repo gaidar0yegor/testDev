@@ -1,16 +1,15 @@
 import $ from 'jquery';
 import statsMatomo from './bo-dashboard/matomo-api';
 
-const initMatomo = (host, siteId) => {
-
+const initMatomo = (config) => {
     (function () {
         var _paq = window._paq = window._paq || [];
         _paq.push(['trackPageView']);
         _paq.push(['enableLinkTracking']);
         (function() {
-            var u = host;
+            var u=config.host;
             _paq.push(['setTrackerUrl', u+'matomo.php']);
-            _paq.push(['setSiteId', siteId]);
+            _paq.push(['setSiteId', config.siteId]);
             var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
             g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
         })();
@@ -34,18 +33,18 @@ const initMatomo = (host, siteId) => {
         const $menu = $subMenu.closest('.nav-item').find('.nav-link');
 
         const menuName = [
-            $menu.text().trim(),
-            $subMenu.text().trim(),
-        ]
-            .filter(notEmpty => notEmpty)
-            .join(' > ')
+                $menu.text().trim(),
+                $subMenu.text().trim(),
+            ]
+                .filter(notEmpty => notEmpty)
+                .join(' > ')
         ;
 
         pushEvent('Menu', 'Navigate', menuName);
     });
 
     window.pushEvent = pushEvent;
-    statsMatomo(host, siteId);
+    statsMatomo(config);
 };
 
 global.initMatomo = initMatomo;

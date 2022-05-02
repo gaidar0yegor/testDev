@@ -1,5 +1,5 @@
 {% if matomoConfig.enabled %}
     <script>
-        initMatomo('{{ matomoConfig.host }}',{{ 'demo' in app.request.getSchemeAndHttpHost() ? matomoConfig.demoSiteId : matomoConfig.prodSiteId }});
+        initMatomo({{ matomoConfig|json_encode|raw }});
     </script>
 {% endif %}
