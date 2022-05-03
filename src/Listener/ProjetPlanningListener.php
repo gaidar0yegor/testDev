@@ -24,10 +24,10 @@ class ProjetPlanningListener
             $efficacite = 0;
 
             foreach ($projetPlanning->getProjetPlanningTasks() as $task){
-                if ($task->getEndDateReal()){
+                if ($task->getProgress() == 1){
                     $nbrTaskEnded++;
-
-                    $diffDays =  round(($task->getEndDate()->getTimestamp() - $task->getEndDateReal()->getTimestamp()) / (60 * 60 * 24));
+                    $endDateReal = $task->getEndDateReal() ? $task->getEndDateReal() : (new \DateTime());
+                    $diffDays =  round(($task->getEndDate()->getTimestamp() - $endDateReal->getTimestamp()) / (60 * 60 * 24));
 
                     if ($diffDays === 0){
                         continue;
