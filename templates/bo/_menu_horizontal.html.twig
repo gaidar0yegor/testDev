@@ -28,7 +28,7 @@
             <div class="dropdown-menu">
                 {% if is_granted('ROLE_FO_USER') %}
                     <a
-                        class="dropdown-item"
+                        class="dropdown-item {{ activeOn('app_home') }}"
                         href="{{ path('app_home') }}"
                     >
                         <i class="fa fa-rocket" aria-hidden="true"></i>Front Office

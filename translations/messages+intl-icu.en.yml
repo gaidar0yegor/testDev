@@ -14,8 +14,8 @@ yes: Yes
 no: No
 product_privilege_no_dispo: Not available with your license
 FAIT_MARQUANT_DESCRIPTION_SIZE: Remarkable fact's description size
-FAIT_MARQUANT_DATE: Date of remarkable fact
-FAIT_MARQUANT_SEND_MAIL: Send remarkable fact by email
+FAIT_MARQUANT_DATE: Date of striking fact
+FAIT_MARQUANT_SEND_MAIL: Send striking fact by email
 SMS_NOTIFICATION_SAISIE_TEMPS: Time Tracking SMS Reminder
 NOTIFICATION_PLANIFICATION_PROJET: Progress of the project Reminder
 FICHIER_PROJET_ACCESSES: File visibility rights
@@ -102,6 +102,9 @@ my_role: My role
 start: Start
 end: End
 all: All
+enabled: Enabled
+disabled: Disabled
+organigramme: Organizational chart
 status: Status
 kpis_indicators: "Performance indicators (KPIs)"
 efficiency: Efficiency
@@ -125,7 +128,8 @@ worked_hours: Hours worked
 worked_hours_per_day: Hours per day
 hours_by_project_by_month: Number of hours per project per month
 cost_worked_hours: Average hourly cost of ETP
-cost_moyen_worked_hours: "Average cost of 1 ETP in Euro (€)"
+cost_moyen_worked_hours: "Average cost of 1 ETP in Euro (€/h)"
+edit_cost_hours_number: "Modify the average cost of ETP"
 my_superior: My supervisor
 avatar_of_user: Avatar of {user}
 logo_of_socete: Logo of {societe}
@@ -144,8 +148,8 @@ quota.activeProjet.description:
   Projects in progress taking into account the starting
   and ending dates.
 n_nouveaux_faits_marquants:
-  "{n, plural,\n    =0    {no new remarkable fact}\n   \
-  \ one   {one new remarkable fact}\n    other {# new remarkable facts}\n}"
+  "{n, plural,\n    =0    {no new striking fact}\n   \
+  \ one   {one new striking fact}\n    other {# new striking facts}\n}"
 menu.admin.notification_parameters: Notifications parameters
 menu.admin.licenses: My licences
 as_admin_i_can_also_access_all_projects: As an administrator, I can as well {link_start}access to all of my projects{link_end}.
@@ -185,7 +189,7 @@ invite_new_user: Invite a new user
 to_be_defined: To define
 edit_hours_number: Modify the number of hours
 time_spent_recording: Enter the time
-max_legnth_fait_marquant_desc: Description of the remarkable fact
+max_legnth_fait_marquant_desc: Description of the striking fact
 .in_number_of_char: "in number of characters"
 change_max_legnth_fait_marquant_desc: Modify the length of the text
 isBlocking: "Is the limit Blocking ?"
@@ -213,7 +217,7 @@ my_account_on_societe_x: My account on {societe}
 my_activity: My activity
 your_collaborators_will_enrich_this_project:
   Your collaborators will be able to enter
-  their time spent on this project, or even add the remarkable facts.
+  their time spent on this project, or even add the striking facts.
 .that_i_want_to_track: that I wish to follow
 my_collaborators: My collaborators
 .to_invite: to invite
@@ -409,8 +413,8 @@ project_already_resumed: "The {projectAcronyme} project is already resumed."
 "...and_n_others": "… et {n, plural, =0 {no others} =1 {another} other {# others}}"
 delete_project.time_tracking.warning: "Contributors have entered time spent on this project in <strong>{n, plural, =1 {a timesheet} other {# timesheets}}</strong>. These past times will be deleted, and there will be a difference with the potential timesheets that you have already printed :"
 delete_project.time_tracking.safe: "No time spent has been entered on this project."
-delete_project.fait_marquant.warning: "The project has <strong>{n, plural, =1 {remarkable fact} other {# Remarkable facts}}</strong>, {n, plural, =1 {it} other {they}} will be deleted also :"
-delete_project.fait_marquant.safe: "The project has no remarkable facts."
+delete_project.fait_marquant.warning: "The project has <strong>{n, plural, =1 {striking fact} other {# striking facts}}</strong>, {n, plural, =1 {it} other {they}} will be deleted also :"
+delete_project.fait_marquant.safe: "The project has no striking facts."
 delete_project.project_file.warning: "The project has <strong>{n, plural, =1 {an attached file} other {# attached files}}</strong>, {n, plural, =1 {it} other {they}} will be deleted also :"
 delete_project.project_file.safe: "The project has no attached files."
 delete_project.external_observator.warning: "The project has <strong>{n, plural, =1 {an external observer} other {# external observers}}</strong>, {n, plural, =1 {he} other {they}} will no longer be able to consult the project :"
@@ -424,12 +428,12 @@ verif_date_entry_on_enable_user: "To activate {user}'s account, please specify i
 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'The dashboard "{titre_dashboard_consolide}" was successfully created.'
 dashboard_consolide.titre: Descriptive title
 dashboard_consolide.societes: My companies
-modifier_FM: Edit your Remarkable Fact
+modifier_FM: Edit your striking Fact
 go_back_go_project: Cancel and return to project
-addNew_FM: Add a new Remarkable Fact
+addNew_FM: Add a new striking Fact
 projectString: Project
 trashString: Trash can
-beenOf_FM: Trash can of Remarkable Fact
+beenOf_FM: Trash can of striking Fact
 list_files: Files list
 planning: "Planning of the project : { projectAcronyme }"
 allString: All
@@ -516,7 +520,7 @@ interne: Internal
 externe: External
 close: Close
 return_to_project: Go back to the project
-no_fm: This doesn't contain Remarkable fact.
+no_fm: This doesn't contain striking fact.
 title: Title
 added_at: Added at
 deleted_at: Deleted at
@@ -528,5 +532,5 @@ add_new_project: Add a new project
 suspended_project: The project is suspended
 license_notRelated: This license is not linked to your company.
 add_contributors: Add Contributors
-add_contributors_help: Without other contributors, you will be the only one who can add remarkable facts, attach files... Add contributors to this project so that they can enrich it and enter their time spent on it.
+add_contributors_help: Without other contributors, you will be the only one who can add striking facts, attach files... Add contributors to this project so that they can enrich it and enter their time spent on it.
 who_is_working_on_this_project: Who contributes to this project?

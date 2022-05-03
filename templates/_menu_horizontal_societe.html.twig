@@ -8,13 +8,13 @@
         </a>
         <div class="dropdown-menu">
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_projets') }}"
                 href="{{ path('app_fo_projets') }}"
             >
                 <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.projects.list'|trans }}
             </a>
             <a
-                class="dropdown-item {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }}"
+                class="dropdown-item {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }} {{ activeOn('app_fo_projet_creation') }}"
                 href="{{ path('app_fo_projet_creation') }}"
                 {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) %}
                     title="{{ 'create_project_requires_project_manager_role'|trans }}"
@@ -25,7 +25,7 @@
             {% if app.user.projetObservateurExternes|length > 0 %}
                 <div class="dropdown-divider"></div>
                 <a
-                    class="dropdown-item"
+                    class="dropdown-item {{ activeOn('app_fo_observateur_externe_list') }}"
                     href="{{ path('app_fo_observateur_externe_list') }}"
                 >
                     {{ 'menu.projects.external'|trans }}
@@ -39,19 +39,19 @@
         </a>
         <div class="dropdown-menu">
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_temps') }}"
                 href="{{ path('app_fo_temps') }}"
             >
                 <i class="fa fa-clock-o" aria-hidden="true"></i>{{ 'menu.time_tracking.time_spent'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_absences') }}"
                 href="{{ path('app_fo_absences') }}"
             >
                 <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.time_tracking.absences'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_mon_suivi') }}"
                 href="{{ path('app_fo_mon_suivi') }}"
             >
                 <i class="fa fa-tasks" aria-hidden="true"></i>{{ 'menu.time_tracking.my_tracking'|trans }}
@@ -65,13 +65,13 @@
         </a>
         <div class="dropdown-menu">
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_admin_societe_show') }}"
                 href="{{ path('app_fo_admin_societe_show') }}"
             >
                 <i class="fa fa-building-o" aria-hidden="true"></i>{{ 'menu.admin.company'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_admin_projets') }}"
                 href="{{ path('app_fo_admin_projets') }}"
             >
                 <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.admin.projects'|trans }}
@@ -79,46 +79,46 @@
             <div class="dropdown-divider"></div>
             {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) and userContext.societeUser.superiorFo %}
                 <a
-                        class="dropdown-item"
+                        class="dropdown-item {{ activeOn('app_fo_utilisateurs_team') }}"
                         href="{{ path('app_fo_utilisateurs_team') }}"
                 >
                     <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.mon_equipe'|trans }}
                 </a>
             {% endif %}
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_utilisateurs') }}"
                 href="{{ path('app_fo_utilisateurs') }}"
             >
                 <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_admin_user_invite') }}"
                 href="{{ path('app_fo_admin_user_invite') }}"
             >
                 <i class="fa fa-user-plus" aria-hidden="true"></i>{{ 'menu.admin.invite_user'|trans }}
             </a>
             <div class="dropdown-divider"></div>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_admin_cra_validation') }}"
                 href="{{ path('app_fo_admin_cra_validation') }}"
             >
                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{{ 'menu.admin.timesheet_check'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_admin_timesheet_generate') }}"
                 href="{{ path('app_fo_admin_timesheet_generate') }}"
             >
                 <i class="fa fa-download" aria-hidden="true"></i>{{ 'menu.admin.timesheet_export'|trans }}
             </a>
             <div class="dropdown-divider"></div>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_admin_notification') }}"
                 href="{{ path('app_fo_admin_notification') }}"
             >
                 <i class="fa fa-bell-o" aria-hidden="true"></i>{{ 'menu.admin.notification_parameters'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_admin_licenses') }}"
                 href="{{ path('app_fo_admin_licenses') }}"
             >
                 <i class="fa fa-key" aria-hidden="true"></i>{{ 'menu.admin.licenses'|trans }}
@@ -147,26 +147,26 @@
         </a>
         <div class="dropdown-menu">
             <a
-                    class="dropdown-item"
+                    class="dropdown-item {{ activeOn('app_fo_utilisateurs_team') }}"
                     href="{{ path('app_fo_utilisateurs_team') }}"
             >
                 <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_mon_equipe_projets') }}"
                 href="{{ path('app_fo_mon_equipe_projets') }}"
             >
                 <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.admin.projects'|trans }}
             </a>
             <div class="dropdown-divider"></div>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_mon_equipe_cra_validation') }}"
                 href="{{ path('app_fo_mon_equipe_cra_validation') }}"
             >
                 <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{{ 'menu.admin.timesheet_check'|trans }}
             </a>
             <a
-                class="dropdown-item"
+                class="dropdown-item {{ activeOn('app_fo_mon_equipe_timesheet_generate') }}"
                 href="{{ path('app_fo_mon_equipe_timesheet_generate') }}"
             >
                 <i class="fa fa-download" aria-hidden="true"></i>{{ 'menu.admin.timesheet_export'|trans }}

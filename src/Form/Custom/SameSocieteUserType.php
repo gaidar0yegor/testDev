@@ -36,10 +36,7 @@ class SameSocieteUserType extends AbstractType
             },
             'choice_attr' => function($societeUser) {
                 return $societeUser->getEnabled() ? [] : ['disabled' =>  'disabled'];
-            },
-            'attr' => [
-                'class' => 'select-2 form-control w-100',
-            ],
+            }
         ]);
     }
 
