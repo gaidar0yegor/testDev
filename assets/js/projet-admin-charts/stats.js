@@ -37,8 +37,8 @@ if (chartContents) {
                     value: efficacite,
                     minValue: -1,
                     maxValue: 1,
-                    data: [-1, -0.66, -0.33, 0, 1],
-                    backgroundColor: ['', '#FF0000', '#F97600', '#F6C600', '#60B044'],
+                    data: [-1, -0.66, -0.33, 0, 0.5, 1],
+                    backgroundColor: ['', '#FF0000', '#F97600', '#F6C600', '#60B044', '#308428'],
                 }]
             }
         });

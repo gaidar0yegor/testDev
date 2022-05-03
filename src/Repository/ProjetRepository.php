@@ -28,6 +28,15 @@ class ProjetRepository extends ServiceEntityRepository
         $this->dateMonthService = $dateMonthService;
     }
 
+    public function getCountAll(): int
+    {
+        return $this
+            ->createQueryBuilder('projet')
+            ->select('count(projet)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function whereUserAndRole(SocieteUser $societeUser, ?string $roleMinimum = null)
     {
         $qb = $this

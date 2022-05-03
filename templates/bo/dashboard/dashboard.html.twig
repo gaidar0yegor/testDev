@@ -6,13 +6,6 @@
 
     <div class="row mt-4 notification">
         <div class="col-lg-4 notification">
-            <div class="w-100 text-center">
-                <h5 class="card-title">Nombre total de sociétés</h5>
-                <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
-                <p class="card-text display-4 mb-0">
-                    {{ nbrSocietes }}
-                </p>
-            </div>
             <div class="card mx-2 my-2 rdi-card-icon text-center">
                 <i class="fa fa-building" aria-hidden="true"></i>
                 <div class="card-body" style="">
@@ -28,13 +21,6 @@
             </div>
         </div>
         <div class="col-lg-4 notification">
-            <div class="w-100 text-center">
-                <h5 class="card-title">Nombre total de projets</h5>
-                <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
-                <p class="card-text display-4 mb-0">
-                    {{ nbrProjets }}
-                </p>
-            </div>
             <div class="card mx-2 my-2 rdi-card-icon text-center">
                 <i class="fa fa-book" aria-hidden="true"></i>
                 <div class="card-body" style="overflow-y: scroll; max-height: 300px;">
@@ -50,13 +36,6 @@
             </div>
         </div>
         <div class="col-lg-4 notification">
-            <div class="w-100 text-center">
-                <h5 class="card-title">Nombre total d'utilisateurs</h5>
-                <h6 class="card-subtitle mb-2 text-muted">sur l'application RDI-Manager</h6>
-                <p class="card-text display-4 mb-0">
-                    {{ nbrUsers }}
-                </p>
-            </div>
             <div class="card mx-2 my-2 rdi-card-icon text-center">
                 <i class="fa fa-ban" aria-hidden="true"></i>
                 <div class="card-body" style="overflow-y: scroll; max-height: 300px;">
@@ -73,39 +52,130 @@
         </div>
     </div>
 
-    <div id="statsMatomo" class="row mb-4">
-        <div id="VisitsSummary_getVisits" class="col-md-12 mb-4"></div>
-        <div id="UserCountry_getCountry" class="col-md-6 col-sm-12 mb-4">
-            <table class="w-100 text-center">
-                <thead>
-                <tr>
-                    <th colspan="3">en {{ 'now' | date('Y') }}</th>
-                </tr>
-                <th>Pays</th>
-                <th>Nbr visites</th>
-                <th>Nbr actions</th>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+    <ul class="nav nav-tabs tabs-user-chart mt-5">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" data-target="graph" href="#Graphiques">Vue Graphiques</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-target="table" href="#Tableau">Vue Tableau</a>
+        </li>
+    </ul>
+
+    <div id="graph" class="tab-target">
+        <h1 class="mt-5">
+            Graphiques d'évolution de l'application
+        </h1>
+        <div class="row">
+            <div class="col-md-10 col-sm-12 order-md-first order-sm-last">
+                <div id="allTimeUserChart"></div>
+            </div>
+            <div class="col-md-2 col-sm-12 text-center d-flex flex-column justify-content-center align-items-center">
+                <h5 >Nombre total d'utilisateurs</h5>
+                <h6 class="mb-2 text-muted">sur l'application RDI-Manager</h6>
+                <p class="display-4">
+                    {{ nbrUsers }}
+                </p>
+            </div>
         </div>
-        <div id="UserCountry_getCountryGraph" class="col-md-6 col-sm-12 mb-4">
-            <table class="w-100 text-center">
-                <thead>
-                <tr><th>en {{ 'now' | date('m-Y') }}</th></tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+
+        <div class="row">
+            <div class="col-md-10 col-sm-12 order-md-first order-sm-last">
+                <div id="allTimeSocieteChart"></div>
+            </div>
+            <div class="col-md-2 col-sm-12 text-center d-flex flex-column justify-content-center align-items-center">
+                <h5 >Nombre total de sociétés</h5>
+                <h6 class="mb-2 text-muted">sur l'application RDI-Manager</h6>
+                <p class="display-4">
+                    {{ nbrSocietes }}
+                </p>
+            </div>
         </div>
-        <div id="Actions_getPageTitles" class="col-md-12 mb-4">
-            <table class="w-100 text-center">
-                <thead>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+
+        <div class="row">
+            <div class="col-md-10 col-sm-12 order-md-first order-sm-last">
+                <div id="allTimeProjetChart"></div>
+            </div>
+            <div class="col-md-2 col-sm-12 text-center d-flex flex-column justify-content-center align-items-center">
+                <h5 >Nombre total de projets</h5>
+                <h6 class="mb-2 text-muted">sur l'application RDI-Manager</h6>
+                <p class="display-4">
+                    {{ nbrProjets }}
+                </p>
+            </div>
         </div>
     </div>
 
+    <div id="table" class="tab-target mt-5" style="display: none;">
+
+        <h1>
+            Tableau d'évolution de l'application de l'année
+            <span class="year-switch" data-event-name="bo-table-by-year" data-year-from="2020"
+                  data-year-to="{{ "now"|date('Y') }}"></span>
+        </h1>
+
+        <table id="table-sequences" class="table mt-5">
+            <thead>
+            <tr>
+                <th>Indice par mois</th>
+                <th>Jan</th>
+                <th>Fev</th>
+                <th>Mars</th>
+                <th>Avr</th>
+                <th>Mai</th>
+                <th>Juin</th>
+                <th>Juil</th>
+                <th>Aout</th>
+                <th>Sept</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Déc</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr id="users">
+                <td>
+                    Utilisateurs créés
+                </td>
+                {% for userData in userCreatedAt %}
+                    <td>
+                        {{ userData }}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr id="projets">
+                <td>
+                    Projets créés
+                </td>
+                {% for projetData in projetCreatedAt %}
+                    <td>
+                        {{ projetData }}
+                    </td>
+                {% endfor %}
+            </tr>
+            <tr id="societes">
+                <td>
+                    Sociétés créés
+                </td>
+                {% for societeData in societeCreatedAt %}
+                    <td>
+                        {{ societeData }}
+                    </td>
+                {% endfor %}
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('bo-dashboard') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('bo-dashboard') }}
 {% endblock %}
