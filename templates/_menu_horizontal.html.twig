@@ -31,7 +31,8 @@
                         </form>
                     {% endfor %}
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ path('app_fo_multi_societe_switch') }}">
+                    <a class="dropdown-item {{ activeOn('app_fo_multi_societe_switch') }}"
+                       href="{{ path('app_fo_multi_societe_switch') }}">
                         {{ 'see_more'|trans }}
                     </a>
                 </div>
@@ -46,7 +47,7 @@
                 <div class="dropdown-menu dropdown-menu-lg-right">
                     {% if is_granted('ROLE_BO_USER') %}
                         <a
-                            class="dropdown-item back-office-link"
+                            class="dropdown-item back-office-link {{ activeOn('app_bo_home') }}"
                             href="{{ path('app_bo_home') }}"
                         >
                             <i class="fa fa-rocket" aria-hidden="true"></i>{{ 'back_office'|trans }}
@@ -55,7 +56,7 @@
                         <div class="dropdown-divider"></div>
                     {% endif %}
                     <a
-                        class="dropdown-item"
+                        class="dropdown-item {{ activeOn('app_fo_mon_compte') }}"
                         href="{{ path('app_fo_mon_compte') }}"
                     >
                         <i class="fa fa-user" aria-hidden="true"></i>{{ 'my_account'|trans }}

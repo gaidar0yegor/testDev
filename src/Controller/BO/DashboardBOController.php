@@ -58,62 +58,49 @@ class DashboardBOController extends AbstractController
 
         $this->boUserNotificationRepository->acknowledgeAllFor($this->userContext->getUser());
 
+        $users = $this->em->getRepository(User::class)->findCreatedAt((new \DateTime())->format('Y'));
+        $userData = [];
+        for ($index = 1; $index < 13; $index++) {
+            $userData[$index] = array_search($index, array_column($users, 'mois')) !== false
+                ? $users[array_search($index, array_column($users, 'mois'))]['total']
+            : 0;
+        }
+
+        $projets = $this->em->getRepository(Projet::class)->findCreatedAt((new \DateTime())->format('Y'));
+        $projetData = [];
+        for ($index = 1; $index < 13; $index++) {
+            $projetData[$index] = array_search($index, array_column($projets, 'mois')) !== false
+                ? $projets[array_search($index, array_column($projets, 'mois'))]['total']
+                : 0;
+        }
+
+        $societes = $this->em->getRepository(Societe::class)->findCreatedAt((new \DateTime())->format('Y'));
+        $societeData = [];
+        for ($index = 1; $index < 13; $index++) {
+            $societeData[$index] = array_search($index, array_column($societes, 'mois')) !== false
+                ? $societes[array_search($index, array_column($societes, 'mois'))]['total']
+                : 0;
+        }
+
         return $this->render('bo/dashboard/dashboard.html.twig',[
             'societeNotifs' => $societeNotifs,
             'projetNotifs' => $projetNotifs,
             'quotaNotifs' => $quotaNotifs,
-            'nbrUsers' => count($this->em->getRepository(User::class)->findAll()),
-            'nbrProjets' => count($this->em->getRepository(Projet::class)->findAll()),
-            'nbrSocietes' => count($this->em->getRepository(Societe::class)->findAll()),
+            'nbrUsers' => $this->em->getRepository(User::class)->getCountAll(),
+            'nbrProjets' => $this->em->getRepository(Projet::class)->getCountAll(),
+            'nbrSocietes' => $this->em->getRepository(Societe::class)->getCountAll(),
+            'userCreatedAt' => $userData,
+            'projetCreatedAt' => $projetData,
+            'societeCreatedAt' => $societeData,
         ]);
     }
 
     /**
      * @Route("/stats", name="app_bo_stats")
      */
-    public function stats(ProjetRepository $projetRepository, UserRepository $userRepository, SocieteRepository $societeRepository)
+    public function stats()
     {
-        $userCreatedAt = $this->em->getRepository(User::class)->findCreatedAt((new \DateTime())->format('Y'));
-
-        $userData = [];
-
-        for ($index = 1; $index < 13; $index++) {
-            $userData[$index] = 0;
-        }
-
-        foreach ($userCreatedAt as $user) {
-            $userData[$user['mois']] = $user['total'];
-        }
-
-        $projetCreatedAt = $this->em->getRepository(Projet::class)->findCreatedAt((new \DateTime())->format('Y'));
-
-        $projetData = [];
-
-        for ($index = 1; $index < 13; $index++) {
-            $projetData[$index] = 0;
-        }
-
-        foreach ($projetCreatedAt as $projet) {
-            $projetData[$projet['mois']] = $projet['total'];
-        }
-
-        $societeCreatedAt = $this->em->getRepository(Societe::class)->findCreatedAt((new \DateTime())->format('Y'));
-
-        $societeData = [];
-
-        for ($index = 1; $index < 13; $index++) {
-            $societeData[$index] = 0;
-        }
-
-        foreach ($societeCreatedAt as $societe) {
-            $societeData[$societe['mois']] = $societe['total'];
-        }
-
-        return $this->render('bo/stats/stats.html.twig',[
-            'userCreatedAt' => $userData,
-            'projetCreatedAt' => $projetData,
-            'societeCreatedAt' => $societeData,
-        ]);
+        return $this->render('bo/stats/stats.html.twig');
     }
 
 }

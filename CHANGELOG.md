@@ -6,6 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+- Ajouter date fin des tâches dans le planning
+### Modifié
+- Organiser le Tableau de bord et les statistiques du Back-Office
+### Réparé
+- Correction des traduction Anglais
 
 
 

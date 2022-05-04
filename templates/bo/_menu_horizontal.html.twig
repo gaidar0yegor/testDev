@@ -12,11 +12,11 @@
             <li class="nav-item {{ activeOn('app_bo_dashboard') }}">
                 <a class="nav-link" href="{{ path('app_bo_dashboard') }}">Tableau de bord</a>
             </li>
-            <li class="nav-item {{ activeOn('app_bo_societes', 'app_bo_societe', 'app_bo_societes_creer') }}">
-                <a class="nav-link" href="{{ path('app_bo_societes') }}">Sociétés</a>
-            </li>
             <li class="nav-item {{ activeOn('app_bo_stats') }}">
                 <a class="nav-link" href="{{ path('app_bo_stats') }}">Statistiques</a>
+            </li>
+            <li class="nav-item {{ activeOn('app_bo_societes', 'app_bo_societe', 'app_bo_societes_creer') }}">
+                <a class="nav-link" href="{{ path('app_bo_societes') }}">Sociétés</a>
             </li>
         </ul>
 
@@ -28,7 +28,7 @@
             <div class="dropdown-menu">
                 {% if is_granted('ROLE_FO_USER') %}
                     <a
-                        class="dropdown-item"
+                        class="dropdown-item {{ activeOn('app_home') }}"
                         href="{{ path('app_home') }}"
                     >
                         <i class="fa fa-rocket" aria-hidden="true"></i>Front Office

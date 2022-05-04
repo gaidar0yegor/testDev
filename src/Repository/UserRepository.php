@@ -29,6 +29,15 @@ class UserRepository extends ServiceEntityRepository
         $this->avatarHandler = $avatarHandler;
     }
 
+    public function getCountAll(): int
+    {
+        return $this
+            ->createQueryBuilder('user')
+            ->select('count(user)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function findCreatedAt(int $year): array
     {
         return $this

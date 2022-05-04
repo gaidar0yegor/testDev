@@ -22,13 +22,15 @@
             </div>
         </div>
 
-
-        <div>
-            <input type="checkbox" name="select-all" id="select-all" />
-            <label>{{ 'select_unselect_all'|trans }}</label>
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="checkbox" name="select-all" id="select-all" />
+                <label>{{ 'select_unselect_all'|trans }}</label>
+            </div>
+            <div class="col-sm-12">
+                {{ form_row(form.users) }}
+            </div>
         </div>
-
-        {{ form_row(form.users) }}
 
         <div class="row">
             <div class="col-md-6 offset-md-3">

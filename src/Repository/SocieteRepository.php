@@ -19,6 +19,15 @@ class SocieteRepository extends ServiceEntityRepository
         parent::__construct($registry, Societe::class);
     }
 
+    public function getCountAll(): int
+    {
+        return $this
+            ->createQueryBuilder('societe')
+            ->select('count(societe)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     public function findCreatedAt(int $year): array
     {
         return $this
