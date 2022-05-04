@@ -44,7 +44,10 @@ class ProjetBudgetExpenseController extends AbstractController
      */
     public function saveBudgetExpense(Projet $projet, Request $request)
     {
-        $budgetExpense = new ProjetBudgetExpense();
+        $budgetExpense = $request->request->get('updateId')
+            ? $this->em->getRepository(ProjetBudgetExpense::class)->find($request->request->get('updateId'))
+            : new ProjetBudgetExpense();
+
         $budgetExpense->setTitre($request->request->get('titre'));
         $budgetExpense->setAmount($request->request->get('amount'));
         $budgetExpense->setProjet($projet);

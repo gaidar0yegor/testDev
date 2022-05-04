@@ -601,4 +601,9 @@ select.select-2, .select2.select2-container  {
 }
 #specialExpenses .list-special-expenses tr td:not(:first-child){
   text-align: right;
+  width: 1%;
+  white-space: nowrap;
+}
+#specialExpenses .list-special-expenses tr td:last-child a{
+  margin-left: 10px;
 }

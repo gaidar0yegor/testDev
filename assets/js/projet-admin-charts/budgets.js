@@ -93,6 +93,7 @@ if (chartContents) {
 
         let titre = $(this).find("input[name='special_expense_form[titre]']").val();
         let amount = $(this).find("input[name='special_expense_form[amount]']").val();
+        let updateId = $(this).find("input[name='special_expense_form[updateId]']").val();
 
         if (titre && amount){
             $.ajax({
@@ -100,19 +101,33 @@ if (chartContents) {
                 method: 'POST',
                 data: {
                     titre: titre,
-                    amount: amount
+                    amount: amount,
+                    updateId: updateId,
                 },
                 success: function (response) {
-                    $(listSpecialExpenses).find('tbody').append(`<tr>
-                            <td>${response.titre}</td>
-                            <td>${response.amount}</td>
-                            <td><a href="javascript:;" class="text-right text-danger btn-delete-expense" data-expense-id="${response.id}"><i class="fa fa-trash"></i></a></td>
-                        </tr>`);
+                    let addToEuroBudgetChart = parseFloat(response.amount),
+                        $oldTr = $(listSpecialExpenses).find(`tr[data-expense-id='${response.id}']`),
+                        $newTr = $("<tr>", {"data-expense-id": response.id});
+
+                    $($newTr).html(`
+                            <td class="expense-titre">${response.titre}</td>
+                            <td class="expense-amount">${response.amount}</td>
+                            <td>
+                                <a href="javascript:;" class="text-warning btn-edit-expense"><i class="fa fa-pencil"></i></a>
+                                <a href="javascript:;" class="text-danger btn-delete-expense"><i class="fa fa-trash"></i></a>
+                            </td>`);
+
+                    if ($oldTr.length){
+                        addToEuroBudgetChart = addToEuroBudgetChart - parseFloat($($oldTr).find('.expense-amount').text());
+                        $(listSpecialExpenses).find(`tbody tr[data-expense-id='${response.id}']`).html($($newTr).html());
+                    } else {
+                        $(listSpecialExpenses).find('tbody').append($newTr);
+                    }
 
                     euroBudgetChart.load({
                         unload: ['Réel'],
                         columns: [
-                            ['Réel', Math.ceil(euroBudgetChart.data("Réel")[0].values[0].value + parseFloat(response.amount))]
+                            ['Réel', Math.ceil(euroBudgetChart.data("Réel")[0].values[0].value + addToEuroBudgetChart)]
                         ],
                     });
 
@@ -123,9 +138,18 @@ if (chartContents) {
 
     });
 
+    $(listSpecialExpenses).on('click', '.btn-edit-expense', function (e) {
+        const $tr = $(this).parents('tr');
+        const expenseId = $($tr).data('expenseId');
+
+        $(modal).find('form').find("input[name='special_expense_form[updateId]']").val(expenseId);
+        $(modal).find('form').find("input[name='special_expense_form[titre]']").val($($tr).find('.expense-titre').text());
+        $(modal).find('form').find("input[name='special_expense_form[amount]']").val(parseFloat($($tr).find('.expense-amount').text()));
+    });
+
     $(listSpecialExpenses).on('click', '.btn-delete-expense', function (e) {
         const $tr = $(this).parents('tr');
-        const expenseId = $(this).data('expenseId');
+        const expenseId = $($tr).data('expenseId');
 
         if (expenseId){
             $.ajax({
