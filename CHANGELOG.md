@@ -8,11 +8,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Ajouter date fin des tâches dans le planning
 - Les users affectés à une tâche peuvent la modifier
+- Modification des dépenses spéciales dans l'analyse budgétaire
 ### Modifié
 - Organiser le Tableau de bord et les statistiques du Back-Office
 - Unité du Progress du planning en pourcentage
 ### Réparé
 - Correction des traduction Anglais
+- Alignement des charts dans l'analyse budgétaire
 
 
 
