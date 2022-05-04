@@ -53,10 +53,30 @@ class ProjetPlanningController extends AbstractController
             ]);
         }
 
-        $planningTasks = $this->em->getRepository(ProjetPlanningTask::class)->getForGanttByProjet($projet);
+        foreach ($projet->getProjetPlanning()->getProjetPlanningTasks() as $planningTask){
+            $isParticipant = false;
+            if ($this->userContext->hasSocieteUser()){
+                foreach ($planningTask->getParticipants() as $participant){
+                    if ($participant->getSocieteUser() === $this->userContext->getSocieteUser()){
+                        $isParticipant = true;break;
+                    }
+                }
+            }
+            $tasks[] = [
+                'id' => $planningTask->getId(),
+                'text' => $planningTask->getText(),
+                'duration' => $planningTask->getDuration(),
+                'progress' => $planningTask->getProgress(),
+                'start_date' => $planningTask->getStartDate()->format('d/m/Y'),
+                'parent' => is_object($planningTask->getParentTask()) ? $planningTask->getParentTask()->getId() : 0,
+                'is_participant' => $isParticipant,
+                'color' => $projet->getColorCode(),
+                'open' => true,
+            ];
+        }
 
         return new JsonResponse([
-            "data" => $planningTasks,
+            "data" => $tasks,
         ]);
     }
 

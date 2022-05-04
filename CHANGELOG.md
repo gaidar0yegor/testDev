@@ -7,8 +7,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Ajouter date fin des tâches dans le planning
+- Les users affectés à une tâche peuvent la modifier
 ### Modifié
 - Organiser le Tableau de bord et les statistiques du Back-Office
+- Unité du Progress du planning en pourcentage
 ### Réparé
 - Correction des traduction Anglais
 
