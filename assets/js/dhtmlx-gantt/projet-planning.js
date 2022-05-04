@@ -3,13 +3,25 @@ const societeRaisonSociale = window['project_planning_content'].dataset.societeR
 const projectAcronyme = window['project_planning_content'].dataset.projectAcronyme;
 const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
+var numberEditor = gantt.config.editor_types.number;
+gantt.config.editor_types.number_progress = gantt.mixin({
+    set_value: function(value, id, column, node){
+        return numberEditor.set_value.apply(this, [Math.round((value * 100)), id, column, node]);
+    },
+    get_value: function(id, column, node) {
+        return numberEditor.get_value.apply(this, [id, column, node]) /100;
+    },
+}, numberEditor);
+
+var progressEditor = {type: "number_progress", map_to: "progress"};
+
 gantt.config.columns = [
     {name: "wbs", label: "#", width: 40, min_width: 40, max_width: 40, align: "center", template: gantt.getWBSCode},
-    {name: "text", tree: true, width: 250, min_width: 250, max_width: 250, resize: true},
+    {name: "text", tree: true, width: '*', min_width: 250, resize: true, template:function(task){ return `<span class="task-title" title="${task.text}">${task.text}</span>`; }},
     {name: "start_date", label: "Start", width:80, min_width: 80, max_width: 80, align: "center", editor: {type: "date", map_to: "start_date"}, resize: true},
     {name: "duration", width:50, min_width: 50, max_width: 50, align: "center", editor: {type: "number", map_to: "duration", min:1}, resize: true},
     {name: "end_date", label: "Finish", width:80, min_width: 80, max_width: 80, align: "center", editor: {type: "date", map_to: "end_date"}, resize: true},
-    {name: "progress", label: "Progress", align:"center", width:50, min_width: 50, max_width: 50, editor: {type: "number", map_to: "progress", min:0}, template : function(obj){ return (Math.round(obj.progress * 100)) + "%" }},
+    {name: "progress", label: "Progress", align:"center", width:50, min_width: 50, max_width: 50, editor: progressEditor, template : function(obj){ return Math.round((obj.progress * 100)) + "%" }},
     {name: "add", align: "center", width: 30, min_width: 30, max_width: 30},
     {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
     {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
@@ -24,9 +36,9 @@ gantt.templates.grid_row_class = function( start, end, task ){
     }
 };
 
-gantt.attachEvent("onTaskCreated", function(task){
-    return gantt.calculateTaskLevel(task) <= 2;
-});
+gantt.templates.task_text = function (start, end, task) {
+    return `<span class="task-title" title="${task.text}">${task.text}</span>`
+};
 
 var weekScaleTemplate = function(date){
     var dateToStr = gantt.date.date_to_str("%d %M");
@@ -47,11 +59,27 @@ gantt.config.scroll_size = 20;
 gantt.config.tooltip_timeout = 50;
 
 gantt.init("project_planning_content");
-gantt.load(`/api/projet/${projectId}/planning/list`);
 
-var dp = new gantt.dataProcessor(`/api/projet/${projectId}/planning`);
-dp.init(gantt);
-dp.setTransactionMode("REST");
+fetch(`/api/projet/${projectId}/planning/list`, {method: 'GET'})
+    .then(response => response.json())
+    .then(data => {
+        gantt.parse(data);
+    }).then(() => {
+        var dp = new gantt.dataProcessor(`/api/projet/${projectId}/planning`);
+        dp.init(gantt);
+        dp.setTransactionMode("REST");
+    })
+;
+
+gantt.attachEvent("onTaskLoading", function(task){
+    task.editable = !readonly || task.is_participant;
+    return true;
+});
+gantt.attachEvent("onTaskCreated", function(task){
+    return gantt.calculateTaskLevel(task) <= 2;
+});
+
+// START :: Menu nav bar
 
 var menu = {
     zoomIn: function(){
@@ -118,6 +146,8 @@ gantt.event(navBar, "click", function(e){
     }
 });
 
+// END :: Menu nav bar
+
 // START :: zoom functionality
 
 var zoomConfig = {
@@ -179,4 +209,4 @@ var zoomConfig = {
 
 gantt.ext.zoom.init(zoomConfig);
 
-// END zoom function
+// END :: zoom function
