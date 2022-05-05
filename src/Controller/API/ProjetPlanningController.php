@@ -7,9 +7,12 @@ use App\Entity\ProjetParticipant;
 use App\Entity\ProjetPlanning;
 use App\Entity\ProjetPlanningTask;
 use App\MultiSociete\UserContext;
+use App\Notification\Event\PlanningTaskNotCompletedNotification;
 use App\Notification\Event\ProjetParticipantTaskAssignedEvent;
 use App\Security\Role\RoleProjet;
 use App\Service\ParticipantService;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,6 +22,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/api/projet/{projetId}/planning")
@@ -28,12 +32,19 @@ class ProjetPlanningController extends AbstractController
     protected EntityManagerInterface $em;
     protected UserContext $userContext;
     private EventDispatcherInterface $dispatcher;
+    private TranslatorInterface $translator;
 
-    public function __construct(EntityManagerInterface $em, UserContext $userContext, EventDispatcherInterface $dispatcher)
+    public function __construct(
+        EntityManagerInterface $em,
+        UserContext $userContext,
+        EventDispatcherInterface $dispatcher,
+        TranslatorInterface $translator
+    )
     {
         $this->em = $em;
         $this->userContext = $userContext;
         $this->dispatcher = $dispatcher;
+        $this->translator = $translator;
     }
 
     /**
@@ -141,6 +152,7 @@ class ProjetPlanningController extends AbstractController
      */
     public function updateTaskFromGantt(Projet $projet, ProjetPlanningTask $projetPlanningTask, Request $request)
     {
+        $this->dispatcher->dispatch(new PlanningTaskNotCompletedNotification($projetPlanningTask));
         $projetPlanningTask->setText($request->request->get('text'));
 
         $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');
@@ -203,6 +215,12 @@ class ProjetPlanningController extends AbstractController
      */
     public function getParticipantsForTak(Projet $projet, ProjetPlanningTask $projetPlanningTask, ParticipantService $participantService)
     {
+        if (!ProductPrivilegeCheker::checkProductPrivilege($projet->getSociete(),ProductPrivileges::PLANIFICATION_PROJET_AVANCE)){
+            return new JsonResponse([
+                'message' => $this->translator->trans('product_privilege_no_dispo')
+            ], JsonResponse::HTTP_FORBIDDEN);
+        }
+
         $contributeurs = $participantService->getProjetParticipantsWithRole(
             $projet->getActiveProjetParticipants(),
             RoleProjet::CONTRIBUTEUR

@@ -64,10 +64,6 @@ class PlanningTaskNotCompleted implements ActivityInterface, EventSubscriberInte
 
     public function onNotification(PlanningTaskNotCompletedNotification $event): void
     {
-        if (!ProductPrivilegeCheker::checkProductPrivilege($event->getSociete(),ProductPrivileges::NOTIFICATION_PLANIFICATION_PROJET)){
-            return;
-        }
-
         $projetPlanningTask = $event->getProjetPlanningTask();
         $projet = $event->getProjet();
 

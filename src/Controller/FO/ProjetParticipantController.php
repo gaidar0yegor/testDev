@@ -9,7 +9,6 @@ use App\Form\InviteUserSurProjetType;
 use App\Form\ListeProjetParticipantsType;
 use App\Notification\Event\ProjetParticipantAddedEvent;
 use App\Notification\Event\ProjetParticipantRemovedEvent;
-use App\Notification\Event\RappelSaisieTempsNotification;
 use App\Service\Invitator;
 use App\Service\SocieteChecker;
 use App\MultiSociete\UserContext;

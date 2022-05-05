@@ -9,6 +9,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter date fin des tâches dans le planning
 - Les users affectés à une tâche peuvent la modifier
 - Modification des dépenses spéciales dans l'analyse budgétaire
+- Notification des notifications slack si la date fin d'une tâche = j - 3
+- Standard Pack : Planification projet & monitoring avancés
 ### Modifié
 - Organiser le Tableau de bord et les statistiques du Back-Office
 - Unité du Progress du planning en pourcentage

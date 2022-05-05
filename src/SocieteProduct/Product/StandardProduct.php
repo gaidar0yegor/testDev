@@ -13,7 +13,7 @@ class StandardProduct extends StarterProduct
         ProductPrivileges::FAIT_MARQUANT_DATE,
         ProductPrivileges::FAIT_MARQUANT_SEND_MAIL,
         ProductPrivileges::SMS_NOTIFICATION_SAISIE_TEMPS,
-        ProductPrivileges::NOTIFICATION_PLANIFICATION_PROJET,
+        ProductPrivileges::PLANIFICATION_PROJET_AVANCE,
         ProductPrivileges::FICHIER_PROJET_ACCESSES
     ];
 

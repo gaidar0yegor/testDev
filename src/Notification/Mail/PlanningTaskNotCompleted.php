@@ -32,7 +32,7 @@ class PlanningTaskNotCompleted
 
     public function onNotification(PlanningTaskNotCompletedNotification $event): void
     {
-        if (!ProductPrivilegeCheker::checkProductPrivilege($event->getSociete(),ProductPrivileges::NOTIFICATION_PLANIFICATION_PROJET)){
+        if (!ProductPrivilegeCheker::checkProductPrivilege($event->getSociete(),ProductPrivileges::PLANIFICATION_PROJET_AVANCE)){
             return;
         }
 
