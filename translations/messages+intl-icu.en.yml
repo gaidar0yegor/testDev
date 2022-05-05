@@ -17,7 +17,7 @@ FAIT_MARQUANT_DESCRIPTION_SIZE: Remarkable fact's description size
 FAIT_MARQUANT_DATE: Date of striking fact
 FAIT_MARQUANT_SEND_MAIL: Send striking fact by email
 SMS_NOTIFICATION_SAISIE_TEMPS: Time Tracking SMS Reminder
-NOTIFICATION_PLANIFICATION_PROJET: Progress of the project Reminder
+PLANIFICATION_PROJET_AVANCE: Advanced project planning & monitoring
 FICHIER_PROJET_ACCESSES: File visibility rights
 MULTI_SOCIETE_DASHBOARD: Multi-company dashboards
 SOCIETE_HIERARCHICAL_SUPERIOR: Hierarchical links

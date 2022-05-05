@@ -53,6 +53,9 @@ $($tasksSelect).on('select2:select', function (e) {
             $($tasksParticipantsSelect).css('width', '100%');
             initSelect2($($tasksParticipantsSelect));
         },
+        error: function (response) {
+            $('#tasksParticipants').html(`<p class="text-center">${response.responseJSON.message}</p>`);
+        }
     });
 });
 
@@ -73,7 +76,7 @@ $($form).submit(function( event ) {
         success: function (response) {
             $('#tasksParticipants').append('<p class="text-success success-msg">Tâche affectée avec succés.</p>');
             $btnSubmit.prop('disabled', true);
-        },
+        }
     });
 });
 

@@ -78,10 +78,6 @@ class PlanningTaskCompleted implements ActivityInterface
     {
         $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($projetPlanningTask);
 
-        if (!ProductPrivilegeCheker::checkProductPrivilege($projetPlanningTask->getSociete(),ProductPrivileges::NOTIFICATION_PLANIFICATION_PROJET)){
-            return;
-        }
-
         if (!isset($changes['progress']) || $changes['progress'][1] != 1) {
             return;
         }
