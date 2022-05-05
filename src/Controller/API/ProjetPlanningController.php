@@ -7,6 +7,7 @@ use App\Entity\ProjetParticipant;
 use App\Entity\ProjetPlanning;
 use App\Entity\ProjetPlanningTask;
 use App\MultiSociete\UserContext;
+use App\Notification\Event\PlanningTaskNotCompletedNotification;
 use App\Notification\Event\ProjetParticipantTaskAssignedEvent;
 use App\Security\Role\RoleProjet;
 use App\Service\ParticipantService;
@@ -151,6 +152,7 @@ class ProjetPlanningController extends AbstractController
      */
     public function updateTaskFromGantt(Projet $projet, ProjetPlanningTask $projetPlanningTask, Request $request)
     {
+        $this->dispatcher->dispatch(new PlanningTaskNotCompletedNotification($projetPlanningTask));
         $projetPlanningTask->setText($request->request->get('text'));
 
         $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');
