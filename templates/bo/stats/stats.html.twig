@@ -5,7 +5,17 @@
     <h1>Statistiques</h1>
 
     <div id="statsMatomo" class="row mb-4">
-        <div id="VisitsSummary_getVisits" class="col-md-12 mb-4"></div>
+        <div id="VisitsSummary_getVisits" class="col-md-12 mb-4">
+            <div class="ml-3 d-flex flex-row justify-content-start align-items-center">
+                <h5 class="mb-0 pr-3" style="border-right: 1px solid lightgrey;">Nombre de visites</h5>
+                <div class="btn-group ml-3" role="group">
+                    <button type="button" class="btn btn-sm btn-outline-success scale-period-visits active" data-period="day">Jour</button>
+                    <button type="button" class="btn btn-sm btn-outline-success scale-period-visits" data-period="month">Mois</button>
+                    <button type="button" class="btn btn-sm btn-outline-success scale-period-visits" data-period="year">Année</button>
+                </div>
+            </div>
+            <div class="getVisits-chart"></div>
+        </div>
         <div id="UserCountry_getCountry" class="col-md-6 col-sm-12 mb-4">
             <table class="w-100 text-center">
                 <thead>
