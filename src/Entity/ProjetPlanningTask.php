@@ -59,7 +59,7 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     private $parentTask;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetPlanningTask::class, mappedBy="parentTask")
+     * @ORM\OneToMany(targetEntity=ProjetPlanningTask::class, mappedBy="parentTask", orphanRemoval=true)
      */
     private $children;
 
