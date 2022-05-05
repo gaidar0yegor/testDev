@@ -1,3 +1,5 @@
+import $ from "jquery";
+
 const projectId = window['project_planning_content'].dataset.projectId;
 const societeRaisonSociale = window['project_planning_content'].dataset.societeRaisonSociale;
 const projectAcronyme = window['project_planning_content'].dataset.projectAcronyme;
@@ -64,12 +66,18 @@ fetch(`/api/projet/${projectId}/planning/list`, {method: 'GET'})
     .then(response => response.json())
     .then(data => {
         gantt.parse(data);
-    }).then(() => {
-        var dp = new gantt.dataProcessor(`/api/projet/${projectId}/planning`);
-        dp.init(gantt);
-        dp.setTransactionMode("REST");
-    })
-;
+    });
+
+var dp = gantt.createDataProcessor({
+    url: `/api/projet/${projectId}/planning`,
+    mode:"REST"
+});
+dp.attachEvent("onAfterUpdate", function(id, action, tid, response){
+    if (response.linkFaitMarquant){
+        $('#createFaitMarquant').find('.link-fait-marquant').attr("href", response.linkFaitMarquant);
+        $('#createFaitMarquant').modal('show');
+    }
+});
 
 gantt.attachEvent("onTaskLoading", function(task){
     task.editable = !readonly || task.is_participant;

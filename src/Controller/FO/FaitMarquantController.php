@@ -4,6 +4,7 @@ namespace App\Controller\FO;
 
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
+use App\Entity\ProjetPlanningTask;
 use App\Form\FaitMarquantType;
 use App\Notification\Event\FaitMarquantRemovedEvent;
 use App\Notification\Event\FaitMarquantRestoredEvent;
@@ -47,6 +48,13 @@ class FaitMarquantController extends AbstractController
             ->setCreatedBy($userContext->getSocieteUser())
             ->setDate(new \DateTime())
         ;
+
+        if ($request->query->has('link_task')){
+            $faitMarquant->setProjetPlanningTask($em->getRepository(ProjetPlanningTask::class)->findOneBy([
+                'id' => $request->query->get('link_task'),
+                'projetPlanning' => $projet->getProjetPlanning(),
+            ]));
+        }
 
         $form = $this->createForm(FaitMarquantType::class, $faitMarquant);
         $form->handleRequest($request);
