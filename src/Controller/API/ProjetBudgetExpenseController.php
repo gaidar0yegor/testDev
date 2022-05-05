@@ -44,6 +44,8 @@ class ProjetBudgetExpenseController extends AbstractController
      */
     public function saveBudgetExpense(Projet $projet, Request $request)
     {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
         $budgetExpense = $request->request->get('updateId')
             ? $this->em->getRepository(ProjetBudgetExpense::class)->find($request->request->get('updateId'))
             : new ProjetBudgetExpense();
