@@ -31,6 +31,14 @@ class SocieteUserType extends AbstractType
                     'placeholder' => $this->getHeuresPlaceholder($builder),
                 ],
             ])
+            ->add('coutEtp', NumberType::class, [
+                'label' => "Coût moyen horaire de l'ETP (€/h)",
+                'help' => 'Pour cet utilisateur uniquement, vous pouvez remplacer ici le coût moyen défini globalement au niveau de la société.',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => $this->getCoutEtpPlaceholder($builder),
+                ],
+            ])
             ->add('societeUserPeriods', CollectionType::class, [
                 'label' => false,
                 'entry_type' => SocieteUserPeriodType::class,
@@ -58,5 +66,16 @@ class SocieteUserType extends AbstractType
         }
 
         return sprintf('Par défaut : %.2f', $defaultHeuresParJour);
+    }
+
+    private function getCoutEtpPlaceholder(FormBuilderInterface $builder): string
+    {
+        $defaultCoutEtp = $builder->getData()->getSociete()->getCoutEtp();
+
+        if (null === $defaultCoutEtp) {
+            return '';
+        }
+
+        return sprintf('Par défaut : %.2f', $defaultCoutEtp);
     }
 }

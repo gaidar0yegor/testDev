@@ -24,7 +24,7 @@ class SocieteType extends AbstractType
             ->add('siret')
             ->add('heuresParJours', NumberType::class)
             ->add('coutEtp', NumberType::class, [
-                'label' => "Coût moyen horaire de l'ETP (€)"
+                'label' => "Coût moyen horaire de l'ETP (€/h)"
             ])
             ->add('timesheetGranularity', CardChoiceType::class, [
                 'label' => 'Saisie des temps',
