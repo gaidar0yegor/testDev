@@ -500,6 +500,7 @@ part_on_project: Participants sur le projet
 gest_of_part: Gestion des participants
 add_part: Ajouter un participant
 obs_ext: Observateurs externes
+want_new_fm: Vous souhaitez créer un fait marquant sur votre projet ?
 want_new_user: Vous souhaitez inviter un utilisateur sur votre projet et l'inviter aussi dans votre société ?
 want_new_obs: Vous souhaitez donner un accès observateur à un utilisateur sur ce projet, mais sans l'inviter dans votre société ?
 invite_on: Inviter sur

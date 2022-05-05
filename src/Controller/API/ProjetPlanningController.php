@@ -152,13 +152,17 @@ class ProjetPlanningController extends AbstractController
      */
     public function updateTaskFromGantt(Projet $projet, ProjetPlanningTask $projetPlanningTask, Request $request)
     {
-        $this->dispatcher->dispatch(new PlanningTaskNotCompletedNotification($projetPlanningTask));
         $projetPlanningTask->setText($request->request->get('text'));
+        $newProgress = (float)$request->request->get('progress');
+        $linkFaitMarquant = false;
+        if ($newProgress == 1 && $newProgress != $projetPlanningTask->getProgress()){
+            $linkFaitMarquant = $this->generateUrl('app_fo_fait_marquant_ajouter', ['projetId' => $projet->getId(), 'link_task' => $projetPlanningTask->getId()]);
+        }
 
         $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');
         $projetPlanningTask->setStartDate($startdDate);
         $projetPlanningTask->setDuration((int)$request->request->get('duration'));
-        $projetPlanningTask->setProgress((float)$request->request->get('progress'));
+        $projetPlanningTask->setProgress($newProgress);
 
         $projetPlanningTask->setEndDate((clone $startdDate)->modify("+" . $projetPlanningTask->getDuration() - 1 . " days"));
 
@@ -175,7 +179,8 @@ class ProjetPlanningController extends AbstractController
         $this->em->flush();
 
         return new JsonResponse([
-            "action" => "updated"
+            "action" => "updated",
+            "linkFaitMarquant" => $linkFaitMarquant,
         ]);
     }
 

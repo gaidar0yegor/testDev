@@ -11,6 +11,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Modification des dépenses spéciales dans l'analyse budgétaire
 - Notification des notifications slack si la date fin d'une tâche = j - 3
 - Standard Pack : Planification projet & monitoring avancés
+- Attribuer un Coût moyen horaire de l'ETP par utilisateur
+- En terminant une tâche, u Modal propose de créer un FM
+- Tableau de bord : Efficacité moyenne des projets
 ### Modifié
 - Organiser le Tableau de bord et les statistiques du Back-Office
 - Unité du Progress du planning en pourcentage

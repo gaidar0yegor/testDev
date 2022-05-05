@@ -31,14 +31,20 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-md-5">
+        <div class="row d-flex flex-row justify-content-around align-items-start">
+            <div class="col-md-4">
                 <h4 class="text-center">{{ 'hours_by_project'|trans }}</h4>
 
                 <div id="heures-par-projet">
                 </div>
             </div>
-            <div class="col-md-7">
+            {% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
+                <div id="projets-efficacite-moyenne" class="col-md-3">
+                    <h4 class="text-center">{{ 'efficiency'|trans }}</h4>
+                    <canvas id="efficacite-moyenne"></canvas>
+                </div>
+            {% endif %}
+            <div class="col-md-5">
                 <h4 class="text-center">{{ 'my_contributions'|trans }}</h4>
                 <table class="table text-center">
                     <thead>
@@ -51,18 +57,18 @@
                     <tbody>
                         <tr>
                             <td class="text-left">{{ 'my_contributions.projects'|trans }}</td>
-                            <td class="moi-vs-equipe moi projet">…</td>
-                            <td class="moi-vs-equipe equipe projet">…</td>
+                            <th class="moi-vs-equipe moi projet">…</th>
+                            <th class="moi-vs-equipe equipe projet">…</th>
                         </tr>
                         <tr>
                             <td class="text-left">{{ 'my_contributions.rdi_projects'|trans }}</td>
-                            <td class="moi-vs-equipe moi projet-rdi">…</td>
-                            <td class="moi-vs-equipe equipe projet-rdi">…</td>
+                            <th class="moi-vs-equipe moi projet-rdi">…</th>
+                            <th class="moi-vs-equipe equipe projet-rdi">…</th>
                         </tr>
                         <tr>
                             <td class="text-left">{{ 'my_contributions.total'|trans }}</td>
-                            <td class="moi-vs-equipe moi temps-total">…</td>
-                            <td class="moi-vs-equipe equipe temps-total">…</td>
+                            <th class="moi-vs-equipe moi temps-total">…</th>
+                            <th class="moi-vs-equipe equipe temps-total">…</th>
                         </tr>
                     </tbody>
                 </table>

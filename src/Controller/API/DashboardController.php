@@ -196,6 +196,43 @@ class DashboardController extends AbstractController
     }
 
     /**
+     * Retourne l'efficacité moyenne des projets
+     *
+     * @Route(
+     *      "/projets-efficacite-moyenne/{year}",
+     *      methods={"GET"},
+     *       requirements={"year"="\d{4}"},
+     *      name="api_dashboard_projets_efficacite_moyenne"
+     * )
+     */
+    public function getProjetsEfficaciteMoyenne(
+        int $year,
+        UserContext $userContext,
+        ProjetRepository $projetRepository,
+        SocieteUserRepository $societeUserRepository
+    ) {
+        if ($userContext->getSocieteUser()->isAdminFo()){
+            $projets = $projetRepository->findAllProjectsPerSociete($userContext->getSocieteUser()->getSociete(), $year);
+        } elseif ($userContext->getSocieteUser()->isSuperiorFo()) {
+            $projets = $projetRepository->findAllForUsers($societeUserRepository->findTeamMembers($userContext->getSocieteUser()), $year);
+        } else {
+            $projets = $projetRepository->findAllForUserSinceYear($userContext->getSocieteUser(), RoleProjet::OBSERVATEUR, $year);
+        }
+
+        $sumEfficacite = 0;
+        $countProjetPlanning = 0;
+
+        foreach ($projets as $projet) {
+            if ($projet->getProjetPlanning()) {
+                $sumEfficacite += (float)$projet->getProjetPlanning()->getEfficacite();
+                $countProjetPlanning++;
+            }
+        }
+
+        return new JsonResponse($countProjetPlanning ? $sumEfficacite / $countProjetPlanning : 0);
+    }
+
+    /**
      * Retourne les stats "Nb de projets en cours/terminés"
      * depuis une année N.
      *

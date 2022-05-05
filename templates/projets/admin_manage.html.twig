@@ -94,14 +94,18 @@
                             <h4 class="text-center d-flex justify-content-between align-items-center">
                                 <div></div>
                                 <span>en Euro (&euro;)</span>
-                                <a class="btn btn-success btn-sm btn-add-expenses not-printable" title="Ajouter des dépenses spéciales (DS)" href="javascript:;"><i class="fa fa-plus"></i></a>
+                                <div>
+                                    {% if userCanEditProjet %}
+                                        <a class="btn btn-success btn-sm btn-add-expenses not-printable" title="Ajouter des dépenses spéciales (DS)" href="javascript:;"><i class="fa fa-plus"></i></a>
+                                    {% endif %}
+                                </div>
                             </h4>
                             <div id="euro-budget"></div>
                         </div>
                     </div>
                 </div>
 
-                {% if projet.projetPlanning %}
+                {% if projet.projetPlanning and productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
                     <div id="projet-stats-charts" class="row my-4">
                         <div class="col-sm-12">
                             <h2>{{ 'kpis_indicators'|trans }}</h2>
