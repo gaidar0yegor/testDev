@@ -105,7 +105,7 @@
                     </div>
                 </div>
 
-                {% if projet.projetPlanning %}
+                {% if projet.projetPlanning and productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
                     <div id="projet-stats-charts" class="row my-4">
                         <div class="col-sm-12">
                             <h2>{{ 'kpis_indicators'|trans }}</h2>
