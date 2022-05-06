@@ -75,7 +75,7 @@ var dp = gantt.createDataProcessor({
 dp.attachEvent("onAfterUpdate", function(id, action, tid, response){
     let task = gantt.getTask(tid);
 
-    if (response.action === "updated" && task.parent !== 0) {
+    if (response.action !== "deleted" && task.parent !== 0) {
         updateParentProgress(task);
     }
 
