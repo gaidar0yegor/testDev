@@ -93,7 +93,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
             | societe_user[societeUserPeriods][0][dateEntry] | 01 janvier 2021 |
         And I press "Mettre à jour"
         Then I should see "Les informations de l'utilisateur ont été modifiées"
-        And I should see "Date d'entrée à la société 1 janv. 2021"
+        And I should see "Date d'entrée dans la société 1 janv. 2021"
 
         When I follow "Activité"
         Then I should see "Utilisateur Eureka a rejoint la société. le 1 janv. 2021"
