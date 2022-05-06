@@ -6,6 +6,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [0.43.4] - 2022-05-06
+### Ajouté
 - Ajouter date fin des tâches dans le planning
 - Les users affectés à une tâche peuvent la modifier
 - Modification des dépenses spéciales dans l'analyse budgétaire
@@ -23,10 +30,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Réparé
 - Correction des traduction Anglais
 - Alignement des charts dans l'analyse budgétaire
-
-
-
-
 
 
 ## [0.43.3] - 2022-05-02
