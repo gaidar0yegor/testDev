@@ -12,6 +12,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [0.43.6] - 2022-05-06
+### Réparé
+- En supprimant une tâche : Mettre à jour automatiquement le Progress des tâches parents
+
 ## [0.43.5] - 2022-05-06
 ### Modifié
 - En ajoutant une tâche : Mettre à jour automatiquement le Progress des tâches parents
