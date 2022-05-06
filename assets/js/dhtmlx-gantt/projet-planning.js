@@ -85,7 +85,7 @@ dp.attachEvent("onAfterUpdate", function(id, action, tid, response){
     }
 });
 gantt.attachEvent("onBeforeTaskDelete", function(id, task){
-    updateParentProgress(task);
+    updateParentProgress(task, true);
 });
 
 gantt.attachEvent("onTaskLoading", function(task){
@@ -228,17 +228,21 @@ gantt.ext.zoom.init(zoomConfig);
 
 // END :: zoom function
 
-const updateParentProgress = (child) => {
+const updateParentProgress = (child, isDeleted = false) => {
     let parentTask = gantt.getTask(child.parent);
     let childs = gantt.getChildren(parentTask.id);
     let totProgress = 0;
 
     var tempTask;
+    var countChilds = 0;
     for (var i = 0; i < childs.length; i++) {
         tempTask = gantt.getTask(childs[i]);
-        totProgress += parseFloat(tempTask.progress);
+        if (!isDeleted || (isDeleted && child.id !== tempTask.id)){
+            totProgress += parseFloat(tempTask.progress);
+            countChilds++;
+        }
     }
 
-    parentTask.progress = (totProgress / childs.length).toFixed(2);
+    parentTask.progress = (totProgress / countChilds).toFixed(2);
     gantt.updateTask(parentTask.id);
 }
