@@ -18,6 +18,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Organiser le Tableau de bord et les statistiques du Back-Office
 - Unité du Progress du planning en pourcentage
+- Modifier les textes d’information sous la plateforme 
 ### Réparé
 - Correction des traduction Anglais
 - Alignement des charts dans l'analyse budgétaire
