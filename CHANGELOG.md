@@ -15,6 +15,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - En terminant une tâche, un Modal propose de créer un FM
 - Tableau de bord : Efficacité moyenne des projets
 - Api Matomo : Nombre de visites (Jour, Mois, Année)
+- Planification : Mettre à jour automatiquement le Progress des tâches parents
 ### Modifié
 - Organiser le Tableau de bord et les statistiques du Back-Office
 - Unité du Progress du planning en pourcentage
