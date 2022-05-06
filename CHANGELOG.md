@@ -11,6 +11,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+
+## [0.43.5] - 2022-05-06
+### Modifié
+- En ajoutant une tâche : Mettre à jour automatiquement le Progress des tâches parents
+
 ## [0.43.4] - 2022-05-06
 ### Ajouté
 - Ajouter date fin des tâches dans le planning
@@ -30,7 +35,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Réparé
 - Correction des traduction Anglais
 - Alignement des charts dans l'analyse budgétaire
-
 
 ## [0.43.3] - 2022-05-02
 ### Modifié
