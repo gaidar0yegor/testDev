@@ -12,11 +12,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Notification des notifications slack si la date fin d'une tâche = j - 3
 - Standard Pack : Planification projet & monitoring avancés
 - Attribuer un Coût moyen horaire de l'ETP par utilisateur
-- En terminant une tâche, u Modal propose de créer un FM
+- En terminant une tâche, un Modal propose de créer un FM
 - Tableau de bord : Efficacité moyenne des projets
+- Api Matomo : Nombre de visites (Jour, Mois, Année)
+- Planification : Mettre à jour automatiquement le Progress des tâches parents
 ### Modifié
 - Organiser le Tableau de bord et les statistiques du Back-Office
 - Unité du Progress du planning en pourcentage
+- Modifier les textes d’information sous la plateforme 
 ### Réparé
 - Correction des traduction Anglais
 - Alignement des charts dans l'analyse budgétaire

@@ -25,15 +25,16 @@ class SocieteUserType extends AbstractType
         $builder
             ->add('role', FoRoleCardChoiceType::class)
             ->add('heuresParJours', NumberType::class, [
-                'help' => 'Pour cet utilisateur uniquement, vous pouvez remplacer ici le nombre d\'heure défini globalement au niveau de la société.',
+                'label' => 'user.heuresParJours',
+                'help' => 'user.heuresParJours.help',
                 'required' => false,
                 'attr' => [
                     'placeholder' => $this->getHeuresPlaceholder($builder),
                 ],
             ])
             ->add('coutEtp', NumberType::class, [
-                'label' => "Coût moyen horaire de l'ETP (€/h)",
-                'help' => 'Pour cet utilisateur uniquement, vous pouvez remplacer ici le coût moyen défini globalement au niveau de la société.',
+                'label' => "cost_moyen_worked_hours",
+                'help' => 'user.coutEtp.help',
                 'required' => false,
                 'attr' => [
                     'placeholder' => $this->getCoutEtpPlaceholder($builder),

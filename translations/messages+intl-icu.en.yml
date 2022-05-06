@@ -108,7 +108,9 @@ organigramme: Organizational chart
 status: Status
 kpis_indicators: "Performance indicators (KPIs)"
 efficiency: Efficiency
+efficiency.help: Indicates your ability to complete your tasks on time
 effectiveness: Effectiveness
+effectiveness.help: Indicates your level of completeness in carrying out the tasks of the project
 last_activity: Last activity
 participants: Participants
 back_office: Back Office
@@ -128,7 +130,8 @@ worked_hours: Hours worked
 worked_hours_per_day: Hours per day
 hours_by_project_by_month: Number of hours per project per month
 cost_worked_hours: Average hourly cost of ETP
-cost_moyen_worked_hours: "Average cost of 1 ETP in Euro (€/h)"
+cost_moyen_worked_hours: "Average hourly cost of ETP in Euro (€/h)"
+user.coutEtp.help: You can specify the hourly cost specific to this employee.
 edit_cost_hours_number: "Modify the average cost of ETP"
 my_superior: My supervisor
 avatar_of_user: Avatar of {user}
@@ -238,6 +241,7 @@ projet.titre: Descriptive title
 projet.acronyme: Acronymn
 user.role: Role
 user.heuresParJours: Hours worked per day
+user.heuresParJours.help: You can specify the number of daily working hours for this employee.
 societeUserPeriod.dateEntry: Date of entry into the company
 societeUserPeriod.dateLeave: Date of exit from the company
 default_value_used_in_timesheets.: Value by default, used to create timesheets.

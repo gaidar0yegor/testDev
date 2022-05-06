@@ -29,19 +29,48 @@ const statsMatomo = (config) => {
             },
         };
 
-        fetch(`${config.host}/index.php?module=API&method=VisitsSummary.getVisits&idSite=${config.siteId}&period=day&date=last90&format=json`)
-            .then(response => response.json())
-            .then(datas => {
-                options.title.text = "Visites";
-                options.xaxis.categories = Object.keys(datas);
-                options.series[0].data = Object.values(datas);
+        // START :: VisitsSummary getVisits
 
-                var chart = new ApexCharts(
-                    document.querySelector("#VisitsSummary_getVisits"),
-                    options
-                );
-                chart.render();
-            });
+        $('#VisitsSummary_getVisits').on('click', '.scale-period-visits', function (e) {
+            $('#VisitsSummary_getVisits .scale-period-visits').removeClass('active');
+            $(this).addClass('active');
+
+            let apiDate,
+                period = $(this).data('period'),
+                startDate = new Date('2020-01-01'),
+                endDate = new Date();
+
+            switch (period) {
+                case 'day':
+                    apiDate = 'last365';
+                    break;
+                case 'month':
+                    apiDate = 'last' + (endDate.getMonth() - startDate.getMonth() + 12 * (endDate.getFullYear() - startDate.getFullYear()));
+                    break;
+                default:
+                    apiDate = 'last' + (endDate.getFullYear() - startDate.getFullYear() + 1);
+                    break;
+            }
+
+            fetch(`${config.host}/index.php?module=API&method=VisitsSummary.getVisits&idSite=${config.siteId}&period=${period}&date=${apiDate}&format=json`)
+                .then(response => response.json())
+                .then(datas => {
+                    options.xaxis.categories = Object.keys(datas);
+                    options.series[0].data = Object.values(datas);
+                    let getVisitsChartDiv = document.querySelector("#VisitsSummary_getVisits .getVisits-chart");
+                    getVisitsChartDiv.innerHTML = "";
+
+                    var chart = new ApexCharts(
+                        getVisitsChartDiv,
+                        options
+                    );
+                    chart.render();
+                });
+        });
+
+        $('#VisitsSummary_getVisits .scale-period-visits.active').trigger('click');
+
+        // END :: VisitsSummary getVisits
 
         fetch(`${config.host}/index.php?module=API&method=UserCountry.getCountry&idSite=${config.siteId}&period=year&date=today&format=JSON`)
             .then(response => response.json())

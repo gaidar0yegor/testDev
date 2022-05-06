@@ -73,10 +73,19 @@ var dp = gantt.createDataProcessor({
     mode:"REST"
 });
 dp.attachEvent("onAfterUpdate", function(id, action, tid, response){
+    let task = gantt.getTask(tid);
+
+    if (response.action === "updated" && task.parent !== 0) {
+        updateParentProgress(task);
+    }
+
     if (response.linkFaitMarquant){
         $('#createFaitMarquant').find('.link-fait-marquant').attr("href", response.linkFaitMarquant);
         $('#createFaitMarquant').modal('show');
     }
+});
+gantt.attachEvent("onBeforeTaskDelete", function(id, task){
+    updateParentProgress(task);
 });
 
 gantt.attachEvent("onTaskLoading", function(task){
@@ -218,3 +227,18 @@ var zoomConfig = {
 gantt.ext.zoom.init(zoomConfig);
 
 // END :: zoom function
+
+const updateParentProgress = (child) => {
+    let parentTask = gantt.getTask(child.parent);
+    let childs = gantt.getChildren(parentTask.id);
+    let totProgress = 0;
+
+    var tempTask;
+    for (var i = 0; i < childs.length; i++) {
+        tempTask = gantt.getTask(childs[i]);
+        totProgress += parseFloat(tempTask.progress);
+    }
+
+    parentTask.progress = (totProgress / childs.length).toFixed(2);
+    gantt.updateTask(parentTask.id);
+}
