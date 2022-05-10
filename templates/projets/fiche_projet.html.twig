@@ -59,10 +59,10 @@
                 title="Planification du projet"
             ><i class="fa fa-tasks"></i></a>
             <a
-                href="{{ path('app_fo_projet_activity', {'id': projet.id}) }}"
+                href="{{ path('app_fo_projet_events', {'projetId': projet.id}) }}"
                 class="btn btn-outline-primary rounded-circle"
-                title="Activité du projet"
-            ><i class="fa fa-rss"></i></a>
+                title="Calendrier des événements"
+            ><i class="fa fa-calendar"></i></a>
             <a
                 href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}"
                 class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
@@ -73,6 +73,7 @@
                     <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownOtherMenuButton">
+                    <a class="dropdown-item m-0 " href="{{ path('app_fo_projet_activity', { 'id' : projet.id }) }}"><i class="fa fa-rss"></i> Activité du projet</a>
                     <a class="dropdown-item m-0 " href="{{ path('app_fo_projet_custom', { 'id' : projet.id }) }}"><i class="fa fa-download"></i> Exporter le projet</a>
                     <a class="dropdown-item m-0 {{ userCanEditProjet ? '' : 'disabled' }}" href="{{ path('app_fo_fait_marquant_trash', { 'id' : projet.id }) }}"><i class="fa fa-trash"></i> {{ 'beenOf_FM'|trans }}</a>
                 </div>

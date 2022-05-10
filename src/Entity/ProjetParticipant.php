@@ -72,11 +72,17 @@ class ProjetParticipant implements HasSocieteInterface
      */
     private $projetPlanningTasks;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetEventParticipant::class, mappedBy="participant", orphanRemoval=true, cascade={"persist"})
+     */
+    private $projetEventParticipants;
+
     public function __construct()
     {
         $this->dateAjout = new \DateTime();
         $this->watching = false;
         $this->projetPlanningTasks = new ArrayCollection();
+        $this->projetEventParticipants = new ArrayCollection();
     }
 
     public static function create(SocieteUser $societeUser, Projet $projet, ?string $role): self
@@ -204,6 +210,36 @@ class ProjetParticipant implements HasSocieteInterface
     {
         if ($this->projetPlanningTasks->removeElement($projetPlanningTask)) {
             $projetPlanningTask->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetEventParticipant[]
+     */
+    public function getProjetEventParticipants(): Collection
+    {
+        return $this->projetEventParticipants;
+    }
+
+    public function addProjetEventParticipant(ProjetEventParticipant $projetEventParticipant): self
+    {
+        if (!$this->projetEventParticipants->contains($projetEventParticipant)) {
+            $this->projetEventParticipants[] = $projetEventParticipant;
+            $projetEventParticipant->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetEventParticipant(ProjetEventParticipant $projetEventParticipant): self
+    {
+        if ($this->projetEventParticipants->removeElement($projetEventParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($projetEventParticipant->getParticipant() === $this) {
+                $projetEventParticipant->setParticipant(null);
+            }
         }
 
         return $this;

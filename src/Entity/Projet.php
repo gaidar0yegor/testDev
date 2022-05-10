@@ -178,6 +178,11 @@ class Projet implements HasSocieteInterface
      */
     private $budgetEuro;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetEvent::class, mappedBy="projet", orphanRemoval=true)
+     */
+    private $projetEvents;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -197,6 +202,7 @@ class Projet implements HasSocieteInterface
         $this->rdiDomains = new ArrayCollection();
         $this->annualRdiScores = [];
         $this->projetBudgetExpenses = new ArrayCollection();
+        $this->projetEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -880,6 +886,36 @@ class Projet implements HasSocieteInterface
     public function setBudgetEuro(?string $budgetEuro): self
     {
         $this->budgetEuro = $budgetEuro;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetEvent[]
+     */
+    public function getProjetEvents(): Collection
+    {
+        return $this->projetEvents;
+    }
+
+    public function addProjetEvent(ProjetEvent $projetEvent): self
+    {
+        if (!$this->projetEvents->contains($projetEvent)) {
+            $this->projetEvents[] = $projetEvent;
+            $projetEvent->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetEvent(ProjetEvent $projetEvent): self
+    {
+        if ($this->projetEvents->removeElement($projetEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($projetEvent->getProjet() === $this) {
+                $projetEvent->setProjet(null);
+            }
+        }
 
         return $this;
     }

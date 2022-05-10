@@ -123,9 +123,9 @@ all: Tous
 status: Statut
 kpis_indicators: "Indicateurs de performance (KPIs)"
 efficiency: "Efficacité"
-efficiency.help: "Indique votre aptitude à réaliser vos tâches dans les temps imparties"
+efficiency.help: "Indique votre aptitude à réaliser vos tâches dans les temps impartis"
 effectiveness: "Effectivité"
-effectiveness.help: "Indique votre niveau de complétude dans la réalisation des taches du projet"
+effectiveness.help: "Indique votre niveau de complétude dans la réalisation des tâches du projet"
 last_activity: Dernière activité
 participants: Participants
 back_office: "Back office"
@@ -448,6 +448,10 @@ beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille
 list_files: Liste des fichiers
 planning: "Planification du projet : { projectAcronyme }"
+events_calendar: "Calendrier des événements du projet : { projectAcronyme }"
+MEETING: 'Réunion'
+EVENT: 'Évènement'
+OTHER: 'Autre'
 allString: Tous
 editFile: Modifier un fichier
 go_back_go_files: Retourner à la liste des fichiers
@@ -504,7 +508,7 @@ part_on_project: Participants sur le projet
 gest_of_part: Gestion des participants
 add_part: Ajouter un participant
 obs_ext: Observateurs externes
-want_new_fm: Vous souhaitez créer un fait marquant sur votre projet ?
+want_new_fm: Souhaitez-vous créer un fait marquant relatif à la complétude de cette tâche ?
 want_new_user: Vous souhaitez inviter un utilisateur sur votre projet et l'inviter aussi dans votre société ?
 want_new_obs: Vous souhaitez donner un accès observateur à un utilisateur sur ce projet, mais sans l'inviter dans votre société ?
 invite_on: Inviter sur

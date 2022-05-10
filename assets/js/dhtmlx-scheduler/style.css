@@ -1,0 +1,16 @@
+.dhx_multi_select_control {
+    padding: 5px 0 0 10px;
+}
+.dhx_multi_select_control input {
+    vertical-align: middle;
+    top: -1px;
+}
+.dhx_multi_select_control label {
+    margin-right: 12px;
+}
+.dhx_agenda_line div{
+    width: 300px;
+}
+.dhx_v_border{
+    left: 299px;
+}

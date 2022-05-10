@@ -440,6 +440,10 @@ trashString: Trash can
 beenOf_FM: Trash can of striking Fact
 list_files: Files list
 planning: "Planning of the project : { projectAcronyme }"
+events_calendar: "Events Calendar of the project : { projectAcronyme }"
+MEETING: 'Meeting'
+EVENT: 'Event'
+OTHER: 'Other'
 allString: All
 editFile: Edit a file
 go_back_go_files: Return to files list
