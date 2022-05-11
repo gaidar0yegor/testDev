@@ -15,10 +15,13 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
 {
+    const TYPE_MEETING = 'MEETING';
+    const TYPE_EVENT = 'EVENT';
+    const TYPE_OTHER = 'OTHER';
     const EVENT_TYPES = [
-        'MEETING',
-        'EVENT',
-        'OTHER'
+        self::TYPE_MEETING,
+        self::TYPE_EVENT,
+        self::TYPE_OTHER
     ];
 
     /**
@@ -34,7 +37,7 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
     private $text;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
@@ -82,6 +85,7 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
     {
         $this->projetEventParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->type = self::TYPE_MEETING;
     }
 
     public function getId(): ?int
@@ -118,7 +122,7 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 

@@ -11,13 +11,19 @@ scheduler.attachEvent("onParse", function(){
     scheduler.showEvent(selectedEvent,"week");
 });
 scheduler.attachEvent("onLightbox", function (id) {
-    var textarea = scheduler.formSection("text").control;
-    textarea.oninput = function () {
-        if (this.value.length > 250) {
-            this.value = this.value.substring(0, 250);
-            dhtmlx.message({text: "Title is too long", type: "error"});
-        }
-    };
+    const event = scheduler.getEvent(id);
+    if (!event.is_invited) {
+        scheduler.getLightbox().querySelector('.dhx_agenda_sync_btn').remove();
+    }
+    if (scheduler.formSection("text")){
+        var textarea = scheduler.formSection("text").control;
+        textarea.oninput = function () {
+            if (this.value.length > 250) {
+                this.value = this.value.substring(0, 250);
+                dhtmlx.message({text: "Title is too long", type: "error"});
+            }
+        };
+    }
 });
 scheduler.attachEvent("onSaveError", function(ids, response){
     dhtmlx.message({text: JSON.parse(response.responseText).message, type: "error"});
@@ -32,16 +38,28 @@ scheduler.templates.agenda_time = function(start, end, event){
 };
 // END :: Agenda
 
+// START :: Read only
+function block_readonly(id){
+    if (!id) return true;
+    return !this.getEvent(id).readonly;
+}
+scheduler.attachEvent("onBeforeDrag",block_readonly);
+scheduler.attachEvent("onClick",block_readonly);
+// END :: Read only
+
 // START :: Custom configs
 scheduler.locale.labels.new_event = "";
 scheduler.locale.labels.section_text = "Title";
 scheduler.locale.labels.section_eventType = 'Type';
 scheduler.locale.labels.section_userSelect = "Participants";
+scheduler.config.details_on_dblclick = true;
+scheduler.config.buttons_right = ["dhx_delete_btn", "dhx_agenda_sync_btn"];
+scheduler.locale.labels["dhx_agenda_sync_btn"] = "Send to my agenda";
 scheduler.config.lightbox.sections = [
-    { name:"text", height:50, map_to:"text", type:"textarea", focus:true },
-    { name:"description", height:150, map_to:"description", type:"textarea" },
+    { name:"text", height:40, map_to:"text", type:"textarea", focus:true },
+    { name:"description", height:80, map_to:"description", type:"textarea" },
     { name:"eventType", height:30, map_to:"eventType", type:"select", options: scheduler.serverList("eventTypes") },
-    { name:"userSelect", height:100, map_to:"participant_id", type:"multiselect", options: scheduler.serverList("participants") },
+    { name:"userSelect", height:70, map_to:"participant_id", type:"multiselect", options: scheduler.serverList("participants") },
     { name:"time", height:72, type:"time", map_to:"auto" }
 ];
 // END :: Custom configs

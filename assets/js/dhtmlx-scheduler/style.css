@@ -14,3 +14,21 @@
 .dhx_v_border{
     left: 299px;
 }
+.container_event_text{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+}
+.container_event_text .links_event_text{
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+.dhx_agenda_sync_btn_set{
+    background-color: #9FC437;
+    color: white;
+}

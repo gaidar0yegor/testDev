@@ -42,7 +42,7 @@ class ProjetEventService
         $projetEvent->setDescription($request->request->get('description'));
         $projetEvent->setStartDate(\DateTime::createFromFormat('Y-m-d H:i', $request->request->get('start_date')));
         $projetEvent->setEndDate(\DateTime::createFromFormat('Y-m-d H:i', $request->request->get('end_date')));
-        $projetEvent->setType($request->request->get('eventType'));
+        if ($request->request->has('eventType')) $projetEvent->setType($request->request->get('eventType'));
 
         $participant_new_ids = array_map('intval', explode(',', $request->request->get('participant_id')));
         foreach ($projet->getProjetParticipants() as $participant){

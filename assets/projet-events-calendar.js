@@ -5,4 +5,6 @@ import 'dhtmlx-scheduler/codebase/dhtmlxscheduler';
 import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_multiselect';
 import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_tooltip';
 import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_agenda_view';
+import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_readonly';
 import './js/dhtmlx-scheduler/events-calendar';
+import './js/dhtmlx-scheduler/accept-event';

@@ -7,6 +7,7 @@ use App\Entity\ProjetEvent;
 use App\Entity\ProjetEventParticipant;
 use App\Entity\ProjetParticipant;
 use App\MultiSociete\UserContext;
+use App\Service\ParticipantService;
 use App\Service\ProjetEventService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,18 +28,24 @@ class ProjetEventsCalendarController extends AbstractController
     protected TranslatorInterface $translator;
     protected ValidatorInterface $validator;
     protected ProjetEventService $projetEventService;
+    protected ParticipantService $participantService;
+    protected UserContext $userContext;
 
     public function __construct(
         EntityManagerInterface $em,
         TranslatorInterface $translator,
         ValidatorInterface $validator,
-        ProjetEventService $projetEventService
+        ProjetEventService $projetEventService,
+        ParticipantService $participantService,
+        UserContext $userContext
     )
     {
         $this->em = $em;
         $this->translator = $translator;
         $this->validator = $validator;
         $this->projetEventService = $projetEventService;
+        $this->participantService = $participantService;
+        $this->userContext = $userContext;
     }
 
     /**
@@ -51,6 +57,9 @@ class ProjetEventsCalendarController extends AbstractController
     {
         $response = [];
         foreach ($projet->getProjetEvents() as $projetEvent){
+            $projetParticipant = $this->participantService->getProjetParticipant($this->userContext->getSocieteUser(), $projet);
+            $projetEventParticipant = $projetParticipant ? ProjetEventService::getProjetEventParticipant($projetEvent, $projetParticipant) : null;
+
             $response['data'][] = [
                 'id' => $projetEvent->getId(),
                 'text' => $projetEvent->getText(),
@@ -60,7 +69,9 @@ class ProjetEventsCalendarController extends AbstractController
                 'eventType' => $projetEvent->getType(),
                 'participant_id' => implode(",",$projetEvent->getProjetEventParticipants()->map(function (ProjetEventParticipant $projetEventParticipant){
                     return $projetEventParticipant->getParticipant()->getId();
-                })->toArray())
+                })->toArray()),
+                'readonly' => $projetEvent->getCreatedBy() !== $this->userContext->getSocieteUser(),
+                'is_invited' => $projetEventParticipant !== null
             ];
         }
 
