@@ -21,7 +21,7 @@ class ProjetEventsCalendarController extends AbstractController
     }
 
     /**
-     * @Route("/", name="app_fo_projet_events", requirements={"projetId"="\d+"})
+     * @Route("", name="app_fo_projet_events", requirements={"projetId"="\d+"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      */

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\HasSocieteInterface;
+use App\ProjetResourceInterface;
 use App\Repository\ProjetEventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity(repositoryClass=ProjetEventRepository::class)
  */
-class ProjetEvent
+class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
 {
     const EVENT_TYPES = [
         'MEETING',
@@ -65,9 +67,21 @@ class ProjetEvent
      */
     private $projetEventParticipants;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="createdProjetEvents")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $createdBy;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
         $this->projetEventParticipants = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -123,7 +137,7 @@ class ProjetEvent
         return $this;
     }
 
-    public function getProjet(): ?Projet
+    public function getProjet(): Projet
     {
         return $this->projet;
     }
@@ -173,6 +187,40 @@ class ProjetEvent
                 $projetEventParticipant->setProjetEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?SocieteUser
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?SocieteUser $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->getProjet()->getSociete();
+    }
+
+    public function getOwner(): SocieteUser
+    {
+        return $this->createdBy;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

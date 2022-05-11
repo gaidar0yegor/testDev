@@ -2,13 +2,15 @@
 
 namespace App\Entity;
 
+use App\HasSocieteInterface;
+use App\ProjetResourceInterface;
 use App\Repository\ProjetEventParticipantRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=ProjetEventParticipantRepository::class)
  */
-class ProjetEventParticipant
+class ProjetEventParticipant implements ProjetResourceInterface, HasSocieteInterface
 {
     /**
      * @ORM\Id
@@ -81,5 +83,20 @@ class ProjetEventParticipant
         $this->accepted = $accepted;
 
         return $this;
+    }
+
+    public function getSociete(): ?Societe
+    {
+        return $this->projetEvent->getSociete();
+    }
+
+    public function getOwner(): SocieteUser
+    {
+        return $this->participant->getSocieteUser();
+    }
+
+    public function getProjet(): Projet
+    {
+        return $this->projetEvent->getProjet();
     }
 }

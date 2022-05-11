@@ -27,16 +27,19 @@ class ProjetEventsCalendarController extends AbstractController
     protected EntityManagerInterface $em;
     protected TranslatorInterface $translator;
     protected ValidatorInterface $validator;
+    protected ProjetEventService $projetEventService;
 
     public function __construct(
         EntityManagerInterface $em,
         TranslatorInterface $translator,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        ProjetEventService $projetEventService
     )
     {
         $this->em = $em;
         $this->translator = $translator;
         $this->validator = $validator;
+        $this->projetEventService = $projetEventService;
     }
 
     /**
@@ -73,7 +76,7 @@ class ProjetEventsCalendarController extends AbstractController
      */
     public function save(Request $request, Projet $projet)
     {
-        $projetEvent = ProjetEventService::saveProjetEventFromRequest($request, $projet);
+        $projetEvent = $this->projetEventService->saveProjetEventFromRequest($request, $projet);
 
         if ($errorResponse = self::validateProjetEvent($projetEvent, $this->validator)) {
             return $errorResponse;
@@ -100,7 +103,7 @@ class ProjetEventsCalendarController extends AbstractController
      */
     public function update(Request $request, Projet $projet, ProjetEvent $projetEvent)
     {
-        $projetEvent = ProjetEventService::saveProjetEventFromRequest($request, $projet, $projetEvent);
+        $projetEvent = $this->projetEventService->saveProjetEventFromRequest($request, $projet, $projetEvent);
 
         if ($errorResponse = self::validateProjetEvent($projetEvent, $this->validator)) {
             return $errorResponse;

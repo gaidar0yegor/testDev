@@ -232,6 +232,11 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
      */
     private $coutEtp;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetEvent::class, mappedBy="createdBy", orphanRemoval=true)
+     */
+    private $createdProjetEvents;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -248,6 +253,7 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->dashboardConsolides = new ArrayCollection();
         $this->teamMembers = new ArrayCollection();
         $this->projetPlannings = new ArrayCollection();
+        $this->createdProjetEvents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -788,6 +794,22 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         return $this;
     }
 
+    /**
+     * @return array|ProjetEvent[]
+     */
+    public function getNextEvents(): array
+    {
+        $nextEvents = [];
+
+        foreach ($this->projetParticipants as $projetParticipant){
+            foreach ($projetParticipant->getProjetEventParticipants() as $projetEventParticipant){
+                $nextEvents[] = $projetEventParticipant->getProjetEvent();
+            }
+        }
+
+        return $nextEvents;
+    }
+
     public function getCoutEtp(): ?string
     {
         return $this->coutEtp;
@@ -796,6 +818,36 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     public function setCoutEtp(?string $coutEtp): self
     {
         $this->coutEtp = $coutEtp;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetEvent[]
+     */
+    public function getCreatedProjetEvents(): Collection
+    {
+        return $this->createdProjetEvents;
+    }
+
+    public function addCreatedProjetEvent(ProjetEvent $createdProjetEvent): self
+    {
+        if (!$this->createdProjetEvents->contains($createdProjetEvent)) {
+            $this->createdProjetEvents[] = $createdProjetEvent;
+            $createdProjetEvent->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedProjetEvent(ProjetEvent $createdProjetEvent): self
+    {
+        if ($this->createdProjetEvents->removeElement($createdProjetEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($createdProjetEvent->getCreatedBy() === $this) {
+                $createdProjetEvent->setCreatedBy(null);
+            }
+        }
 
         return $this;
     }

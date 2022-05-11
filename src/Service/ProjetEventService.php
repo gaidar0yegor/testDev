@@ -6,10 +6,18 @@ use App\Entity\Projet;
 use App\Entity\ProjetEvent;
 use App\Entity\ProjetEventParticipant;
 use App\Entity\ProjetParticipant;
+use App\MultiSociete\UserContext;
 use Symfony\Component\HttpFoundation\Request;
 
 class ProjetEventService
 {
+    private UserContext $userContext;
+
+    public function __construct(UserContext $userContext)
+    {
+        $this->userContext = $userContext;
+    }
+
     public static function getProjetEventParticipant(ProjetEvent $projetEvent, ProjetParticipant $projetParticipant): ?ProjetEventParticipant
     {
         foreach ($projetEvent->getProjetEventParticipants() as $projetEventParticipant) {
@@ -21,13 +29,15 @@ class ProjetEventService
         return null;
     }
 
-    public static function saveProjetEventFromRequest(Request $request, Projet $projet, ProjetEvent $projetEvent = null): ProjetEvent
+    public function saveProjetEventFromRequest(Request $request, Projet $projet, ProjetEvent $projetEvent = null): ProjetEvent
     {
         if (null === $projetEvent){
             $projetEvent = new ProjetEvent();
         }
 
         $projetEvent->setProjet($projet);
+        $projetEvent->setCreatedBy($this->userContext->getSocieteUser());
+
         $projetEvent->setText($request->request->get('text'));
         $projetEvent->setDescription($request->request->get('description'));
         $projetEvent->setStartDate(\DateTime::createFromFormat('Y-m-d H:i', $request->request->get('start_date')));

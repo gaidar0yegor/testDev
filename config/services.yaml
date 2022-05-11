@@ -93,21 +93,31 @@ services:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
 
-    App\Activity\Type\FaitMarquantCommentCreated:
-        tags:
-            - 'app.activity_type'
-            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquantComment }
-
     App\Activity\Type\FaitMarquantModifiedActivity:
         tags:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\FaitMarquant }
+
+    App\Activity\Type\FaitMarquantCommentCreated:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquantComment }
 
     App\Activity\Type\UserMentionedFaitMarquantActivity:
         tags:
             - 'app.activity_type'
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
             - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\FaitMarquant }
+
+    App\Activity\Type\ProjetEventCreatedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\ProjetEvent }
+
+    App\Activity\Type\ProjetEventModifiedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\ProjetEvent }
 
     App\Activity\Type\ProjetPlanningCreatedActivity:
         tags:
