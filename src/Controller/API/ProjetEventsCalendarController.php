@@ -8,7 +8,8 @@ use App\Entity\ProjetEventParticipant;
 use App\Entity\ProjetParticipant;
 use App\MultiSociete\UserContext;
 use App\Service\ParticipantService;
-use App\Service\ProjetEventService;
+use App\Service\ProjetEvent\IcsFileGenerator;
+use App\Service\ProjetEvent\ProjetEventService;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,6 +31,7 @@ class ProjetEventsCalendarController extends AbstractController
     protected ProjetEventService $projetEventService;
     protected ParticipantService $participantService;
     protected UserContext $userContext;
+    protected IcsFileGenerator $icsFileGenerator;
 
     public function __construct(
         EntityManagerInterface $em,
@@ -37,7 +39,8 @@ class ProjetEventsCalendarController extends AbstractController
         ValidatorInterface $validator,
         ProjetEventService $projetEventService,
         ParticipantService $participantService,
-        UserContext $userContext
+        UserContext $userContext,
+        IcsFileGenerator $icsFileGenerator
     )
     {
         $this->em = $em;
@@ -46,6 +49,7 @@ class ProjetEventsCalendarController extends AbstractController
         $this->projetEventService = $projetEventService;
         $this->participantService = $participantService;
         $this->userContext = $userContext;
+        $this->icsFileGenerator = $icsFileGenerator;
     }
 
     /**
@@ -126,6 +130,28 @@ class ProjetEventsCalendarController extends AbstractController
         return new JsonResponse([
             "action" => "updated",
         ]);
+    }
+
+    /**
+     * @Route(
+     *      "/ics_calendar/{eventId}",
+     *      methods={"GET"},
+     *      name="app_fo_projet_events_ics_calendar"
+     * )
+     *
+     * @ParamConverter("projet", options={"id" = "projetId"})
+     * @ParamConverter("projetEvent", options={"id" = "eventId"})
+     */
+    public function downloadIcsCalendar(Request $request, Projet $projet, ProjetEvent $projetEvent)
+    {
+        $calendar = $this->icsFileGenerator->generateIcsCalendar($projetEvent);
+
+        header("Content-type: application/ics; method=PUBLISH; charset=UTF-8");
+        header("Content-Disposition: attachment; filename=rdi_manager_event.ics");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        echo (string)$calendar;
+        exit;
     }
 
     /**

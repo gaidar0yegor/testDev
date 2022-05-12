@@ -1,0 +1,20 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}{{ projetEvent.createdBy.user.fullname }} a annulé un évènement sur le projet {{ projetEvent.projet.acronyme }}{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                <strong>{{ projetEvent.createdBy.user.fullname }}</strong> a annulé l'évènement <strong>{{ projetEvent.text }}</strong>
+            </p>
+
+            <small>
+                <a href="{{ url('app_fo_projet_events', {
+                    projetId : projetEvent.projet.id,
+                }) }}">
+                    Pour plus de détails, cliquez-ici.
+                </a>
+            </small>
+        </columns>
+    </row>
+{% endblock %}

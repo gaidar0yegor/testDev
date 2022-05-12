@@ -1,3 +1,5 @@
+import apiGenerateIcsCalendar from './api-ics-calendar';
+
 const projectId = window['project_events_calendar'].dataset.projectId;
 const selectedEvent = window['project_events_calendar'].dataset.selectedEvent;
 
@@ -13,9 +15,9 @@ scheduler.attachEvent("onParse", function(){
 scheduler.attachEvent("onLightbox", function (id) {
     const event = scheduler.getEvent(id);
     if (!event.is_invited) {
-        scheduler.getLightbox().querySelector('.dhx_agenda_sync_btn').remove();
+        scheduler.getLightbox().querySelector('.dhx_ics_calendar_btn').remove();
     }
-    if (scheduler.formSection("text")){
+    if (!event.readonly){
         var textarea = scheduler.formSection("text").control;
         textarea.oninput = function () {
             if (this.value.length > 250) {
@@ -23,6 +25,12 @@ scheduler.attachEvent("onLightbox", function (id) {
                 dhtmlx.message({text: "Title is too long", type: "error"});
             }
         };
+    }
+});
+scheduler.attachEvent("onLightboxButton", function (id, node, e){
+    let event = scheduler.getEvent(scheduler.getState().lightbox_id);
+    if(id === "dhx_ics_calendar_btn" && event.is_invited){
+        apiGenerateIcsCalendar(projectId, event.id)
     }
 });
 scheduler.attachEvent("onSaveError", function(ids, response){
@@ -53,8 +61,8 @@ scheduler.locale.labels.section_text = "Title";
 scheduler.locale.labels.section_eventType = 'Type';
 scheduler.locale.labels.section_userSelect = "Participants";
 scheduler.config.details_on_dblclick = true;
-scheduler.config.buttons_right = ["dhx_delete_btn", "dhx_agenda_sync_btn"];
-scheduler.locale.labels["dhx_agenda_sync_btn"] = "Send to my agenda";
+scheduler.config.buttons_right = ["dhx_delete_btn", "dhx_ics_calendar_btn"];
+scheduler.locale.labels["dhx_ics_calendar_btn"] = "Add to my agenda";
 scheduler.config.lightbox.sections = [
     { name:"text", height:40, map_to:"text", type:"textarea", focus:true },
     { name:"description", height:80, map_to:"description", type:"textarea" },

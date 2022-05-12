@@ -1,0 +1,7 @@
+{{ projetEvent.createdBy.user.fullname }} a annulé un évènement sur le projet {{ projetEvent.projet.acronyme }}.
+
+{{ projetEvent.createdBy.user.fullname }} a annulé l'évènement {{ projetEvent.text }}.
+
+Voir sur RDI-Manager :
+
+{{ url('app_fo_projet_events', { projetId : projetEvent.projet.id }) }}

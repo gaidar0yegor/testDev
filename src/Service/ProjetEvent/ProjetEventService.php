@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\ProjetEvent;
 
 use App\Entity\Projet;
 use App\Entity\ProjetEvent;
