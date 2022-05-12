@@ -1,4 +1,5 @@
-import apiGenerateIcsCalendar from './api-ics-calendar';
+import './ical-export-api';
+import apiGenerateIcsCalendar from './ics-export-api';
 
 const projectId = window['project_events_calendar'].dataset.projectId;
 const selectedEvent = window['project_events_calendar'].dataset.selectedEvent;
@@ -46,6 +47,16 @@ scheduler.templates.agenda_time = function(start, end, event){
 };
 // END :: Agenda
 
+// START :: Export all Calendar
+
+/**
+    $(document).on('click', '.dhx_cal_tab.export_agenda_tab', function (e) {
+        scheduler.exportToICal();
+    });
+ **/
+
+// END :: Export all Calendar
+
 // START :: Read only
 function block_readonly(id){
     if (!id) return true;
@@ -56,6 +67,7 @@ scheduler.attachEvent("onClick",block_readonly);
 // END :: Read only
 
 // START :: Custom configs
+scheduler.locale.labels.year_tab ="Year";
 scheduler.locale.labels.new_event = "";
 scheduler.locale.labels.section_text = "Title";
 scheduler.locale.labels.section_eventType = 'Type';
