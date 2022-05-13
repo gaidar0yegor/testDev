@@ -18,11 +18,13 @@ class ProjetEventService
         $this->userContext = $userContext;
     }
 
-    public static function getProjetEventParticipant(ProjetEvent $projetEvent, ProjetParticipant $projetParticipant): ?ProjetEventParticipant
+    public static function getProjetEventParticipant(ProjetEvent $projetEvent, ProjetParticipant $projetParticipant, bool $required = null): ?ProjetEventParticipant
     {
         foreach ($projetEvent->getProjetEventParticipants() as $projetEventParticipant) {
             if ($projetEventParticipant->getParticipant() === $projetParticipant) {
-                return $projetEventParticipant;
+                if ( $required === null || $projetEventParticipant->getRequired() === $required ){
+                    return $projetEventParticipant;
+                }
             }
         }
 
@@ -44,13 +46,40 @@ class ProjetEventService
         $projetEvent->setEndDate(\DateTime::createFromFormat('Y-m-d H:i', $request->request->get('end_date')));
         if ($request->request->has('eventType')) $projetEvent->setType($request->request->get('eventType'));
 
-        $participant_new_ids = array_map('intval', explode(',', $request->request->get('participant_id')));
-        foreach ($projet->getProjetParticipants() as $participant){
-            $oldParticipation = self::getProjetEventParticipant($projetEvent, $participant);
-            if (in_array($participant->getId(), $participant_new_ids) && null === $oldParticipation){
-                $projetEvent->addProjetEventParticipant(ProjetEventParticipant::create($projetEvent, $participant));
-            } elseif (!in_array($participant->getId(), $participant_new_ids) && null !== $oldParticipation){
-                $projetEvent->removeProjetEventParticipant($oldParticipation);
+        $projetEvent = self::createProjetEventParticipants(
+            $projetEvent,
+            array_map('intval', explode(',', $request->request->get('required_participant_ids'))),
+            array_map('intval', explode(',', $request->request->get('optional_participant_ids')))
+        );
+
+        return $projetEvent;
+    }
+
+    private static function createProjetEventParticipants(
+        ProjetEvent $projetEvent,
+        array $required_participant_ids,
+        array $optional_participant_ids
+    ) : ProjetEvent
+    {
+        foreach ($projetEvent->getProjet()->getProjetParticipants() as $participant){
+            $oldRequiredParticipation = self::getProjetEventParticipant($projetEvent, $participant, true);
+            $oldOptionalParticipation = self::getProjetEventParticipant($projetEvent, $participant, false);
+
+            if (!in_array($participant->getId(), $required_participant_ids) && null !== $oldRequiredParticipation){
+                $projetEvent->removeProjetEventParticipant($oldRequiredParticipation);
+            }
+            if (null !== $oldOptionalParticipation){
+                if (in_array($participant->getId(), $required_participant_ids) ||
+                    !in_array($participant->getId(), $optional_participant_ids))
+                    $projetEvent->removeProjetEventParticipant($oldOptionalParticipation);
+            }
+
+            if (in_array($participant->getId(), $required_participant_ids)){
+                if (null === $oldRequiredParticipation)
+                    $projetEvent->addProjetEventParticipant(ProjetEventParticipant::create($projetEvent, $participant, true));
+            }
+            elseif (in_array($participant->getId(), $optional_participant_ids) && null === $oldOptionalParticipation){
+                $projetEvent->addProjetEventParticipant(ProjetEventParticipant::create($projetEvent, $participant, false));
             }
         }
 

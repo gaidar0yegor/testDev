@@ -8,6 +8,7 @@ use App\Entity\ProjetEvent;
 use App\MultiSociete\UserContext;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\MailerInterface;
 
 class ProjetEventInvitation
@@ -38,7 +39,7 @@ class ProjetEventInvitation
     public function postUpdate(ProjetEvent $projetEvent, LifecycleEventArgs $args): void
     {
         $calendar = $this->icsFileGenerator->generateIcsCalendar($projetEvent);
-        $this->sendEmail($projetEvent, $calendar);
+        $this->sendEmail($projetEvent, $calendar, true);
     }
 
     public function preRemove(ProjetEvent $projetEvent, LifecycleEventArgs $args): void
@@ -53,14 +54,16 @@ class ProjetEventInvitation
         ;
 
         foreach ($projetEvent->getProjetEventParticipants() as $projetEventParticipant){
-            $this->mailer->send($email->to($projetEventParticipant->getParticipant()->getSocieteUser()->getUser()->getEmail()));
+            try{
+                $this->mailer->send($email->to($projetEventParticipant->getParticipant()->getSocieteUser()->getUser()->getEmail()));
+            } catch (TransportException $e){}
         }
     }
 
-    private function sendEmail(ProjetEvent $projetEvent, Component $calendarComponent = null): void
+    private function sendEmail(ProjetEvent $projetEvent, Component $calendarComponent, bool $edit = false): void
     {
         $email = (new TemplatedEmail())
-            ->subject("[". $projetEvent->getType() ."] Invitation : " . $projetEvent->getText())
+            ->subject("[". ($edit ? "Update | " : "New | ") . $projetEvent->getType() ."] Invitation : " . $projetEvent->getText())
             ->htmlTemplate('mail/projet_event_send_invitation.html.twig')
             ->textTemplate('mail/projet_event_send_invitation.txt.twig')
             ->context([
@@ -73,7 +76,9 @@ class ProjetEventInvitation
         }
 
         foreach ($projetEvent->getProjetEventParticipants() as $projetEventParticipant){
-            $this->mailer->send($email->to($projetEventParticipant->getParticipant()->getSocieteUser()->getUser()->getEmail()));
+            try{
+                $this->mailer->send($email->to($projetEventParticipant->getParticipant()->getSocieteUser()->getUser()->getEmail()));
+            } catch (TransportException $e){}
         }
     }
 }

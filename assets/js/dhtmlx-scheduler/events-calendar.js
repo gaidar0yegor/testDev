@@ -23,7 +23,7 @@ scheduler.attachEvent("onLightbox", function (id) {
         textarea.oninput = function () {
             if (this.value.length > 250) {
                 this.value = this.value.substring(0, 250);
-                dhtmlx.message({text: "Title is too long", type: "error"});
+                dhtmlx.alert("Title is too long");
             }
         };
     }
@@ -34,8 +34,15 @@ scheduler.attachEvent("onLightboxButton", function (id, node, e){
         apiGenerateIcsCalendar(projectId, event.id)
     }
 });
+scheduler.attachEvent("onEventSave", function(id,event){
+    if (!event.text) {
+        dhtmlx.alert("Title must not be empty");
+        return false;
+    }
+    return true;
+});
 scheduler.attachEvent("onSaveError", function(ids, response){
-    dhtmlx.message({text: JSON.parse(response.responseText).message, type: "error"});
+    dhtmlx.alert(JSON.parse(response.responseText).message);
 });
 // END :: Custom Attach Events
 
@@ -71,7 +78,8 @@ scheduler.locale.labels.year_tab ="Year";
 scheduler.locale.labels.new_event = "";
 scheduler.locale.labels.section_text = "Title";
 scheduler.locale.labels.section_eventType = 'Type';
-scheduler.locale.labels.section_userSelect = "Participants";
+scheduler.locale.labels.section_requiredParticipant = "Required";
+scheduler.locale.labels.section_optionalParticipant = "Optional";
 scheduler.config.details_on_dblclick = true;
 scheduler.config.buttons_right = ["dhx_delete_btn", "dhx_ics_calendar_btn"];
 scheduler.locale.labels["dhx_ics_calendar_btn"] = "Add to my agenda";
@@ -79,7 +87,8 @@ scheduler.config.lightbox.sections = [
     { name:"text", height:40, map_to:"text", type:"textarea", focus:true },
     { name:"description", height:80, map_to:"description", type:"textarea" },
     { name:"eventType", height:30, map_to:"eventType", type:"select", options: scheduler.serverList("eventTypes") },
-    { name:"userSelect", height:70, map_to:"participant_id", type:"multiselect", options: scheduler.serverList("participants") },
+    { name:"requiredParticipant", height:70, map_to:"required_participant_ids", type:"multiselect", options: scheduler.serverList("participants") },
+    { name:"optionalParticipant", height:70, map_to:"optional_participant_ids", type:"multiselect", options: scheduler.serverList("participants") },
     { name:"time", height:72, type:"time", map_to:"auto" }
 ];
 // END :: Custom configs

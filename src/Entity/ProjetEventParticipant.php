@@ -31,11 +31,17 @@ class ProjetEventParticipant implements ProjetResourceInterface, HasSocieteInter
      */
     private $participant;
 
-    public static function create(ProjetEvent $projetEvent, ProjetParticipant $participant): self
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $required;
+
+    public static function create(ProjetEvent $projetEvent, ProjetParticipant $participant, bool $required): self
     {
         return (new self())
             ->setProjetEvent($projetEvent)
             ->setParticipant($participant)
+            ->setRequired($required)
             ;
     }
 
@@ -81,5 +87,17 @@ class ProjetEventParticipant implements ProjetResourceInterface, HasSocieteInter
     public function getProjet(): Projet
     {
         return $this->projetEvent->getProjet();
+    }
+
+    public function getRequired(): ?bool
+    {
+        return $this->required;
+    }
+
+    public function setRequired(bool $required): self
+    {
+        $this->required = $required;
+
+        return $this;
     }
 }

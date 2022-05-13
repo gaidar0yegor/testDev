@@ -8,6 +8,7 @@ use Eluceo\iCal\Domain\Entity\Attendee;
 use Eluceo\iCal\Domain\Entity\Calendar;
 use Eluceo\iCal\Domain\Entity\Event;
 use Eluceo\iCal\Domain\Enum\CalendarUserType;
+use Eluceo\iCal\Domain\Enum\ParticipationStatus;
 use Eluceo\iCal\Domain\ValueObject\DateTime;
 use Eluceo\iCal\Domain\ValueObject\EmailAddress;
 use Eluceo\iCal\Domain\ValueObject\Member;
@@ -40,6 +41,10 @@ class IcsFileGenerator
             $attendee = new Attendee(new EmailAddress($participantUser->getEmail()));
             $attendee->setCalendarUserType(CalendarUserType::INDIVIDUAL())
                 ->addMember(new Member(new EmailAddress($participantUser->getEmail())))
+                ->setParticipationStatus(
+                    $projetEventParticipant->getRequired() ? ParticipationStatus::ACCEPTED() : ParticipationStatus::NEEDS_ACTION()
+                )
+                ->setResponseNeededFromAttendee(!$projetEventParticipant->getRequired())
                 ->addSentBy(new EmailAddress($projetEvent->getCreatedBy()->getUser()->getEmail()))
                 ->setDisplayName($participantUser->getFullname());
 
@@ -49,9 +54,7 @@ class IcsFileGenerator
         $icalEvent
             ->setOrganizer(new Organizer(
                 new EmailAddress($projetEvent->getCreatedBy()->getUser()->getEmail()),
-                $projetEvent->getCreatedBy()->getUser()->getFullname(),
-                null,
-                new EmailAddress($projetEvent->getCreatedBy()->getUser()->getEmail())
+                $projetEvent->getCreatedBy()->getUser()->getFullname()
             ))
             ->setSummary($projetEvent->getText())
             ->setDescription($projetEvent->getDescription())

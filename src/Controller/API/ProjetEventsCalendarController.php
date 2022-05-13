@@ -62,7 +62,7 @@ class ProjetEventsCalendarController extends AbstractController
         $response = [];
         foreach ($projet->getProjetEvents() as $projetEvent){
             $projetParticipant = $this->participantService->getProjetParticipant($this->userContext->getSocieteUser(), $projet);
-            $projetEventParticipant = $projetParticipant ? ProjetEventService::getProjetEventParticipant($projetEvent, $projetParticipant) : null;
+            $is_invited = $projetParticipant ? (ProjetEventService::getProjetEventParticipant($projetEvent, $projetParticipant) !== null) : false;
 
             $response['data'][] = [
                 'id' => $projetEvent->getId(),
@@ -71,11 +71,14 @@ class ProjetEventsCalendarController extends AbstractController
                 'start_date' => $projetEvent->getStartDate()->format('Y-m-d H:i'),
                 'end_date' => $projetEvent->getEndDate()->format('Y-m-d H:i'),
                 'eventType' => $projetEvent->getType(),
-                'participant_id' => implode(",",$projetEvent->getProjetEventParticipants()->map(function (ProjetEventParticipant $projetEventParticipant){
-                    return $projetEventParticipant->getParticipant()->getId();
-                })->toArray()),
+                'required_participant_ids' => implode(",", $projetEvent->getProjetEventParticipants()->filter(function($projetEventParticipant) {
+                    return $projetEventParticipant->getRequired() === true;
+                })->map(function($projetEventParticipant){ return $projetEventParticipant->getParticipant()->getId(); })->getValues()),
+                'optional_participant_ids' => implode(",", $projetEvent->getProjetEventParticipants()->filter(function($projetEventParticipants) {
+                    return $projetEventParticipants->getRequired() === false;
+                })->map(function($projetEventParticipant){ return $projetEventParticipant->getParticipant()->getId(); })->getValues()),
                 'readonly' => $projetEvent->getCreatedBy() !== $this->userContext->getSocieteUser(),
-                'is_invited' => $projetEventParticipant !== null
+                'is_invited' => $is_invited
             ];
         }
 
