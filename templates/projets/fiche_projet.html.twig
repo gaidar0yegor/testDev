@@ -37,13 +37,7 @@
             {% if projet.projetPpp %}
                 <span class="badge badge-success">PPP - R&amp;D</span>
             {% endif %}
-            {% if projet.annualRdiScores | length > 0 %}
-                {% set danger = true %}
-                <span style="cursor: help;" title="{% for year, score in projet.annualRdiScores %} {% set danger = score < 0.5 %} {{ year }} : <strong>{{ score * 100 }}%</strong><br> {% endfor %}"
-                      class="badge badge-{{ projet.rdi ? 'success' : ( danger ? 'danger' : 'warning') }}">
-                    {{ projet.rdi ? 'Éligible RDI' : 'Éligibilité' }}
-                </span>
-            {% endif %}
+            {% include 'projets/_eligible_rdi.html.twig' with {projet: projet} %}
         </p>
     </div>
     <div class="col-12 col-md-4">
