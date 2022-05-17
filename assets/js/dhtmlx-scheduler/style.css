@@ -66,3 +66,7 @@
 .dhx_cal_event_clear.other_projetEvent{
     color: #ff5722 !important;
 }
+
+.dhx_cal_light.dhx_cal_light_readonly .select-all{
+    display: none !important;
+}

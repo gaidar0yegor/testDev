@@ -23,7 +23,7 @@ scheduler.attachEvent("onParse", function(){
 scheduler.attachEvent("onLightbox", function (id) {
     const event = scheduler.getEvent(id);
     if (!event.is_invited) {
-        scheduler.getLightbox().querySelector('.dhx_ics_calendar_btn').remove();
+        scheduler.getLightbox().querySelector('.dhx_btn_set.dhx_ics_calendar_btn_set').remove();
     }
     if (!event.readonly){
         var textarea = scheduler.formSection("text").control;
@@ -35,7 +35,13 @@ scheduler.attachEvent("onLightbox", function (id) {
         };
     }
 });
-scheduler.attachEvent("onLightboxButton", function (id, node, e){
+$(document).on('click', '.dhx_cal_light_readonly .dhx_ics_calendar_btn_set', function (e) { // to generate ics file on readonly event
+    let event = scheduler.getEvent(scheduler.getState().lightbox_id);
+    if(event.is_invited){
+        apiGenerateIcsCalendar(projectId, event.id)
+    }
+});
+scheduler.attachEvent("onLightboxButton", function (id, node, e){ // to generate ics file on not readonly event
     let event = scheduler.getEvent(scheduler.getState().lightbox_id);
     if(id === "dhx_ics_calendar_btn" && event.is_invited){
         apiGenerateIcsCalendar(projectId, event.id)
