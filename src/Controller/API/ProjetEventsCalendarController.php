@@ -5,6 +5,7 @@ namespace App\Controller\API;
 use App\Entity\Projet;
 use App\Entity\ProjetEvent;
 use App\Entity\ProjetParticipant;
+use App\Exception\RdiException;
 use App\Service\ProjetEvent\IcsFileGenerator;
 use App\Service\ProjetEvent\ProjetEventService;
 use Symfony\Component\Routing\Annotation\Route;
@@ -88,9 +89,14 @@ class ProjetEventsCalendarController extends AbstractController
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("projetEvent", options={"id" = "eventId"})
+     * @throws RdiException
      */
     public function update(Request $request, Projet $projet, ProjetEvent $projetEvent)
     {
+        if ($projet !== $projetEvent->getProjet()){
+            throw new RdiException('Un problème est survenu !!');
+        }
+
         $projetEvent = $this->projetEventService->saveProjetEventFromRequest($request, $projet, $projetEvent);
 
         if ($errorResponse = self::validateProjetEvent($projetEvent, $this->validator)) {
@@ -114,9 +120,14 @@ class ProjetEventsCalendarController extends AbstractController
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("projetEvent", options={"id" = "eventId"})
+     * @throws RdiException
      */
     public function downloadIcsCalendar(Request $request, Projet $projet, ProjetEvent $projetEvent)
     {
+        if ($projet !== $projetEvent->getProjet()){
+            throw new RdiException('Un problème est survenu !!');
+        }
+
         $calendar = $this->icsFileGenerator->generateIcsCalendar($projetEvent);
 
         header("Content-type: application/ics; method=PUBLISH; charset=UTF-8");
@@ -136,9 +147,14 @@ class ProjetEventsCalendarController extends AbstractController
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("projetEvent", options={"id" = "eventId"})
+     * @throws RdiException
      */
     public function delete(Request $request, Projet $projet, ProjetEvent $projetEvent)
     {
+        if ($projet !== $projetEvent->getProjet()){
+            throw new RdiException('Un problème est survenu !!');
+        }
+
         $this->em->remove($projetEvent);
         $this->em->flush();
 
