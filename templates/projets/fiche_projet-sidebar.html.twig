@@ -68,6 +68,27 @@
 
 <hr>
 
+<h4>{{ "next_projet_events"|trans }}</h4>
+
+<ul class="next-projet-events list-unstyled">
+    {% for nextProjetEventParticipant in participation.nextProjetEventParticipants(4) %}
+
+        <li>
+            <a href="{{ path('app_fo_projet_events', { 'projetId' : projet.id , 'event' : nextProjetEventParticipant.projetEvent.id }) }}"><strong>{{ nextProjetEventParticipant.projetEvent.text }}</strong></a><br>
+            <small><i>{{ nextProjetEventParticipant.projetEvent.startDate | date('d/m/Y H:i') }}</i></small>
+        </li>
+
+    {% else %}
+        <p class="text-muted">
+            <small>
+                {{ "no_projet_events_here"|trans }}
+            </small>
+        </p>
+    {% endfor %}
+</ul>
+
+<hr>
+
 <a
     href="{{ path('app_fo_projet_participant', {'id': projet.id}) }}"
     class="btn btn-outline-primary rounded-circle float-right {{ userCanEditProjet ? '' : 'disabled' }}"

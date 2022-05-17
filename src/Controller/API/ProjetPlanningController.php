@@ -81,7 +81,6 @@ class ProjetPlanningController extends AbstractController
                 'start_date' => $planningTask->getStartDate()->format('d/m/Y'),
                 'parent' => is_object($planningTask->getParentTask()) ? $planningTask->getParentTask()->getId() : 0,
                 'is_participant' => $isParticipant,
-                'color' => $projet->getColorCode(),
                 'open' => true,
             ];
         }

@@ -153,6 +153,24 @@
     margin-left: -11px;
     margin-top: -4px;
 }
+.gantt_bar_task.lot_level {
+    background-color: rgba(2, 136, 209, 0.7)  !important;
+}
+.gantt_bar_task.lot_level .gantt_task_progress{
+    background-color: rgb(2, 136, 209) !important;
+}
+.gantt_bar_task.task_level{
+    background-color: rgba(15, 196, 167, 0.7)  !important;
+}
+.gantt_bar_task.task_level .gantt_task_progress{
+    background-color: rgb(15, 196, 167) !important;
+}
+.gantt_bar_task.subtask_level {
+    background-color: rgba(255, 87, 34, 0.7)  !important;
+}
+.gantt_bar_task.subtask_level .gantt_task_progress {
+    background-color: rgb(255, 87, 34) !important;
+}
 
 .gantt_tooltip {
     font-size: 14px;

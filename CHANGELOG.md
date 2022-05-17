@@ -6,7 +6,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
+- Calendrier des évènements
+- Traduction de l'agenda du projet
+- Intégration des évènements dans les agendas Outlook, Google,...
+### Modifié
+- Les couleurs des tâches dans le planning du projet
 
 
 

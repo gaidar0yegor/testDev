@@ -223,6 +223,25 @@ class ProjetParticipant implements HasSocieteInterface
         return $this->projetEventParticipants;
     }
 
+    /**
+     * @return Collection|ProjetEventParticipant[]
+     */
+    public function getNextProjetEventParticipants(int $limit = null): Collection
+    {
+        $iterator = $this->projetEventParticipants->filter(function (ProjetEventParticipant $projetEventParticipant) {
+            return $projetEventParticipant->getProjetEvent()->getStartDate()->getTimestamp() >= (new \DateTime())->getTimestamp();
+        })->getIterator();
+
+        $iterator->uasort(function (ProjetEventParticipant $pep1 , ProjetEventParticipant $pep2){
+            return $pep1->getProjetEvent()->getStartDate() > $pep2->getProjetEvent()->getStartDate() ? 1 : -1;
+        });
+
+        $collection = new ArrayCollection(iterator_to_array($iterator));
+        $collection = $limit !== null ? new ArrayCollection($collection->slice(0, $limit)) : $collection;
+
+        return $collection;
+    }
+
     public function addProjetEventParticipant(ProjetEventParticipant $projetEventParticipant): self
     {
         if (!$this->projetEventParticipants->contains($projetEventParticipant)) {

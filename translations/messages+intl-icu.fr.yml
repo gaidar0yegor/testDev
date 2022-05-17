@@ -448,7 +448,7 @@ beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille
 list_files: Liste des fichiers
 planning: "Planification du projet : { projectAcronyme }"
-events_calendar: "Calendrier des événements du projet : { projectAcronyme }"
+events_calendar: "Agenda du projet : { projectAcronyme }"
 MEETING: 'Réunion'
 EVENT: 'Évènement'
 OTHER: 'Autre'
@@ -530,6 +530,8 @@ no_contrib_now: Il n'y a pas de contributeurs pour l'instant
 see_obs_project: Voir les Observateurs
 filesString: Fichiers
 no_files_here: Il n'y a pas de fichiers ici...
+no_projet_events_here: Pas d'évènements à venir...
+next_projet_events: Évènements à venir
 collaboratif: Collaboratif
 interne: Interne
 externe: Externe

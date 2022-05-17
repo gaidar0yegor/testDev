@@ -794,22 +794,6 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         return $this;
     }
 
-    /**
-     * @return array|ProjetEvent[]
-     */
-    public function getNextEvents(): array
-    {
-        $nextEvents = [];
-
-        foreach ($this->projetParticipants as $projetParticipant){
-            foreach ($projetParticipant->getProjetEventParticipants() as $projetEventParticipant){
-                $nextEvents[] = $projetEventParticipant->getProjetEvent();
-            }
-        }
-
-        return $nextEvents;
-    }
-
     public function getCoutEtp(): ?string
     {
         return $this->coutEtp;

@@ -35,3 +35,34 @@
     background-color: #9FC437;
     color: white;
 }
+.dhx_agenda_line div {
+    width: 250px;
+}
+.dhx_agenda_area .dhx_v_border{
+    left: 248px !important;
+}
+.dhx_agenda_area .dhx_agenda_event_time{
+    text-align: left;
+    padding-left: 15px;
+}
+.dhx_cal_event_line.meeting_projetEvent, .dhx_cal_event.meeting_projetEvent div{
+    background-color: #0288d1 !important;
+    color: white !important;
+}
+.dhx_cal_event_line.event_projetEvent, .dhx_cal_event.event_projetEvent div{
+    background-color: #0fc4a7 !important;
+    color: white !important;
+}
+.dhx_cal_event_line.other_projetEvent, .dhx_cal_event.other_projetEvent div{
+    background-color: #ff5722 !important;
+    color: white !important;
+}
+.dhx_cal_event_clear.meeting_projetEvent{
+    color: #0280ca !important;
+}
+.dhx_cal_event_clear.event_projetEvent{
+    color: #0fbea1 !important;
+}
+.dhx_cal_event_clear.other_projetEvent{
+    color: #ff5722 !important;
+}

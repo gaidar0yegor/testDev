@@ -11,6 +11,7 @@ use Eluceo\iCal\Domain\Enum\CalendarUserType;
 use Eluceo\iCal\Domain\Enum\ParticipationStatus;
 use Eluceo\iCal\Domain\ValueObject\DateTime;
 use Eluceo\iCal\Domain\ValueObject\EmailAddress;
+use Eluceo\iCal\Domain\ValueObject\Location;
 use Eluceo\iCal\Domain\ValueObject\Member;
 use Eluceo\iCal\Domain\ValueObject\Organizer;
 use Eluceo\iCal\Domain\ValueObject\TimeSpan;
@@ -29,9 +30,9 @@ class IcsFileGenerator
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function generateIcsCalendar(ProjetEvent $projetEvent): Component
+    public function generateIcsCalendar(ProjetEvent $projetEvent): string
     {
-        $myEventUid = 'event_' . $projetEvent->getId();
+        $myEventUid = 'event_' . $projetEvent->getId() . uniqid();
         $uniqueIdentifier = new UniqueIdentifier($myEventUid);
 
         $icalEvent = (new Event($uniqueIdentifier));
@@ -57,7 +58,8 @@ class IcsFileGenerator
                 $projetEvent->getCreatedBy()->getUser()->getFullname()
             ))
             ->setSummary($projetEvent->getText())
-            ->setDescription($projetEvent->getDescription())
+            ->setDescription($projetEvent->getDescription() ?? '' )
+            ->setLocation(new Location($projetEvent->getLocation() ?? ''))
             ->setUrl(new Uri($this->urlGenerator->generate('app_fo_projet_events', [
                 'projetId' => $projetEvent->getProjet()->getId(),
                 'event' => $projetEvent->getId(),
@@ -74,6 +76,6 @@ class IcsFileGenerator
         $componentFactory = new CalendarFactory();
         $calendarComponent = $componentFactory->createCalendar($calendar);
 
-        return $calendarComponent;
+        return str_replace("%40","@",(string)$calendarComponent);
     }
 }

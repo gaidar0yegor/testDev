@@ -49,6 +49,7 @@ class ProjetEventInvitation
             ->htmlTemplate('mail/projet_event_cancel_invitation.html.twig')
             ->textTemplate('mail/projet_event_cancel_invitation.txt.twig')
             ->context([
+                'societe' => $projetEvent->getSociete(),
                 'projetEvent' => $projetEvent,
             ])
         ;
@@ -60,19 +61,20 @@ class ProjetEventInvitation
         }
     }
 
-    private function sendEmail(ProjetEvent $projetEvent, Component $calendarComponent, bool $edit = false): void
+    private function sendEmail(ProjetEvent $projetEvent, string $calendar = null, bool $edit = false): void
     {
         $email = (new TemplatedEmail())
             ->subject("[". ($edit ? "Update | " : "New | ") . $projetEvent->getType() ."] Invitation : " . $projetEvent->getText())
             ->htmlTemplate('mail/projet_event_send_invitation.html.twig')
             ->textTemplate('mail/projet_event_send_invitation.txt.twig')
             ->context([
+                'societe' => $projetEvent->getSociete(),
                 'projetEvent' => $projetEvent,
             ])
         ;
 
-        if ($calendarComponent !== null){
-            $email->attach((string)$calendarComponent, 'rdi_manager_event.ics','text/calendar');
+        if ($calendar !== null){
+            $email->attach($calendar, 'rdi_manager_event.ics','text/calendar');
         }
 
         foreach ($projetEvent->getProjetEventParticipants() as $projetEventParticipant){

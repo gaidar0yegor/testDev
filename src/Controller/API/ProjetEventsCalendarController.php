@@ -4,10 +4,7 @@ namespace App\Controller\API;
 
 use App\Entity\Projet;
 use App\Entity\ProjetEvent;
-use App\Entity\ProjetEventParticipant;
 use App\Entity\ProjetParticipant;
-use App\MultiSociete\UserContext;
-use App\Service\ParticipantService;
 use App\Service\ProjetEvent\IcsFileGenerator;
 use App\Service\ProjetEvent\ProjetEventService;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,8 +26,6 @@ class ProjetEventsCalendarController extends AbstractController
     protected TranslatorInterface $translator;
     protected ValidatorInterface $validator;
     protected ProjetEventService $projetEventService;
-    protected ParticipantService $participantService;
-    protected UserContext $userContext;
     protected IcsFileGenerator $icsFileGenerator;
 
     public function __construct(
@@ -38,8 +33,6 @@ class ProjetEventsCalendarController extends AbstractController
         TranslatorInterface $translator,
         ValidatorInterface $validator,
         ProjetEventService $projetEventService,
-        ParticipantService $participantService,
-        UserContext $userContext,
         IcsFileGenerator $icsFileGenerator
     )
     {
@@ -47,8 +40,6 @@ class ProjetEventsCalendarController extends AbstractController
         $this->translator = $translator;
         $this->validator = $validator;
         $this->projetEventService = $projetEventService;
-        $this->participantService = $participantService;
-        $this->userContext = $userContext;
         $this->icsFileGenerator = $icsFileGenerator;
     }
 
@@ -59,32 +50,11 @@ class ProjetEventsCalendarController extends AbstractController
      */
     public function getEvents(Projet $projet)
     {
-        $response = [];
-        foreach ($projet->getProjetEvents() as $projetEvent){
-            $projetParticipant = $this->participantService->getProjetParticipant($this->userContext->getSocieteUser(), $projet);
-            $is_invited = $projetParticipant ? (ProjetEventService::getProjetEventParticipant($projetEvent, $projetParticipant) !== null) : false;
+        $datas = $this->projetEventService->getProjetEventsData($projet);
 
-            $response['data'][] = [
-                'id' => $projetEvent->getId(),
-                'text' => $projetEvent->getText(),
-                'description' => $projetEvent->getDescription(),
-                'start_date' => $projetEvent->getStartDate()->format('Y-m-d H:i'),
-                'end_date' => $projetEvent->getEndDate()->format('Y-m-d H:i'),
-                'eventType' => $projetEvent->getType(),
-                'required_participant_ids' => implode(",", $projetEvent->getProjetEventParticipants()->filter(function($projetEventParticipant) {
-                    return $projetEventParticipant->getRequired() === true;
-                })->map(function($projetEventParticipant){ return $projetEventParticipant->getParticipant()->getId(); })->getValues()),
-                'optional_participant_ids' => implode(",", $projetEvent->getProjetEventParticipants()->filter(function($projetEventParticipants) {
-                    return $projetEventParticipants->getRequired() === false;
-                })->map(function($projetEventParticipant){ return $projetEventParticipant->getParticipant()->getId(); })->getValues()),
-                'readonly' => $projetEvent->getCreatedBy() !== $this->userContext->getSocieteUser(),
-                'is_invited' => $is_invited
-            ];
-        }
+        $datas = self::setResponseCollections($datas, $projet, $this->translator);
 
-        $response = self::setResponseCollections($response, $projet, $this->translator);
-
-        return new JsonResponse($response);
+        return new JsonResponse($datas);
     }
 
     /**
@@ -153,7 +123,7 @@ class ProjetEventsCalendarController extends AbstractController
         header("Content-Disposition: attachment; filename=rdi_manager_event.ics");
         header("Pragma: no-cache");
         header("Expires: 0");
-        echo (string)$calendar;
+        echo $calendar;
         exit;
     }
 

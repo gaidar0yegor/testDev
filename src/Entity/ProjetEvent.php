@@ -81,6 +81,11 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $location;
+
     public function __construct()
     {
         $this->projetEventParticipants = new ArrayCollection();
@@ -225,6 +230,18 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }
