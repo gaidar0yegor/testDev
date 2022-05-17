@@ -14,6 +14,8 @@ import '../../node_modules/datatables.net-buttons/js/buttons.colVis.min';
 import '../../node_modules/datatables.net-buttons/js/buttons.flash.min';
 import jsZip from './datatable/jszip.min';
 
+import initTippyTitle from './popper';
+
 window.JSZip = jsZip;
 
 import $ from "jquery";
@@ -33,19 +35,23 @@ const btnsDatatable = [
     }
 ];
 
-(function() {
-    $(document).on('init.dt.dth', function(e, settings, json) {
-        var table;
-        table = new $.fn.dataTable.Api(settings);
-        if (settings.oInit.searchHighlight) {
-            return table.on('draw', function() {
-                var body;
-                body = $(table.table().body());
-                body.unhighlight();
-                return body.highlight(table.search());
-            });
-        }
-    });
+(function () {
+    $(document)
+        .on('init.dt.dth', function (e, settings, json) {
+            var table;
+            table = new $.fn.dataTable.Api(settings);
+            if (settings.oInit.searchHighlight) {
+                return table.on('draw', function () {
+                    var body;
+                    body = $(table.table().body());
+                    body.unhighlight();
+                    return body.highlight(table.search());
+                });
+            }
+        })
+        .on('order.dt.dth', function (e, settings, json) {
+            initTippyTitle();
+        });
 }).call(this);
 
 $('.table.datatable:not(.custom-datatable)').DataTable( {

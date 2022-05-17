@@ -116,6 +116,7 @@ project_analyse_from: "Analyse des projets depuis"
 projects_realisations: "Réalisation des projets"
 realized_projects_type: "Type de projets réalisés"
 project: Projet
+rdi_project: Projet RDI
 my_role: "Mon rôle"
 start: Début
 end: Fin
