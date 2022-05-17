@@ -6,6 +6,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [0.43.7] - 2022-05-17
+### Ajouté
 - Calendrier des évènements
 - Traduction de l'agenda du projet
 - Intégration des évènements dans les agendas Outlook, Google,...
@@ -14,10 +21,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Organisation du tableau de bord
 ### Réparé
 - Tableau de bord : Nombre de projets RDI dans **Mes contributions**
-
-
-
-
 
 ## [0.43.6] - 2022-05-06
 ### Réparé
