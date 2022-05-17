@@ -27,7 +27,7 @@ my_contributions.team: Team
 my_contributions.teams: Teams
 my_contributions.projects: Projects
 my_contributions.rdi_projects: RDI projects
-my_contributions.total: Total contribution time
+my_contributions.total: Total time
 menu.dashboard.general: Consolidated view
 menu.dashboard.consolide: General view
 menu.dashboard.create_view: Create a consolidated view
@@ -440,6 +440,10 @@ trashString: Trash can
 beenOf_FM: Trash can of striking Fact
 list_files: Files list
 planning: "Planning of the project : { projectAcronyme }"
+events_calendar: "Agenda of the project : { projectAcronyme }"
+MEETING: 'Meeting'
+EVENT: 'Event'
+OTHER: 'Other'
 allString: All
 editFile: Edit a file
 go_back_go_files: Return to files list
@@ -520,6 +524,8 @@ no_contrib_now: There are no contributors yet
 see_obs_project: View Observers
 filesString: Files
 no_files_here: No files found here...
+no_projet_events_here: No upcoming events...
+next_projet_events: Upcoming events
 collaboratif: Collaborative
 interne: Internal
 externe: External

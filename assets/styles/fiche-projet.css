@@ -161,3 +161,12 @@
 .comment-container .comment-content-list .comment-elem .body{
     padding: 5px 10px 5px;
 }
+
+.next-projet-events li{
+    border-left: 2px #0069D9 solid;
+    margin: 0.5rem 0;
+    padding-left: 0.5rem;
+}
+.next-projet-events a{
+    text-decoration: none;
+}

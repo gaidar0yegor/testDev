@@ -5,6 +5,8 @@ namespace App\License\Listener;
 use App\Entity\Cra;
 use App\Entity\FaitMarquant;
 use App\Entity\FichierProjet;
+use App\Entity\ProjetEvent;
+use App\Entity\ProjetEventParticipant;
 use App\Entity\ProjetPlanning;
 use App\Entity\ProjetPlanningTask;
 use App\Entity\TempsPasse;
@@ -57,6 +59,8 @@ class LicenseExpiredListener implements EventSubscriber
             TempsPasse::class,
             ProjetPlanning::class,
             ProjetPlanningTask::class,
+            ProjetEvent::class,
+            ProjetEventParticipant::class,
         ];
 
         if (!in_array(get_class($entity), $readOnlyEntities, true)) {

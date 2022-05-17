@@ -72,11 +72,17 @@ class ProjetParticipant implements HasSocieteInterface
      */
     private $projetPlanningTasks;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetEventParticipant::class, mappedBy="participant", orphanRemoval=true, cascade={"persist"})
+     */
+    private $projetEventParticipants;
+
     public function __construct()
     {
         $this->dateAjout = new \DateTime();
         $this->watching = false;
         $this->projetPlanningTasks = new ArrayCollection();
+        $this->projetEventParticipants = new ArrayCollection();
     }
 
     public static function create(SocieteUser $societeUser, Projet $projet, ?string $role): self
@@ -204,6 +210,55 @@ class ProjetParticipant implements HasSocieteInterface
     {
         if ($this->projetPlanningTasks->removeElement($projetPlanningTask)) {
             $projetPlanningTask->removeParticipant($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetEventParticipant[]
+     */
+    public function getProjetEventParticipants(): Collection
+    {
+        return $this->projetEventParticipants;
+    }
+
+    /**
+     * @return Collection|ProjetEventParticipant[]
+     */
+    public function getNextProjetEventParticipants(int $limit = null): Collection
+    {
+        $iterator = $this->projetEventParticipants->filter(function (ProjetEventParticipant $projetEventParticipant) {
+            return $projetEventParticipant->getProjetEvent()->getStartDate()->getTimestamp() >= (new \DateTime())->getTimestamp();
+        })->getIterator();
+
+        $iterator->uasort(function (ProjetEventParticipant $pep1 , ProjetEventParticipant $pep2){
+            return $pep1->getProjetEvent()->getStartDate() > $pep2->getProjetEvent()->getStartDate() ? 1 : -1;
+        });
+
+        $collection = new ArrayCollection(iterator_to_array($iterator));
+        $collection = $limit !== null ? new ArrayCollection($collection->slice(0, $limit)) : $collection;
+
+        return $collection;
+    }
+
+    public function addProjetEventParticipant(ProjetEventParticipant $projetEventParticipant): self
+    {
+        if (!$this->projetEventParticipants->contains($projetEventParticipant)) {
+            $this->projetEventParticipants[] = $projetEventParticipant;
+            $projetEventParticipant->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetEventParticipant(ProjetEventParticipant $projetEventParticipant): self
+    {
+        if ($this->projetEventParticipants->removeElement($projetEventParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($projetEventParticipant->getParticipant() === $this) {
+                $projetEventParticipant->setParticipant(null);
+            }
         }
 
         return $this;

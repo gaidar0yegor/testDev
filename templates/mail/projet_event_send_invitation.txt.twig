@@ -1,0 +1,10 @@
+Un nouveau évènement a été créé par {{ projetEvent.createdBy.user.shortname }} sur le projet {{ projetEvent.projet.acronyme }}
+
+{{ projetEvent.text }}
+(Vous êtes invités par {{ projetEvent.createdBy.user.fullname }})
+
+{{ projetEvent.description|raw }}
+
+Voir sur RDI-Manager :
+
+{{ url('app_fo_projet_events', { projetId : projetEvent.projet.id, 'event' : projetEvent.id, }) }}

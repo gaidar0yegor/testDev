@@ -29,14 +29,12 @@ gantt.config.columns = [
     {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
 
-gantt.templates.grid_row_class = function( start, end, task ){
-    switch (task.$level) {
-        case 0: return "lot_level";
-        case 1: return "task_level";
-        case 2: return "subtask_level";
-        default: return "";
-    }
-};
+gantt.templates.task_class = gantt.templates.grid_row_class = function(start, end, task){switch (task.$level) {
+    case 0: return "lot_level";
+    case 1: return "task_level";
+    case 2: return "subtask_level";
+    default: return "";
+}};
 
 gantt.templates.task_text = function (start, end, task) {
     return `<span class="task-title" title="${task.text}">${task.text}</span>`

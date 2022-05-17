@@ -607,3 +607,7 @@ select.select-2, .select2.select2-container  {
 #specialExpenses .list-special-expenses tr td:last-child a{
   margin-left: 10px;
 }
+
+.dhtmlx_message_area {
+  top: 65px !important;
+}

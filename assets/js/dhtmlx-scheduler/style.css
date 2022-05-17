@@ -1,0 +1,72 @@
+.dhx_multi_select_control {
+    padding: 5px 0 0 10px;
+}
+.dhx_multi_select_control input {
+    vertical-align: middle;
+    top: -1px;
+}
+.dhx_multi_select_control label {
+    margin-right: 12px;
+}
+.dhx_agenda_line div{
+    width: 300px;
+}
+.dhx_v_border{
+    left: 299px;
+}
+.container_event_text{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+}
+.container_event_text .links_event_text{
+    font-size: 1.2rem;
+    text-align: center;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+}
+.dhx_cal_tab.export_agenda_tab{
+    width: auto;
+}
+.dhx_ics_calendar_btn_set{
+    background-color: #9FC437;
+    color: white;
+}
+.dhx_agenda_line div {
+    width: 250px;
+}
+.dhx_agenda_area .dhx_v_border{
+    left: 248px !important;
+}
+.dhx_agenda_area .dhx_agenda_event_time{
+    text-align: left;
+    padding-left: 15px;
+}
+.dhx_cal_event_line.meeting_projetEvent, .dhx_cal_event.meeting_projetEvent div{
+    background-color: #0288d1 !important;
+    color: white !important;
+}
+.dhx_cal_event_line.event_projetEvent, .dhx_cal_event.event_projetEvent div{
+    background-color: #0fc4a7 !important;
+    color: white !important;
+}
+.dhx_cal_event_line.other_projetEvent, .dhx_cal_event.other_projetEvent div{
+    background-color: #ff5722 !important;
+    color: white !important;
+}
+.dhx_cal_event_clear.meeting_projetEvent{
+    color: #0280ca !important;
+}
+.dhx_cal_event_clear.event_projetEvent{
+    color: #0fbea1 !important;
+}
+.dhx_cal_event_clear.other_projetEvent{
+    color: #ff5722 !important;
+}
+
+.dhx_cal_light.dhx_cal_light_readonly .select-all{
+    display: none !important;
+}
