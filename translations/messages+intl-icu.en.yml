@@ -27,7 +27,7 @@ my_contributions.team: Team
 my_contributions.teams: Teams
 my_contributions.projects: Projects
 my_contributions.rdi_projects: RDI projects
-my_contributions.total: Total contribution time
+my_contributions.total: Total time
 menu.dashboard.general: Consolidated view
 menu.dashboard.consolide: General view
 menu.dashboard.create_view: Create a consolidated view

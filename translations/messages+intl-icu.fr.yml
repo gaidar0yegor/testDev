@@ -106,8 +106,8 @@ my_contributions.team: Équipe
 my_contributions.teams: Équipes
 my_contributions.projects: Projets
 my_team_projects_of_year: "Les projets de mon équipe de l'année"
-my_contributions.rdi_projects: "Projets de type RDI"
-my_contributions.total: "Temps total de contribution"
+my_contributions.rdi_projects: "Projets RDI"
+my_contributions.total: "Temps total"
 my_projects_of_year: "Mes projets de l'année"
 list_of_projects_i_participate: "Liste des projets auxquels je participe."
 as_admin_i_can_also_access_all_projects: "En tant qu'administrateur, je peux aussi {link_start}accéder à tous les projets de la société{link_end}."
