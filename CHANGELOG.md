@@ -11,6 +11,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Intégration des évènements dans les agendas Outlook, Google,...
 ### Modifié
 - Les couleurs des tâches dans le planning du projet
+- Organisation du tableau de bord
+### Réparé
+- Tableau de bord : Nombre de projets RDI dans **Mes contributions**
 
 
 

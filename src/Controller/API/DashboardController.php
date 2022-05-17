@@ -178,7 +178,7 @@ class DashboardController extends AbstractController
                 $stats['projets']['moi']++;
             }
 
-            if ($projet->isRdi()) {
+            if ($projet->isRdi($year)) {
                 $stats['projetsRdi']['equipe']++;
 
                 if ($userIsContributing) {
