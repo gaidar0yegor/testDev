@@ -49,7 +49,7 @@ class FilterUserEventType extends AbstractType
                 'required' => false,
                 'expanded' => true,
                 'multiple' => true,
-                'label' => 'Évènements :',
+                'label' => 'Type d\'évènements :',
                 'choices' => array_combine($builder->getData()->getEventTypes(), $builder->getData()->getEventTypes())
             ])
             ->add('submit', SubmitType::class, [

@@ -207,7 +207,7 @@ phone: Phone
 timesheet_validation_of_year_n: Validate your time for {year}
 user: User
 account_disabled: Account deactivated
-select_unselect_all: Select all / unselect
+select_unselect_all: Select all
 slack_integration: Integration of Slack
 time_spent_recording_granularity: Granularity of the time entry
 send_slack_reminder_in_your_team_channel:

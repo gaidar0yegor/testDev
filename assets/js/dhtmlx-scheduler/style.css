@@ -115,6 +115,6 @@ form[name='filter_user_event'] {
     overflow: hidden !important;
 }
 form[name='filter_user_event'] #filter_user_event_users {
-    max-height: 23rem;
+    max-height: 18rem;
     overflow-y: auto;
 }

@@ -26,13 +26,13 @@
         <div class="col-lg-3 col-md-4 col-sm-12">
             {{ form_start(form) }}
 
-            <div class="w-100">
+            <div class="w-100 mb-4">
                 {{ form_label(form.users) }}
                 <div class="form-check p-0">
                     <input type="checkbox" id="select-all-users" checked/>
                     <label for="select-all-users">{{ 'select_unselect_all'|trans }}</label>
                 </div>
-                <hr>
+                <hr class="mt-1 mb-3">
                 {{ form_widget(form.users) }}
             </div>
 

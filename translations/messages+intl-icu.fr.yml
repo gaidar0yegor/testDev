@@ -200,7 +200,7 @@ phone: Téléphone
 timesheet_validation_of_year_n: "Validation des temps de {year}"
 user: Utilisateur
 account_disabled: "Compte désactivé"
-select_unselect_all: "Tout sélectionner / désélectionner"
+select_unselect_all: "Tout sélectionner"
 slack_integration: "Intégration Slack"
 send_slack_reminder_in_your_team_channel:
   "Envoyez les notifications de rappel à votre
