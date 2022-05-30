@@ -1,3 +1,23 @@
+.dhx_cal_ltext::-webkit-scrollbar {
+    width: 5px;
+    background: #ce352c;
+}
+
+.dhx_cal_ltext::-webkit-scrollbar-track {
+    background: #ffffff;
+}
+
+.dhx_cal_ltext::-webkit-scrollbar-thumb {
+    background-color: #ce352c;
+    border-radius: 20px;
+}
+.dhx_cal_light_readonly .dhx_cal_ltext{
+    overflow-y: auto !important;
+}
+.dhx_title{
+    width: 100% !important;
+    padding-right: 13px !important;
+}
 .dhx_multi_select_control {
     padding: 5px 0 0 10px;
 }
@@ -53,6 +73,10 @@
     background-color: #0fc4a7 !important;
     color: white !important;
 }
+.dhx_cal_event_line.absence_projetEvent, .dhx_cal_event.absence_projetEvent div{
+    background-color: #9cbe0c !important;
+    color: white !important;
+}
 .dhx_cal_event_line.other_projetEvent, .dhx_cal_event.other_projetEvent div{
     background-color: #ff5722 !important;
     color: white !important;
@@ -63,10 +87,34 @@
 .dhx_cal_event_clear.event_projetEvent{
     color: #0fbea1 !important;
 }
+.dhx_cal_event_clear.absence_projetEvent{
+    color: #9cbe0c !important;
+}
 .dhx_cal_event_clear.other_projetEvent{
     color: #ff5722 !important;
 }
 
+.dhx_cal_event_line.highlighted_event, .dhx_cal_event.highlighted_event div{
+    background-color: #ff0004 !important;
+    box-shadow: 0px 0px 40px 52px rgba(0,0,0,0.31) inset;
+    -webkit-box-shadow: 0px 0px 40px 52px rgba(0,0,0,0.31) inset;
+    -moz-box-shadow: 0px 0px 40px 52px rgba(0,0,0,0.31) inset;
+    color: white !important;
+}
+.dhx_cal_event_clear.highlighted_event{
+    color: #ff0004 !important;
+}
+
 .dhx_cal_light.dhx_cal_light_readonly .select-all{
     display: none !important;
+}
+
+/* form */
+form[name='filter_user_event'] {
+    word-break: break-word !important;
+    overflow: hidden !important;
+}
+form[name='filter_user_event'] #filter_user_event_users {
+    max-height: 23rem;
+    overflow-y: auto;
 }

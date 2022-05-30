@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\ProjetEventParticipant;
+use App\Entity\Evenement;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method ProjetEventParticipant|null find($id, $lockMode = null, $lockVersion = null)
- * @method ProjetEventParticipant|null findOneBy(array $criteria, array $orderBy = null)
- * @method ProjetEventParticipant[]    findAll()
- * @method ProjetEventParticipant[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Evenement|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Evenement|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Evenement[]    findAll()
+ * @method Evenement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ProjetEventParticipantRepository extends ServiceEntityRepository
+class EvenementRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ProjetEventParticipant::class);
+        parent::__construct($registry, Evenement::class);
     }
 
     // /**
-    //  * @return ProjetEventParticipant[] Returns an array of ProjetEventParticipant objects
+    //  * @return Evenement[] Returns an array of Evenement objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ProjetEventParticipantRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?ProjetEventParticipant
+    public function findOneBySomeField($value): ?Evenement
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')

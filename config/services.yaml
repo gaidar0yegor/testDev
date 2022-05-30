@@ -109,15 +109,20 @@ services:
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\FaitMarquant }
             - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\FaitMarquant }
 
-    App\Activity\Type\ProjetEventCreatedActivity:
+    App\Activity\Type\EvenementCreatedActivity:
         tags:
             - 'app.activity_type'
-            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\ProjetEvent }
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Evenement }
 
-    App\Activity\Type\ProjetEventModifiedActivity:
+    App\Activity\Type\EvenementModifiedActivity:
         tags:
             - 'app.activity_type'
-            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\ProjetEvent }
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\Evenement }
+
+    App\Activity\Type\EvenementRemovedActivity:
+        tags:
+            - 'app.activity_type'
+            - { name: doctrine.orm.entity_listener, event: preRemove, entity: App\Entity\Evenement }
 
     App\Activity\Type\ProjetPlanningCreatedActivity:
         tags:
@@ -195,12 +200,12 @@ services:
         tags:
             - { name: doctrine.orm.entity_listener, event: postRemove, entity: App\Entity\DossierFichierProjet }
 
-    App\Notification\Mail\ProjetEventInvitation:
+    App\Notification\Mail\EvenementInvitation:
         tags:
             - 'app.activity_type'
-            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\ProjetEvent }
-            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\ProjetEvent }
-            - { name: doctrine.orm.entity_listener, event: preRemove, entity: App\Entity\ProjetEvent }
+            - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\Evenement }
+            - { name: doctrine.orm.entity_listener, event: postUpdate, entity: App\Entity\Evenement }
+            - { name: doctrine.orm.entity_listener, event: preRemove, entity: App\Entity\Evenement }
 
     App\Service\EntityLink\EntityLinkGenerator\:
         resource: '../src/Service/EntityLink/EntityLinkGenerator/'

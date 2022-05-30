@@ -87,6 +87,7 @@ menu.admin.users: Users
 menu.admin.invite_user: Invite a user
 menu.admin.timesheet_check: Validate your time
 menu.admin.timesheet_export: Export your timesheets
+menu.admin.events_calendar: Events calendar
 hours_by_project: Number of hours per projects
 loading: Loading…
 to_comment: 'Comment'
@@ -97,7 +98,7 @@ my_team_projects_of_year: The projects of my team of the year
 project_analyse_from: Analysis of the projects since
 projects_realisations: Realization of projects
 realized_projects_type: Type of projects realized
-project: Projects
+project: Project
 my_role: My role
 start: Start
 end: End
@@ -157,6 +158,7 @@ menu.admin.notification_parameters: Notifications parameters
 menu.admin.licenses: My licences
 as_admin_i_can_also_access_all_projects: As an administrator, I can as well {link_start}access to all of my projects{link_end}.
 as_superior_i_can_also_access_team_projects: As a team leader, I can as well {link_start}access to all my team's projects{link_end}.
+as_superior_i_can_also_access_team_calendar: As a team leader, I can as well {link_start}access to my team's calendar{link_end}.
 logout: Logout
 publish: Publish
 you_submitted_this_month_on: You have validated this month the {date}.
@@ -427,6 +429,7 @@ delete_project.project_participant.warning: "The project has <strong>{n, plural,
 delete_project.project_participant.safe: "The project has no participants."
 are_you_sure_delete_project: "Are you sure you want to delete the project {projectAcronyme} ?"
 see_more: "See more ..."
+see_all: "See all"
 verif_date_leave_on_disable_user: "To deactivate {user}'s account, please specify its exit date."
 verif_date_entry_on_enable_user: "To activate {user}'s account, please specify its entry date."
 'Le tableau de bord "{titre_dashboard_consolide}" a été créé avec succès.': 'The dashboard "{titre_dashboard_consolide}" was successfully created.'
@@ -440,9 +443,11 @@ trashString: Trash can
 beenOf_FM: Trash can of striking Fact
 list_files: Files list
 planning: "Planning of the project : { projectAcronyme }"
-events_calendar: "Agenda of the project : { projectAcronyme }"
+projet_events_calendar: "Agenda of the project : { projectAcronyme }"
+user_events_calendar: "Events calendar"
 MEETING: 'Meeting'
 EVENT: 'Event'
+ABSENCE: 'Absence'
 OTHER: 'Other'
 allString: All
 editFile: Edit a file
@@ -526,7 +531,18 @@ filesString: Files
 no_files_here: No files found here...
 no_projet_events_here: No upcoming events...
 next_projet_events: Upcoming events
+my_calendar: My calendar
+evenement.text: Title
+evenement.startDate: Start date
+evenement.endDate: End date
+evenement.location: Location
+evenement.solicitation: Solicitation
+evenement.required: Required
+evenement.optional: Optional
 collaboratif: Collaborative
+invited: Invited
+invitedBy: Invited by
+createdBy: Créé par
 interne: Internal
 externe: External
 close: Close

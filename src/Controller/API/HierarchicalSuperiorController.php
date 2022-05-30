@@ -13,9 +13,9 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Route("/api/utilisateurs")
+ * @Route("/api/equipe")
  */
-class SocieteUserController extends AbstractController
+class HierarchicalSuperiorController extends AbstractController
 {
     private UserContext $userContext;
     private TranslatorInterface $translator;
@@ -37,7 +37,7 @@ class SocieteUserController extends AbstractController
 
     /**
      * @Route(
-     *      "/equipe/organigramme/{id}",
+     *      "/organigramme/{id}",
      *      methods={"GET"},
      *      name="api_get_user_team_organigramme"
      * )

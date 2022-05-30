@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Service\ProjetEvent;
+namespace App\Service\Evenement;
 
-use App\Entity\ProjetEvent;
+use App\Entity\Evenement;
 use Eluceo\iCal\Domain\Entity\Attendee;
 use Eluceo\iCal\Domain\Entity\Calendar;
 use Eluceo\iCal\Domain\Entity\Event;
@@ -30,23 +30,23 @@ class IcsFileGenerator
         $this->urlGenerator = $urlGenerator;
     }
 
-    public function generateIcsCalendar(ProjetEvent $projetEvent): string
+    public function generateIcsCalendar(Evenement $evenement): string
     {
-        $myEventUid = 'event_' . $projetEvent->getId() . uniqid();
+        $myEventUid = 'event_' . $evenement->getId() . uniqid();
         $uniqueIdentifier = new UniqueIdentifier($myEventUid);
 
         $icalEvent = (new Event($uniqueIdentifier));
 
-        foreach ($projetEvent->getProjetEventParticipants() as $projetEventParticipant) {
-            $participantUser = $projetEventParticipant->getParticipant()->getSocieteUser()->getUser();
+        foreach ($evenement->getEvenementParticipants() as $evenementParticipant) {
+            $participantUser = $evenementParticipant->getSocieteUser()->getUser();
             $attendee = new Attendee(new EmailAddress($participantUser->getEmail()));
             $attendee->setCalendarUserType(CalendarUserType::INDIVIDUAL())
                 ->addMember(new Member(new EmailAddress($participantUser->getEmail())))
                 ->setParticipationStatus(
-                    $projetEventParticipant->getRequired() ? ParticipationStatus::ACCEPTED() : ParticipationStatus::NEEDS_ACTION()
+                    $evenementParticipant->getRequired() ? ParticipationStatus::ACCEPTED() : ParticipationStatus::NEEDS_ACTION()
                 )
-                ->setResponseNeededFromAttendee(!$projetEventParticipant->getRequired())
-                ->addSentBy(new EmailAddress($projetEvent->getCreatedBy()->getUser()->getEmail()))
+                ->setResponseNeededFromAttendee(!$evenementParticipant->getRequired())
+                ->addSentBy(new EmailAddress($evenement->getCreatedBy()->getUser()->getEmail()))
                 ->setDisplayName($participantUser->getFullname());
 
             $icalEvent->addAttendee($attendee);
@@ -54,20 +54,19 @@ class IcsFileGenerator
 
         $icalEvent
             ->setOrganizer(new Organizer(
-                new EmailAddress($projetEvent->getCreatedBy()->getUser()->getEmail()),
-                $projetEvent->getCreatedBy()->getUser()->getFullname()
+                new EmailAddress($evenement->getCreatedBy()->getUser()->getEmail()),
+                $evenement->getCreatedBy()->getUser()->getFullname()
             ))
-            ->setSummary($projetEvent->getText())
-            ->setDescription($projetEvent->getDescription() ?? '' )
-            ->setLocation(new Location($projetEvent->getLocation() ?? ''))
-            ->setUrl(new Uri($this->urlGenerator->generate('app_fo_projet_events', [
-                'projetId' => $projetEvent->getProjet()->getId(),
-                'event' => $projetEvent->getId(),
+            ->setSummary($evenement->getText())
+            ->setDescription($evenement->getDescription() ?? '' )
+            ->setLocation(new Location($evenement->getLocation() ?? ''))
+            ->setUrl(new Uri($this->urlGenerator->generate('app_fo_current_user_events', [
+                'event' => $evenement->getId(),
             ], UrlGeneratorInterface::ABSOLUTE_URL)))
             ->setOccurrence(
                 new TimeSpan(
-                    new DateTime($projetEvent->getStartDate(), false),
-                    new DateTime($projetEvent->getEndDate(), false)
+                    new DateTime($evenement->getStartDate(), false),
+                    new DateTime($evenement->getEndDate(), false)
                 )
             );
 

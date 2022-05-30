@@ -10,10 +10,8 @@ use App\Entity\ProjetParticipant;
 use App\ProjetResourceInterface;
 use App\Repository\ProjetActivityRepository;
 use App\Repository\ProjetRepository;
-use App\Repository\TempsPasseRepository;
 use App\Service\FaitMarquantService;
 use App\Service\StatisticsService;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,7 +28,6 @@ use App\MultiSociete\UserContext;
 use App\Notification\Event\AddedAsContributorNotification;
 use App\Service\ParticipantService;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\Authorization\Voter\RoleVoter;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -221,6 +218,7 @@ class ProjetController extends AbstractController
             'projet' => $projet,
             'faitMarquants' => $projet->getFaitMarquants(),
             'participation' => $participantService->getProjetParticipant($userContext->getSocieteUser(), $projet),
+            'nextEvenements' => $projet->getEvenements()->slice(0,4),
             'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
                 $projet->getActiveProjetParticipants(),
                 RoleProjet::CONTRIBUTEUR

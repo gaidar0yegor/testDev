@@ -2,32 +2,30 @@
 
 namespace App\Service\EntityLink\EntityLinkGenerator;
 
-use App\Entity\FaitMarquant;
-use App\Entity\ProjetEvent;
+use App\Entity\Evenement;
 use App\Service\EntityLink\EntityLink;
 use App\Service\EntityLink\EntityLinkGeneratorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class ProjetEventLink implements EntityLinkGeneratorInterface
+class EvenementLink implements EntityLinkGeneratorInterface
 {
-    private const MAX_SIZE = 32;
+    public const MAX_SIZE = 32;
 
     public static function supportsEntity(): string
     {
-        return ProjetEvent::class;
+        return Evenement::class;
     }
 
     /**
-     * @param ProjetEvent $entity
+     * @param Evenement $entity
      */
     public function generateLink($entity, UrlGeneratorInterface $urlGenerator): EntityLink
     {
         $titre = self::truncate($entity->getText());
-        $idProjetEvent = $entity->getId();
+        $idEvenement = $entity->getId();
 
-        $url = $urlGenerator->generate('app_fo_projet_events', [
-            'projetId' => $entity->getProjet()->getId(),
-            'event' => $idProjetEvent,
+        $url = $urlGenerator->generate('app_fo_current_user_events', [
+            'event' => $idEvenement,
         ]);
 
         return new EntityLink($titre, $url);

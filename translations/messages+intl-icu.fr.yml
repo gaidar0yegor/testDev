@@ -94,6 +94,7 @@ menu.admin.timesheet_check: "Validation des temps"
 menu.admin.timesheet_export: "Export feuilles de temps"
 menu.admin.notification_parameters: "Paramètres notifications"
 menu.admin.licenses: "Mes licences"
+menu.admin.events_calendar: "Calendrier des événements"
 loading: Chargement…
 to_comment: 'Commenter'
 comments: 'commentaires'
@@ -112,6 +113,7 @@ my_projects_of_year: "Mes projets de l'année"
 list_of_projects_i_participate: "Liste des projets auxquels je participe."
 as_admin_i_can_also_access_all_projects: "En tant qu'administrateur, je peux aussi {link_start}accéder à tous les projets de la société{link_end}."
 as_superior_i_can_also_access_team_projects: "En tant que chef d'équipe, je peux aussi {link_start}accéder à tous les projets de mon équipe{link_end}."
+as_superior_i_can_also_access_team_calendar: "En tant que chef d'équipe, je peux aussi {link_start}accéder au calendrier des événements de mon équipe{link_end}."
 project_analyse_from: "Analyse des projets depuis"
 projects_realisations: "Réalisation des projets"
 realized_projects_type: "Type de projets réalisés"
@@ -449,9 +451,11 @@ beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille
 list_files: Liste des fichiers
 planning: "Planification du projet : { projectAcronyme }"
-events_calendar: "Agenda du projet : { projectAcronyme }"
+projet_events_calendar: "Agenda du projet : { projectAcronyme }"
+user_events_calendar: "Agenda des évènements"
 MEETING: 'Réunion'
 EVENT: 'Évènement'
+ABSENCE: 'Absence'
 OTHER: 'Autre'
 allString: Tous
 editFile: Modifier un fichier
@@ -533,6 +537,17 @@ filesString: Fichiers
 no_files_here: Il n'y a pas de fichiers ici...
 no_projet_events_here: Pas d'évènements à venir...
 next_projet_events: Évènements à venir
+my_calendar: Mon agenda
+evenement.text: Titre
+evenement.startDate: Date début
+evenement.endDate: Date fin
+evenement.location: Lieu
+evenement.solicitation: Sollicitation
+evenement.required: Obligatoire
+evenement.optional: Optionnelle
+invited: Invité
+invitedBy: Invité par
+createdBy: Créé par
 collaboratif: Collaboratif
 interne: Interne
 externe: Externe

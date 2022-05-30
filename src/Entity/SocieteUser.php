@@ -233,9 +233,19 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     private $coutEtp;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetEvent::class, mappedBy="createdBy", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="createdBy", orphanRemoval=true)
      */
-    private $createdProjetEvents;
+    private $createdEvenements;
+
+    /**
+     * @ORM\OneToMany(targetEntity=SocieteUserEvenementNotification::class, mappedBy="societeUser", orphanRemoval=true)
+     */
+    private $societeUserEvenementNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EvenementParticipant::class, mappedBy="societeUser", orphanRemoval=true, cascade={"persist"})
+     */
+    private $evenementParticipants;
 
     public function __construct()
     {
@@ -253,7 +263,9 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
         $this->dashboardConsolides = new ArrayCollection();
         $this->teamMembers = new ArrayCollection();
         $this->projetPlannings = new ArrayCollection();
-        $this->createdProjetEvents = new ArrayCollection();
+        $this->createdEvenements = new ArrayCollection();
+        $this->societeUserEvenementNotifications = new ArrayCollection();
+        $this->evenementParticipants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -807,29 +819,120 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     }
 
     /**
-     * @return Collection|ProjetEvent[]
+     * @return Collection|Evenement[]
      */
-    public function getCreatedProjetEvents(): Collection
+    public function getCreatedEvenements(): Collection
     {
-        return $this->createdProjetEvents;
+        return $this->createdEvenements;
     }
 
-    public function addCreatedProjetEvent(ProjetEvent $createdProjetEvent): self
+    public function addCreatedEvenement(Evenement $createdEvenement): self
     {
-        if (!$this->createdProjetEvents->contains($createdProjetEvent)) {
-            $this->createdProjetEvents[] = $createdProjetEvent;
-            $createdProjetEvent->setCreatedBy($this);
+        if (!$this->createdEvenements->contains($createdEvenement)) {
+            $this->createdEvenements[] = $createdEvenement;
+            $createdEvenement->setCreatedBy($this);
         }
 
         return $this;
     }
 
-    public function removeCreatedProjetEvent(ProjetEvent $createdProjetEvent): self
+    public function removeCreatedEvenement(Evenement $createdEvenement): self
     {
-        if ($this->createdProjetEvents->removeElement($createdProjetEvent)) {
+        if ($this->createdEvenements->removeElement($createdEvenement)) {
             // set the owning side to null (unless already changed)
-            if ($createdProjetEvent->getCreatedBy() === $this) {
-                $createdProjetEvent->setCreatedBy(null);
+            if ($createdEvenement->getCreatedBy() === $this) {
+                $createdEvenement->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SocieteUserEvenementNotification[]
+     */
+    public function getSocieteUserEvenementNotifications(): Collection
+    {
+        return $this->societeUserEvenementNotifications;
+    }
+
+    public function addSocieteUserEvenementNotification(SocieteUserEvenementNotification $societeUserEvenementNotification): self
+    {
+        if (!$this->societeUserEvenementNotifications->contains($societeUserEvenementNotification)) {
+            $this->societeUserEvenementNotifications[] = $societeUserEvenementNotification;
+            $societeUserEvenementNotification->setSocieteUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSocieteUserEvenementNotification(SocieteUserEvenementNotification $societeUserEvenementNotification): self
+    {
+        if ($this->societeUserEvenementNotifications->removeElement($societeUserEvenementNotification)) {
+            // set the owning side to null (unless already changed)
+            if ($societeUserEvenementNotification->getSocieteUser() === $this) {
+                $societeUserEvenementNotification->setSocieteUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EvenementParticipant[]
+     */
+    public function getEvenementParticipants(): Collection
+    {
+        return $this->evenementParticipants;
+    }
+
+    /**
+     * @param int|null $limit
+     * @return Collection|EvenementParticipant[]
+     */
+    public function getNextEvenementParticipants(int $limit = null): Collection
+    {
+        $iterator = $this->evenementParticipants->filter(function (EvenementParticipant $evenementParticipant) {
+            return $evenementParticipant->getEvenement()->getStartDate()->getTimestamp() >= (new \DateTime())->getTimestamp();
+        })->getIterator();
+
+        $iterator->uasort(function (EvenementParticipant $evenementParticipant1 , EvenementParticipant $evenementParticipant2){
+            return $evenementParticipant1->getEvenement()->getStartDate() > $evenementParticipant2->getEvenement()->getStartDate() ? 1 : -1;
+        });
+
+        $collection = new ArrayCollection(iterator_to_array($iterator));
+        $collection = $limit !== null ? new ArrayCollection($collection->slice(0, $limit)) : $collection;
+
+        return $collection;
+    }
+
+    /**
+     * @param Evenement $evenement
+     * @return bool
+     */
+    public function isInvitedToEvenement(Evenement $evenement): bool
+    {
+        return $this->evenementParticipants->filter(function (EvenementParticipant $evenementParticipant) use ($evenement){
+                return $evenementParticipant->getEvenement() === $evenement;
+            })->count() > 0;
+    }
+
+    public function addEvenementParticipant(EvenementParticipant $evenementParticipant): self
+    {
+        if (!$this->evenementParticipants->contains($evenementParticipant)) {
+            $this->evenementParticipants[] = $evenementParticipant;
+            $evenementParticipant->setSocieteUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvenementParticipant(EvenementParticipant $evenementParticipant): self
+    {
+        if ($this->evenementParticipants->removeElement($evenementParticipant)) {
+            // set the owning side to null (unless already changed)
+            if ($evenementParticipant->getSocieteUser() === $this) {
+                $evenementParticipant->setSocieteUser(null);
             }
         }
 
