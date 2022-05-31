@@ -158,9 +158,9 @@ scheduler.config.lightbox.sections = [
     { name:"description", height:50 , map_to:"description", type:"textarea" },
     { name:"eventType", height:30, map_to:"eventType", type:"select", options: scheduler.serverList("eventTypes") },
     { name:"location", height:30, map_to:"location", type:"textarea" },
-    { name:"requiredParticipant", height:50, map_to:"required_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
-    { name:"optionalParticipant", height:50, map_to:"optional_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
-    { name:"time", height:72, type:"time", map_to:"auto" }
+    { name:"requiredParticipant", height:53, map_to:"required_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
+    { name:"optionalParticipant", height:53, map_to:"optional_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
+    { name:"time", height:72, type:"time", map_to:"auto", time_format:["%d","%m","%Y","%H:%i"] }
 ];
 
 export {

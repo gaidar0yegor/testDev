@@ -13,7 +13,7 @@ scheduler.locale.labels.section_autoUpdateCra = '';
 scheduler.config.lightbox.sections.push(
     {
         name:"autoUpdateCra",
-        height:35,
+        height:30,
         type:"multiselect",
         map_to:"auto_update_cra",
         options:[ { key: true, label: 'Mettre à jour les absences dans le suivi du temps ?' } ]
