@@ -6,10 +6,17 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [0.44.0] - 2022-05-31
+### Ajouté
 - Admin - Liste des projets : ajouter une colonne de l'Eligibilité RDI
 - Gestion des évènements des projets, des utilisateurs et de l'équipe
-
-
+### Modifié
+- Version PHP : 7.1.3 => 7.4
 
 ## [0.43.7] - 2022-05-17
 ### Ajouté
