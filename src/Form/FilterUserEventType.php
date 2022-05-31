@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\DTO\FilterUserEvent;
+use App\DTO\FilterUserEvenement;
 use App\Entity\SocieteUser;
 use App\Form\Custom\SameSocieteUserType;
 use App\Form\Custom\SameTeamUserType;
@@ -64,7 +64,7 @@ class FilterUserEventType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => FilterUserEvent::class,
+            'data_class' => FilterUserEvenement::class,
             'forTeamMembers' => false
         ]);
     }

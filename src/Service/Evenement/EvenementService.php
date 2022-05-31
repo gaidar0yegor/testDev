@@ -2,32 +2,38 @@
 
 namespace App\Service\Evenement;
 
+use App\DTO\EvenementUpdatesCra;
 use App\Entity\Evenement;
 use App\Entity\EvenementParticipant;
 use App\Entity\Projet;
 use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
+use App\Service\CraService;
 use App\Service\ParticipantService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use function Clue\StreamFilter\fun;
 
 class EvenementService
 {
     protected EntityManagerInterface $em;
     protected UserContext $userContext;
     protected TranslatorInterface $translator;
+    protected CraService $craService;
 
     public function __construct(
         EntityManagerInterface $em,
         UserContext $userContext,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        CraService $craService
     )
     {
         $this->em = $em;
         $this->userContext = $userContext;
         $this->translator = $translator;
+        $this->craService = $craService;
     }
 
     protected static function getEvenementParticipantBySocieteUser(Evenement $evenement, SocieteUser $societeUser, bool $required = null): ?EvenementParticipant
@@ -62,7 +68,9 @@ class EvenementService
             'readonly' => $readonly,
             'createdByFullname' => $evenement->getCreatedBy()->getUser()->getFullnameOrEmail(),
 
-            'is_invited' => $this->userContext->getSocieteUser()->isInvitedToEvenement($evenement)
+            'is_invited' => $this->userContext->getSocieteUser()->isInvitedToEvenement($evenement),
+
+            'auto_update_cra' => $evenement->getAutoUpdateCra(),
         ];
 
         $requiredParticipants = $evenement->getEvenementParticipants()->filter(function(EvenementParticipant $evenementParticipant) {
@@ -83,6 +91,9 @@ class EvenementService
 
     public function saveEvenementFromRequest(Request $request, Projet $projet = null, Evenement $evenement = null): Evenement
     {
+        $evenementUpdatesCra = (new EvenementUpdatesCra())
+            ->setOldEvenement($evenement);
+
         if (null === $evenement) {
             $evenement = new Evenement();
         }
@@ -97,11 +108,18 @@ class EvenementService
         $evenement->setEndDate(\DateTime::createFromFormat('Y-m-d H:i', $request->request->get('end_date')));
         if ($request->request->has('eventType')) $evenement->setType($request->request->get('eventType'));
 
+        $evenement->setAutoUpdateCra($request->request->get('auto_update_cra') == true);
+
         $evenement = self::createEvenementParticipants(
             $evenement,
             array_map('intval', explode(',', $request->request->get('required_participants_ids'))),
             array_map('intval', explode(',', $request->request->get('optional_participants_ids')))
         );
+
+        if ($evenement->getAutoUpdateCra()){
+            $evenementUpdatesCra->setNewEvenement($evenement);
+            $this->updateSocieteUsersCra($evenementUpdatesCra);
+        }
 
         return $evenement;
     }
@@ -145,7 +163,7 @@ class EvenementService
         foreach ($societeUsers as $societeUser){
             $collections['participants'][] = [
                 'value' => $societeUser->getId(),
-                'label' => " " . $societeUser->getUser()->getFullnameOrEmail()
+                'label' => $societeUser->getUser()->getFullnameOrEmail()
             ];
         }
 
@@ -154,5 +172,43 @@ class EvenementService
         }
 
         return $collections;
+    }
+
+    public function updateSocieteUsersCra(EvenementUpdatesCra $evenementUpdatesCra): void
+    {
+        if ($evenementUpdatesCra->getOldEvenement()){
+            $yearsMonths = $evenementUpdatesCra->getOldMonthsCraDays();
+            foreach ($evenementUpdatesCra->getOldSocieteUsers() as $societeUser){
+                $this->updateCraJours($societeUser, $yearsMonths, 1);
+            }
+        }
+        if ($evenementUpdatesCra->getNewEvenement()){
+            $yearsMonths = $evenementUpdatesCra->getNewMonthsCraDays();
+            foreach ($evenementUpdatesCra->getNewSocieteUsers() as $societeUser){
+                $this->updateCraJours($societeUser, $yearsMonths, 0);
+            }
+        }
+    }
+
+    private function updateCraJours(SocieteUser $societeUser, array $yearsMonths, int $value)
+    {
+        foreach ($yearsMonths as $year => $monthsDays){
+            foreach ($monthsDays as $month => $days){
+                $cra = $this->craService->loadCraForUser($societeUser, new \DateTime('01-' . $month . '-' . $year));
+                $craJours = $cra->getJours();
+                foreach ($days as $day){
+                    $craJours[$day - 1] = $value;
+                }
+                $cra
+                    ->setJours($craJours)
+                    ->setCraModifiedAt(new \DateTime())
+                ;
+                if ($value !== 0){
+                    $this->craService->uncheckWeekEnds($cra);
+                    $this->craService->uncheckJoursFeries($cra);
+                }
+                $this->em->persist($cra);
+            }
+        }
     }
 }

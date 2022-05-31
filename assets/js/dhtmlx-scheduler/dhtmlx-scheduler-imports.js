@@ -8,12 +8,14 @@ import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_tooltip';
 import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_agenda_view';
 import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_readonly';
 import 'dhtmlx-scheduler/codebase/ext/dhtmlxscheduler_year_view';
+import './ext/custom_full_day';
 
 import locale_fr from './locale/locale.fr';
 import locale_en from './locale/locale.en';
 import { detectedLocale } from './../translation';
 import $ from "jquery";
-import apiGenerateIcsCalendar from "./ics-export-api";
+import apiGenerateIcsCalendar from "./ext/ics-export-api";
+
 var locale = detectedLocale === 'en' ? locale_en : locale_fr;
 
 Scheduler.plugin(function(scheduler){ scheduler.locale = locale });
@@ -83,6 +85,38 @@ scheduler.attachEvent("onLightboxButton", function (id, node, e){ // to generate
         apiGenerateIcsCalendar(event.id)
     }
 });
+scheduler.attachEvent("onLightbox", function (id) {
+    const event = scheduler.getEvent(id);
+    if (!event.is_invited) {
+        scheduler.getLightbox().querySelector('.dhx_btn_set.dhx_ics_calendar_btn_set').remove();
+    }
+    if (!event.readonly){
+        var textarea = scheduler.formSection("text").control;
+        textarea.oninput = function () {
+            if (this.value.length > 250) {
+                this.value = this.value.substring(0, 250);
+                dhtmlx.alert(locale.alerts.title_is_too_long);
+            }
+        };
+
+        if (scheduler.getState().new_event){
+            var checkboxAutoUpdateCra = scheduler.formSection("autoUpdateCra");
+            if(checkboxAutoUpdateCra){
+                checkboxAutoUpdateCra.node.querySelectorAll("input[type='checkbox']")[0].checked = true;
+            }
+
+            var checkboxRequiredParticipant = scheduler.formSection("requiredParticipant");
+            if (checkboxRequiredParticipant && checkboxRequiredParticipant.node.querySelectorAll("input[type='checkbox']").length === 1){
+                checkboxRequiredParticipant.node.querySelectorAll("input[type='checkbox']")[0].checked = true;
+            }
+        }
+    }
+    if (event.readonly){
+        scheduler.formSection("eventType").node.innerHTML = locale.types[event.eventType];
+        scheduler.formSection("requiredParticipant").node.innerHTML = event.required_participants_names;
+        scheduler.formSection("optionalParticipant").node.innerHTML = event.optional_participants_names;
+    }
+});
 
 scheduler.templates.event_class = function (start, end, event) {
     let classNames = selectedEvent == event.id ? 'highlighted_event' : '';
@@ -116,6 +150,7 @@ scheduler.locale.labels.section_optionalParticipant = `${locale.labels.informati
 scheduler.config.details_on_dblclick = true;
 scheduler.config.event_duration = 60;
 scheduler.config.auto_end_date = true;
+scheduler.config.full_day = true;
 scheduler.config.buttons_right = ["dhx_delete_btn", "dhx_ics_calendar_btn"];
 scheduler.locale.labels["dhx_ics_calendar_btn"] = locale.labels.dhx_ics_calendar_btn;
 scheduler.config.lightbox.sections = [

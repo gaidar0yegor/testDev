@@ -6,7 +6,7 @@ namespace App\DTO;
  * Classe utilisée pour stocker les filtres
  * lors d'une génération d'une calendrier des évènements des utilisateurs
  */
-class FilterUserEvent
+class FilterUserEvenement
 {
     private array $users;
 

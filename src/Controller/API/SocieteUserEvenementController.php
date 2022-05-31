@@ -2,6 +2,7 @@
 
 namespace App\Controller\API;
 
+use App\DTO\EvenementUpdatesCra;
 use App\Entity\Evenement;
 use App\Entity\SocieteUser;
 use App\Exception\RdiException;
@@ -53,8 +54,7 @@ class SocieteUserEvenementController extends AbstractController
             $societeUsers = $this->em->getRepository(SocieteUser::class)->findBy( array('id' => $filter_user_event['users']), array('id' => 'ASC') );
             $datas = $this->societeUserEvenementService->serializeSocieteUsersEvenements($societeUsers, $filter_user_event['eventTypes']);
         } else {
-            $societeUsers = [$this->userContext->getSocieteUser()];
-            $datas = $this->societeUserEvenementService->serializeSocieteUsersEvenements($societeUsers);
+            $datas = $this->societeUserEvenementService->serializeSocieteUsersEvenements([$this->userContext->getSocieteUser()]);
         }
 
         return new JsonResponse($datas);
@@ -117,6 +117,12 @@ class SocieteUserEvenementController extends AbstractController
      */
     public function delete(Evenement $evenement)
     {
+        if ($evenement->getAutoUpdateCra()){
+            $evenementUpdatesCra = (new EvenementUpdatesCra())
+                ->setOldEvenement($evenement);
+            $this->societeUserEvenementService->updateSocieteUsersCra($evenementUpdatesCra);
+        }
+
         $this->em->remove($evenement);
         $this->em->flush();
 

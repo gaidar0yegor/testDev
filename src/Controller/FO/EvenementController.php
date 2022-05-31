@@ -2,7 +2,7 @@
 
 namespace App\Controller\FO;
 
-use App\DTO\FilterUserEvent;
+use App\DTO\FilterUserEvenement;
 use App\Entity\Evenement;
 use App\Entity\Projet;
 use App\Form\FilterUserEventType;
@@ -64,7 +64,7 @@ class EvenementController extends AbstractController
 
         $societeUsers = $societeUserRepository->findBySameSociete($this->userContext->getSocieteUser());
 
-        $filter = new FilterUserEvent();
+        $filter = new FilterUserEvenement();
         $filter
             ->setUsers($societeUsers)
             ->setEventTypes(Evenement::EVENEMENT_TYPES)
@@ -91,7 +91,7 @@ class EvenementController extends AbstractController
 
         $societeUsers = $societeUserRepository->findTeamMembers($this->userContext->getSocieteUser());
 
-        $filter = new FilterUserEvent();
+        $filter = new FilterUserEvenement();
         $filter
             ->setUsers($societeUsers)
             ->setEventTypes(Evenement::EVENEMENT_TYPES)

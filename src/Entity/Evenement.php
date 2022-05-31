@@ -31,6 +31,8 @@ class Evenement implements HasSocieteInterface
         self::TYPE_ABSENCE
     ];
 
+    private const EVENEMENT_TYPES_UPDATE_CRA = [self::TYPE_ABSENCE];
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -91,6 +93,11 @@ class Evenement implements HasSocieteInterface
      * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="evenements")
      */
     private $projet;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $autoUpdateCra;
 
     public function __construct()
     {
@@ -172,6 +179,26 @@ class Evenement implements HasSocieteInterface
         return $this->evenementParticipants;
     }
 
+    /**
+     * @return Collection|EvenementParticipant[]
+     */
+    public function getRequiredEvenementParticipants(): Collection
+    {
+        return $this->evenementParticipants->filter(function (EvenementParticipant $evenementParticipant){
+            return $evenementParticipant->getRequired() === true;
+        });
+    }
+
+    /**
+     * @return Collection|EvenementParticipant[]
+     */
+    public function getNotRequiredEvenementParticipants(): Collection
+    {
+        return $this->evenementParticipants->filter(function (EvenementParticipant $evenementParticipant){
+            return $evenementParticipant->getRequired() === false;
+        });
+    }
+
     public function addEvenementParticipant(EvenementParticipant $evenementParticipant): self
     {
         if (!$this->evenementParticipants->contains($evenementParticipant)) {
@@ -243,6 +270,18 @@ class Evenement implements HasSocieteInterface
     public function setProjet(?Projet $projet): self
     {
         $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getAutoUpdateCra(): ?bool
+    {
+        return $this->autoUpdateCra && in_array($this->type, self::EVENEMENT_TYPES_UPDATE_CRA);
+    }
+
+    public function setAutoUpdateCra(bool $autoUpdateCra): self
+    {
+        $this->autoUpdateCra = $autoUpdateCra;
 
         return $this;
     }

@@ -24,6 +24,7 @@
 .dhx_multi_select_control input {
     vertical-align: middle;
     top: -1px;
+    margin-right: 5px;
 }
 .dhx_multi_select_control label {
     margin-right: 12px;
