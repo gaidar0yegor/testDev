@@ -68,14 +68,19 @@
 
 <hr>
 
-{% if participation %}
 <h4>{{ "next_projet_events"|trans }}</h4>
 
 <ul class="next-projet-events list-unstyled">
-    {% for nextProjetEventParticipant in participation.nextProjetEventParticipants(4) %}
+    {% for nextEvenement in nextEvenements %}
         <li>
-            <a href="{{ path('app_fo_projet_events', { 'projetId' : projet.id , 'event' : nextProjetEventParticipant.projetEvent.id }) }}"><strong>{{ nextProjetEventParticipant.projetEvent.text }}</strong></a><br>
-            <small><i>{{ nextProjetEventParticipant.projetEvent.startDate | date('d/m/Y H:i') }}</i></small>
+            <a href="{{ path('app_fo_projet_evenements', { 'id' : projet.id , 'event' : nextEvenement.id }) }}">
+                <strong>{{ nextEvenement.text }}</strong>
+            </a>
+            {% if participation and participation.societeUser.isInvitedToEvenement(nextEvenement) %}
+                <span class="badge badge-info ml-1">{{ 'invited'|trans }}</span>
+            {% endif %}
+            <br>
+            <small><i>{{ nextEvenement.startDate | date('d/m/Y H:i') }}</i></small>
         </li>
     {% else %}
         <p class="text-muted">
@@ -85,8 +90,8 @@
         </p>
     {% endfor %}
 </ul>
+
 <hr>
-{% endif %}
 
 <a
     href="{{ path('app_fo_projet_participant', {'id': projet.id}) }}"

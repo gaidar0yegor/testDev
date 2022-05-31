@@ -91,11 +91,20 @@
         "information": "Information",
 
         "select_all": "Select All",
-        "created_by": "Created by"
+        "created_by": "Created by",
+        "projet": "Project"
     },
     "alerts":
     {
         "title_is_too_long": "Title is too long",
-        "title_must_not_be_empty": "Title must not be empty"
+        "title_must_not_be_empty": "Title must not be empty",
+        "minimum_invitation_is_required": "A minimum invitation is required"
+    },
+    "types":
+    {
+        "MEETING": "Meeting",
+        "EVENT": "Event",
+        "ABSENCE": "Absence",
+        "OTHER": "Other"
     }
 }

@@ -35,6 +35,7 @@ Encore
   .addEntry("users-list", "./assets/users-list.js")
   .addEntry("projet-gantt", "./assets/projet-gantt.js")
   .addEntry("projet-events-calendar", "./assets/projet-events-calendar.js")
+  .addEntry("users-events-calendar", "./assets/users-events-calendar.js")
   .addEntry("bo-dashboard", "./assets/bo-dashboard.js")
 
   .addPlugin(

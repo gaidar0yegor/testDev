@@ -27,8 +27,14 @@
     }
 
     .dropdown-toggle {
+        text-decoration: none;
+
         &::after {
             display: none;
+        }
+
+        .badge{
+            margin-left: -10px;
         }
     }
 

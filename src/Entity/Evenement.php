@@ -3,26 +3,35 @@
 namespace App\Entity;
 
 use App\HasSocieteInterface;
-use App\ProjetResourceInterface;
-use App\Repository\ProjetEventRepository;
+use App\Repository\EvenementRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=ProjetEventRepository::class)
+ * @ORM\Entity(repositoryClass=EvenementRepository::class)
  */
-class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
+class Evenement implements HasSocieteInterface
 {
     const TYPE_MEETING = 'MEETING';
     const TYPE_EVENT = 'EVENT';
+    const TYPE_ABSENCE = 'ABSENCE';
     const TYPE_OTHER = 'OTHER';
-    const EVENT_TYPES = [
+
+    const EVENEMENT_TYPES = [...self::PROJET_EVENEMENT_TYPES, ...self::SOCIETE_USER_EVENEMENT_TYPES];
+
+    const PROJET_EVENEMENT_TYPES = [
         self::TYPE_MEETING,
         self::TYPE_EVENT,
         self::TYPE_OTHER
     ];
+
+    const SOCIETE_USER_EVENEMENT_TYPES = [
+        self::TYPE_ABSENCE
+    ];
+
+    private const EVENEMENT_TYPES_UPDATE_CRA = [self::TYPE_ABSENCE];
 
     /**
      * @ORM\Id
@@ -52,26 +61,20 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
     private $endDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="projetEvents")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $projet;
-
-    /**
      * @ORM\Column(type="string", length=100)
      *
      * @Assert\NotBlank()
-     * @Assert\Choice(choices=self::EVENT_TYPES, message="Choose a valid type.")
+     * @Assert\Choice(choices=self::EVENEMENT_TYPES, message="Choose a valid type.")
      */
     private $type;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetEventParticipant::class, mappedBy="projetEvent", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OneToMany(targetEntity=EvenementParticipant::class, mappedBy="evenement", orphanRemoval=true, cascade={"persist"})
      */
-    private $projetEventParticipants;
+    private $evenementParticipants;
 
     /**
-     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="createdProjetEvents")
+     * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="createdEvenements")
      * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;
@@ -86,9 +89,19 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
      */
     private $location;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Projet::class, inversedBy="evenements")
+     */
+    private $projet;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $autoUpdateCra;
+
     public function __construct()
     {
-        $this->projetEventParticipants = new ArrayCollection();
+        $this->evenementParticipants = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->type = self::TYPE_MEETING;
     }
@@ -146,18 +159,6 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
         return $this;
     }
 
-    public function getProjet(): Projet
-    {
-        return $this->projet;
-    }
-
-    public function setProjet(?Projet $projet): self
-    {
-        $this->projet = $projet;
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
@@ -171,29 +172,49 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
     }
 
     /**
-     * @return Collection|ProjetEventParticipant[]
+     * @return Collection|EvenementParticipant[]
      */
-    public function getProjetEventParticipants(): Collection
+    public function getEvenementParticipants(): Collection
     {
-        return $this->projetEventParticipants;
+        return $this->evenementParticipants;
     }
 
-    public function addProjetEventParticipant(ProjetEventParticipant $projetEventParticipant): self
+    /**
+     * @return Collection|EvenementParticipant[]
+     */
+    public function getRequiredEvenementParticipants(): Collection
     {
-        if (!$this->projetEventParticipants->contains($projetEventParticipant)) {
-            $this->projetEventParticipants[] = $projetEventParticipant;
-            $projetEventParticipant->setProjetEvent($this);
+        return $this->evenementParticipants->filter(function (EvenementParticipant $evenementParticipant){
+            return $evenementParticipant->getRequired() === true;
+        });
+    }
+
+    /**
+     * @return Collection|EvenementParticipant[]
+     */
+    public function getNotRequiredEvenementParticipants(): Collection
+    {
+        return $this->evenementParticipants->filter(function (EvenementParticipant $evenementParticipant){
+            return $evenementParticipant->getRequired() === false;
+        });
+    }
+
+    public function addEvenementParticipant(EvenementParticipant $evenementParticipant): self
+    {
+        if (!$this->evenementParticipants->contains($evenementParticipant)) {
+            $this->evenementParticipants[] = $evenementParticipant;
+            $evenementParticipant->setEvenement($this);
         }
 
         return $this;
     }
 
-    public function removeProjetEventParticipant(ProjetEventParticipant $projetEventParticipant): self
+    public function removeEvenementParticipant(EvenementParticipant $evenementParticipant): self
     {
-        if ($this->projetEventParticipants->removeElement($projetEventParticipant)) {
+        if ($this->evenementParticipants->removeElement($evenementParticipant)) {
             // set the owning side to null (unless already changed)
-            if ($projetEventParticipant->getProjetEvent() === $this) {
-                $projetEventParticipant->setProjetEvent(null);
+            if ($evenementParticipant->getEvenement() === $this) {
+                $evenementParticipant->setEvenement(null);
             }
         }
 
@@ -214,12 +235,7 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
 
     public function getSociete(): ?Societe
     {
-        return $this->getProjet()->getSociete();
-    }
-
-    public function getOwner(): SocieteUser
-    {
-        return $this->createdBy;
+        return $this->createdBy->getSociete();
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -242,6 +258,30 @@ class ProjetEvent implements ProjetResourceInterface, HasSocieteInterface
     public function setLocation(?string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getProjet(): ?Projet
+    {
+        return $this->projet;
+    }
+
+    public function setProjet(?Projet $projet): self
+    {
+        $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getAutoUpdateCra(): ?bool
+    {
+        return $this->autoUpdateCra && in_array($this->type, self::EVENEMENT_TYPES_UPDATE_CRA);
+    }
+
+    public function setAutoUpdateCra(bool $autoUpdateCra): self
+    {
+        $this->autoUpdateCra = $autoUpdateCra;
 
         return $this;
     }

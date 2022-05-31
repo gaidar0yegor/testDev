@@ -179,9 +179,9 @@ class Projet implements HasSocieteInterface
     private $budgetEuro;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetEvent::class, mappedBy="projet", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="projet")
      */
-    private $projetEvents;
+    private $evenements;
 
     public function __construct()
     {
@@ -202,7 +202,7 @@ class Projet implements HasSocieteInterface
         $this->rdiDomains = new ArrayCollection();
         $this->annualRdiScores = [];
         $this->projetBudgetExpenses = new ArrayCollection();
-        $this->projetEvents = new ArrayCollection();
+        $this->evenements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -891,29 +891,29 @@ class Projet implements HasSocieteInterface
     }
 
     /**
-     * @return Collection|ProjetEvent[]
+     * @return Collection|Evenement[]
      */
-    public function getProjetEvents(): Collection
+    public function getEvenements(): Collection
     {
-        return $this->projetEvents;
+        return $this->evenements;
     }
 
-    public function addProjetEvent(ProjetEvent $projetEvent): self
+    public function addEvenement(Evenement $evenement): self
     {
-        if (!$this->projetEvents->contains($projetEvent)) {
-            $this->projetEvents[] = $projetEvent;
-            $projetEvent->setProjet($this);
+        if (!$this->evenements->contains($evenement)) {
+            $this->evenements[] = $evenement;
+            $evenement->setProjet($this);
         }
 
         return $this;
     }
 
-    public function removeProjetEvent(ProjetEvent $projetEvent): self
+    public function removeEvenement(Evenement $evenement): self
     {
-        if ($this->projetEvents->removeElement($projetEvent)) {
+        if ($this->evenements->removeElement($evenement)) {
             // set the owning side to null (unless already changed)
-            if ($projetEvent->getProjet() === $this) {
-                $projetEvent->setProjet(null);
+            if ($evenement->getProjet() === $this) {
+                $evenement->setProjet(null);
             }
         }
 

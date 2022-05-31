@@ -15,59 +15,61 @@
                 {% include '_menu_horizontal_no_societe.html.twig' %}
             {% endif %}
 
-            {% if app.user.currentSocieteUser %}
-            <div class="btn-group user-menu ml-2">
-                <a href="#" style="{{ userContext|apply_code_color_societe('background-color') }}" class="btn btn-outline-light border-0 dropdown-toggle dropdown-societe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {% include 'utils/_avatar.html.twig' with {societe: app.user.currentSocieteUser.societe, size: 24} %}
-                    {{ app.user.currentSocieteUser.societe.raisonSociale }}
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg-right">
-                    {% for societeUser in app.user.societeUsers|slice(0, 3) %}
-                        <form action="{{ path('app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
-                            <button type="submit" class="dropdown-item btn-outline-light border-0 pl-3 {{ societeUser.enabled ? '' : 'disabled' }}">
-                                {% include 'utils/_avatar.html.twig' with {societe: societeUser.societe, size: 20} %}
-                                {{ societeUser.societe.raisonSociale }}
-                            </button>
-                        </form>
-                    {% endfor %}
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item {{ activeOn('app_fo_multi_societe_switch') }}"
-                       href="{{ path('app_fo_multi_societe_switch') }}">
-                        {{ 'see_more'|trans }}
-                    </a>
-                </div>
-            </div>
-            {% endif %}
+            <div class="d-sm-inline d-flex flex-row flex-wrap justify-content-start align-items-start">
+                {% if app.user.currentSocieteUser %}
+                    <div class="btn-group user-menu ml-2">
+                        <a href="#" style="{{ userContext|apply_code_color_societe('background-color') }}" class="btn btn-outline-light border-0 dropdown-toggle dropdown-societe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% include 'utils/_avatar.html.twig' with {societe: app.user.currentSocieteUser.societe, size: 24} %}
+                            {{ app.user.currentSocieteUser.societe.raisonSociale }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right">
+                            {% for societeUser in app.user.societeUsers|slice(0, 3) %}
+                                <form action="{{ path('app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
+                                    <button type="submit" class="dropdown-item btn-outline-light border-0 pl-3 {{ societeUser.enabled ? '' : 'disabled' }}">
+                                        {% include 'utils/_avatar.html.twig' with {societe: societeUser.societe, size: 20} %}
+                                        {{ societeUser.societe.raisonSociale }}
+                                    </button>
+                                </form>
+                            {% endfor %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item {{ activeOn('app_fo_multi_societe_switch') }}"
+                               href="{{ path('app_fo_multi_societe_switch') }}">
+                                {{ 'see_more'|trans }}
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
 
-            <div class="btn-group user-menu ml-2">
-                <a href="#" class="btn btn-outline-light border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    {% include 'utils/_avatar.html.twig' with {user: app.user, size: 24} %}
-                    {{ app.user.prenom }}
-                </a>
-                <div class="dropdown-menu dropdown-menu-lg-right">
-                    {% if is_granted('ROLE_BO_USER') %}
+                <div class="btn-group user-menu ml-2">
+                    <a href="#" class="btn btn-outline-light border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% include 'utils/_avatar.html.twig' with {user: app.user, size: 24} %}
+                        {{ app.user.prenom }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right">
+                        {% if is_granted('ROLE_BO_USER') %}
+                            <a
+                                    class="dropdown-item back-office-link {{ activeOn('app_bo_home') }}"
+                                    href="{{ path('app_bo_home') }}"
+                            >
+                                <i class="fa fa-rocket" aria-hidden="true"></i>{{ 'back_office'|trans }}
+                                <span class="badge notif-badge bg-danger rounded-circle mt-1 float-right" style="display: none;width: 10px;height: 10px;"></span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
                         <a
-                            class="dropdown-item back-office-link {{ activeOn('app_bo_home') }}"
-                            href="{{ path('app_bo_home') }}"
+                                class="dropdown-item {{ activeOn('app_fo_mon_compte') }}"
+                                href="{{ path('app_fo_mon_compte') }}"
                         >
-                            <i class="fa fa-rocket" aria-hidden="true"></i>{{ 'back_office'|trans }}
-                            <span class="badge notif-badge bg-danger rounded-circle mt-1 float-right" style="display: none;width: 10px;height: 10px;"></span>
+                            <i class="fa fa-user" aria-hidden="true"></i>{{ 'my_account'|trans }}
                         </a>
                         <div class="dropdown-divider"></div>
-                    {% endif %}
-                    <a
-                        class="dropdown-item {{ activeOn('app_fo_mon_compte') }}"
-                        href="{{ path('app_fo_mon_compte') }}"
-                    >
-                        <i class="fa fa-user" aria-hidden="true"></i>{{ 'my_account'|trans }}
-                    </a>
-                    <div class="dropdown-divider"></div>
-                    <a
-                        class="dropdown-item"
-                        href="{{ path('app_logout') }}"
-                    >
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>{{ 'logout'|trans }}
-                    </a>
+                        <a
+                                class="dropdown-item"
+                                href="{{ path('app_logout') }}"
+                        >
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>{{ 'logout'|trans }}
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

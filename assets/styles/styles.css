@@ -132,12 +132,6 @@ table thead tr {
   background-color: #ce352c;
   color: white;
 }
-table tbody tr {
-  background-color: #ffffff !important;
-}
-table tbody tr.dtrg-group {
-  background-color: #e6e6e6 !important;
-}
 table.light tbody tr {
   background-color: #ffffff;
 }

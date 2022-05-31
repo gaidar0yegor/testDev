@@ -99,6 +99,12 @@
             </a>
             <div class="dropdown-divider"></div>
             <a
+                    class="dropdown-item {{ activeOn('app_fo_users_events') }}"
+                    href="{{ path('app_fo_users_events') }}"
+            >
+                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.admin.events_calendar'|trans }}
+            </a>
+            <a
                 class="dropdown-item {{ activeOn('app_fo_admin_cra_validation') }}"
                 href="{{ path('app_fo_admin_cra_validation') }}"
             >
@@ -160,6 +166,12 @@
             </a>
             <div class="dropdown-divider"></div>
             <a
+                    class="dropdown-item {{ activeOn('app_fo_users_events') }}"
+                    href="{{ path('app_fo_equipe_users_events') }}"
+            >
+                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.admin.events_calendar'|trans }}
+            </a>
+            <a
                 class="dropdown-item {{ activeOn('app_fo_mon_equipe_cra_validation') }}"
                 href="{{ path('app_fo_mon_equipe_cra_validation') }}"
             >
@@ -175,6 +187,26 @@
     </li>
     {% endif %}
 </ul>
+
+<div class="dropdown user-events-notifications-list d-inline-block">
+    <a
+            href="#"
+            class="text-light dropdown-toggle"
+            role="button"
+            id="dropdownEventsNotifications"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+    >
+        <i class="fa fa-lg fa-calendar-o mb-3 mb-lg-0" aria-hidden="true"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownEventsNotifications">
+        <a href="{{ path('app_fo_current_user_events') }}" class="badge badge-primary p-1 float-right mr-2" style="margin-bottom: -20px;">{{ 'my_calendar'|trans }}</a>
+        <div class="events-dropdown-scroll events-notification-container w-100">
+            <span class="dropdown-item disabled mt-3"><small>{{ 'loading'|trans }}</small></span>
+        </div>
+    </div>
+</div>
 
 <div class="d-inline-block">
     <a id="reviewHelpText" href="#" class="text-light text-info mr-2 d-inline-block">
