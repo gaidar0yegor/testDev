@@ -35,3 +35,56 @@
         font-size: 0.95rem;
     }
 }
+#my_contributions {
+    .card{
+        background: #fff;
+        padding: 10px 20px;
+        border-radius: 100px;
+        box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
+        margin: 10px 0;
+
+        .content{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .details{
+            text-align: right;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            div{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                margin-right: 30px;
+            }
+        }
+
+        a{
+            pointer-events: none;
+            text-decoration: none;
+            padding: 7px 18px;
+            border-radius: 25px;
+            color: #fff;
+            background: linear-gradient(to right, #bea2e7 50%, #86b7e7 50%);
+            background-size: 200% 100%;
+            background-position: right bottom;
+            transition: all .5s ease-out;
+        }
+
+        &:hover a{
+            background-position: left bottom;
+        }
+    }
+
+    table{
+        text-align: center;
+        width: 100%;
+    }
+}
