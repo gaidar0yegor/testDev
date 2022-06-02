@@ -15,6 +15,13 @@ interface ActivityInterface
     public static function getType(): string;
 
     /**
+     * Returns the filter type to render the activities with filter
+     * in the dashboard
+     * @return string
+     */
+    public static function getFilterType(): string;
+
+    /**
      * Returns displayable text for this activity.
      *
      * @param array $activityParameters Parameters stored in Activity::$parameters

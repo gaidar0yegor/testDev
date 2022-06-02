@@ -1,48 +1,55 @@
 import $ from 'jquery';
-import {initOwlCarousel} from "../owl-carousel";
 
 $(() => {
-    if (!window['recents-projets']) {
+    if (!window['last_activities']) {
         return;
     }
 
-    const createProjetPath = id => window['recents-projets'].dataset.urlProjet.replace('0', id);
+    const createProjetPath = id => window['last_activities'].dataset.urlProjet.replace('0', id);
 
     fetch('/api/dashboard/recents-projets')
         .then(response => response.json())
-        .then(({recentsProjets}) => {
-            if (0 === recentsProjets.length) {
+        .then(({lastActivities}) => {
+            if (0 === lastActivities.length) {
                 return;
             }
 
-            const $wrapper = $('#recents-projets');
-            const $cards = $('<div class="owl-carousel owl-theme">');
+            const $renderContent = $('#last_activities .activities-content');
 
-            $wrapper.append($cards);
+            lastActivities.forEach(activity => {
+                const projetPath = createProjetPath(activity.projetId);
 
-            recentsProjets.forEach(projet => {
-                const projetPath = createProjetPath(projet.id);
-
-                const $projet = $(`
-                    <div class="item card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="${projetPath}">${projet.acronyme}</a>
-                                <span class="badge d-inline-block rounded-circle mt-1 float-right" style="background-color: ${projet.colorCode};width: 15px;height: 15px;"></span>
-                            </h5>
-                            <ul class="list-unstyled">${projet.activity}</ul>
-                            <div class="card-footer">
-                                <small><i>${projet.datetime}</i></small>
-                            </div>
+                const $activity = $(`                                    
+                    <div class="activity-item" data-filter-type="${activity.filterType}">
+                        <div class="left-border" style="background-color: ${activity.colorCode};"></div>
+                        <div>
+                            <span><i>${activity.datetime}</i></span> | 
+                            <a class="projet_acronyme" href="${projetPath}">${activity.acronyme}</a>
+                        </div>
+                        <div>
+                          <ul class="list-unstyled">${activity.activity}</ul>
                         </div>
                     </div>
                 `);
 
-                $cards.append($projet);
+                $renderContent.append($activity);
             });
+        });
 
-            initOwlCarousel($cards);
-        })
-    ;
+    $(document).on('click', 'p[data-target-filter-type]', function (e) {
+        let targetFilterType = e.target.dataset.targetFilterType;
+        $('p[data-target-filter-type]').removeClass('active');
+        $(this).addClass('active');
+
+        if (targetFilterType){
+            $('.activity-item').hide();
+            $(`.activity-item[data-filter-type='${targetFilterType}']`).show();
+
+        } else {
+            $('.activity-item').show();
+        }
+
+        $("#last_activities .activities-content").animate({scrollTop:0});
+    })
 });
 

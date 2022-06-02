@@ -49,6 +49,11 @@ class FaitMarquantRestoredActivity implements ActivityInterface, EventSubscriber
         return 'fait_marquant_restored';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'fait_marquant';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

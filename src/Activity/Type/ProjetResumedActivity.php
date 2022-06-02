@@ -33,6 +33,11 @@ class ProjetResumedActivity implements ActivityInterface
         return 'projet_resumed';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'projet';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

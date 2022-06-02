@@ -22,9 +22,15 @@ class AdminEjectUser implements ActivityInterface
         $this->entityLinkService = $entityLinkService;
         $this->userContext = $userContext;
     }
+
     public static function getType(): string
     {
         return 'admin_eject_user';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'societe_user';
     }
 
     public function configureOptions(OptionsResolver $resolver): void

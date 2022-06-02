@@ -44,6 +44,11 @@ class FichierProjetAddedActivity implements ActivityInterface, EventSubscriberIn
         return 'fichier_projet_added';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'fichier_projet';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

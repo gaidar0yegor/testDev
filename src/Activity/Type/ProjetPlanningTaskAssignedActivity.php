@@ -19,7 +19,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ProjetParticipantTaskAssigned implements ActivityInterface, EventSubscriberInterface
+class ProjetPlanningTaskAssignedActivity implements ActivityInterface, EventSubscriberInterface
 {
     private EntityManagerInterface $em;
 
@@ -45,10 +45,14 @@ class ProjetParticipantTaskAssigned implements ActivityInterface, EventSubscribe
         $this->translator = $translator;
     }
 
-
     public static function getType(): string
     {
-        return 'projet_participant_task_assigned';
+        return 'projet_planning_task_assigned';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'projet_planning';
     }
 
     public function configureOptions(OptionsResolver $resolver): void

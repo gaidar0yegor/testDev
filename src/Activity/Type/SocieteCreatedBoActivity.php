@@ -25,6 +25,11 @@ class SocieteCreatedBoActivity implements ActivityInterface
         return 'bo_societe_created';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'back_office';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

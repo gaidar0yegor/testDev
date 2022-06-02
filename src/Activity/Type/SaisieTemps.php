@@ -48,6 +48,11 @@ class SaisieTemps implements ActivityInterface, EventSubscriberInterface
         return 'saisie_temps';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'saisie_temps';
+    }
+
     public function render(array $activityParameters, Activity $activity): string
     {
         $month = $this->formatter->format(DateTime::createFromFormat('Y-m', $activityParameters['month']));

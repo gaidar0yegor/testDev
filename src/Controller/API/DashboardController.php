@@ -75,24 +75,24 @@ class DashboardController extends AbstractController
     public function getRecentsProjets(
         UserContext $userContext,
         ProjetActivityRepository $projetActivityRepository,
-        ActivityService $activityService,
-        NormalizerInterface $normalizer
+        ActivityService $activityService
     ): JsonResponse {
-        $lastProjetActivities = $projetActivityRepository->findBySocieteUser($userContext->getSocieteUser());
+        $lastProjetActivities = $projetActivityRepository->findBySocieteUser($userContext->getSocieteUser(), 100);
         $normalizedLastProjetActivities = [];
 
         foreach ($lastProjetActivities as $key => $projetActivity) {
             if ($projetActivity instanceof ProjetActivity)
             array_push($normalizedLastProjetActivities,[
-                "id" => $projetActivity->getProjet()->getId(),
+                "projetId" => $projetActivity->getProjet()->getId(),
                 "acronyme" => $projetActivity->getProjet()->getAcronyme(),
                 "colorCode" => $projetActivity->getProjet()->getColorCode(),
                 "activity" => $activityService->render($projetActivity->getActivity()),
+                "filterType" => $activityService->getFilterType($projetActivity->getActivity()),
                 "datetime" => $projetActivity->getActivity()->getDatetime()->format('d/m/Y H:i'),
             ]);
         }
 
-        return new JsonResponse(['recentsProjets' => $normalizedLastProjetActivities]);
+        return new JsonResponse(['lastActivities' => $normalizedLastProjetActivities]);
     }
 
     /**
