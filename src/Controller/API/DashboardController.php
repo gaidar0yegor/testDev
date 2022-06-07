@@ -92,7 +92,7 @@ class DashboardController extends AbstractController
             ]);
         }
 
-        return new JsonResponse(['lastActivities' => $normalizedLastProjetActivities]);
+        return new JsonResponse(['recentsProjets' => $normalizedLastProjetActivities]);
     }
 
     /**
