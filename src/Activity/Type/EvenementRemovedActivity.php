@@ -36,6 +36,11 @@ class EvenementRemovedActivity implements ActivityInterface
         return 'evenement_removed';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'evenement';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

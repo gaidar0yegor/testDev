@@ -36,6 +36,11 @@ class FaitMarquantModifiedActivity implements ActivityInterface
         return 'fait_marquant_modified';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'fait_marquant';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

@@ -25,6 +25,11 @@ class UserQuitteSociete implements ActivityInterface
         return 'user_quitte_societe';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'societe_user';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

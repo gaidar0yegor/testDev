@@ -32,6 +32,11 @@ class ProjetPlanningCreatedActivity implements ActivityInterface
         return 'projet_planning_created';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'projet_planning';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

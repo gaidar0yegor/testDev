@@ -34,7 +34,12 @@ class PlanningTaskCompleted implements ActivityInterface
 
     public static function getType(): string
     {
-        return 'planning_task_completed';
+        return 'projet_planning_task_completed';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'projet_planning';
     }
 
     public function configureOptions(OptionsResolver $resolver): void

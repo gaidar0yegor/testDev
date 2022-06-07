@@ -17,6 +17,11 @@ class TestActivityType implements ActivityInterface
         return '_test';
     }
 
+    public static function getFilterType(): string
+    {
+        return '_test';
+    }
+
     public function render(array $activityParameters, Activity $activity): string
     {
         return 'activity_'.$activity->getId();

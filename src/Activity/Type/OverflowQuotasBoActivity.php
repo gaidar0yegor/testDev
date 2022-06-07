@@ -32,6 +32,11 @@ class OverflowQuotasBoActivity implements ActivityInterface, EventSubscriberInte
         return 'bo_overflow_quotas';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'back_office';
+    }
+
     public function render(array $activityParameters, Activity $activity): string
     {
         return sprintf(

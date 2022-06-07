@@ -31,7 +31,12 @@ class PlanningTaskNotCompleted implements ActivityInterface, EventSubscriberInte
 
     public static function getType(): string
     {
-        return 'planning_task_not_completed';
+        return 'projet_planning_task_not_completed';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'projet_planning';
     }
 
     public function render(array $activityParameters, Activity $activity): string

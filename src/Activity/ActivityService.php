@@ -81,4 +81,13 @@ class ActivityService
             ->render($activity->getParameters(), $activity)
         ;
     }
+
+    /**
+     * Returns le type de l'activiter pour le filtre du tableau de bord
+     */
+    public function getFilterType(Activity $activity): string
+    {
+        return $this
+            ->loadActivityType($activity->getType())::getFilterType();
+    }
 }

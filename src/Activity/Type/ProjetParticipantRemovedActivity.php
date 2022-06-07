@@ -10,17 +10,15 @@ use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
 use App\Entity\SocieteUserNotification;
-use App\Notification\Event\ProjetParticipantAddedEvent;
-use App\Security\Role\RoleProjet;
+use App\Notification\Event\ProjetParticipantRemovedEvent;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
-class ProjetParticipantAdded implements ActivityInterface, EventSubscriberInterface
+class ProjetParticipantRemovedActivity implements ActivityInterface, EventSubscriberInterface
 {
     private EntityManagerInterface $em;
 
@@ -30,26 +28,27 @@ class ProjetParticipantAdded implements ActivityInterface, EventSubscriberInterf
 
     private UrlGeneratorInterface $urlGenerator;
 
-    private TranslatorInterface $translator;
-
     public function __construct(
         EntityManagerInterface $em,
         EntityLinkService $entityLinkService,
         UserContext $userContext,
-        UrlGeneratorInterface $urlGenerator,
-        TranslatorInterface $translator
+        UrlGeneratorInterface $urlGenerator
     ) {
         $this->em = $em;
         $this->entityLinkService = $entityLinkService;
         $this->userContext = $userContext;
         $this->urlGenerator = $urlGenerator;
-        $this->translator = $translator;
     }
 
 
     public static function getType(): string
     {
-        return 'projet_participant_added';
+        return 'projet_participant_removed';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'projet';
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -57,41 +56,37 @@ class ProjetParticipantAdded implements ActivityInterface, EventSubscriberInterf
         $resolver->setRequired([
             'projet',
             'participant',
-            'role',
-            'addedBy',
+            'removedBy',
         ]);
 
         $resolver->setAllowedTypes('projet', 'integer');
         $resolver->setAllowedTypes('participant', 'integer');
-        $resolver->setAllowedTypes('role', 'string');
-        $resolver->setAllowedTypes('addedBy', 'integer');
+        $resolver->setAllowedTypes('removedBy', 'integer');
     }
 
     public function render(array $activityParameters, Activity $activity): string
     {
         return sprintf(
-            "%s %s a rejoint le projet %s en tant que %s, invité par %s.",
-            '<i class="fa fa-user-plus" aria-hidden="true"></i>',
+            "%s %s n'est plus sur le projet %s, retiré par %s.",
+            '<i class="fa fa-trash" aria-hidden="true"></i>',
             $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['participant']),
             $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet']),
-            $this->translator->trans($activityParameters['role']),
-            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['addedBy'])
+            $this->entityLinkService->generateLink(SocieteUser::class, $activityParameters['removedBy'])
          );
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            ProjetParticipantAddedEvent::class => 'createActivity',
+            ProjetParticipantRemovedEvent::class => 'createActivity',
         ];
     }
 
-    public function createActivity(ProjetParticipantAddedEvent $event): void
+    public function createActivity(ProjetParticipantRemovedEvent $event): void
     {
-        $projetParticipant = $event->getProjetParticipant();
         $projet = $event->getProjet();
         $participant = $event->getSocieteUser();
-        $addedBy = $this->userContext->getSocieteUser();
+        $removedBy = $this->userContext->getSocieteUser();
 
         $activity = new Activity();
         $activity
@@ -99,8 +94,7 @@ class ProjetParticipantAdded implements ActivityInterface, EventSubscriberInterf
             ->setParameters([
                 'projet' => intval($projet->getId()),
                 'participant' => intval($participant->getId()),
-                'role' => $projetParticipant->getRole(),
-                'addedBy' => intval($addedBy->getId()),
+                'removedBy' => intval($removedBy->getId()),
             ])
         ;
 
@@ -122,22 +116,5 @@ class ProjetParticipantAdded implements ActivityInterface, EventSubscriberInterf
         $this->em->persist($projetActivity);
         $this->em->persist($societeUserActivity);
         $this->em->persist($societeUserNotification);
-        $this->addAccessesFichierProjet($projet, $projetParticipant);
-    }
-
-    private function addAccessesFichierProjet(Projet $projet, ProjetParticipant $projetParticipant)
-    {
-        foreach ($projet->getFichierProjets() as $fichierProjet) {
-            $accessChoices = $fichierProjet->getAccessesChoices();
-            if (
-                empty($accessChoices) || in_array('all', $accessChoices) ||
-                (in_array(RoleProjet::CDP, $accessChoices) && RoleProjet::CDP === $projetParticipant->getRole()) ||
-                (in_array(RoleProjet::CONTRIBUTEUR, $accessChoices) && RoleProjet::CONTRIBUTEUR === $projetParticipant->getRole()) ||
-                (in_array(RoleProjet::OBSERVATEUR, $accessChoices) && RoleProjet::OBSERVATEUR === $projetParticipant->getRole())
-            ) {
-                $fichierProjet->addSocieteUser($projetParticipant->getSocieteUser());
-                $this->em->persist($fichierProjet);
-            }
-        }
     }
 }

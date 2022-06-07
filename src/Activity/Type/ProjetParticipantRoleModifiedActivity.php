@@ -39,9 +39,15 @@ class ProjetParticipantRoleModifiedActivity implements ActivityInterface
         $this->userContext = $userContext;
         $this->translator = $translator;
     }
+
     public static function getType(): string
     {
         return 'projet_participant_role_modified';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'projet';
     }
 
     public function configureOptions(OptionsResolver $resolver): void

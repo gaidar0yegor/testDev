@@ -30,6 +30,11 @@ class EvenementCreatedActivity implements ActivityInterface
         return 'evenement_created';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'evenement';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

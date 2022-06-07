@@ -21,7 +21,7 @@ $(() => {
             $wrapper.append($cards);
 
             recentsProjets.forEach(projet => {
-                const projetPath = createProjetPath(projet.id);
+                const projetPath = createProjetPath(projet.projetId);
 
                 const $projet = $(`
                     <div class="item card">

@@ -33,6 +33,11 @@ class ProjetSuspendedActivity implements ActivityInterface
         return 'projet_suspended';
     }
 
+    public static function getFilterType(): string
+    {
+        return 'projet';
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([

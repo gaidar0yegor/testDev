@@ -12,6 +12,11 @@ class FallbackActivityType implements ActivityInterface
         return '_fallback';
     }
 
+    public static function getFilterType(): string
+    {
+        return '_fallback';
+    }
+
     public function render(array $activityParameters, Activity $activity): string
     {
         $activityType = $activity->getType();

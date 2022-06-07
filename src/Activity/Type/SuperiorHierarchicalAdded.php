@@ -27,10 +27,14 @@ class SuperiorHierarchicalAdded implements ActivityInterface, EventSubscriberInt
         $this->entityLinkService = $entityLinkService;
     }
 
-
     public static function getType(): string
     {
         return 'superior_hierarchical_added';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'societe_user';
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -31,7 +31,12 @@ class UserMentionedFaitMarquantActivity implements ActivityInterface
 
     public static function getType(): string
     {
-        return 'user_mentioned_fait_marquant';
+        return 'fait_marquant_user_mentioned';
+    }
+
+    public static function getFilterType(): string
+    {
+        return 'fait_marquant';
     }
 
     public function configureOptions(OptionsResolver $resolver): void
