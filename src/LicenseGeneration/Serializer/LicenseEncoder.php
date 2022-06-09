@@ -35,7 +35,7 @@ class LicenseEncoder implements EncoderInterface
 
         $crypted = $this->encryption->privateEncrypt($jsonLicense);
 
-        $encodedLicense = $this->twig->render('license/license.txt.twig', [
+        $encodedLicense = $this->twig->render('corp_app/license/license.txt.twig', [
             'license' => $data,
             'separator' => self::SEPARATOR,
             'rawData' => $crypted,

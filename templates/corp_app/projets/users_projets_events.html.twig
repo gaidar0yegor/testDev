@@ -1,0 +1,75 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.admin.events_calendar'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>
+        {{ 'menu.admin.events_calendar'|trans }}
+    </h1>
+
+    {% if
+        forTeamMembers is not defined and
+        userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) and
+        userContext.societeUser.isSuperiorFo
+    %}
+        <p>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            {{ 'as_superior_i_can_also_access_team_calendar'|trans({
+                '%link_start%': '<a href="' ~ path('app_fo_equipe_users_events') ~ '">',
+                '%link_end%': '</a>'
+            })|raw }}
+        </p>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-lg-3 col-md-4 col-sm-12">
+            {{ form_start(form) }}
+
+            <div class="w-100 mb-4">
+                {{ form_label(form.users) }}
+                <div class="form-check p-0">
+                    <input type="checkbox" id="select-all-users" checked/>
+                    <label for="select-all-users">{{ 'select_unselect_all'|trans }}</label>
+                </div>
+                <hr class="mt-1 mb-3">
+                {{ form_widget(form.users) }}
+            </div>
+
+            {{ form_row(form.eventTypes) }}
+            {{ form_row(form.submit) }}
+
+            {{ form_end(form) }}
+        </div>
+        <div class="col-lg-9 col-md-8 col-sm-12">
+            <div class="tab-pane active" id="tab-calendar">
+                <div id="societe_users_events_calendar" class="dhx_cal_container" data-societe-user-id="{{ userContext.societeUser.id }}">
+                    <div class="dhx_cal_navline">
+                        <div class="dhx_cal_prev_button">&nbsp;</div>
+                        <div class="dhx_cal_next_button">&nbsp;</div>
+                        <div class="dhx_cal_today_button"></div>
+                        <div class="dhx_cal_date"></div>
+                        <div class="dhx_cal_tab" name="day_tab"></div>
+                        <div class="dhx_cal_tab" name="week_tab"></div>
+                        <div class="dhx_cal_tab" name="month_tab"></div>
+                        <div class="dhx_cal_tab" name="year_tab"></div>
+                        <div class="dhx_cal_tab" name="agenda_tab"></div>
+                    </div>
+                    <div class="dhx_cal_header"></div>
+                    <div class="dhx_cal_data"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        {{ encore_entry_link_tags('users-events-calendar') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('users-events-calendar') }}
+    {% endblock %}

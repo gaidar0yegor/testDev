@@ -83,9 +83,9 @@
 
     <h3>Licences</h3>
 
-    {% include 'licenses/_societe-quotas.html.twig' %}
+    {% include 'corp_app/licenses/_societe-quotas.html.twig' %}
 
-    {% include 'licenses/_licenses-table.html.twig' with {
+    {% include 'corp_app/licenses/_licenses-table.html.twig' with {
         'entity': societe,
         'downloadRoute': 'app_bo_license_download',
     } %}

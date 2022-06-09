@@ -4,9 +4,9 @@
  * @param {number} eventId
  */
 const apiGenerateIcsCalendar = async (eventId) => {
-    return fetch(`/api/utilisateur/evenement/ics_calendar/${eventId}`, {method: 'GET'})
+    return fetch(`/corp/api/utilisateur/evenement/ics_calendar/${eventId}`, {method: 'GET'})
         .then(() => {
-            window.location = `/api/utilisateur/evenement/ics_calendar/${eventId}`;
+            window.location = `/corp/api/utilisateur/evenement/ics_calendar/${eventId}`;
         });
 };
 

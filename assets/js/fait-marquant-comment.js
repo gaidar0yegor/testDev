@@ -31,7 +31,7 @@ $(document).on('click', '.btn-comment-publish', function (e) {
 
     if ($($textarea).val()){
         $.ajax({
-            url: `/api/fm-commentaire/${$faitMarquantId}/ajouter`,
+            url: `/corp/api/fm-commentaire/${$faitMarquantId}/ajouter`,
             method: 'POST',
             data: {
                 text: $($textarea).val()
@@ -59,7 +59,7 @@ $(document).on('click', '.btn-comment-delete', function (e) {
         $commentContainer = $(this).parents('.comment-container');
 
     $.ajax({
-        url: `/api/fm-commentaire/${$faitMarquantId}/supprimer/${$commentId}`,
+        url: `/corp/api/fm-commentaire/${$faitMarquantId}/supprimer/${$commentId}`,
         method: 'DELETE',
         success: function (response) {
             $commentElem.hide('slow', function () {

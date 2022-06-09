@@ -27,7 +27,7 @@ const displayGraph = year => {
         }
     };
 
-    fetch(`/api/dashboard/projets-efficacite-moyenne/${year}`)
+    fetch(`/corp/api/dashboard/projets-efficacite-moyenne/${year}`)
         .then(response => response.json())
         .then(efficaciteMoyenne => {
             new Chart(

@@ -1,14 +1,32 @@
-admin:
-    type: annotation
-    prefix: /admin/
-    resource: ../src/Controller/FO/Admin/
-
-mon_equipe:
-    type: annotation
-    prefix: /mon_equipe/
-    resource: ../src/Controller/FO/Equipe/
-
 back_office:
     type: annotation
     prefix: /back-office/
     resource: ../src/Controller/BO/
+
+corp:
+    type: annotation
+    prefix: /corp/
+    resource: ../src/Controller/CorpApp/
+    defaults:
+        _app: CorpApp
+        _app_name: Journal collaboratif
+        _app_class: corp_app
+
+corp_admin:
+    type: annotation
+    prefix: /admin/
+    resource: ../src/Controller/CorpApp/FO/Admin/
+
+corp_mon_equipe:
+    type: annotation
+    prefix: /mon_equipe/
+    resource: ../src/Controller/CorpApp/FO/Equipe/
+
+lab:
+    type: annotation
+    prefix: /lab/
+    resource: ../src/Controller/LabApp/
+    defaults:
+        _app: LabApp
+        _app_name: Cahier de laboratoire
+        _app_class: lab_app

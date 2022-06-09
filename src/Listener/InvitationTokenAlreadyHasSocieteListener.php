@@ -37,7 +37,7 @@ class InvitationTokenAlreadyHasSocieteListener implements EventSubscriberInterfa
             return;
         }
 
-        $content = $this->twig->render('invitation/has_already_societe.html.twig', [
+        $content = $this->twig->render('corp_app/invitation/has_already_societe.html.twig', [
             'error' => $exception,
         ]);
 

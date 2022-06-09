@@ -55,8 +55,8 @@ class RappelCreationFaitMarquants implements EventSubscriberInterface
         $email = (new TemplatedEmail())
             ->to($societeUser->getUser()->getEmail())
             ->subject('Rappel pour créer vos faits marquants sur RDI-Manager')
-            ->textTemplate('mail/notification_create_fait_marquant.txt.twig')
-            ->htmlTemplate('mail/notification_create_fait_marquant.html.twig')
+            ->textTemplate('corp_app/mail/notification_create_fait_marquant.txt.twig')
+            ->htmlTemplate('corp_app/mail/notification_create_fait_marquant.html.twig')
             ->context([
                 'projets' => $projets,
                 'societe' => $societeUser->getSociete(),

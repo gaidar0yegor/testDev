@@ -1,0 +1,49 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}Rejoindre la société {{ societeUser.societe.raisonSociale }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Finalisation de votre inscription</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p>
+            Vous êtes sur le point de rejoindre la société <strong>{{ societeUser.societe.raisonSociale }}</strong>
+            avec le rôle <strong>{{ societeUser.role|trans }}</strong>.
+        </p>
+
+        {% if app.user %}
+            <p>
+                Vous rejoindrez la société avec votre compte RDI-Manager
+                <strong>{{ app.user.fullname }}</strong> ({{ app.user.email|default(app.user.telephone|phone_number_rdi) }}).
+            </p>
+        {% endif %}
+
+        {% if societeUser.projetParticipants|length > 0 %}
+            <p>
+                Vous aurez accès aux projets :
+
+                <ul>
+                    {% for participation in societeUser.projetParticipants %}
+                        <li>
+                            <strong>{{ participation.projet.acronyme }}</strong> en tant que <strong>{{ participation.role|trans }}</strong>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+        {% endif %}
+
+        <form method="post">
+            <p class="text-center">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token('invitation_join_societe') }}" />
+                <button
+                    type="submit"
+                    class="btn btn-lg btn-success"
+                >Rejoindre la société <strong>{{ societeUser.societe.raisonSociale }}</strong></button>
+            </p>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

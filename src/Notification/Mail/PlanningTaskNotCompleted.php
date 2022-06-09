@@ -41,8 +41,8 @@ class PlanningTaskNotCompleted
 
         $email = (new TemplatedEmail())
             ->subject('Date d\'échéance d\'une tâche est dans 3 jours')
-            ->textTemplate('mail/notification_planning_task_not_completed.txt.twig')
-            ->htmlTemplate('mail/notification_planning_task_not_completed.html.twig')
+            ->textTemplate('corp_app/mail/notification_planning_task_not_completed.txt.twig')
+            ->htmlTemplate('corp_app/mail/notification_planning_task_not_completed.html.twig')
             ->context([
                 'projet' => $projet,
                 'projetPlanningTask' => $projetPlanningTask,

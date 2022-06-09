@@ -46,8 +46,8 @@ class AddedAsContributor implements EventSubscriberInterface
                 'Vous avez été ajouté sur le projet %s en tant que contributeur',
                 $event->getProjet()->getAcronyme()
             ))
-            ->htmlTemplate('mail/added_as_contributor.html.twig')
-            ->textTemplate('mail/added_as_contributor.txt.twig')
+            ->htmlTemplate('corp_app/mail/added_as_contributor.html.twig')
+            ->textTemplate('corp_app/mail/added_as_contributor.txt.twig')
             ->context([
                 'projet' => $event->getProjet(),
                 'societe' => $societe,

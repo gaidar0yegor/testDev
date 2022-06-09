@@ -8,7 +8,7 @@ export default {
         const month = ('0' + (date.getMonth() + 1)).substr(-2);
         const day = ('0' + date.getDate()).substr(-2);
 
-        return fetch(`/api/temps/weekly/${year}/${month}/${day}`);
+        return fetch(`/corp/api/temps/weekly/${year}/${month}/${day}`);
     },
 
     apiSaveCra(cra, date) {
@@ -16,7 +16,7 @@ export default {
         const month = ('0' + (date.getMonth() + 1)).substr(-2);
         const day = ('0' + date.getDate()).substr(-2);
 
-        return fetch(`/api/temps/weekly/${year}/${month}/${day}`, {
+        return fetch(`/corp/api/temps/weekly/${year}/${month}/${day}`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

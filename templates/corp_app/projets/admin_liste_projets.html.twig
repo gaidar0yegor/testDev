@@ -1,0 +1,62 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'company_projects'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>
+        {{ 'company_projects'|trans }}
+        <span
+            class="year-switch"
+            data-event-name="year-changed"
+            data-year-from="{{ yearMin }}"
+            data-year-to="{{ yearMax }}"
+        ></span>
+    </h1>
+
+    <table class="table datatable hover" data-order='[[ 1, "asc" ]]' data-column-defs='[{"sortable": false, "targets": [9]}]'>
+        <thead>
+            <tr>
+                <th>{% include 'utils/_code_color.html.twig' with {color: '#e9ece6', size: 15} %}</th>
+                <th class="text-left">{{ 'project'|trans }}</th>
+                <th>{{ 'PROJET_CDP'|trans }}</th>
+                <th>{{ 'start'|trans }}</th>
+                <th>{{ 'end'|trans }}</th>
+                <th>{{ 'status'|trans }}</th>
+                <th>{{ 'last_activity'|trans }}</th>
+                <th>{{ 'participants'|trans }}</th>
+                <th>{{ 'rdi_project'|trans }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody class="filter-projets-by-selected-year">
+            {% for projet in projets %}
+                <tr
+                    data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
+                    data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
+                >
+                    <td data-sort='{{ projet.colorCode }}'>
+                        {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
+                    </td>
+                    <td class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
+                    <td>{{ projet.chefDeProjet.user.fullName }}</td>
+                    <td data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td>{{ projet.statut | trans }}</td>
+                    <td data-sort='{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime|date('Ymd') : '' }}'>{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime | format_datetime : '' }}</td>
+                    <td data-sort='{{ projet.activeProjetParticipants|length }}'>{{ projet.activeProjetParticipants|length }}<small> / {{ projet.projetParticipants|length }}</small></td>
+                    <td class="text-center" data-sort='{{ projet.rdi }}'>
+                        {% include 'corp_app/projets/_eligible_rdi.html.twig' with {projet: projet} %}
+                    </td>
+                    <td>
+                        <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">
+                            <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
+                        </a>
+                        <a href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}">
+                            <i class="fa fa-lg fa-bar-chart" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

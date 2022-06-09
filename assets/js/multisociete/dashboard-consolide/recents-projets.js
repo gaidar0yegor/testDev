@@ -12,7 +12,7 @@ $(() => {
 
     const dashboardConsolide = $wrapper.data('dashboardConsolide');
 
-    fetch(`/api/mes-societes/dashboard/consolide/recents-projets/${dashboardConsolide ? dashboardConsolide : ""}`)
+    fetch(`/corp/api/mes-societes/dashboard/consolide/recents-projets/${dashboardConsolide ? dashboardConsolide : ""}`)
         .then(response => response.json())
         .then(({recentsProjets}) => {
             if (0 === recentsProjets.length) {

@@ -1,0 +1,28 @@
+{% apply inky_to_html|inline_css(source('@public' ~ asset('build/foundation.css'))) %}
+<wrapper>
+    <container>
+     <row>
+            <columns>
+                <spacer size="8"></spacer>
+                <center>
+                    {% if societe is defined and societe %}
+                        {% if societe.logo %}
+                            <img src="{{ societe|logoUrl|imagine_filter('avatar_mini') }}" height="100"
+                                    alt="{{ 'logo_of_socete'|trans({'societe': societe.raisonSociale}) }}"/>
+                        {% else %}
+                            <h3 class="pt text-center" >{{ societe.raisonSociale }}</h3>
+                        {% endif %}
+                    {% else %}
+                    <img src="{{ email.image('@public' ~ asset('build/assets/img/Logo-RDI-rouge.png')) }}" height="100" alt="RDI-Manager logo">
+                    {% endif %}
+                </center>
+                <h5 class="pt text-center color-title" >{% block title %}RDI-Manager{% endblock %}</h5>
+            </columns>
+        </row>
+    {% block body %}
+
+    {% endblock %}
+    {% include('corp_app/mail/layouts/_footer_mail.html.twig') %}
+    </container>
+</wrapper>
+{% endapply %}

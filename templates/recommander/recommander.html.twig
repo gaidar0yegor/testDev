@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'corp_app/base.html.twig' %}
 
 {% block title %}Recommander {{ parent() }}{% endblock %}
 
@@ -22,7 +22,7 @@
                 <p class="custom-text-preview" style="display: none">
                 </p>
 
-                {% include 'mail/_recommandation-content.html.twig' %}
+                {% include 'corp_app/mail/_recommandation-content.html.twig' %}
             </div>
         </div>
 

@@ -59,8 +59,8 @@ class LatestFaitMarquants implements EventSubscriberInterface
         $email = (new TemplatedEmail())
             ->to($societeUser->getUser()->getEmail())
             ->subject($title)
-            ->textTemplate('mail/notification_latest_faits_marquants.txt.twig')
-            ->htmlTemplate('mail/notification_latest_faits_marquants.html.twig')
+            ->textTemplate('corp_app/mail/notification_latest_faits_marquants.txt.twig')
+            ->htmlTemplate('corp_app/mail/notification_latest_faits_marquants.html.twig')
             ->context([
                 'faitMarquants' => $faitMarquants,
                 'societe' => $societeUser->getSociete(),

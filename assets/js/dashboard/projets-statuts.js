@@ -32,7 +32,7 @@ window.addEventListener('loadSinceYearCharts', event => {
     chart.unload();
 
     setTimeout(() => {
-        fetch(`/api/dashboard/projets-statuts/since-${year}`)
+        fetch(`/corp/api/dashboard/projets-statuts/since-${year}`)
             .then(response => response.json())
             .then(heuresParProjet => {
                 chart.load({

@@ -1,0 +1,36 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }}</h1>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <p>{{ 'para_join_rdi'|trans({
+                'projectAcronyme': projetObservateurExterne.projet.acronyme,
+                'projectTitre': projetObservateurExterne.projet.titre
+            })|raw|striptags('<strong>')|raw }}</p>
+
+        <p>{{ "new_on_rdi"|trans }}</p>
+
+        <a
+            href="{{ path('app_signup', {
+                '_redirect': path('app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}),
+                'user_email': projetObservateurExterne.invitationEmail,
+                'user_telephone': projetObservateurExterne.invitationTelephone,
+            }) }}"
+            class="mt-1 btn btn-lg btn-success"
+        >{{ "create_my_rdi_manager_account"|trans }}</a>
+
+        <p class="mt-4">{{ "also_an_account"|trans }}</p>
+
+        <a
+            href="{{ path('app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}) }}"
+            class="mt-1 btn btn-outline-primary"
+        >{{ "i_already_have_a_rdi_manager_account"|trans }}</a>
+    </div>
+</div>
+
+{% endblock %}

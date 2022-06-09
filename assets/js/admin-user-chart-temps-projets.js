@@ -28,7 +28,7 @@ if (chartDiv) {
             chart.unload();
 
             setTimeout(function () {
-                fetch(`/api/stats/temps-par-projet/${chartDiv.dataset.userId}/${event.detail.year}/${event.detail.unit}`)
+                fetch(`/corp/api/stats/temps-par-projet/${chartDiv.dataset.userId}/${event.detail.year}/${event.detail.unit}`)
                     .then(response => response.json())
                     .then(tempsParProjets => {
                         const total = {};

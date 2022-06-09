@@ -14,7 +14,7 @@ $('#assignUsers').on('shown.bs.modal', function () {
 
 $(document).on('click', '.gantt-controls [data-action="assignUsers"]', function (e) {
     $.ajax({
-        url: `/api/projet/${projectId}/planning/list`,
+        url: `/corp/api/projet/${projectId}/planning/list`,
         method: 'GET',
         success: function (response) {
             var tasks = response.data;
@@ -40,7 +40,7 @@ $($tasksSelect).on('select2:select', function (e) {
     var $tasksParticipantsSelect = $('<select name="assign_users_form[participants][]" class="select-2 form-control w-100" multiple></select>');
 
     $.ajax({
-        url: `/api/projet/${projectId}/planning/participants/${task.id}`,
+        url: `/corp/api/projet/${projectId}/planning/participants/${task.id}`,
         method: 'GET',
         success: function (response) {
             let participants = response.data;
@@ -68,7 +68,7 @@ $($form).submit(function( event ) {
     event.preventDefault();
 
     $.ajax({
-        url: `/api/projet/${projectId}/planning/participants/${$($tasksSelect).val()}`,
+        url: `/corp/api/projet/${projectId}/planning/participants/${$($tasksSelect).val()}`,
         method: 'POST',
         data: {
             assigned: $("select[name='assign_users_form[participants][]']").val()
@@ -87,7 +87,7 @@ $(document).on('click', '.show-assigned-to-task', function (e) {
     $($modal).find('.modal-body').empty();
 
     $.ajax({
-        url: `/api/projet/${projectId}/planning/participants/${taskId}`,
+        url: `/corp/api/projet/${projectId}/planning/participants/${taskId}`,
         method: 'GET',
         success: function (response) {
             let participants = response.data,

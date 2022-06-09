@@ -11,7 +11,7 @@ if (contentDiv){
         $(`#${dashboardContentsId.general} .recent-activity`).each((_, divActivities) => {
             const societeUser = divActivities.dataset.societeUser;
 
-            fetch(`/api/mes-societes/dashboard/general/recents-projets/${societeUser}`)
+            fetch(`/corp/api/mes-societes/dashboard/general/recents-projets/${societeUser}`)
                 .then(response => response.json())
                 .then(({recentsProjets}) => {
                     if (0 === recentsProjets.length) {

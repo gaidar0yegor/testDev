@@ -22,8 +22,8 @@ scheduler.config.lightbox.sections.push(
 
 // START :: API
 scheduler.init("societe_users_events_calendar", new Date(), "month");
-scheduler.load("/api/utilisateur/evenement?" + $('form[name="filter_user_event"]').serialize());
+scheduler.load("/corp/api/utilisateur/evenement?" + $('form[name="filter_user_event"]').serialize());
 
-var dp = new dataProcessor(`/api/utilisateur/evenement`);
+var dp = new dataProcessor(`/corp/api/utilisateur/evenement`);
 dp.init(scheduler);
 dp.setTransactionMode("REST", false);

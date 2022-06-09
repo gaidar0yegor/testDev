@@ -16,7 +16,7 @@ $(() => {
             return;
         }
 
-        $.post('/api/onboarding/close');
+        $.post('/corp/api/onboarding/close');
 
         $('.onboarding-messages').remove();
     });

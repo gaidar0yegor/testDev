@@ -1,0 +1,56 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}Inscription | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Finalisation de votre inscription</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p>
+            Vous êtes sur le point de rejoindre la société <strong>{{ societeUser.societe.raisonSociale }}</strong>
+            avec le rôle <strong>{{ societeUser.role|trans }}</strong>.
+        </p>
+
+        {% if societeUser.projetParticipants|length > 0 %}
+            <p>
+                Vous aurez accès aux projets :
+
+                <ul>
+                    {% for participation in societeUser.projetParticipants %}
+                        <li>
+                            <strong>{{ participation.projet.acronyme }}</strong> en tant que <strong>{{ participation.role|trans }}</strong>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+        {% endif %}
+
+        <p>
+            Si êtes nouveau sur RDI-Manager ou que vous n'avez pas encore de compte,
+            vous pouvez en créer un maintenant.
+        </p>
+
+        <a
+            href="{{ path('app_signup', {
+                '_redirect': path('app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}),
+                'user_email': societeUser.invitationEmail,
+                'user_telephone': societeUser.invitationTelephone,
+            }) }}"
+            class="mt-1 btn btn-lg btn-success"
+        >Créer mon compte RDI-Manager</a>
+
+        <p class="mt-4">
+            Si vous avez déjà un compte, vous pouvez lier votre nouvelle société à ce compte.
+            Vous serez invité à vous connecter si vous ne l'êtes pas déjà.
+        </p>
+
+        <a
+            href="{{ path('app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}) }}"
+            class="mt-1 btn btn-outline-primary"
+        >J'ai déjà un compte RDI-Manager</a>
+    </div>
+</div>
+
+{% endblock %}

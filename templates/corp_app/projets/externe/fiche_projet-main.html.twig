@@ -1,0 +1,65 @@
+<div class="card bg-light-grey border-light">
+    <div class="card-body text-justify">
+        <p class="m-0">{{ projet.resume|markdown|raw }}</p>
+    </div>
+</div>
+
+<section id="timeline">
+    <h2 class="facts">{{ "FAITS_MARQUANTS"|trans }}</h2>
+
+    {% if projet.faitMarquants|length > 0 %}
+        <ul class="timeline text-word-break">
+
+            <table id="fait_marquant_timeline_dt" class="table datatable custom-datatable text-word-break">
+                <thead><tr><th>{{ "FAITS_MARQUANTS"|trans }}</th></tr></thead>
+                <tbody>
+                {% for faitMarquant in projet.faitMarquants %}
+                    {% if faitMarquant.trashedAt is null %}
+                        <tr>
+                            <td>
+                                <li class="event" id="fait-marquant-{{ faitMarquant.id }}">
+                                    <h4 data-date="{{ faitMarquant.date|format_date }}">
+                                        {{ faitMarquant.date|format_date }}
+                                        -
+                                        <a
+                                                href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                                        >
+                                            {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24, toExpend: true} %}
+                                            {{ faitMarquant.createdBy.user.fullname }}
+                                        </a>
+                                    </h4>
+                                    <h3>{{ faitMarquant.titre }}</h3>
+                                    <div class="event-content text-justify text-word-break">
+                                        {{ faitMarquant.description|markdown|raw }}
+                                    </div>
+                                    <ul class="list-unstyled">
+                                        {% for fichierProjet in faitMarquant.fichierProjets %}
+                                            {% if fichierProjet.isAccessibleParObservateurExterne %}
+                                                <li>
+                                                    <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
+                                                    <a target="_blank"
+                                                            href="{{ path('app_fo_projet_fichier', {
+                                                                'projetId': projet.id,
+                                                                'fichierProjetId': fichierProjet.id
+                                                            }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                                                        {{ fichierProjet.fichier.nomFichier }}
+                                                    </a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                    <hr class="mb-1">
+                                    {% include 'corp_app/projets/_fm_comment.html.twig' %}
+                                </li>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </ul>
+    {% else %}
+        <p>{{ 'no_fm'|trans }}</p>
+    {% endif %}
+
+</section>

@@ -1,0 +1,14 @@
+{% extends 'corp_app/mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Inscription sur RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                {% apply nl2br %}
+                    {% include 'corp_app/mail/register-verification-code.txt.twig' %}
+                {% endapply %}
+            </p>
+        </columns>
+    </row>
+{% endblock %}

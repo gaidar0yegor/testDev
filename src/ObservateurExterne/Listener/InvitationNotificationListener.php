@@ -45,8 +45,8 @@ class InvitationNotificationListener implements EventSubscriberInterface
         $email = (new TemplatedEmail())
             ->to($emailTo)
             ->subject('Invitation sur le projet '.$event->getProjetObservateurExterne()->getProjet()->getAcronyme())
-            ->htmlTemplate('mail/invitation_observateur_externe.html.twig')
-            ->textTemplate('mail/invitation_observateur_externe.txt.twig')
+            ->htmlTemplate('corp_app/mail/invitation_observateur_externe.html.twig')
+            ->textTemplate('corp_app/mail/invitation_observateur_externe.txt.twig')
             ->context([
                 'projetObservateurExterne' => $event->getProjetObservateurExterne(),
             ])
@@ -63,7 +63,7 @@ class InvitationNotificationListener implements EventSubscriberInterface
             return;
         }
 
-        $smsContent = $this->twig->render('mail/invitation_observateur_externe.txt.twig', [
+        $smsContent = $this->twig->render('corp_app/mail/invitation_observateur_externe.txt.twig', [
             'projetObservateurExterne' => $event->getProjetObservateurExterne(),
         ]);
 

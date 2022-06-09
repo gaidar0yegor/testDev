@@ -1,4 +1,4 @@
-const apiGetUserNotifications = (id) => fetch(`/api/user-notifications/${id}`);
+const apiGetUserNotifications = (id) => fetch(`/corp/api/user-notifications/${id}`);
 
 const cards = document.querySelectorAll('.card[data-societe-user-id]');
 
