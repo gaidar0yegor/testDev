@@ -94,7 +94,8 @@ menu.admin.timesheet_check: "Validation des temps"
 menu.admin.timesheet_export: "Export feuilles de temps"
 menu.admin.notification_parameters: "Paramètres notifications"
 menu.admin.licenses: "Mes licences"
-menu.admin.events_calendar: "Calendrier des événements"
+menu.admin.events_calendar: "Calendrier général"
+menu.equipe.events_calendar: "Calendrier de mon équipe"
 loading: Chargement…
 to_comment: 'Commenter'
 comments: 'commentaires'
