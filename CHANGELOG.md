@@ -5,12 +5,16 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+
+
+
+
+
+
+## [0.44.3] - 2022-06-14
 ### Réparé
 - Corriger l'erreur de modification d'un évènement
-
-
-
-
 
 ## [0.44.2] - 2022-06-14
 ### Réparé
