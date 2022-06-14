@@ -5,14 +5,18 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+
+
+
+
+
+
+## [0.44.2] - 2022-06-14
 ### Réparé
 - Responsive tableau de bord
 - Liste des évènement à venir du projet
 - Titre des page : Calendrier de mon équipe / Calendrier général
-
-
-
-
 
 ## [0.44.1] - 2022-06-02
 ### Modifié
