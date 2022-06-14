@@ -17,7 +17,7 @@ class CraValidationController extends AbstractController
     /**
      * @Route(
      *      "/validations/{year}",
-     *      name="app_fo_mon_equipe_cra_validation",
+     *      name="corp_app_fo_mon_equipe_cra_validation",
      *      requirements={"year"="\d{4}"}
      * )
      */

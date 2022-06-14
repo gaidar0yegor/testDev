@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class NotificationController extends AbstractController
 {
     /**
-     * @Route("", name="app_fo_admin_notification")
+     * @Route("", name="corp_app_fo_admin_notification")
      */
     public function index(
         Request $request,
@@ -41,7 +41,7 @@ class NotificationController extends AbstractController
 
             $this->addFlash('success', 'Vos préférences de notifications ont été mises à jour.');
 
-            return $this->redirectToRoute('app_fo_admin_notification');
+            return $this->redirectToRoute('corp_app_fo_admin_notification');
         }
 
         return $this->render('corp_app/notification/index.html.twig', [
@@ -51,7 +51,7 @@ class NotificationController extends AbstractController
     }
 
     /**
-     * @Route("/rapport/{id}", name="app_fo_admin_notification_rapport")
+     * @Route("/rapport/{id}", name="corp_app_fo_admin_notification_rapport")
      */
     public function report(CronJob $cronJob, UserContext $userContext)
     {

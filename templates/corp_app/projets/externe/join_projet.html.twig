@@ -17,7 +17,7 @@
 
         <a
             href="{{ path('app_signup', {
-                '_redirect': path('app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}),
+                '_redirect': path('corp_app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}),
                 'user_email': projetObservateurExterne.invitationEmail,
                 'user_telephone': projetObservateurExterne.invitationTelephone,
             }) }}"
@@ -27,7 +27,7 @@
         <p class="mt-4">{{ "also_an_account"|trans }}</p>
 
         <a
-            href="{{ path('app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}) }}"
+            href="{{ path('corp_app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}) }}"
             class="mt-1 btn btn-outline-primary"
         >{{ "i_already_have_a_rdi_manager_account"|trans }}</a>
     </div>

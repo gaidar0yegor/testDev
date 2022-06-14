@@ -70,18 +70,21 @@ option:disabled {
     display: inline-flex !important;
   }
 }
+/**************** Plateform color ************************/
+body.corp_app .navbar-dark, body.corp_app header, body.corp_app table thead tr, body.corp_app .facts {
+  background-color: #ce352c !important;
+}
+body.lab_app .navbar-dark, body.lab_app header, body.lab_app table thead tr, body.lab_app .facts{
+  background-color: #416C94 !important;
+}
+body.corp_app h1, body.corp_app h1 select  {
+  color: #ce352c;
+}
 /*****************************HTML*************************/
 h1,
 h2 {
   text-align: center;
   margin: 0.5em 0;
-}
-
-h1 {
-  color: #ce352c;
-}
-h1 select {
-  color: #ce352c;
 }
 .required:after {
   content: " *";
@@ -129,7 +132,6 @@ h1 select {
   border-color: #28a745;
 }
 table thead tr {
-  background-color: #ce352c;
   color: white;
 }
 table.light tbody tr {
@@ -146,7 +148,6 @@ a.disabled {
 }
 .facts {
   border-radius: 2em;
-  background-color: #ce352c;
   color: white;
   padding: 0.25em 0 0.15em 0;
   margin-top: 1em;
@@ -222,9 +223,6 @@ nav.navbar {
   right: 0;
   left: 0;
   z-index: 9999;
-}
-.navbar-dark {
-  background-color: #ce352c;
 }
 .navbar-dark .navbar-nav .nav-link {
   color: white;
@@ -330,7 +328,6 @@ nav.navbar {
 header {
   display: flex;
   justify-content: center;
-  background-color: #ce352c;
 }
 
 h5 {

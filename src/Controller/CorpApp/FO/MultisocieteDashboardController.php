@@ -20,7 +20,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class MultisocieteDashboardController extends AbstractController
 {
     /**
-     * @Route("/general", name="app_fo_multi_societe_dashboard_general")
+     * @Route("/general", name="corp_app_fo_multi_societe_dashboard_general")
      */
     public function dashboardGeneral(
         UserContext $userContext,
@@ -41,7 +41,7 @@ class MultisocieteDashboardController extends AbstractController
      *     "/consolide/{id}",
      *     defaults={"id"=null},
      *     requirements={"id"="\d+"},
-     *     name="app_fo_multi_societe_dashboard_consolide",
+     *     name="corp_app_fo_multi_societe_dashboard_consolide",
      *     methods={"GET"}
      *     )
      */
@@ -66,7 +66,7 @@ class MultisocieteDashboardController extends AbstractController
      *     "/consolide/ajouter/{id}",
      *     defaults={"id"=null},
      *     requirements={"id"="\d+"},
-     *     name="app_fo_multi_societe_dashboard_consolide_ajouter",
+     *     name="corp_app_fo_multi_societe_dashboard_consolide_ajouter",
      *     methods={"GET","POST"}
      *     )
      */
@@ -101,7 +101,7 @@ class MultisocieteDashboardController extends AbstractController
                 ]
             ));
 
-            return $this->redirectToRoute('app_fo_multi_societe_dashboard_consolide', [
+            return $this->redirectToRoute('corp_app_fo_multi_societe_dashboard_consolide', [
                 'id' => $dashboardConsolide->getId(),
             ]);
         }

@@ -12,7 +12,7 @@
                 <li class="list-inline-item m-0">{{ yearSwitch }}</li>
             {% else %}
                 <li class="list-inline-item m-0">
-                    <a href="{{ path( is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? 'app_fo_admin_cra_validation' : 'app_fo_mon_equipe_cra_validation', {year: yearSwitch}) }}">{{ yearSwitch }}</a>
+                    <a href="{{ path( is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? 'corp_app_fo_admin_cra_validation' : 'corp_app_fo_mon_equipe_cra_validation', {year: yearSwitch}) }}">{{ yearSwitch }}</a>
                 </li>
             {% endif %}
 
@@ -54,7 +54,7 @@
             <tr {% if not societeUser.enabled %}class="table-secondary"{% endif %}>
                 <td> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
                 <td>
-                    <a href="{{ path('app_fo_societe_user', {'id': societeUser.id}) }}">{{ societeUser.user.fullname }}</a>
+                    <a href="{{ path('corp_app_fo_societe_user', {'id': societeUser.id}) }}">{{ societeUser.user.fullname }}</a>
                 </td>
                 {% for mois in 1..12 %}
                     {% include 'corp_app/cra_validation/_cra-info.html.twig' with {'yearMonth': [year, '%02d'|format(mois)]|join('-')} %}

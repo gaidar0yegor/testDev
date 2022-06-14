@@ -12,7 +12,7 @@ Pour plus de détails, vous avez été invité en tant qu'un observateur interne
 {% endif %}
 Voir sur RDI-Manager :
 
-{{ url('app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}
+{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}
 
 {% else %}
 {% if invitationSended %}

@@ -1,0 +1,15 @@
+{% extends 'corp_app/register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-1">{{ 'my_rdi_manager_account'|trans }}</h1>
+
+    <form method="post">
+        <p class="text-center">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token('register_join_societe') }}" />
+            <button
+                type="submit"
+                class="btn btn-lg btn-success"
+            >{{ 'join_company'|trans }} <strong>{{ societe.raisonSociale }}</strong></button>
+        </p>
+    </form>
+{% endblock %}

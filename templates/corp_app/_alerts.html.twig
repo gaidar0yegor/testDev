@@ -27,7 +27,7 @@
 
     {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) or userContext.societeUser.superiorFo %}
         <div class="custom-alert">
-            <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> <a href="{{ path('app_fo_utilisateur_modifier', { 'id': userContext.societeUser.id }) }}">Pour finaliser votre inscription sur la plateforme, veuillez saisir votre date d'entrée dans la société.</a>
+            <i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i> <a href="{{ path('corp_app_fo_utilisateur_modifier', { 'id': userContext.societeUser.id }) }}">Pour finaliser votre inscription sur la plateforme, veuillez saisir votre date d'entrée dans la société.</a>
         </div>
     {% else %}
         <div class="custom-alert">

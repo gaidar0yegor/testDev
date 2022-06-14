@@ -34,7 +34,7 @@
 
         <a
             href="{{ path('app_signup', {
-                '_redirect': path('app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}),
+                '_redirect': path('corp_app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}),
                 'user_email': societeUser.invitationEmail,
                 'user_telephone': societeUser.invitationTelephone,
             }) }}"
@@ -47,7 +47,7 @@
         </p>
 
         <a
-            href="{{ path('app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}) }}"
+            href="{{ path('corp_app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}) }}"
             class="mt-1 btn btn-outline-primary"
         >J'ai déjà un compte RDI-Manager</a>
     </div>

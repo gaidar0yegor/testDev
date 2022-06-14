@@ -22,6 +22,7 @@ Encore
    * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
    */
   .addEntry("base", "./assets/base.js")
+  .addEntry("switch-plateforms", "./assets/switch-plateforms")
   .addEntry("app", "./assets/app.js")
   .addEntry("vueapp", "./assets/vueapp.js")
   .addEntry("dashboard", "./assets/dashboard.js")

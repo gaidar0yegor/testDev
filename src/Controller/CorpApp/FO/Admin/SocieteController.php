@@ -25,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SocieteController extends AbstractController
 {
     /**
-     * @Route("", name="app_fo_admin_societe_show", methods={"GET"})
+     * @Route("", name="corp_app_fo_admin_societe_show", methods={"GET"})
      */
     public function show(UserContext $userContext): Response
     {
@@ -35,7 +35,7 @@ class SocieteController extends AbstractController
     }
 
     /**
-     * @Route("/modifier", name="app_fo_admin_societe_edit", methods={"GET","POST"})
+     * @Route("/modifier", name="corp_app_fo_admin_societe_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, EntityManagerInterface $em, UserContext $userContext): Response
     {
@@ -49,7 +49,7 @@ class SocieteController extends AbstractController
 
             $this->addFlash('success', 'Société modifiée avec succès.');
 
-            return $this->redirectToRoute('app_fo_admin_societe_show');
+            return $this->redirectToRoute('corp_app_fo_admin_societe_show');
         }
 
         return $this->render('corp_app/societe/edit.html.twig', [
@@ -59,7 +59,7 @@ class SocieteController extends AbstractController
     }
 
     /**
-     * @Route("/modifier/logo", name="app_fo_admin_societe_logo_edit")
+     * @Route("/modifier/logo", name="corp_app_fo_admin_societe_logo_edit")
      */
     public function logoEdit(Request $request, EntityManagerInterface $em, UserContext $userContext)
     {
@@ -80,7 +80,7 @@ class SocieteController extends AbstractController
 
             $this->addFlash('success', 'Votre logo a été mis à jour.');
 
-            return $this->redirectToRoute('app_fo_admin_societe_show');
+            return $this->redirectToRoute('corp_app_fo_admin_societe_show');
         }
 
         return $this->render('corp_app/societe/edit_logo.html.twig', [
@@ -91,7 +91,7 @@ class SocieteController extends AbstractController
     /**
      * @Route(
      *      "modifier/couleur",
-     *      name="app_fo_admin_societe_code_color_edit",
+     *      name="corp_app_fo_admin_societe_code_color_edit",
      *      methods={"POST"}
      * )
      */

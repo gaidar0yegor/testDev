@@ -28,7 +28,7 @@ class FichierController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{id}/fichiers", name="app_fo_projet_fichiers")
+     * @Route("/projets/{id}/fichiers", name="corp_app_fo_projet_fichiers")
      */
     public function listeFichiers(Request $request, Projet $projet, EntityManagerInterface $em)
     {
@@ -46,7 +46,7 @@ class FichierController extends AbstractController
 
             $this->dispatcher->dispatch(new FichierProjetAddedEvent($projet->getFichierProjets()->last()));
 
-            return $this->redirectToRoute('app_fo_projet_fichiers', [
+            return $this->redirectToRoute('corp_app_fo_projet_fichiers', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -58,7 +58,7 @@ class FichierController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}/modifier", name="app_fo_projet_fichier_modifier")
+     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}/modifier", name="corp_app_fo_projet_fichier_modifier")
      */
     public function modifier($projetId, $fichierProjetId, Request $request, EntityManagerInterface $em, TranslatorInterface $translator){
 
@@ -97,7 +97,7 @@ class FichierController extends AbstractController
                 'newName' => $fichier->getNomFichier(),
             ]));
 
-            return $this->redirectToRoute('app_fo_projet_fichiers', [
+            return $this->redirectToRoute('corp_app_fo_projet_fichiers', [
                 'id' => $projetId,
             ]);
         }
@@ -111,7 +111,7 @@ class FichierController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}", name="app_fo_projet_fichier_delete", methods={"DELETE"})
+     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}", name="corp_app_fo_projet_fichier_delete", methods={"DELETE"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
@@ -129,13 +129,13 @@ class FichierController extends AbstractController
         $em->remove($fichierProjet);
         $em->flush();
 
-        return $this->redirectToRoute('app_fo_projet_fichiers', [
+        return $this->redirectToRoute('corp_app_fo_projet_fichiers', [
             'id' => $projet->getid(),
         ]);
     }
 
     /**
-     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}", name="app_fo_projet_fichier", methods={"GET"})
+     * @Route("/projets/{projetId}/fichiers/{fichierProjetId}", name="corp_app_fo_projet_fichier", methods={"GET"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})

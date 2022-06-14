@@ -17,7 +17,7 @@ class TempsController extends AbstractController
      * "/temps/{year}/{month}",
      * requirements={"year"="\d{4}", "month"="\d{2}"},
      * defaults={"year"=null, "month"=null},
-     * name="app_fo_temps"
+     * name="corp_app_fo_temps"
      * )
      */
     public function saisieTempsEnPourCent(DateTime $month): Response
@@ -34,7 +34,7 @@ class TempsController extends AbstractController
      *      "/absences/{year}/{month}",
      *      requirements={"year"="\d{4}", "month"="\d{2}"},
      *      defaults={"year"=null, "month"=null},
-     *      name="app_fo_absences"
+     *      name="corp_app_fo_absences"
      * )
      */
     public function saisieAbsences(
@@ -53,7 +53,7 @@ class TempsController extends AbstractController
     }
 
     /**
-     * @Route("/mon-suivi", name="app_fo_mon_suivi")
+     * @Route("/mon-suivi", name="corp_app_fo_mon_suivi")
      */
     public function monSuivi(UserContext $userContext) {
 

@@ -35,7 +35,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class SocieteController extends AbstractController
 {
     /**
-     * @Route("/societes", name="app_bo_societes")
+     * @Route("/societes", name="corp_app_bo_societes")
      */
     public function societes(SocieteRepository $societeRepository) {
 
@@ -45,7 +45,7 @@ class SocieteController extends AbstractController
     }
 
     /**
-     * @Route("/societes/{id}", name="app_bo_societe", requirements={"id"="\d+"})
+     * @Route("/societes/{id}", name="corp_app_bo_societe", requirements={"id"="\d+"})
      */
     public function societe(
         Request $request,
@@ -75,7 +75,7 @@ class SocieteController extends AbstractController
                 afin qu'il finalise son inscription.
             ");
 
-            return $this->redirectToRoute('app_bo_societe', [
+            return $this->redirectToRoute('corp_app_bo_societe', [
                 'id' => $societe->getId(),
             ]);
         }
@@ -86,7 +86,7 @@ class SocieteController extends AbstractController
 
             $this->addFlash('success', 'Interval d\'envoi des emails d\'onboarding mis à jour.');
 
-            return $this->redirectToRoute('app_bo_societe', [
+            return $this->redirectToRoute('corp_app_bo_societe', [
                 'id' => $societe->getId(),
             ]);
         }
@@ -104,7 +104,7 @@ class SocieteController extends AbstractController
 
     /**
      * @Route("/societes/{id}/generer-license/{product}",
-     *     name="app_bo_societe_generate_license",
+     *     name="corp_app_bo_societe_generate_license",
      *     requirements={"id"="\d+", "product": "^STARTER|STANDARD|PREMIUM$"},
      *     )
      */
@@ -164,7 +164,7 @@ class SocieteController extends AbstractController
                 'Une nouvelle license a été générée et ajoutée à la société '.$societe->getRaisonSociale()
             );
 
-            return $this->redirectToRoute('app_bo_societe', [
+            return $this->redirectToRoute('corp_app_bo_societe', [
                 'id' => $societe->getId(),
             ]);
         }
@@ -196,7 +196,7 @@ class SocieteController extends AbstractController
     /**
      * @Route(
      *      "/societes/{societeId}/envoi-invitation/{societeUserId}",
-     *      name="app_bo_societe_invite",
+     *      name="corp_app_bo_societe_invite",
      *      methods={"POST"},
      *      requirements={"id"="\d+"}
      * )
@@ -226,7 +226,7 @@ class SocieteController extends AbstractController
             $societeUser->getInvitationEmail()
         ));
 
-        return $this->redirectToRoute('app_bo_societe', [
+        return $this->redirectToRoute('corp_app_bo_societe', [
             'id' => $societe->getId(),
         ]);
     }
@@ -234,7 +234,7 @@ class SocieteController extends AbstractController
     /**
      * @Route(
      *      "/societes/{societeId}/invitation/{societeUserId}/supprimer",
-     *      name="app_bo_societe_invite_delete",
+     *      name="corp_app_bo_societe_invite_delete",
      *      methods={"POST"},
      *      requirements={"id"="\d+"}
      * )
@@ -268,13 +268,13 @@ class SocieteController extends AbstractController
             ));
         }
 
-        return $this->redirectToRoute('app_bo_societe', [
+        return $this->redirectToRoute('corp_app_bo_societe', [
             'id' => $societe->getId(),
         ]);
     }
 
     /**
-     * @Route("/societes/creer", name="app_bo_societes_creer")
+     * @Route("/societes/creer", name="corp_app_bo_societes_creer")
      */
     public function create(
         Request $request,
@@ -306,7 +306,7 @@ class SocieteController extends AbstractController
                     $societe->getRaisonSociale()
             ));
 
-            return $this->redirectToRoute('app_bo_societe', [
+            return $this->redirectToRoute('corp_app_bo_societe', [
                 'id' => $societe->getId(),
             ]);
         }
@@ -319,7 +319,7 @@ class SocieteController extends AbstractController
     /**
      * @Route(
      *      "/telecharger/{filename}",
-     *      name="app_bo_license_download",
+     *      name="corp_app_bo_license_download",
      *      requirements={"filename"=".*"}
      * )
      */

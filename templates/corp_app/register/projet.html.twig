@@ -1,4 +1,4 @@
-{% extends 'register/layout.html.twig' %}
+{% extends 'corp_app/register/layout.html.twig' %}
 
 {% block register %}
     <h1 class="mb-1">{{ 'create_my_project'|trans }}</h1>
@@ -7,7 +7,7 @@
         {{ 'your_collaborators_will_enrich_this_project'|trans }}
     </p>
     <p class="mb-4">
-        <a href="{{ path('app_register_collaborators') }}" class="btn btn-sm btn-outline-primary">{{ 'skip_this_step'|trans }}</a>
+        <a href="{{ path('corp_app_register_collaborators') }}" class="btn btn-sm btn-outline-primary">{{ 'skip_this_step'|trans }}</a>
         <small class="text-muted">{{ 'you_still_can_create_project_later'|trans }}</small>
     </p>
 

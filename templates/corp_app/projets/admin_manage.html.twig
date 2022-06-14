@@ -16,7 +16,7 @@
             <small class="text-muted">{{ "SOCIETE_CDP"|trans }} : {{ projet.chefDeProjet|entityLink }}</small>
         </h3>
 
-        <a class="d-block mb-4 not-printable" href="{{ path('app_fo_projet', {id: projet.id}) }}">
+        <a class="d-block mb-4 not-printable" href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
             {{ 'go_on_project'|trans }}
         </a>
@@ -30,7 +30,7 @@
                             <div class="row">
                                 <div class="col-9 offset-3 col-sm-12 offset-sm-0">
                                     <h5 class="card-title"><a
-                                                href="{{ path('app_fo_projet_participant', {'id': projet.id}) }}">{{ "quota.contributeurs.name"|trans }}</a>
+                                                href="{{ path('corp_app_fo_projet_participant', {'id': projet.id}) }}">{{ "quota.contributeurs.name"|trans }}</a>
                                     </h5>
                                     <p class="card-text display-4 mb-0">
                                         {{ projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR'))|length + projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CDP'))|length }}
@@ -44,7 +44,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                                    <h5 class="card-title"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}">{{ "FAITS_MARQUANTS"|trans }}</a></h5>
+                                    <h5 class="card-title"><a href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}">{{ "FAITS_MARQUANTS"|trans }}</a></h5>
                                     <p class="card-text display-4 mb-0">
                                         {{ projet.faitMarquants|length }}
                                     </p>

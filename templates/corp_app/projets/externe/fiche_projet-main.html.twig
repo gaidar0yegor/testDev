@@ -22,7 +22,7 @@
                                         {{ faitMarquant.date|format_date }}
                                         -
                                         <a
-                                                href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                                                href="{{ path('corp_app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
                                         >
                                             {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24, toExpend: true} %}
                                             {{ faitMarquant.createdBy.user.fullname }}
@@ -38,7 +38,7 @@
                                                 <li>
                                                     <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
                                                     <a target="_blank"
-                                                            href="{{ path('app_fo_projet_fichier', {
+                                                            href="{{ path('corp_app_fo_projet_fichier', {
                                                                 'projetId': projet.id,
                                                                 'fichierProjetId': fichierProjet.id
                                                             }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>

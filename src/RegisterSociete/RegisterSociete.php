@@ -65,9 +65,9 @@ class RegisterSociete
     {
         return (new TemplatedEmail())
             ->to($registration->admin->getEmail())
-            ->subject('Code de vérification RDI-Manager')
-            ->textTemplate('corp_app/mail/register-verification-code.txt.twig')
-            ->htmlTemplate('corp_app/mail/register-verification-code.html.twig')
+            ->subject('[RDI-Manager] Code de vérification Journal collaboratif')
+            ->textTemplate('mail/register-verification-code.txt.twig')
+            ->htmlTemplate('mail/register-verification-code.html.twig')
             ->context([
                 'verificationCode' => $registration->verificationCode,
             ])

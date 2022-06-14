@@ -7,7 +7,7 @@
     <h1>{{ "gest_of_part"|trans }}</h1>
 
     <div class="col-md-12">
-        <a class="d-block mb-4" href="{{ path('app_fo_projet', {'id': projet.id}) }}">
+        <a class="d-block mb-4" href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
             {{ "go_back_go_project"|trans }}
         </a>
@@ -77,7 +77,7 @@
                     <td class="text-center">
                         <form
                                 method="post"
-                                action="{{ path('app_fo_observateur_externe_delete', {
+                                action="{{ path('corp_app_fo_observateur_externe_delete', {
                                     'projetId': projet.id,
                                     'observateurId': projetObservateurExterne.id
                                 }) }}"
@@ -107,7 +107,7 @@
                         {{ "want_new_user"|trans }}
                     </p>
                     <a
-                            href="{{ path('app_fo_projet_participant_invite', {'id': projet.id}) }}"
+                            href="{{ path('corp_app_fo_projet_participant_invite', {'id': projet.id}) }}"
                             class="btn btn-outline-primary stretched-link"
                     >{{ "invite_new_user"|trans }}</a>
                 </div>
@@ -124,7 +124,7 @@
                        {{ "want_new_obs"|trans }}
                     </p>
                     <a
-                            href="{{ path('app_fo_observateur_externe_invite', {'id': projet.id}) }}"
+                            href="{{ path('corp_app_fo_observateur_externe_invite', {'id': projet.id}) }}"
                             class="btn btn-outline-primary stretched-link"
                     > {{ "invite_obs_ext_2"|trans }}</a>
                 </div>

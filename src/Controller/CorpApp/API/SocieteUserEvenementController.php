@@ -61,7 +61,7 @@ class SocieteUserEvenementController extends AbstractController
     }
 
     /**
-     * @Route("", methods={"POST"}, name="app_fo_user_evenements_post")
+     * @Route("", methods={"POST"}, name="corp_app_fo_user_evenements_post")
      */
     public function save(Request $request)
     {
@@ -84,7 +84,7 @@ class SocieteUserEvenementController extends AbstractController
      * @Route(
      *      "/{eventId}",
      *      methods={"PUT"},
-     *      name="app_fo_projet_evenements_update"
+     *      name="corp_app_fo_projet_evenements_update"
      * )
      *
      * @ParamConverter("evenement", options={"id" = "eventId"})
@@ -110,7 +110,7 @@ class SocieteUserEvenementController extends AbstractController
      * @Route(
      *      "/{eventId}",
      *      methods={"DELETE"},
-     *      name="app_fo_user_evenements_delete"
+     *      name="corp_app_fo_user_evenements_delete"
      * )
      *
      * @ParamConverter("evenement", options={"id" = "eventId"})
@@ -135,7 +135,7 @@ class SocieteUserEvenementController extends AbstractController
      * @Route(
      *      "/ics_calendar/{eventId}",
      *      methods={"GET"},
-     *      name="app_fo_projet_evenements_ics_calendar"
+     *      name="corp_app_fo_projet_evenements_ics_calendar"
      * )
      *
      * @ParamConverter("evenement", options={"id" = "eventId"})

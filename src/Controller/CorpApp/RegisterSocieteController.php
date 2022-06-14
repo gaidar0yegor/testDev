@@ -39,15 +39,15 @@ class RegisterSocieteController extends AbstractController
     }
 
     /**
-     * @Route("/creer-ma-societe", name="app_register")
+     * @Route("/creer-ma-societe", name="corp_app_register")
      */
     public function index(): Response
     {
-        return $this->redirectToRoute('app_register_societe');
+        return $this->redirectToRoute('corp_app_register_societe');
     }
 
     /**
-     * @Route("/creer-ma-societe/ma-societe", name="app_register_societe")
+     * @Route("/creer-ma-societe/ma-societe", name="corp_app_register_societe")
      */
     public function societe(Request $request): Response
     {
@@ -60,28 +60,28 @@ class RegisterSocieteController extends AbstractController
             $registration = $this->registerSociete->getCurrentRegistration();
             $registration->societe = $societe;
 
-            return $this->redirectToRoute('app_register_account');
+            return $this->redirectToRoute('corp_app_register_account');
         }
 
-        return $this->render('register/societe.html.twig', [
+        return $this->render('corp_app/register/societe.html.twig', [
             'step' => 1,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/creer-ma-societe/mon-compte", name="app_register_account")
+     * @Route("/creer-ma-societe/mon-compte", name="corp_app_register_account")
      */
     public function account(): Response
     {
-        return $this->render('register/account.html.twig', [
+        return $this->render('corp_app/register/account.html.twig', [
             'step' => 2,
             'societe' => $this->registerSociete->getCurrentRegistration()->societe,
         ]);
     }
 
     /**
-     * @Route("/creer-ma-societe/mon-compte/creer", name="app_register_account_creation")
+     * @Route("/creer-ma-societe/mon-compte/creer", name="corp_app_register_account_creation")
      */
     public function accountCreation(
         Request $request,
@@ -104,10 +104,10 @@ class RegisterSocieteController extends AbstractController
 
             $mailer->send($email);
 
-            return $this->redirectToRoute('app_register_account_verification');
+            return $this->redirectToRoute('corp_app_register_account_verification');
         }
 
-        return $this->render('register/account-creation.html.twig', [
+        return $this->render('corp_app/register/account-creation.html.twig', [
             'step' => 2,
             'form' => $form->createView(),
             'societe' => $this->registerSociete->getCurrentRegistration()->societe,
@@ -115,7 +115,7 @@ class RegisterSocieteController extends AbstractController
     }
 
     /**
-     * @Route("/creer-ma-societe/mon-compte/verification", name="app_register_account_verification")
+     * @Route("/creer-ma-societe/mon-compte/verification", name="corp_app_register_account_verification")
      */
     public function accountVerification(
         Request $request,
@@ -144,20 +144,20 @@ class RegisterSocieteController extends AbstractController
 
                 $this->registerSociete->initializeCurrentRegistration();
 
-                return $this->redirectToRoute('app_register_projet');
+                return $this->redirectToRoute('corp_app_register_projet');
             }
 
             $this->addFlash('danger', $translator->trans('Le code n\'est pas valide.'));
         }
 
-        return $this->render('register/account-verification.html.twig', [
+        return $this->render('corp_app/register/account-verification.html.twig', [
             'step' => 2,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/creer-ma-societe/mon-compte/rejoindre", name="app_register_account_join")
+     * @Route("/creer-ma-societe/mon-compte/rejoindre", name="corp_app_register_account_join")
      *
      * @IsGranted("ROLE_FO_USER")
      */
@@ -173,7 +173,7 @@ class RegisterSocieteController extends AbstractController
             if (!$this->isCsrfTokenValid('register_join_societe', $request->get('csrf_token'))) {
                 $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
-                return $this->redirectToRoute('app_register_account_join');
+                return $this->redirectToRoute('corp_app_register_account_join');
             }
 
             $registration->admin = $userContext->getUser();
@@ -184,17 +184,17 @@ class RegisterSocieteController extends AbstractController
 
             $this->registerSociete->initializeCurrentRegistration();
 
-            return $this->redirectToRoute('app_register_projet');
+            return $this->redirectToRoute('corp_app_register_projet');
         }
 
-        return $this->render('register/account-join.html.twig', [
+        return $this->render('corp_app/register/account-join.html.twig', [
             'step' => 2,
             'societe' => $registration->societe,
         ]);
     }
 
     /**
-     * @Route("/creer-ma-societe/mon-projet", name="app_register_projet")
+     * @Route("/creer-ma-societe/mon-projet", name="corp_app_register_projet")
      *
      * @IsGranted("SOCIETE_ADMIN")
      */
@@ -224,17 +224,17 @@ class RegisterSocieteController extends AbstractController
 
             $this->addFlash('success', $translator->trans('Votre projet a bien été ajouté.'));
 
-            return $this->redirectToRoute('app_register_collaborators');
+            return $this->redirectToRoute('corp_app_register_collaborators');
         }
 
-        return $this->render('register/projet.html.twig', [
+        return $this->render('corp_app/register/projet.html.twig', [
             'step' => 3,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/creer-ma-societe/inviter-mes-collaborateurs", name="app_register_collaborators")
+     * @Route("/creer-ma-societe/inviter-mes-collaborateurs", name="corp_app_register_collaborators")
      *
      * @IsGranted("SOCIETE_ADMIN")
      */
@@ -261,23 +261,23 @@ class RegisterSocieteController extends AbstractController
 
             $em->flush();
 
-            return $this->redirectToRoute('app_register_finish');
+            return $this->redirectToRoute('corp_app_register_finish');
         }
 
-        return $this->render('register/collaborators.html.twig', [
+        return $this->render('corp_app/register/collaborators.html.twig', [
             'step' => 4,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/creer-ma-societe/inscription-terminee", name="app_register_finish")
+     * @Route("/creer-ma-societe/inscription-terminee", name="corp_app_register_finish")
      *
      * @IsGranted("SOCIETE_ADMIN")
      */
     public function finish(): Response
     {
-        return $this->render('register/finish.html.twig', [
+        return $this->render('corp_app/register/finish.html.twig', [
             'step' => 5,
         ]);
     }

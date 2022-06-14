@@ -133,7 +133,7 @@
 
     <form
             method="post"
-            action="{{ path('app_fo_utilisateur_delete', {'id': societeUser.id}) }}"
+            action="{{ path('corp_app_fo_utilisateur_delete', {'id': societeUser.id}) }}"
             onsubmit="return confirm('{{ 'are_you_sure_delete_user'|trans({'user': societeUser.user.fullname})|escape('js') }}');"
     >
         <input type="hidden" name="_token" value="{{ csrf_token('delete_user_' ~ societeUser.id) }}">

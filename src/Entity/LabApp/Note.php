@@ -1,0 +1,186 @@
+<?php
+
+namespace App\Entity\LabApp;
+
+use App\EtudeResourceInterface;
+use App\HasUserBookInterface;
+use App\Repository\LabApp\NoteRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=NoteRepository::class)
+ */
+class Note implements EtudeResourceInterface
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $readingName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $author;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $reference;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Etude::class, inversedBy="notes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $etude;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=UserBook::class, inversedBy="notes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $createdBy;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getReadingName(): ?string
+    {
+        return $this->readingName;
+    }
+
+    public function setReadingName(?string $readingName): self
+    {
+        $this->readingName = $readingName;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?string
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?string $author): self
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(?string $reference): self
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getEtude(): Etude
+    {
+        return $this->getEtude();
+    }
+
+    public function setEtude(?Etude $etude): self
+    {
+        $this->etude = $etude;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?UserBook
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?UserBook $createdBy): self
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    public function getOwner(): UserBook
+    {
+        return $this->createdBy;
+    }
+}

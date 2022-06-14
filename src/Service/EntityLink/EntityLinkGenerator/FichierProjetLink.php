@@ -21,7 +21,7 @@ class FichierProjetLink implements EntityLinkGeneratorInterface
     {
         return new EntityLink(
             $entity->getFichier()->getNomFichier(),
-            $urlGenerator->generate('app_fo_projet_fichier', [
+            $urlGenerator->generate('corp_app_fo_projet_fichier', [
                 'projetId' => $entity->getProjet()->getId(),
                 'fichierProjetId' => $entity->getId(),
             ])

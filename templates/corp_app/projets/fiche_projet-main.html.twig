@@ -21,7 +21,7 @@
             <p class="text">{{ projetPlanningTask.text|capitalize }}</p>
             <div class="d-flex flex-row justify-content-between align-items-center font-italic">
                 <p>Commence le {{ projetPlanningTask.startDate|date('d/m/Y') }} pour {{ projetPlanningTask.duration }} jour(s)</p>
-                <a href="{{ path('app_fo_projet', {id: projet.id}) }}">Voir tous les faits marquant ...</a>
+                <a href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">Voir tous les faits marquant ...</a>
             </div>
         </div>
     {% endif %}
@@ -30,7 +30,7 @@
         <div class="add-fait-marquant">
             {% if userCanAddFaitMarquant %}
                 <a
-                        href="{{ path('app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}"
+                        href="{{ path('corp_app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}"
                         class="btn btn-lg btn-outline-primary"
                 >
                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
                                         {{ faitMarquant.date|format_date }}
                                         -
                                         <a
-                                                href="{{ path('app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
+                                                href="{{ path('corp_app_fo_societe_user', {'id': faitMarquant.createdBy.id}) }}"
                                         >
                                             {% include 'utils/_avatar.html.twig' with {user: faitMarquant.createdBy.user, size: 24, toExpend: true} %}
                                             {{ faitMarquant.createdBy.user.fullname }}
@@ -70,14 +70,14 @@
                                     <div>
                                         {% if faitMarquant.projetPlanningTask %}
                                             <a
-                                                    href="{{ path('app_fo_projet_fm_per_planning_task', { 'projetId' : projet.id, 'planningTaskId' : faitMarquant.projetPlanningTask.id }) }}" style="font-size: 1.2rem;"
+                                                    href="{{ path('corp_app_fo_projet_fm_per_planning_task', { 'projetId' : projet.id, 'planningTaskId' : faitMarquant.projetPlanningTask.id }) }}" style="font-size: 1.2rem;"
                                                     title="{{ 'Lot associé : ' ~ faitMarquant.projetPlanningTask.text }}" class="mr-2"
                                             >
                                                 <i class="fa fa-tasks"></i>
                                             </a>
                                         {% endif %}
                                         <a
-                                                href="{{ path('app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}" style="font-size: 1.2rem;"
+                                                href="{{ path('corp_app_fo_fait_marquant_modifier', {'id': faitMarquant.id}) }}" style="font-size: 1.2rem;"
                                                 class="edit-fait-marquant {% if not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}disabled{% endif %}"
                                                 {% if projet.isSuspended %}
                                                     disabled
@@ -106,7 +106,7 @@
                                             <li>
                                                 <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
                                                 <a target="_blank"
-                                                        href="{{ path('app_fo_projet_fichier', {
+                                                        href="{{ path('corp_app_fo_projet_fichier', {
                                                             'projetId': projet.id,
                                                             'fichierProjetId': fichierProjet.id
                                                         }) }}" {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>

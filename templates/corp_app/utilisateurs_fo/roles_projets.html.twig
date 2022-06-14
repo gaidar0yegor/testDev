@@ -6,7 +6,7 @@
 
 <h1>{{ 'roles_on_projects_of_user'|trans({'%user%': societeUser.user.fullname}) }}</h1>
 
-<a class="d-block mb-4" href="{{ path('app_fo_societe_user', {'id': societeUser.id}) }}">
+<a class="d-block mb-4" href="{{ path('corp_app_fo_societe_user', {'id': societeUser.id}) }}">
     <i class="fa fa-chevron-left" aria-hidden="true"></i>
     {{ 'back'|trans }}
 </a>

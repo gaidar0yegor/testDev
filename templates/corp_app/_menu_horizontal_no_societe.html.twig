@@ -3,12 +3,12 @@
 </div>
 
 <ul class="navbar-nav mr-auto">
-    <li class="nav-item {{ activeOn('app_fo_multi_societe_switch') }}">
-        <a class="nav-link" href="{{ path('app_fo_multi_societe_switch') }}">
+    <li class="nav-item {{ activeOn('corp_app_fo_multi_societe_switch') }}">
+        <a class="nav-link" href="{{ path('corp_app_fo_multi_societe_switch') }}">
             <i class="fa fa-building" aria-hidden="true"></i> {{ 'my_companies'|trans }}
         </a>
     </li>
-    <li class="nav-item dropdown {{ activeOn('app_fo_multi_societe_dashboard_general','app_fo_multi_societe_dashboard_consolide','app_fo_multi_societe_dashboard_consolide_ajouter') }}">
+    <li class="nav-item dropdown {{ activeOn('corp_app_fo_multi_societe_dashboard_general','corp_app_fo_multi_societe_dashboard_consolide','corp_app_fo_multi_societe_dashboard_consolide_ajouter') }}">
         <a
                 {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) %}
                     class="nav-link dropdown-toggle"
@@ -25,31 +25,31 @@
         </a>
         <div class="dropdown-menu">
             <a
-                    class="dropdown-item {{ activeOn('app_fo_multi_societe_dashboard_general') }}"
-                    href="{{ path('app_fo_multi_societe_dashboard_general') }}">
+                    class="dropdown-item {{ activeOn('corp_app_fo_multi_societe_dashboard_general') }}"
+                    href="{{ path('corp_app_fo_multi_societe_dashboard_general') }}">
                 <i class="fa fa-bar-chart-o" aria-hidden="true"></i> {{ 'menu.dashboard.general'|trans }}
             </a>
             <a
-                    class="dropdown-item {{ activeOn('app_fo_multi_societe_dashboard_consolide') }}"
-                    href="{{ path('app_fo_multi_societe_dashboard_consolide') }}">
+                    class="dropdown-item {{ activeOn('corp_app_fo_multi_societe_dashboard_consolide') }}"
+                    href="{{ path('corp_app_fo_multi_societe_dashboard_consolide') }}">
                 <i class="fa fa-line-chart" aria-hidden="true"></i> {{ 'menu.dashboard.consolide'|trans }}
             </a>
             {% for dashboardConsolide in userContext.user.dashboardConsolides %}
                 <a
-                        class="dropdown-item {{ activeOn('app_fo_multi_societe_dashboard_consolide') }}"
-                        href="{{ path('app_fo_multi_societe_dashboard_consolide', {'id' : dashboardConsolide.id}) }}">
+                        class="dropdown-item {{ activeOn('corp_app_fo_multi_societe_dashboard_consolide') }}"
+                        href="{{ path('corp_app_fo_multi_societe_dashboard_consolide', {'id' : dashboardConsolide.id}) }}">
                     <i class="fa fa-pie-chart" aria-hidden="true"></i> {{ dashboardConsolide.title }}
                 </a>
             {% endfor %}
             <a
-                    class="dropdown-item {{ activeOn('app_fo_multi_societe_dashboard_consolide_ajouter') }}"
-                    href="{{ path('app_fo_multi_societe_dashboard_consolide_ajouter') }}">
+                    class="dropdown-item {{ activeOn('corp_app_fo_multi_societe_dashboard_consolide_ajouter') }}"
+                    href="{{ path('corp_app_fo_multi_societe_dashboard_consolide_ajouter') }}">
                 <i class="fa fa-search-plus" aria-hidden="true"></i> {{ 'menu.dashboard.create_view'|trans }}
             </a>
         </div>
     </li>
-    <li class="nav-item {{ activeOn('app_fo_multi_societe_projets', 'app_fo_observateur_externe_view') }}">
-        <a class="nav-link" href="{{ path('app_fo_multi_societe_projets') }}">
+    <li class="nav-item {{ activeOn('corp_app_fo_multi_societe_projets', 'corp_app_fo_observateur_externe_view') }}">
+        <a class="nav-link" href="{{ path('corp_app_fo_multi_societe_projets') }}">
             <i class="fa fa-list-ul" aria-hidden="true"></i> {{ 'menu.all_projects'|trans }}
         </a>
     </li>

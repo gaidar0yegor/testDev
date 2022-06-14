@@ -55,10 +55,10 @@
                             <i class="fa fa-lg fa-sitemap"></i>
                         </a>
                     {% endif %}
-                    <a href="{{ path('app_fo_societe_user', { 'id': societeUser.id }) }}">
+                    <a href="{{ path('corp_app_fo_societe_user', { 'id': societeUser.id }) }}">
                         <i class="fa fa-lg fa-eye"></i>
                     </a>
-                    <a href="{{ path('app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">
+                    <a href="{{ path('corp_app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">
                         <i class="fa fa-lg fa-edit"></i>
                     </a>
                 </td>
@@ -69,7 +69,7 @@
 
     {% if userContext.societeUser.isAdminFo %}
         <div class="my-3 text-right">
-            <a href="{{ path('app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
+            <a href="{{ path('corp_app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
                 <i class="fa fa-user-plus" aria-hidden="true"></i>
                 {{ 'invite_new_user'|trans }}
             </a>

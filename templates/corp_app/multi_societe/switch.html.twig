@@ -47,11 +47,11 @@
                     </ul>
                     {% if societeUser.enabled %}
                         {% if societeUser == app.user.currentSocieteUser %}
-                            <form action="{{ path('app_fo_multi_societe_switch_disconnect') }}" method="post">
+                            <form action="{{ path('corp_app_fo_multi_societe_switch_disconnect') }}" method="post">
                                 <button type="submit" class="stretched-link mt-2 btn btn-outline-danger">{{ "logout"|trans }}</button>
                             </form>
                         {% else %}
-                            <form action="{{ path('app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
+                            <form action="{{ path('corp_app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
                                 <button type="submit" class="stretched-link mt-2 btn btn-primary">{{ "goOn"|trans }} {{ societeUser.societe.raisonSociale }}</button>
                             </form>
                         {% endif %}
@@ -71,7 +71,7 @@
     <div class="col-md-4 mb-4">
         <div class="card h-100 mes-societes-create">
             <div class="card-body text-center d-flex justify-content-center align-items-center">
-                <a href="{{ path('app_register') }}" class="stretched-link lead">
+                <a href="{{ path('corp_app_register') }}" class="stretched-link lead">
                     <i class="fa fa-2x fa-building-o" aria-hidden="true"></i>
                     <br>
                     {{ "create_my_company"|trans }}

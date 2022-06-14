@@ -47,7 +47,7 @@
         {% for fichierProjet in projet.accessibleExterneFichierProjets %}
             <li>
                 <a target="_blank"
-                   href="{{ path('app_fo_observateur_externe_view_file', {'projetId': projet.id,'fichierProjetId': fichierProjet.id}) }}"
+                   href="{{ path('corp_app_fo_observateur_externe_view_file', {'projetId': projet.id,'fichierProjetId': fichierProjet.id}) }}"
                         {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
                     <i class="fa {{ fichierProjet|faFileIcon }}" aria-hidden="true"></i>
                     {{ fichierProjet.fichier.nomFichier }}

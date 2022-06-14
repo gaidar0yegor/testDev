@@ -14,7 +14,7 @@
         {% endif %}
     </ul>
 
-    <a class="d-block mb-4" href="{{ path('app_bo_societes') }}">
+    <a class="d-block mb-4" href="{{ path('corp_app_bo_societes') }}">
         <i class="fa fa-chevron-left" aria-hidden="true"></i>
         Retourner à la liste des sociétés
     </a>
@@ -40,7 +40,7 @@
                         En attente de finalisation d'inscription
                         <small class="d-block">
                             Url d'invitation :
-                            <strong class="d-block"><code>{{ url('app_fo_user_finalize_inscription', {'token': admin.invitationToken}) }}</code></strong>
+                            <strong class="d-block"><code>{{ url('corp_app_fo_user_finalize_inscription', {'token': admin.invitationToken}) }}</code></strong>
                         </small>
                     {% else %}
                         Actif
@@ -50,7 +50,7 @@
                     {% if admin.invitationToken %}
                         <form
                                 method="post" class="mb-2"
-                                action="{{ path('app_bo_societe_invite_delete', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
+                                action="{{ path('corp_app_bo_societe_invite_delete', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
                                 onsubmit="return confirm('Supprimer cette invitation ?');"
                         >
                             <button type="submit" class="btn btn-sm btn-warning">Supprimer l'invitation</button>
@@ -58,7 +58,7 @@
                         </form>
                         <form
                                 method="post"
-                                action="{{ path('app_bo_societe_invite', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
+                                action="{{ path('corp_app_bo_societe_invite', {'societeId': societe.id, 'societeUserId': admin.id}) }}"
                                 onsubmit="return confirm('Envoyer un email d\'invitation à cet administrateur ?');"
                         >
                             <button type="submit" class="btn btn-sm btn-info">Envoyer un email d'invitation</button>
@@ -87,7 +87,7 @@
 
     {% include 'corp_app/licenses/_licenses-table.html.twig' with {
         'entity': societe,
-        'downloadRoute': 'app_bo_license_download',
+        'downloadRoute': 'corp_app_bo_license_download',
     } %}
 
     {% include 'bo/societes/_form-choose-product.html.twig' %}

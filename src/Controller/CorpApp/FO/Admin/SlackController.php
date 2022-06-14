@@ -11,12 +11,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class SlackController extends AbstractController
 {
     /**
-     * @Route("/notifications/slack", name="app_slack")
+     * @Route("/notifications/slack", name="corp_app_slack")
      */
     public function slack(Request $request, SlackConnectHandler $slackConnectHandler): Response
     {
         $slackConnectHandler->handleRequest($request);
 
-        return $this->redirectToRoute('app_fo_admin_notification');
+        return $this->redirectToRoute('corp_app_fo_admin_notification');
     }
 }

@@ -36,7 +36,7 @@
                     </td>
                     <td>{{ license.isTryLicense ? ("yes"|trans) : ("no"|trans) }}</td>
                     <td>
-                        <a href="{{ path(downloadRoute|default('app_fo_admin_license_download'), {'filename': filename}) }}">
+                        <a href="{{ path(downloadRoute|default('corp_app_fo_admin_license_download'), {'filename': filename}) }}">
                             <i class="fa fa-download"></i>
                         </a>
                     </td>

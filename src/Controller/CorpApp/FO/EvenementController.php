@@ -29,7 +29,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/projet-evenements/{id}", name="app_fo_projet_evenements")
+     * @Route("/projet-evenements/{id}", name="corp_app_fo_projet_evenements")
      */
     public function projetEvenements(Projet $projet)
     {
@@ -42,7 +42,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/mes-evenements", name="app_fo_current_user_events")
+     * @Route("/mes-evenements", name="corp_app_fo_current_user_events")
      */
     public function currentUserEvents()
     {
@@ -52,7 +52,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs/evenements", name="app_fo_users_events")
+     * @Route("/utilisateurs/evenements", name="corp_app_fo_users_events")
      *
      * @IsGranted("SOCIETE_ADMIN")
      */
@@ -79,7 +79,7 @@ class EvenementController extends AbstractController
     }
 
     /**
-     * @Route("/equipe/evenements", name="app_fo_equipe_users_events")
+     * @Route("/equipe/evenements", name="corp_app_fo_equipe_users_events")
      */
     public function equipeUsersEvents(Request $request, SocieteUserRepository $societeUserRepository)
     {

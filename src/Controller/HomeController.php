@@ -15,10 +15,26 @@ class HomeController extends AbstractController
     public function home(UserContext $userContext): Response
     {
         if ($this->isGranted('ROLE_FO_USER')) {
-            if(!$userContext->hasSocieteUser()) {
-                return $this->redirectToRoute('app_fo_multi_societe_switch');
+            if(!$userContext->hasUserBook() && $userContext->hasSocieteUser()) {
+                return $this->redirectToRoute('corp_app_fo_dashboard');
             }
-            return $this->redirectToRoute('app_fo_dashboard');
+
+            if($userContext->hasUserBook() && !$userContext->hasSocieteUser()) {
+                return $this->redirectToRoute('lab_app_fo_dashboard');
+            }
+
+            return $this->redirectToRoute('app_fo_multi_platefrom_switch');
+        }
+        return $this->redirectToRoute('app_login');
+    }
+
+    /**
+     * @Route("/mes-plateformes", name="app_fo_multi_platefrom_switch")
+     */
+    public function plateforms(UserContext $userContext): Response
+    {
+        if ($this->isGranted('ROLE_FO_USER')) {
+            return $this->render('security/switch_multi_plateforms.html.twig');
         }
         return $this->redirectToRoute('app_login');
     }

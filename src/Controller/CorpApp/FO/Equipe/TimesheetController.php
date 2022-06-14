@@ -22,7 +22,7 @@ class TimesheetController extends AbstractController
     /**
      * @Route(
      *      "/feuille-de-temps/generer",
-     *      name="app_fo_mon_equipe_timesheet_generate"
+     *      name="corp_app_fo_mon_equipe_timesheet_generate"
      * )
      */
     public function generate(

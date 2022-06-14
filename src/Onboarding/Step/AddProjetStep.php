@@ -24,7 +24,7 @@ class AddProjetStep implements OnboardingStepInterface
     public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
         return $urlGenerator->generate(
-            'app_fo_projet_creation',
+            'corp_app_fo_projet_creation',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

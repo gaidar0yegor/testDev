@@ -22,7 +22,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ObervateurExterneController extends AbstractController
 {
     /**
-     * @Route("/projet-externe/{id}", name="app_fo_observateur_externe_view")
+     * @Route("/projet-externe/{id}", name="corp_app_fo_observateur_externe_view")
      */
     public function view(
         Projet $projet,
@@ -40,7 +40,7 @@ class ObervateurExterneController extends AbstractController
     }
 
     /**
-     * @Route("/projet-externe/{projetId}/fichier/{fichierProjetId}", name="app_fo_observateur_externe_view_file")
+     * @Route("/projet-externe/{projetId}/fichier/{fichierProjetId}", name="corp_app_fo_observateur_externe_view_file")
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})
@@ -60,7 +60,7 @@ class ObervateurExterneController extends AbstractController
     }
 
     /**
-     * @Route("/projet-externe", name="app_fo_observateur_externe_list")
+     * @Route("/projet-externe", name="corp_app_fo_observateur_externe_list")
      */
     public function list(
         ProjetObservateurExterneRepository $projetObservateurExterneRepository
@@ -75,7 +75,7 @@ class ObervateurExterneController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{id}/inviter-un-observateur-externe", name="app_fo_observateur_externe_invite")
+     * @Route("/projets/{id}/inviter-un-observateur-externe", name="corp_app_fo_observateur_externe_invite")
      */
     public function invite(
         Request $request,
@@ -102,7 +102,7 @@ class ObervateurExterneController extends AbstractController
                 'Une notification avec un lien d\'invitation a été envoyée à votre observateur externe.'
             ));
 
-            return $this->redirectToRoute('app_fo_projet_participant', [
+            return $this->redirectToRoute('corp_app_fo_projet_participant', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -116,7 +116,7 @@ class ObervateurExterneController extends AbstractController
     /**
      * @Route(
      *      "/projets/{projetId}/retirer-un-observateur-externe/{observateurId}",
-     *      name="app_fo_observateur_externe_delete",
+     *      name="corp_app_fo_observateur_externe_delete",
      *      methods={"POST"}
      * )
      *
@@ -136,7 +136,7 @@ class ObervateurExterneController extends AbstractController
             throw $this->createNotFoundException('Cet observateur n\'a pas d\'accès sur ce projet.');
         }
 
-        $redirectResponse = $this->redirectToRoute('app_fo_projet_participant', [
+        $redirectResponse = $this->redirectToRoute('corp_app_fo_projet_participant', [
             'id' => $projet->getId(),
         ]);
 

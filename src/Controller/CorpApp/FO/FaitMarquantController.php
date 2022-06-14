@@ -29,7 +29,7 @@ class FaitMarquantController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{projetId}/fait-marquants/ajouter", name="app_fo_fait_marquant_ajouter", methods={"GET","POST"})
+     * @Route("/projets/{projetId}/fait-marquants/ajouter", name="corp_app_fo_fait_marquant_ajouter", methods={"GET","POST"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      */
@@ -70,7 +70,7 @@ class FaitMarquantController extends AbstractController
                 ]
             ));
 
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -83,7 +83,7 @@ class FaitMarquantController extends AbstractController
     }
 
     /**
-     * @Route("/fait-marquants/{id}/modifier", name="app_fo_fait_marquant_modifier", methods={"GET","POST"})
+     * @Route("/fait-marquants/{id}/modifier", name="corp_app_fo_fait_marquant_modifier", methods={"GET","POST"})
      */
     public function edit(
         Request $request,
@@ -106,7 +106,7 @@ class FaitMarquantController extends AbstractController
                 ]
             ));
 
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $faitMarquant->getProjet()->getId(),
                 '_fragment' => 'fait-marquant-'.$faitMarquant->getId(),
             ]);
@@ -119,7 +119,7 @@ class FaitMarquantController extends AbstractController
     }
 
     /**
-     * @Route("/fait-marquants/{id}", name="app_fo_fait_marquant_delete", methods={"DELETE"})
+     * @Route("/fait-marquants/{id}", name="corp_app_fo_fait_marquant_delete", methods={"DELETE"})
      */
     public function delete(
         Request $request,
@@ -145,13 +145,13 @@ class FaitMarquantController extends AbstractController
             ));
         }
 
-        return $this->redirectToRoute('app_fo_projet', [
+        return $this->redirectToRoute('corp_app_fo_projet', [
             'id' => $faitMarquant->getProjet()->getId(),
         ]);
     }
 
     /**
-     * @Route("/projets/{id}/fait-marquants/corbeille", name="app_fo_fait_marquant_trash", methods={"GET"})
+     * @Route("/projets/{id}/fait-marquants/corbeille", name="corp_app_fo_fait_marquant_trash", methods={"GET"})
      */
     public function trash(
         Request $request,
@@ -170,7 +170,7 @@ class FaitMarquantController extends AbstractController
     }
 
     /**
-     * @Route("/fait-marquants/restaurer/{id}", name="app_fo_fait_marquant_restore", methods={"GET"})
+     * @Route("/fait-marquants/restaurer/{id}", name="corp_app_fo_fait_marquant_restore", methods={"GET"})
      */
     public function restore(
         Request $request,
@@ -193,7 +193,7 @@ class FaitMarquantController extends AbstractController
             ]
         ));
 
-        return $this->redirectToRoute('app_fo_projet', [
+        return $this->redirectToRoute('corp_app_fo_projet', [
             'id' => $faitMarquant->getProjet()->getId(),
         ]);
     }

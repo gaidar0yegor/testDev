@@ -14,7 +14,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ObervateurExterneController extends AbstractController
 {
     /**
-     * @Route("/invitation-observateur-externe/{token}", name="app_observateur_externe_join")
+     * @Route("/invitation-observateur-externe/{token}", name="corp_app_observateur_externe_join")
      */
     public function joinProjet(
         string $token,
@@ -34,7 +34,7 @@ class ObervateurExterneController extends AbstractController
     }
 
     /**
-     * @Route("/invitation-observateur-externe/rejoindre-le-projet/{token}", name="app_observateur_externe_join_confirm")
+     * @Route("/invitation-observateur-externe/rejoindre-le-projet/{token}", name="corp_app_observateur_externe_join_confirm")
      *
      * @IsGranted("ROLE_FO_USER")
      */
@@ -57,7 +57,7 @@ class ObervateurExterneController extends AbstractController
             if (!$this->isCsrfTokenValid('invitation_join_projet_observateur_externe', $request->get('csrf_token'))) {
                 $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
-                return $this->redirectToRoute('app_fo_user_invitation_rejoindre', [
+                return $this->redirectToRoute('corp_app_fo_user_invitation_rejoindre', [
                     'token' => $token,
                 ]);
             }
@@ -71,7 +71,7 @@ class ObervateurExterneController extends AbstractController
 
             $this->addFlash('success', $translator->trans('Vous avez rejoint le projet !'));
 
-            return $this->redirectToRoute('app_fo_observateur_externe_view', [
+            return $this->redirectToRoute('corp_app_fo_observateur_externe_view', [
                 'id' => $projetObservateurExterne->getProjet()->getId(),
             ]);
         }

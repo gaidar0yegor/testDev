@@ -17,7 +17,7 @@ class LicensesController extends AbstractController
     /**
      * @Route(
      *      "/",
-     *      name="app_fo_admin_licenses"
+     *      name="corp_app_fo_admin_licenses"
      * )
      */
     public function index(LicenseService $licenseService, UserContext $userContext)
@@ -32,7 +32,7 @@ class LicensesController extends AbstractController
     /**
      * @Route(
      *      "/telecharger/{filename}",
-     *      name="app_fo_admin_license_download",
+     *      name="corp_app_fo_admin_license_download",
      *      requirements={"filename"=".*"}
      * )
      */

@@ -10,7 +10,7 @@
         <div class="ml-3 mt-2">
             <span>
                 <div class="input-color-container">
-                    <input type="color" id="societe_colorCode" class="input-color" value="{{ societe.colorCode }}" data-href="{{ path('app_fo_admin_societe_code_color_edit') }}">
+                    <input type="color" id="societe_colorCode" class="input-color" value="{{ societe.colorCode }}" data-href="{{ path('corp_app_fo_admin_societe_code_color_edit') }}">
                 </div>
             </span>
         </div>
@@ -19,7 +19,7 @@
     <p class="text-center">
         {{ 'business_identification_number:'|trans }} <span class="text-monospace">{{ societe.siret|formatSiret }}</span>
         <br>
-        <a href="{{ path('app_fo_admin_societe_edit') }}">{{ 'edit_my_company_data'|trans }}</a>
+        <a href="{{ path('corp_app_fo_admin_societe_edit') }}">{{ 'edit_my_company_data'|trans }}</a>
     </p>
 
     <div class="row">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ path ('app_fo_admin_societe_logo_edit') }}" class="card-link">{{ 'edit_societe_logo'|trans }}</a>
+                    <a href="{{ path ('corp_app_fo_admin_societe_logo_edit') }}" class="card-link">{{ 'edit_societe_logo'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ path ('app_fo_utilisateurs') }}" class="card-link">{{ 'display_users_list'|trans }}</a>
+                    <a href="{{ path ('corp_app_fo_utilisateurs') }}" class="card-link">{{ 'display_users_list'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_hours_number'|trans }}</a>
+                    <a href="{{ path('corp_app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_hours_number'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_cost_hours_number'|trans }}</a>
+                    <a href="{{ path('corp_app_fo_admin_societe_edit') }}" class="card-link">{{ 'edit_cost_hours_number'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ path('app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_granularity'|trans }}</a>
+                    <a href="{{ path('corp_app_fo_admin_societe_edit') }}" class="card-link">{{ 'change_granularity'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -149,7 +149,7 @@
                 <div class="card-footer">
                     <a
                     {% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::FAIT_MARQUANT_DESCRIPTION_SIZE')) %}
-                    href="{{ path('app_fo_admin_societe_edit')}}" class="card-link"
+                    href="{{ path('corp_app_fo_admin_societe_edit')}}" class="card-link"
                     {% else %}
                     href="#" title="{{ 'product_privilege_no_dispo'|trans }}" class="disabled"
                     {% endif %}>
@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ path('app_fo_admin_notification') }}" class="card-link">{{ 'menu.admin.notification_parameters'|trans }}</a>
+                    <a href="{{ path('corp_app_fo_admin_notification') }}" class="card-link">{{ 'menu.admin.notification_parameters'|trans }}</a>
                 </div>
             </div>
         </div>

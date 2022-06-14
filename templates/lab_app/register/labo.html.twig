@@ -1,15 +1,15 @@
-{% extends 'register/layout.html.twig' %}
+{% extends 'lab_app/register/layout.html.twig' %}
 
 {% block register %}
-    <h1 class="mb-1">{{ 'create_my_company'|trans }}</h1>
+    <h1 class="mb-1">{{ 'create_my_labo'|trans }}</h1>
 
     <p class="lead">
-        {{ 'welcome_on_rdi_manager_long'|trans }}
+        {{ 'welcome_on_rdi_manager_lab_app_long'|trans }}
     </p>
 
     <p class="text-warning">
         <i class="fa fa-exclamation" aria-hidden="true"></i>
-        {{ 'if_you_want_join_already_existing_company_ask_your_admin'|trans }}
+        {{ 'if_you_want_join_already_existing_labo_ask_your_admin'|trans }}
     </p>
 
     {{ form_start(form) }}

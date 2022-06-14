@@ -32,7 +32,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class SocieteUserController extends AbstractController
 {
     /**
-     * @Route("", name="app_fo_admin_utilisateurs")
+     * @Route("", name="corp_app_fo_admin_utilisateurs")
      */
     public function listerUtilisateurs(SocieteUserRepository $societeUserRepository, UserContext $userContext)
     {
@@ -42,7 +42,7 @@ class SocieteUserController extends AbstractController
     }
 
     /**
-     * @Route("/invite", name="app_fo_admin_user_invite")
+     * @Route("/invite", name="corp_app_fo_admin_user_invite")
      */
     public function invite(
         Request $request,
@@ -62,7 +62,7 @@ class SocieteUserController extends AbstractController
 
             $this->addFlash('success', 'Un lien d\'invitation a été envoyé.');
 
-            return $this->redirectToRoute('app_fo_admin_user_invite');
+            return $this->redirectToRoute('corp_app_fo_admin_user_invite');
         }
 
         return $this->render('corp_app/utilisateurs_fo/invite_user.html.twig', [
@@ -73,7 +73,7 @@ class SocieteUserController extends AbstractController
     /**
      * @Route(
      *      "/{id}/roles-projets",
-     *      name="app_fo_admin_utilisateur_roles_projets"
+     *      name="corp_app_fo_admin_utilisateur_roles_projets"
      * )
      */
     public function rolesProjets(
@@ -100,7 +100,7 @@ class SocieteUserController extends AbstractController
                 $societeUser->getUser()->getFullnameOrEmail()
             ));
 
-            return $this->redirectToRoute('app_fo_admin_utilisateur_roles_projets', [
+            return $this->redirectToRoute('corp_app_fo_admin_utilisateur_roles_projets', [
                 'id' => $societeUser->getId(),
             ]);
         }

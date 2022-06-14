@@ -3,7 +3,7 @@
 {% else %}
 <form
     method="post"
-    action="{{ path('app_fo_fait_marquant_delete', {'id': faitMarquant.id}) }}"
+    action="{{ path('corp_app_fo_fait_marquant_delete', {'id': faitMarquant.id}) }}"
     onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce fait marquant ?');"
 >
     <input type="hidden" name="_method" value="DELETE">

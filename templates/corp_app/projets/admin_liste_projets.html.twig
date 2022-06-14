@@ -37,7 +37,7 @@
                     <td data-sort='{{ projet.colorCode }}'>
                         {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
                     </td>
-                    <td class="text-left"><a href="{{ path('app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
+                    <td class="text-left"><a href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
                     <td>{{ projet.chefDeProjet.user.fullName }}</td>
                     <td data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
@@ -48,10 +48,10 @@
                         {% include 'corp_app/projets/_eligible_rdi.html.twig' with {projet: projet} %}
                     </td>
                     <td>
-                        <a href="{{ path('app_fo_projet', {'id': projet.id}) }}">
+                        <a href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}">
                             <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ path('app_fo_admin_projet', {'id': projet.id}) }}">
+                        <a href="{{ path('corp_app_fo_admin_projet', {'id': projet.id}) }}">
                             <i class="fa fa-lg fa-bar-chart" aria-hidden="true"></i>
                         </a>
                     </td>

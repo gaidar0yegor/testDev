@@ -9,7 +9,7 @@
         {% include 'utils/_avatar.html.twig' with {user: app.user, size: 180, border: true} %}
         <br>
 
-        <a href="{{ path('app_fo_mon_compte_modifier_avatar') }}" class="btn btn-link btn-sm">{{ 'edit_my_avatar'|trans }}</a>
+        <a href="{{ path('corp_app_fo_mon_compte_modifier_avatar') }}" class="btn btn-link btn-sm">{{ 'edit_my_avatar'|trans }}</a>
     </div>
 
     <div class="row">
@@ -53,11 +53,11 @@
 
                     <div class="mt-5">
                         <a
-                            href="{{ path('app_fo_mon_compte_modifier') }}"
+                            href="{{ path('corp_app_fo_mon_compte_modifier') }}"
                             class="btn btn-outline-success mt-2"
                         >{{ 'update'|trans }}</a>
                         <a
-                            href="{{ path('app_fo_mon_compte_update_password') }}"
+                            href="{{ path('corp_app_fo_mon_compte_update_password') }}"
                             class="btn btn-outline-warning mt-2"
                         >{{ 'change_password'|trans }}</a>
                     </div>
@@ -94,7 +94,7 @@
 
                         <div class="mt-5">
                             <a
-                                href="{{ path('app_fo_mon_compte_activite') }}"
+                                href="{{ path('corp_app_fo_mon_compte_activite') }}"
                                 class="btn btn-outline-primary mt-2"
                             >{{ 'my_activity'|trans }}</a>
                         </div>

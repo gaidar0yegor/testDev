@@ -44,7 +44,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("", name="app_fo_projets")
+     * @Route("", name="corp_app_fo_projets")
      */
     public function listerProjet(UserContext $userContext, ProjetRepository $projetRepository)
     {
@@ -59,7 +59,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/creation", name="app_fo_projet_creation")
+     * @Route("/creation", name="corp_app_fo_projet_creation")
      *
      * @IsGranted("SOCIETE_CDP")
      */
@@ -97,7 +97,7 @@ class ProjetController extends AbstractController
 
             $this->addFlash('success', sprintf('Le projet "%s" a été créé.', $projet->getTitre()));
 
-            return $this->redirectToRoute('app_fo_projet_add_contributors', [
+            return $this->redirectToRoute('corp_app_fo_projet_add_contributors', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -112,7 +112,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/add-contributors", name="app_fo_projet_add_contributors")
+     * @Route("/{id}/add-contributors", name="corp_app_fo_projet_add_contributors")
      */
     public function addFirstContributors(
         Request $request,
@@ -158,7 +158,7 @@ class ProjetController extends AbstractController
                 ]));
             }
 
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -170,7 +170,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/modifier", name="app_fo_projet_modifier")
+     * @Route("/{id}/modifier", name="corp_app_fo_projet_modifier")
      */
     public function edition(Request $request, Projet $projet): Response
     {
@@ -192,7 +192,7 @@ class ProjetController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', sprintf('Le projet "%s" a été modifié.', $projet->getTitre()));
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -205,7 +205,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_fo_projet", requirements={"id"="\d+"})
+     * @Route("/{id}", name="corp_app_fo_projet", requirements={"id"="\d+"})
      */
     public function ficheProjet(
         UserContext $userContext,
@@ -229,7 +229,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/activite", name="app_fo_projet_activity", requirements={"id"="\d+"})
+     * @Route("/{id}/activite", name="corp_app_fo_projet_activity", requirements={"id"="\d+"})
      */
     public function projetActivity(Projet $projet, ProjetActivityRepository $projetActivityRepository)
     {
@@ -242,7 +242,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/activite/modifier", name="app_fo_projet_activity_edit", requirements={"id"="\d+"})
+     * @Route("/{id}/activite/modifier", name="corp_app_fo_projet_activity_edit", requirements={"id"="\d+"})
      */
     public function projetActivityEdit(Projet $projet, ProjetActivityRepository $projetActivityRepository)
     {
@@ -256,7 +256,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}.pdf", name="app_fo_projet_pdf")
+     * @Route("/{id}.pdf", name="corp_app_fo_projet_pdf")
      */
     public function ficheProjetGeneratformatePdf(Projet $projet)
     {
@@ -283,7 +283,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/custom", name="app_fo_projet_custom")
+     * @Route("/{id}/custom", name="corp_app_fo_projet_custom")
      */
     public function ficheProjetGenerateCustom(Projet $projet, Request $request, StatisticsService $statisticsService)
     {
@@ -326,7 +326,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/supprimer", name="app_fo_projet_delete")
+     * @Route("/{id}/supprimer", name="corp_app_fo_projet_delete")
      */
     public function delete(
         Projet $projet,
@@ -340,7 +340,7 @@ class ProjetController extends AbstractController
             if (!$this->isCsrfTokenValid('delete_project_'.$projet->getId(), $request->get('_token'))) {
                 $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
-                return $this->redirectToRoute('app_fo_projet_delete', [
+                return $this->redirectToRoute('corp_app_fo_projet_delete', [
                     'id' => $projet->getId(),
                 ]);
             }
@@ -352,7 +352,7 @@ class ProjetController extends AbstractController
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 
-            return $this->redirectToRoute('app_fo_projets');
+            return $this->redirectToRoute('corp_app_fo_projets');
         }
 
         return $this->render('corp_app/projets/delete.html.twig', [
@@ -361,7 +361,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/suspendre", name="app_fo_projet_suspend")
+     * @Route("/{id}/suspendre", name="corp_app_fo_projet_suspend")
      */
     public function suspend(
         Projet $projet,
@@ -377,7 +377,7 @@ class ProjetController extends AbstractController
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 
-            return $this->redirectToRoute('app_fo_projet', ['id' => $projet->getId()]);
+            return $this->redirectToRoute('corp_app_fo_projet', ['id' => $projet->getId()]);
         }
 
         $faitMarquant = $faitMarquantService->CreateFmOfProjectSuspension($projet);
@@ -401,7 +401,7 @@ class ProjetController extends AbstractController
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -413,7 +413,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/reactiver", name="app_fo_projet_resume")
+     * @Route("/{id}/reactiver", name="corp_app_fo_projet_resume")
      */
     public function resume(
         Projet $projet,
@@ -429,7 +429,7 @@ class ProjetController extends AbstractController
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 
-            return $this->redirectToRoute('app_fo_projet', ['id' => $projet->getId()]);
+            return $this->redirectToRoute('corp_app_fo_projet', ['id' => $projet->getId()]);
         }
 
         $projet->setIsSuspended(false);
@@ -468,7 +468,7 @@ class ProjetController extends AbstractController
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }

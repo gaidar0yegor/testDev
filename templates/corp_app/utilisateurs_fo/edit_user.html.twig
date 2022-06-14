@@ -24,7 +24,7 @@
 
 <div class="d-flex justify-content-around">
     <div class="form-group">
-        <a href="{{ path('app_fo_utilisateurs') }}" class="btn btn-outline-warning">{{ 'cancel'|trans }}</a>
+        <a href="{{ path('corp_app_fo_utilisateurs') }}" class="btn btn-outline-warning">{{ 'cancel'|trans }}</a>
     </div>
     <div class="form-group">
         <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
@@ -49,13 +49,13 @@
                         <ul>
                             {% for projetParticipant in projetsAsCdp %}
                                 <li>
-                                    <a href="{{ path('app_fo_projet', {'id': projetParticipant.projet.id}) }}">{{ projetParticipant.projet.titre }}</a>
+                                    <a href="{{ path('corp_app_fo_projet', {'id': projetParticipant.projet.id}) }}">{{ projetParticipant.projet.titre }}</a>
                                 </li>
                             {% endfor %}
                         </ul>
                     {% endif %}
                     <form
-                        action="{{ path('app_fo_utilisateur_disable', { id: societeUser.id }) }}"
+                        action="{{ path('corp_app_fo_utilisateur_disable', { id: societeUser.id }) }}"
                         method="POST"
                         class="form"
                     >
@@ -79,7 +79,7 @@
                         {{ 're_enable_account_explain'|trans({'%user%': societeUser.user.fullname}) }}
                     </p>
                     <form
-                        action="{{ path('app_fo_utilisateur_enable', { id: societeUser.id }) }}"
+                        action="{{ path('corp_app_fo_utilisateur_enable', { id: societeUser.id }) }}"
                         method="POST"
                         class="form d-inline-block"
                     >
@@ -87,7 +87,7 @@
                         <input type="submit" value="{{ 're_enable_account'|trans }}" class="btn btn-warning" />
                     </form>
                     <a
-                            href="{{ path('app_fo_utilisateur_delete', {'id': societeUser.id}) }}"
+                            href="{{ path('corp_app_fo_utilisateur_delete', {'id': societeUser.id}) }}"
                             class="btn btn-danger"
                     >{{ 'verify_and_delete_user'|trans }}</a>
                 {% endif %}

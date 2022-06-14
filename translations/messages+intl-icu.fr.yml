@@ -348,7 +348,7 @@ your_collaborators_will_enrich_this_project:
 you_still_can_create_project_later:
   "Vous pourrez toujours créer votre projet plus
   tard."
-welcome_on_rdi_manager_long:
+welcome_on_rdi_manager_corp_app_long:
   "Bienvenue sur RDI-Manager, vous allez ici créer votre
   société et votre accès administrateur afin de suivre vos projets."
 if_you_want_join_already_existing_company_ask_your_admin:
@@ -562,3 +562,21 @@ resume: Résumé
 domain: Domaine
 activity_project: Activité du projet
 add_new_project: Ajouter un nouveau projet
+corp_app_name: Journal collaboratif
+access_to_my_companies: Accèder à mes sociétés
+#################################### Lab App #######################################
+welcom_to_rdi_manager_plateforms: Bienvenue sur le portail de RDI Manager
+lab_app_name: Cahier de laboratoire
+my_user_books: Mes cahiers de laboratoire
+my_labo: Mon laboratoire
+create_my_labo: Créer mon laboratoire
+access_to_my_labo_notebook: Accèder à mes cahiers de laboratoires
+welcome_on_rdi_manager_lab_app_long:
+  "Bienvenue sur RDI-Manager, vous allez ici créer votre
+  laboratoire et votre accès administrateur afin de suivre vos cahiers de laboratoire."
+if_you_want_join_already_existing_labo_ask_your_admin:
+  "Si vous souhaitez plutôt rejoindre un laboratoire déjà existant, veuillez demander à votre administrateur de
+  vous inviter."
+creation_of_your_admin_account_on_labo:
+  "Création de votre compte administrateur
+  sur le laboratoire"

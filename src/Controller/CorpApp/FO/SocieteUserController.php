@@ -43,7 +43,7 @@ class SocieteUserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateur/{id}", name="app_fo_societe_user")
+     * @Route("/utilisateur/{id}", name="corp_app_fo_societe_user")
      */
     public function compteUtilisateur(SocieteUser $societeUser)
     {
@@ -55,14 +55,14 @@ class SocieteUserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateurs", name="app_fo_utilisateurs")
+     * @Route("/utilisateurs", name="corp_app_fo_utilisateurs")
      */
     public function listerUtilisateurs(SocieteUserRepository $societeUserRepository, UserContext $userContext)
     {
         $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $userContext->getSocieteUser());
 
         if (!$this->isGranted(RoleSociete::ADMIN)){
-            return $this->redirectToRoute('app_fo_utilisateurs_team');
+            return $this->redirectToRoute('corp_app_fo_utilisateurs_team');
         }
 
         return $this->render('corp_app/utilisateurs_fo/liste_utilisateurs_fo.html.twig', [
@@ -72,7 +72,7 @@ class SocieteUserController extends AbstractController
     }
 
     /**
-     * @Route("/equipe/utilisateurs", name="app_fo_utilisateurs_team")
+     * @Route("/equipe/utilisateurs", name="corp_app_fo_utilisateurs_team")
      */
     public function listerEquipe(SocieteUserRepository $societeUserRepository, UserContext $userContext)
     {
@@ -85,7 +85,7 @@ class SocieteUserController extends AbstractController
     }
 
     /**
-     * @Route("/utilisateur/{id}/modifier", name="app_fo_utilisateur_modifier")
+     * @Route("/utilisateur/{id}/modifier", name="corp_app_fo_utilisateur_modifier")
      */
     public function modifier(
         Request $request,
@@ -107,7 +107,7 @@ class SocieteUserController extends AbstractController
 
             $this->addFlash('success', 'Les informations de l\'utilisateur ont été modifiées');
 
-            return $this->redirectToRoute('app_fo_societe_user', [
+            return $this->redirectToRoute('corp_app_fo_societe_user', [
                 'id' => $societeUser->getId(),
             ]);
         }
@@ -122,7 +122,7 @@ class SocieteUserController extends AbstractController
     /**
      * @Route(
      *      "/utilisateur/{id}/desactiver",
-     *      name="app_fo_utilisateur_disable",
+     *      name="corp_app_fo_utilisateur_disable",
      *      methods={"POST"}
      * )
      */
@@ -139,7 +139,7 @@ class SocieteUserController extends AbstractController
         if (!$this->isCsrfTokenValid('disable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
             $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
 
-            return $this->redirectToRoute('app_fo_utilisateur_modifier', [
+            return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                 'id' => $societeUser->getId(),
             ]);
         }
@@ -158,7 +158,7 @@ class SocieteUserController extends AbstractController
                 'user' => $societeUser->getUser()->getFullname(),
             ]));
 
-            return $this->redirectToRoute('app_fo_utilisateur_modifier', [
+            return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                 'id' => $societeUser->getId(),
             ]);
         }
@@ -179,7 +179,7 @@ class SocieteUserController extends AbstractController
             $societeUser->getUser()->getFullname()
         ));
 
-        return $this->redirectToRoute('app_fo_utilisateur_modifier', [
+        return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
             'id' => $societeUser->getId(),
         ]);
     }
@@ -187,7 +187,7 @@ class SocieteUserController extends AbstractController
     /**
      * @Route(
      *      "/utilisateur/{id}/activer",
-     *      name="app_fo_utilisateur_enable",
+     *      name="corp_app_fo_utilisateur_enable",
      *      methods={"POST"}
      * )
      */
@@ -203,7 +203,7 @@ class SocieteUserController extends AbstractController
         if (!$this->isCsrfTokenValid('re_enable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
             $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
 
-            return $this->redirectToRoute('app_fo_utilisateur_modifier', [
+            return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                 'id' => $societeUser->getId(),
             ]);
         }
@@ -218,7 +218,7 @@ class SocieteUserController extends AbstractController
                 'user' => $societeUser->getUser()->getFullname(),
             ]));
 
-            return $this->redirectToRoute('app_fo_utilisateur_modifier', [
+            return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                 'id' => $societeUser->getId(),
             ]);
         }
@@ -233,13 +233,13 @@ class SocieteUserController extends AbstractController
             $societeUser->getUser()->getFullname()
         ));
 
-        return $this->redirectToRoute('app_fo_utilisateur_modifier', [
+        return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
             'id' => $societeUser->getId(),
         ]);
     }
 
     /**
-     * @Route("/utilisateur/{id}/supprimer", name="app_fo_utilisateur_delete")
+     * @Route("/utilisateur/{id}/supprimer", name="corp_app_fo_utilisateur_delete")
      */
     public function delete(
         Request $request,
@@ -254,7 +254,7 @@ class SocieteUserController extends AbstractController
             if (!$this->isCsrfTokenValid('delete_user_'.$societeUser->getId(), $request->get('_token'))) {
                 $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
 
-                return $this->redirectToRoute('app_fo_utilisateur_modifier', [
+                return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                     'id' => $societeUser->getId(),
                 ]);
             }
@@ -273,7 +273,7 @@ class SocieteUserController extends AbstractController
                 'user' => $user->getFullname(),
             ]));
 
-            return $this->redirectToRoute('app_fo_utilisateurs');
+            return $this->redirectToRoute('corp_app_fo_utilisateurs');
         }
 
         return $this->render('corp_app/utilisateurs_fo/delete_user.html.twig', [
@@ -284,7 +284,7 @@ class SocieteUserController extends AbstractController
     /**
      * @Route(
      *      "/utilisateur/{id}/activite",
-     *      name="app_fo_utilisateur_activity"
+     *      name="corp_app_fo_utilisateur_activity"
      * )
      */
     public function activity(

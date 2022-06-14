@@ -104,7 +104,7 @@ class InitSocieteReferentCommand extends Command
             $message[] = 'Un email a été envoyé à l\'administrateur.';
         } else {
             $message[] = 'Le nouvel administrateur peut aller sur le lien suivant pour finaliser son inscription :';
-            $message[] = $this->urlGenerator->generate('app_fo_user_finalize_inscription', [
+            $message[] = $this->urlGenerator->generate('corp_app_fo_user_finalize_inscription', [
                 'token' => $admin->getInvitationToken(),
             ], UrlGeneratorInterface::ABSOLUTE_URL);
         }

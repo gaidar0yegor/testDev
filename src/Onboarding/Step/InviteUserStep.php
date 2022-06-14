@@ -24,7 +24,7 @@ class InviteUserStep implements OnboardingStepInterface
     public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
         return $urlGenerator->generate(
-            'app_fo_admin_user_invite',
+            'corp_app_fo_admin_user_invite',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

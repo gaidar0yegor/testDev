@@ -8,7 +8,7 @@ use Twig\TwigFilter;
 
 class CodeColorSocieteExtension extends AbstractExtension
 {
-    public const RDI_COLOR = '#ce352c';
+    public const CORP_APP_COLOR = '#ce352c';
     public const BLACK_COLOR = '#000000';
     public const WHITE_COLOR = '#ffffff';
 
@@ -21,11 +21,11 @@ class CodeColorSocieteExtension extends AbstractExtension
 
     public function applyCodeColorSociete(UserContext $userContext, string $cssAttribute) :string
     {
-        $hexColor = $userContext->hasSocieteUser() ? $userContext->getSocieteUser()->getSociete()->getColorCode() : $this::RDI_COLOR;
+        $hexColor = $userContext->hasSocieteUser() ? $userContext->getSocieteUser()->getSociete()->getColorCode() : $this::CORP_APP_COLOR;
 
         switch ($cssAttribute){
             case 'background-image':
-                return "background-image: linear-gradient(90deg, ".$this::RDI_COLOR." 65%, ".$hexColor." 100%);";
+                return "background-image: linear-gradient(90deg, ".$this::CORP_APP_COLOR." 65%, ".$hexColor." 100%);";
             case 'background-color':
                 return "background-color: ".$hexColor.";color: ".($this->hexIsLight($hexColor) ? $this::BLACK_COLOR : $this::WHITE_COLOR);
             default:

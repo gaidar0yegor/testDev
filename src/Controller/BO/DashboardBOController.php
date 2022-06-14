@@ -32,7 +32,7 @@ class DashboardBOController extends AbstractController
     }
 
     /**
-     * @Route("/dashboard", name="app_bo_dashboard")
+     * @Route("/dashboard", name="corp_app_bo_dashboard")
      */
     public function dashboardUser()
     {
@@ -96,7 +96,7 @@ class DashboardBOController extends AbstractController
     }
 
     /**
-     * @Route("/stats", name="app_bo_stats")
+     * @Route("/stats", name="corp_app_bo_stats")
      */
     public function stats()
     {

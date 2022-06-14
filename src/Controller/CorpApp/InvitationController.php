@@ -19,7 +19,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class InvitationController extends AbstractController
 {
     /**
-     * @Route("/inscription/{token}", name="app_fo_user_finalize_inscription")
+     * @Route("/inscription/{token}", name="corp_app_fo_user_finalize_inscription")
      */
     public function finalizeInscription(
         string $token,
@@ -36,7 +36,7 @@ class InvitationController extends AbstractController
                 throw new InvitationTokenAlreadyHasSocieteException();
             }
 
-            return $this->redirectToRoute('app_fo_user_invitation_join_societe', [
+            return $this->redirectToRoute('corp_app_fo_user_invitation_join_societe', [
                 'token' => $token,
             ]);
         }
@@ -47,7 +47,7 @@ class InvitationController extends AbstractController
     }
 
     /**
-     * @Route("/inscription/rejoindre-la-societe/{token}", name="app_fo_user_invitation_join_societe")
+     * @Route("/inscription/rejoindre-la-societe/{token}", name="corp_app_fo_user_invitation_join_societe")
      *
      * @IsGranted("ROLE_FO_USER")
      */
@@ -73,7 +73,7 @@ class InvitationController extends AbstractController
             if (!$this->isCsrfTokenValid('invitation_join_societe', $request->get('csrf_token'))) {
                 $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
-                return $this->redirectToRoute('app_fo_user_invitation_rejoindre', [
+                return $this->redirectToRoute('corp_app_fo_user_invitation_rejoindre', [
                     'token' => $token,
                 ]);
             }

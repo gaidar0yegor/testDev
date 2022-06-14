@@ -230,7 +230,7 @@ finished!: Done !
 you_still_can_create_project_later:
   You will always be able to create your project
   later.
-welcome_on_rdi_manager_long:
+welcome_on_rdi_manager_corp_app_long:
   Welcome to RDI-Manager, here you will create your company
   and your administrator access that will allow you to follow your projects.
 if_you_want_join_already_existing_company_ask_your_admin:
@@ -561,3 +561,20 @@ license_notRelated: This license is not linked to your company.
 add_contributors: Add Contributors
 add_contributors_help: Without other contributors, you will be the only one who can add striking facts, attach files... Add contributors to this project so that they can enrich it and enter their time spent on it.
 who_is_working_on_this_project: Who contributes to this project?
+corp_app_name: Collaborative journal
+access_to_my_companies: Access my companies
+#################################### Lab App #######################################
+welcom_to_rdi_manager_plateforms: Welcome to the RDI Manager portal
+lab_app_name: Laboratory's notebook
+my_user_books: My lab notebooks
+my_labo: My laboratory
+create_my_labo: Create my laboratory
+access_to_my_labo_notebook: Access my lab notebooks
+welcome_on_rdi_manager_lab_app_long:
+  Welcome to RDI-Manager, here you will create your laboratory and your
+  administrator access in order to follow your laboratory notebooks.
+if_you_want_join_already_existing_labo_ask_your_admin:
+  If you would rather join
+  an existing laboratory, please ask your administrator to invite you.
+creation_of_your_admin_account_on_labo:
+  Creation of your administrator's account in the laboratory

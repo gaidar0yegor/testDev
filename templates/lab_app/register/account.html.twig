@@ -1,4 +1,4 @@
-{% extends 'register/layout.html.twig' %}
+{% extends 'lab_app/register/layout.html.twig' %}
 
 {% block register %}
     <h1 class="mb-1">{{ 'my_rdi_manager_account'|trans }}</h1>
@@ -8,7 +8,7 @@
     </p>
 
     <a
-        href="{{ path('app_register_account_creation') }}"
+        href="{{ path('lab_app_register_account_creation') }}"
         class="btn btn-lg btn-success"
     >{{ 'create_my_rdi_manager_account'|trans }}</a>
 
@@ -17,7 +17,7 @@
     </p>
 
     <a
-        href="{{ path('app_register_account_join') }}"
+        href="{{ path('lab_app_register_account_join') }}"
         class="mt-1 btn btn-outline-primary"
     >{{ 'i_already_have_a_rdi_manager_account'|trans }}</a>
 {% endblock %}

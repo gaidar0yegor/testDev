@@ -146,7 +146,7 @@
 
 <form
     method="post"
-    action="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
+    action="{{ path('corp_app_fo_projet_delete', {'id': projet.id}) }}"
     onsubmit="return confirm('{{ 'are_you_sure_delete_project'|trans({'projectAcronyme': projet.acronyme})|escape('js') }}');"
 >
     <input type="hidden" name="_token" value="{{ csrf_token('delete_project_' ~ projet.id) }}">

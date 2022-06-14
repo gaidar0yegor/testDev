@@ -28,7 +28,7 @@ class ProjetParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{id}/participants", name="app_fo_projet_participant")
+     * @Route("/projets/{id}/participants", name="corp_app_fo_projet_participant")
      */
     public function index(
         Request $request,
@@ -75,7 +75,7 @@ class ProjetParticipantController extends AbstractController
 
             $this->addFlash('success', 'Les rôles des participants ont été mis à jour.');
 
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -87,7 +87,7 @@ class ProjetParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/projets/{id}/participants/invite", name="app_fo_projet_participant_invite")
+     * @Route("/projets/{id}/participants/invite", name="corp_app_fo_projet_participant_invite")
      */
     public function invite(
         Request $request,
@@ -117,7 +117,7 @@ class ProjetParticipantController extends AbstractController
                 $invitation->getEmail()
             ));
 
-            return $this->redirectToRoute('app_fo_projet_participant_invite', [
+            return $this->redirectToRoute('corp_app_fo_projet_participant_invite', [
                 'id' => $projet->getId(),
             ]);
         }

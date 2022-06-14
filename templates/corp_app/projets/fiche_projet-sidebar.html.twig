@@ -73,7 +73,7 @@
 <ul class="next-projet-events list-unstyled">
     {% for nextEvenement in nextEvenements %}
         <li>
-            <a href="{{ path('app_fo_projet_evenements', { 'id' : projet.id , 'event' : nextEvenement.id }) }}">
+            <a href="{{ path('corp_app_fo_projet_evenements', { 'id' : projet.id , 'event' : nextEvenement.id }) }}">
                 <strong>{{ nextEvenement.text }}</strong>
             </a>
             {% if participation and participation.societeUser.isInvitedToEvenement(nextEvenement) %}
@@ -94,7 +94,7 @@
 <hr>
 
 <a
-    href="{{ path('app_fo_projet_participant', {'id': projet.id}) }}"
+    href="{{ path('corp_app_fo_projet_participant', {'id': projet.id}) }}"
     class="btn btn-outline-primary rounded-circle float-right {{ userCanEditProjet ? '' : 'disabled' }}"
     {% if not userCanEditProjet %}
         title="Seul le chef de projet peut gérer les participants"
@@ -108,7 +108,7 @@
 <ul class="list-inline">
     {% for contributeur in contributeurs|slice(0, 4) %}
         <li class="list-inline-item m-1">
-            <a href="{{ path('app_fo_societe_user', {'id': contributeur.societeUser.id}) }}">
+            <a href="{{ path('corp_app_fo_societe_user', {'id': contributeur.societeUser.id}) }}">
                 {% include 'utils/_avatar.html.twig' with {user: contributeur.societeUser.user, toExpend: true} %}
             </a>
         </li>
@@ -127,7 +127,7 @@
 <hr>
 
 <a
-    href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}"
+    href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id}) }}"
     class="btn btn-outline-primary rounded-circle float-right {{ not projet.isSuspended and userCanAddFaitMarquant ? '' : 'disabled' }}"
     {% if projet.isSuspended %}
         title="Le projet est suspendu"
@@ -146,7 +146,7 @@
     <ul class="list-unstyled">
         {% for dossierFichierProjet in projet.dossierFichierProjets %}
             <li>
-                <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id, '_fragment' : ('dossier-' ~ dossierFichierProjet.nomMd5)})  }}">
+                <a href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id, '_fragment' : ('dossier-' ~ dossierFichierProjet.nomMd5)})  }}">
                     <i class="fa fa-folder" aria-hidden="true"></i>
                     {{ dossierFichierProjet.nom }} <span class="badge badge-pill badge-info">{{ dossierFichierProjet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length }}</span>
                 </a>
@@ -159,14 +159,14 @@
         <p>{{ '...and_n_others' | trans({'n': projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length - countFichier}) }}</p>
     {% endif %}
 
-    <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list_files"|trans }}</a>
+    <a href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list_files"|trans }}</a>
 
 {% elseif projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > 0 %}
     
     <ul class="list-unstyled">
         {% for fichierProjet in projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|reverse[0:5] %}
             <li>
-                <a href="{{ path('app_fo_projet_fichier', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}" target="_blank"
+                <a href="{{ path('corp_app_fo_projet_fichier', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}" target="_blank"
                         {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
                     <i class="fa {{ fichierProjet|faFileIcon }}" aria-hidden="true"></i>
                     {{ fichierProjet.fichier.nomFichier }}
@@ -179,7 +179,7 @@
         <p>{{ '...and_n_others' | trans({'n': projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length - 5}) }}</p>
     {% endif %}
 
-    <a href="{{ path('app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list_files"|trans }}</a>
+    <a href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list_files"|trans }}</a>
 
 {% else %}
 

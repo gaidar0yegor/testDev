@@ -1,0 +1,23 @@
+{% extends 'corp_app/register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-1">{{ 'my_rdi_manager_account'|trans }}</h1>
+
+    <p>
+        {{ 'if_you_are_new_create_an_account'|trans }}
+    </p>
+
+    <a
+        href="{{ path('corp_app_register_account_creation') }}"
+        class="btn btn-lg btn-success"
+    >{{ 'create_my_rdi_manager_account'|trans }}</a>
+
+    <p class="mt-4">
+        {{ 'already_have_account_explain'|trans }}
+    </p>
+
+    <a
+        href="{{ path('corp_app_register_account_join') }}"
+        class="mt-1 btn btn-outline-primary"
+    >{{ 'i_already_have_a_rdi_manager_account'|trans }}</a>
+{% endblock %}

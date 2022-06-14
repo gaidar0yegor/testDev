@@ -13,7 +13,7 @@ class ProjetController extends AbstractController
     /**
      * Affichage de tous les projets de la société
      *
-     * @Route("/tous-les-projets", name="app_fo_admin_projets")
+     * @Route("/tous-les-projets", name="corp_app_fo_admin_projets")
      */
     public function listerProjetAdmin(ProjetRepository $projetRepository, UserContext $userContext)
     {
@@ -30,7 +30,7 @@ class ProjetController extends AbstractController
     /**
      * Page admin d'un projet.
      *
-     * @Route("/projets/{id}", name="app_fo_admin_projet")
+     * @Route("/projets/{id}", name="corp_app_fo_admin_projet")
      */
     public function projetManage(Projet $projet)
     {

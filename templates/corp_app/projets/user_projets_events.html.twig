@@ -53,13 +53,13 @@
                     {% for nextEvenementParticipant in nextEvenementParticipants %}
                         <tr>
                             <td class="text-left">
-                                <a href="{{ path('app_fo_current_user_events', { 'event' : nextEvenementParticipant.evenement.id }) }}" title="{{ nextEvenementParticipant.evenement.description }}">
+                                <a href="{{ path('corp_app_fo_current_user_events', { 'event' : nextEvenementParticipant.evenement.id }) }}" title="{{ nextEvenementParticipant.evenement.description }}">
                                     {{ nextEvenementParticipant.evenement.text }}
                                 </a>
                             </td>
                             <td class="text-center">
                                 {% if nextEvenementParticipant.evenement.projet %}
-                                <a href="{{ path('app_fo_projet', {'id': nextEvenementParticipant.evenement.projet.id}) }}" title="{{ nextEvenementParticipant.evenement.projet.titre }}">
+                                <a href="{{ path('corp_app_fo_projet', {'id': nextEvenementParticipant.evenement.projet.id}) }}" title="{{ nextEvenementParticipant.evenement.projet.titre }}">
                                     {{ nextEvenementParticipant.evenement.projet.acronyme }}
                                 </a>
                                 {% endif %}

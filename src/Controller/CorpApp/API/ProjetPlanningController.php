@@ -155,7 +155,7 @@ class ProjetPlanningController extends AbstractController
         $newProgress = (float)$request->request->get('progress');
         $linkFaitMarquant = false;
         if ($newProgress == 1 && $newProgress != $projetPlanningTask->getProgress()){
-            $linkFaitMarquant = $this->generateUrl('app_fo_fait_marquant_ajouter', ['projetId' => $projet->getId(), 'link_task' => $projetPlanningTask->getId()]);
+            $linkFaitMarquant = $this->generateUrl('corp_app_fo_fait_marquant_ajouter', ['projetId' => $projet->getId(), 'link_task' => $projetPlanningTask->getId()]);
         }
 
         $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');

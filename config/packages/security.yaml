@@ -43,13 +43,14 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/creer-ma-societe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/corp/creer-ma-societe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/lab/creer-mon-labo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/corp/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/recommander-rdi-manager, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/invitation-observateur-externe/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/corp/invitation-observateur-externe/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/l/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, roles: SOCIETE_ADMIN }
+        - { path: ^/corp/admin/, roles: SOCIETE_ADMIN }
         - { path: ^/back-office, roles: ROLE_BO_USER }
         - { path: ^/$, roles: ROLE_USER }
         - { path: ^/, roles: ROLE_FO_USER }

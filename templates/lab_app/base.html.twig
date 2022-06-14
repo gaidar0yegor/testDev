@@ -1,0 +1,35 @@
+{% extends 'base_html.html.twig' %}
+
+{% block base_body %}
+    {% include('lab_app/_menu_horizontal.html.twig') %}
+
+    <div class="container main-container">
+        {% include '_onboarding.html.twig' %}
+        {% include '_flash_messages.html.twig' %}
+
+        {% block body %}
+        {% endblock %}
+    </div>
+
+    {% include('_footer.html.twig') %}
+
+    <div
+        id="user-context-ids"
+        {% if userContext.hasUser %}
+            data-user-id="{{ userContext.user.id }}"
+        {% endif %}
+        {% if userContext.hasUserBook %}
+            data-user-book-id="{{ userContext.userBook.id }}"
+        {% endif %}
+    ></div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}

@@ -12,7 +12,7 @@
 
             <h2 class="facts" style="background-color: {{ societeUser.societe.colorCode }}">
 
-                <form action="{{ path('app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
+                <form action="{{ path('corp_app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
                     <button type="submit" class="btn btn-link text-white font-weight-bold"
                             style="font-size: 1.4rem;">{{ societeUser.societe.raisonSociale }}</button>
                 </form>

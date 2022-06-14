@@ -25,7 +25,7 @@ use App\Service\ParticipantService;
 class ProjetController extends AbstractController
 {
     /**
-     * @Route("", name="app_fo_mon_equipe_projets")
+     * @Route("", name="corp_app_fo_mon_equipe_projets")
      */
     public function listerProjet(
         UserContext $userContext,
@@ -51,7 +51,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_fo_mon_equipe_projet", requirements={"id"="\d+"})
+     * @Route("/{id}", name="corp_app_fo_mon_equipe_projet", requirements={"id"="\d+"})
      */
     public function ficheProjet(
         Projet $projet,
@@ -62,7 +62,7 @@ class ProjetController extends AbstractController
         $this->denyAccessUnlessGranted(ViewProjetHierarchicalSuperiorVoter::VIEW, $projet);
 
         if ($participantService->isParticipant($userContext->getSocieteUser(), $projet)){
-            return $this->redirectToRoute('app_fo_projet', [
+            return $this->redirectToRoute('corp_app_fo_projet', [
                 'id' => $projet->getId(),
             ]);
         }
@@ -77,7 +77,7 @@ class ProjetController extends AbstractController
     }
 
     /**
-     * @Route("/{projetId}/fichier/{fichierProjetId}", name="app_fo_mon_equipe_projet_view_file")
+     * @Route("/{projetId}/fichier/{fichierProjetId}", name="corp_app_fo_mon_equipe_projet_view_file")
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("fichierProjet", options={"id" = "fichierProjetId"})

@@ -18,7 +18,7 @@
         <p>
             <i class="fa fa-info-circle" aria-hidden="true"></i>
             {{ 'as_admin_i_can_also_access_all_projects'|trans({
-                '%link_start%': '<a href="' ~ path('app_fo_admin_projets') ~ '">',
+                '%link_start%': '<a href="' ~ path('corp_app_fo_admin_projets') ~ '">',
                 '%link_end%': '</a>'
             })|raw }}
         </p>
@@ -44,7 +44,7 @@
                     <td class="text-center" data-sort='{{ projet.colorCode }}'>
                         {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
                     </td>
-                    <td class="text-left"><a href="{{ path('app_fo_mon_equipe_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
+                    <td class="text-left"><a href="{{ path('corp_app_fo_mon_equipe_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
                     <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td class="text-center">{{ projet.statut | trans }}</td>
@@ -56,7 +56,7 @@
     <div class="my-3 text-right">
         <a
             class="btn btn-outline-success {{ is_granted('SOCIETE_CDP') ? '' : 'disabled' }}"
-            href="{{ path('app_fo_projet_creation') }}"
+            href="{{ path('corp_app_fo_projet_creation') }}"
             {% if not is_granted('SOCIETE_CDP') %}
                 title="{{ 'create_project_requires_project_manager_role'|trans }}"
             {% endif %}

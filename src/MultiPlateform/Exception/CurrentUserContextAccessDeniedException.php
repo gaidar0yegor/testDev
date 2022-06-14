@@ -1,6 +1,6 @@
 <?php
 
-namespace App\MultiSociete\Exception;
+namespace App\MultiPlateform\Exception;
 
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Throwable;
@@ -12,6 +12,6 @@ use Throwable;
  *      - SocieteUser is not related to the same user as the ne logged in, so cannot usurpate another user's access
  *      - SocieteUser enabled is false, so cannot switch to a disabled access
  */
-class CurrentSocieteUserAccessDeniedException extends AccessDeniedException
+class CurrentUserContextAccessDeniedException extends AccessDeniedException
 {
 }

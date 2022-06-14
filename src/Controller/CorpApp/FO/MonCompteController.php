@@ -34,7 +34,7 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("", name="app_fo_mon_compte")
+     * @Route("", name="corp_app_fo_mon_compte")
      */
     public function monCompte(Request $request, EntityManagerInterface $em)
     {
@@ -46,7 +46,7 @@ class MonCompteController extends AbstractController
 
             $this->addFlash('success', 'Vos préférences de notifications ont été mises à jour.');
 
-            return $this->redirectToRoute('app_fo_mon_compte');
+            return $this->redirectToRoute('corp_app_fo_mon_compte');
         }
 
         if ($this->userContext->hasSocieteUser()){
@@ -60,7 +60,7 @@ class MonCompteController extends AbstractController
 
                 $this->addFlash('success', 'Votre supérieur hiérarchique (N+1) a été mis à jour.');
 
-                return $this->redirectToRoute('app_fo_mon_compte');
+                return $this->redirectToRoute('corp_app_fo_mon_compte');
             }
         }
 
@@ -71,7 +71,7 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("/modifier", name="app_fo_mon_compte_modifier")
+     * @Route("/modifier", name="corp_app_fo_mon_compte_modifier")
      */
     public function monCompteModifier(Request $request, EntityManagerInterface $em)
     {
@@ -84,7 +84,7 @@ class MonCompteController extends AbstractController
 
             $this->addFlash('success', 'Vos informations personnelles ont été mises à jour.');
 
-            return $this->redirectToRoute('app_fo_mon_compte');
+            return $this->redirectToRoute('corp_app_fo_mon_compte');
         }
 
         return $this->render('corp_app/mon_compte/mon_compte_modifier.html.twig', [
@@ -93,7 +93,7 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("/modifier/avatar", name="app_fo_mon_compte_modifier_avatar")
+     * @Route("/modifier/avatar", name="corp_app_fo_mon_compte_modifier_avatar")
      */
     public function monCompteModifierAvatar(Request $request, EntityManagerInterface $em, UserContext $userContext)
     {
@@ -109,7 +109,7 @@ class MonCompteController extends AbstractController
 
             $this->addFlash('success', 'Votre avatar a été mis à jour.');
 
-            return $this->redirectToRoute('app_fo_mon_compte');
+            return $this->redirectToRoute('corp_app_fo_mon_compte');
         }
 
         return $this->render('corp_app/mon_compte/mon_compte_modifier_avatar.html.twig', [
@@ -118,7 +118,7 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("/changer-mot-de-passe", name="app_fo_mon_compte_update_password")
+     * @Route("/changer-mot-de-passe", name="corp_app_fo_mon_compte_update_password")
      */
     public function updatePassword(
         Request $request,
@@ -143,7 +143,7 @@ class MonCompteController extends AbstractController
 
                 $this->addFlash('success', 'Votre mot de passe a été mis à jour.');
 
-                return $this->redirectToRoute('app_fo_mon_compte');
+                return $this->redirectToRoute('corp_app_fo_mon_compte');
             }
 
             $this->addFlash('danger', 'Votre ancien mot de passe saisis n\'est pas le bon.');
@@ -155,7 +155,7 @@ class MonCompteController extends AbstractController
     }
 
     /**
-     * @Route("/activite", name="app_fo_mon_compte_activite")
+     * @Route("/activite", name="corp_app_fo_mon_compte_activite")
      */
     public function activite(SocieteUserActivityRepository $societeUserActivityRepository, UserContext $userContext)
     {

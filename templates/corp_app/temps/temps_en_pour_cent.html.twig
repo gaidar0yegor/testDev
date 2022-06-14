@@ -11,7 +11,7 @@
 <App>
     <saisie-des-temps
         period="{{ userContext.societeUser.societe.timesheetGranularity|default(constant('App\\Entity\\Societe::GRANULARITY_MONTHLY')) }}"
-        url-to-absences="{{ path('app_fo_absences', {'year': '1111', 'month': '99'}) }}"
+        url-to-absences="{{ path('corp_app_fo_absences', {'year': '1111', 'month': '99'}) }}"
         :hours-per-days="{{ userContext.societeUser.societe.heuresParJours }}"
     ></saisie-des-temps>
 </App>

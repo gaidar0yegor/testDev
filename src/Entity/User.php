@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\LabApp\UserBook;
 use App\Repository\UserRepository;
 use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -196,6 +197,19 @@ class User implements UserInterface
      */
     private $boUserNotifications;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserBook::class, mappedBy="user")
+     */
+    private $userBooks;
+
+    /**
+     * The current UserBook this user has switched to.
+     *
+     * @ORM\ManyToOne(targetEntity=UserBook::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $currentUserBook;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -213,6 +227,7 @@ class User implements UserInterface
         $this->locale = 'fr';
         $this->dashboardConsolides = new ArrayCollection();
         $this->boUserNotifications = new ArrayCollection();
+        $this->userBooks = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -701,6 +716,48 @@ class User implements UserInterface
                 $boUserNotification->setBoUser(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserBook[]
+     */
+    public function getUserBooks(): Collection
+    {
+        return $this->userBooks;
+    }
+
+    public function addUserBook(UserBook $userBook): self
+    {
+        if (!$this->userBooks->contains($userBook)) {
+            $this->userBooks[] = $userBook;
+            $userBook->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserBook(UserBook $userBook): self
+    {
+        if ($this->userBooks->removeElement($userBook)) {
+            // set the owning side to null (unless already changed)
+            if ($userBook->getUser() === $this) {
+                $userBook->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCurrentUserBook(): ?UserBook
+    {
+        return $this->currentUserBook;
+    }
+
+    public function setCurrentUserBook(?UserBook $currentUserBook): self
+    {
+        $this->currentUserBook = $currentUserBook;
 
         return $this;
     }

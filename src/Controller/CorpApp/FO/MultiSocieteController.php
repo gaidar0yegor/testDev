@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MultiSocieteController extends AbstractController
 {
     /**
-     * @Route("", name="app_fo_multi_societe_switch")
+     * @Route("", name="corp_app_fo_multi_societe_switch")
      */
     public function switch(
         UserContext $userContext,
@@ -32,7 +32,7 @@ class MultiSocieteController extends AbstractController
      *      "/{id}",
      *      requirements={"id": "\d+"},
      *      methods={"POST"},
-     *      name="app_fo_multi_societe_switch_post"
+     *      name="corp_app_fo_multi_societe_switch_post"
      * )
      */
     public function switchPost(
@@ -50,7 +50,7 @@ class MultiSocieteController extends AbstractController
      * @Route(
      *      "/deconnexion",
      *      methods={"POST"},
-     *      name="app_fo_multi_societe_switch_disconnect"
+     *      name="corp_app_fo_multi_societe_switch_disconnect"
      * )
      */
     public function switchQuit(
@@ -64,7 +64,7 @@ class MultiSocieteController extends AbstractController
     }
 
     /**
-     * @Route("/projets",name="app_fo_multi_societe_projets")
+     * @Route("/projets",name="corp_app_fo_multi_societe_projets")
      */
     public function projets(): Response
     {

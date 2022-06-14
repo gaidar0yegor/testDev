@@ -26,7 +26,7 @@
                 <br />
 
                 <small>
-                    <a href="{{ url('app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}">Voir sur RDI-Manager</a>.
+                    <a href="{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}">Voir sur RDI-Manager</a>.
                 </small>
             </p>
 
@@ -36,7 +36,7 @@
                 Vous recevez cette notification car vous suivez le projet.
                 Pour ne plus recevoir de notification sur ce projet,
                 vous pouvez vous désabonner en décochant "Suivre le projet" sur
-                <a href="{{ url('app_fo_projet', {id: faitMarquant.projet.id}) }}">
+                <a href="{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id}) }}">
                     la page du projet {{ faitMarquant.projet.acronyme }}
                 </a>.
             </small>

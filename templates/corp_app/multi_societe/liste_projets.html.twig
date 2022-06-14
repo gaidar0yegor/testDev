@@ -66,7 +66,7 @@
                         {% include 'utils/_code_color.html.twig' with {color: projetObservateurExterne.projet.colorCode, size: 15} %}
                     </td>
                     <td class="text-left">
-                        <a title="{{ projetObservateurExterne.projet.titre }}" href="{{ path('app_fo_observateur_externe_view', {'id': projetObservateurExterne.projet.id}) }}">
+                        <a title="{{ projetObservateurExterne.projet.titre }}" href="{{ path('corp_app_fo_observateur_externe_view', {'id': projetObservateurExterne.projet.id}) }}">
                             {{ projetObservateurExterne.projet.acronyme }}
                         </a>
                     </td>

@@ -26,7 +26,7 @@ class ProjetPlanningController extends AbstractController
     }
 
     /**
-     * @Route("/", name="app_fo_projet_planning", requirements={"projetId"="\d+"})
+     * @Route("/", name="corp_app_fo_projet_planning", requirements={"projetId"="\d+"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      */
@@ -41,7 +41,7 @@ class ProjetPlanningController extends AbstractController
     }
 
     /**
-     * @Route("/task/{planningTaskId}", name="app_fo_projet_fm_per_planning_task", requirements={"planningTaskId"="\d+"})
+     * @Route("/task/{planningTaskId}", name="corp_app_fo_projet_fm_per_planning_task", requirements={"planningTaskId"="\d+"})
      *
      * @ParamConverter("projet", options={"id" = "projetId"})
      * @ParamConverter("projetPlanningTask", options={"id" = "planningTaskId"})

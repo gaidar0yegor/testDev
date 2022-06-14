@@ -9,7 +9,7 @@
 
             <h1>{{ "edit_of_project"|trans }} {{ projet.acronyme }}</h1>
 
-            <a class="d-block mb-4" href="{{ path('app_fo_projet', {id: projet.id}) }}">
+            <a class="d-block mb-4" href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">
                 <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 {{ "go_back_go_project"|trans }}
             </a>
@@ -173,7 +173,7 @@
                     <p class="card-text">
                         {{ 'delete_project_link_description'|trans }}
                         <a
-                                href="{{ path('app_fo_projet_delete', {'id': projet.id}) }}"
+                                href="{{ path('corp_app_fo_projet_delete', {'id': projet.id}) }}"
                                 class="btn btn-danger mt-4 btn-block"
                         >{{ 'verify_and_delete_project'|trans }}</a>
                     </p>
@@ -187,7 +187,7 @@
                         <h5 class="card-title">{{ 'resume_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
                         <p class="card-text">
                             <a
-                                    href="{{ path('app_fo_projet_resume', {'id': projet.id}) }}"
+                                    href="{{ path('corp_app_fo_projet_resume', {'id': projet.id}) }}"
                                     class="btn btn-success mt-4 btn-block"
                             >{{ 'resume_project'|trans }}</a>
                         </p>
@@ -201,7 +201,7 @@
                         <h5 class="card-title">{{ 'suspend_project_title'|trans({'projectAcronyme': projet.acronyme}) }}</h5>
                         <p class="card-text">
                             <a
-                                    href="{{ path('app_fo_projet_suspend', {'id': projet.id}) }}"
+                                    href="{{ path('corp_app_fo_projet_suspend', {'id': projet.id}) }}"
                                     class="btn btn-warning mt-4 btn-block"
                             >{{ 'suspend_project'|trans }}</a>
                         </p>

@@ -77,8 +77,8 @@
                         </div>
                     {% if hasUserManagementPermission(societeUser) %}
                         <div class="mt-5">
-                            <a href="{{ path('app_fo_utilisateur_modifier', { id: societeUser.id }) }}" class="btn btn-outline-success mt-2">{{ 'update'|trans }}</a>
-                            <a href="{{ path('app_fo_utilisateur_activity', { id: societeUser.id }) }}" class="btn btn-outline-primary mt-2">{{ 'activity'|trans }}</a>
+                            <a href="{{ path('corp_app_fo_utilisateur_modifier', { id: societeUser.id }) }}" class="btn btn-outline-success mt-2">{{ 'update'|trans }}</a>
+                            <a href="{{ path('corp_app_fo_utilisateur_activity', { id: societeUser.id }) }}" class="btn btn-outline-primary mt-2">{{ 'activity'|trans }}</a>
                         </div>
                     {% endif %}
                 </div>
@@ -90,7 +90,7 @@
 
     {% if hasUserManagementPermission(societeUser) %}
         <p class="text-center">
-            <a href="{{ path('app_fo_admin_utilisateur_roles_projets', {'id': societeUser.id}) }}" class="btn btn-sm btn-outline-primary">{{ 'manage_his_projects_access'|trans }}</a>
+            <a href="{{ path('corp_app_fo_admin_utilisateur_roles_projets', {'id': societeUser.id}) }}" class="btn btn-sm btn-outline-primary">{{ 'manage_his_projects_access'|trans }}</a>
         </p>
     {% endif %}
 
@@ -102,7 +102,7 @@
                         <li class="list-group-item">
                             <strong>{{ participation.role|trans }}</strong>
                             {{ '.on_the_project'|trans }}
-                            <a href="{{ path('app_fo_projet', {'id': participation.projet.id}) }}">
+                            <a href="{{ path('corp_app_fo_projet', {'id': participation.projet.id}) }}">
                                 {{ participation.projet.acronyme }}
                             </a>
                         </li>

@@ -45,7 +45,7 @@
         {% for fichierProjet in projet.fichierProjets %}
             {% if fichierProjet.isPublic %}
             <li>
-                <a target="_blank" href="{{ path('app_fo_mon_equipe_projet_view_file', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
+                <a target="_blank" href="{{ path('corp_app_fo_mon_equipe_projet_view_file', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}"
                         {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
                     <i class="fa {{ fichierProjet|faFileIcon }}" aria-hidden="true"></i>
                     {{ fichierProjet.fichier.nomFichier }}

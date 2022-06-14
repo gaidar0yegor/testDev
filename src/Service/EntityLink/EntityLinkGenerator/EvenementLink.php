@@ -24,7 +24,7 @@ class EvenementLink implements EntityLinkGeneratorInterface
         $titre = self::truncate($entity->getText());
         $idEvenement = $entity->getId();
 
-        $url = $urlGenerator->generate('app_fo_current_user_events', [
+        $url = $urlGenerator->generate('corp_app_fo_current_user_events', [
             'event' => $idEvenement,
         ]);
 

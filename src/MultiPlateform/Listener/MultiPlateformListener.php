@@ -1,6 +1,6 @@
 <?php
 
-namespace App\MultiSociete\Listener;
+namespace App\MultiPlateform\Listener;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -8,7 +8,7 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Http\SecurityEvents;
 use App\MultiSociete\UserContext;
 
-class MultiSocieteListener implements EventSubscriberInterface {  
+class MultiPlateformListener implements EventSubscriberInterface {
 
     private EntityManagerInterface $em;
 
@@ -34,5 +34,13 @@ class MultiSocieteListener implements EventSubscriberInterface {
             $this->userContext->disconnectSociete();
             $this->em->flush();
         }
+
+        if (count($this->userContext->getUser()->getUserBooks()) > 1)
+        {
+            $this->userContext->disconnectUserLabo();
+            $this->em->flush();
+        }
+
+
     }
 }
