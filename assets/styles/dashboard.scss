@@ -38,16 +38,25 @@
 #my_contributions {
     .card{
         background: #fff;
-        padding: 10px 20px;
+        padding: 10px 10px;
         border-radius: 100px;
         box-shadow: 0px 10px 15px rgba(0,0,0,0.1);
         margin: 10px 0;
+        font-size: 0.9rem;
+
+        @media (max-width: 1199px) {
+            font-size: inherit;
+        }
 
         .content{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
+
+            .label{
+                white-space: nowrap;
+            }
         }
 
         .details{
@@ -62,7 +71,11 @@
                 flex-direction: column;
                 justify-content: space-between;
                 align-items: center;
-                margin-right: 30px;
+                margin-right: 13px;
+
+                @media (max-width: 1199px) {
+                    margin-right: 30px;
+                }
             }
         }
 

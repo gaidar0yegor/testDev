@@ -898,6 +898,16 @@ class Projet implements HasSocieteInterface
         return $this->evenements;
     }
 
+    /**
+     * @return Collection|Evenement[]
+     */
+    public function getNextEvenements($limit = 4): Collection
+    {
+        return new ArrayCollection($this->evenements->filter(function (Evenement $evenement) {
+            return $evenement->getStartDate() >= (new \DateTime());
+        })->slice(0,$limit));
+    }
+
     public function addEvenement(Evenement $evenement): self
     {
         if (!$this->evenements->contains($evenement)) {

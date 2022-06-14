@@ -32,14 +32,12 @@
         </div>
 
         <div class="row d-flex flex-row justify-content-around align-items-start">
-            <div class="col-lg-5 col-md-12">
+            <div class="col-xl-5 col-lg-12 mt-3">
                 <h5 class="text-center d-block">{{ 'hours_by_project'|trans }}</h5>
-
                 <div id="heures-par-projet"></div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-xl-3 col-lg-6 mt-3">
                 <h5 class="text-center d-block">{{ 'my_contributions'|trans }}</h5>
-
                 <div id="my_contributions">
                     <div class="outer">
                         <div class="card">
@@ -95,10 +93,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             {% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-                <div id="projets-efficacite-moyenne" class="col-lg-4 col-md-6">
+                <div id="projets-efficacite-moyenne" class="col-xl-4 col-lg-6 mt-3">
                     <h5 class="text-center d-block">{{ 'efficiency'|trans }}</h5>
                     <canvas id="efficacite-moyenne" class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
                 </div>

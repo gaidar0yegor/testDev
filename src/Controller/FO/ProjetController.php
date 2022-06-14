@@ -218,7 +218,7 @@ class ProjetController extends AbstractController
             'projet' => $projet,
             'faitMarquants' => $projet->getFaitMarquants(),
             'participation' => $participantService->getProjetParticipant($userContext->getSocieteUser(), $projet),
-            'nextEvenements' => $projet->getEvenements()->slice(0,4),
+            'nextEvenements' => $projet->getNextEvenements(),
             'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
                 $projet->getActiveProjetParticipants(),
                 RoleProjet::CONTRIBUTEUR

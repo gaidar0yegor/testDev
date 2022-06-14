@@ -1,11 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ 'menu.admin.events_calendar'|trans }}{% endblock %}
+{% block title %}
+    {% if forTeamMembers is defined %}
+        {{ 'menu.equipe.events_calendar'|trans }}
+    {% else %}
+        {{ 'menu.admin.events_calendar'|trans }}
+    {% endif %}
+{% endblock %}
 
 {% block body %}
 
     <h1>
-        {{ 'menu.admin.events_calendar'|trans }}
+        {% if forTeamMembers is defined %}
+            {{ 'menu.equipe.events_calendar'|trans }}
+        {% else %}
+            {{ 'menu.admin.events_calendar'|trans }}
+        {% endif %}
     </h1>
 
     {% if
