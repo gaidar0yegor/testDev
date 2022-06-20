@@ -44,7 +44,7 @@ security:
     access_control:
         - { path: ^/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/corp/creer-ma-societe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/lab/creer-mon-labo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/lab/creer-mon-cahier-labo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/corp/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/recommander-rdi-manager, roles: IS_AUTHENTICATED_ANONYMOUSLY }

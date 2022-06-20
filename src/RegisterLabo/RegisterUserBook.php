@@ -11,7 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class RegisterLabo
+class RegisterUserBook
 {
     private const SESSION_KEY_NAME = 'currentRegistration';
 
@@ -64,7 +64,7 @@ class RegisterLabo
     {
         return (new TemplatedEmail())
             ->to($registration->admin->getEmail())
-            ->subject('[RDI-Manager] Code de vérification Cahier de laboratoire')
+            ->subject('[RDI-Manager] Code de vérification : Création d\'un cahier de laboratoire')
             ->textTemplate('mail/register-verification-code.txt.twig')
             ->htmlTemplate('mail/register-verification-code.html.twig')
             ->context([
@@ -73,30 +73,39 @@ class RegisterLabo
         ;
     }
 
-    public function persistRegistration(Registration $registration): UserBook
+    public function persistRegistrationUserBook(Registration $registration): UserBook
     {
-        $labo = $registration->labo;
+        $userBook = $registration->userBook;
         $admin = $registration->admin;
-        $userBook = new UserBook();
 
-        $userBook
-            ->setRole(RoleLabo::ADMIN)
-        ;
-
-        $labo
-            ->setCreatedFrom(Labo::CREATED_FROM_INSCRIPTION)
-            ->setCreatedBy($admin)
-            ->addUserBook($userBook)
-        ;
-
-        $admin
-            ->addUserBook($userBook)
-        ;
+        $admin->addUserBook($userBook);
 
         $this->em->persist($admin);
-        $this->em->persist($labo);
         $this->em->persist($userBook);
 
         return $userBook;
+    }
+
+    public function persistRegistrationLabo(Registration $registration): Labo
+    {
+        $userBook = $registration->userBook;
+        $labo = $registration->labo;
+
+        if (null === $labo->getId()){
+            $userBook->setRole(RoleLabo::ADMIN);
+            $labo
+                ->setCreatedBy($userBook->getUser())
+                ->addUserBook($userBook)
+            ;
+        } else {
+            $labo
+                ->addUserBook($userBook)
+            ;
+        }
+
+        $this->em->persist($labo);
+        $this->em->persist($userBook);
+
+        return $labo;
     }
 }

@@ -5,6 +5,7 @@ namespace App\Entity\LabApp;
 use App\Entity\User;
 use App\HasUserBookInterface;
 use App\Repository\LabApp\UserBookRepository;
+use App\Security\Role\RoleLabo;
 use Doctrine\ORM\Mapping as ORM;
 use App\DTO\NullUser;
 use App\UserResourceInterface;
@@ -97,7 +98,7 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
 
     public function __construct()
     {
-        $this->title = "";
+        $this->role = RoleLabo::USER;
         $this->createdAt = new \DateTime();
         $this->studies = new ArrayCollection();
         $this->notes = new ArrayCollection();

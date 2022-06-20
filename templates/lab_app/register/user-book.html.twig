@@ -1,0 +1,17 @@
+{% extends 'lab_app/register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-1">{{ 'create_my_user_book'|trans }}</h1>
+
+    <p class="lead">
+        {{ 'welcome_on_rdi_manager_lab_app_long'|trans }}
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-lg btn-primary">{{ 'continue'|trans }}</button>
+
+    {{ form_end(form) }}
+{% endblock %}

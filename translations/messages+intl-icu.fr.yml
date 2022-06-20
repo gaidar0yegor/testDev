@@ -552,6 +552,7 @@ collaboratif: Collaboratif
 interne: Interne
 externe: Externe
 close: Fermer
+or: ou
 return_to_project: Retourner au projet
 no_fm: Ce projet n'a pas encore de fait marquants.
 title: Titre
@@ -565,18 +566,23 @@ add_new_project: Ajouter un nouveau projet
 corp_app_name: Journal collaboratif
 access_to_my_companies: Accèder à mes sociétés
 #################################### Lab App #######################################
-welcom_to_rdi_manager_plateforms: Bienvenue sur le portail de RDI Manager
+welcom_to_rdi_manager_plateforms: 'Bienvenue sur le portail de <span class="text-danger">RDI Manager</span>'
+join_user_book: "Rejoindre le cahier de laboratoire"
 lab_app_name: Cahier de laboratoire
 my_user_books: Mes cahiers de laboratoire
 my_labo: Mon laboratoire
+create_my_user_book: Créer mon cahier de laboratoire
 create_my_labo: Créer mon laboratoire
 access_to_my_labo_notebook: Accèder à mes cahiers de laboratoires
 welcome_on_rdi_manager_lab_app_long:
   "Bienvenue sur RDI-Manager, vous allez ici créer votre
-  laboratoire et votre accès administrateur afin de suivre vos cahiers de laboratoire."
+  cahier de laboratoire et votre accès administrateur afin de suivre vos notes."
 if_you_want_join_already_existing_labo_ask_your_admin:
   "Si vous souhaitez plutôt rejoindre un laboratoire déjà existant, veuillez demander à votre administrateur de
   vous inviter."
-creation_of_your_admin_account_on_labo:
+creation_of_your_admin_account_on_user_book:
   "Création de votre compte administrateur
-  sur le laboratoire"
+  sur le cahier de laboratoire"
+you_can_join_or_create_labo: "Vous pouvez rejoindre ou créer votre laboratoire."
+you_can_still_join_labo_later: "Vous pourrez toujours intégrer un laboratoire plus tard."
+.in_which_i_will_work: "dans lequel je vais travailler"

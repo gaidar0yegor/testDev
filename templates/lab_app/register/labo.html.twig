@@ -3,17 +3,25 @@
 {% block register %}
     <h1 class="mb-1">{{ 'create_my_labo'|trans }}</h1>
 
-    <p class="lead">
-        {{ 'welcome_on_rdi_manager_lab_app_long'|trans }}
+    <p>
+        {{ 'you_can_join_or_create_labo'|trans }}
     </p>
 
-    <p class="text-warning">
-        <i class="fa fa-exclamation" aria-hidden="true"></i>
-        {{ 'if_you_want_join_already_existing_labo_ask_your_admin'|trans }}
+    <p class="mb-4">
+        <a href="{{ path('lab_app_register_finish') }}" class="btn btn-sm btn-outline-primary">{{ 'skip_this_step'|trans }}</a>
+        <small class="text-muted">{{ 'you_can_still_join_labo_later'|trans }}</small>
     </p>
 
     {{ form_start(form) }}
     {{ form_errors(form) }}
+
+    {{ form_row(form.existedLabo) }}
+
+    <div class="word-surrounded-container"><div><span>{{ 'or'|trans }}</span></div></div>
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.rnsr) }}
+
     {{ form_rest(form) }}
 
     <button type="submit" class="btn btn-lg btn-primary">{{ 'continue'|trans }}</button>
