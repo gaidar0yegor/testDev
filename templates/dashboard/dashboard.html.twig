@@ -82,11 +82,11 @@
                                 <div class="details">
                                     <div>
                                         <span>{{ 'my_contributions.me'|trans }}</span>
-                                        <strong class="moi-vs-equipe equipe temps-total">…</strong>
+                                        <strong class="moi-vs-equipe moi temps-total">…</strong>
                                     </div>
                                     <div>
                                         <span>{{ 'my_contributions.team'|trans }}</span>
-                                        <strong class="moi-vs-equipe moi temps-total">…</strong>
+                                        <strong class="moi-vs-equipe equipe temps-total">…</strong>
                                     </div>
                                 </div>
                             </div>
@@ -103,13 +103,15 @@
         </div>
 
         <div class="row my-4">
-            <h3>{{ 'project_analyse_from'|trans }}
-                <span
-                    class="year-switch"
-                    data-event-name="loadSinceYearCharts"
-                    data-year-selected="{{ '-2 years'|date('Y') }}"
-                ></span>
-            </h3>
+            <div class="col-md-10 mx-auto bordure">
+                <h2>{{ 'project_analyse_from'|trans }}
+                    <span
+                            class="year-switch"
+                            data-event-name="loadSinceYearCharts"
+                            data-year-selected="{{ '-2 years'|date('Y') }}"
+                    ></span>
+                </h2>
+            </div>
         </div>
 
         <div class="row">
