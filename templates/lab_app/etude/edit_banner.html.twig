@@ -1,0 +1,38 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'etude.banner'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'etude.banner'|trans }}</h1>
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <a class="d-block mb-4" href="{{ path('lab_app_fo_etude', { 'id' : etude.id }) }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'back'|trans }}
+        </a>
+
+        {% if etude.banner and etude.banner.fichier %}
+        <p>{{ 'current_logo:'|trans }}</p>
+
+        <div class="img-uploaded-container">
+            <img src="{{ etude.banner.relativeFilePath }}" class="mb-4"/>
+        </div>
+        {% endif %}
+
+        <p>{{ 'etude.new_banner'|trans }}</p>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.fichier) }}
+
+        <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

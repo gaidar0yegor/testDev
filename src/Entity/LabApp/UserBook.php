@@ -82,11 +82,6 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
     private $invitationTelephone;
 
     /**
-     * @ORM\OneToMany(targetEntity=Etude::class, mappedBy="userBook", orphanRemoval=true)
-     */
-    private $studies;
-
-    /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="createdBy")
      */
     private $notes;
@@ -96,12 +91,17 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
      */
     private $role;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Etude::class, mappedBy="userBook", orphanRemoval=true)
+     */
+    private $etudes;
+
     public function __construct()
     {
         $this->role = RoleLabo::USER;
         $this->createdAt = new \DateTime();
-        $this->studies = new ArrayCollection();
         $this->notes = new ArrayCollection();
+        $this->etudes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -183,6 +183,16 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
         return $this;
     }
 
+    public function removeInvitationToken(): self
+    {
+        $this->invitationToken = null;
+        $this->invitationSentAt = null;
+        $this->invitationEmail = null;
+        $this->invitationTelephone = null;
+
+        return $this;
+    }
+
     public function getInvitationSentAt(): ?\DateTimeInterface
     {
         return $this->invitationSentAt;
@@ -215,36 +225,6 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
     public function setInvitationTelephone($invitationTelephone): self
     {
         $this->invitationTelephone = $invitationTelephone;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Etude[]
-     */
-    public function getStudies(): Collection
-    {
-        return $this->studies;
-    }
-
-    public function addEtude(Etude $etude): self
-    {
-        if (!$this->studies->contains($etude)) {
-            $this->studies[] = $etude;
-            $etude->setUserBook($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEtude(Etude $etude): self
-    {
-        if ($this->studies->removeElement($etude)) {
-            // set the owning side to null (unless already changed)
-            if ($etude->getUserBook() === $this) {
-                $etude->setUserBook(null);
-            }
-        }
 
         return $this;
     }
@@ -287,6 +267,36 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Etude[]
+     */
+    public function getEtudes(): Collection
+    {
+        return $this->etudes;
+    }
+
+    public function addEtude(Etude $etude): self
+    {
+        if (!$this->etudes->contains($etude)) {
+            $this->etudes[] = $etude;
+            $etude->setUserBook($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEtude(Etude $etude): self
+    {
+        if ($this->etudes->removeElement($etude)) {
+            // set the owning side to null (unless already changed)
+            if ($etude->getUserBook() === $this) {
+                $etude->setUserBook(null);
+            }
+        }
 
         return $this;
     }

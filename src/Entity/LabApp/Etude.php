@@ -2,6 +2,7 @@
 
 namespace App\Entity\LabApp;
 
+use App\Entity\Fichier;
 use App\EtudeResourceInterface;
 use App\HasUserBookInterface;
 use App\Repository\LabApp\EtudeRepository;
@@ -12,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=EtudeRepository::class)
  */
-class Etude implements HasUserBookInterface
+class Etude implements HasUserBookInterface, EtudeResourceInterface
 {
     /**
      * @ORM\Id
@@ -52,19 +53,31 @@ class Etude implements HasUserBookInterface
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=UserBook::class, inversedBy="studies")
+     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="etude", orphanRemoval=true)
+     */
+    private $notes;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=UserBook::class, inversedBy="etudes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $userBook;
 
     /**
-     * @ORM\OneToMany(targetEntity=Note::class, mappedBy="etude", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FichierEtude::class, mappedBy="etude", orphanRemoval=true)
      */
-    private $notes;
+    private $fichierEtudes;
+
+    /**
+     * @ORM\OneToOne(targetEntity=FichierEtude::class, cascade={"persist", "remove"})
+     */
+    private $banner;
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->notes = new ArrayCollection();
+        $this->fichierEtudes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,18 +157,6 @@ class Etude implements HasUserBookInterface
         return $this;
     }
 
-    public function getUserBook(): ?UserBook
-    {
-        return $this->userBook;
-    }
-
-    public function setUserBook(?UserBook $userBook): self
-    {
-        $this->userBook = $userBook;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Note[]
      */
@@ -186,8 +187,82 @@ class Etude implements HasUserBookInterface
         return $this;
     }
 
+    public function getStatut(): string
+    {
+        $now = new \DateTime();
+
+        if (null !== $this->dateDebut && $now < $this->dateDebut) {
+            return 'upcoming';
+        }
+
+        if (null !== $this->dateFin && $now > $this->dateFin) {
+            return 'ended';
+        }
+
+        return 'in_progress';
+    }
+
     public function getOwner(): UserBook
     {
         return $this->userBook;
+    }
+
+    public function getUserBook(): ?UserBook
+    {
+        return $this->userBook;
+    }
+
+    public function setUserBook(?UserBook $userBook): self
+    {
+        $this->userBook = $userBook;
+
+        return $this;
+    }
+
+    public function getEtude(): Etude
+    {
+        return $this;
+    }
+
+    /**
+     * @return Collection|FichierEtude[]
+     */
+    public function getFichierEtudes(): Collection
+    {
+        return $this->fichierEtudes;
+    }
+
+    public function addFichierEtude(FichierEtude $fichierEtude): self
+    {
+        if (!$this->fichierEtudes->contains($fichierEtude)) {
+            $this->fichierEtudes[] = $fichierEtude;
+            $fichierEtude->setEtude($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichierEtude(FichierEtude $fichierEtude): self
+    {
+        if ($this->fichierEtudes->removeElement($fichierEtude)) {
+            // set the owning side to null (unless already changed)
+            if ($fichierEtude->getEtude() === $this) {
+                $fichierEtude->setEtude(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getBanner(): ?FichierEtude
+    {
+        return $this->banner;
+    }
+
+    public function setBanner(?FichierEtude $banner): self
+    {
+        $this->banner = $banner;
+
+        return $this;
     }
 }

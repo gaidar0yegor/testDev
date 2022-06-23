@@ -1,0 +1,64 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}
+    {{ (etude.id ? "edit_etude" : "add_new_etude") | trans }} | {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+    <h1>{{ (etude.id ? "edit_etude" : "add_new_etude") | trans }}</h1>
+
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="row">
+                <div class="col-sm-8">
+                    {{ form_row(form.title) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.acronyme) }}
+                </div>
+                <div class="col-md-12 mt-3">
+                    {{ form_errors(form.resume) }}
+                    {{ form_row(form.resume) }}
+                </div>
+            </div>
+
+            <div class="row d-flex flex-row justify-content-between align-items-center">
+                <div class="col-md-3 col-sm-6">
+
+                    {{ form_label(form.dateDebut) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.dateDebut) }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    {{ form_label(form.dateFin) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.dateFin) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                {{ form_row(form.submit) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

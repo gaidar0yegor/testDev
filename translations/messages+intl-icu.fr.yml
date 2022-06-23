@@ -586,3 +586,26 @@ creation_of_your_admin_account_on_user_book:
 you_can_join_or_create_labo: "Vous pouvez rejoindre ou créer votre laboratoire."
 you_can_still_join_labo_later: "Vous pourrez toujours intégrer un laboratoire plus tard."
 .in_which_i_will_work: "dans lequel je vais travailler"
+"Vous avez rejoint le laboratoire !": "Vous avez rejoint le laboratoire !"
+add_new_etude: "Ajouter une nouvelle étude"
+add_new_note: "Ajouter une note"
+edit_etude: "Édition de l'étude"
+etude:
+  string: "Étude"
+  banner: "Bannière"
+  current_banner: "Bannière actuelle"
+  new_banner: "Nouvelle bannière"
+  acronyme: 'Titre réduit / Acronyme'
+  title: 'Titre descriptif'
+  dateDebut: 'Date de début'
+  dateFin: 'Date de fin'
+  resume: 'Résumé'
+  status: 'Statut'
+  submit: 'Soumettre'
+note:
+  create_only_by_owner: Seul le propriétaire de l'étude peut ajouter une note
+menu:
+  etude:
+    mesEtudes: "Mes études"
+    list: "Liste des études"
+    create: "Créer une étude"

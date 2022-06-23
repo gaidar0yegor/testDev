@@ -1,0 +1,12 @@
+<dl>
+    {% if etude.dateDebut %}
+        <dt>{{ "etude.dateDebut"|trans }}</dt>
+        <dd>{{ etude.dateDebut|format_date }}</dd>
+    {% endif %}
+    {% if etude.dateFin %}
+        <dt>{{ "etude.dateFin"|trans }}</dt>
+        <dd>{{ etude.dateFin|format_date }}</dd>
+    {% endif %}
+    <dt>{{ "etude.status"|trans }}</dt>
+    <dd>{{ etude.statut | trans }}</dd>
+</dl>

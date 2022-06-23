@@ -73,7 +73,7 @@ class InvitationController extends AbstractController
             if (!$this->isCsrfTokenValid('invitation_join_societe', $request->get('csrf_token'))) {
                 $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
 
-                return $this->redirectToRoute('corp_app_fo_user_invitation_rejoindre', [
+                return $this->redirectToRoute('corp_app_fo_user_invitation_join_societe', [
                     'token' => $token,
                 ]);
             }

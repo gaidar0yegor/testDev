@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @method UserBook|null find($id, $lockMode = null, $lockVersion = null)
  * @method UserBook|null findOneBy(array $criteria, array $orderBy = null)
+ * @method UserBook|null findOneByInvitationToken(string $token)
  * @method UserBook[]    findAll()
  * @method UserBook[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */

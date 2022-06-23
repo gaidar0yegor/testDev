@@ -1,0 +1,40 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}Rejoindre le laboratoire {{ userBook.labo.name }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Finalisation de votre inscription</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p>
+            Vous êtes sur le point de rejoindre le laboratoire <strong>{{ userBook.labo.name }}</strong>
+            avec le rôle <strong>{{ userBook.role|trans }}</strong>.
+        </p>
+
+        {% if app.user %}
+            <p>
+                Vous rejoindrez le laboratoire avec votre :
+
+                <ul>
+                    <li><strong>Compte RDI Manager : </strong> {{ app.user.fullname }} ({{ app.user.email|default(app.user.telephone|phone_number_rdi) }}).</li>
+                    <li><strong>Cahier de laboratoire : </strong> {{ userBook.title }}</li>
+                </ul>
+
+            </p>
+        {% endif %}
+
+        <form method="post">
+            <p class="text-center">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token('invitation_join_labo') }}" />
+                <button
+                    type="submit"
+                    class="btn btn-lg btn-success"
+                >Rejoindre le laboratoire <strong>{{ userBook.labo.name }}</strong></button>
+            </p>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

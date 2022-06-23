@@ -5,12 +5,14 @@ namespace App\Entity\LabApp;
 use App\EtudeResourceInterface;
 use App\HasUserBookInterface;
 use App\Repository\LabApp\NoteRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass=NoteRepository::class)
  */
-class Note implements EtudeResourceInterface
+class Note implements HasUserBookInterface, EtudeResourceInterface
 {
     /**
      * @ORM\Id
@@ -65,6 +67,16 @@ class Note implements EtudeResourceInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $createdBy;
+
+    /**
+     * @ORM\OneToMany(targetEntity=FichierEtude::class, mappedBy="note")
+     */
+    private $fichierEtudes;
+
+    public function __construct()
+    {
+        $this->fichierEtudes = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -182,5 +194,40 @@ class Note implements EtudeResourceInterface
     public function getOwner(): UserBook
     {
         return $this->createdBy;
+    }
+
+    /**
+     * @return Collection|FichierEtude[]
+     */
+    public function getFichierEtudes(): Collection
+    {
+        return $this->fichierEtudes;
+    }
+
+    public function addFichierEtude(FichierEtude $fichierEtude): self
+    {
+        if (!$this->fichierEtudes->contains($fichierEtude)) {
+            $this->fichierEtudes[] = $fichierEtude;
+            $fichierEtude->setNote($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFichierEtude(FichierEtude $fichierEtude): self
+    {
+        if ($this->fichierEtudes->removeElement($fichierEtude)) {
+            // set the owning side to null (unless already changed)
+            if ($fichierEtude->getNote() === $this) {
+                $fichierEtude->setNote(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUserBook(): ?UserBook
+    {
+        return $this->getEtude()->getUserBook();
     }
 }

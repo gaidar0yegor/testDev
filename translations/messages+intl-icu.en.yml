@@ -262,8 +262,8 @@ login: Connection
 cannot_disable_self: Unable to deactivate your own account, you will be blocked.
 cannot_disable_cdp: You cannot deactivate an account of a Project Manager.
 csrf_token_invalid: Error, it seems that the form just expired. please try again.
-"Vous avez rejoint la société !": You have joined the company!
-"Vous avez rejoint le projet !": You have joined the project!
+"Vous avez rejoint la société !": You have joined the company !
+"Vous avez rejoint le projet !": You have joined the project !
 username_or_phone: Email or phone number
 request_reset_password_link: Ask a reset link
 validate_my_password: Validate my password
@@ -582,3 +582,25 @@ creation_of_your_admin_account_on_user_book: Creation of your administrator acco
 you_can_join_or_create_labo: You can join or create your laboratory.
 you_can_still_join_labo_later: You can always join a laboratory later.
 .in_which_i_will_work: in which I will work
+"Vous avez rejoint le laboratoire !": You have joined the laboratory !
+add_new_etude: Add a new study
+edit_etude: Edition of the study
+etude:
+  string: Study
+  banner: Banner
+  current_banner: Current banner
+  new_banner: New banner
+  acronyme: Shorten title / Acronym
+  title: Descriptive title
+  dateDebut: Start date
+  dateFin: End date
+  resume: Summary
+  status: Status
+  submit: Submit
+note:
+  create_only_by_owner: Only the study owner can add a note
+menu:
+  etude:
+    mesEtudes: My studies
+    list: Studies list
+    create: Create a study
