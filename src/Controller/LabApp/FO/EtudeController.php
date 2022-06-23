@@ -106,24 +106,20 @@ class EtudeController extends AbstractController
     /**
      * @Route("/{id}/banniere", name="lab_app_fo_etude_banner_modifier")
      */
-    public function bannerEdit(Request $request, Etude $etude, UserContext $userContext)
+    public function bannerEdit(Request $request, Etude $etude)
     {
-        $fichierEtude = new FichierEtude();
-        $fichierEtude
-            ->setEtude($etude)
-            ->setUploadedBy($userContext->getUserBook())
-        ;
-        $form = $this->createForm(EtudeBannerType::class, $fichierEtude);
+        $fichier = new Fichier();
+        $form = $this->createForm(EtudeBannerType::class, $fichier);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $em->persist($fichierEtude);
+            $em->persist($fichier);
+            $em->flush();
 
-            $etude->setBanner($fichierEtude);
-
+            $etude->setBanner($fichier);
             $em->persist($etude);
             $em->flush();
 

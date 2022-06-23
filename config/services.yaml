@@ -329,12 +329,9 @@ services:
     App\File\FileHandler\AvatarHandler:
         $filesAvatarUri: '%filesAvatarUri%'
 
-    App\File\FileHandler\EtudeFileHandler:
-        $etudeFileStorageUri: '%etudeFileStorageUri%'
-
-    App\File\FichierEtudeTwigExtension:
-        $defaultEtudeBannerUrl: '%defaultEtudeBannerUrl%'
-        $etudeFileStorageUri: '%etudeFileStorageUri%'
+    App\File\FileHandler\EtudeBannerHandler:
+        $filesAvatarUri: '%filesAvatarUri%'
+        $defaultEtudeBannerUri: '%defaultEtudeBannerUri%'
 
     App\File\CreateDefaultAvatarOnNewUser:
         tags:

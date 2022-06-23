@@ -6,11 +6,7 @@
 
 <div class="row">
     <div class="col-12 col-md-8 etude-banner">
-        <div class="etude-banner-background"
-             {% if etude.banner and etude.banner.fichier %}
-             style="background-image: url({{ etude|bannerUrl }})"
-             {% endif %}
-        ></div>
+        <div class="etude-banner-background" style="background-image: url({{ etude|bannerUrl }})"></div>
         <h1>
             {{ 'etude.string'|trans }} {{ etude.acronyme }}
         </h1>

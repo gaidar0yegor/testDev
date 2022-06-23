@@ -10,8 +10,8 @@
     right: 10px;
 }
 .etude-banner .etude-banner-background{
-    background-image: url('../img/default-etude-banner.jpg');
     background-size: cover;
+    background-position: center;
     position: absolute;
     left: 0;
     top: 0;

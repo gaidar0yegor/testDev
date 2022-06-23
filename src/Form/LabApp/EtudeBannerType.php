@@ -2,71 +2,53 @@
 
 namespace App\Form\LabApp;
 
-use App\Entity\FichierProjet;
-use App\Entity\LabApp\Etude;
-use App\Entity\LabApp\FichierEtude;
-use App\File\FileHandler\EtudeFileHandler;
+use App\Entity\Fichier;
+use App\File\FileHandler\EtudeBannerHandler;
 use App\Form\FichierType;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Event\PostSubmitEvent;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Validator\Constraints\Image;
 
-class EtudeBannerType extends AbstractType
+class EtudeBannerType extends FichierType
 {
-    private EtudeFileHandler $etudeFileHandler;
-    private TranslatorInterface $translator;
+    private EtudeBannerHandler $etudeBannerHandler;
 
     public function __construct(
-        EtudeFileHandler $etudeFileHandler,
-        TranslatorInterface $translator
+        EtudeBannerHandler $etudeBannerHandler
     )
     {
-        $this->etudeFileHandler = $etudeFileHandler;
-        $this->translator = $translator;
+        $this->etudeBannerHandler = $etudeBannerHandler;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $builder
-            ->add('fichier', FichierType::class, [
+            ->remove('nomFichier')
+            ->add('file', FileType::class, [
                 'label' => false,
-                'fileHandler' => $this->etudeFileHandler,
+                'required' 	=> false,
+                'attr' => [
+                    'class' => 'upload-img',
+                ],
+                'constraints' => [
+                    new Image([
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                        ],
+                    ]),
+                ],
             ])
-            ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'uploadBanner'])
         ;
-        $builder->get('fichier')->remove('nomFichier');
-    }
-
-    public function uploadBanner(PostSubmitEvent $event)
-    {
-        $fichierEtude = $event->getData();
-
-        if (!$fichierEtude instanceof FichierEtude) {
-            return;
-        }
-
-        // In case no file has been selected
-        if (null === $fichierEtude) {
-            return;
-        }
-
-        $fichier = $fichierEtude->getFichier();
-
-        // In case file has already been imported and entity is just updating
-        if (null === $fichier->getFile()) {
-            return;
-        }
-
-        $this->etudeFileHandler->upload($fichierEtude);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => FichierEtude::class,
+            'fileHandler' => $this->etudeBannerHandler,
         ]);
     }
 }

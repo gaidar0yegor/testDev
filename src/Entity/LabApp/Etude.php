@@ -69,7 +69,7 @@ class Etude implements HasUserBookInterface, EtudeResourceInterface
     private $fichierEtudes;
 
     /**
-     * @ORM\OneToOne(targetEntity=FichierEtude::class, cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Fichier::class, cascade={"persist", "remove"})
      */
     private $banner;
 
@@ -254,12 +254,12 @@ class Etude implements HasUserBookInterface, EtudeResourceInterface
         return $this;
     }
 
-    public function getBanner(): ?FichierEtude
+    public function getBanner(): ?Fichier
     {
         return $this->banner;
     }
 
-    public function setBanner(?FichierEtude $banner): self
+    public function setBanner(?Fichier $banner): self
     {
         $this->banner = $banner;
 

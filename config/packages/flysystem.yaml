@@ -4,7 +4,7 @@ parameters:
     filesAvatarUri: '/avatar/'
     projectFileStorageUri: '%kernel.project_dir%/var/storage/default/uploads'
     etudeFileStorageUri: '%kernel.project_dir%/var/storage/default/uploads/lab/'
-    defaultEtudeBannerUrl: '%kernel.project_dir%/public/build/assets/img/default-etude-banner.jpg'
+    defaultEtudeBannerUri: '/build/assets/img/default-etude-banner.jpg'
     licensesStorageUri: '%kernel.project_dir%/var/storage/licenses'
 
 flysystem:

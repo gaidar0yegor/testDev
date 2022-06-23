@@ -14,20 +14,20 @@
             {{ 'back'|trans }}
         </a>
 
-        {% if etude.banner and etude.banner.fichier %}
-        <p>{{ 'current_logo:'|trans }}</p>
+        {% if etude.banner and etude.banner %}
+        <p>{{ 'etude.current_banner'|trans }} :</p>
 
         <div class="img-uploaded-container">
-            <img src="{{ etude.banner.relativeFilePath }}" class="mb-4"/>
+            <img src="{{ etude|bannerUrl }}" class="mb-4"/>
         </div>
         {% endif %}
 
-        <p>{{ 'etude.new_banner'|trans }}</p>
+        <p>{{ 'etude.new_banner'|trans }} :</p>
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
 
-        {{ form_row(form.fichier) }}
+        {{ form_row(form.file) }}
 
         <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
 

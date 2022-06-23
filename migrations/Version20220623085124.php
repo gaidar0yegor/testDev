@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20220622132352 extends AbstractMigration
+final class Version20220623085124 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -26,7 +26,7 @@ final class Version20220622132352 extends AbstractMigration
         $this->addSql('CREATE TABLE note (id INT AUTO_INCREMENT NOT NULL, etude_id INT NOT NULL, created_by_id INT NOT NULL, title VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, reading_name VARCHAR(255) DEFAULT NULL, author VARCHAR(255) DEFAULT NULL, reference VARCHAR(255) DEFAULT NULL, date DATETIME NOT NULL, created_at DATETIME NOT NULL, INDEX IDX_CFBDFA1447ABD362 (etude_id), INDEX IDX_CFBDFA14B03A8386 (created_by_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_book (id INT AUTO_INCREMENT NOT NULL, labo_id INT DEFAULT NULL, user_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, invitation_token VARCHAR(255) DEFAULT NULL, invitation_sent_at DATETIME DEFAULT NULL, invitation_email VARCHAR(255) DEFAULT NULL, invitation_telephone VARCHAR(35) DEFAULT NULL COMMENT \'(DC2Type:phone_number)\', role VARCHAR(31) NOT NULL, INDEX IDX_B164EFF8B65FA4A (labo_id), INDEX IDX_B164EFF8A76ED395 (user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE etude ADD CONSTRAINT FK_1DDEA9244EAFAD8B FOREIGN KEY (user_book_id) REFERENCES user_book (id)');
-        $this->addSql('ALTER TABLE etude ADD CONSTRAINT FK_1DDEA924684EC833 FOREIGN KEY (banner_id) REFERENCES fichier_etude (id)');
+        $this->addSql('ALTER TABLE etude ADD CONSTRAINT FK_1DDEA924684EC833 FOREIGN KEY (banner_id) REFERENCES fichier (id)');
         $this->addSql('ALTER TABLE fichier_etude ADD CONSTRAINT FK_2A871D1CF915CFE FOREIGN KEY (fichier_id) REFERENCES fichier (id)');
         $this->addSql('ALTER TABLE fichier_etude ADD CONSTRAINT FK_2A871D1C47ABD362 FOREIGN KEY (etude_id) REFERENCES etude (id)');
         $this->addSql('ALTER TABLE fichier_etude ADD CONSTRAINT FK_2A871D1C26ED0855 FOREIGN KEY (note_id) REFERENCES note (id)');
@@ -47,7 +47,6 @@ final class Version20220622132352 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE fichier_etude DROP FOREIGN KEY FK_2A871D1C47ABD362');
         $this->addSql('ALTER TABLE note DROP FOREIGN KEY FK_CFBDFA1447ABD362');
-        $this->addSql('ALTER TABLE etude DROP FOREIGN KEY FK_1DDEA924684EC833');
         $this->addSql('ALTER TABLE user_book DROP FOREIGN KEY FK_B164EFF8B65FA4A');
         $this->addSql('ALTER TABLE fichier_etude DROP FOREIGN KEY FK_2A871D1C26ED0855');
         $this->addSql('ALTER TABLE etude DROP FOREIGN KEY FK_1DDEA9244EAFAD8B');
