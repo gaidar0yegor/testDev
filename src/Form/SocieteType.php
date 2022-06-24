@@ -22,7 +22,9 @@ class SocieteType extends AbstractType
         $builder
             ->add('raisonSociale')
             ->add('siret')
-            ->add('heuresParJours', NumberType::class)
+            ->add('heuresParJours', NumberType::class, [
+                'label' => "Heures par jour"
+            ])
             ->add('coutEtp', NumberType::class, [
                 'label' => "Coût moyen horaire de l'ETP (€/h)"
             ])

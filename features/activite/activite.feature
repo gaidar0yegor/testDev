@@ -11,7 +11,8 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | cdp              |
         And I press "Connexion"
 
-        When I follow "Créer un projet"
+        When I follow "Mes projets"
+        And I follow "Créer un projet"
         And I fill in the following:
             | projet_form[acronyme] | MPT           |
             | projet_form[titre]    | MonProjetTest |

@@ -14,25 +14,49 @@
         ></span>
     </h1>
 
-    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
-        <p>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            {{ 'as_admin_i_can_also_access_all_projects'|trans({
-                '%link_start%': '<a href="' ~ path('app_fo_admin_projets') ~ '">',
-                '%link_end%': '</a>'
-            })|raw }}
-        </p>
-    {% endif %}
+    <div class="d-flex flex-row justify-content-between align-items-center">
+        <div>
+            {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
+                <p>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    {{ 'as_admin_i_can_also_access_all_projects'|trans({
+                        '%link_start%': '<a href="' ~ path('app_fo_admin_projets') ~ '">',
+                        '%link_end%': '</a>'
+                    })|raw }}
+                </p>
+            {% endif %}
 
-    {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) and userContext.societeUser.isSuperiorFo %}
-        <p>
-            <i class="fa fa-info-circle" aria-hidden="true"></i>
-            {{ 'as_superior_i_can_also_access_team_projects'|trans({
-                '%link_start%': '<a href="' ~ path('app_fo_mon_equipe_projets') ~ '">',
-                '%link_end%': '</a>'
-            })|raw }}
-        </p>
-    {% endif %}
+            {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) and userContext.societeUser.isSuperiorFo %}
+                <p>
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    {{ 'as_superior_i_can_also_access_team_projects'|trans({
+                        '%link_start%': '<a href="' ~ path('app_fo_mon_equipe_projets') ~ '">',
+                        '%link_end%': '</a>'
+                    })|raw }}
+                </p>
+            {% endif %}
+        </div>
+
+        <div>
+            <a class="btn btn-warning {{ app.user.projetObservateurExternes|length > 0 ? '' : 'disabled' }}"
+               href="{{ path('app_fo_observateur_externe_list') }}">
+                <i class="fa fa-tasks" aria-hidden="true"></i>
+                {{ 'menu.projects.external'|trans }}
+            </a>
+            <a
+                    class="btn btn-info {{ is_granted('SOCIETE_CDP') ? '' : 'disabled' }}"
+                    href="{{ path('app_fo_projet_creation') }}"
+                    {% if not is_granted('SOCIETE_CDP') %}
+                        title="{{ 'create_project_requires_project_manager_role'|trans }}"
+                    {% endif %}
+            >
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                {{ 'menu.projects.create'|trans }}
+            </a>
+        </div>
+
+
+    </div>
 
     <table class="table datatable hover" data-order='[[ 1, "asc" ]]'>
         <thead>
@@ -61,7 +85,9 @@
                     <td class="text-center">{{ userRoleOn(projet)|trans }}</td>
                     <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
-                    <td class="text-center">{{ projet.statut | trans }}</td>
+                    <td class="text-center">
+                        {% include 'projets/_projet_statut.html.twig' with {projet: projet} %}
+                    </td>
                     <td class="text-center" data-sort='{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime|date('Ymd') : '' }}'>{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime | format_datetime : '' }}</td>
                     <td class="text-center">{{ projet.projetParticipants|length }}</td>
                 </tr>
@@ -69,16 +95,4 @@
         </tbody>
     </table>
 
-    <div class="my-3 text-right">
-        <a
-            class="btn btn-outline-success {{ is_granted('SOCIETE_CDP') ? '' : 'disabled' }}"
-            href="{{ path('app_fo_projet_creation') }}"
-            {% if not is_granted('SOCIETE_CDP') %}
-                title="{{ 'create_project_requires_project_manager_role'|trans }}"
-            {% endif %}
-        >
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            {{ 'menu.projects.create'|trans }}
-        </a>
-    </div>
 {% endblock %}
