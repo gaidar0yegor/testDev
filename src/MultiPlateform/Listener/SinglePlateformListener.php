@@ -1,6 +1,6 @@
 <?php
 
-namespace App\MultiSociete\Listener;
+namespace App\MultiPlateform\Listener;
 
 use App\Entity\User;
 use App\MultiSociete\UserContext;

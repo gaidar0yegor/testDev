@@ -10,7 +10,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
             | _password | user              |
         And I press "Connexion"
 
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PTEST"
         And I follow "Gérer les participants"
         Then I should see "Inviter un observateur externe"
@@ -23,7 +23,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I should see "En cours d'invitation..." in the "observateur_externe@externe.dev" row
 
     Scenario: L'observateur externe peut rejoindre le projet avec son lien d'invitation
-        When I go to "/invitation-observateur-externe/INVITATION_TOKEN"
+        When I go to "/corp/invitation-observateur-externe/INVITATION_TOKEN"
         Then I should see "Vous êtes sur le point de rejoindre le projet PTEST"
 
         When I follow "J'ai déjà un compte RDI-Manager"
@@ -49,7 +49,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
             | _password | user              |
         And I press "Connexion"
 
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PTEST"
         And I follow "Gérer les participants"
         Then I should see "En cours d'invitation..." in the "email@unused.dev" row

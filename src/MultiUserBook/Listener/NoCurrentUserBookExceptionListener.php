@@ -1,9 +1,8 @@
 <?php
 
-namespace App\MultiSociete\Listener;
+namespace App\MultiUserBook\Listener;
 
-use App\MultiSociete\Exception\NoCurrentSocieteException;
-use App\MultiSociete\Exception\NoCurrentUserBookException;
+use App\MultiUserBook\Exception\NoCurrentUserBookException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;

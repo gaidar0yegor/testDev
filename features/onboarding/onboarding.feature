@@ -19,7 +19,7 @@ Feature: L'onboarding doit aider les nouveaux utilisateurs
         Then I should not see a ".onboarding-messages .nav-link.done:contains('Ajoutez vos projets')" element
 
         When I click on the 1st ".onboarding-messages .nav-link:not(.done) a:contains('Ajoutez vos projets')" element
-        Then I should be on "/projets/creation"
+        Then I should be on "/corp/projets/creation"
 
         When I fill in the following:
             | projet_form[acronyme] | MPT           |
@@ -31,7 +31,7 @@ Feature: L'onboarding doit aider les nouveaux utilisateurs
         Then I should see an ".onboarding-messages" element
         And I should see "Ignorer et ne pas faire ces étapes" in the ".onboarding-messages a" element
 
-        When I send a POST request to "/api/onboarding/close"
+        When I send a POST request to "/corp/api/onboarding/close"
         Then the response status code should be 204
 
         When I go to "/"

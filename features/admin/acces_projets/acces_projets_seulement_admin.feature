@@ -8,9 +8,9 @@ Feature: Seul l'admin à accès à la gestion des rôles d'un user sur tous les 
             | _username | cdp@societe.dev  |
             | _password | cdp              |
         And I press "Connexion"
-        And I go to "[href='/utilisateur/3']"
+        And I go to "[href='/corp/utilisateur/3']"
         Then I should not see "Gérer ses accès aux projets"
 
-        When I go to "/admin/utilisateurs/3/roles-projets"
+        When I go to "/corp/admin/utilisateurs/3/roles-projets"
         Then the response status code should be 403
         And I should not see "Rôles sur projets de Utilisateur Eureka"

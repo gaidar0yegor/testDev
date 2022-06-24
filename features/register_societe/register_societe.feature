@@ -7,7 +7,7 @@ Feature: S'inscrire en tant que société.
     Scenario: Inscription d'une société et compte admin, partie anonyme
         Given I have loaded fixtures from "empty_database.yml"
 
-        When I go to "/creer-ma-societe"
+        When I go to "/corp/creer-ma-societe"
         Then I should see "Bienvenue sur RDI-Manager, vous allez ici créer votre société et votre accès administrateur afin de suivre vos projets"
 
         When I fill in the following:
@@ -36,7 +36,7 @@ Feature: S'inscrire en tant que société.
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/creer-ma-societe/mon-projet"
+        And I am on "/corp/creer-ma-societe/mon-projet"
         And I should see "Créer mon projet" in the "h1" element
 
         When I fill in the following:

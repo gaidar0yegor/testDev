@@ -10,7 +10,7 @@ Feature: Pouvoir me mettre un avatar
         And I press "Connexion"
 
     Scenario: Je peut changer mon avatar
-        Given I am on "/mon-compte"
+        Given I am on "/corp/mon-compte"
         And I follow "Modifier mon avatar"
         When I attach the file "mon_compte/avatar.jpg" to "avatar[file]"
         And I press "Mettre à jour"

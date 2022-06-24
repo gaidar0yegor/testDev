@@ -13,9 +13,9 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
         When I follow "Temps passés"
         Then I should see "Vous pouvez ici saisir en pourcentage le temps que vous avez passé en moyenne sur vos projets dont vous avez contribué dans ce mois"
 
-        When I send a POST request to "/api/help-text/acknowledge" with body:
+        When I send a POST request to "/corp/api/help-text/acknowledge" with body:
             """
             {"helpId":"saisieTempsPasse"}
             """
-        And I go to "/temps"
+        And I go to "/corp/temps"
         Then I should not see "Vous pouvez ici saisir en pourcentage le temps que vous avez passé en moyenne sur vos projets dont vous avez contribué dans ce mois"

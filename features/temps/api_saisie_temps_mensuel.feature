@@ -10,7 +10,7 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
         And I press "Connexion"
 
     Scenario: On peut récupérer un nouveau cra mensuel avec des temps initialisés à 0
-        When I am on "/api/temps/2021/05"
+        When I am on "/corp/api/temps/2021/05"
         Then the response should be in JSON
         And the JSON should be equal to:
             """
@@ -50,7 +50,7 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
             """
 
     Scenario: On peut soumettre un nouveau cra mensuel
-        When I send a POST request to "/api/temps/2021/05" with body:
+        When I send a POST request to "/corp/api/temps/2021/05" with body:
             """
                 [
                     [1, 10],
@@ -60,7 +60,7 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
             """
         Then the response status code should be 204
 
-        When I am on "/api/temps/2021/05"
+        When I am on "/corp/api/temps/2021/05"
         Then the response should be in JSON
         And the JSON nodes should be equal to:
             | tempsPasses[0].id          | 1  |
@@ -72,7 +72,7 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
         And the JSON node "tempsPassesModifiedAt" should not be null
 
     Scenario: On ne peut pas soumettre un pourcentage > 100
-        When I send a POST request to "/api/temps/2021/05" with body:
+        When I send a POST request to "/corp/api/temps/2021/05" with body:
             """
                 [
                     [1, 120],
@@ -83,7 +83,7 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
         Then the response status code should be 400
 
     Scenario: On ne peut pas soumettre des pourcentages dont le total > 100
-        When I send a POST request to "/api/temps/2021/05" with body:
+        When I send a POST request to "/corp/api/temps/2021/05" with body:
             """
                 [
                     [1, 50],

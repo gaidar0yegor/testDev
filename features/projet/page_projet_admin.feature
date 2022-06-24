@@ -10,21 +10,21 @@ Feature: Affichage de la page d'un projet en tant qu'admin
         And I press "Connexion"
 
     Scenario: Un admin peut tout faire sur un projet de sa société même s'il n'est que observateur
-        When I go to "/projets/1"
+        When I go to "/corp/projets/1"
         Then I should see "P1" in the "h1" element
 
         When I follow "Gérer les participants"
         Then I should see "Gestion des participants" in the "h1" element
 
-        When I go to "/projets/1/modifier"
+        When I go to "/corp/projets/1/modifier"
         Then I should see "Edition du projet P1"
 
     Scenario: Un admin peut tout faire sur un projet de sa société même s'il n'y participe pas
-        When I go to "/projets/2"
+        When I go to "/corp/projets/2"
         Then I should see "P2" in the "h1" element
 
         When I follow "Gérer les participants"
         Then I should see "Gestion des participants" in the "h1" element
 
-        When I go to "/projets/2/modifier"
+        When I go to "/corp/projets/2/modifier"
         Then I should see "Edition du projet P2"

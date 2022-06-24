@@ -14,13 +14,21 @@ corp:
 
 corp_admin:
     type: annotation
-    prefix: /admin/
+    prefix: /corp/admin/
     resource: ../src/Controller/CorpApp/FO/Admin/
+    defaults:
+        _app: CorpApp
+        _app_name: Journal collaboratif
+        _app_class: corp_app
 
 corp_mon_equipe:
     type: annotation
-    prefix: /mon_equipe/
+    prefix: /corp/mon_equipe/
     resource: ../src/Controller/CorpApp/FO/Equipe/
+    defaults:
+        _app: CorpApp
+        _app_name: Journal collaboratif
+        _app_class: corp_app
 
 lab:
     type: annotation

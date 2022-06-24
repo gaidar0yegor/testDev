@@ -10,9 +10,9 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I press "Connexion"
 
     Scenario: Il faut avoir le rôle Chef de projet pour gérer les participants.
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "P"
         Then I should not see "Gérer les participants"
 
-        When I go to "/projets/1/participants"
+        When I go to "/corp/projets/1/participants"
         Then the response status code should be 403

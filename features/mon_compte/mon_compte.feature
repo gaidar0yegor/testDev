@@ -10,14 +10,15 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         And I press "Connexion"
 
     Scenario: Je peux voir mes données personnelles
-        When I follow "Mon compte"
+        When I go to "/corp/mes-societes"
+        And I follow "Mon compte"
         Then I should see "Mon compte" in the "h1" element
         And I should see "Nom Eureka"
         And I should see "Prénom User"
         And I should see "Email user@societe.dev"
 
     Scenario: Je peux changer mon mot de passe
-        Given I am on "/mon-compte"
+        Given I am on "/corp/mon-compte"
         When I follow "Changer mon mot de passe"
         Then I should see "Changer mon mot de passe"
 
@@ -29,7 +30,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         Then I should see "Votre mot de passe a été mis à jour"
 
     Scenario: Je doit connaître l'ancien mot de passe pour le changer
-        Given I am on "/mon-compte"
+        Given I am on "/corp/mon-compte"
         When I follow "Changer mon mot de passe"
         Then I should see "Changer mon mot de passe"
 
@@ -41,7 +42,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         Then I should see " Votre ancien mot de passe saisis n'est pas le bon"
 
     Scenario: Je peut modifier mes infos personnelles
-        Given I am on "/mon-compte"
+        Given I am on "/corp/mon-compte"
         When I follow "Mettre à jour"
         Then I should see "Modification de mon compte"
         When I fill in the following:
@@ -51,7 +52,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         And I should see "NouveauPrenom" in the "nav" element
 
     Scenario: Je peut ajouter mon numéro de téléphone afin de recevoir les notifications importantes
-        Given I am on "/mon-compte/modifier"
+        Given I am on "/corp/mon-compte/modifier"
 
         When I fill in the following:
             | Mobile | mauvais_numero |
@@ -73,7 +74,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         And I press "Mettre à jour"
         Then I should see "Vos informations personnelles ont été mises à jour"
 
-        When I go to "/mon-compte/modifier"
+        When I go to "/corp/mon-compte/modifier"
         When I fill in the following:
             | Mobile | +33606060606 |
         And I press "Mettre à jour"

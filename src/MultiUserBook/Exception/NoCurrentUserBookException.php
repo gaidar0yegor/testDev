@@ -1,6 +1,6 @@
 <?php
 
-namespace App\MultiSociete\Exception;
+namespace App\MultiUserBook\Exception;
 
 use RuntimeException;
 use Throwable;

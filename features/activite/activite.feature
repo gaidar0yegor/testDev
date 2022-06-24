@@ -31,7 +31,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | user              |
         And I press "Connexion"
 
-        When I go to "/projets/1"
+        When I go to "/corp/projets/1"
         And I follow "Ajouter un fait marquant"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
@@ -51,7 +51,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | cdp              |
         And I press "Connexion"
 
-        When I go to "/fait-marquants/2/modifier"
+        When I go to "/corp/fait-marquants/2/modifier"
         And the "fait_marquant[titre]" field should contain "FM_cdp"
         And I fill in the following:
             | fait_marquant[titre]       | FM_cdp |
@@ -71,7 +71,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | cdp              |
         And I press "Connexion"
 
-        When I go to "/fait-marquants/1/modifier"
+        When I go to "/corp/fait-marquants/1/modifier"
         And the "fait_marquant[titre]" field should contain "FM_user"
         And I fill in the following:
             | fait_marquant[titre]       | FM_user |
@@ -91,7 +91,7 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _password | user              |
         And I press "Connexion"
 
-        When I go to "/utilisateur/2/activite"
+        When I go to "/corp/utilisateur/2/activite"
         Then the response status code should be 403
         And I should not see "Activité de Admin Eureka" in the "h1" element
 
@@ -101,10 +101,10 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/1/modifier"
+        And I am on "/corp/utilisateur/1/modifier"
         And I press "Désactiver le compte"
 
-        When I go to "/utilisateur/1/activite"
+        When I go to "/corp/utilisateur/1/activite"
         Then I should see "Admin Eureka a desactivé le compte de User Eureka"
 
     Scenario: L'administrateur réactive un utilisateur
@@ -113,16 +113,16 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/1/modifier"
+        And I am on "/corp/utilisateur/1/modifier"
         And I press "Désactiver le compte"
         And I fill in the following:
             | societe_user[societeUserPeriods][1][dateEntry] | 1 janvier 2021 |
         And I press "Mettre à jour"
 
-        When I go to "/utilisateur/1/modifier"
+        When I go to "/corp/utilisateur/1/modifier"
         And I press "Ré-activer le compte"
 
-        When I go to "/utilisateur/1/activite"
+        When I go to "/corp/utilisateur/1/activite"
         Then I should see "Admin Eureka a ré-activé le compte de User Eureka"
 
     Scenario: L'administrateur désactive un utilisateur
@@ -131,8 +131,8 @@ Feature: Un historique d'activité est conservé afin de suivre les changements
             | _username | admin@societe.dev  |
             | _password | admin              |
         And I press "Connexion"
-        And I am on "/utilisateur/1/modifier"
+        And I am on "/corp/utilisateur/1/modifier"
         And I press "Désactiver le compte"
 
-        When I go to "/utilisateur/3/activite"
+        When I go to "/corp/utilisateur/3/activite"
         Then I should see "Admin Eureka a desactivé le compte de User Eureka"

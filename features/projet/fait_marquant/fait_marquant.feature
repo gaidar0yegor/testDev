@@ -9,7 +9,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur@societe.dev  |
             | _password | contributeur              |
         And I press "Connexion"
-        And I am on "/projets/1"
+        And I am on "/corp/projets/1"
 
         When I follow "Ajouter un fait marquant"
         Then I should see "Ajouter un fait marquant" in the "h1" element
@@ -28,10 +28,10 @@ Feature: Gestion des faits marquants d'un projet
             | _username | observateur@societe.dev  |
             | _password | observateur              |
         And I press "Connexion"
-        And I am on "/projets/1"
+        And I am on "/corp/projets/1"
         Then I should see "Seuls les contributeurs peuvent ajouter un fait marquant" in the ".timeline" element
 
-        When I go to "/projets/1/fait-marquants/ajouter"
+        When I go to "/corp/projets/1/fait-marquants/ajouter"
         Then the response status code should be 403
         And I should not see "Ajouter un fait marquant"
 
@@ -41,7 +41,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur@societe.dev  |
             | _password | contributeur              |
         And I press "Connexion"
-        And I am on "/projets/1"
+        And I am on "/corp/projets/1"
 
         When I click on the 1st ".timeline a.edit-fait-marquant" element
         Then I should see "Modifiez votre fait marquant" in the "h1" element
@@ -59,7 +59,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur@societe.dev  |
             | _password | contributeur              |
         And I press "Connexion"
-        And I am on "/projets/1"
+        And I am on "/corp/projets/1"
 
         Then I should see "Contenu du fait marquant déjà créé"
 
@@ -74,7 +74,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | contributeur2@societe.dev  |
             | _password | contributeur2              |
         And I press "Connexion"
-        And I am on "/projets/1"
+        And I am on "/corp/projets/1"
 
         When I click on the 1st ".timeline a.edit-fait-marquant" element
         Then I should not see "Modifiez votre fait marquant" in the "h1" element
@@ -85,7 +85,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | cdp@societe.dev  |
             | _password | cdp              |
         And I press "Connexion"
-        And I am on "/projets/1"
+        And I am on "/corp/projets/1"
 
         When I click on the 1st ".timeline a.edit-fait-marquant" element
         Then I should see "Modifiez votre fait marquant" in the "h1" element
@@ -96,7 +96,7 @@ Feature: Gestion des faits marquants d'un projet
             | _username | cdp@societe.dev  |
             | _password | cdp              |
         And I press "Connexion"
-        And I am on "/projets/1"
+        And I am on "/corp/projets/1"
 
         Then I should see "Contributeurs (2)"
         And I should see an "img[alt='Avatar de Contributeur Eureka']" element

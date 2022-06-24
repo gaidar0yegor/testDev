@@ -10,5 +10,5 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I press "Connexion"
 
     Scenario: Un utilisateur ne peut pas voir un projet dont il n'a aucun rôle
-        When I go to "/projets/2"
+        When I go to "/corp/projets/2"
         Then the response status code should be 403
