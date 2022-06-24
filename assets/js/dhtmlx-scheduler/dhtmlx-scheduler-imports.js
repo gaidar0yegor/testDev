@@ -14,6 +14,7 @@ import locale_fr from './locale/locale.fr';
 import locale_en from './locale/locale.en';
 import { detectedLocale } from './../translation';
 import $ from "jquery";
+import userContext from './../userContext';
 import apiGenerateIcsCalendar from "./ext/ics-export-api";
 
 var locale = detectedLocale === 'en' ? locale_en : locale_fr;
@@ -109,6 +110,9 @@ scheduler.attachEvent("onLightbox", function (id) {
             if (checkboxRequiredParticipant && checkboxRequiredParticipant.node.querySelectorAll("input[type='checkbox']").length === 1){
                 checkboxRequiredParticipant.node.querySelectorAll("input[type='checkbox']")[0].checked = true;
             }
+            if (checkboxRequiredParticipant && checkboxRequiredParticipant.node.querySelectorAll(`input[type='checkbox'][value='${userContext.societeUserId}']`).length === 1){
+                checkboxRequiredParticipant.node.querySelectorAll(`input[type='checkbox'][value='${userContext.societeUserId}']`)[0].checked = true;
+            }
         }
     }
     if (event.readonly){
@@ -151,7 +155,8 @@ scheduler.config.details_on_dblclick = true;
 scheduler.config.event_duration = 60;
 scheduler.config.auto_end_date = true;
 scheduler.config.full_day = true;
-scheduler.config.buttons_right = ["dhx_delete_btn", "dhx_ics_calendar_btn"];
+scheduler.config.buttons_left = ["dhx_save_btn", "dhx_delete_btn"];
+scheduler.config.buttons_right = ["dhx_cancel_btn", "dhx_ics_calendar_btn"];
 scheduler.locale.labels["dhx_ics_calendar_btn"] = locale.labels.dhx_ics_calendar_btn;
 scheduler.config.lightbox.sections = [
     { name:"text", height:30 , map_to:"text", type:"textarea", focus:true },

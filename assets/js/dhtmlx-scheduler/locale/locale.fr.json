@@ -17,9 +17,9 @@
         "icon_cancel": "Annuler",
         "icon_details": "Détails",
         "icon_edit": "Modifier",
-        "icon_delete": "Effacer",
+        "icon_delete": "Supprimer",
         "confirm_closing": "",
-        "confirm_deleting": "L'événement sera effacé sans appel, êtes-vous sûr ?",
+        "confirm_deleting": "Cet événement sera supprimé définitivement. Êtes-vous sûr?",
         "section_description": "Description",
         "section_time": "Période",
         "full_day": "Journée entière",
@@ -45,7 +45,7 @@
         "drag_to_move":"Drag to move",
 
         "message_ok":"OK",
-        "message_cancel":"Cancel",
+        "message_cancel":"Annuler",
 
         "next": "Next",
         "prev": "Previous",
