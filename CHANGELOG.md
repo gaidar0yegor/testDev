@@ -6,6 +6,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [1.50.1] - 2022-06-24
+### Modifié
 - Mes sociétés : Expire le 3 mars au lieu de expirée
 - Mon tableau de bord:
     - Mes contributions -> voir temps total Moi et équipe
@@ -25,11 +32,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
     - Créateur de l’événement => l’inviter par défaut lors de la création d’un événement dans l’agenda
     - Ajouter bouton + pour créer un événement
 - Toutes les pages du projet : Ajouter un bouton Accès rapide entre les différents onglets
-
-
-
-
-
 
 ## [1.5.0] - 2022-06-23
 ### Réparé
