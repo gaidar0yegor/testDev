@@ -28,7 +28,7 @@
         <dd>{{ projet.dateFin|format_date }}</dd>
     {% endif %}
     <dt>{{ "status"|trans }}</dt>
-    <dd>{{ projet.statut | trans }} <small><i>{{ projet.isSuspended ? '(' ~ projet.projetSuspendPeriods.last.suspendedAt | date("d/m/Y") ~ ')' : '' }}</i></small></dd>
+    <dd>{% include 'projets/_projet_statut.html.twig' with {projet: projet} %} <small><i>{{ projet.isSuspended ? '(' ~ projet.projetSuspendPeriods.last.suspendedAt | date("d/m/Y") ~ ')' : '' }}</i></small></dd>
 </dl>
 
 <hr>

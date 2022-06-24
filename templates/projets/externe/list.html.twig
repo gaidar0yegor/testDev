@@ -31,7 +31,9 @@
                 <td>{{ projet.societe.raisonSociale }}</td>
                 <td>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                 <td>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
-                <td>{{ projet.statut | trans }}</td>
+                <td>
+                    {% include 'projets/_projet_statut.html.twig' with {projet: projet} %}
+                </td>
                 <td>{{ projet.projetParticipants|length }}</td>
             </tr>
         {% endfor %}
