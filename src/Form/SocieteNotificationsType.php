@@ -16,15 +16,15 @@ class SocieteNotificationsType extends AbstractType
         $builder
             ->add('creerFaitsMarquants', CronJobType::class, [
                 'dayOfWeek' => true,
-                'help' => 'L\'utilisateur recoit une notification avec un lien vers le formulaire de création de faits marquants sur ses projets.',
+                'help' => 'L\'utilisateur reçoit une notification avec un lien vers le formulaire de création de faits marquants sur ses projets.',
             ])
             ->add('derniersFaitsMarquants', CronJobType::class, [
                 'dayOfWeek' => true,
-                'help' => 'L\'utilisateur recoit une notification type newsletter avec tous les derniers faits marquants ajoutés sur les projets dont il est au moins observateur.',
+                'help' => 'L\'utilisateur reçoit une notification type newsletter avec tous les derniers faits marquants ajoutés sur les projets auxquels il est au moins observateur.',
             ])
             ->add('saisieTemps', CronJobType::class, [
                 'dayOfMonth' => true,
-                'help' => 'L\'utilisateur recoit une notification avec un lien vers le formulaire de saisie de ses temps passés sur les projets dont il contribue.',
+                'help' => 'L\'utilisateur reçoit une notification avec un lien vers le formulaire de saisie de ses temps passés sur les projets auxquels il contribue.',
             ])
             ->add('smsEnabled', CheckboxType::class, [
                 'required' => false,
