@@ -590,6 +590,7 @@ you_can_still_join_labo_later: "Vous pourrez toujours intégrer un laboratoire p
 add_new_etude: "Ajouter une nouvelle étude"
 add_new_note: "Ajouter une note"
 edit_etude: "Édition de l'étude"
+return_to_etude: "Retourner à l'étude"
 etude:
   string: "Étude"
   banner: "Bannière"

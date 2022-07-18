@@ -585,6 +585,7 @@ you_can_still_join_labo_later: You can always join a laboratory later.
 "Vous avez rejoint le laboratoire !": You have joined the laboratory !
 add_new_etude: Add a new study
 edit_etude: Edition of the study
+return_to_etude: Go back to the study
 etude:
   string: Study
   banner: Banner

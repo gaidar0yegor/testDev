@@ -8,6 +8,13 @@
 
     <h1>{{ (etude.id ? "edit_etude" : "add_new_etude") | trans }}</h1>
 
+    {% if etude.id %}
+    <a class="d-block mb-4" href="{{ path('lab_app_fo_etude', {id: etude.id}) }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        {{ "return_to_etude"|trans }}
+    </a>
+    {% endif %}
+
     <div class="row">
         <div class="col-lg-10 offset-lg-1">
             {{ form_start(form) }}
