@@ -69,12 +69,13 @@ class Note implements HasUserBookInterface, EtudeResourceInterface
     private $createdBy;
 
     /**
-     * @ORM\OneToMany(targetEntity=FichierEtude::class, mappedBy="note")
+     * @ORM\OneToMany(targetEntity=FichierEtude::class, mappedBy="note", cascade={"all"})
      */
     private $fichierEtudes;
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->fichierEtudes = new ArrayCollection();
     }
 
@@ -143,6 +144,11 @@ class Note implements HasUserBookInterface, EtudeResourceInterface
         return $this;
     }
 
+    public function isReadingNote(): bool
+    {
+        return $this->readingName !== null || $this->author !== null || $this->reference !== null;
+    }
+
     public function getDate(): ?\DateTimeInterface
     {
         return $this->date;
@@ -169,7 +175,7 @@ class Note implements HasUserBookInterface, EtudeResourceInterface
 
     public function getEtude(): Etude
     {
-        return $this->getEtude();
+        return $this->etude;
     }
 
     public function setEtude(?Etude $etude): self
@@ -228,6 +234,6 @@ class Note implements HasUserBookInterface, EtudeResourceInterface
 
     public function getUserBook(): ?UserBook
     {
-        return $this->getEtude()->getUserBook();
+        return $this->etude->getUserBook();
     }
 }

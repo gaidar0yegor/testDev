@@ -3,7 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Fichier;
-use App\File\FileHandler\AvatarHandler;
+use App\File\FileHandler\EtudeFileHandler;
 use App\File\FileHandler\ProjectFileHandler;
 use App\File\FileHandlerInterface;
 use LogicException;
@@ -50,7 +50,7 @@ class FichierType extends AbstractType
             throw new LogicException('$fileHandler must be an instance of '.FileHandlerInterface::class);
         }
 
-        if ($fileHandler instanceof ProjectFileHandler){
+        if ($fileHandler instanceof ProjectFileHandler || $fileHandler instanceof EtudeFileHandler){
             return;
         }
 

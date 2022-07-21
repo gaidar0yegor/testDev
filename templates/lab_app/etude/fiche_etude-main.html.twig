@@ -22,7 +22,7 @@
         <div class="add-etude">
             {% if userCanAddNote %}
                 <a
-                        href="#"
+                        href="{{ path('lab_app_fo_note_ajouter', { 'etudeId' : etude.id }) }}"
                         class="btn btn-lg btn-outline-primary"
                 >
                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -55,7 +55,7 @@
                                 </span>
                                 <div>
                                     <a
-                                            href="#" style="font-size: 1.2rem;"
+                                            href="{{ path('lab_app_fo_note_modifier', {'id' : note.id}) }}" style="font-size: 1.2rem;"
                                             class="edit-note {% if not is_granted(constant('App\\EtudeResourceInterface::EDIT'), note) %}disabled{% endif %}"
                                             {% if not is_granted(constant('App\\EtudeResourceInterface::EDIT'), note) %}
                                                 disabled
@@ -70,9 +70,30 @@
 
                             </h4>
                             <h3>{{ note.title }}</h3>
+                            {% if note.isReadingNote %}
+                            <div class="note-reading-content">
+                                <p><strong>{{ 'note.readingName'|trans }} : </strong> {{ note.readingName }}</p>
+                                <p><strong>{{ 'note.author'|trans }} : </strong> {{ note.author }}</p>
+                                <p><strong>{{ 'note.reference'|trans }} : </strong> {{ note.reference }}</p>
+                            </div>
+                            {% endif %}
                             <div class="note-content event-content text-justify text-word-break position-relative overflow-hidden">
                                 {{ note.description|markdown|raw }}
                             </div>
+                            <ul class="list-unstyled mt-3">
+                                {% for fichierEtude in note.fichierEtudes %}
+                                    <li>
+                                        <i class="fa {{ fichierEtude.fichier|faFileIcon }}" aria-hidden="true"></i>
+                                        <a target="_blank"
+                                           href="{{ path('lab_app_fo_etude_fichier', {
+                                               'etudeId': etude.id,
+                                               'fichierEtudeId': fichierEtude.id
+                                           }) }}" {% if fichierEtude.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                                            {{ fichierEtude.fichier.nomFichier }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
                         </li>
                     </td>
                 </tr>

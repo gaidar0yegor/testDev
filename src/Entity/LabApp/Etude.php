@@ -54,6 +54,7 @@ class Etude implements HasUserBookInterface, EtudeResourceInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="etude", orphanRemoval=true)
+     * @ORM\OrderBy({"date" = "DESC", "id" = "DESC"})
      */
     private $notes;
 
@@ -64,7 +65,7 @@ class Etude implements HasUserBookInterface, EtudeResourceInterface
     private $userBook;
 
     /**
-     * @ORM\OneToMany(targetEntity=FichierEtude::class, mappedBy="etude", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=FichierEtude::class, mappedBy="etude", orphanRemoval=true, cascade={"persist"})
      */
     private $fichierEtudes;
 

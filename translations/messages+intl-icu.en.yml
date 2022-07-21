@@ -586,6 +586,9 @@ you_can_still_join_labo_later: You can always join a laboratory later.
 add_new_etude: Add a new study
 edit_etude: Edition of the study
 return_to_etude: Go back to the study
+"La note \"{title_note}\" a été ajoutée à l'étude.": "The note \"{title_note}\" has been added to the study."
+'La note "{title_note}" a été modifiée.': 'The note "{title_note}" have been modified.'
+'La note "{title_note}" a été supprimée.': 'The note "{title_note}" have been deleted.'
 etude:
   string: Study
   banner: Banner
@@ -599,7 +602,15 @@ etude:
   status: Status
   submit: Submit
 note:
+  reading_note: Reading Note
+  add_note: Add a note
+  edit_note: Edit your note
   create_only_by_owner: Only the study owner can add a note
+  title: Titre
+  date: Date
+  readingName: Source title
+  author: Author(s)
+  reference: Reference
 menu:
   etude:
     mesEtudes: My studies

@@ -591,6 +591,9 @@ add_new_etude: "Ajouter une nouvelle étude"
 add_new_note: "Ajouter une note"
 edit_etude: "Édition de l'étude"
 return_to_etude: "Retourner à l'étude"
+"La note \"{title_note}\" a été ajoutée à l'étude.": "La note \"{title_note}\" a été ajoutée à l'étude."
+'La note "{title_note}" a été modifiée.': 'La note "{title_note}" a été modifiée.'
+'La note "{title_note}" a été supprimée.': 'La note "{title_note}" a été supprimée.'
 etude:
   string: "Étude"
   banner: "Bannière"
@@ -604,7 +607,15 @@ etude:
   status: 'Statut'
   submit: 'Soumettre'
 note:
+  reading_note: Note de lecture
+  add_note: Ajouter une note
+  edit_note: Modifier votre note
   create_only_by_owner: Seul le propriétaire de l'étude peut ajouter une note
+  title: Titre
+  date: Date
+  readingName: Titre de la source
+  author: Auteur(s)
+  reference: Référence
 menu:
   etude:
     mesEtudes: "Mes études"
