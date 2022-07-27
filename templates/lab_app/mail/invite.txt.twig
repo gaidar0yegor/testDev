@@ -1,0 +1,5 @@
+{{ fromUser.fullname }} vous invite sur RDI-Manager dans le laboratoire {{ userBookInvite.labo.name }} en tant que {{ userBookInvite.role|trans }}.
+
+Finalisez votre inscription en suivant ce lien :
+
+{{ url('lab_app_fo_user_finalize_inscription', {'token': userBookInvite.invitationToken}) }}

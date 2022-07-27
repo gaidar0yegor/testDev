@@ -566,6 +566,9 @@ add_new_project: Ajouter un nouveau projet
 corp_app_name: Journal collaboratif
 access_to_my_companies: Accèder à mes sociétés
 #################################### Lab App #######################################
+LABO_ADMIN: Administrateur
+LABO_SENIOR: "Chercheur sénior"
+LABO_USER: Chercheur
 welcom_to_rdi_manager_plateforms: 'Bienvenue sur le portail de <span class="text-danger">RDI Manager</span>'
 join_user_book: "Rejoindre le cahier de laboratoire"
 lab_app_name: Cahier de laboratoire
@@ -594,6 +597,10 @@ return_to_etude: "Retourner à l'étude"
 "La note \"{title_note}\" a été ajoutée à l'étude.": "La note \"{title_note}\" a été ajoutée à l'étude."
 'La note "{title_note}" a été modifiée.': 'La note "{title_note}" a été modifiée.'
 'La note "{title_note}" a été supprimée.': 'La note "{title_note}" a été supprimée.'
+labo:
+  edit_labo: Modifier les infos de mon laboratoire
+  rnsr_long: 'Répertoire national des structures de recherche'
+  rnsr_short: 'RNSR'
 etude:
   string: "Étude"
   banner: "Bannière"
@@ -621,3 +628,5 @@ menu:
     mesEtudes: "Mes études"
     list: "Liste des études"
     create: "Créer une étude"
+  admin:
+    labo: Mon laboratoire

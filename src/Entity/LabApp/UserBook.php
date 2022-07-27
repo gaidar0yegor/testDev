@@ -9,19 +9,11 @@ use App\Security\Role\RoleLabo;
 use Doctrine\ORM\Mapping as ORM;
 use App\DTO\NullUser;
 use App\UserResourceInterface;
-use App\Validator as AppAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserBookRepository::class)
- *
- * @AppAssert\NotBlankEither(
- *      fields={"invitationEmail", "invitationTelephone"},
- *      groups={"invitation"}
- * )
  */
 class UserBook implements UserResourceInterface, HasUserBookInterface
 {
@@ -44,8 +36,6 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
 
     /**
      * @ORM\ManyToOne(targetEntity=Labo::class, inversedBy="userBooks")
-     *
-     * @Assert\NotBlank(groups={"invitation"})
      */
     private $labo;
 
@@ -54,32 +44,6 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
      * @ORM\JoinColumn(nullable=true)
      */
     private $user;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Assert\NotBlank(groups={"invitation"})
-     */
-    private $invitationToken;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $invitationSentAt;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     *
-     * @Assert\Email(mode="strict")
-     */
-    private $invitationEmail;
-
-    /**
-     * @ORM\Column(type="phone_number", nullable=true)
-     *
-     * @AssertPhoneNumber(type="mobile", defaultRegion="FR")
-     */
-    private $invitationTelephone;
 
     /**
      * @ORM\OneToMany(targetEntity=Note::class, mappedBy="createdBy")
@@ -171,64 +135,6 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
         return $this;
     }
 
-    public function getInvitationToken(): ?string
-    {
-        return $this->invitationToken;
-    }
-
-    public function setInvitationToken(?string $invitationToken): self
-    {
-        $this->invitationToken = $invitationToken;
-
-        return $this;
-    }
-
-    public function removeInvitationToken(): self
-    {
-        $this->invitationToken = null;
-        $this->invitationSentAt = null;
-        $this->invitationEmail = null;
-        $this->invitationTelephone = null;
-
-        return $this;
-    }
-
-    public function getInvitationSentAt(): ?\DateTimeInterface
-    {
-        return $this->invitationSentAt;
-    }
-
-    public function setInvitationSentAt(?\DateTimeInterface $invitationSentAt): self
-    {
-        $this->invitationSentAt = $invitationSentAt;
-
-        return $this;
-    }
-
-    public function getInvitationEmail(): ?string
-    {
-        return $this->invitationEmail;
-    }
-
-    public function setInvitationEmail(?string $invitationEmail): self
-    {
-        $this->invitationEmail = $invitationEmail;
-
-        return $this;
-    }
-
-    public function getInvitationTelephone()
-    {
-        return $this->invitationTelephone;
-    }
-
-    public function setInvitationTelephone($invitationTelephone): self
-    {
-        $this->invitationTelephone = $invitationTelephone;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Note[]
      */
@@ -269,6 +175,11 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
         $this->role = $role;
 
         return $this;
+    }
+
+    public function isAdminFo(): bool
+    {
+        return $this->labo !== null && RoleLabo::ADMIN === $this->role;
     }
 
     /**

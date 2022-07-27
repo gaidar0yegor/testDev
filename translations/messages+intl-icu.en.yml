@@ -565,6 +565,9 @@ who_is_working_on_this_project: Who contributes to this project?
 corp_app_name: Collaborative journal
 access_to_my_companies: Access my companies
 #################################### Lab App #######################################
+LABO_ADMIN: Administrator
+LABO_SENIOR: Senior researcher
+LABO_USER: Researcher
 welcom_to_rdi_manager_plateforms: Welcome to the RDI Manager portal
 join_user_book: Join the lab notebook
 lab_app_name: Laboratory's notebook
@@ -589,6 +592,10 @@ return_to_etude: Go back to the study
 "La note \"{title_note}\" a été ajoutée à l'étude.": "The note \"{title_note}\" has been added to the study."
 'La note "{title_note}" a été modifiée.': 'The note "{title_note}" have been modified.'
 'La note "{title_note}" a été supprimée.': 'The note "{title_note}" have been deleted.'
+labo:
+  edit_labo: Modify the information in my laboratory
+  rnsr_long: National directory of research structures
+  rnsr_short: RNSR
 etude:
   string: Study
   banner: Banner
@@ -616,3 +623,5 @@ menu:
     mesEtudes: My studies
     list: Studies list
     create: Create a study
+  admin:
+    labo: My laboratory

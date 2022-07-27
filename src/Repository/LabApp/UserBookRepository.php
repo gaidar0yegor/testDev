@@ -2,8 +2,13 @@
 
 namespace App\Repository\LabApp;
 
+use App\Entity\LabApp\Labo;
 use App\Entity\LabApp\UserBook;
+use App\Entity\Societe;
+use App\HasSocieteInterface;
+use App\HasUserBookInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,32 +25,19 @@ class UserBookRepository extends ServiceEntityRepository
         parent::__construct($registry, UserBook::class);
     }
 
-    // /**
-    //  * @return UserBook[] Returns an array of UserBook objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function whereLabo(Labo $labo): QueryBuilder
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        return $this
+            ->createQueryBuilder('userBook')
+            ->where('userBook.labo = :labo')
+            ->setParameter('labo', $labo)
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?UserBook
+    public function findBySameLabo(Labo $labo)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $this->findBy([
+            'labo' => $labo,
+        ]);
     }
-    */
 }

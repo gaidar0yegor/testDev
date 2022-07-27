@@ -47,6 +47,7 @@ security:
         - { path: ^/corp/invitation-observateur-externe/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/corp/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/lab/creer-mon-cahier-labo, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/lab/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/reinitialiser-mot-de-passe, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/recommander-rdi-manager, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -1,4 +1,4 @@
-{% extends 'corp_app/base.html.twig' %}
+{% extends app.request.attributes.get('_app_class') ~ '/base.html.twig' %}
 
 {% block title %}Inscription sur RDI-Manager{% endblock %}
 

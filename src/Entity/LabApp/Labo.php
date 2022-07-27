@@ -78,11 +78,17 @@ class Labo
      */
     private $createdBy;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserBookInvite::class, mappedBy="labo")
+     */
+    private $userBookInvites;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
         $this->createdAt = new \DateTime();
         $this->userBooks = new ArrayCollection();
+        $this->userBookInvites = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +206,36 @@ class Labo
     public function setCreatedBy(?User $createdBy): self
     {
         $this->createdBy = $createdBy;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserBookInvite[]
+     */
+    public function getUserBookInvites(): Collection
+    {
+        return $this->userBookInvites;
+    }
+
+    public function addUserBookInvitation(UserBookInvite $userBookInvitation): self
+    {
+        if (!$this->userBookInvites->contains($userBookInvitation)) {
+            $this->userBookInvites[] = $userBookInvitation;
+            $userBookInvitation->setLabo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserBookInvitation(UserBookInvite $userBookInvitation): self
+    {
+        if ($this->userBookInvites->removeElement($userBookInvitation)) {
+            // set the owning side to null (unless already changed)
+            if ($userBookInvitation->getLabo() === $this) {
+                $userBookInvitation->setLabo(null);
+            }
+        }
 
         return $this;
     }

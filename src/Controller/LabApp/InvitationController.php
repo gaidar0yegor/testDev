@@ -2,9 +2,13 @@
 
 namespace App\Controller\LabApp;
 
+use App\Entity\LabApp\UserBook;
 use App\Exception\InvitationTokenAlreadyHasLaboException;
 use App\Exception\InvitationTokenExpiredException;
 use App\MultiSociete\UserContext;
+use App\RegisterLabo\Checker\CheckJoinedUserBook;
+use App\RegisterLabo\Form\UserBookType;
+use App\Repository\LabApp\UserBookInviteRepository;
 use App\Repository\LabApp\UserBookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -23,16 +27,17 @@ class InvitationController extends AbstractController
      */
     public function finalizeInscription(
         string $token,
+        UserBookInviteRepository $userBookInviteRepository,
         UserBookRepository $userBookRepository
     ) {
-        $userBook = $userBookRepository->findOneByInvitationToken($token);
+        $userBookInvite = $userBookInviteRepository->findOneByInvitationToken($token);
 
-        if (null === $userBook) {
+        if (null === $userBookInvite) {
             throw new InvitationTokenExpiredException();
         }
 
         if (null !== $this->getUser()) {
-            if (count($userBookRepository->findBy(['labo' => $userBook->getLabo(), 'user' => $this->getUser()])) > 0){
+            if (count($userBookRepository->findBy(['labo' => $userBookInvite->getLabo(), 'user' => $this->getUser()])) > 0){
                 throw new InvitationTokenAlreadyHasLaboException();
             }
 
@@ -42,7 +47,7 @@ class InvitationController extends AbstractController
         }
 
         return $this->render('lab_app/invitation/finalize_inscription.html.twig', [
-            'userBook' => $userBook,
+            'userBookInvite' => $userBookInvite,
         ]);
     }
 
@@ -50,50 +55,54 @@ class InvitationController extends AbstractController
      * @Route("/inscription/rejoindre-le-labo/{token}", name="lab_app_fo_user_invitation_join_labo")
      *
      * @IsGranted("ROLE_FO_USER")
+     * @throws \App\Exception\RdiException
      */
     public function joinLabo(
         Request $request,
         string $token,
+        UserBookInviteRepository $userBookInviteRepository,
         UserBookRepository $userBookRepository,
+        CheckJoinedUserBook $checkJoinedUserBook,
         UserContext $userContext,
         TranslatorInterface $translator,
         EntityManagerInterface $em
     ) {
-        $userBook = $userBookRepository->findOneByInvitationToken($token);
+        $userBookInvite = $userBookInviteRepository->findOneByInvitationToken($token);
 
-        if (null === $userBook) {
+        if (null === $userBookInvite) {
             throw new InvitationTokenExpiredException();
         }
 
-        if (count($userBookRepository->findBy(['labo' => $userBook->getLabo(), 'user' => $this->getUser()])) > 0){
+        if (count($userBookRepository->findBy(['labo' => $userBookInvite->getLabo(), 'user' => $this->getUser()])) > 0){
             throw new InvitationTokenAlreadyHasLaboException();
         }
 
-        if ($request->isMethod('POST')) {
-            if (!$this->isCsrfTokenValid('invitation_join_labo', $request->get('csrf_token'))) {
-                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+        $form = $this->createForm(UserBookType::class, new UserBook(), [
+            'user_to_join_labo' => $this->getUser()
+        ]);
 
-                return $this->redirectToRoute('lab_app_fo_user_invitation_join_labo', [
-                    'token' => $token,
-                ]);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $userBook = $checkJoinedUserBook->checkUserBook($userBookInvite, $form);
+
+            if (null !== $userBook) {
+                $em->persist($userBook);
+                $userContext->switchUserBook($userBook);
+                $em->flush();
+
+                $em->remove($userBookInvite);
+                $em->flush();
+
+                $this->addFlash('success', $translator->trans('Vous avez rejoint le laboratoire !'));
+
+                return $this->redirectToRoute('app_home');
             }
-
-            $userBook
-                ->setUser($this->getUser())
-                ->removeInvitationToken()
-            ;
-
-            $userContext->switchUserBook($userBook);
-
-            $em->flush();
-
-            $this->addFlash('success', $translator->trans('Vous avez rejoint le laboratoire !'));
-
-            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('lab_app/invitation/join_labo.html.twig', [
-            'userBook' => $userBook,
+            'userBookInvite' => $userBookInvite,
+            'form' => $form->createView(),
         ]);
     }
 }
