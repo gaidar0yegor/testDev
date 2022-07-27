@@ -38,3 +38,12 @@ lab:
         _app: LabApp
         _app_name: Cahier de laboratoire
         _app_class: lab_app
+
+lab_admin:
+    type: annotation
+    prefix: /lab/admin/
+    resource: ../src/Controller/LabApp/FO/Admin/
+    defaults:
+        _app: LabApp
+        _app_name: Cahier de laboratoire
+        _app_class: lab_app

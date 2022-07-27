@@ -53,6 +53,7 @@ security:
         - { path: ^/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/l/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/corp/admin/, roles: SOCIETE_ADMIN }
+        - { path: ^/lab/admin/, roles: LABO_ADMIN }
         - { path: ^/back-office, roles: ROLE_BO_USER }
         - { path: ^/$, roles: ROLE_USER }
         - { path: ^/, roles: ROLE_FO_USER }
