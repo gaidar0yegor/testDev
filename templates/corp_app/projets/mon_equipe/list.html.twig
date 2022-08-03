@@ -48,7 +48,7 @@
                     <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td class="text-center">
-                        {% include 'projets/_projet_statut.html.twig' with {projet: projet} %}
+                        {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
                     </td>
                 </tr>
             {% endfor %}

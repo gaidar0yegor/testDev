@@ -34,7 +34,7 @@
                         <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                         <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                         <td class="text-center">
-                            {% include 'projets/_projet_statut.html.twig' with {projet: projet} %}
+                            {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
                         </td>
                         <td class="text-center">{{ projet.projetParticipants|length }}</td>
                     </tr>
@@ -76,7 +76,7 @@
                     <td class="text-center" data-sort='{{ projetObservateurExterne.projet.dateDebut ? projetObservateurExterne.projet.dateDebut|date('Ymd') : '' }}'>{{ projetObservateurExterne.projet.dateDebut ? projetObservateurExterne.projet.dateDebut|date('d/m/Y') : '-' }}</td>
                     <td class="text-center" data-sort='{{ projetObservateurExterne.projet.dateFin ? projetObservateurExterne.projet.dateFin|date('Ymd') : '' }}'>{{ projetObservateurExterne.projet.dateFin ? projetObservateurExterne.projet.dateFin|date('d/m/Y') : '-' }}</td>
                     <td class="text-center">
-                        {% include 'projets/_projet_statut.html.twig' with {projet: projetObservateurExterne.projet} %}
+                        {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projetObservateurExterne.projet} %}
                     </td>
                     <td class="text-center">{{ projetObservateurExterne.projet.projetParticipants|length }}</td>
                 </tr>

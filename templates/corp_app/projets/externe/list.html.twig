@@ -32,7 +32,7 @@
                 <td>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
                 <td>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
                 <td>
-                    {% include 'projets/_projet_statut.html.twig' with {projet: projet} %}
+                    {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
                 </td>
                 <td>{{ projet.projetParticipants|length }}</td>
             </tr>
