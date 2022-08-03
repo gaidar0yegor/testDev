@@ -5,13 +5,48 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Ajouté
+- Initialisation de l'application **Cahier de laboratoire** : Labo, Cahier de laboratoire, Etude, Note Fichier, Equipe, Utilisateurs ...
+
+
+
+
+## [1.50.1] - 2022-06-24
+### Modifié
+- Mes sociétés : Expire le 3 mars au lieu de expirée
+- Mon tableau de bord:
+    - Mes contributions -> voir temps total Moi et équipe
+    - Titre : Analyse des projets depuis 2020 => centrer
+- Partout dans l'application : Mettre un badge pour les projets terminés - en cours… .
+- Mes projets (Navbar): Retirer “Créer un projet” - accéder directement à la page des projets
+- Page projets: Déplacer “Créer un projet “ en haut à droite
+- Administration -> Ma société :
+    - Heures par jour***
+    - Tableau Saisie des temps-> Modifier le nombre d’heures: Revoir la taille de la police peu visible à cause du logo en arrière plan.
+    - Paramètres notification : recoit **** ç
+- temps passés sur les projets dont / auxquels il contribue.
+- Planification: Ajouter des attributs “title” sur les icônes
+- Agenda :
+    - Déplacer les boutons + revoir la couleur : Supprimer au lieu de Effacer
+    - Modifier le message de la Pop up “Cet événement sera supprimé définitivement. Êtes-vous sûr”.
+    - Créateur de l’événement => l’inviter par défaut lors de la création d’un événement dans l’agenda
+    - Ajouter bouton + pour créer un événement
+- Toutes les pages du projet : Ajouter un bouton Accès rapide entre les différents onglets
+
+## [1.5.0] - 2022-06-23
+### Réparé
+- Temps total Moi vs Equipe
+- Centrer titre **Analyse des projets depuis 2020**
+
+## [0.44.3] - 2022-06-14
+### Réparé
+- Corriger l'erreur de modification d'un évènement
+
+## [0.44.2] - 2022-06-14
 ### Réparé
 - Responsive tableau de bord
-
-
-
-
-
+- Liste des évènement à venir du projet
+- Titre des page : Calendrier de mon équipe / Calendrier général
 
 ## [0.44.1] - 2022-06-02
 ### Modifié

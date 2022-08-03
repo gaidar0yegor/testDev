@@ -56,7 +56,7 @@ Feature: S'inscrire en tant que société.
         When I follow "Aller sur mon tableau de bord"
         Then I should see "Mon tableau de bord"
 
-        When I follow "Liste des projets"
+        When I follow "Mes projets"
         Then I should see "PTEST"
 
         When I follow "Utilisateurs"

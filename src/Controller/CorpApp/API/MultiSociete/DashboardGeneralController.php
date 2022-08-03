@@ -36,7 +36,7 @@ class DashboardGeneralController extends AbstractController
     ): JsonResponse {
         $this->denyAccessUnlessGranted(HasProductPrivilegeVoter::NAME, ProductPrivileges::MULTI_SOCIETE_DASHBOARD);
 
-        $lastProjetActivities = $projetActivityRepository->findBySocieteUser($societeUser);
+        $lastProjetActivities = $projetActivityRepository->findBySocieteUser($societeUser, 10);
         $normalizedLastProjetActivities = [];
 
         foreach ($lastProjetActivities as $key => $projetActivity) {

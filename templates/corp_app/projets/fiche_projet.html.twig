@@ -41,38 +41,7 @@
         </p>
     </div>
     <div class="col-12 col-md-4">
-        <div class="projet-actions">
-            <a
-                href="{{ path('corp_app_fo_projet_modifier', {'id': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
-                title="Paramétrage du projet {{ userCanEditProjet ? '' : '(Pas d\'accès)' }}"
-            ><i class="fa fa-cog"></i></a>
-            <a
-                href="{{ path('corp_app_fo_projet_planning', {'projetId': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle"
-                title="Planification du projet"
-            ><i class="fa fa-tasks"></i></a>
-            <a
-                href="{{ path('corp_app_fo_projet_evenements', {'id': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle"
-                title="Calendrier des événements"
-            ><i class="fa fa-calendar"></i></a>
-            <a
-                href="{{ path('corp_app_fo_admin_projet', {'id': projet.id}) }}"
-                class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
-                title="Statistiques du projet {{ userCanEditProjet ? '' : '(Pas d\'accès)' }}"
-            ><i class="fa fa-bar-chart"></i></a>
-            <div class="dropdown">
-                <a href="javascript:;" class="btn btn-outline-primary rounded-circle" id="dropdownOtherMenuButton" data-toggle="dropdown">
-                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownOtherMenuButton">
-                    <a class="dropdown-item m-0 " href="{{ path('corp_app_fo_projet_activity', { 'id' : projet.id }) }}"><i class="fa fa-rss"></i> Activité du projet</a>
-                    <a class="dropdown-item m-0 " href="{{ path('corp_app_fo_projet_custom', { 'id' : projet.id }) }}"><i class="fa fa-download"></i> Exporter le projet</a>
-                    <a class="dropdown-item m-0 {{ userCanEditProjet ? '' : 'disabled' }}" href="{{ path('corp_app_fo_fait_marquant_trash', { 'id' : projet.id }) }}"><i class="fa fa-trash"></i> {{ 'beenOf_FM'|trans }}</a>
-                </div>
-            </div>
-        </div>
+        {% include 'corp_app/projets/_projet_actions_shortcut.html.twig' with {projet: projet} %}
     </div>
 </div>
 

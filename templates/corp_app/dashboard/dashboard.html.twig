@@ -32,14 +32,12 @@
         </div>
 
         <div class="row d-flex flex-row justify-content-around align-items-start">
-            <div class="col-lg-5 col-md-12">
+            <div class="col-xl-5 col-lg-12 mt-3">
                 <h5 class="text-center d-block">{{ 'hours_by_project'|trans }}</h5>
-
                 <div id="heures-par-projet"></div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-xl-3 col-lg-6 mt-3">
                 <h5 class="text-center d-block">{{ 'my_contributions'|trans }}</h5>
-
                 <div id="my_contributions">
                     <div class="outer">
                         <div class="card">
@@ -84,21 +82,20 @@
                                 <div class="details">
                                     <div>
                                         <span>{{ 'my_contributions.me'|trans }}</span>
-                                        <strong class="moi-vs-equipe equipe temps-total">…</strong>
+                                        <strong class="moi-vs-equipe moi temps-total">…</strong>
                                     </div>
                                     <div>
                                         <span>{{ 'my_contributions.team'|trans }}</span>
-                                        <strong class="moi-vs-equipe moi temps-total">…</strong>
+                                        <strong class="moi-vs-equipe equipe temps-total">…</strong>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
             {% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-                <div id="projets-efficacite-moyenne" class="col-lg-4 col-md-6">
+                <div id="projets-efficacite-moyenne" class="col-xl-4 col-lg-6 mt-3">
                     <h5 class="text-center d-block">{{ 'efficiency'|trans }}</h5>
                     <canvas id="efficacite-moyenne" class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
                 </div>
@@ -106,13 +103,15 @@
         </div>
 
         <div class="row my-4">
-            <h3>{{ 'project_analyse_from'|trans }}
-                <span
-                    class="year-switch"
-                    data-event-name="loadSinceYearCharts"
-                    data-year-selected="{{ '-2 years'|date('Y') }}"
-                ></span>
-            </h3>
+            <div class="col-md-10 mx-auto bordure">
+                <h2>{{ 'project_analyse_from'|trans }}
+                    <span
+                            class="year-switch"
+                            data-event-name="loadSinceYearCharts"
+                            data-year-selected="{{ '-2 years'|date('Y') }}"
+                    ></span>
+                </h2>
+            </div>
         </div>
 
         <div class="row">

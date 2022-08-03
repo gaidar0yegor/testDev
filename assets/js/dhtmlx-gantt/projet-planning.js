@@ -1,4 +1,5 @@
 import $ from "jquery";
+import initTippyTitle from './../popper';
 
 const projectId = window['project_planning_content'].dataset.projectId;
 const societeRaisonSociale = window['project_planning_content'].dataset.societeRaisonSociale;
@@ -24,9 +25,9 @@ gantt.config.columns = [
     {name: "duration", width:50, min_width: 50, max_width: 50, align: "center", editor: {type: "number", map_to: "duration", min:1}, resize: true},
     {name: "end_date", label: "Finish", width:80, min_width: 80, max_width: 80, align: "center", editor: {type: "date", map_to: "end_date"}, resize: true},
     {name: "progress", label: "Progress", align:"center", width:50, min_width: 50, max_width: 50, editor: progressEditor, template : function(obj){ return Math.round((obj.progress * 100)) + "%" }},
-    {name: "add", align: "center", width: 30, min_width: 30, max_width: 30},
-    {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
-    {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/corp/projet/${projectId}/planning/task/${task.id}" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
+    {name: "add", align: "center", width: 30, min_width: 30, max_width: 30 },
+    {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" title="Utilisateurs affectés" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
+    {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/corp/projet/${projectId}/planning/task/${task.id}" title="Liste des faits marquants liés" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
 
 gantt.templates.task_class = gantt.templates.grid_row_class = function(start, end, task){switch (task.$level) {

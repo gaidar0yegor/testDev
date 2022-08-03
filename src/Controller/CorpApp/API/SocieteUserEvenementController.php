@@ -84,7 +84,7 @@ class SocieteUserEvenementController extends AbstractController
      * @Route(
      *      "/{eventId}",
      *      methods={"PUT"},
-     *      name="corp_app_fo_projet_evenements_update"
+     *      name="corp_app_fo_user_evenements_update"
      * )
      *
      * @ParamConverter("evenement", options={"id" = "eventId"})
@@ -135,7 +135,7 @@ class SocieteUserEvenementController extends AbstractController
      * @Route(
      *      "/ics_calendar/{eventId}",
      *      methods={"GET"},
-     *      name="corp_app_fo_projet_evenements_ics_calendar"
+     *      name="corp_app_fo_user_evenements_ics_calendar"
      * )
      *
      * @ParamConverter("evenement", options={"id" = "eventId"})

@@ -2,36 +2,8 @@
     <li class="nav-item {{ activeOn('corp_app_fo_dashboard') }}">
         <a class="nav-link" href="{{ path('corp_app_fo_dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> <span class="nav-item-title">{{ 'dashboard'|trans }}</span></a>
     </li>
-    <li class="nav-item dropdown {{ activeOn('corp_app_fo_projets', 'corp_app_fo_projets_all', 'corp_app_fo_projets_by_year', 'corp_app_fo_projet_creation', 'corp_app_fo_observateur_externe_list', 'corp_app_fo_observateur_externe_view') }}">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <i class="fa fa-tasks" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.projects'|trans }}</span>
-        </a>
-        <div class="dropdown-menu">
-            <a
-                class="dropdown-item {{ activeOn('corp_app_fo_projets') }}"
-                href="{{ path('corp_app_fo_projets') }}"
-            >
-                <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.projects.list'|trans }}
-            </a>
-            <a
-                class="dropdown-item {{ is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) ? '' : 'disabled' }} {{ activeOn('corp_app_fo_projet_creation') }}"
-                href="{{ path('corp_app_fo_projet_creation') }}"
-                {% if not is_granted(constant('App\\Security\\Role\\RoleSociete::CDP')) %}
-                    title="{{ 'create_project_requires_project_manager_role'|trans }}"
-                {% endif %}
-            >
-                <i class="fa fa-plus-square" aria-hidden="true"></i>{{ 'menu.projects.create'|trans }}
-            </a>
-            {% if app.user.projetObservateurExternes|length > 0 %}
-                <div class="dropdown-divider"></div>
-                <a
-                    class="dropdown-item {{ activeOn('corp_app_fo_observateur_externe_list') }}"
-                    href="{{ path('corp_app_fo_observateur_externe_list') }}"
-                >
-                    {{ 'menu.projects.external'|trans }}
-                </a>
-            {% endif %}
-        </div>
+    <li class="nav-item {{ activeOn('corp_app_fo_projets', 'corp_app_fo_projets_all', 'corp_app_fo_projets_by_year', 'corp_app_fo_projet_creation', 'corp_app_fo_observateur_externe_list', 'corp_app_fo_observateur_externe_view') }}">
+        <a class="nav-link" href="{{ path('corp_app_fo_projets') }}"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.projects'|trans }}</span></a>
     </li>
     <li class="nav-item dropdown {{ activeOn('corp_app_fo_temps', 'corp_app_fo_absences', 'corp_app_fo_mon_suivi') }}">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -169,7 +141,7 @@
                     class="dropdown-item {{ activeOn('corp_app_fo_users_events') }}"
                     href="{{ path('corp_app_fo_equipe_users_events') }}"
             >
-                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.admin.events_calendar'|trans }}
+                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.equipe.events_calendar'|trans }}
             </a>
             <a
                 class="dropdown-item {{ activeOn('corp_app_fo_mon_equipe_cra_validation') }}"

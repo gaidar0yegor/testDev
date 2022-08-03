@@ -5,10 +5,14 @@
 {% block body %}
     <h1>{{ 'projet_events_calendar'|trans({'projectAcronyme': projet.acronyme}) }}</h1>
 
-    <a class="d-block mb-4" href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        {{ 'go_back_go_project'|trans }}
-    </a>
+    <div class="d-flex justify-content-between align-items-center">
+        <a class="d-block mb-4" href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'go_back_go_project'|trans }}
+        </a>
+
+        {% include 'corp_app/projets/_projet_actions_shortcut.html.twig' with {projet: projet} %}
+    </div>
 
     <div id="project_events_calendar"
          class="dhx_cal_container"
@@ -25,6 +29,7 @@
             <div class="dhx_cal_tab" name="month_tab"></div>
             <div class="dhx_cal_tab" name="year_tab"></div>
             <div class="dhx_cal_tab" name="agenda_tab"></div>
+            <div class="dhx_dummy dhx_cal_today_button" style='right:220px; width: 90px;' onclick='scheduler.addEventNow()'><i class="fa fa-plus"></i> {{ 'EVENT'|trans }}</div>
 {#            <div class="dhx_cal_tab" name="export_agenda_tab">Export Agenda (.ical)</div>#}
         </div>
         <div class="dhx_cal_header"></div>

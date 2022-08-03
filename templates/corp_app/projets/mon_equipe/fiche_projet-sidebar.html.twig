@@ -19,7 +19,9 @@
         <dd>{{ projet.dateFin|format_date }}</dd>
     {% endif %}
     <dt>{{ 'status'|trans }}</dt>
-    <dd>{{ projet.statut | trans }}</dd>
+    <dd>
+        {% include 'projets/_projet_statut.html.twig' with {projet: projet} %}
+    </dd>
 </dl>
 
 <hr>

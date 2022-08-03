@@ -218,7 +218,7 @@ class ProjetController extends AbstractController
             'projet' => $projet,
             'faitMarquants' => $projet->getFaitMarquants(),
             'participation' => $participantService->getProjetParticipant($userContext->getSocieteUser(), $projet),
-            'nextEvenements' => $projet->getEvenements()->slice(0,4),
+            'nextEvenements' => $projet->getNextEvenements(),
             'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
                 $projet->getActiveProjetParticipants(),
                 RoleProjet::CONTRIBUTEUR
@@ -237,6 +237,7 @@ class ProjetController extends AbstractController
 
         return $this->render('corp_app/projets/projet_activity.html.twig', [
             'projet' => $projet,
+            'userCanEditProjet' => $this->isGranted('edit', $projet),
             'activities' => $projetActivityRepository->findByProjet($projet),
         ]);
     }
@@ -251,6 +252,7 @@ class ProjetController extends AbstractController
         return $this->render('corp_app/projets/projet_activity.html.twig', [
             'edit' => true,
             'projet' => $projet,
+            'userCanEditProjet' => $this->isGranted('edit', $projet),
             'activities' => $projetActivityRepository->findByProjet($projet),
         ]);
     }
@@ -321,7 +323,8 @@ class ProjetController extends AbstractController
         }
         return $this->render('corp_app/projets/generer_fait_marquant.html.twig', [
             'form' => $form->createView(),
-            'projet' => $projet
+            'projet' => $projet,
+            'userCanEditProjet' => $this->isGranted('edit', $projet)
         ]);
     }
 
