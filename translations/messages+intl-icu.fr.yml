@@ -311,7 +311,7 @@ you_received_6_digit_code_enter_it:
 code_non_received: "Code de vérification non reçu ?"
 re_verify_my_email_address: "Revérifier mon adresse email"
 if_you_are_new_create_an_account:
-  "Si êtes nouveau sur RDI-Manager ou que vous n'avez
+  "Si vous êtes nouveau sur RDI-Manager ou que vous n'avez
   pas encore de compte, vous pouvez en créer un maintenant."
 i_already_have_a_rdi_manager_account: "J'ai déjà un compte RDI-Manager"
 already_have_account_explain:

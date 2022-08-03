@@ -59,7 +59,9 @@ class EquipeController extends AbstractController
 
         if ($equipe instanceof Equipe && $labo !== $equipe->getLabo()) {
             throw new AccessDeniedException("Vous ne pouvez pas modifier une équipe d'un autre laboratoire");
-        } else {
+        }
+
+        if(null === $equipe){
             $equipe = new Equipe();
             $equipe->setLabo($labo);
         }
