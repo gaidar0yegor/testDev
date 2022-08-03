@@ -40,6 +40,21 @@
     </div>
 {% endblock %}
 
+{% block _equipe_etudes_entry_row %}
+    <div class="row mb-5 mb-md-2 equipe-etude-row align-items-center">
+        <div class="col-sm-10 text-center text-sm-left">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-2 text-center">
+            <button
+                    type="button"
+                    class="btn btn-outline-danger embed-form-remove"
+            ><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </div>
+{% endblock %}
+
 {% block fichier_projets_row %}
     {{ form_label(form) }}
     {{ form_errors(form) }}

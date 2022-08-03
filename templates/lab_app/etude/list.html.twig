@@ -6,6 +6,12 @@
 
     <h1>{{ 'menu.etude.list'|trans }}</h1>
 
+    <div class="my-3 text-right">
+        <a href="{{ path('lab_app_fo_etude_creation') }}" class="btn btn-outline-primary">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> {{ 'menu.etude.create'|trans }}
+        </a>
+    </div>
+
     <table class="table datatable hover" data-order='[[ 0, "asc" ]]'>
         <thead>
             <tr>

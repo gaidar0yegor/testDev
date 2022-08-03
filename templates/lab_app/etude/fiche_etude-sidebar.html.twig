@@ -1,13 +1,17 @@
 <dl>
+    {% if etude.userBook.labo is not null %}
+        <dt><i class="fa fa-flask"></i> {{ "labo.string"|trans }}</dt>
+        <dd>{{ etude.userBook.labo.name }}</dd>
+    {% endif %}
     {% if etude.dateDebut %}
-        <dt>{{ "etude.dateDebut"|trans }}</dt>
+        <dt><i class="fa fa-calendar"></i> {{ "etude.dateDebut"|trans }}</dt>
         <dd>{{ etude.dateDebut|format_date }}</dd>
     {% endif %}
     {% if etude.dateFin %}
-        <dt>{{ "etude.dateFin"|trans }}</dt>
+        <dt><i class="fa fa-calendar"></i> {{ "etude.dateFin"|trans }}</dt>
         <dd>{{ etude.dateFin|format_date }}</dd>
     {% endif %}
-    <dt>{{ "etude.status"|trans }}</dt>
+    <dt><i class="fa fa-bar-chart"></i> {{ "etude.status"|trans }}</dt>
     <dd>{{ etude.statut | trans }}</dd>
 </dl>
 

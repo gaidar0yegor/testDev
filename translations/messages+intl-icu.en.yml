@@ -592,7 +592,10 @@ return_to_etude: Go back to the study
 "La note \"{title_note}\" a été ajoutée à l'étude.": "The note \"{title_note}\" has been added to the study."
 'La note "{title_note}" a été modifiée.': 'The note "{title_note}" have been modified.'
 'La note "{title_note}" a été supprimée.': 'The note "{title_note}" have been deleted.'
+user_book:
+  string: Laboratory notebook
 labo:
+  string: 'Laboratory'
   edit_labo: Modify the information in my laboratory
   rnsr_long: National directory of research structures
   rnsr_short: RNSR
@@ -618,10 +621,20 @@ note:
   readingName: Source title
   author: Author(s)
   reference: Reference
+equipe:
+  name: Name
+  number_etudes: Number of studies
+  add_etude: Add study
 menu:
   etude:
     mesEtudes: My studies
     list: Studies list
     create: Create a study
+  equipe:
+    mesEquipes: My teams
+    create: Create team
+    edit: Edit team
+    etudes: Team studies
   admin:
     labo: My laboratory
+    equipes: Teams

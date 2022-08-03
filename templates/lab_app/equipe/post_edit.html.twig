@@ -1,0 +1,37 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ (equipe.id ? 'menu.equipe.edit' : 'menu.equipe.create')|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ (equipe.id ? 'menu.equipe.edit' : 'menu.equipe.create')|trans }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.name) }}
+    {{ form_row(form.etudes) }}
+
+    <button
+            type="button"
+            id="btn-ajouter-etude"
+            class="btn mb-4 btn-sm btn-outline-primary"
+            style="display: none"
+    >
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        {{ "equipe.add_etude"|trans }}
+    </button>
+
+    <br>
+
+    <button
+            type="submit"
+            class="btn mb-4 btn-success"
+    >
+        {{ "update"|trans }}
+    </button>
+
+    {{ form_end(form) }}
+
+{% endblock %}
+

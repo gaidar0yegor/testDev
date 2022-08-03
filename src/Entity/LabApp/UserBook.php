@@ -211,4 +211,13 @@ class UserBook implements UserResourceInterface, HasUserBookInterface
 
         return $this;
     }
+
+    public function getEquipes(): Collection
+    {
+        return $this->etudes->filter(function (Etude $etude){
+            return $etude->getEquipe() !== null && $etude->getEquipe()->getLabo() === $this->labo;
+        })->map(function (Etude $etude){
+            return $etude->getEquipe();
+        });
+    }
 }

@@ -108,6 +108,8 @@ class EtudeController extends AbstractController
      */
     public function bannerEdit(Request $request, Etude $etude)
     {
+        $this->denyAccessUnlessGranted('edit', $etude);
+
         $fichier = new Fichier();
         $form = $this->createForm(EtudeBannerType::class, $fichier);
 

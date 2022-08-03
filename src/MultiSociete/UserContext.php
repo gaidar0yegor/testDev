@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\License\LicenseService;
 use App\MultiPlateform\Exception\CurrentUserContextAccessDeniedException;
 use App\MultiSociete\Exception\NoCurrentSocieteException;
-use App\MultiSociete\Exception\NoCurrentUserBookException;
+use App\MultiUserBook\Exception\NoCurrentUserBookException;
 use App\Security\Exception\UnexpectedUserException;
 use App\Security\Exception\NoLoggedInUserException;
 use Symfony\Component\Security\Core\Security;

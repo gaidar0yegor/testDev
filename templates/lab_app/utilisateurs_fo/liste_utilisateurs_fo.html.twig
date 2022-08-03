@@ -11,6 +11,7 @@
             <th class="text-left">Avatar</th>
             <th class="text-center">{{ 'lastname'|trans }}</th>
             <th class="text-center">{{ 'firstname'|trans }}</th>
+            <th class="text-center">{{ 'user_book.string'|trans }}</th>
             <th class="text-center">{{ 'email'|trans }}</th>
             <th class="text-center">{{ 'role'|trans }}</th>
             <th></th>
@@ -24,6 +25,7 @@
                 </td>
                 <td class="text-center">{{ userBook.user.nom }}</td>
                 <td class="text-center">{{ userBook.user.prenom }}</td>
+                <td class="text-center">{{ userBook.title }}</td>
                 <td class="text-center">{{ userBook.user.email }}</td>
                 <td class="text-center" data-sort='{{ userBook.role|trans }}'>
                     <span class="d-none d-sm-block">{{ userBook.role|trans }}</span>

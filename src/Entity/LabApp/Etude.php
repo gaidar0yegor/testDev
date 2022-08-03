@@ -9,6 +9,7 @@ use App\Repository\LabApp\EtudeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EtudeRepository::class)
@@ -73,6 +74,13 @@ class Etude implements HasUserBookInterface, EtudeResourceInterface
      * @ORM\OneToOne(targetEntity=Fichier::class, cascade={"persist", "remove"})
      */
     private $banner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Equipe::class, inversedBy="etudes")
+     *
+     * @Assert\Valid
+     */
+    private $equipe;
 
     public function __construct()
     {
@@ -263,6 +271,18 @@ class Etude implements HasUserBookInterface, EtudeResourceInterface
     public function setBanner(?Fichier $banner): self
     {
         $this->banner = $banner;
+
+        return $this;
+    }
+
+    public function getEquipe(): ?Equipe
+    {
+        return $this->equipe;
+    }
+
+    public function setEquipe(?Equipe $equipe): self
+    {
+        $this->equipe = $equipe;
 
         return $this;
     }

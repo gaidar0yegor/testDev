@@ -83,12 +83,18 @@ class Labo
      */
     private $userBookInvites;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Equipe::class, mappedBy="labo", orphanRemoval=true)
+     */
+    private $equipes;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
         $this->createdAt = new \DateTime();
         $this->userBooks = new ArrayCollection();
         $this->userBookInvites = new ArrayCollection();
+        $this->equipes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -234,6 +240,36 @@ class Labo
             // set the owning side to null (unless already changed)
             if ($userBookInvitation->getLabo() === $this) {
                 $userBookInvitation->setLabo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Equipe[]
+     */
+    public function getEquipes(): Collection
+    {
+        return $this->equipes;
+    }
+
+    public function addEquipe(Equipe $equipe): self
+    {
+        if (!$this->equipes->contains($equipe)) {
+            $this->equipes[] = $equipe;
+            $equipe->setLabo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEquipe(Equipe $equipe): self
+    {
+        if ($this->equipes->removeElement($equipe)) {
+            // set the owning side to null (unless already changed)
+            if ($equipe->getLabo() === $this) {
+                $equipe->setLabo(null);
             }
         }
 

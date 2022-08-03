@@ -1,0 +1,38 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.equipe.mesEquipes'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'menu.admin.equipes'|trans }}</h1>
+
+    <div class="my-3 text-right">
+        <a href="{{ path('lab_app_fo_equipe_post_edit') }}" class="btn btn-outline-primary">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> {{ 'menu.equipe.create'|trans }}
+        </a>
+    </div>
+
+    <table class="table datatable hover" data-order='[[ 1, "desc" ]]'>
+        <thead>
+            <tr>
+                <th>{{ 'equipe.name'|trans }}</th>
+                <th>{{ 'equipe.number_etudes'|trans }}</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for equipe in equipes %}
+                <tr>
+                    <td class="text-left"><a href="{{ path('lab_app_fo_equipe', { 'id' : equipe.id }) }}">{{ equipe.name }}</a></td>
+                    <td class="text-left">{{ equipe.etudes|length }}</td>
+                    <td class="text-center">
+                        <a href="{{ path('lab_app_fo_equipe_post_edit', {'equipeId': equipe.id}) }}">
+                            <i class="fa fa-lg fa-pencil-square" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

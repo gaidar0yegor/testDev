@@ -597,7 +597,10 @@ return_to_etude: "Retourner à l'étude"
 "La note \"{title_note}\" a été ajoutée à l'étude.": "La note \"{title_note}\" a été ajoutée à l'étude."
 'La note "{title_note}" a été modifiée.': 'La note "{title_note}" a été modifiée.'
 'La note "{title_note}" a été supprimée.': 'La note "{title_note}" a été supprimée.'
+user_book:
+  string: "Cahier de laboratoire"
 labo:
+  string: 'Laboratoire'
   edit_labo: Modifier les infos de mon laboratoire
   rnsr_long: 'Répertoire national des structures de recherche'
   rnsr_short: 'RNSR'
@@ -623,10 +626,20 @@ note:
   readingName: Titre de la source
   author: Auteur(s)
   reference: Référence
+equipe:
+  name: Nom
+  number_etudes: Nombre des études
+  add_etude: Ajouter une étude
 menu:
   etude:
     mesEtudes: "Mes études"
     list: "Liste des études"
     create: "Créer une étude"
+  equipe:
+    mesEquipes: "Mes équipes"
+    create: "Créer une équipe"
+    edit: "Modifier une équipe"
+    etudes: "Les études de l'équipe"
   admin:
     labo: Mon laboratoire
+    equipes: Équipes
