@@ -129,6 +129,9 @@
     "elasticsearch/elasticsearch": {
         "version": "v7.10.0"
     },
+    "eluceo/ical": {
+        "version": "2.5.1"
+    },
     "ezimuel/guzzlestreams": {
         "version": "3.0.1"
     },
