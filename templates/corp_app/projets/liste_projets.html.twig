@@ -75,6 +75,7 @@
 
             {% for projet in projets %}
                 <tr
+                    data-href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}"
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
                 >

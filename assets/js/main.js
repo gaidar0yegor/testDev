@@ -320,3 +320,8 @@ $('.sidebar.sidebar-projects').on('mouseleave', function() {
             .toggleClass( "fa-arrow-right" );
     }
 });
+
+$('tr[data-href]').on('click', function() {
+    let href = $(this).data('href');
+    window.location.href = href;
+})
