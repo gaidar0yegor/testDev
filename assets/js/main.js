@@ -46,9 +46,16 @@ $('.month-picker').datepicker({
     immediateUpdates: true,
 });
 
-$('.date-picker').datepicker({
+$('.date-picker:not(.numeric-format)').datepicker({
     language: detectedLocale,
     format: 'dd MM yyyy',
+    immediateUpdates: true,
+});
+
+$('.date-picker.numeric-format').datepicker({
+    language: detectedLocale,
+    dateFormat: "yy-mm-dd",
+    altFormat: 'mm/dd/yyyy',
     immediateUpdates: true,
 });
 
