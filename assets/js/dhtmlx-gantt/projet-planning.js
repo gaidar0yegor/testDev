@@ -224,6 +224,7 @@ var zoomConfig = {
 };
 
 gantt.ext.zoom.init(zoomConfig);
+gantt.ext.zoom.setLevel("quarter");
 
 // END :: zoom function
 
