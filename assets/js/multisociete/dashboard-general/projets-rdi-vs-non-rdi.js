@@ -47,7 +47,7 @@ if (contentDiv){
         chart.unload();
 
         setTimeout(() => {
-            fetch(`/api/mes-societes/dashboard/general/projets-type/${societeUser}/since-${year}`)
+            fetch(`/corp/api/mes-societes/dashboard/general/projets-type/${societeUser}/since-${year}`)
                 .then(response => response.json())
                 .then(projetsType => {
                     const nbProjets = ['Projets'];

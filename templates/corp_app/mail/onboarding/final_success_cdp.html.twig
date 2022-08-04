@@ -1,0 +1,33 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Bravo ! L'aventure RDI-Manager est en marche pour vous avec {{ societe.raisonSociale }}{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                <strong>Bravo ! Bravo ! L'aventure RDI-Manager est en marche pour vous avec {{ societe.raisonSociale }}.</strong>
+            </p>
+
+            <p>
+                Vos collaborateurs projet recevront de manière périodique des relances
+                pour l’ajouts des faits marquants et le suivi du temps par projets.
+            </p>
+
+            <p>Vous pourrez ainsi :</p>
+
+            <ul>
+                <li>Suivre l’avancement des projets de manière collaborative et pro-active</li>
+                <li>Analyser en temps réel la répartition et la consommation des rescousses humaines sur vos projets</li>
+                <li>Classer, partager, retrouver et même associer vos fichiers par projet avec des faits marquants</li>
+                <li>Avoir une indication sur le potentiel d’innovation de vos projets (potentiel RDI).</li>
+            </ul>
+
+            <p>
+                Profitez bien et n'hésitez pas à nous faire des feedbacks,
+            </p>
+
+            {% include 'corp_app/mail/onboarding/_onboarding_signature.html.twig' %}
+        </columns>
+    </row>
+{% endblock %}

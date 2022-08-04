@@ -56,7 +56,7 @@ $(() => {
     // Affiche la notification pour le mois d'avant jusque 20 jours après
     date.setDate(date.getDate() - 20);
 
-    fetch(`/api/dashboard/temps-du-mois/${date.getFullYear()}-${('0' + (date.getMonth() + 1)).substr(-2)}`)
+    fetch(`/corp/api/dashboard/temps-du-mois/${date.getFullYear()}-${('0' + (date.getMonth() + 1)).substr(-2)}`)
         .then(response => response.json())
         .then(cra => {
             clearAlerts();

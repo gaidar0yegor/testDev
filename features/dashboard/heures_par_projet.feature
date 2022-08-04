@@ -10,7 +10,7 @@ Feature: Graphique "Heures par projets"
         And I press "Connexion"
 
     Scenario: L'API retourne les données
-        When I am on "/api/dashboard/heures-par-projet/2020"
+        When I am on "/corp/api/dashboard/heures-par-projet/2020"
         Then the response should be in JSON
         And the JSON node "userProjetsHeuresPassees" should have 3 elements
         And the JSON node "userProjetsHeuresPassees.P1" should be equal to "68.25"

@@ -1,0 +1,30 @@
+{% extends 'corp_app/register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-1">{{ 'invite_my_collaborators'|trans }}</h1>
+
+    <p>
+        {{ 'you_can_invite_two_collaborators'|trans }}
+    </p>
+    <p class="mb-4">
+        <a href="{{ path('corp_app_register_finish') }}" class="btn btn-sm btn-outline-primary">{{ 'skip_this_step'|trans }}</a>
+        <small class="text-muted">{{ 'you_can_still_invite_later'|trans }}</small>
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <h3 class="mb-4">{{ 'first_collaborator'|trans }}</h3>
+
+    {{ form_row(form.email0) }}
+    {{ form_row(form.role0) }}
+
+    <h3 class="mb-4 mt-5">{{ 'second_collaborator'|trans }}</h3>
+
+    {{ form_row(form.email1) }}
+    {{ form_row(form.role1) }}
+
+    <button type="submit" class="btn btn-lg btn-primary">{{ 'continue'|trans }}</button>
+
+    {{ form_end(form) }}
+{% endblock %}

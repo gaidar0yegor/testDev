@@ -1,0 +1,23 @@
+{% extends "corp_app/base.html.twig" %}
+
+{% block title %}{{ 'roles_on_projects_of_user'|trans({'%user%': societeUser.user.fullname}) }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'roles_on_projects_of_user'|trans({'%user%': societeUser.user.fullname}) }}</h1>
+
+<a class="d-block mb-4" href="{{ path('corp_app_fo_societe_user', {'id': societeUser.id}) }}">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    {{ 'back'|trans }}
+</a>
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+{{ form_row(form.projetParticipants) }}
+
+<button type="submit" class="btn btn-success btn-lg d-block mx-auto">{{ 'update'|trans }}</button>
+
+{{ form_end(form) }}
+
+{% endblock %}

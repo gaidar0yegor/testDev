@@ -22,7 +22,7 @@ class ProjetPlanningTaskLink implements EntityLinkGeneratorInterface
     {
         return new EntityLink(
             $entity->getText(),
-            $urlGenerator->generate('app_fo_projet_planning', [
+            $urlGenerator->generate('corp_app_fo_projet_planning', [
                 'projetId' => $entity->getProjet()->getId(),
             ])
         );

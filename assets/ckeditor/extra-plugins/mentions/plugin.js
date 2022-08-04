@@ -465,11 +465,11 @@
 						}
 					}
 				};
-				xhr.open( 'GET', '/api/ckeditor/users/' + encodeURIComponent( options.query ) );
+				xhr.open( 'GET', '/corp/api/ckeditor/users/' + encodeURIComponent( options.query ) );
 				xhr.send();
 			},
 			marker: '@',
-			outputTemplate: `<a href="/utilisateur/{id}" data-id="{id}" class="mention-user_societe">{name}</a>`,
+			outputTemplate: `<a href="/corp/utilisateur/{id}" data-id="{id}" class="mention-user_societe">{name}</a>`,
 			itemTemplate: '<li data-id="{id}"><img src="{iconSrc}" alt="{name}" width="25" height="25">{name}</li>'
 		},
 		// {

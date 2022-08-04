@@ -6,7 +6,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
+- Initialisation de l'application **Cahier de laboratoire** : Labo, Cahier de laboratoire, Etude, Note Fichier, Equipe, Utilisateurs ...
 
 
 

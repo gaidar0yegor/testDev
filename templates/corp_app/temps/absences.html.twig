@@ -1,0 +1,62 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.time_tracking.absences'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'enter_your_absences'|trans }}</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+        {{ helpText('saisieAbsences') }}
+
+        <h2 class="mb-4 align-items-center">
+            <a href="{{ path('corp_app_fo_absences', {'year': prev|date('Y'), 'month': prev|date('m')}) }}">
+                <i class="fa fa-angle-left fa-lg"></i>
+            </a>
+            <span class="mx-3 text-month">
+                {{ cra.mois|format_date(pattern='MMMM yyyy') }}
+            </span>
+            <a href="{{ path('corp_app_fo_absences', {'year': next|date('Y'), 'month': next|date('m')}) }}">
+                <i class="fa fa-angle-right fa-lg"></i>
+            </a>
+        </h2>
+
+        {% include 'corp_app/temps/_info-validation.html.twig' with {
+            'submitted': cra.isCraSubmitted,
+            'modifiedAt': cra.craModifiedAt
+        } %}
+
+        {#
+            Calendrier affiché temporairement en attendant le chargement des données
+        #}
+        <div class="calmonth">
+            {% include 'corp_app/temps/_calendrier_vide.html.twig' %}
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+            <button type="submit" class="btn btn-success btn-validate-cra my-3">{{ 'save'|trans }}</button>
+        </div>
+
+        <p><i class="fa fa-info" aria-hidden="true"></i> {{ 'legend:'|trans }}</p>
+
+        <ul class="list-inline">
+            <li class="list-inline-item"><span class="badge badge-success px-3 py-1">&nbsp;</span> {{ 'presence'|trans }}</li>
+            <li class="list-inline-item"><span class="badge badge-secondary px-3 py-1">&nbsp;</span> {{ 'absence'|trans }}</li>
+            <li class="list-inline-item"><span class="badge badge-info px-3 py-1">&nbsp;</span> {{ 'half_day'|trans }}</li>
+        </ul>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        const date = {{ {'year': mois|date('Y'), 'month': mois|date('m')}|json_encode|raw }};
+        const craJours = {{ cra.jours|json_encode|raw }};
+
+        initAbsences(date, craJours);
+    </script>
+{% endblock %}

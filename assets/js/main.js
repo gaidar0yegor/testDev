@@ -146,6 +146,16 @@ $participants.on('click', '.embed-form-remove', function () {
     $(this).closest('.projet-participant-row').remove();
 });
 
+// form gestion projets participants
+const $etudes = $('#equipe_etudes');
+EmbedForm.init($etudes, {
+    $addButton: $('#btn-ajouter-etude'),
+    initSelect2: {},
+});
+$etudes.on('click', '.embed-form-remove', function () {
+    $(this).closest('.equipe-etude-row').remove();
+});
+
 // link-get-to-post
 $('a.link-delete-file').click(function () {
     if (!confirm('Êtes-vous sûr de vouloir supprimer ce fichier ?')) {

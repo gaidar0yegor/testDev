@@ -1,0 +1,27 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'join_project'|trans }} {{ projetObservateurExterne.projet.acronyme }}</h1>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <p>{{ 'para_join_project'|trans({
+                'projectAcronyme': projetObservateurExterne.projet.acronyme,
+                'projectTitre': projetObservateurExterne.projet.titre
+            })|raw|striptags('<strong>')|raw }}</p>
+
+        <form method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token('invitation_join_projet_observateur_externe') }}" />
+            <button type="submit" class="btn btn-lg btn-success">
+                {{ 'join_project_obs'|trans({
+                    'projectAcronyme': projetObservateurExterne.projet.acronyme
+                }) }}
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

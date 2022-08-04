@@ -12,14 +12,14 @@ export default {
         const year = date.getFullYear();
         const month = ('0' + (date.getMonth() + 1)).substr(-2);
 
-        return fetch(`/api/temps/${year}/${month}`);
+        return fetch(`/corp/api/temps/${year}/${month}`);
     },
 
     apiSaveCra(cra, date) {
         const year = date.getFullYear();
         const month = ('0' + (date.getMonth() + 1)).substr(-2);
 
-        return fetch(`/api/temps/${year}/${month}`, {
+        return fetch(`/corp/api/temps/${year}/${month}`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8',

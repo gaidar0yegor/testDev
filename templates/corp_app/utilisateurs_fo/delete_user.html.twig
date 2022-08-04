@@ -1,0 +1,146 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'delete_user_user'|trans({'%user%': societeUser.user.fullname}) }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'delete_user_user'|trans({'%user%': societeUser.user.fullname}) }}</h1>
+
+    <p>
+        {{ 'your_are_about_to_delete_user'|trans({
+            'user': societeUser.user.fullname,
+            'userRole': societeUser.role|trans
+        })|raw|striptags('<strong>')|raw }}
+    </p>
+
+    <p>{{ 'this_action_can_have_effect_on_linked_data_user'|trans }}</p>
+
+    {% set preview = 5 %}
+
+
+    {% if societeUser.projetParticipants|length > 0 %}
+        <div class="alert alert-danger">
+            <i class="fa fa-warning" aria-hidden="true"></i>
+
+            {{ 'delete_user.projects.warning'|trans({
+                'user': societeUser.user.fullname,
+                'n': societeUser.projetParticipants|length
+            })|raw|striptags('<strong>')|raw }}
+
+            <ul class="mt-2">
+                {% for projetParticipant in societeUser.projetParticipants[-preview:] %}
+                    <li>{{ projetParticipant.projet.titre }} - <strong>{{ projetParticipant.role | trans }}</strong></li>
+                {% endfor %}
+                {% if societeUser.projetParticipants|length > preview %}
+                    <li><i>{{ '...and_n_others'|trans({'n': societeUser.projetParticipants|length - preview}) }}</i></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-success">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            {{ 'delete_user.projects.safe'|trans({
+                'user': societeUser.user.fullname
+            }) }}
+        </div>
+    {% endif %}
+
+
+    {% if societeUser.cras|length > 0 %}
+        <div class="alert alert-danger">
+            <i class="fa fa-warning" aria-hidden="true"></i>
+
+            {{ 'delete_user.time_tracking.warning'|trans({
+                'user': societeUser.user.fullname,
+                'n': societeUser.cras|length
+            })|raw|striptags('<strong>')|raw }}
+
+            <ul class="mt-2">
+                {% for cra in societeUser.cras[-preview:] %}
+                    <li>
+                        {{ cra.mois|format_datetime(pattern='MMMM yyyy') }}
+                        <ul>
+                            {% for tempsPasse in cra.tempsPasses %}
+                            <li>
+                                {{ tempsPasse.projet.titre }} - {{ tempsPasse.pourcentage }}%
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+                {% if societeUser.cras|length > preview %}
+                    <li><i>{{ '...and_n_others'|trans({'n': societeUser.cras|length - preview}) }}</i></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-success">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            {{ 'delete_user.time_tracking.safe'|trans({
+                'user': societeUser.user.fullname
+            }) }}
+        </div>
+    {% endif %}
+
+
+    {% if societeUser.faitMarquants|length > 0 %}
+        <div class="alert alert-danger">
+            <i class="fa fa-warning" aria-hidden="true"></i>
+
+            {{ 'delete_user.fait_marquant.warning'|trans({
+                'user': societeUser.user.fullname,
+                'n': societeUser.faitMarquants|length
+            })|raw|striptags('<strong>')|raw }}
+
+            <ul class="mt-2">
+                {% for faitMarquant in societeUser.faitMarquants[-preview:] %}
+                    <li>{{ faitMarquant.titre }}</li>
+                {% endfor %}
+                {% if societeUser.faitMarquants|length > preview %}
+                    <li><i>{{ '...and_n_others'|trans({'n': societeUser.faitMarquants|length - preview}) }}</i></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-success">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            {{ 'delete_user.fait_marquant.safe'|trans({
+                'user': societeUser.user.fullname
+            }) }}
+        </div>
+    {% endif %}
+
+
+    {% if societeUser.userActivities | length > 0 %}
+        <div class="alert alert-warning">
+            <i class="fa fa-warning" aria-hidden="true"></i>
+
+            {{ 'delete_user.activities.warning'|trans({
+                'user': societeUser.user.fullname,
+                'n': societeUser.userActivities|length
+            })|raw|striptags('<strong>')|raw }}
+
+        </div>
+    {% else %}
+        <div class="alert alert-success">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            {{ 'delete_user.fait_marquant.safe'|trans({
+                'user': societeUser.user.fullname
+            }) }}
+        </div>
+    {% endif %}
+
+
+    <form
+            method="post"
+            action="{{ path('corp_app_fo_utilisateur_delete', {'id': societeUser.id}) }}"
+            onsubmit="return confirm('{{ 'are_you_sure_delete_user'|trans({'user': societeUser.user.fullname})|escape('js') }}');"
+    >
+        <input type="hidden" name="_token" value="{{ csrf_token('delete_user_' ~ societeUser.id) }}">
+        <button class="btn btn-outline-danger">
+            <i class="fa fa-trash" aria-hidden="true"></i>
+            {{ 'delete'|trans }}
+        </button>
+    </form>
+
+{% endblock %}

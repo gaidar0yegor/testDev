@@ -1,0 +1,3 @@
+{{ fromUser.fullname }} vous invite dans le laboratoire {{ invitedUserBook.labo.name }}.
+Finalisez votre inscription ici :
+{{ url('lab_app_fo_user_finalize_inscription', {'token': invitedUser.invitationToken})|shortenUrl(18) }}

@@ -2,11 +2,13 @@
 
 namespace App\MultiSociete;
 
+use App\Entity\LabApp\UserBook;
 use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\License\LicenseService;
-use App\MultiSociete\Exception\CurrentSocieteUserAccessDeniedException;
+use App\MultiPlateform\Exception\CurrentUserContextAccessDeniedException;
 use App\MultiSociete\Exception\NoCurrentSocieteException;
+use App\MultiUserBook\Exception\NoCurrentUserBookException;
 use App\Security\Exception\UnexpectedUserException;
 use App\Security\Exception\NoLoggedInUserException;
 use Symfony\Component\Security\Core\Security;
@@ -65,6 +67,14 @@ class UserContext
     }
 
     /**
+     * Returns whether there is a logged in user and this user has switched to a userbook.
+     */
+    public function hasUserBook(): bool
+    {
+        return $this->hasUser() && null !== $this->getUser()->getCurrentUserBook();
+    }
+
+    /**
      * Returns current SocieteUser.
      * The user is the one logged in, and the societe is the one the user switched to.
      *
@@ -83,13 +93,28 @@ class UserContext
     }
 
     /**
+     * Returns current UserBook.
+     * The user is the one logged in, and the UserBook is the one the user switched to.
+     *
+     * @throws NoCurrentUserBookException When user logged in but not switched to any UserBook yet.
+     */
+    public function getUserBook(): UserBook
+    {
+        if ($this->hasUser() && null === $this->getUser()->getCurrentUserBook()) {
+            throw new NoCurrentUserBookException();
+        }
+
+        return $this->getUser()->getCurrentUserBook();
+    }
+
+    /**
      * Switch societe by setting the current SocieteUser.
      * You need to flush enitty manager.
      */
     public function switchSociete(SocieteUser $societeUser): void
     {
         if (!$societeUser->hasUser()) {
-            throw new CurrentSocieteUserAccessDeniedException(
+            throw new CurrentUserContextAccessDeniedException(
                 'Cannot switch to this access because user is null'
             );
         }
@@ -97,18 +122,40 @@ class UserContext
         $user = $societeUser->getUser();
 
         if ($user !== $this->getUser()) {
-            throw new CurrentSocieteUserAccessDeniedException(
+            throw new CurrentUserContextAccessDeniedException(
                 'Cannot switch to this access because not the same user as logged in'
             );
         }
 
         if (!$societeUser->getEnabled()) {
-            throw new CurrentSocieteUserAccessDeniedException(
+            throw new CurrentUserContextAccessDeniedException(
                 'Cannot switch to this access because disabled'
             );
         }
 
         $this->getUser()->setCurrentSocieteUser($societeUser);
+    }
+
+    /**
+     * You need to flush enitty manager.
+     */
+    public function switchUserBook(UserBook $userBook): void
+    {
+        if (!$userBook->hasUser()) {
+            throw new CurrentUserContextAccessDeniedException(
+                'Cannot switch to this access because user is null'
+            );
+        }
+
+        $user = $userBook->getUser();
+
+        if ($user !== $this->getUser()) {
+            throw new CurrentUserContextAccessDeniedException(
+                'Cannot switch to this access because not the same user as logged in'
+            );
+        }
+
+        $this->getUser()->setCurrentUserBook($userBook);
     }
 
     /**
@@ -132,5 +179,10 @@ class UserContext
     public function disconnectSociete(): void
     {
         $this->getUser()->setCurrentSocieteUser(null);
+    }
+
+    public function disconnectUserLabo(): void
+    {
+        $this->getUser()->setCurrentUserBook(null);
     }
 }

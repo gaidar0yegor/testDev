@@ -1,0 +1,27 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Saisie de vos temps sur RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            {% if cra and cra.isTempsPassesSubmitted %}
+                <p>
+                    Vous avez déjà saisi vos temps le {{ cra.tempsPassesModifiedAt|format_date(pattern='d MMMM') }}.
+                    <br>
+                    Vous pouvez toujours <a href="{{ url('corp_app_fo_temps', {
+                        'year': month|date('Y'),
+                        'month': month|date('m')
+                    }) }}">revérifier vos temps de {{ month|format_date(pattern='MMMM') }}</a>.
+                </p>
+            {% else %}
+                <p>
+                    Vous n'avez pas encore saisi vos temps pour le mois de {{ month|format_date(pattern='MMMM') }}.
+                    <button href="{{ url('corp_app_fo_temps', {
+                        'year': month|date('Y'),
+                        'month': month|date('m')
+                    }) }}" class="large expanded">Saisir mes temps de {{ month|format_date(pattern='MMMM') }}</button>
+                </p>
+            {% endif %}
+        </columns>
+    </row>
+{% endblock %}

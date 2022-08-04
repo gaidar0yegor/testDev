@@ -47,7 +47,7 @@ if (contentDiv){
         chart.unload();
 
         setTimeout(() => {
-            fetch(`/api/mes-societes/dashboard/consolide/projets-type/since-${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
+            fetch(`/corp/api/mes-societes/dashboard/consolide/projets-type/since-${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
                 .then(response => response.json())
                 .then(projetsType => {
                     const nbProjets = ['Projets'];

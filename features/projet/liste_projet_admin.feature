@@ -10,8 +10,8 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I press "Connexion"
 
     Scenario: L'admin voit le raccourcis vers tous les projets de la société dans la liste des projets auxquels il participe.
-        When I go to "/projets"
+        When I go to "/corp/projets"
         Then I should see "En tant qu'administrateur, je peux aussi accéder à tous les projets de la société"
 
         When I follow "accéder à tous les projets de la société"
-        Then I should be on "/admin/tous-les-projets"
+        Then I should be on "/corp/admin/tous-les-projets"

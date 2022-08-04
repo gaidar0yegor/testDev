@@ -10,7 +10,8 @@ Feature: Traduction de l'application
         And I press "Connexion"
 
     Scenario: Je peux changer la langue
-        When I follow "Mon compte"
+        When I go to "/corp/mes-societes"
+        And I follow "Mon compte"
         Then I should see "Mon compte" in the "h1" element
         And I should see "Langue Français"
 

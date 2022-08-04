@@ -43,8 +43,8 @@ class ResetPasswordRequest implements EventSubscriberInterface
         $email = (new TemplatedEmail())
             ->to($user->getEmail())
             ->subject(sprintf('Réinitialisation de votre mot de passe RDI-Manager'))
-            ->textTemplate('mail/reset_password.txt.twig')
-            ->htmlTemplate('mail/reset_password.html.twig')
+            ->textTemplate('corp_app/mail/reset_password.txt.twig')
+            ->htmlTemplate('corp_app/mail/reset_password.html.twig')
             ->context([
                 'user' => $user,
             ])

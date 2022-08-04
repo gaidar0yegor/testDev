@@ -19,7 +19,7 @@
         {% for societe in societes %}
             <tr>
                 <td>{% include 'utils/_avatar.html.twig' with {societe: societe, size: 35, border: true, toExpend: true} %}</td>
-                <td><a href="{{ path('app_bo_societe', {'id': societe.id}) }}">{{ societe.raisonSociale }}</a></td>
+                <td><a href="{{ path('corp_app_bo_societe', {'id': societe.id}) }}">{{ societe.raisonSociale }}</a></td>
                 <td>{{ societe.admins|map(societeUser => "#{societeUser.user.fullnameOrEmail}")|join(', ') }}</td>
                 <td>{{ societe.societeUsers|length }}</td>
                 <td>{{ societe.projets|length }}</td>
@@ -43,7 +43,7 @@
     </tbody>
 </table>
 
-<a href="{{ path('app_bo_societes_creer') }}" class="btn btn-outline-primary">
+<a href="{{ path('corp_app_bo_societes_creer') }}" class="btn btn-outline-primary">
     <i class="fa fa-plus" aria-hidden="true"></i>
     Créer une nouvelle société
 </a>

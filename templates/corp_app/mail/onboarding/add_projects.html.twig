@@ -1,0 +1,20 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Créer vos projets et répartissez les rôles{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                <strong>En tant que {{ societeUser.role|trans }}, vous pouvez créer des projets et y répartir des rôles.</strong>
+            </p>
+
+            <p>
+                Ceci permettra à vos collaborateurs de renseigner des faits marquants
+                et de pointer leur temps passé sur les projets de manière simple et efficace.
+            </p>
+
+            {% include 'corp_app/mail/onboarding/_onboarding_signature.html.twig' %}
+        </columns>
+    </row>
+{% endblock %}

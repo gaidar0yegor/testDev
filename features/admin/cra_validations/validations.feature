@@ -13,7 +13,7 @@ Feature: L'admin peut avoir un oeil global sur la saisie des temps passés de to
         When I follow "Validation des temps"
         Then I should see "Validation des temps" in the "h1" element
 
-        When I go to "/admin/validations/2020"
+        When I go to "/corp/admin/validations/2020"
         Then I should see "Validation des temps de 2020" in the "h1" element
         And I should see "User 1 Eureka" in the "table" element
         And I should see a "table tbody td span.text-success" element

@@ -47,7 +47,7 @@ class NoCurrentSocieteExceptionListener implements EventSubscriberInterface
 
     private function redirectToSwitchSocietePage(ExceptionEvent $event): void
     {
-        $url = $this->urlGenerator->generate('app_fo_multi_societe_switch', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        $url = $this->urlGenerator->generate('corp_app_fo_multi_societe_switch', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $event->setResponse(new RedirectResponse($url));
         $this->flashBag->add('warning', 'Vous devez séléctionner votre société pour accéder à cette page.');

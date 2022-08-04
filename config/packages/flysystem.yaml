@@ -3,6 +3,8 @@ parameters:
     filesAvatarDir: '%kernel.project_dir%/public/avatar'
     filesAvatarUri: '/avatar/'
     projectFileStorageUri: '%kernel.project_dir%/var/storage/default/uploads'
+    etudeFileStorageUri: '%kernel.project_dir%/var/storage/default/uploads/lab/'
+    defaultEtudeBannerUri: '/build/assets/img/default-etude-banner.jpg'
     licensesStorageUri: '%kernel.project_dir%/var/storage/licenses'
 
 flysystem:
@@ -15,6 +17,10 @@ flysystem:
             adapter: local
             options:
                 directory: '%projectFileStorageUri%'
+        etudeFiles.storage:
+            adapter: local
+            options:
+                directory: '%etudeFileStorageUri%'
         licenses.storage:
             adapter: local
             options:

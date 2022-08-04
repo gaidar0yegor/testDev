@@ -1,0 +1,21 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Invitation sur le projet {{ projetObservateurExterne.projet.acronyme }}{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Vous êtes invité par la société
+                <strong>{{ projetObservateurExterne.projet.societe.raisonSociale }}</strong>
+                en tant qu'<strong>observateur externe</strong> sur le projet
+                <strong>{{ projetObservateurExterne.projet.acronyme }}</strong> :
+                "{{ projetObservateurExterne.projet.titre }}"
+            </p>
+
+            <button
+                href="{{ url('corp_app_observateur_externe_join', {'token': projetObservateurExterne.invitationToken}) }}"
+                class="large expanded"
+            >Finaliser mon inscription</button>
+        </columns>
+    </row>
+{% endblock %}

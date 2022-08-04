@@ -1,0 +1,158 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ "add_new_project"|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ "add_new_project"|trans }}</h1>
+
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="row">
+                <div class="col-sm-8">
+                    {{ form_row(form.titre) }}
+                </div>
+                <div class="col-sm-4">
+                    {{ form_row(form.acronyme) }}
+                </div>
+                <div class="col-md-12">
+                    {{ form_label(form.colorCode) }}
+                    <div class="row">
+                        <div class="col-12 d-flex flex-row justify-content-center align-items-center">
+                            {{ form_row(form.usedColorCodes) }}
+                            {{ form_widget(form.colorCode) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    {{ form_label(form.rdiDomains) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-book" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.rdiDomains) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                    {{ form_errors(form.resume) }}
+                    {{ form_row(form.resume) }}
+                    <span id="custom_ckeditor_max_char" class="d-none"
+                          data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}"
+                          data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+
+                    {{ form_label(form.dateDebut) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.dateDebut) }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    {{ form_label(form.dateFin) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.dateFin) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    {{ form_label(form.etp) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.etp) }}
+                        </div>
+                    </div>
+                    {{ form_help(form.etp) }}
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    {{ form_label(form.budgetEuro) }}
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-euro" aria-hidden="true"></i>
+                        </span>
+                        <div class="overflow-hidden flex-grow-1">
+                            {{ form_widget(form.budgetEuro) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" id="toggle_target_dossierFichierProjets"
+                                   class="custom-control-input toggle-target" data-target="dossierFichierProjets">
+                            <label class="switch-custom custom-control-label"
+                                   for="toggle_target_dossierFichierProjets">{{ "manage_file_project"|trans }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 dossierFichierProjets" style="display: none;">
+                    {{ form_row(form.dossierFichierProjets) }}
+
+                    <button class="btn btn-outline-primary add-folder-file mb-4">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        {{ 'add_folder_file_project'|trans }}
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div class="custom-control custom-switch">
+                            <input type="checkbox" id="toggle_target_projetUrls"
+                                   class="custom-control-input toggle-target" data-target="projetUrls">
+                            <label class="switch-custom custom-control-label"
+                                   for="toggle_target_projetUrls">{{ "ext_link_project"|trans }}</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 projetUrls" style="display: none;">
+                    {{ form_row(form.projetUrls) }}
+
+                    <button class="btn btn-outline-primary add-external-link mb-4">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        {{ 'add_external_link'|trans }}
+                    </button>
+                </div>
+                <div class="col-md-12">
+                    {{ form_row(form.projetInterne) }}
+                </div>
+                <div class="col-md-12">
+                    {{ form_row(form.projetPpp) }}
+                </div>
+                <div class="col-md-12">
+                    {{ form_row(form.projetCollaboratif) }}
+                </div>
+            </div>
+
+            <div class="text-center">
+                {{ form_row(form.submit, { 'label' : bouton }) }}
+            </div>
+
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+
+{% endblock %}

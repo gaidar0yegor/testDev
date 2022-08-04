@@ -1,0 +1,49 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block body %}
+
+<h1>{{ "my_user_books"|trans }}</h1>
+
+<div class="row row-flex row-cols-1 row-cols-md-2 row-cols-lg-3">
+    {% for userBook in app.user.userBooks %}
+        <div class="col-md-4 mb-4">
+            <div data-user-book-id="{{ userBook.id }}" class="card h-100 {% if userBook == app.user.currentUserBook %}border-success{% endif %}">
+                <div class="card-body d-flex flex-column justify-content-between align-items-start" style="border-top: 5px solid">
+                    <div>
+                        <div class="notif-container d-flex flex-row justify-content-end align-items-start"></div>
+                        <h5 class="card-title">
+                            {{ userBook.title }}
+                        </h5>
+                        {% if userBook.labo is not null %}
+                            <h6 class="text-muted">Laboratoire : <strong>{{ userBook.labo.name }}</strong></h6>
+                            <h6 class="text-muted">Mon rôle : <strong>{{ userBook.role|trans }}</strong></h6>
+                        {% endif %}
+                    </div>
+
+                    {% if userBook == app.user.currentUserBook %}
+                        <form action="{{ path('lab_app_fo_multi_user_book_switch_disconnect') }}" method="post">
+                            <button type="submit" class="stretched-link mt-2 btn btn-outline-danger">{{ "logout"|trans }}</button>
+                        </form>
+                    {% else %}
+                        <form action="{{ path('lab_app_fo_multi_user_book_switch_post', {'id': userBook.id}) }}" method="post">
+                            <button type="submit" class="stretched-link mt-2 btn btn-primary">{{ "goOn"|trans }} {{ userBook.title }}</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100 mes-societes-create">
+            <div class="card-body text-center d-flex justify-content-center align-items-center">
+                <a href="{{ path('lab_app_register') }}" class="stretched-link lead">
+                    <i class="fa fa-2x fa-book" aria-hidden="true"></i>
+                    <br>
+                    {{ "create_my_user_book"|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

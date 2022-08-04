@@ -1,0 +1,56 @@
+{% extends "lab_app/base.html.twig" %}
+
+{% block title %}{{ 'etude.string'|trans }} {{ etude.acronyme }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<div class="row">
+    <div class="col-12 col-md-8 etude-banner">
+        <div class="etude-banner-background" style="background-image: url({{ etude|bannerUrl }})"></div>
+
+        <div class="etude-banner-text">
+            <p class="text-center m-0">
+                {% include 'utils/_avatar.html.twig' with {user: etude.owner.user, size: 28, toExpend: true} %}
+                {{ etude.owner.user.fullnameOrEmail }}
+            </p>
+        </div>
+
+        <div class="btn-edit-banner">
+            <a
+                    href="{{ path('lab_app_fo_etude_banner_modifier', {'id': etude.id}) }}"
+                    class="btn btn-sm btn-secondary rounded-circle {{ userCanEditEtude ? '' : 'disabled' }}"
+                    title="Modifier la bannière {{ userCanEditEtude ? '' : '(Pas d\'accès)' }}"
+            ><i class="fa fa-pencil"></i></a>
+        </div>
+    </div>
+    <div class="col-12 col-md-4">
+        <div class="projet-actions">
+            <a
+                href="{{ path('lab_app_fo_etude_modifier', {'id': etude.id}) }}"
+                class="btn btn-outline-primary rounded-circle {{ userCanEditEtude ? '' : 'disabled' }}"
+                title="Paramétrage de l'étude {{ userCanEditEtude ? '' : '(Pas d\'accès)' }}"
+            ><i class="fa fa-cog"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-md-8">
+        {% include 'lab_app/etude/fiche_etude-main.html.twig' %}
+    </div>
+    <aside class="col-12 col-md-4 d-none d-md-block">
+        {% include 'lab_app/etude/fiche_etude-sidebar.html.twig' %}
+    </aside>
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('fiche-etude') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('fiche-etude') }}
+{% endblock %}

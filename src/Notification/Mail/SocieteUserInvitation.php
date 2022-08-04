@@ -48,8 +48,8 @@ class SocieteUserInvitation implements EventSubscriberInterface
         $email = (new TemplatedEmail())
             ->to($invitedUser->getInvitationEmail())
             ->subject(sprintf('%s vous invite sur RDI-Manager', $fromUser->getFullname()))
-            ->textTemplate('mail/invite.txt.twig')
-            ->htmlTemplate('mail/invite.html.twig')
+            ->textTemplate('corp_app/mail/invite.txt.twig')
+            ->htmlTemplate('corp_app/mail/invite.html.twig')
             ->context([
                 'invitedUser' => $invitedUser,
                 'fromUser' => $fromUser,

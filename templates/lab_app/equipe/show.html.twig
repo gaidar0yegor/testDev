@@ -1,0 +1,31 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.equipe.etudes'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'menu.equipe.etudes'|trans }}</h1>
+
+    <div class="row row-flex">
+        {% for etude in equipe.etudes %}
+            <div class="col-lg-4 col-md-6 mb-3">
+                <div class="card h-100">
+                    <img class="card-img-top" src="{{ etude|bannerUrl }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title w-100 text-center">{{ etude.title }}</h5>
+
+                        <div class="card-text">
+                            <p class="mb-1">Chercheur : {{ etude.owner.user.fullname }}</p>
+                            <p class="mb-1 text-muted">Notes : {{ etude.notes|length }}</p>
+                            <p class="mb-1 text-muted">Fichiers : {{ etude.fichierEtudes|length }}</p>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ path('lab_app_fo_etude', { 'id' : etude.id }) }}" class="btn btn-primary float-right">Accéder à l'étude</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

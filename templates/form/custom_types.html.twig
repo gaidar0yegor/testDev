@@ -40,6 +40,21 @@
     </div>
 {% endblock %}
 
+{% block _equipe_etudes_entry_row %}
+    <div class="row mb-5 mb-md-2 equipe-etude-row align-items-center">
+        <div class="col-sm-10 text-center text-sm-left">
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+        <div class="col-sm-2 text-center">
+            <button
+                    type="button"
+                    class="btn btn-outline-danger embed-form-remove"
+            ><i class="fa fa-times" aria-hidden="true"></i></button>
+        </div>
+    </div>
+{% endblock %}
+
 {% block fichier_projets_row %}
     {{ form_label(form) }}
     {{ form_errors(form) }}
@@ -89,7 +104,7 @@
                     <td>
                         <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
                         <a target="_blank"
-                            href="{{ path('app_fo_projet_fichier', {
+                            href="{{ path('corp_app_fo_projet_fichier', {
                                 'projetId': form.vars.data.projet.id,
                                 'fichierProjetId': form.vars.data.id,
                             }) }}" {% if form.vars.data.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
@@ -107,14 +122,14 @@
                         </span>
                     </td>
                     <td class="d-flex">
-                        <a href="{{ path('app_fo_projet_fichier', {
+                        <a href="{{ path('corp_app_fo_projet_fichier', {
                             'projetId': form.vars.data.projet.id,
                             'fichierProjetId': form.vars.data.id,
                             'download': '',
                         }) }}" class="btn btn-outline-success btn-sm mr-2" title="{{ 'download'|trans }}">
                             <i class="fa fa-download" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ path('app_fo_projet_fichier_modifier', {
+                        <a href="{{ path('corp_app_fo_projet_fichier_modifier', {
                                 'projetId': form.vars.data.projet.id,
                                 'fichierProjetId': form.vars.data.id
                             }) }}"
@@ -128,7 +143,7 @@
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                         </a>
                         <a
-                            href="{{ path('app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
+                            href="{{ path('corp_app_fo_projet_fichier_delete', {'projetId': form.vars.data.projet.id, 'fichierProjetId': form.vars.data.id}) }}"
                             class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\ProjetResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
                                 {% if form.vars.data.projet.isSuspended %}
                                     title="{{'suspended_project'|trans }}"
@@ -162,13 +177,123 @@
                     </div>
                 </td>
 
-                <td>
+                <td class="pt-3">
                     <button type="button" class="btn btn-sm btn-outline-danger remove-file-btn">
                         <i class="fa fa-trash" aria-hidden="true"></i>
                     </button>
                 </td>
             </tr>
         {% endif %}
+
+{% endblock %}
+
+{% block fichier_etudes_row %}
+    {{ form_label(form) }}
+    {{ form_errors(form) }}
+    {{ form_help(form) }}
+
+    <table id="lab_files_list_dt" class="table datatable custom-datatable hover {{ form.vars.attr.class is defined ? form.vars.attr.class : '' }}">
+        <thead>
+        <tr>
+            <th>{{ 'fileString'|trans }}</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody class="fichier-etudes-container" data-prototype="{{ form_row(form.vars.prototype)|e }}">
+        {{ form_widget(form) }}
+        </tbody>
+        <tfoot class="fichier-etudes-container-tfoot">
+        {% if is_granted(constant('App\\EtudeResourceInterface::CREATE'), form.vars.etude) %}
+            <tr>
+                <td colspan="3">
+                    <button class="btn btn-outline-primary add-file-btn" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        {{ 'add_file_btn'|trans }}
+                    </button>
+                </td>
+            </tr>
+        {% endif %}
+        </tfoot>
+    </table>
+{% endblock %}
+
+{% block fichier_etudes_widget %}
+    {{- block('form_rows') -}}
+{% endblock %}
+
+{% block fichier_etude_row %}
+
+    {% if form.vars.data and form.vars.data.id %}
+        <tr>
+            <td>
+                <i class="fa {{ form.vars.data.fichier|faFileIcon }}" aria-hidden="true"></i>
+                <a target="_blank"
+                   href="{{ path('lab_app_fo_etude_fichier', {
+                       'etudeId': form.vars.data.etude.id,
+                       'fichierEtudeId': form.vars.data.id,
+                   }) }}" {% if form.vars.data.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                    {{ form_row(form.children.fichier) }}
+                </a>
+            </td>
+            <td data-sort='{{ form.vars.data.fichier.dateUpload | date('Ymd') }}'>
+                        <span class="d-none d-sm-table-cell">
+                            {{ form.vars.data.fichier.dateUpload|format_date }}
+                        </span>
+            </td>
+            <td class="d-flex">
+                <a href="{{ path('lab_app_fo_etude_fichier', {
+                    'etudeId': form.vars.data.etude.id,
+                    'fichierEtudeId': form.vars.data.id,
+                    'download': '',
+                }) }}" class="btn btn-outline-success btn-sm mr-2" title="{{ 'download'|trans }}">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                </a>
+                <a href="{{ path('lab_app_fo_etude_fichier_modifier', {
+                    'etudeId': form.vars.data.etude.id,
+                    'fichierEtudeId': form.vars.data.id
+                }) }}"
+                   class="btn btn-outline-primary btn-sm mr-2 {% if not is_granted(constant('App\\EtudeResourceInterface::EDIT'), form.vars.data) %}disabled{% endif %}"
+                        {% if not is_granted(constant('App\\EtudeResourceInterface::EDIT'), form.vars.data) %}
+                            title="{{ 'cant_rename_file'|trans }}"
+                        {% endif %}
+                >
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a
+                        href="{{ path('lab_app_fo_etude_fichier_delete', {'etudeId': form.vars.data.etude.id, 'fichierEtudeId': form.vars.data.id}) }}"
+                        class="btn btn-outline-danger btn-sm link-delete-file {% if not is_granted(constant('App\\EtudeResourceInterface::DELETE'), form.vars.data) %}disabled{% endif %}"
+                        {% if not is_granted(constant('App\\EtudeResourceInterface::DELETE'), form.vars.data) %}
+                            title="{{ 'cant_delete_file'|trans }}"
+                        {% endif %}
+                >
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="2">
+                <div class="row">
+                    <div class="col-md-12 mb-1">
+                        {{ form_errors(form.children.fichier.file) }}
+                    </div>
+                    <div class="col-md-4 col-sm-12 mb-1">
+                        {{ form_widget(form.children.fichier.file) }}
+                    </div>
+                    <div class="col-md-8 col-sm-12 mb-1">
+                        {{ form_widget(form.children.fichier.nomFichier) }}
+                    </div>
+                </div>
+            </td>
+
+            <td class="pt-3">
+                <button type="button" class="btn btn-sm btn-outline-danger remove-file-btn">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+            </td>
+        </tr>
+    {% endif %}
 
 {% endblock %}
 
@@ -210,7 +335,7 @@
             {{ form_errors(form) }}
             <br>
             {% if form.vars.data.id %}
-                <small class="card-text"><a href="{{ path('app_fo_admin_notification_rapport', {'id': form.vars.data.id}) }}">{{ 'last_notif_send'|trans }}</a></small>
+                <small class="card-text"><a href="{{ path('corp_app_fo_admin_notification_rapport', {'id': form.vars.data.id}) }}">{{ 'last_notif_send'|trans }}</a></small>
             {% else %}
                 <small class="card-text text-muted">{{ 'notif_never_program'|trans }}</small>
             {% endif %}
@@ -241,7 +366,7 @@
     <div class="row mb-2">
         <div class="col-md-3 d-flex align-items-md-center justify-content-md-end">
             <a
-                href="{{ path('app_fo_projet', {'id': form.children.projet.vars.data.id}) }}"
+                href="{{ path('corp_app_fo_projet', {'id': form.children.projet.vars.data.id}) }}"
                 class="lead"
                 title="{{ form.children.projet.vars.data.titre }}"
             >{{ form.children.projet.vars.data.acronyme }}</a>

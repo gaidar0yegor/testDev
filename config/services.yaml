@@ -329,6 +329,10 @@ services:
     App\File\FileHandler\AvatarHandler:
         $filesAvatarUri: '%filesAvatarUri%'
 
+    App\File\FileHandler\EtudeBannerHandler:
+        $filesAvatarUri: '%filesAvatarUri%'
+        $defaultEtudeBannerUri: '%defaultEtudeBannerUri%'
+
     App\File\CreateDefaultAvatarOnNewUser:
         tags:
             - { name: doctrine.orm.entity_listener, event: postPersist, entity: App\Entity\User }

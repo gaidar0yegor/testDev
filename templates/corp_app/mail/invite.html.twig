@@ -1,0 +1,21 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Invitation sur RDI-Manager {% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                <strong>{{ fromUser.fullname }}</strong> vous invite sur RDI-Manager
+                dans la société <strong>{{ invitedUser.societe.raisonSociale }}</strong>
+                en tant que <strong>{{ invitedUser.role|trans }}</strong>.
+            </p>
+            <p>
+                Finalisez votre inscription en cliquant sur ce bouton :
+                <button
+                    href="{{ url('corp_app_fo_user_finalize_inscription', {'token': invitedUser.invitationToken}) }}"
+                    class="large expanded"
+                >Finaliser mon inscription</button>
+            </p>
+        </columns>
+    </row>
+{% endblock %}

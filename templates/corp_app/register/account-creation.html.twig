@@ -1,0 +1,40 @@
+{% extends 'corp_app/register/layout.html.twig' %}
+
+{% block register %}
+    <h1 class="mb-1">{{ 'create_my_account'|trans }}</h1>
+
+    <p>
+        {{ 'creation_of_your_admin_account_on_company'|trans }}
+        <strong>{{ societe.raisonSociale }}</strong>
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    <div class="row">
+        <div class="col-md-12">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.prenom) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.nom) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.password.first) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.password.second) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.acceptCguCgv) }}
+        </div>
+    </div>
+
+    {{ form_rest(form) }}
+
+    <button type="submit" class="btn btn-lg btn-primary">{{ 'continue'|trans }}</button>
+
+    {{ form_end(form) }}
+{% endblock %}

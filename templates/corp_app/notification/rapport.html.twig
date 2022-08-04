@@ -1,0 +1,35 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ "last_notif_send"|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ "last_notif_send"|trans }}</h1>
+
+    <a class="d-block mb-4" href="{{ path('corp_app_fo_admin_notification') }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        {{ "goBack_params_notif"|trans }}
+    </a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>{{ "timeString"|trans }}</th>
+                <th>{{ "resultString"|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in cronReports %}
+                <tr>
+                    <td>{{ report.runAt|format_datetime }}</td>
+                    <td>{{ report.runTime|round(3) }}ms</td>
+                    <td class="text-monospace {{ report.exitCode ? 'text-danger' : 'text-success' }}">{{ report.output|trim }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3" class="text-center"><i>{{ "no_notif_send"|trans }}</i></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

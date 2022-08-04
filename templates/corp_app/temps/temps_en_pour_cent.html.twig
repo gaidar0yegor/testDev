@@ -1,0 +1,29 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.time_tracking.time_spent'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'enter_your_time_spent'|trans }}</h1>
+
+{{ helpText('saisieTempsPasse') }}
+
+<App>
+    <saisie-des-temps
+        period="{{ userContext.societeUser.societe.timesheetGranularity|default(constant('App\\Entity\\Societe::GRANULARITY_MONTHLY')) }}"
+        url-to-absences="{{ path('corp_app_fo_absences', {'year': '1111', 'month': '99'}) }}"
+        :hours-per-days="{{ userContext.societeUser.societe.heuresParJours }}"
+    ></saisie-des-temps>
+</App>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('vueapp') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('vueapp') }}
+{% endblock %}

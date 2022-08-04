@@ -1,0 +1,3 @@
+{{ fromUser.fullname }} vous invite dans la société {{ invitedUser.societe.raisonSociale }}.
+Finalisez votre inscription ici :
+{{ url('corp_app_fo_user_finalize_inscription', {'token': invitedUser.invitationToken})|shortenUrl(18) }}

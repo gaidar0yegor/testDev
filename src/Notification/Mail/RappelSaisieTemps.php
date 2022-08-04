@@ -65,8 +65,8 @@ class RappelSaisieTemps implements EventSubscriberInterface
         $email = (new TemplatedEmail())
             ->to($societeUser->getUser()->getEmail())
             ->subject('Saisie de vos temps sur RDI-Manager')
-            ->textTemplate('mail/notification_saisie_temps.txt.twig')
-            ->htmlTemplate('mail/notification_saisie_temps.html.twig')
+            ->textTemplate('corp_app/mail/notification_saisie_temps.txt.twig')
+            ->htmlTemplate('corp_app/mail/notification_saisie_temps.html.twig')
             ->context([
                 'month' => $month,
                 'cra' => $cra,

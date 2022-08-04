@@ -1,0 +1,104 @@
+<div class="card bg-light-grey border-light">
+    <div class="card-body">
+
+        <h2 class="text-center mt-0 mb-4">{{ etude.title }} ({{ etude.acronyme }})</h2>
+
+        <div class="text-justify">
+            <p class="m-0">{{ etude.resume|markdown|raw }}</p>
+        </div>
+    </div>
+</div>
+
+<div class="card border-light d-md-none">
+    <div class="card-body">
+        {% include 'lab_app/etude/fiche_etude-sidebar.html.twig' %}
+    </div>
+</div>
+
+<section id="timeline">
+    <h2 class="facts">Notes</h2>
+
+    <ul class="timeline">
+        <div class="add-etude">
+            {% if userCanAddNote %}
+                <a
+                        href="{{ path('lab_app_fo_note_ajouter', { 'etudeId' : etude.id }) }}"
+                        class="btn btn-lg btn-outline-primary"
+                >
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <span class="d-xs-none d-sm-none d-md-none d-xl-inline-block d-lg-inline-block">{{ 'add_new_note'|trans }}</span>
+                </a>
+            {% else %}
+                <p class="text-muted text-left">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    {{ "note.create_only_by_owner"|trans }}
+                </p>
+            {% endif %}
+        </div>
+        <table id="etude_timeline_dt" class="table datatable custom-datatable text-word-break">
+            <thead><tr><th>Notes</th></tr></thead>
+            <tbody>
+            {% for note in etude.notes %}
+                <tr>
+                    <td>
+                        <li class="event" id="note-{{ note.id }}">
+                            <h4 class="d-flex flex-row justify-content-between align-items-center" data-date="{{ note.date|format_date }}">
+                                <span>
+                                    {{ note.date|format_date }}
+                                    -
+                                    <a
+                                            href="#"
+                                    >
+                                        {% include 'utils/_avatar.html.twig' with {user: note.createdBy.user, size: 24, toExpend: true} %}
+                                        {{ note.createdBy.user.fullname }}
+                                    </a>
+                                </span>
+                                <div>
+                                    <a
+                                            href="{{ path('lab_app_fo_note_modifier', {'id' : note.id}) }}" style="font-size: 1.2rem;"
+                                            class="edit-note {% if not is_granted(constant('App\\EtudeResourceInterface::EDIT'), note) %}disabled{% endif %}"
+                                            {% if not is_granted(constant('App\\EtudeResourceInterface::EDIT'), note) %}
+                                                disabled
+                                                title="Vous ne pouvez pas modifier les notes qui ne vous appartiennent pas"
+                                            {% else %}
+                                                title="{{ "edit_btn"|trans }}"
+                                            {% endif %}
+                                    >
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </div>
+
+                            </h4>
+                            <h3>{{ note.title }}</h3>
+                            {% if note.isReadingNote %}
+                            <div class="note-reading-content">
+                                <p><strong>{{ 'note.readingName'|trans }} : </strong> {{ note.readingName }}</p>
+                                <p><strong>{{ 'note.author'|trans }} : </strong> {{ note.author }}</p>
+                                <p><strong>{{ 'note.reference'|trans }} : </strong> {{ note.reference }}</p>
+                            </div>
+                            {% endif %}
+                            <div class="note-content event-content text-justify text-word-break position-relative overflow-hidden">
+                                {{ note.description|markdown|raw }}
+                            </div>
+                            <ul class="list-unstyled mt-3">
+                                {% for fichierEtude in note.fichierEtudes %}
+                                    <li>
+                                        <i class="fa {{ fichierEtude.fichier|faFileIcon }}" aria-hidden="true"></i>
+                                        <a target="_blank"
+                                           href="{{ path('lab_app_fo_etude_fichier', {
+                                               'etudeId': etude.id,
+                                               'fichierEtudeId': fichierEtude.id
+                                           }) }}" {% if fichierEtude.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                                            {{ fichierEtude.fichier.nomFichier }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </ul>
+</section>

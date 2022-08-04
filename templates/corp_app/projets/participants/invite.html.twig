@@ -1,0 +1,25 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ "invite_on"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ "invite_on"|trans }} {{ projet.acronyme }}</h1>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <p>
+        {{ "para_invite_on"|trans }}
+        </p>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.email) }}
+        {{ form_row(form.role) }}
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

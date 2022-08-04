@@ -1,0 +1,25 @@
+{% extends app.request.attributes.get('_app_class') ~ '/base.html.twig' %}
+
+{% block title %}Inscription sur RDI-Manager{% endblock %}
+
+{% block body %}
+
+<h1>Lien d'invitation expiré ou invalide.</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p class="lead">
+            Le lien d'invitation que vous avez suivi
+            est déjà utilisé, ou n'est pas valide.
+        </p>
+        <p>
+            Si vous avez déjà finalisé votre inscription,
+            vous pouvez vous connecter avec votre email
+            ou numéro de téléphone portable,
+            et votre mot de passe sur
+            <a href="{{ path('app_login') }}">la page de connexion</a>.
+        </p>
+    </div>
+</div>
+
+{% endblock %}

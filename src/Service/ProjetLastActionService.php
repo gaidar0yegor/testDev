@@ -69,7 +69,7 @@ class ProjetLastActionService implements EventSubscriberInterface
 
     public function onKernelControllerArguments(ControllerArgumentsEvent $event): void
     {
-        if ('app_fo_projet' !== $event->getRequest()->attributes->get('_route')) {
+        if ('corp_app_fo_projet' !== $event->getRequest()->attributes->get('_route')) {
             return;
         }
 
@@ -83,7 +83,7 @@ class ProjetLastActionService implements EventSubscriberInterface
         }
 
         if (null === $projet) {
-            throw new RuntimeException('app_fo_projet route expected to have a Projet in its controller arguments');
+            throw new RuntimeException('corp_app_fo_projet route expected to have a Projet in its controller arguments');
         }
 
         $this->updateLastViewedAction($this->userContext->getSocieteUser(), $projet);

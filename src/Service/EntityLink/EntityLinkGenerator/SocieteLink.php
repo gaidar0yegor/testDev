@@ -21,7 +21,7 @@ class SocieteLink implements EntityLinkGeneratorInterface
     {
         return new EntityLink(
             $entity->getRaisonSociale(),
-            $urlGenerator->generate('app_bo_societe', [
+            $urlGenerator->generate('corp_app_bo_societe', [
                 'id' => $entity->getId(),
             ])
         );

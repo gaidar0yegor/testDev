@@ -1,0 +1,9 @@
+Un nouveau commentaire vient d'être ajouté sur le projet {{ faitMarquant.projet.acronyme }} :
+
+{{ user.fullName }} a commenté le fait marquant {{ faitMarquant.titre }} sur le projet {{ faitMarquant.projet.acronyme }} :
+
+{{ faitMarquantComment.text }}
+
+Voir sur RDI-Manager :
+
+{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}

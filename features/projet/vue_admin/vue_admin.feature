@@ -10,7 +10,7 @@ Feature: Affichage du score RDI
         And I press "Connexion"
 
     Scenario: L'admin peut voir le nombre de contributeurs, de faits marquants et les temps passés sur le projet
-        Given I am on "/projets"
+        Given I am on "/corp/projets"
         And I follow "PTEST"
         When I follow "Statistiques"
         Then I should see "Contributeurs" in the ".card-deck" element

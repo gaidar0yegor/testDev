@@ -1,0 +1,61 @@
+<dl>
+    {% if etude.userBook.labo is not null %}
+        <dt><i class="fa fa-flask"></i> {{ "labo.string"|trans }}</dt>
+        <dd>{{ etude.userBook.labo.name }}</dd>
+    {% endif %}
+    {% if etude.dateDebut %}
+        <dt><i class="fa fa-calendar"></i> {{ "etude.dateDebut"|trans }}</dt>
+        <dd>{{ etude.dateDebut|format_date }}</dd>
+    {% endif %}
+    {% if etude.dateFin %}
+        <dt><i class="fa fa-calendar"></i> {{ "etude.dateFin"|trans }}</dt>
+        <dd>{{ etude.dateFin|format_date }}</dd>
+    {% endif %}
+    <dt><i class="fa fa-bar-chart"></i> {{ "etude.status"|trans }}</dt>
+    <dd>{{ etude.statut | trans }}</dd>
+</dl>
+
+<hr>
+
+<a
+        href="{{ path('lab_app_fo_etude_fichiers', {'id': etude.id}) }}"
+        class="btn btn-outline-primary rounded-circle float-right {{ userCanAddNote ? '' : 'disabled' }}"
+        {% if not userCanAddNote %}
+            title="Seul le propriétaire est autorisé à ajouter un fichier"
+        {% else %}
+            title="Ajouter un fichier"
+        {% endif %}
+><i class="fa fa-upload" aria-hidden="true"></i>
+</a>
+
+<h4>{{ "filesString"|trans }}</h4>
+
+{% if etude.fichierEtudes|length > 0 %}
+
+    <ul class="list-unstyled">
+        {% for fichierEtude in etude.fichierEtudes|reverse[0:5] %}
+            <li>
+                <a href="{{ path('lab_app_fo_etude_fichier', {'etudeId': etude.id, 'fichierEtudeId': fichierEtude.id}) }}" target="_blank"
+                        {% if fichierEtude.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                    <i class="fa {{ fichierEtude.fichier|faFileIcon }}" aria-hidden="true"></i>
+                    {{ fichierEtude.fichier.nomFichier }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if etude.fichierEtudes|length > 5 %}
+        <p>{{ '...and_n_others' | trans({'n': etude.fichierEtudes|length - 5}) }}</p>
+    {% endif %}
+
+    <a href="{{ path('lab_app_fo_etude_fichiers', {'id': etude.id}) }}">{{ "list_files"|trans }}</a>
+
+{% else %}
+
+    <p class="text-muted">
+        <small>
+            {{ "no_files_here"|trans }}
+        </small>
+    </p>
+
+{% endif %}

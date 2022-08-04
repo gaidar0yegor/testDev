@@ -1,0 +1,12 @@
+<form
+    method="post"
+    action="{{ path('lab_app_fo_note_delete', {'id': note.id}) }}"
+    onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette note ?');"
+>
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ note.id) }}">
+    <button class="btn btn-outline-danger">
+        <i class="fa fa-trash" aria-hidden="true"></i>
+        Supprimer
+    </button>
+</form>

@@ -17,23 +17,24 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
         When I fill in the following:
             | invite_user[invitationEmail] | nouveau-cdp@societe.dev |
             | invite_user[role]            | SOCIETE_CDP             |
+            | invite_user[societeUserPeriods][0][dateEntry] | 01 janvier 2020 |
         And I press "Inviter"
         Then I should see "Un lien d'invitation a été envoyé"
 
     Scenario: L'utilisateur invité peut finaliser son inscription après avoir suivi le lien d'invitation qu'il a recu.
-        Given I am on "/inscription/cV2bvNJg4e_zkzXis-rfKlih"
+        Given I am on "/corp/inscription/cV2bvNJg4e_zkzXis-rfKlih"
         Then I should see "Finalisation de votre inscription"
         And I should see "Vous êtes sur le point de rejoindre la société SociétéTest avec le rôle Chef de Projet"
 
         # Créer mon compte
-        When I follow "Créer mon compte"
+        When I follow "Créer mon compte RDI-Manager"
         And I fill in the following:
             | finalize_inscription[prenom]           | JeSuis        |
             | finalize_inscription[nom]              | LeNouveau     |
             | finalize_inscription[password][first]  | m0nM0tdepass3 |
             | finalize_inscription[password][second] | m0nM0tdepass3 |
         And I press "Créer mon compte"
-        Then I should be on "/inscription/rejoindre-la-societe/cV2bvNJg4e_zkzXis-rfKlih"
+        Then I should be on "/corp/inscription/rejoindre-la-societe/cV2bvNJg4e_zkzXis-rfKlih"
         And I should see "Vous êtes sur le point de rejoindre la société SociétéTest avec le rôle Chef de Projet"
         And I should see "Vous rejoindrez la société avec votre compte RDI-Manager JeSuis LeNouveau (invite@societe.dev)"
 

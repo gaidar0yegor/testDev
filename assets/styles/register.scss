@@ -1,11 +1,20 @@
+body.corp_app .rdi-register aside{
+    background-color: #ce352c;
+}
+
+body.lab_app .rdi-register aside{
+    background-color: #416C94;
+}
+
 .rdi-register {
+
+    margin-top: -3rem;
 
     aside, main {
         min-height: 100vh;
     }
 
     aside {
-        background-color: #ce352c;
         width: 32em;
         position: sticky;
 

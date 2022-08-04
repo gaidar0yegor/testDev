@@ -1,0 +1,80 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block body %}
+
+    <h1>{{ 'dashboards'|trans }}</h1>
+
+    <h2>{{ 'menu.dashboard.general'|trans }}</h2>
+
+    <div id="dashboard-general">
+
+        {% for societeUser in societeUsers %}
+
+            <h2 class="facts" style="background-color: {{ societeUser.societe.colorCode }}">
+
+                <form action="{{ path('corp_app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
+                    <button type="submit" class="btn btn-link text-white font-weight-bold"
+                            style="font-size: 1.4rem;">{{ societeUser.societe.raisonSociale }}</button>
+                </form>
+
+            </h2>
+
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="carousel-wrapper recent-activity" data-societe-user="{{ societeUser.id }}"></div>
+                </div>
+
+                <div class="col-md-4">
+                    <h3 class="text-center">{{ 'hours_by_project'|trans }}
+                        <span
+                                class="year-switch"
+                                data-event-name="loadYearlyCharts"
+                                data-societe-user="{{ societeUser.id }}"
+                        ></span>
+                    </h3>
+
+                    <div id="heures-par-projet-{{ societeUser.id }}"></div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3 class="text-center">{{ 'project_analyse_from'|trans }}
+                                <span
+                                        class="year-switch"
+                                        data-event-name="loadSinceYearCharts"
+                                        data-year-selected="{{ '-2 years'|date('Y') }}"
+                                        data-societe-user="{{ societeUser.id }}"
+                                ></span>
+                            </h3>
+                        </div>
+                        <div class="col-md-8">
+                            <h4 class="text-center">{{ 'realized_projects_type'|trans }}</h4>
+
+                            <div id="projets-rdi-vs-non-rdi-{{ societeUser.id }}"></div>
+                        </div>
+                        <div class="col-md-4">
+                            <h4 class="text-center">{{ 'projects_realisations'|trans }}</h4>
+
+                            <div id="projets-statuts-{{ societeUser.id }}"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('multisociete') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('multisociete') }}
+{% endblock %}

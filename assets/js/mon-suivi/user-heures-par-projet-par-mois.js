@@ -33,7 +33,7 @@ window.addEventListener('loadYearlyCharts', event => {
     chart.unload();
 
     setTimeout(function () {
-        fetch(`/api/stats/temps-par-projet/${userContext.societeUserId}/${year}/hour`)
+        fetch(`/corp/api/stats/temps-par-projet/${userContext.societeUserId}/${year}/hour`)
             .then(response => response.json())
             .then(tempsParProjets => {
                 const total = {};

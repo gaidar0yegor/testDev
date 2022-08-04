@@ -29,7 +29,7 @@ window.addEventListener('loadYearlyCharts', event => {
     chart.unload();
 
     setTimeout(function () {
-        fetch(`/api/dashboard/heures-par-projet/${year}`)
+        fetch(`/corp/api/dashboard/heures-par-projet/${year}`)
             .then(response => response.json())
             .then(datas => {
                 let heuresParProjet = datas.userProjetsHeuresPassees;

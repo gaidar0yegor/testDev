@@ -24,7 +24,7 @@ class FaitMarquantLink implements EntityLinkGeneratorInterface
         $titre = self::truncate($entity->getTitre());
         $idFaitMarquant = $entity->getId();
 
-        $url = $urlGenerator->generate('app_fo_projet', [
+        $url = $urlGenerator->generate('corp_app_fo_projet', [
             'id' => $entity->getProjet()->getId(),
             '_fragment' => "fait-marquant-$idFaitMarquant",
         ]);

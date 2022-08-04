@@ -67,13 +67,15 @@ CKEDITOR.plugins.add("wordcount",
                 countSpacesAsChars: false,
                 countHTML: false,
                 countLineBreaks: false,
-                hardLimit: parseInt(customCkeditorMaxChar.dataset.limitblocking) === 1,
+                hardLimit: customCkeditorMaxChar ? parseInt(customCkeditorMaxChar.dataset.limitblocking) === 1 : false,
                 warnOnLimitOnly: false,
                 wordDelims: '',
 
                 //MAXLENGTH Properties
                 maxWordCount: -1,
-                maxCharCount: parseInt(customCkeditorMaxChar.dataset.limit) === -1 ? -1 : parseInt(customCkeditorMaxChar.dataset.limit) - 1,
+                maxCharCount: customCkeditorMaxChar
+                    ? (parseInt(customCkeditorMaxChar.dataset.limit) === -1 ? -1 : parseInt(customCkeditorMaxChar.dataset.limit) - 1)
+                    : -1,
                 maxParagraphs: -1,
 
                 // Filter

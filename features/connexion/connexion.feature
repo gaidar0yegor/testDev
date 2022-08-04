@@ -32,6 +32,7 @@ Feature: Page de connexion
             | _username | user-desactive@societe.dev     |
             | _password | user-desactive |
         And I press "Connexion"
-        Then I should be on "/mes-societes"
+        Then I should be on "/mes-plateformes"
+        When I go to "/corp/mes-societes"
         And I should see "UserDésactivé" in the "nav" element
         And I should see "Accès désactivé" in the ".card" element

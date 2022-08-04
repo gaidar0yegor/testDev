@@ -1,0 +1,206 @@
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item {{ activeOn('corp_app_fo_dashboard') }}">
+        <a class="nav-link" href="{{ path('corp_app_fo_dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> <span class="nav-item-title">{{ 'dashboard'|trans }}</span></a>
+    </li>
+    <li class="nav-item {{ activeOn('corp_app_fo_projets', 'corp_app_fo_projets_all', 'corp_app_fo_projets_by_year', 'corp_app_fo_projet_creation', 'corp_app_fo_observateur_externe_list', 'corp_app_fo_observateur_externe_view') }}">
+        <a class="nav-link" href="{{ path('corp_app_fo_projets') }}"><i class="fa fa-tasks" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.projects'|trans }}</span></a>
+    </li>
+    <li class="nav-item dropdown {{ activeOn('corp_app_fo_temps', 'corp_app_fo_absences', 'corp_app_fo_mon_suivi') }}">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-calendar-check-o" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.time_tracking'|trans }}</span>
+        </a>
+        <div class="dropdown-menu">
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_temps') }}"
+                href="{{ path('corp_app_fo_temps') }}"
+            >
+                <i class="fa fa-clock-o" aria-hidden="true"></i>{{ 'menu.time_tracking.time_spent'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_absences') }}"
+                href="{{ path('corp_app_fo_absences') }}"
+            >
+                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.time_tracking.absences'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_mon_suivi') }}"
+                href="{{ path('corp_app_fo_mon_suivi') }}"
+            >
+                <i class="fa fa-tasks" aria-hidden="true"></i>{{ 'menu.time_tracking.my_tracking'|trans }}
+            </a>
+        </div>
+    </li>
+    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
+    <li class="nav-item dropdown {{ activeOn('corp_app_fo_admin_societe_show', 'corp_app_fo_admin_timesheet_generate', 'corp_app_fo_utilisateurs',  'corp_app_fo_utilisateurs_team', 'corp_app_fo_admin_user_invite', 'corp_app_fo_admin_projets', 'corp_app_fo_admin_notification', 'corp_app_fo_admin_licenses') }}">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cogs" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.admin'|trans }}</span>
+        </a>
+        <div class="dropdown-menu">
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_admin_societe_show') }}"
+                href="{{ path('corp_app_fo_admin_societe_show') }}"
+            >
+                <i class="fa fa-building-o" aria-hidden="true"></i>{{ 'menu.admin.company'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_admin_projets') }}"
+                href="{{ path('corp_app_fo_admin_projets') }}"
+            >
+                <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.admin.projects'|trans }}
+            </a>
+            <div class="dropdown-divider"></div>
+            {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) and userContext.societeUser.superiorFo %}
+                <a
+                        class="dropdown-item {{ activeOn('corp_app_fo_utilisateurs_team') }}"
+                        href="{{ path('corp_app_fo_utilisateurs_team') }}"
+                >
+                    <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.mon_equipe'|trans }}
+                </a>
+            {% endif %}
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_utilisateurs') }}"
+                href="{{ path('corp_app_fo_utilisateurs') }}"
+            >
+                <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_admin_user_invite') }}"
+                href="{{ path('corp_app_fo_admin_user_invite') }}"
+            >
+                <i class="fa fa-user-plus" aria-hidden="true"></i>{{ 'menu.admin.invite_user'|trans }}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a
+                    class="dropdown-item {{ activeOn('corp_app_fo_users_events') }}"
+                    href="{{ path('corp_app_fo_users_events') }}"
+            >
+                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.admin.events_calendar'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_admin_cra_validation') }}"
+                href="{{ path('corp_app_fo_admin_cra_validation') }}"
+            >
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{{ 'menu.admin.timesheet_check'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_admin_timesheet_generate') }}"
+                href="{{ path('corp_app_fo_admin_timesheet_generate') }}"
+            >
+                <i class="fa fa-download" aria-hidden="true"></i>{{ 'menu.admin.timesheet_export'|trans }}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_admin_notification') }}"
+                href="{{ path('corp_app_fo_admin_notification') }}"
+            >
+                <i class="fa fa-bell-o" aria-hidden="true"></i>{{ 'menu.admin.notification_parameters'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_admin_licenses') }}"
+                href="{{ path('corp_app_fo_admin_licenses') }}"
+            >
+                <i class="fa fa-key" aria-hidden="true"></i>{{ 'menu.admin.licenses'|trans }}
+            </a>
+        </div>
+    </li>
+    {% else %}
+    <li class="nav-item dropdown {{ activeOn('corp_app_fo_utilisateurs_team','corp_app_fo_mon_equipe_projets','corp_app_fo_mon_equipe_cra_validation','corp_app_fo_mon_equipe_timesheet_generate') }}">
+        <a
+            {% if userProductPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::MULTI_SOCIETE_DASHBOARD')) %}
+                class="nav-link dropdown-toggle {{ userContext.societeUser.superiorFo ? '' : 'disabled' }}"
+                {% if not userContext.societeUser.superiorFo %}
+                    title="{{ 'admin_requires_superior_role'|trans }}"
+                {% endif %}
+            {% else %}
+                class="nav-link dropdown-toggle disabled"
+                title="{{ 'product_privilege_no_dispo'|trans }}"
+            {% endif %}
+            href="#"
+            role="button"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+        >
+            <i class="fa fa-users" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.mon_equipe'|trans }}</span>
+        </a>
+        <div class="dropdown-menu">
+            <a
+                    class="dropdown-item {{ activeOn('corp_app_fo_utilisateurs_team') }}"
+                    href="{{ path('corp_app_fo_utilisateurs_team') }}"
+            >
+                <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_mon_equipe_projets') }}"
+                href="{{ path('corp_app_fo_mon_equipe_projets') }}"
+            >
+                <i class="fa fa-list-ul" aria-hidden="true"></i>{{ 'menu.admin.projects'|trans }}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a
+                    class="dropdown-item {{ activeOn('corp_app_fo_users_events') }}"
+                    href="{{ path('corp_app_fo_equipe_users_events') }}"
+            >
+                <i class="fa fa-calendar" aria-hidden="true"></i>{{ 'menu.equipe.events_calendar'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_mon_equipe_cra_validation') }}"
+                href="{{ path('corp_app_fo_mon_equipe_cra_validation') }}"
+            >
+                <i class="fa fa-calendar-check-o" aria-hidden="true"></i>{{ 'menu.admin.timesheet_check'|trans }}
+            </a>
+            <a
+                class="dropdown-item {{ activeOn('corp_app_fo_mon_equipe_timesheet_generate') }}"
+                href="{{ path('corp_app_fo_mon_equipe_timesheet_generate') }}"
+            >
+                <i class="fa fa-download" aria-hidden="true"></i>{{ 'menu.admin.timesheet_export'|trans }}
+            </a>
+        </div>
+    </li>
+    {% endif %}
+</ul>
+
+<div class="dropdown user-events-notifications-list d-inline-block">
+    <a
+            href="#"
+            class="text-light dropdown-toggle"
+            role="button"
+            id="dropdownEventsNotifications"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+    >
+        <i class="fa fa-lg fa-calendar-o mb-3 mb-lg-0" aria-hidden="true"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownEventsNotifications">
+        <a href="{{ path('corp_app_fo_current_user_events') }}" class="badge badge-primary p-1 float-right mr-2" style="margin-bottom: -20px;">{{ 'my_calendar'|trans }}</a>
+        <div class="events-dropdown-scroll events-notification-container w-100">
+            <span class="dropdown-item disabled mt-3"><small>{{ 'loading'|trans }}</small></span>
+        </div>
+    </div>
+</div>
+
+<div class="d-inline-block">
+    <a id="reviewHelpText" href="#" class="text-light text-info mr-2 d-inline-block">
+        <i class="fa fa-lg fa-question-circle-o mb-3 mb-lg-0 opacity-25" aria-hidden="true"></i>
+    </a>
+</div>
+
+<div class="dropdown user-notifications-list d-inline-block">
+    <a
+        href="#"
+        class="text-light dropdown-toggle mr-2"
+        role="button"
+        id="dropdownNotifications"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+    >
+        <i class="fa fa-lg fa-bell-o mb-3 mb-lg-0" aria-hidden="true"></i>
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownNotifications">
+        <div class="rdi-dropdown-scroll rdi-notification-container">
+            <span class="dropdown-item disabled"><small>{{ 'loading'|trans }}</small></span>
+        </div>
+    </div>
+</div>

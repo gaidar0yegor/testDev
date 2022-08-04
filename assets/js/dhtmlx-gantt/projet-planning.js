@@ -27,7 +27,7 @@ gantt.config.columns = [
     {name: "progress", label: "Progress", align:"center", width:50, min_width: 50, max_width: 50, editor: progressEditor, template : function(obj){ return Math.round((obj.progress * 100)) + "%" }},
     {name: "add", align: "center", width: 30, min_width: 30, max_width: 30 },
     {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" title="Utilisateurs affectés" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
-    {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/projet/${projectId}/planning/task/${task.id}" title="Liste des faits marquants liés" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
+    {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/corp/projet/${projectId}/planning/task/${task.id}" title="Liste des faits marquants liés" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
 
 gantt.templates.task_class = gantt.templates.grid_row_class = function(start, end, task){switch (task.$level) {
@@ -61,14 +61,14 @@ gantt.config.tooltip_timeout = 50;
 
 gantt.init("project_planning_content");
 
-fetch(`/api/projet/${projectId}/planning/list`, {method: 'GET'})
+fetch(`/corp/api/projet/${projectId}/planning/list`, {method: 'GET'})
     .then(response => response.json())
     .then(data => {
         gantt.parse(data);
     });
 
 var dp = gantt.createDataProcessor({
-    url: `/api/projet/${projectId}/planning`,
+    url: `/corp/api/projet/${projectId}/planning`,
     mode:"REST"
 });
 dp.attachEvent("onAfterUpdate", function(id, action, tid, response){

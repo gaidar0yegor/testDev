@@ -1,0 +1,73 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'timesheet_validation_of_year_n'|trans({'%year%': year}) }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'timesheet_validation_of_year_n'|trans({'%year%': year}) }}</h1>
+
+    <ul class="list-inline text-center mb-4">
+        {% for yearSwitch in '-3 years'|date('Y')..'+1 months'|date('Y') %}
+            {% if yearSwitch == year %}
+                <li class="list-inline-item m-0">{{ yearSwitch }}</li>
+            {% else %}
+                <li class="list-inline-item m-0">
+                    <a href="{{ path( is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) ? 'corp_app_fo_admin_cra_validation' : 'corp_app_fo_mon_equipe_cra_validation', {year: yearSwitch}) }}">{{ yearSwitch }}</a>
+                </li>
+            {% endif %}
+
+            {% if not loop.last %}
+                -
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    <ul class="nav nav-tabs mb-3 tab-filter-users">
+        <li class="nav-item">
+            <a class="nav-link enabled-users active" href="#0">{{ "enabled"|trans }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled-users" href="#0">{{ "disabled"|trans }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link all-users" href="#0">{{ 'allString'|trans }}</a>
+        </li>
+        <input type="hidden" id="filter-users-statut">
+    </ul>
+
+    <table id="validation_temps_dt" class="table datatable custom-datatable">
+        <thead>
+        <tr>
+            <th>Avatar</th>
+            <th>{{ 'user'|trans }}</th>
+            {% for mois in 1..12 %}
+                <th class="text-center">
+                    <span class="d-lg-none">{{ [year, mois]|join('-')|format_date(pattern='MMMMM') }}</span>
+                    <span class="d-none d-lg-inline">{{ [year, mois]|join('-')|format_date(pattern='MMM') }}</span>
+                </th>
+            {% endfor %}
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for societeUser in societeUsers %}
+            <tr {% if not societeUser.enabled %}class="table-secondary"{% endif %}>
+                <td> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
+                <td>
+                    <a href="{{ path('corp_app_fo_societe_user', {'id': societeUser.id}) }}">{{ societeUser.user.fullname }}</a>
+                </td>
+                {% for mois in 1..12 %}
+                    {% include 'corp_app/cra_validation/_cra-info.html.twig' with {'yearMonth': [year, '%02d'|format(mois)]|join('-')} %}
+                {% endfor %}
+                <td data-search='{{ societeUser.statut }}'>
+                    {% if societeUser.enabled %}
+                    {% else %}
+                        {{ 'account_disabled'|trans }}
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

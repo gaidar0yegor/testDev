@@ -1,0 +1,40 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'edit_my_company'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'edit_societe_logo'|trans }}</h1>
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <a class="d-block mb-4" href="{{ path('corp_app_fo_admin_societe_show') }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'back'|trans }}
+        </a>
+
+        <p>{{ 'current_logo:'|trans }}</p>
+
+        <div class="img-uploaded-container">
+            {% if userContext.societeUser.societe.logo %}
+                {% include 'utils/_avatar.html.twig' with {societe: userContext.societeUser.societe, size: 200, border: true} %}
+            {% else %}
+                <img class="img-thumbnail rounded-circle mb-4"/>
+            {% endif %}
+        </div>
+
+        <p>{{ 'new_logo:'|trans }}</p>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.file) }}
+
+        <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

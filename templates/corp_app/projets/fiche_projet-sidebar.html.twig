@@ -1,0 +1,192 @@
+<dl>
+    {% if participation %}
+        <p> {{ 'my_role_project'|trans({
+                'userRole': participation.role|trans
+            })|raw|striptags('<strong>')|raw }}</p>
+    {% else %}
+        {# participation can be null when admin view a projet of his societe but without access #}
+        <p>{{ "no_role_project"|trans|raw|striptags('<strong>')|raw  }}</p>
+    {% endif %}
+
+    {% if projet.projetUrls|length > 0 %}
+        <ul class="list-unstyled">
+            {% for projetUrl in projet.projetUrls %}
+                <li class="text-truncate">
+                    <i class="fa {{ projetUrl.url|faUrlIcon }}" aria-hidden="true"></i>
+                    <a href="{{ projetUrl.url }}" target="_blank">{{ projetUrl.text|default(projetUrl.url) }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if projet.dateDebut %}
+        <dt>{{ "date_debut"|trans }}</dt>
+        <dd>{{ projet.dateDebut|format_date }}</dd>
+    {% endif %}
+    {% if projet.dateFin %}
+        <dt>{{ "date_fin"|trans }}</dt>
+        <dd>{{ projet.dateFin|format_date }}</dd>
+    {% endif %}
+    <dt>{{ "status"|trans }}</dt>
+    <dd>{% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %} <small><i>{{ projet.isSuspended ? '(' ~ projet.projetSuspendPeriods.last.suspendedAt | date("d/m/Y") ~ ')' : '' }}</i></small></dd>
+</dl>
+
+<hr>
+
+{% if participation %}
+    <div class="watch-projet" data-projet-id="{{ projet.id }}">
+        {% if participation.watching %}
+            <button class="btn btn-block btn-primary">
+                <i class="fa fa-eye"></i>
+                {{ "follow_project"|trans }}
+                <i class="fa fa-check"></i>
+            </button>
+        {% else %}
+            <button class="btn btn-block btn-outline-primary">
+                <i class="fa fa-eye"></i>
+                {{ "follow_project"|trans }}
+            </button>
+        {% endif %}
+
+        <p class="text-muted">
+            <small>
+            {{ "para_follow_project"|trans }}
+            </small>
+        </p>
+    </div>
+{% else %}
+    <button class="btn btn-block btn-outline-primary" disabled>
+        <i class="fa fa-eye"></i>
+        {{ "follow_project"|trans }}
+    </button>
+    <p class="text-muted">
+        <small>
+        {{ "cant_follow_project"|trans }}
+        </small>
+    </p>
+{% endif %}
+
+<hr>
+
+<h4>{{ "next_projet_events"|trans }}</h4>
+
+<ul class="next-projet-events list-unstyled">
+    {% for nextEvenement in nextEvenements %}
+        <li>
+            <a href="{{ path('corp_app_fo_projet_evenements', { 'id' : projet.id , 'event' : nextEvenement.id }) }}">
+                <strong>{{ nextEvenement.text }}</strong>
+            </a>
+            {% if participation and participation.societeUser.isInvitedToEvenement(nextEvenement) %}
+                <span class="badge badge-info ml-1">{{ 'invited'|trans }}</span>
+            {% endif %}
+            <br>
+            <small><i>{{ nextEvenement.startDate | date('d/m/Y H:i') }}</i></small>
+        </li>
+    {% else %}
+        <p class="text-muted">
+            <small>
+                {{ "no_projet_events_here"|trans }}
+            </small>
+        </p>
+    {% endfor %}
+</ul>
+
+<hr>
+
+<a
+    href="{{ path('corp_app_fo_projet_participant', {'id': projet.id}) }}"
+    class="btn btn-outline-primary rounded-circle float-right {{ userCanEditProjet ? '' : 'disabled' }}"
+    {% if not userCanEditProjet %}
+        title="Seul le chef de projet peut gérer les participants"
+    {% else %}
+        title="Gérer les participants"
+    {% endif %}
+><i class="fa fa-cog"></i></a>
+
+<h4>{{ "quota.contributeurs.name"|trans }} ({{ contributeurs|length }})</h4>
+
+<ul class="list-inline">
+    {% for contributeur in contributeurs|slice(0, 4) %}
+        <li class="list-inline-item m-1">
+            <a href="{{ path('corp_app_fo_societe_user', {'id': contributeur.societeUser.id}) }}">
+                {% include 'utils/_avatar.html.twig' with {user: contributeur.societeUser.user, toExpend: true} %}
+            </a>
+        </li>
+    {% else %}
+        <li>{{ "no_contrib_now"|trans }}</li>
+    {% endfor %}
+    {% if contributeurs|length > 4 %}
+        <a href="javascript:;" data-toggle="modal" data-target="#contributeurModal" class="btn btn-outline-primary rounded-circle"><i class="fa fa-ellipsis-h"></i></a>
+    {% endif %}
+</ul>
+
+<button type="button" class="mt-3 btn btn-block btn-primary" data-toggle="modal" data-target="#observateursModal">
+    {{ "see_obs_project"|trans }}
+</button>
+
+<hr>
+
+<a
+    href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id}) }}"
+    class="btn btn-outline-primary rounded-circle float-right {{ not projet.isSuspended and userCanAddFaitMarquant ? '' : 'disabled' }}"
+    {% if projet.isSuspended %}
+        title="Le projet est suspendu"
+    {% elseif not userCanAddFaitMarquant %}
+        title="Seul les contributeurs peuvent ajouter un fichier"
+    {% else %}
+        title="Ajouter un fichier"
+    {% endif %}
+><i class="fa fa-upload" aria-hidden="true"></i>
+</a>
+
+<h4>{{ "filesString"|trans }}</h4>
+
+{% if projet.dossierFichierProjets|length > 0 %}
+    {% set countFichier = 0 %}
+    <ul class="list-unstyled">
+        {% for dossierFichierProjet in projet.dossierFichierProjets %}
+            <li>
+                <a href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id, '_fragment' : ('dossier-' ~ dossierFichierProjet.nomMd5)})  }}">
+                    <i class="fa fa-folder" aria-hidden="true"></i>
+                    {{ dossierFichierProjet.nom }} <span class="badge badge-pill badge-info">{{ dossierFichierProjet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length }}</span>
+                </a>
+            </li>
+            {% set countFichier = countFichier + dossierFichierProjet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length %}
+        {% endfor %}
+    </ul>
+
+    {% if projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > countFichier %}
+        <p>{{ '...and_n_others' | trans({'n': projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length - countFichier}) }}</p>
+    {% endif %}
+
+    <a href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list_files"|trans }}</a>
+
+{% elseif projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > 0 %}
+    
+    <ul class="list-unstyled">
+        {% for fichierProjet in projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|reverse[0:5] %}
+            <li>
+                <a href="{{ path('corp_app_fo_projet_fichier', {'projetId': projet.id, 'fichierProjetId': fichierProjet.id}) }}" target="_blank"
+                        {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                    <i class="fa {{ fichierProjet|faFileIcon }}" aria-hidden="true"></i>
+                    {{ fichierProjet.fichier.nomFichier }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length > 5 %}
+        <p>{{ '...and_n_others' | trans({'n': projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length - 5}) }}</p>
+    {% endif %}
+
+    <a href="{{ path('corp_app_fo_projet_fichiers', {'id': projet.id}) }}">{{ "list_files"|trans }}</a>
+
+{% else %}
+
+<p class="text-muted">
+    <small>
+        {{ "no_files_here"|trans }}
+    </small>
+</p>
+
+{% endif %}

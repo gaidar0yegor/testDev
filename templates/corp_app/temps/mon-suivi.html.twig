@@ -1,0 +1,44 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.time_tracking.my_tracking'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'menu.time_tracking.my_tracking'|trans }}</h1>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div id="mes-temps-rappel" data-url-temps-passes="{{ path('corp_app_fo_temps') }}"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 my-4">
+            <div class="col-md-10 mx-auto bordure">
+                <h2>{{ 'projects_analyse_of_year'|trans }}
+                    <span
+                            class="year-switch"
+                            data-event-name="loadYearlyCharts"
+                    ></span>
+                </h2>
+            </div>
+        </div>
+        <div class="col-md-12 mb-3">
+            <h4 class="text-center">{{ 'hours_by_project_by_month'|trans }}</h4>
+
+            <div id="user-heures-par-projet-par-mois">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('mon-suivi') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('mon-suivi') }}
+{% endblock %}

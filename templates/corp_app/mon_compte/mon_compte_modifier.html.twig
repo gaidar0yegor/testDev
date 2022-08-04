@@ -1,0 +1,31 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'my_account_edition'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'my_account_edition'|trans }}</h1>
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <a class="d-block mb-4" href="{{ path('corp_app_fo_mon_compte') }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'back'|trans }}
+        </a>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.prenom) }}
+        {{ form_row(form.nom) }}
+        {{ form_row(form.telephone) }}
+        {{ form_row(form.locale) }}
+
+        <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

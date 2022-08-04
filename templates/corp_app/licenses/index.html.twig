@@ -1,0 +1,19 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.admin.licenses'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'menu.admin.licenses'|trans }}</h1>
+
+    <h2>{{ 'quotas'|trans }}</h2>
+
+    {% include 'corp_app/licenses/_societe-quotas.html.twig' with {
+        'societe': userContext.societeUser.societe,
+    } %}
+
+    <h2>{{ 'menu.admin.licenses'|trans }}</h2>
+
+    {% include 'corp_app/licenses/_licenses-table.html.twig' with {
+        'entity': userContext.societeUser,
+    } %}
+{% endblock %}

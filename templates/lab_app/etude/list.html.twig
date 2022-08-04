@@ -1,0 +1,38 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.etude.list'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'menu.etude.list'|trans }}</h1>
+
+    <div class="my-3 text-right">
+        <a href="{{ path('lab_app_fo_etude_creation') }}" class="btn btn-outline-primary">
+            <i class="fa fa-plus-square" aria-hidden="true"></i> {{ 'menu.etude.create'|trans }}
+        </a>
+    </div>
+
+    <table class="table datatable hover" data-order='[[ 0, "asc" ]]'>
+        <thead>
+            <tr>
+                <th>{{ 'etude.acronyme'|trans }}</th>
+                <th>{{ 'etude.title'|trans }}</th>
+                <th>{{ 'etude.dateDebut'|trans }}</th>
+                <th>{{ 'etude.dateFin'|trans }}</th>
+                <th>{{ 'etude.status'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for etude in etudes %}
+                <tr>
+                    <td class="text-left"><a href="{{ path('lab_app_fo_etude', { 'id' : etude.id }) }}">{{ etude.acronyme }}</a></td>
+                    <td class="text-left">{{ etude.title }}</td>
+                    <td class="text-center" data-sort='{{ etude.dateDebut ? etude.dateDebut|date('Ymd') : '' }}'>{{ etude.dateDebut ? etude.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center" data-sort='{{ etude.dateFin ? etude.dateFin|date('Ymd') : '' }}'>{{ etude.dateFin ? etude.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center">{{ etude.statut | trans }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

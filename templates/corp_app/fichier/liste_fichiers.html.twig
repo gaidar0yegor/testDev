@@ -1,0 +1,41 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'list_files'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'list_files'|trans }}</h1>
+
+    <a class="d-block mb-4" href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        {{ 'go_back_go_project'|trans }}
+    </a>
+
+    <ul class="nav nav-tabs mb-3 tab-filter-fichiers">
+        <li class="nav-item">
+            <a class="nav-link all-fichiers active" href="#0"><span class="dossier-name">{{ 'allString'|trans }}</span> <span class="badge badge-pill badge-info">{{ projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length | length }}</span></a>
+        </li>
+
+        {% for dossierFichierProjet in projet.dossierFichierProjets %}
+            <li class="nav-item">
+                <a id="dossier-{{ dossierFichierProjet.nomMd5 }}" class="nav-link" href="#0"><span class="dossier-name">{{ dossierFichierProjet.nom }}</span> <span class="badge badge-pill badge-info">{{ dossierFichierProjet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length }}</span></a>
+            </li>
+        {% endfor %}
+
+        <input type="hidden" id="filter-files-dossier">
+    </ul>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.fichierProjets) }}
+
+    {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), projet) %}
+        <div class="text-center mt-5">
+            <button class="btn btn-success">
+                {{ 'save'|trans }}
+            </button>
+        </div>
+    {% endif %}
+
+    {{ form_end(form) }}
+{% endblock %}

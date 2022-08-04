@@ -1,0 +1,21 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Invitation sur RDI-Manager {% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                <strong>{{ fromUser.fullname }}</strong> vous invite sur RDI-Manager
+                dans le laboratoire <strong>{{ userBookInvite.labo.name }}</strong>
+                en tant que <strong>{{ userBookInvite.role|trans }}</strong>.
+            </p>
+            <p>
+                Finalisez votre inscription en cliquant sur ce bouton :
+                <button
+                    href="{{ url('lab_app_fo_user_finalize_inscription', {'token': userBookInvite.invitationToken}) }}"
+                    class="large expanded"
+                >Finaliser mon inscription</button>
+            </p>
+        </columns>
+    </row>
+{% endblock %}

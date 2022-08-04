@@ -10,9 +10,9 @@ Feature: Création de projet
         And I press "Connexion"
 
     Scenario: Un chef de projet peut créer un projet
-        Given I am on "/projets"
+        Given I am on "/corp/projets"
         When I follow "Créer un projet"
-        Then I should be on "/projets/creation"
+        Then I should be on "/corp/projets/creation"
         When I fill in the following:
             | projet_form[acronyme] | MPT           |
             | projet_form[titre]    | MonProjetTest |
@@ -23,7 +23,7 @@ Feature: Création de projet
         And I should see "MPT" in the "h1" element
 
     Scenario: Le chef de projet est invité à ajouter des contributeurs dés la création d'un projet
-        Given I am on "/projets"
+        Given I am on "/corp/projets"
         When I follow "Créer un projet"
         And I fill in the following:
             | projet_form[acronyme] | MPT           |
