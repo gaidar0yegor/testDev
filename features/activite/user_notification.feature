@@ -9,7 +9,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
             | _username | user@societe.dev  |
             | _password | user              |
         And I press "Connexion"
-        And I go to "/projets/1"
+        And I go to "/corp/projets/1"
         And I follow "Ajouter un fait marquant"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
@@ -23,7 +23,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And I press "Connexion"
 
         # Retrieve notifications
-        When I go to "/api/user-notifications/2"
+        When I go to "/corp/api/user-notifications/2"
         Then the response status code should be 200
         And the response should be in JSON
         And the JSON node "notifications" should have 1 element
@@ -36,7 +36,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         And the JSON node "notifications[0].acknowledged" should be false
 
         # acknowledge notifications
-        When I send a POST request to "/api/user-notifications/2" with body:
+        When I send a POST request to "/corp/api/user-notifications/2" with body:
             """
                 {
                     "acknowledgeIds": [1]
@@ -45,7 +45,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
         Then the response status code should be 204
 
         # Retrieve acknowledged notifications
-        When I go to "/api/user-notifications/2"
+        When I go to "/corp/api/user-notifications/2"
         Then the response status code should be 200
         And the response should be in JSON
         And the JSON node "notifications" should have 1 element
@@ -57,13 +57,13 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
             | _username | user@societe.dev  |
             | _password | user              |
         And I press "Connexion"
-        And I go to "/projets/1"
+        And I go to "/corp/projets/1"
         And I follow "Ajouter un fait marquant"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
         And I press "Publier"
-        When I go to "/api/user-notifications/2"
+        When I go to "/corp/api/user-notifications/2"
         Then the response status code should be 403
 
     Scenario: Je suis notifié quand quelqu'un a modifié mon fait marquant
@@ -72,7 +72,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
             | _username | cdp@societe.dev  |
             | _password | cdp              |
         And I press "Connexion"
-        And I go to "/fait-marquants/1/modifier"
+        And I go to "/corp/fait-marquants/1/modifier"
         And I fill in the following:
             | fait_marquant[titre] | FM_Modifié |
         And I press "Publier"
@@ -82,7 +82,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
             | _username | user@societe.dev  |
             | _password | user              |
         And I press "Connexion"
-        When I go to "/api/user-notifications/1"
+        When I go to "/corp/api/user-notifications/1"
         And the JSON nodes should be equal to:
             | notifications[0].activity.type                    | fait_marquant_modified |
             | notifications[0].activity.parameters.projet       | 1 |

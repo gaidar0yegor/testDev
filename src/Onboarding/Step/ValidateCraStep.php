@@ -24,7 +24,7 @@ class ValidateCraStep implements OnboardingStepInterface
     public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
         return $urlGenerator->generate(
-            'app_fo_temps',
+            'corp_app_fo_temps',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

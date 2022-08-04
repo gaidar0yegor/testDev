@@ -40,7 +40,7 @@ if (chartContents) {
         }
     });
 
-    fetch(`/api/stats/budgets/${chartContents.dataset.projetId}`)
+    fetch(`/corp/api/stats/budgets/${chartContents.dataset.projetId}`)
         .then(response => {
             if (response.status === 500){
                 response.json().then(response => {
@@ -97,7 +97,7 @@ if (chartContents) {
 
         if (titre && amount){
             $.ajax({
-                url: `/api/projet/${projectId}/budget-expense/save`,
+                url: `/corp/api/projet/${projectId}/budget-expense/save`,
                 method: 'POST',
                 data: {
                     titre: titre,
@@ -153,7 +153,7 @@ if (chartContents) {
 
         if (expenseId){
             $.ajax({
-                url: `/api/projet/${projectId}/budget-expense/delete/${expenseId}`,
+                url: `/corp/api/projet/${projectId}/budget-expense/delete/${expenseId}`,
                 method: 'DELETE',
                 success: function (response) {
                     $($tr).remove();

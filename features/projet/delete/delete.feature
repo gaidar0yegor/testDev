@@ -10,7 +10,7 @@ Feature: Suppression d'un projet
         And I press "Connexion"
 
     Scenario: Le chef de projet peut supprimer un projet de test, la vérification lui indique que rien ne sera supprimé.
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PEMPTY"
         And I follow "Paramétrage du projet"
         And I follow "Vérifier et supprimer le projet"
@@ -27,7 +27,7 @@ Feature: Suppression d'un projet
         Then I should see "Le projet PEMPTY a été supprimé"
 
     Scenario: Le chef de projet peut supprimer un projet bien rempli, la vérification lui indique toutes les données liées qui seront supprimées.
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PFULL"
         And I follow "Paramétrage du projet"
         And I follow "Vérifier et supprimer le projet"

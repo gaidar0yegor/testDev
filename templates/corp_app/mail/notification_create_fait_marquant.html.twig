@@ -1,0 +1,26 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Rappel pour créer vos faits marquants sur RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Vous avez contribué à au moins un projet ce mois ci.
+                Si vous avez un fait marquant à ajouter, vous êtes invité à le faire ici.
+            </p>
+            <p>
+                <strong>Ajouter un fait marquant sur :</strong>
+
+                <ul>
+                    {% for projet in projets %}
+                        <li>
+                            <a href="{{ url('corp_app_fo_fait_marquant_ajouter', {projetId: projet.id}) }}">
+                                Projet {{ projet.acronyme }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </p>
+        </columns>
+    </row>
+{% endblock %}

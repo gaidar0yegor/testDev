@@ -1,0 +1,47 @@
+<table class="table mx-auto m-5">
+    <thead>
+        <tr>
+            <th>{{ "lastname"|trans }}</th>
+            <th>{{ "valid_until"|trans }}</th>
+            <th>Quotas</th>
+            <th>{{ "try_offer"|trans }}</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for filename, license in licenses %}
+            {% if not isLicenseSameSociete(license, entity) %}
+                <tr>
+                    <td colspan="4" class="text-muted">
+                        {{ "license_notRelated"|trans }}
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="{{ isLicenseExpired(license) ? 'text-muted' : 'text-success' }}">
+                    <td>{{ license.name }}</td>
+                    <td>
+                        {% if isLicenseExpired(license) %}
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        {% else %}
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                        {% endif %}
+
+                        {{ license.expirationDate|format_date(pattern='d MMMM yyyy') }}
+                    </td>
+                    <td>
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><strong>{{ license.quotas.contributeurs }}</strong> contributeurs,</li>
+                            <li class="list-inline-item"><strong>{{ license.quotas.activeProjet }}</strong> projets</li>
+                        </ul>
+                    </td>
+                    <td>{{ license.isTryLicense ? ("yes"|trans) : ("no"|trans) }}</td>
+                    <td>
+                        <a href="{{ path(downloadRoute|default('corp_app_fo_admin_license_download'), {'filename': filename}) }}">
+                            <i class="fa fa-download"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>

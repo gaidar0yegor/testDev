@@ -1,0 +1,51 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.admin.timesheet_export'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'menu.admin.timesheet_export'|trans }}</h1>
+
+<div class="row">
+    <div class="col-lg-8 offset-lg-2">
+        {{ helpText('generateTimesheet') }}
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        <div class="row">
+            <div class="col-sm-6">
+                {{ form_row(form.from) }}
+            </div>
+            <div class="col-sm-6">
+                {{ form_row(form.to) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <input type="checkbox" name="select-all" id="select-all" />
+                <label>{{ 'select_unselect_all'|trans }}</label>
+            </div>
+            <div class="col-sm-12">
+                {{ form_row(form.users) }}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                        {{ form_widget(form.submit, {'label': 'Exporter au format'}) }}
+                    </div>
+                    {{ form_widget(form.format, {'attr': {'class': 'custom-select'}}) }}
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+</div>
+
+{% endblock %}

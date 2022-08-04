@@ -1,0 +1,10 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Je vous recommande RDI-Manager{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            {% include 'corp_app/mail/_recommandation-content.html.twig' %}
+        </columns>
+    </row>
+{% endblock %}

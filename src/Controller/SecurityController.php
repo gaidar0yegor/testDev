@@ -30,11 +30,11 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, TranslatorInterface $trans): Response
     {
         if ($this->isGranted('ROLE_FO_USER')) {
-            return $this->redirectToRoute('app_fo_dashboard');
+            return $this->redirectToRoute('corp_app_fo_dashboard');
         }
 
         if ($this->isGranted('ROLE_BO_USER')) {
-            return $this->redirectToRoute('app_bo_home');
+            return $this->redirectToRoute('corp_app_bo_home');
         }
 
         // get the login error if there is one

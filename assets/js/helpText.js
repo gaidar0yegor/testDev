@@ -11,7 +11,7 @@ $(document).ready( function () {
 });
 
 const acknowledge = helpId => {
-    fetch('/api/help-text/acknowledge', {
+    fetch('/corp/api/help-text/acknowledge', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -22,7 +22,7 @@ const acknowledge = helpId => {
     });
 };
 const reactive = helpId => {
-    return fetch('/api/help-text/reactive', {
+    return fetch('/corp/api/help-text/reactive', {
         method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',

@@ -1,0 +1,46 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+    {% block title %}Nouveaux faits marquants ajoutés à vos projets{% endblock %}
+    {% block body %}
+        <row>
+            <columns>
+                <p>
+                    Les contributeurs ont ajouté
+                    <strong>{{ 'n_nouveaux_faits_marquants'|trans({'%n%': faitMarquants|length}) }}</strong>
+                    sur vos projets.
+                </p>
+
+                <spacer size="8"></spacer>
+
+                {% set currentProjet = null %}
+                {% for faitMarquant in faitMarquants %}
+                    {% if faitMarquant.projet != currentProjet %}
+                        {% set currentProjet = faitMarquant.projet %}
+                        <spacer size="8"></spacer>
+                        <h2 class="text-center color-title">Projet {{ faitMarquant.projet.acronyme }}</h2>
+                    {% endif %}
+
+                    <h3>{{ faitMarquant.titre }}</h3>
+
+                    <p>
+                        <small>
+                            Ajouté le <strong>{{ faitMarquant.date|format_date }}</strong>
+                            par <strong>{{ faitMarquant.createdBy.user.fullname }}</strong>.
+                        </small>
+
+                        <br />
+
+                        {{ faitMarquant.description|raw }}
+
+                        <br />
+
+                        <small>
+                            <a href="{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id}) }}">Voir sur RDI-Manager</a>.
+                        </small>
+                    </p>
+
+                    <spacer size="8"></spacer>
+                {% endfor %}
+            </columns>
+        </row>
+    {% endblock %}

@@ -1,0 +1,18 @@
+{% if sidebarProjets | length > 0 %}
+<div class="sidebar sidebar-projects">
+    <div class="arrow"><i class="fa fa-arrow-left"></i></div>
+    <div class="projects-list h-100 pt-3 pb-3 pr-1 pl-1">
+        {% for sidebarProjet in sidebarProjets %}
+            <div class="project-item d-flex flex-column justify-content-center align-items-center">
+                {% if sidebarProjet.colorCode %}
+                    {% include 'utils/_code_color.html.twig' with {color: sidebarProjet.colorCode, size: 15} %}
+                {% else %}
+                    <span class="badge d-inline-block rounded-circle mt-1" style="background-color: #e9ece6;width: 15px;height: 15px;"></span>
+                {% endif %}
+
+                <a href="{{ path('corp_app_fo_projet', {'id': sidebarProjet.id}) }}" title="{{ sidebarProjet.titre }}">{{ sidebarProjet.acronyme }}</a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}

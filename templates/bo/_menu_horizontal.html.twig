@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="{{ path('app_bo_home') }}">
+    <a class="navbar-brand" href="{{ path('corp_app_bo_home') }}">
         <img src="{{ asset('build/assets/img/Logo-RDI-blanc.png') }}" alt="RDI manager logo">
         <span class="bo-title">Back office</span>
     </a>
@@ -9,14 +9,14 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{ activeOn('app_bo_dashboard') }}">
-                <a class="nav-link" href="{{ path('app_bo_dashboard') }}">Tableau de bord</a>
+            <li class="nav-item {{ activeOn('corp_app_bo_dashboard') }}">
+                <a class="nav-link" href="{{ path('corp_app_bo_dashboard') }}">Tableau de bord</a>
             </li>
-            <li class="nav-item {{ activeOn('app_bo_stats') }}">
-                <a class="nav-link" href="{{ path('app_bo_stats') }}">Statistiques</a>
+            <li class="nav-item {{ activeOn('corp_app_bo_stats') }}">
+                <a class="nav-link" href="{{ path('corp_app_bo_stats') }}">Statistiques</a>
             </li>
-            <li class="nav-item {{ activeOn('app_bo_societes', 'app_bo_societe', 'app_bo_societes_creer') }}">
-                <a class="nav-link" href="{{ path('app_bo_societes') }}">Sociétés</a>
+            <li class="nav-item {{ activeOn('corp_app_bo_societes', 'corp_app_bo_societe', 'corp_app_bo_societes_creer') }}">
+                <a class="nav-link" href="{{ path('corp_app_bo_societes') }}">Sociétés</a>
             </li>
         </ul>
 

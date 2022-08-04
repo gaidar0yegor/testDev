@@ -65,8 +65,8 @@ class OnboardingNotificationListener implements EventSubscriberInterface
                         'Vous avez été invité sur RDI-Manager en qualité d\'administrateur %s',
                         $societe->getRaisonSociale()
                     ))
-                    ->htmlTemplate('mail/onboarding/finalize_admin.html.twig')
-                    ->textTemplate('mail/onboarding/finalize_admin.txt.twig')
+                    ->htmlTemplate('corp_app/mail/onboarding/finalize_admin.html.twig')
+                    ->textTemplate('corp_app/mail/onboarding/finalize_admin.txt.twig')
                 ;
                 break;
 
@@ -76,8 +76,8 @@ class OnboardingNotificationListener implements EventSubscriberInterface
                         'Vous avez été invité sur RDI-Manager en qualité de chef de projet %s',
                         $societe->getRaisonSociale()
                     ))
-                    ->htmlTemplate('mail/onboarding/finalize_cdp.html.twig')
-                    ->textTemplate('mail/onboarding/finalize_cdp.txt.twig')
+                    ->htmlTemplate('corp_app/mail/onboarding/finalize_cdp.html.twig')
+                    ->textTemplate('corp_app/mail/onboarding/finalize_cdp.txt.twig')
                 ;
                 break;
 
@@ -87,8 +87,8 @@ class OnboardingNotificationListener implements EventSubscriberInterface
                         'Vous avez été invité sur RDI-Manager pour suivre les projets de %s',
                         $societe->getRaisonSociale()
                     ))
-                    ->htmlTemplate('mail/onboarding/finalize_user.html.twig')
-                    ->textTemplate('mail/onboarding/finalize_user.txt.twig')
+                    ->htmlTemplate('corp_app/mail/onboarding/finalize_user.html.twig')
+                    ->textTemplate('corp_app/mail/onboarding/finalize_user.txt.twig')
                 ;
                 break;
         }
@@ -116,8 +116,8 @@ class OnboardingNotificationListener implements EventSubscriberInterface
                 'societeUser' => $societeUser,
             ])
             ->subject('Invitez vos chefs de projets et collaborateurs')
-            ->htmlTemplate('mail/onboarding/invite_collaborators.html.twig')
-            ->textTemplate('mail/onboarding/invite_collaborators.txt.twig')
+            ->htmlTemplate('corp_app/mail/onboarding/invite_collaborators.html.twig')
+            ->textTemplate('corp_app/mail/onboarding/invite_collaborators.txt.twig')
         ;
 
         $this->mailer->send($email);
@@ -143,8 +143,8 @@ class OnboardingNotificationListener implements EventSubscriberInterface
                 'societeUser' => $societeUser,
             ])
             ->subject('Créer vos projets et répartissez les rôles')
-            ->htmlTemplate('mail/onboarding/add_projects.html.twig')
-            ->textTemplate('mail/onboarding/add_projects.txt.twig')
+            ->htmlTemplate('corp_app/mail/onboarding/add_projects.html.twig')
+            ->textTemplate('corp_app/mail/onboarding/add_projects.txt.twig')
         ;
 
         $this->mailer->send($email);
@@ -189,7 +189,7 @@ class OnboardingNotificationListener implements EventSubscriberInterface
                 'societeUser' => $societeUser,
             ])
             ->subject('Bravo ! L\'aventure RDI-Manager est en marche pour vous')
-            ->htmlTemplate("mail/onboarding/$template.html.twig")
+            ->htmlTemplate('corp_app/mail/onboarding/' . $template . '.html.twig')
         ;
 
         $this->mailer->send($email);

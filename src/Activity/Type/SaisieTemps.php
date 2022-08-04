@@ -58,7 +58,7 @@ class SaisieTemps implements ActivityInterface, EventSubscriberInterface
         $month = $this->formatter->format(DateTime::createFromFormat('Y-m', $activityParameters['month']));
         $yearMonth = explode('-', $activityParameters['month']);
         $link = $this->urlGenerator->generate(
-            'app_fo_temps',
+            'corp_app_fo_temps',
             [
                 'year' => $yearMonth[0],
                 'month' => $yearMonth[1],

@@ -10,7 +10,7 @@ const displayGraph = (year,dashboardConsolide) => {
     document.querySelector('.moi-vs-equipe.moi.temps-total').innerText = '…';
     document.querySelector('.moi-vs-equipe.equipe.temps-total').innerText = '…';
 
-    fetch(`/api/mes-societes/dashboard/consolide/moi-vs-equipe/${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
+    fetch(`/corp/api/mes-societes/dashboard/consolide/moi-vs-equipe/${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
         .then(response => response.json())
         .then(moiVsEquipe => {
             document.querySelector('.moi-vs-equipe.moi.projet').innerText = moiVsEquipe.projets.moi;

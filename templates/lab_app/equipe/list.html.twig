@@ -1,0 +1,26 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.equipe.mesEquipes'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'menu.equipe.mesEquipes'|trans }}</h1>
+
+    <table class="table datatable hover" data-order='[[ 0, "asc" ]]'>
+        <thead>
+            <tr>
+                <th>{{ 'equipe.name'|trans }}</th>
+                <th>{{ 'equipe.number_etudes'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for equipe in equipes %}
+                <tr>
+                    <td class="text-left"><a href="{{ path('lab_app_fo_equipe', { 'id' : equipe.id }) }}">{{ equipe.name }}</a></td>
+                    <td class="text-left">{{ equipe.etudes|length }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

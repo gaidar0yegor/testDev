@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <title>Feuille de temps | RDI-Manager</title>
+
+        {% for file in encore_entry_css_files('timesheet-pdf') %}
+            <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet" />
+        {% endfor %}
+    </head>
+    <body>
+        {% if timesheets is not defined %}
+            {% set timesheets = [timesheet] %}
+        {% endif %}
+
+        {% for timesheet in timesheets %}
+            <section class="pdf-page">
+                {% include 'corp_app/timesheet/pdf/_sheet.html.twig' with {
+                    'timesheet': timesheet
+                } %}
+            </section>
+        {% endfor %}
+    </body>
+</html>

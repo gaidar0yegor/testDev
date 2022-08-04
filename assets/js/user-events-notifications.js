@@ -25,7 +25,7 @@ $(() => {
     /**
      * Retrieve last user notifications.
      */
-    const apiGetUserNotifications = () => fetch(`/api/user-events-notifications/${userContext.societeUserId}`);
+    const apiGetUserNotifications = () => fetch(`/corp/api/user-events-notifications/${userContext.societeUserId}`);
 
     /**
      * Mark the list of notifications defined by their ids in acknowledgeIds as read.
@@ -34,7 +34,7 @@ $(() => {
      *
      * @param {Number[]} acknowledgeIds
      */
-    const apiPostUserNotifications = acknowledgeIds => fetch(`/api/user-events-notifications/${userContext.societeUserId}`, {
+    const apiPostUserNotifications = acknowledgeIds => fetch(`/corp/api/user-events-notifications/${userContext.societeUserId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',

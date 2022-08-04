@@ -50,7 +50,7 @@ class RdiMailer
                 $homeUrl
             ))
 
-            ->htmlTemplate('mail/test_mail.html.twig')
+            ->htmlTemplate('corp_app/mail/test_mail.html.twig')
         ;
 
         $this->mailer->send($email);
@@ -66,9 +66,9 @@ class RdiMailer
             ->context([
                 'customText' => $recommandationMessage->getCustomText(),
             ])
-            ->textTemplate('mail/_recommandation-content.txt.twig')
+            ->textTemplate('corp_app/mail/_recommandation-content.txt.twig')
 
-            ->htmlTemplate('mail/recommandation.html.twig')
+            ->htmlTemplate('corp_app/mail/recommandation.html.twig')
         ;
 
         $this->mailer->send($email);

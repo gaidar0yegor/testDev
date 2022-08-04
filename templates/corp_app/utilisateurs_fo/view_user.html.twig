@@ -1,0 +1,140 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ societeUser.user.fullname }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ societeUser.user.fullname }}</h1>
+
+    <div class="text-center mb-4">
+        {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 180, border: true} %}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10 mx-auto offset-sm-1 col-lg-8 offset-lg-2">
+            <div class="card bg-light-grey border-light">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'lastname'|trans }}</strong></div>
+                        <div class="col-md-9">{{ societeUser.user.nom }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'firstname'|trans }}</strong></div>
+                        <div class="col-md-9">{{ societeUser.user.prenom }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'role'|trans }}</strong></div>
+                        <div class="col-md-9">{{ societeUser.role|trans }}</div>
+                    </div>
+                    {% if hasUserManagementPermission(societeUser) %}
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'email'|trans }}</strong></div>
+                            <div class="col-md-9">{{ societeUser.user.email }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'phone'|trans }}</strong></div>
+                            <div class="col-md-9">
+                                {% if societeUser.user.telephone %}
+                                    {{ societeUser.user.telephone|phone_number_rdi }}
+                                {% else %}
+                                    <i>{{ 'not_known'|trans }}</i>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'status'|trans }}</strong></div>
+                            <div class="col-md-9">
+                                {% if societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_ACTIVE') %}
+                                    <span class="badge badge-success">{{ constant('App\\Entity\\SocieteUser::STATUT_ACTIVE')|trans }}</span>
+                                {% elseif societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_DISABLED') %}
+                                    <span class="badge badge-warning">{{ constant('App\\Entity\\SocieteUser::STATUT_DISABLED')|trans }}</span>
+                                {% elseif societeUser.statut is constant('App\\Entity\\SocieteUser::STATUT_INVITATION') %}
+                                    <span class="badge badge-primary">{{ constant('App\\Entity\\SocieteUser::STATUT_INVITATION')|trans }}</span>
+                                {% else %}
+                                    <span class="badge badge-secondary">{{ 'not_known'|trans }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'societeUserPeriod.dateEntry'|trans }}</strong></div>
+                            <div class="col-md-9">
+                                {% if societeUser.getLastSocieteUserPeriod.dateEntry is not null %}
+                                    {{ societeUser.getLastSocieteUserPeriod.dateEntry|format_date }}
+                                {% else %}
+                                    <i>{{ 'not_known'|trans }}</i>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'societeUserPeriod.dateLeave'|trans }}</strong></div>
+                            <div class="col-md-9">
+                                {% if societeUser.getLastSocieteUserPeriod.dateLeave is not null %}
+                                    {{ societeUser.getLastSocieteUserPeriod.dateLeave|format_date }}
+                                {% else %}
+                                    <i>{{ 'not_known'|trans }}</i>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% if hasUserManagementPermission(societeUser) %}
+                        <div class="mt-5">
+                            <a href="{{ path('corp_app_fo_utilisateur_modifier', { id: societeUser.id }) }}" class="btn btn-outline-success mt-2">{{ 'update'|trans }}</a>
+                            <a href="{{ path('corp_app_fo_utilisateur_activity', { id: societeUser.id }) }}" class="btn btn-outline-primary mt-2">{{ 'activity'|trans }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2>{{ 'his_projects'|trans }}</h2>
+
+    {% if hasUserManagementPermission(societeUser) %}
+        <p class="text-center">
+            <a href="{{ path('corp_app_fo_admin_utilisateur_roles_projets', {'id': societeUser.id}) }}" class="btn btn-sm btn-outline-primary">{{ 'manage_his_projects_access'|trans }}</a>
+        </p>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
+            <ul class="list-group list-group-flush">
+                {% for participation in societeUser.projetParticipants|sortByRole %}
+                    {% if is_granted('view', participation.projet) %}
+                        <li class="list-group-item">
+                            <strong>{{ participation.role|trans }}</strong>
+                            {{ '.on_the_project'|trans }}
+                            <a href="{{ path('corp_app_fo_projet', {'id': participation.projet.id}) }}">
+                                {{ participation.projet.acronyme }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if hasUserManagementPermission(societeUser) %}
+            <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
+                <div class="row my-4">
+                    <div class="col-md-12 mx-auto bordure">
+                        <h2>
+                            <span
+                                    class="year-switch text-center"
+                                    data-event-name="user-chart-year-changed"
+                                    {% if societeUser.getLastSocieteUserPeriod.dateEntry %}
+                                        data-year-from="{{ societeUser.getLastSocieteUserPeriod.dateEntry|date('Y') }}"
+                                    {% endif %}
+                                    data-with-unit="temps-unit-switch"
+                            ></span>
+                            {{ 'time_spent_in'|trans }}
+                            <span
+                                    class="temps-unit-switch"
+                                    data-event-name="user-chart-year-changed"
+                            ></span>
+                        </h2>
+                    </div>
+                </div>
+
+                <div id="chart-user-projets-temps" data-user-id="{{ societeUser.id }}"></div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

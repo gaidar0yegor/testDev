@@ -1,0 +1,27 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'list_files'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'list_files'|trans }}</h1>
+
+    <a class="d-block mb-4" href="{{ path('lab_app_fo_etude', {id: etude.id}) }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        {{ "return_to_etude"|trans }}
+    </a>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.fichierEtudes) }}
+
+    {% if is_granted(constant('App\\EtudeResourceInterface::CREATE'), etude) %}
+        <div class="text-center mt-5">
+            <button class="btn btn-success">
+                {{ 'save'|trans }}
+            </button>
+        </div>
+    {% endif %}
+
+    {{ form_end(form) }}
+{% endblock %}

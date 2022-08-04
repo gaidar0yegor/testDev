@@ -20,7 +20,7 @@ Feature: L'admin peut connecter sa société à son espace Slack
         And I should see "Mon-Espace-Slack / #general"
 
     Scenario: L'admin peut supprimer une connexion à une chaîne Slack pour ne plus y envoyer de notifications
-        When I send a POST request to "/api/slack/remove-token/1"
+        When I send a POST request to "/corp/api/slack/remove-token/1"
         Then the response status code should be 204
 
         When I go to the homepage

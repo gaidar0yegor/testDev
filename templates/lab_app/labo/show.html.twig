@@ -1,0 +1,21 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ labo.name }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="d-flex flex-row justify-content-center align-items-center mt-4">
+        <h1 class="mb-0 mt-0">
+            {{ labo.name }}
+        </h1>
+    </div>
+
+    <p class="text-center">
+        {{ 'labo.rnsr_short'|trans }} : <span class="text-monospace">{{ labo.rnsr }}</span>
+        <br>
+        <a href="{{ path('lab_app_fo_admin_labo_edit') }}">{{ 'labo.edit_labo'|trans }}</a>
+    </p>
+
+    <div class="row">
+
+    </div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}Rejoindre le laboratoire {{ userBookInvite.labo.name }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>Finalisation de votre inscription</h1>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <p>
+            Vous êtes sur le point de rejoindre le laboratoire <strong>{{ userBookInvite.labo.name }}</strong>
+            avec le rôle <strong>{{ userBookInvite.role|trans }}</strong>.
+        </p>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.existedUserBook) }}
+
+        <div class="word-surrounded-container"><div><span>{{ 'or'|trans }}</span></div></div>
+
+        {{ form_row(form.title) }}
+
+        {{ form_rest(form) }}
+
+        <button type="submit" class="btn btn-lg btn-primary">Rejoindre le laboratoire <strong>{{ userBookInvite.labo.name }}</button>
+
+        {{ form_end(form) }}
+
+    </div>
+</div>
+
+{% endblock %}

@@ -21,7 +21,7 @@ class ProjetLink implements EntityLinkGeneratorInterface
     {
         return new EntityLink(
             $entity->getAcronyme(),
-            $urlGenerator->generate('app_fo_projet', [
+            $urlGenerator->generate('corp_app_fo_projet', [
                 'id' => $entity->getId(),
             ])
         );

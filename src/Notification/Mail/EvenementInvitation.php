@@ -46,8 +46,8 @@ class EvenementInvitation
     {
         $email = (new TemplatedEmail())
             ->subject("[". $evenement->getType() ."] Annulation : " . $evenement->getText())
-            ->htmlTemplate('mail/evenement_cancel_invitation.html.twig')
-            ->textTemplate('mail/evenement_cancel_invitation.txt.twig')
+            ->htmlTemplate('corp_app/mail/evenement_cancel_invitation.html.twig')
+            ->textTemplate('corp_app/mail/evenement_cancel_invitation.txt.twig')
             ->context([
                 'societe' => $evenement->getSociete(),
                 'evenement' => $evenement,
@@ -65,8 +65,8 @@ class EvenementInvitation
     {
         $email = (new TemplatedEmail())
             ->subject("[". ($edit ? "Update | " : "New | ") . $evenement->getType() ."] Invitation : " . $evenement->getText())
-            ->htmlTemplate('mail/evenement_send_invitation.html.twig')
-            ->textTemplate('mail/evenement_send_invitation.txt.twig')
+            ->htmlTemplate('corp_app/mail/evenement_send_invitation.html.twig')
+            ->textTemplate('corp_app/mail/evenement_send_invitation.txt.twig')
             ->context([
                 'societe' => $evenement->getSociete(),
                 'evenement' => $evenement,

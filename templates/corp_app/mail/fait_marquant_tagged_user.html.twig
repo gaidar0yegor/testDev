@@ -1,0 +1,51 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}
+    {{ faitMarquant.createdBy.user.shortname }} vous a mentionné dans le fait marquant "{{ faitMarquant.titre }}" du projet {{ faitMarquant.projet.acronyme }} sous RDI-Manager.
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <spacer size="8"></spacer>
+
+            {% if sendFm %}
+            <h5>{{ faitMarquant.titre }}</h5>
+
+            <p>
+                <small>
+                    Ajouté le <strong>{{ faitMarquant.date|format_date }}</strong>
+                    par <strong>{{ faitMarquant.createdBy.user.fullname }}</strong>.
+                </small>
+
+                <br />
+
+                {{ faitMarquant.description|raw }}
+
+                <br />
+
+                <small>
+                    {% if invitationSended %}
+                        {% if faitMarquant.fichierProjets | length > 0 %}<cite>Ce fait marquant contient des fichiers joints.</cite><br>{% endif %}
+                        Pour plus de détails, vous avez été invité en tant qu'un observateur interne sur le projet {{ faitMarquant.projet.acronyme }}.
+                        <br />
+                    {% endif %}
+                        <a href="{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}">Voir sur RDI-Manager</a>.
+                </small>
+            </p>
+            {% else %}
+
+                {% if invitationSended %}
+                    <p>
+                        Pour plus de détails, veuillez accepter l'invitation de RDI-Manager.
+                    </p>
+                {% else %}
+                    <p>
+                        Rapprochez vous du chef de projet si vous voulez suivre l'avancement de ce projet.
+                    </p>
+                {% endif %}
+
+            {% endif %}
+
+        </columns>
+    </row>
+{% endblock %}

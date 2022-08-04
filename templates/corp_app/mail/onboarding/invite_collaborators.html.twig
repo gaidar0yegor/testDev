@@ -1,0 +1,22 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Vous avez été invité sur RDI-Manager pour suivre les projets de {{ societe.raisonSociale }}{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            {% if societe.projets|length <= 1 %}
+            <p>
+                <strong>Félicitations, vous avez validé votre compte utilisateur RDI-Manager</strong>
+            </p>
+            {% endif %}
+
+            <p>
+                <strong>En qualité d’Administrateur, vous devez maintenant inviter vos chefs de projets et collaborateurs</strong>,
+                afin qu’ils prennent la main sur l’application et mettent en marche votre processus de suivi de projets.
+            </p>
+
+            {% include 'corp_app/mail/onboarding/_onboarding_signature.html.twig' %}
+        </columns>
+    </row>
+{% endblock %}

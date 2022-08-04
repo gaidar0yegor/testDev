@@ -37,7 +37,7 @@ class InvitationTokenExpiredListener implements EventSubscriberInterface
             return;
         }
 
-        $content = $this->twig->render('invitation/invalid_invitation_token.html.twig', [
+        $content = $this->twig->render('corp_app/invitation/invalid_invitation_token.html.twig', [
             'error' => $exception,
         ]);
 

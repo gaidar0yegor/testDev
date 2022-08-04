@@ -1,0 +1,16 @@
+{% extends "corp_app/base.html.twig" %}
+
+{% block title %}{{ 'activity_of_user'|trans({'%user%': societeUser.user.fullname}) }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'activity_of_user'|trans({'%user%': societeUser.user.fullname}) }}</h1>
+
+<a class="d-block mb-4" href="{{ path('corp_app_fo_utilisateurs') }}">
+    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+    {{ 'back'|trans }}
+</a>
+
+    {% include '_activity-list.html.twig' with {'activities': activities} %}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+<ul class="navbar-nav mr-auto">
+    <li class="nav-item {{ activeOn('lab_app_fo_dashboard') }}">
+        <a class="nav-link" href="{{ path('lab_app_fo_dashboard') }}"><i class="fa fa-tachometer" aria-hidden="true"></i> <span class="nav-item-title">{{ 'dashboard'|trans }}</span></a>
+    </li>
+    <li class="nav-item {{activeOn('lab_app_fo_etudes', 'lab_app_fo_etude_creation') }}">
+        <a class="nav-link" href="{{ path('lab_app_fo_etudes') }}">
+            <i class="fa fa-list-ul" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.etude.mesEtudes'|trans }}</span>
+        </a>
+    </li>
+    <li class="nav-item {{ activeOn('lab_app_fo_equipes') }}">
+        <a class="nav-link" href="{{ path('lab_app_fo_equipes') }}">
+            <i class="fa fa-users" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.equipe.mesEquipes'|trans }}</span>
+        </a>
+    </li>
+    {% if is_granted(constant('App\\Security\\Role\\RoleLabo::ADMIN')) %}
+    <li class="nav-item dropdown {{ activeOn('lab_app_fo_admin_lab_show','lab_app_fo_admin_utilisateurs','lab_app_fo_admin_user_invite') }}">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-cogs" aria-hidden="true"></i> <span class="nav-item-title">{{ 'menu.admin'|trans }}</span>
+        </a>
+        <div class="dropdown-menu">
+            <a
+                    class="dropdown-item {{ activeOn('lab_app_fo_admin_lab_show') }}"
+                    href="{{ path('lab_app_fo_admin_lab_show') }}"
+            >
+                <i class="fa fa-building-o" aria-hidden="true"></i>{{ 'menu.admin.labo'|trans }}
+            </a>
+            <div class="dropdown-divider"></div>
+            <a
+                    class="dropdown-item {{ activeOn('lab_app_fo_admin_equipes') }}"
+                    href="{{ path('lab_app_fo_admin_equipes') }}"
+            >
+                <i class="fa fa-user-circle-o" aria-hidden="true"></i>{{ 'menu.admin.equipes'|trans }}
+            </a>
+            <a
+                    class="dropdown-item {{ activeOn('lab_app_fo_admin_utilisateurs') }}"
+                    href="{{ path('lab_app_fo_admin_utilisateurs') }}"
+            >
+                <i class="fa fa-users" aria-hidden="true"></i>{{ 'menu.admin.users'|trans }}
+            </a>
+            <a
+                    class="dropdown-item {{ activeOn('lab_app_fo_admin_user_invite') }}"
+                    href="{{ path('lab_app_fo_admin_user_invite') }}"
+            >
+                <i class="fa fa-user-plus" aria-hidden="true"></i>{{ 'menu.admin.invite_user'|trans }}
+            </a>
+        </div>
+    </li>
+    {% endif %}
+</ul>

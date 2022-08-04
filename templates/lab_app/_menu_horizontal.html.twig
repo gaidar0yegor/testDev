@@ -1,0 +1,88 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="{{ path('app_home') }}">
+        <img src="{{ asset('build/assets/img/Logo-RDI-blanc.png') }}" alt="RDI-Manager logo">
+    </a>
+
+    {% if app.user %}
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {% if userContext.hasUserBook %}
+                {% include 'lab_app/_menu_horizontal_societe.html.twig' %}
+            {% else %}
+                {% include 'lab_app/_menu_horizontal_no_societe.html.twig' %}
+            {% endif %}
+
+            <div class="d-sm-inline d-flex flex-row flex-wrap justify-content-start align-items-start">
+                {% if app.user.currentUserBook %}
+                    <div class="btn-group user-menu ml-2">
+                        <a href="#" class="btn btn-outline-light border-0 dropdown-toggle dropdown-societe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ app.user.currentUserBook.title }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right">
+                            {% for userBook in app.user.userBooks|slice(0, 3) %}
+                                <form action="{{ path('lab_app_fo_multi_user_book_switch_post', {'id': userBook.id}) }}" method="post">
+                                    <button type="submit" class="dropdown-item btn-outline-light border-0 pl-3">
+                                        {{ userBook.title }}
+                                    </button>
+                                </form>
+                            {% endfor %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item {{ activeOn('lab_app_fo_multi_user_book_switch') }}"
+                               href="{{ path('lab_app_fo_multi_user_book_switch') }}">
+                                {{ 'see_more'|trans }}
+                            </a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="btn-group user-menu ml-2">
+                        <a href="#" class="btn btn-outline-light border-0 dropdown-toggle dropdown-societe" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ 'lab_app_name'|trans }}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg-right">
+                            <form action="{{ path('corp_app_fo_multi_societe_switch') }}" method="post">
+                                <button type="submit" class="dropdown-item btn-outline-light border-0 pl-3">
+                                    {{ 'corp_app_name'|trans }}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <div class="btn-group user-menu ml-2">
+                    <a href="#" class="btn btn-outline-light border-0 dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% include 'utils/_avatar.html.twig' with {user: app.user, size: 24} %}
+                        {{ app.user.prenom }}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg-right">
+                        {% if is_granted('ROLE_BO_USER') %}
+                            <a
+                                    class="dropdown-item back-office-link {{ activeOn('corp_app_bo_home') }}"
+                                    href="{{ path('corp_app_bo_home') }}"
+                            >
+                                <i class="fa fa-rocket" aria-hidden="true"></i>{{ 'back_office'|trans }}
+                                <span class="badge notif-badge bg-danger rounded-circle mt-1 float-right" style="display: none;width: 10px;height: 10px;"></span>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                        {% endif %}
+                        <a
+                                class="dropdown-item {{ activeOn('corp_app_fo_mon_compte') }}"
+                                href="{{ path('corp_app_fo_mon_compte') }}"
+                        >
+                            <i class="fa fa-user" aria-hidden="true"></i>{{ 'my_account'|trans }}
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a
+                                class="dropdown-item"
+                                href="{{ path('app_logout') }}"
+                        >
+                            <i class="fa fa-sign-out" aria-hidden="true"></i>{{ 'logout'|trans }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</nav>

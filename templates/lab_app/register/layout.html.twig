@@ -1,0 +1,76 @@
+{% extends 'base_html.html.twig' %}
+
+{% block base_body %}
+    <div class="row no-gutters rdi-register">
+        <aside class="col-md-5 col-lg-4 d-none d-md-block">
+            <p class="text-center">
+                <a href="{{ path('app_home') }}"><img src="{{ asset('build/assets/img/Logo-RDI-blanc.png') }}" class="logo" alt="RDI-Manager logo"></a>
+            </p>
+
+            <div class="container register-workflow">
+                <div class="row register-workflow-step {{ step >= 1 ? 'active' : '' }}">
+                    <div class="col-3 offset-1 text-center">
+                        <i class="fa fa-3x fa-building-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-8">
+                        <h5 class="mb-0">{{ 'my_labo'|trans }}</h5>
+                        <p><small>{{ '.to_register_on_rdi_manager'|trans }}</small></p>
+                    </div>
+                </div>
+
+                <div class="row register-workflow-step {{ step >= 2 ? 'active' : '' }}">
+                    <div class="col-3 offset-1 text-center">
+                        <i class="fa fa-3x fa-user-circle-o" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-8">
+                        <h5 class="mb-0">{{ 'my_account'|trans }}</h5>
+                        <p><small>{{ '.administrator'|trans }}</small></p>
+                    </div>
+                </div>
+
+                <div class="row register-workflow-step {{ step >= 3 ? 'active' : '' }}">
+                    <div class="col-3 offset-1 text-center">
+                        <i class="fa fa-3x fa-flask" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-8">
+                        <h5 class="mb-0">{{ 'my_labo'|trans }}</h5>
+                        <p><small>{{ '.in_which_i_will_work'|trans }}</small></p>
+                    </div>
+                </div>
+
+                <div class="row register-workflow-step {{ step >= 4 ? 'active' : '' }}">
+                    <div class="col-3 offset-1 text-center">
+                        <i class="fa fa-3x fa-rocket" aria-hidden="true"></i>
+                    </div>
+                    <div class="col-8">
+                        <h5 class="mb-0">{{ 'finished!'|trans }}</h5>
+                        <p><small>{{ 'welcome_on_rdi_manager'|trans }}</small></p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="col-md-7 col-lg-8">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 offset-sm-1 col-lg-8 offset-lg-2">
+                        {% include '_flash_messages.html.twig' %}
+
+                        {% block register %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('app') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}

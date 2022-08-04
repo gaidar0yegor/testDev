@@ -40,7 +40,7 @@ if (contentDiv){
         chart.unload();
 
         setTimeout(() => {
-            fetch(`/api/mes-societes/dashboard/consolide/projets-statuts/since-${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
+            fetch(`/corp/api/mes-societes/dashboard/consolide/projets-statuts/since-${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
                 .then(response => response.json())
                 .then(heuresParProjet => {
                     chart.load({

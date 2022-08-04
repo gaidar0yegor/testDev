@@ -11,16 +11,16 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I follow "Utilisateurs"
 
     Scenario: Le référent peut voir toutes les infos d'un utilisateur en particulier
-        When I click on the 1st "[href='/utilisateur/2']" element
+        When I click on the 1st "[href='/corp/utilisateur/2']" element
         Then I should see "Utilisateur Eureka" in the "h1" element
 
     Scenario: Le référent ne peut pas voir les infos des utilisateurs des autres société
-        When I go to "/utilisateur/3"
+        When I go to "/corp/utilisateur/3"
         Then the response status code should be 403
         And I should not see "Modification de Utilisateur Eureka"
 
     Scenario: Le référent peut modifier les infos d'un utilisateur en particulier
-        When I click on the 1st "[href='/utilisateur/2/modifier']" element
+        When I click on the 1st "[href='/corp/utilisateur/2/modifier']" element
         Then I should see "Modification de Utilisateur Eureka"
 
         When I fill in the following:
@@ -30,12 +30,12 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I should see "Chef de Projet" in the ".main-container" element
 
     Scenario: Le référent ne peut pas modifier les infos des utilisateurs des autres société
-        When I go to "/utilisateur/3/modifier"
+        When I go to "/corp/utilisateur/3/modifier"
         Then the response status code should be 403
         And I should not see "AutreSociete"
 
     Scenario: Le référent peut désactiver et réactiver un utilisateur
-        When I click on the 1st "[href='/utilisateur/2']" element
+        When I click on the 1st "[href='/corp/utilisateur/2']" element
         Then I should see "Actif"
 
         When I follow "Mettre à jour"
@@ -46,11 +46,11 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I press "Mettre à jour"
         Then I should see "Les informations de l'utilisateur ont été modifiées"
 
-        And I am on "/utilisateur/2/modifier"
+        And I am on "/corp/utilisateur/2/modifier"
         And I press "Désactiver"
         Then I should see "Utilisateur Eureka a été désactivé, il ne pourra plus se connecter"
         When I follow "Utilisateurs"
-        And I click on the 1st "[href='/utilisateur/2']" element
+        And I click on the 1st "[href='/corp/utilisateur/2']" element
         And I should see "Désactivé"
 
         When I follow "Mettre à jour"
@@ -61,34 +61,34 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         And I press "Mettre à jour"
         Then I should see "Les informations de l'utilisateur ont été modifiées"
 
-        And I am on "/utilisateur/2/modifier"
+        And I am on "/corp/utilisateur/2/modifier"
         And I press "Ré-activer"
         Then I should see "Utilisateur Eureka a été activé, il pourra se connecter de nouveau"
         When I follow "Utilisateurs"
-        And I click on the 1st "[href='/utilisateur/2']" element
+        And I click on the 1st "[href='/corp/utilisateur/2']" element
         And I should see "Actif"
 
     Scenario: Le référent ne peut pas se désactiver lui-même car il serait bloqué
-        When I click on the 1st "[href='/utilisateur/1']" element
+        When I click on the 1st "[href='/corp/utilisateur/1']" element
         And I follow "Mettre à jour"
         And I press "Désactiver"
         Then I should not see "Admin Eureka a été désactivé, il ne pourra plus se connecter"
 
     Scenario: Le référent ne peut pas désactiver les utilisateurs des autres société
-        When I send a POST request to "/utilisateur/3/desactiver"
+        When I send a POST request to "/corp/utilisateur/3/desactiver"
         Then the response status code should be 403
 
     Scenario: L'admin peut voir les projets dont l'utilisateur participe
-        When I click on the 1st "[href='/utilisateur/2']" element
+        When I click on the 1st "[href='/corp/utilisateur/2']" element
         Then I should see "Ses projets" in the "h2" element
         And I should see "Contributeur sur le projet PT"
 
     Scenario: L'admin peut voir le graphique des temps passés de l'utilisateurs sur ses projets
-        When I click on the 1st "[href='/utilisateur/2']" element
+        When I click on the 1st "[href='/corp/utilisateur/2']" element
         Then I should see "Temps passé en" in the "h2" element containing "Temps passé en"
 
     Scenario: L'admin peut définir une date d'entrée d'un user
-        When I click on the 1st "[href='/utilisateur/2/modifier']" element
+        When I click on the 1st "[href='/corp/utilisateur/2/modifier']" element
         And I fill in the following:
             | societe_user[societeUserPeriods][0][dateEntry] | 01 janvier 2021 |
         And I press "Mettre à jour"
@@ -99,7 +99,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         Then I should see "Utilisateur Eureka a rejoint la société. le 1 janv. 2021"
 
     Scenario: L'admin peut définir une date de sortie d'un user
-        When I click on the 1st "[href='/utilisateur/2/modifier']" element
+        When I click on the 1st "[href='/corp/utilisateur/2/modifier']" element
         And I fill in the following:
             | societe_user[societeUserPeriods][0][dateLeave] | 20 janvier 2021 |
         And I press "Mettre à jour"
@@ -110,7 +110,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         Then I should see "Utilisateur Eureka a quitté la société. le 20 janv. 2021"
 
     Scenario: Je ne vois pas l'activité future
-        When I click on the 1st "[href='/utilisateur/2/modifier']" element
+        When I click on the 1st "[href='/corp/utilisateur/2/modifier']" element
         And I fill in the following:
             | societe_user[societeUserPeriods][0][dateEntry] | 1 janvier 2020 |
             | societe_user[societeUserPeriods][0][dateLeave] | 20 janvier 2050 |
@@ -120,7 +120,7 @@ Feature: Le référent peut voir, modifier et supprimer ses utilisateurs.
         But I should not see "Utilisateur Eureka a quitté la société. le 20 janvier 2050"
 
     Scenario: L'activité 'a rejoint la société' est bien remplacée (et non dupliquée) lorsque je modifie la date d'entrée
-        When I click on the 1st "[href='/utilisateur/2/modifier']" element
+        When I click on the 1st "[href='/corp/utilisateur/2/modifier']" element
         And I fill in the following:
             | societe_user[societeUserPeriods][0][dateLeave] | 1 janvier 2021 |
         And I press "Mettre à jour"

@@ -13,7 +13,7 @@ const displayGraph = year => {
         my_contributions.querySelector('.moi-vs-equipe.moi.temps-total').innerText = '…';
         my_contributions.querySelector('.moi-vs-equipe.equipe.temps-total').innerText = '…';
 
-        fetch(`/api/dashboard/moi-vs-equipe/${year}`)
+        fetch(`/corp/api/dashboard/moi-vs-equipe/${year}`)
             .then(response => response.json())
             .then(moiVsEquipe => {
                     my_contributions.querySelector('.moi-vs-equipe.moi.projet').innerText = moiVsEquipe.projets.moi;

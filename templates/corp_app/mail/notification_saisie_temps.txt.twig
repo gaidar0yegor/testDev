@@ -1,0 +1,17 @@
+Saisie de vos temps sur RDI-Manager :
+
+{% if cra and cra.isTempsPassesSubmitted %}
+    Vous avez déjà saisi vos temps le {{ cra.tempsPassesModifiedAt|format_date(pattern='d MMMM') }}.
+
+    Vous pouvez toujours revérifier vos temps ici : {{ url('corp_app_fo_temps', {
+        'year': month|date('Y'),
+        'month': month|date('m')
+    }) }}
+{% else %}
+    Vous n'avez pas encore saisi vos temps pour le mois de {{ month|format_date(pattern='MMMM') }}.
+
+    Vous pouvez les saisir ici : {{ url('corp_app_fo_temps', {
+        'year': month|date('Y'),
+        'month': month|date('m')
+    }) }}
+{% endif %}

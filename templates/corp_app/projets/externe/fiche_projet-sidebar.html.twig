@@ -1,0 +1,60 @@
+<dl>
+    <p>{{ "obs_ext_proj"|trans|raw|striptags('<strong>')|raw }}</p>
+
+    {% if projet.projetUrls|length > 0 %}
+        <ul class="list-unstyled">
+            {% for projetUrl in projet.projetUrls %}
+                <li class="text-truncate">
+                    <i class="fa {{ projetUrl.url|faUrlIcon }}" aria-hidden="true"></i>
+                    <a href="{{ projetUrl.url }}" target="_blank">{{ projetUrl.text|default(projetUrl.url) }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if projet.dateDebut %}
+        <dt>{{ 'date_debut'|trans }}</dt>
+        <dd>{{ projet.dateDebut|format_date }}</dd>
+    {% endif %}
+    {% if projet.dateFin %}
+        <dt>{{ 'date_fin'|trans }}</dt>
+        <dd>{{ projet.dateFin|format_date }}</dd>
+    {% endif %}
+    <dt>{{ 'status'|trans }}</dt>
+    <dd>
+        {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
+    </dd>
+</dl>
+
+<hr>
+
+<h4>Contributeurs ({{ contributeurs|length }})</h4>
+
+<ul class="list-unstyled">
+    {% for contributeur in contributeurs %}
+        <li>
+            {{ contributeur.societeUser.user.fullname }}
+        </li>
+    {% else %}
+        <li>{{ "no_contrib_proj"|trans }}</li>
+    {% endfor %}
+</ul>
+
+{% if projet.accessibleExterneFichierProjets|length > 0 %}
+    <hr>
+
+    <h4>{{ 'filesString'|trans }}</h4>
+
+    <ul class="list-unstyled">
+        {% for fichierProjet in projet.accessibleExterneFichierProjets %}
+            <li>
+                <a target="_blank"
+                   href="{{ path('corp_app_fo_observateur_externe_view_file', {'projetId': projet.id,'fichierProjetId': fichierProjet.id}) }}"
+                        {% if fichierProjet.fichier|isImageFile %} miniature {% else %} title="{{ 'download'|trans }}" {% endif %}>
+                    <i class="fa {{ fichierProjet|faFileIcon }}" aria-hidden="true"></i>
+                    {{ fichierProjet.fichier.nomFichier }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

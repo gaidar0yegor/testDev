@@ -13,9 +13,9 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         Given societe "Société" reset licenses
         And societe "Société" has a license with "2" projets and "10" contributeurs
 
-        And I am on "/projets"
+        And I am on "/corp/projets"
         When I follow "Créer un projet"
-        Then I should be on "/projets/creation"
+        Then I should be on "/corp/projets/creation"
         When I fill in the following:
             | projet_form[acronyme] | PTEST2        |
             | projet_form[titre]    | Projet Test 2 |
@@ -26,9 +26,9 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         Given societe "Société" reset licenses
         And societe "Société" has a license with "1" projets and "10" contributeurs
 
-        When I am on "/projets"
+        When I am on "/corp/projets"
         And I follow "Créer un projet"
-        Then I should be on "/projets/creation"
+        Then I should be on "/corp/projets/creation"
         When I fill in the following:
             | projet_form[acronyme] | PTEST2        |
             | projet_form[titre]    | Projet Test 2 |
@@ -40,7 +40,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         Given societe "Société" reset licenses
         And societe "Société" has a license with "1" projets and "1" contributeurs
 
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PTEST"
         And I follow "Gérer les participants"
         And I fill in the following:
@@ -52,7 +52,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         Given societe "Société" reset licenses
         And societe "Société" has a license with "1" projets and "1" contributeurs
 
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PTEST"
         And I follow "Ajouter un fait marquant"
         And I fill in the following:
@@ -64,7 +64,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
     Scenario: Je ne peux pas ajouter de fait marquant si je n'ai aucune license
         Given societe "Société" reset licenses
 
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PTEST"
         And I follow "Ajouter un fait marquant"
         And I fill in the following:
@@ -78,7 +78,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
         Given societe "Société" reset licenses
         And societe "Société" has an expired license
 
-        When I go to "/projets"
+        When I go to "/corp/projets"
         And I follow "PTEST"
         And I follow "Ajouter un fait marquant"
         And I fill in the following:

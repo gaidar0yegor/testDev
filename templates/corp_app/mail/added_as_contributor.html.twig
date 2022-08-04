@@ -1,0 +1,28 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Vous avez été ajouté sur le projet {{ projet.acronyme }} en tant que contributeur{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Le chef de projet du projet <strong>{{ projet.acronyme }}</strong>
+                vient de vous ajouter en tant que contributeur.
+            </p>
+
+            <p>
+                <a href="{{ url('corp_app_fo_projet', {id: projet.id}) }}">Voir la page du projet</a>
+            </p>
+
+            <p>
+                En tant que contributeur sur ce projet, vous pouvez maintenant :
+            </p>
+
+            <ul>
+                <li>Ajouter des faits marquant accomplis sur ce projet afin de construire un historique</li>
+                <li>Saisir votre temps passé afin de permettre aux administrateurs de générer les feuilles de temps</li>
+                <li>Consulter le projet pour suivre sa progression</li>
+            </ul>
+        </columns>
+    </row>
+{% endblock %}

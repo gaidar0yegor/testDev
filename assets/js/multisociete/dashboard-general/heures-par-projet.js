@@ -40,7 +40,7 @@ if (contentDiv){
         chart.unload();
 
         setTimeout(() => {
-            fetch(`/api/mes-societes/dashboard/general/heures-par-projet/${societeUser}/${year}`)
+            fetch(`/corp/api/mes-societes/dashboard/general/heures-par-projet/${societeUser}/${year}`)
                 .then(response => response.json())
                 .then(datas => {
                     let heuresParProjet = datas.userProjetsHeuresPassees;

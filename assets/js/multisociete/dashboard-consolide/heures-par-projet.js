@@ -37,7 +37,7 @@ if (contentDiv){
         chart.unload();
 
         setTimeout(() => {
-            fetch(`/api/mes-societes/dashboard/consolide/heures-par-projet/${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
+            fetch(`/corp/api/mes-societes/dashboard/consolide/heures-par-projet/${year}/${dashboardConsolide ? dashboardConsolide : ""}`)
                 .then(response => response.json())
                 .then(datas => {
                     let heuresParProjet = datas.multisosieteProjetsHeuresPassees;

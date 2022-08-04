@@ -32,7 +32,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         When I follow "Mes projets"
         And I follow "PTEST"
         And I follow "Liste des fichiers"
-        When I click on the 1st "[href='/projets/1/fichiers/1/modifier']" element
+        When I click on the 1st "[href='/corp/projets/1/fichiers/1/modifier']" element
         Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
             | fichier_projet_modifier[fichier][nomFichier] | business-plan.txt |
@@ -51,7 +51,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         When I follow "Mes projets"
         And I follow "PTEST"
         And I follow "Liste des fichiers"
-        When I click on the 1st "[href='/projets/1/fichiers/1/modifier']" element
+        When I click on the 1st "[href='/corp/projets/1/fichiers/1/modifier']" element
         Then I should see "Modifier un fichier" in the "h1" element
         And I fill in the following:
             | fichier_projet_modifier[fichier][nomFichier] | business-plan.php |
@@ -70,8 +70,8 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
         When I follow "Mes projets"
         And I follow "PTEST"
         And I follow "Liste des fichiers"
-        Then I should see a "[href='/projets/1/fichiers/1/modifier'].disabled" element
-        When I go to "/projets/1/fichiers/1/modifier"
+        Then I should see a "[href='/corp/projets/1/fichiers/1/modifier'].disabled" element
+        When I go to "/corp/projets/1/fichiers/1/modifier"
         Then the response status code should be 403
 
     Scenario: Un utilisateur ne peut pas voir et télécharger les fichiers si il n'est pas au moins observateur sur le projet
@@ -81,10 +81,10 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | pas_acces              |
         And I press "Connexion"
 
-        When I go to "/projets/1/fichiers"
+        When I go to "/corp/projets/1/fichiers"
         Then the response status code should be 403
 
-        When I go to "/projets/1/fichiers/1"
+        When I go to "/corp/projets/1/fichiers/1"
         Then the response status code should be 403
 
     Scenario: Un contributeur peut téléverser un fichier
@@ -94,6 +94,6 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | contributeur              |
         And I press "Connexion"
 
-        When I go to "/projets/1"
+        When I go to "/corp/projets/1"
         When I follow "Ajouter un fichier"
         And I should see "Ajouter un fichier"

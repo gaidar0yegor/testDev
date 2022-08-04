@@ -10,12 +10,12 @@ Feature: Camembert "Réalisation des projets"
         And I press "Connexion"
 
     Scenario: L'API retourne les données
-        When I am on "/api/dashboard/projets-statuts/since-2018"
+        When I am on "/corp/api/dashboard/projets-statuts/since-2018"
         Then the response should be in JSON
         And the JSON node "active" should be equal to "3"
         And the JSON node "finished" should be equal to "0"
 
-        When I am on "/api/dashboard/projets-statuts/since-2017"
+        When I am on "/corp/api/dashboard/projets-statuts/since-2017"
         Then the response should be in JSON
         And the JSON node "active" should be equal to "3"
         And the JSON node "finished" should be equal to "1"

@@ -42,7 +42,7 @@ window.addEventListener('loadSinceYearCharts', event => {
     chart.unload();
 
     setTimeout(() => {
-        fetch(`/api/dashboard/projets-type/since-${year}`)
+        fetch(`/corp/api/dashboard/projets-type/since-${year}`)
             .then(response => response.json())
             .then(projetsType => {
                 const nbProjets = ['Projets'];

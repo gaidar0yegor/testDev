@@ -60,7 +60,7 @@ class IcsFileGenerator
             ->setSummary($evenement->getText())
             ->setDescription($evenement->getDescription() ?? '' )
             ->setLocation(new Location($evenement->getLocation() ?? ''))
-            ->setUrl(new Uri($this->urlGenerator->generate('app_fo_current_user_events', [
+            ->setUrl(new Uri($this->urlGenerator->generate('corp_app_fo_current_user_events', [
                 'event' => $evenement->getId(),
             ], UrlGeneratorInterface::ABSOLUTE_URL)))
             ->setOccurrence(

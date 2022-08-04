@@ -67,7 +67,7 @@ class Slack
      */
     public function generateRedirectUri(): string
     {
-        return $this->urlGenerator->generate('app_slack', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->urlGenerator->generate('corp_app_slack', [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**

@@ -24,7 +24,7 @@ if (chartDiv){
 function drawChart() {
     var superiorId = chartDiv.dataset.societeUserId;
     chartDiv.innerHTML = "";
-    fetch(`/api/equipe/organigramme/${superiorId}`)
+    fetch(`/corp/api/equipe/organigramme/${superiorId}`)
         .then(response => response.json())
         .then(response => {
             avatarPublicUrl = response.avatarPublicUrl;

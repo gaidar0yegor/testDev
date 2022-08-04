@@ -1,0 +1,23 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'addNew_FM'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-md-10 offset-md-1">
+        <h1>{{ 'addNew_FM'|trans }}</h1>
+
+        <h2 class="text-center">{{ 'projectString'|trans }} {{ projet.acronyme }}</h2>
+
+        <a class="d-block mb-4" href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'go_back_go_project'|trans }}
+        </a>
+
+       {{ include('corp_app/fait_marquant/_form.html.twig') }}
+    </div>
+</div>
+
+{% endblock %}

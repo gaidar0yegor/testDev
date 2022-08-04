@@ -47,7 +47,7 @@ function initAbsences(date, craJours) {
         $btnSubmit.prop('disabled', true);
         $btnSubmit.text(t('updating...'));
 
-        $.post(['/api/cra', date.year, date.month].join('/'), {
+        $.post(['/corp/api/cra', date.year, date.month].join('/'), {
             cra: craJours,
         })
             .done(() => {

@@ -1,0 +1,127 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'my_account'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'my_account'|trans }}</h1>
+
+    <div class="text-center mb-4">
+        {% include 'utils/_avatar.html.twig' with {user: app.user, size: 180, border: true} %}
+        <br>
+
+        <a href="{{ path('corp_app_fo_mon_compte_modifier_avatar') }}" class="btn btn-link btn-sm">{{ 'edit_my_avatar'|trans }}</a>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-10 mx-auto offset-sm-1 col-lg-8 offset-lg-2">
+            <div class="card bg-light-grey border-light">
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'lastname'|trans }}</strong></div>
+                        <div class="col-md-9">{{ app.user.nom }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'firstname'|trans }}</strong></div>
+                        <div class="col-md-9">{{ app.user.prenom }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'email'|trans }}</strong></div>
+                        <div class="col-md-9">
+                            {% if app.user.email %}
+                                {{ app.user.email }}
+                            {% else %}
+                                <i>{{ 'not_known'|trans }}</i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'phone'|trans }}</strong></div>
+                        <div class="col-md-9">
+                            {% if app.user.telephone %}
+                                {{ app.user.telephone|phone_number_rdi }}
+                            {% else %}
+                                <i>{{ 'not_known'|trans }}</i>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-3"><strong>{{ 'locale'|trans }}</strong></div>
+                        <div class="col-md-9">
+                            {{ app.user.locale|localeCodeToText }}
+                        </div>
+                    </div>
+
+                    <div class="mt-5">
+                        <a
+                            href="{{ path('corp_app_fo_mon_compte_modifier') }}"
+                            class="btn btn-outline-success mt-2"
+                        >{{ 'update'|trans }}</a>
+                        <a
+                            href="{{ path('corp_app_fo_mon_compte_update_password') }}"
+                            class="btn btn-outline-warning mt-2"
+                        >{{ 'change_password'|trans }}</a>
+                    </div>
+                </div>
+            </div>
+
+            {% if userContext.hasSocieteUser %}
+                <h2>{{ 'my_account_on_societe_x'|trans({'%societe%': userContext.societeUser.societe.raisonSociale}) }}</h2>
+
+                <div class="card bg-light-grey border-light">
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'role'|trans }}</strong></div>
+                            <div class="col-md-9">{{ userContext.societeUser.role|trans }}</div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-3"><strong>{{ 'my_superior'|trans }} (N+1)</strong></div>
+                            <div class="col-md-9">
+                                {{ form_start(mySuperiorForm) }}
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form_errors(mySuperiorForm) }}
+                                    </div>
+                                    <div class="col-md-9">
+                                        {{ form_row(mySuperiorForm.mySuperior) }}
+                                    </div>
+                                    <div class="col-md-3 d-flex flex-column justify-content-start align-items-start">
+                                        {{ form_row(mySuperiorForm.submit) }}
+                                    </div>
+                                </div>
+                                {{ form_end(mySuperiorForm) }}
+                            </div>
+                        </div>
+
+                        <div class="mt-5">
+                            <a
+                                href="{{ path('corp_app_fo_mon_compte_activite') }}"
+                                class="btn btn-outline-primary mt-2"
+                            >{{ 'my_activity'|trans }}</a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            <h2>{{ 'my_notifications'|trans }}</h2>
+
+            <div class="card bg-light-grey border-light">
+                <div class="card-body">
+                    {{ form_start(notificationForm) }}
+                    {{ form_errors(notificationForm) }}
+
+                    {{ form_row(notificationForm.notificationEnabled) }}
+
+                    <div class="notifications-group">
+                        <hr />
+                        {{ form_rest(notificationForm) }}
+                    </div>
+
+                     <button type="submit" class="btn btn-primary btn-validate-cra my-3">{{ 'update'|trans }}</button>
+
+                    {{ form_end(notificationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

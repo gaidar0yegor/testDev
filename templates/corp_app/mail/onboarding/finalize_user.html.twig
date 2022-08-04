@@ -1,0 +1,24 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Vous avez été invité sur RDI-Manager pour suivre les projets de {{ societe.raisonSociale }}{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                <strong>Vous devez valider votre invitation afin d’être partie prenante {{ societe.raisonSociale }}.</strong>
+            </p>
+
+            <button
+                href="{{ url('corp_app_fo_user_finalize_inscription', {'token': societeUser.invitationToken}) }}"
+                class="large expanded"
+            >Valider mon invitation</button>
+
+            <p>
+                Ceci vous permettra de suivre et de participer à l’avancement des différents projets {{ societe.raisonSociale }} pour lesquels un rôle vous sera attribué.
+            </p>
+
+            {% include 'corp_app/mail/onboarding/_onboarding_signature.html.twig' %}
+        </columns>
+    </row>
+{% endblock %}

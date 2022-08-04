@@ -4,6 +4,7 @@ namespace App\DTO;
 
 use App\Entity\SocieteUser;
 use App\Entity\User;
+use App\UserResourceInterface;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 
@@ -14,11 +15,11 @@ use libphonenumber\PhoneNumberUtil;
  */
 class NullUser extends User
 {
-    private SocieteUser $societeUser;
+    private UserResourceInterface $userResource;
 
-    public function __construct(SocieteUser $societeUser)
+    public function __construct(UserResourceInterface $userResource)
     {
-        $this->societeUser = $societeUser;
+        $this->userResource = $userResource;
     }
 
     public function getFullname(): string
@@ -33,13 +34,13 @@ class NullUser extends User
 
     public function getFullnameOrEmail(): string
     {
-        if (null !== $this->societeUser->getInvitationEmail()) {
-            return $this->societeUser->getInvitationEmail();
+        if (null !== $this->userResource->getInvitationEmail()) {
+            return $this->userResource->getInvitationEmail();
         }
 
-        if (null !== $this->societeUser->getInvitationTelephone()) {
+        if (null !== $this->userResource->getInvitationTelephone()) {
             return PhoneNumberUtil::getInstance()->format(
-                $this->societeUser->getInvitationTelephone(),
+                $this->userResource->getInvitationTelephone(),
                 PhoneNumberFormat::NATIONAL
             );
         }
@@ -49,6 +50,6 @@ class NullUser extends User
 
     public function getEmail(): ?string
     {
-        return $this->societeUser->getInvitationEmail();
+        return $this->userResource->getInvitationEmail();
     }
 }

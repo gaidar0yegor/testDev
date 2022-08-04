@@ -1,0 +1,27 @@
+{{ faitMarquant.createdBy.user.shortname }} vous a mentionné dans le fait marquant "{{ faitMarquant.titre }}" du projet {{ faitMarquant.projet.acronyme }} sous RDI-Manager.
+
+{% if sendFm %}
+{{ faitMarquant.description|raw }}
+
+{% if invitationSended %}
+{% if faitMarquant.fichierProjets | length > 0 %}
+Ce fait marquant contient des fichiers joints.
+{% endif %}
+Pour plus de détails, vous avez été invité en tant qu'un observateur interne sur le projet {{ faitMarquant.projet.acronyme }}.
+
+{% endif %}
+Voir sur RDI-Manager :
+
+{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}
+
+{% else %}
+{% if invitationSended %}
+Pour plus de détails, veuillez accepter l'invitation de RDI-Manager.
+{% else %}
+Rapprochez vous du chef de projet si vous voulez suivre l'avancement de ce projet.
+{% endif %}
+{% endif %}
+
+
+
+

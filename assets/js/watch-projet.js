@@ -5,7 +5,7 @@
  * @param {boolean} watch
  */
 const apiProjetWatch = async (projetId, watch) => {
-    return fetch(`/api/projet/${projetId}/${watch ? 'watch' : 'unwatch'}`, {method: 'post'});
+    return fetch(`/corp/api/projet/${projetId}/${watch ? 'watch' : 'unwatch'}`, {method: 'post'});
 };
 
 const main = () => {

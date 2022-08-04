@@ -9,7 +9,7 @@ Feature: Le chef de projet doit pouvoir inviter un nouvel utilisateur
             | _username | cdp@societe.dev  |
             | _password | cdp              |
         And I press "Connexion"
-        And I am on "/projets/1/participants"
+        And I am on "/corp/projets/1/participants"
 
         When I follow "Inviter un nouvel utilisateur"
         And I fill in the following:

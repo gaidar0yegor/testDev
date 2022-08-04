@@ -1,0 +1,70 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'menu.projects.list'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>
+        {{ 'my_team_projects_of_year'|trans }}
+        <span
+            class="year-switch"
+            data-event-name="year-changed"
+            data-year-from="{{ yearMin }}"
+            data-year-to="{{ yearMax }}"
+        ></span>
+    </h1>
+
+    {% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) %}
+        <p>
+            <i class="fa fa-info-circle" aria-hidden="true"></i>
+            {{ 'as_admin_i_can_also_access_all_projects'|trans({
+                '%link_start%': '<a href="' ~ path('corp_app_fo_admin_projets') ~ '">',
+                '%link_end%': '</a>'
+            })|raw }}
+        </p>
+    {% endif %}
+
+    <table class="table datatable hover" data-order='[[ 1, "asc" ]]'>
+        <thead>
+            <tr>
+                <th>{% include 'utils/_code_color.html.twig' with {color: '#e9ece6', size: 15} %}</th>
+                <th>{{ 'project'|trans }}</th>
+                <th>{{ 'start'|trans }}</th>
+                <th>{{ 'end'|trans }}</th>
+                <th>{{ 'status'|trans }}</th>
+            </tr>
+        </thead>
+        <tbody class="filter-projets-by-selected-year">
+
+            {% for projet in projets %}
+                <tr
+                    data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
+                    data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
+                >
+                    <td class="text-center" data-sort='{{ projet.colorCode }}'>
+                        {% include 'utils/_code_color.html.twig' with {color: projet.colorCode, size: 15} %}
+                    </td>
+                    <td class="text-left"><a href="{{ path('corp_app_fo_mon_equipe_projet', {'id': projet.id}) }}" title="{{ projet.titre }}">{{ projet.acronyme }}</a></td>
+                    <td class="text-center" data-sort='{{ projet.dateDebut ? projet.dateDebut|date('Ymd') : '' }}'>{{ projet.dateDebut ? projet.dateDebut|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center" data-sort='{{ projet.dateFin ? projet.dateFin|date('Ymd') : '' }}'>{{ projet.dateFin ? projet.dateFin|date('d/m/Y') : '-' }}</td>
+                    <td class="text-center">
+                        {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="my-3 text-right">
+        <a
+            class="btn btn-outline-success {{ is_granted('SOCIETE_CDP') ? '' : 'disabled' }}"
+            href="{{ path('corp_app_fo_projet_creation') }}"
+            {% if not is_granted('SOCIETE_CDP') %}
+                title="{{ 'create_project_requires_project_manager_role'|trans }}"
+            {% endif %}
+        >
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            {{ 'menu.projects.create'|trans }}
+        </a>
+    </div>
+{% endblock %}

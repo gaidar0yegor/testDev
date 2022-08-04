@@ -27,7 +27,7 @@
                         </li>
                     </ul>
                 {% endif %}
-                <a href="{{ path('app_bo_societe_generate_license', { 'id' : societe.id, 'product' : product }) }}"
+                <a href="{{ path('corp_app_bo_societe_generate_license', { 'id' : societe.id, 'product' : product }) }}"
                    class="btn btn-lg btn-block btn-outline-primary">
                     {{ societe.productKey != product ? 'Générer' : 'Modifier' }}
                 </a>

@@ -5,7 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-        <title>{% block title %}RDI-Manager{% endblock %}</title>
+        <title>
+            {% block title %}
+                {{ app.request.attributes.get('_app_name') ? app.request.attributes.get('_app_name') : 'RDI-Manager' }}
+            {% endblock %}
+        </title>
 
         {% block meta %}
             <meta name="robots" content="noindex">
@@ -29,7 +33,7 @@
         </script>
         <script type="text/javascript" src="{{ asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js') }}"></script>
     </head>
-    <body>
+    <body class="{{ app.request.attributes.get('_app_class') }}">
         {% block base_body %}
         {% endblock %}
 

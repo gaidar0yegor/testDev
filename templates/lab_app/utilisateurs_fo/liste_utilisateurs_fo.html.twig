@@ -1,0 +1,56 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'users_list'| trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'users_list'|trans }}</h1>
+
+    <table class="table datatable hover">
+        <thead>
+        <tr>
+            <th class="text-left">Avatar</th>
+            <th class="text-center">{{ 'lastname'|trans }}</th>
+            <th class="text-center">{{ 'firstname'|trans }}</th>
+            <th class="text-center">{{ 'user_book.string'|trans }}</th>
+            <th class="text-center">{{ 'email'|trans }}</th>
+            <th class="text-center">{{ 'role'|trans }}</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for userBook in userBooks %}
+            <tr>
+                <td class="text-center">
+                    {% include 'utils/_avatar.html.twig' with {user: userBook.user, size: 24, toExpend: true} %}
+                </td>
+                <td class="text-center">{{ userBook.user.nom }}</td>
+                <td class="text-center">{{ userBook.user.prenom }}</td>
+                <td class="text-center">{{ userBook.title }}</td>
+                <td class="text-center">{{ userBook.user.email }}</td>
+                <td class="text-center" data-sort='{{ userBook.role|trans }}'>
+                    <span class="d-none d-sm-block">{{ userBook.role|trans }}</span>
+                    <span class="d-sm-none">{{ (userBook.role ~'.small')|trans }}</span>
+                </td>
+                <td class="text-right">
+{#                    <a href="{{ path('corp_app_fo_societe_user', { 'id': societeUser.id }) }}">#}
+{#                        <i class="fa fa-lg fa-eye"></i>#}
+{#                    </a>#}
+{#                    <a href="{{ path('corp_app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}">#}
+{#                        <i class="fa fa-lg fa-edit"></i>#}
+{#                    </a>#}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if userContext.userBook.isAdminFo %}
+        <div class="my-3 text-right">
+            <a href="{{ path('lab_app_fo_admin_user_invite') }}" class="btn btn-outline-primary">
+                <i class="fa fa-user-plus" aria-hidden="true"></i>
+                {{ 'invite_new_user'|trans }}
+            </a>
+        </div>
+    {% endif %}
+
+{% endblock %}

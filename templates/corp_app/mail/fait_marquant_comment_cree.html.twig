@@ -1,0 +1,28 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Un nouveau commentaire vient d'être ajouté sur le projet {{ faitMarquant.projet.acronyme }}{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                <strong>{{ user.fullName }}</strong> a commenté le fait marquant <strong>{{ faitMarquant.titre }}</strong>
+                sur le projet <strong>{{ faitMarquant.projet.acronyme }}</strong> :
+            </p>
+
+            <spacer size="8"></spacer>
+
+            <p>
+                {{ faitMarquantComment.text }}
+            </p>
+
+            <spacer size="8"></spacer>
+
+            <small>
+                Pour répondre à ce commentaire,
+                <a href="{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}">
+                    cliquez ici
+                </a>.
+            </small>
+        </columns>
+    </row>
+{% endblock %}

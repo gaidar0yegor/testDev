@@ -1,0 +1,40 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'my_account_edition'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'edit_my_avatar'|trans }}</h1>
+
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <a class="d-block mb-4" href="{{ path('corp_app_fo_mon_compte') }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'back'|trans }}
+        </a>
+
+        <p>{{ 'current_avatar:'|trans }}</p>
+
+        <div class="img-uploaded-container">
+        {% if app.user.avatar %}
+            {% include 'utils/_avatar.html.twig' with {user: app.user, size: 200, border: true} %}
+        {% else %}
+            <img class=" img-thumbnail rounded-circle mb-4"/>
+        {% endif %}
+        </div>
+
+        <p>{{ 'new_avatar:'|trans }}</p>
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_row(form.file) }}
+
+        <button type="submit" class="btn btn-success">{{ 'update'|trans }}</button>
+
+        {{ form_end(form) }}
+    </div>
+</div>
+
+{% endblock %}

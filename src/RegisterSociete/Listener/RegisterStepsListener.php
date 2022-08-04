@@ -45,7 +45,7 @@ class RegisterStepsListener implements EventSubscriberInterface
             return;
         }
 
-        if (!$this->routeStartsWith('app_register', $event)) {
+        if (!$this->routeStartsWith('corp_app_register', $event)) {
             return;
         }
 
@@ -63,45 +63,45 @@ class RegisterStepsListener implements EventSubscriberInterface
         $route = $event->getRequest()->attributes->get('_route');
 
         // Do nothing on main route, redirected to next page in controller.
-        if ('app_register' === $route) {
+        if ('corp_app_register' === $route) {
             return;
         }
 
         // Redirect to 'create societe' step if societe not yet created while creating my account
-        if ($this->routeStartsWith('app_register_account', $event)) {
+        if ($this->routeStartsWith('corp_app_register_account', $event)) {
             if (null === $registration->societe) {
-                $this->redirectToRoute('app_register_societe', $event);
+                $this->redirectToRoute('corp_app_register_societe', $event);
                 return;
             }
         }
 
         // Redirect to first step if no admin logged in
         if (in_array($route, [
-            'app_register_projet',
-            'app_register_collaborators',
-            'app_register_finish',
+            'corp_app_register_projet',
+            'corp_app_register_collaborators',
+            'corp_app_register_finish',
         ])) {
             if (
                 !$this->userContext->hasSocieteUser()
                 || $this->userContext->getSocieteUser()->getRole() !== RoleSociete::ADMIN
             ) {
-                $this->redirectToRoute('app_register', $event);
+                $this->redirectToRoute('corp_app_register', $event);
                 return;
             }
         }
 
         // Redirect to next step if trying to create a projet when already one is created
-        if ('app_register_projet' === $route) {
+        if ('corp_app_register_projet' === $route) {
             if (count($this->userContext->getSocieteUser()->getSociete()->getProjets()) > 0) {
-                $this->redirectToRoute('app_register_collaborators', $event);
+                $this->redirectToRoute('corp_app_register_collaborators', $event);
                 return;
             }
         }
 
         // Redirect to next step if trying to add collaborators if I already invited some
-        if ('app_register_projet' === $route) {
+        if ('corp_app_register_projet' === $route) {
             if (count($this->userContext->getSocieteUser()->getSociete()->getSocieteUsers()) > 1) {
-                $this->redirectToRoute('app_register_finish', $event);
+                $this->redirectToRoute('corp_app_register_finish', $event);
                 return;
             }
         }

@@ -1,0 +1,6 @@
+Vous avez contribué à au moins un projet ce mois ci.
+Si vous avez un fait marquant à ajouter, vous êtes invité à le faire ici :
+
+{% for projet in projets %}
+- {{ projet.acronyme }} : {{ url('corp_app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}
+{% endfor %}

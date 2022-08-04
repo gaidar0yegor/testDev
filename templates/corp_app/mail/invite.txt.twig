@@ -1,0 +1,5 @@
+{{ fromUser.fullname }} vous invite sur RDI-Manager dans la société {{ invitedUser.societe.raisonSociale }} en tant que {{ invitedUser.role|trans }}.
+
+Finalisez votre inscription en suivant ce lien :
+
+{{ url('corp_app_fo_user_finalize_inscription', {'token': invitedUser.invitationToken}) }}

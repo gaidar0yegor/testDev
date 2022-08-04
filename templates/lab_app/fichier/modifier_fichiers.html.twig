@@ -1,0 +1,30 @@
+{% extends 'lab_app/base.html.twig' %}
+
+{% block title %}{{ 'editFile'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ 'editFile'|trans }}</h1>
+
+    <a class="d-block mb-4" href="{{ path('lab_app_fo_etude', {id: etude.id}) }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        {{ "return_to_etude"|trans }}
+    </a>
+
+    <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-2">
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+
+        {{ form_widget(form) }}
+
+        <div class="text-center">
+
+            <button class="btn btn-success" type="submit">{{ 'edit_btn'|trans }}</button>
+
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

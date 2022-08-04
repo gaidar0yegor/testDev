@@ -26,7 +26,7 @@ class GenerateTimesheetStep implements OnboardingStepInterface, EventSubscriberI
     public function getLink(UrlGeneratorInterface $urlGenerator, SocieteUser $societeUser): ?string
     {
         return $urlGenerator->generate(
-            'app_fo_admin_timesheet_generate',
+            'corp_app_fo_admin_timesheet_generate',
             [],
             UrlGeneratorInterface::ABSOLUTE_URL
         );

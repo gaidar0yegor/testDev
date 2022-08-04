@@ -34,8 +34,8 @@ class FaitMarquantCreated
     {
         $email = (new TemplatedEmail())
             ->subject('Fait marquant ajouté sur le projet '.$faitMarquant->getProjet()->getAcronyme())
-            ->htmlTemplate('mail/fait_marquant_cree.html.twig')
-            ->textTemplate('mail/fait_marquant_cree.txt.twig')
+            ->htmlTemplate('corp_app/mail/fait_marquant_cree.html.twig')
+            ->textTemplate('corp_app/mail/fait_marquant_cree.txt.twig')
             ->context([
                 'faitMarquant' => $faitMarquant,
                 'societe' => $faitMarquant->getSociete(),
@@ -78,8 +78,8 @@ class FaitMarquantCreated
     {
         $templatedEmail = (new TemplatedEmail())
             ->subject("{$faitMarquant->getCreatedBy()->getUser()->getShortname()} vous a mentionné dans un fait marquant")
-            ->htmlTemplate('mail/fait_marquant_tagged_user.html.twig')
-            ->textTemplate('mail/fait_marquant_tagged_user.txt.twig');
+            ->htmlTemplate('corp_app/mail/fait_marquant_tagged_user.html.twig')
+            ->textTemplate('corp_app/mail/fait_marquant_tagged_user.txt.twig');
 
         $context = [
             'faitMarquant' => $faitMarquant,

@@ -30,8 +30,8 @@ class FaitMarquantCommentCreated
 
         $email = (new TemplatedEmail())
             ->subject($user->getFullname() . ' a commenté un fait marquant sur le projet '. $faitMarquant->getProjet()->getAcronyme())
-            ->htmlTemplate('mail/fait_marquant_comment_cree.html.twig')
-            ->textTemplate('mail/fait_marquant_comment_cree.txt.twig')
+            ->htmlTemplate('corp_app/mail/fait_marquant_comment_cree.html.twig')
+            ->textTemplate('corp_app/mail/fait_marquant_comment_cree.txt.twig')
             ->context([
                 'faitMarquantComment' => $faitMarquantComment,
                 'faitMarquant' => $faitMarquant,

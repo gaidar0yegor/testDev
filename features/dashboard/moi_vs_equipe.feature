@@ -10,7 +10,7 @@ Feature: Tableau "Moi VS Equipe"
         And I press "Connexion"
 
     Scenario: L'API retourne les données
-        When I am on "/api/dashboard/moi-vs-equipe/2020"
+        When I am on "/corp/api/dashboard/moi-vs-equipe/2020"
         Then the response should be in JSON
         And the JSON node "projets.moi" should be equal to "2"
         And the JSON node "projets.equipe" should be equal to "3"

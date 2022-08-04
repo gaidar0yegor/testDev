@@ -1,0 +1,30 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ 'invite_new_user'|trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+<h1>{{ 'invite_new_user'|trans }}</h1>
+
+<div class="col-lg-6 mx-auto">
+    <p>
+        {{ 'you_can_invite_by_email_or_sms_to_make_him_join_company.'|trans }}
+    </p>
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.invitationEmail) }}
+    {{ form_row(form.invitationTelephone) }}
+    {{ form_row(form.societeUserPeriods) }}
+    {{ form_row(form.role) }}
+
+    <div class="text-center mt-5">
+        <button type="submit" class="btn btn-success btn-lg">{{ 'invite'|trans }}
+    </div>
+
+    {{ form_end(form) }}
+
+</div>
+
+{% endblock %}

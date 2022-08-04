@@ -1,0 +1,10 @@
+Un nouveau fait marquant vient d'être ajouté sur le projet {{ faitMarquant.projet.acronyme }} :
+
+{{ faitMarquant.titre }}
+(par {{ faitMarquant.createdBy.user.fullname }})
+
+{{ faitMarquant.description|raw }}
+
+Voir sur RDI-Manager :
+
+{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}

@@ -1,0 +1,45 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}Fait marquant ajouté sur le projet {{ faitMarquant.projet.acronyme }}{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Un nouveau fait marquant vient d'être ajouté
+                sur le projet <strong>{{ faitMarquant.projet.acronyme }}</strong> :
+            </p>
+
+            <spacer size="8"></spacer>
+
+            <h3>{{ faitMarquant.titre }}</h3>
+
+            <p>
+                <small>
+                    Ajouté le <strong>{{ faitMarquant.date|format_date }}</strong>
+                    par <strong>{{ faitMarquant.createdBy.user.fullname }}</strong>.
+                </small>
+
+                <br />
+
+                {{ faitMarquant.description|raw }}
+
+                <br />
+
+                <small>
+                    <a href="{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id, '_fragment': 'fait-marquant-' ~ faitMarquant.id}) }}">Voir sur RDI-Manager</a>.
+                </small>
+            </p>
+
+            <spacer size="8"></spacer>
+
+            <small>
+                Vous recevez cette notification car vous suivez le projet.
+                Pour ne plus recevoir de notification sur ce projet,
+                vous pouvez vous désabonner en décochant "Suivre le projet" sur
+                <a href="{{ url('corp_app_fo_projet', {id: faitMarquant.projet.id}) }}">
+                    la page du projet {{ faitMarquant.projet.acronyme }}
+                </a>.
+            </small>
+        </columns>
+    </row>
+{% endblock %}

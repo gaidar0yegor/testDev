@@ -1,0 +1,139 @@
+{% extends "corp_app/base.html.twig" %}
+
+{% block title %}{{ "projectString"|trans }} {{ projet.acronyme }} | {{ parent() }}{% endblock %}
+
+
+{% block body %}
+
+    <h1>{{ "projectString"|trans }} {{ projet.acronyme }}</h1>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <a class="d-block mb-4" href="{{ path('corp_app_fo_projet', {id: projet.id}) }}">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            {{ 'go_on_project'|trans }}
+        </a>
+
+        {% include 'corp_app/projets/_projet_actions_shortcut.html.twig' with {projet: projet} %}
+    </div>
+
+    <div class="col-md-8 mx-auto">
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.dateDebut) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.dateFin) }}
+            </div>
+            <div class="col-md-12">
+                {{ form_label(form.exportOptions) }}
+                {{ form_widget(form.exportOptions, { 'attr' : { 'class' : 'd-flex flex-row justify-content-between align-item-center'} } ) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="input-group mt-3">
+                    <div class="input-group-prepend">
+                        <button type="submit" class="btn btn-success">Générer</button>
+                    </div>
+                    {{ form_widget(form.format, {'attr': {'class': 'custom-select'}}) }}
+                </div>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+
+    <div class="card bg-light-grey border-light mt-3">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-md-2"><strong>{{ "title"|trans }} : </strong></div>
+                <div class="col-md-10">{{ projet.titre }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-2"><strong>{{ "resume"|trans }} : </strong></div>
+                <div class="col-md-10 text-justify">{{ projet.resume|markdown|raw }}</div>
+            </div>
+            {% if projet.rdiDomains | length > 0 %}
+                <div class="row mb-3">
+                    <div class="col-md-2"><strong>{{ "domain"|trans }} : </strong></div>
+                    <div class="col-md-10 text-justify">
+                        {% for domain in projet.rdiDomains %}
+                            <p>{{ domain.nom }}</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>{{ "PROJET_CDP"|trans }} : </strong></div>
+                        <div class="col-md-6">{{ projet.chefDeProjet.user.fullname }}</div>
+                    </div>
+                    {% if projet.dateDebut %}
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>{{ "date_debut"|trans }}  : </strong></div>
+                            <div class="col-md-6">{{ projet.dateDebut|format_date }}</div>
+                        </div>
+                    {% endif %}
+                    {% if projet.dateFin %}
+                        <div class="row mb-3">
+                            <div class="col-md-4"><strong>{{ "date_fin"|trans }}  : </strong></div>
+                            <div class="col-md-6">{{ projet.dateFin|format_date }}</div>
+                        </div>
+                    {% endif %}
+                    <div class="row mb-3">
+                        <div class="col-md-4"><strong>{{ "status"|trans }}  : </strong></div>
+                        <div class="col-md-6">
+                            {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="timeline">
+        <h2 class="facts">Faits marquants</h2>
+
+        {% if projet.hasFaitMarquants() %}
+            <ul class="timeline text-word-break">
+                {% for faitMarquant in projet.faitMarquants %}
+                    {% if faitMarquant.trashedAt is null %}
+                        <li class="event">
+                            <h4 data-date="{{ faitMarquant.date|format_date }}">
+                                {{ faitMarquant.date|format_date }}
+                                -
+                                <span>{{ faitMarquant.createdBy.user.fullname }}</span>
+                            </h4>
+                            <h3>{{ faitMarquant.titre }}</h3>
+                            <p class="text-justify">
+                                {{ faitMarquant.description|markdown|raw }}
+                            </p>
+                            <ul class="list-unstyled">
+                                {% for fichierProjet in faitMarquant.fichierProjets %}
+                                    <li>
+                                        <i class="fa {{ fichierProjet.fichier|faFileIcon }}" aria-hidden="true"></i>
+                                        <a
+                                                href="{{ path('corp_app_fo_projet_fichier', {
+                                                    'projetId': projet.id,
+                                                    'fichierProjetId': fichierProjet.id
+                                                }) }}"
+                                        >
+                                            {{ fichierProjet.fichier.nomFichier }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>{{ "no_fm"|trans }}</p>
+        {% endif %}
+    </section>
+
+
+{% endblock %}
+

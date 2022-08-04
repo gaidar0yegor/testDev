@@ -8,7 +8,7 @@ document
                 return;
             }
 
-            fetch('/api/slack/remove-token/' + element.dataset.id, {method: 'post'})
+            fetch('/corp/api/slack/remove-token/' + element.dataset.id, {method: 'post'})
                 .then(() => {
                     if (element.closest('ul').querySelectorAll('li').length < 3) {
                         element.closest('ul').remove();
