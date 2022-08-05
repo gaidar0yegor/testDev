@@ -10,7 +10,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Initialisation de l'application **Cahier de laboratoire** : Labo, Cahier de laboratoire, Etude, Note Fichier, Equipe, Utilisateurs ...
 - Optimiser le zoom de la planification du projet.
 - Mon agenda et l'agenda de l'équipe : Ajouter un bouton pour créer un événement
-
+- Dans l'agenda de l'équipe : Afficher que les personnes qui ont confirmé leurs comptes
 
 
 
