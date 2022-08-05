@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use App\DTO\ListCurrencies;
 
 class SocieteType extends AbstractType
 {
@@ -26,7 +27,14 @@ class SocieteType extends AbstractType
                 'label' => "Heures par jour"
             ])
             ->add('coutEtp', NumberType::class, [
-                'label' => "Coût moyen horaire de l'ETP (€/h)"
+                'label' => "Coût moyen horaire de l'ETP ({$societe->getCurrency()}/h)"
+            ])
+            ->add('currency', ChoiceType::class, [
+                'label' => "Devise",
+                'choices' => array_flip(ListCurrencies::getCurrencies()),
+                'attr' => [
+                    'class' => 'select-2 form-control'
+                ],
             ])
             ->add('timesheetGranularity', CardChoiceType::class, [
                 'label' => 'Saisie des temps',

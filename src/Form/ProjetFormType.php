@@ -37,6 +37,7 @@ class ProjetFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $societeCurrency = ($options['data'])->getSociete()->getCurrency();
         $usedProjectColors = ($options['data'])->getSociete()->getUsedProjectColors();
         $usedProjectColors = is_array($usedProjectColors) ? $usedProjectColors : [];
 
@@ -87,7 +88,7 @@ class ProjetFormType extends AbstractType
                 'required' => false,
             ])
             ->add('budgetEuro', NumberType::class, [
-                'label' => 'Budget (€) <i class="fa fa-question-circle" title="'. $this->translator->trans('projet.budget_euro.label.help') .'"></i>',
+                'label' => 'Budget (' . $societeCurrency .') <i class="fa fa-question-circle" title="'. $this->translator->trans('projet.budget_euro.label.help') .'"></i>',
                 'label_html' => true,
                 'required' => false,
             ])

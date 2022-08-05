@@ -163,7 +163,7 @@ user.coutEtp.help: "Vous pouvez préciser le coût horaire spécifique à ce col
 .per_day_per_default: "par jour, par défaut"
 n_hours_short: "{n} h"
 n_days_short: "{n} j"
-cout_hours_short: "{n} €/h"
+cout_hours_short: "{n} {currency}/h"
 "total_hours_in_month:": "Total des heures en {month} :"
 .or_n_percent: "soit {n} %"
 to_be_defined: "À définir"

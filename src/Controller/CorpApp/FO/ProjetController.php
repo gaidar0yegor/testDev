@@ -104,6 +104,7 @@ class ProjetController extends AbstractController
 
         return $this->render('corp_app/projets/saisie_infos_projet.html.twig', [
             'form' => $form->createView(),
+            'projet' => $projet,
             'bouton' => "Soumettre",
             'attr' => [
                 'class' =>'btn btn-success',

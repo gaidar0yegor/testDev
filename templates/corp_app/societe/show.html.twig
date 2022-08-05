@@ -97,7 +97,7 @@
                             <h5 class="card-title deck">{{ 'cost_worked_hours'|trans }}</h5>
                             <p class="card-text deck display-4 mb-0">
                                 {% if societe.coutEtp %}
-                                    {{ 'cout_hours_short'|trans({'%n%': societe.coutEtp}) }}
+                                    {{ 'cout_hours_short'|trans({'%n%': societe.coutEtp, '%currency%' : societe.currency }) }}
                                 {% else %}
                                     <small class="text-danger">{{ 'to_be_defined'|trans }}</small>
                                 {% endif %}

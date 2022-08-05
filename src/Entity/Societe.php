@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\DTO\ListCurrencies;
 
 /**
  * @ORM\Entity(repositoryClass=SocieteRepository::class)
@@ -194,6 +195,11 @@ class Societe implements HasSocieteInterface
      */
     private $onboardingNotificationEvery;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true, options={"default" : ListCurrencies::DEFAULT_CURRENCY})
+     */
+    private $currency;
+
     public function __construct()
     {
         $this->uuid = Uuid::uuid4();
@@ -209,6 +215,7 @@ class Societe implements HasSocieteInterface
         $this->colorCode = '#ce352c';
         $this->productKey = StarterProduct::PRODUCT_KEY;
         $this->onboardingNotificationEvery = '2 weeks';
+        $this->currency = ListCurrencies::DEFAULT_CURRENCY;
     }
 
     public function getId(): ?int
@@ -549,6 +556,18 @@ class Societe implements HasSocieteInterface
     public function setCoutEtp(?string $coutEtp): self
     {
         $this->coutEtp = $coutEtp;
+
+        return $this;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): self
+    {
+        $this->currency = $currency;
 
         return $this;
     }
