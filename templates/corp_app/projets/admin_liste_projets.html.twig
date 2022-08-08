@@ -31,6 +31,7 @@
         <tbody class="filter-projets-by-selected-year">
             {% for projet in projets %}
                 <tr
+                    data-href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}"
                     data-year-start="{{ projet.dateDebut ? projet.dateDebut|date('Y') : '-' }}"
                     data-year-end="{{ projet.dateFin ? projet.dateFin|date('Y') : '-' }}"
                 >
@@ -53,7 +54,7 @@
                         <a href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}">
                             <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ path('corp_app_fo_admin_projet', {'id': projet.id}) }}">
+                        <a href="{{ path('corp_app_fo_projet_stats', {'id': projet.id}) }}">
                             <i class="fa fa-lg fa-bar-chart" aria-hidden="true"></i>
                         </a>
                     </td>

@@ -11,6 +11,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Optimiser le zoom de la planification du projet.
 - Mon agenda et l'agenda de l'équipe : Ajouter un bouton pour créer un événement
 - Dans l'agenda de l'équipe : Afficher que les personnes qui ont confirmé leurs comptes
+- Pouvoir cliquer sur toute la ligne d'un tableau pour afficher les projets.
+- Droit d'accès du Chef de projet pour les statistiques du projet
+
 
 
 

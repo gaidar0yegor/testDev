@@ -15,7 +15,7 @@
             title="Calendrier des événements"
     ><i class="fa fa-calendar"></i></a>
     <a
-            href="{{ path('corp_app_fo_admin_projet', {'id': projet.id}) }}"
+            href="{{ path('corp_app_fo_projet_stats', {'id': projet.id}) }}"
             class="btn btn-outline-primary rounded-circle {{ userCanEditProjet ? '' : 'disabled' }}"
             title="Statistiques du projet {{ userCanEditProjet ? '' : '(Pas d\'accès)' }}"
     ><i class="fa fa-bar-chart"></i></a>

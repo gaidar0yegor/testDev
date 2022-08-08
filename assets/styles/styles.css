@@ -131,6 +131,12 @@ h2 {
   background-color: #28a745;
   border-color: #28a745;
 }
+tr[data-href] {
+  cursor: pointer;
+}
+tr[data-href]:hover * {
+  color: #0056b3 !important;
+}
 table thead tr {
   color: white;
 }
