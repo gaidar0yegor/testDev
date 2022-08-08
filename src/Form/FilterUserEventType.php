@@ -37,7 +37,8 @@ class FilterUserEventType extends AbstractType
                     $qb = $options['forTeamMembers']
                         ? $repository->queryBuilderTeamMembers($this->userContext->getSocieteUser())
                         : $repository->whereSociete($this->userContext->getSocieteUser()->getSociete());
-                    $qb->andWhere('societeUser.enabled = true');
+                    $qb->andWhere('societeUser.user is not NULL')
+                        ->andWhere('societeUser.enabled = true');
                     return $qb;
                 },
                 'required' => false,
