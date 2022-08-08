@@ -36,7 +36,7 @@
             href="{{ path('app_signup', {
                 '_redirect': path('corp_app_fo_user_invitation_join_societe', {'token': app.request.attributes.get('_route_params').token}),
                 'user_email': societeUser.invitationEmail,
-                'user_telephone': societeUser.invitationTelephone.nationalNumber,
+                'user_telephone': (societeUser.invitationTelephone ? societeUser.invitationTelephone.nationalNumber : ''),
             }) }}"
             class="mt-1 btn btn-lg btn-success"
         >Créer mon compte RDI-Manager</a>

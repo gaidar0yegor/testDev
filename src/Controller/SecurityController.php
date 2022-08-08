@@ -93,7 +93,7 @@ class SecurityController extends AbstractController
             ->setPrenom($request->get('user_prenom', ''))
             ->setNom($request->get('user_nom', ''))
             ->setEmail($request->get('user_email'))
-            ->setTelephone($phoneNumber)
+            ->setTelephone(isset($phoneNumber) ? $phoneNumber : null)
             ->setCguCgvAcceptedAt(new DateTime())
         ;
 
