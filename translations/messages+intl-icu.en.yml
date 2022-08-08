@@ -565,6 +565,9 @@ add_contributors_help: Without other contributors, you will be the only one who 
 who_is_working_on_this_project: Who contributes to this project?
 corp_app_name: Collaborative journal
 access_to_my_companies: Access my companies
+show_user_organigram: "View user org chart"
+user_profil_fo: "View user information"
+user_profil_edit: "Edit user information"
 #################################### Lab App #######################################
 LABO_ADMIN: Administrator
 LABO_SENIOR: Senior researcher

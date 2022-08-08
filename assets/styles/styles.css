@@ -152,6 +152,21 @@ a.disabled {
   color: #798187;
   font-style: italic;
 }
+
+tbody tr td:last-child a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 30px;
+  width: 30px;
+
+  margin-left: 5px;
+
+  background:#eeeeee;
+  border-radius: 0.25rem !important;
+}
+
 .facts {
   border-radius: 2em;
   color: white;
