@@ -14,7 +14,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Pouvoir cliquer sur toute la ligne d'un tableau pour afficher les projets.
 - Droit d'accès du Chef de projet pour les statistiques du projet
 
-
+- Possibilité de changer la devise sur les projets. 
 
 
 ## [1.50.1] - 2022-06-24
