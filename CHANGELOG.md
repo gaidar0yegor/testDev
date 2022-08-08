@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Création d'une modale pour la saisie de la date d'entrée de l'admin dans la société au moment de la création de la société.
 - Initialisation de l'application **Cahier de laboratoire** : Labo, Cahier de laboratoire, Etude, Note Fichier, Equipe, Utilisateurs ...
+- Pouvoir cliquer sur toute la ligne d'un tableau pour afficher les projets.
 - Droit d'accès du Chef de projet pour les statistiques du projet
 
 
