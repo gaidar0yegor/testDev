@@ -117,6 +117,10 @@
     border-right: 1px solid #cecece;
 }
 
+.gantt_grid_head_cell.gantt_grid_head_add{
+    visibility: hidden !important;
+}
+
 .status_line{
     background-color: #0ca30a;
 }
