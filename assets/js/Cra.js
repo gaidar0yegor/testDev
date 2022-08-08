@@ -7,6 +7,13 @@ import { t } from './translation';
 const day0 = 'calmonth-day-0 btn-secondary';
 const day05 = 'calmonth-day-05 btn-info';
 const day1 = 'calmonth-day-1 btn-success';
+var calMonthUpdated = false;
+window.addEventListener('beforeunload', function (e) {
+    if (calMonthUpdated){
+        e.preventDefault();
+        e.returnValue = '';
+    }
+});
 
 /**
  * Init agenda page.
@@ -20,6 +27,7 @@ function initAbsences(date, craJours) {
     const $btnSubmit = $('.btn-validate-cra');
 
     $('.calmonth').on('click', 'button', function () {
+        calMonthUpdated = true;
         $btnSubmit.html(t('save'));
         $(".flash-messages").empty();
 
@@ -56,6 +64,7 @@ function initAbsences(date, craJours) {
                 $btnSubmit.html('<i class="fa fa-check" aria-hidden="true"></i> ' + t('updated!'));
                 $('.message-validation .text-warning').remove();
                 addFlashMessage('alerte alert alert-success text-center w-25 m-auto', '<i class="fa fa-check" aria-hidden="true"></i> ' + t('your_absences_have_been_updated'));
+                calMonthUpdated = false;
             })
         ;
     });

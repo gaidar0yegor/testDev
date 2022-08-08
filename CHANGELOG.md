@@ -15,6 +15,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Droit d'accès du Chef de projet pour les statistiques du projet
 - Mettre un bouton "ajouter un lot" visible dans Planification
 - Possibilité de changer la devise sur les projets. 
+- Lorsque on saisi des absences, ne pas annuler la saisie lors d'un changement de mois
+
+
 
 
 ## [1.50.1] - 2022-06-24
