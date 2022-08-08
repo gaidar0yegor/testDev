@@ -19,7 +19,7 @@
             href="{{ path('app_signup', {
                 '_redirect': path('corp_app_observateur_externe_join_confirm', {'token': app.request.attributes.get('_route_params').token}),
                 'user_email': projetObservateurExterne.invitationEmail,
-                'user_telephone': projetObservateurExterne.invitationTelephone,
+                'user_telephone': projetObservateurExterne.invitationTelephone.nationalNumber,
             }) }}"
             class="mt-1 btn btn-lg btn-success"
         >{{ "create_my_rdi_manager_account"|trans }}</a>
