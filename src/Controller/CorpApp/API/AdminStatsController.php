@@ -101,7 +101,7 @@ class AdminStatsController extends AbstractController
      *      requirements={"year"="\d{4}", "unit"="^[a-z]+$"},
      *      name="api_stats_admin_temps_projet_users"
      * )
-     * @IsGranted("SOCIETE_ADMIN")
+     * @IsGranted("SOCIETE_CDP")
      */
     public function getTempsProjetParUsers(
         Projet $projet,
@@ -126,7 +126,7 @@ class AdminStatsController extends AbstractController
      *      name="api_stats_admin_budgets"
      * )
      *
-     * @IsGranted("SOCIETE_ADMIN")
+     * @IsGranted("SOCIETE_CDP")
      */
     public function getBudgetsProjet(Projet $projet, BudgetAnalysisProjetService $budgetAnalysisProjetService)
     {

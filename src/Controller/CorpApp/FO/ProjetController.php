@@ -112,6 +112,23 @@ class ProjetController extends AbstractController
     }
 
     /**
+     * Page statistiques d'un projet.
+     *
+     * @Route("/projets/{id}", name="corp_app_fo_projet_stats")
+     *
+     * @IsGranted("SOCIETE_CDP")
+     */
+    public function projetstatistics(Projet $projet)
+    {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        return $this->render('corp_app/projets/admin_manage.html.twig', [
+            'projet'=> $projet,
+            'userCanEditProjet' => $this->isGranted('edit', $projet),
+        ]);
+    }
+
+    /**
      * @Route("/{id}/add-contributors", name="corp_app_fo_projet_add_contributors")
      */
     public function addFirstContributors(

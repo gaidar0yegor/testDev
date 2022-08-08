@@ -77,6 +77,8 @@ class ProjetBudgetExpenseController extends AbstractController
      */
     public function destroyBudgetExpense(Projet $projet, ProjetBudgetExpense $projetBudgetExpense, Request $request)
     {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
         $amount = $projetBudgetExpense->getAmount();
         $this->em->remove($projetBudgetExpense);
         $this->em->flush();

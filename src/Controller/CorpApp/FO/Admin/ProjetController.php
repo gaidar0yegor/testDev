@@ -26,17 +26,4 @@ class ProjetController extends AbstractController
             'yearMax' => $yearRange['yearMax'] ?? date('Y'),
         ]);
     }
-
-    /**
-     * Page admin d'un projet.
-     *
-     * @Route("/projets/{id}", name="corp_app_fo_admin_projet")
-     */
-    public function projetManage(Projet $projet)
-    {
-        return $this->render('corp_app/projets/admin_manage.html.twig', [
-            'projet'=> $projet,
-            'userCanEditProjet' => $this->isGranted('edit', $projet),
-        ]);
-    }
 }
