@@ -566,6 +566,9 @@ activity_project: Activité du projet
 add_new_project: Ajouter un nouveau projet
 corp_app_name: Journal collaboratif
 access_to_my_companies: Accèder à mes sociétés
+show_user_organigram : "Voir l'organigramme de l'utilisateur"
+user_profil_fo: "Voir les informations de l'utilisateur"
+user_profil_edit: "Modifier les informations de l'utilisateur"
 #################################### Lab App #######################################
 LABO_ADMIN: Administrateur
 LABO_SENIOR: "Chercheur sénior"
