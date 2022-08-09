@@ -445,11 +445,12 @@ beenOf_FM: Trash can of striking Fact
 list_files: Files list
 planning: "Planning of the project : { projectAcronyme }"
 projet_events_calendar: "Agenda of the project : { projectAcronyme }"
-user_events_calendar: "Events calendar"
-MEETING: 'Meeting'
-EVENT: 'Event'
-ABSENCE: 'Absence'
-OTHER: 'Other'
+user_events_calendar: Events calendar
+create_event: Create an event
+MEETING: Meeting
+EVENT: Event
+ABSENCE: Absence
+OTHER: Other
 allString: All
 editFile: Edit a file
 go_back_go_files: Return to files list
