@@ -18,6 +18,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Lorsque on saisi des absences, ne pas annuler la saisie lors d'un changement de mois
 - Dans le back office ajout d'un bouton sur le tableau de la liste d'admin d'une société pour switcher sur leur compte pour de la maintenance.
 - Mettre le nom du collaborateur sur une absence dans l'Agenda
+- Invitation des participants : Select-2 et placeholder pour la liste des utilisateurs
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 ## Réparé
