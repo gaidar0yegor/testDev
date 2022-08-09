@@ -16,6 +16,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Mettre un bouton "ajouter un lot" visible dans Planification
 - Possibilité de changer la devise sur les projets. 
 - Lorsque on saisi des absences, ne pas annuler la saisie lors d'un changement de mois
+- Dans le back office ajout d'un bouton sur le tableau de la liste d'admin d'une société pour switcher sur leur compte pour de la maintenance.
 
 
 
