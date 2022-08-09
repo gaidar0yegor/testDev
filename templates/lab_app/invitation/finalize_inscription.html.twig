@@ -22,7 +22,7 @@
             href="{{ path('app_signup', {
                 '_redirect': path('lab_app_fo_user_invitation_join_labo', {'token': app.request.attributes.get('_route_params').token}),
                 'user_email': userBookInvite.invitationEmail,
-                'user_telephone': userBookInvite.invitationTelephone,
+                'user_telephone': (userBookInvite.invitationTelephone ? userBookInvite.invitationTelephone.nationalNumber : ''),
             }) }}"
             class="mt-1 btn btn-lg btn-success"
         >Créer mon compte RDI-Manager</a>
