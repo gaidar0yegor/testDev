@@ -153,16 +153,9 @@ a.disabled {
   font-style: italic;
 }
 
-tbody tr td:last-child a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 30px;
-  width: 30px;
-
+.btn-rdi-icon {
+  padding: 5px;
   margin-left: 5px;
-
   background:#eeeeee;
   border-radius: 0.25rem !important;
 }

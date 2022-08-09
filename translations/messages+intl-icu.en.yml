@@ -569,6 +569,8 @@ access_to_my_companies: Access my companies
 show_user_organigram: "View user org chart"
 user_profil_fo: "View user information"
 user_profil_edit: "Edit user information"
+submit: Submit
+'sending...': 'Sending, please wait...'
 #################################### Lab App #######################################
 LABO_ADMIN: Administrator
 LABO_SENIOR: Senior researcher

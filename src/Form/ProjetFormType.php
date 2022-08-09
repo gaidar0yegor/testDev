@@ -141,12 +141,6 @@ class ProjetFormType extends AbstractType
                     'class' => 'select-2 form-control',
                 ],
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'Soumettre',
-                'attr' => [
-                    'class' => 'mt-5 btn btn-success',
-                ],
-            ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setDossierFichierProjet'])
         ;
     }
