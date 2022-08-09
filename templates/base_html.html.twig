@@ -33,7 +33,7 @@
         </script>
         <script type="text/javascript" src="{{ asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js') }}"></script>
     </head>
-    <body class="{{ app.request.attributes.get('_app_class') }}">
+    <body class="{{ app.request.attributes.get('_app_class') ? app.request.attributes.get('_app_class') : 'default_app' }}">
         {% block base_body %}
         {% endblock %}
 
