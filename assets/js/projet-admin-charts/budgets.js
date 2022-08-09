@@ -9,6 +9,7 @@ if (chartContents) {
     let listSpecialExpenses = $(modal).find(".list-special-expenses");
     let hourBudgetDiv = window['hour-budget'];
     let euroBudgetDiv = window['euro-budget'];
+    
 
     const hourBudgetChart = c3.generate({
         bindto: hourBudgetDiv,
@@ -32,7 +33,7 @@ if (chartContents) {
         axis: { rotated: true, x: { show:false }, y: { show:false } },
         tooltip: {
             format: {
-                title: function (d) { return "Analyse budgétaire en Euro (€)"; },
+                title: function (d) { return `Analyse budgétaire en ${euroBudgetDiv.dataset.devise}`; },
                 value: function (value, ratio, id) {
                     return value + ' €';
                 }

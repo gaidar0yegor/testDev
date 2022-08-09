@@ -14,7 +14,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Pouvoir cliquer sur toute la ligne d'un tableau pour afficher les projets.
 - Droit d'accès du Chef de projet pour les statistiques du projet
 - Mettre un bouton "ajouter un lot" visible dans Planification
-- Possibilité de changer la devise sur les projets. 
+- Possibilité de changer la devise sur les projets et affichage de la devise sur les tableaux de statistiques. 
 - Lorsque on saisi des absences, ne pas annuler la saisie lors d'un changement de mois
 - Dans le back office ajout d'un bouton sur le tableau de la liste d'admin d'une société pour switcher sur leur compte pour de la maintenance.
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
