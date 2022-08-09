@@ -19,6 +19,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans le back office ajout d'un bouton sur le tableau de la liste d'admin d'une société pour switcher sur leur compte pour de la maintenance.
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
+##Réparé
+- En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 
 
 
