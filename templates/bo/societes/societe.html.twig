@@ -28,6 +28,7 @@
             <th>Email</th>
             <th>Statut</th>
             <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -72,6 +73,13 @@
                                 <i class="text-danger"><b>Invitation pas encore envoyée !!</b></i>
                             {% endif %}
                         </small>
+                    {% endif %}
+                </td>
+                <td class="d-flex justify-content-end">
+                    {% if not admin.invitationToken and is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+                        <a href="{{ path('app_home', {'_switch_user': admin.user.email }) }}">
+                            <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        </a>
                     {% endif %}
                 </td>
             </tr>
