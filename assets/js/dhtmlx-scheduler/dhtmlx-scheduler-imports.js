@@ -155,8 +155,8 @@ scheduler.config.details_on_dblclick = true;
 scheduler.config.event_duration = 60;
 scheduler.config.auto_end_date = true;
 scheduler.config.full_day = true;
-scheduler.config.buttons_left = ["dhx_save_btn", "dhx_delete_btn"];
-scheduler.config.buttons_right = ["dhx_cancel_btn", "dhx_ics_calendar_btn"];
+scheduler.config.buttons_left = ["dhx_cancel_btn", "dhx_delete_btn"];
+scheduler.config.buttons_right = ["dhx_save_btn", "dhx_ics_calendar_btn"];
 scheduler.locale.labels["dhx_ics_calendar_btn"] = locale.labels.dhx_ics_calendar_btn;
 scheduler.config.lightbox.sections = [
     { name:"text", height:30 , map_to:"text", type:"textarea", focus:true },

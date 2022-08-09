@@ -454,6 +454,7 @@ list_files: Liste des fichiers
 planning: "Planification du projet : { projectAcronyme }"
 projet_events_calendar: "Agenda du projet : { projectAcronyme }"
 user_events_calendar: "Agenda des évènements"
+create_event: "Créer un évènement"
 MEETING: 'Réunion'
 EVENT: 'Évènement'
 ABSENCE: 'Absence'
