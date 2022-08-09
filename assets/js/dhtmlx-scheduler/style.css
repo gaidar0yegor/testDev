@@ -113,6 +113,10 @@
     display: none !important;
 }
 
+.dhtmlXTooltip.tooltip{
+    max-width: 30rem;
+}
+
 /* form */
 form[name='filter_user_event'] {
     word-break: break-word !important;
