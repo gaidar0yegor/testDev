@@ -16,6 +16,7 @@ import { detectedLocale } from './../translation';
 import $ from "jquery";
 import userContext from './../userContext';
 import apiGenerateIcsCalendar from "./ext/ics-export-api";
+import {truncateString} from "../utils";
 
 var locale = detectedLocale === 'en' ? locale_en : locale_fr;
 
@@ -133,6 +134,23 @@ scheduler.templates.event_class = function (start, end, event) {
     }
 };
 
+var format = scheduler.date.date_to_str("%Y-%m-%d %H:%i");
+
+scheduler.attachEvent("onTemplatesReady", function() {
+    scheduler.templates.event_text = function (start, end, ev) {
+        return ev.eventType === "ABSENCE" ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
+    };
+    scheduler.templates.event_bar_text = function (start, end, ev) {
+        return ev.eventType === "ABSENCE" ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
+    };
+    scheduler.templates.tooltip_text = function(start,end,ev) {
+        return `<b>Event:</b> ${ev.text}<br/>
+                <b>Start date:</b> ${format(start)}<br/>
+                <b>End date:</b> ${format(end)}<br/>
+                <b>Participants:</b> ${ev.required_participants_names}`;
+    };
+});
+
 // START :: Agenda
 scheduler.locale.labels.agenda_tab = "Agenda";
 var dateToStr = scheduler.date.date_to_str("%d %M %Y %H:%i");
@@ -145,6 +163,7 @@ scheduler.templates.agenda_text = function(start, end, event){
 };
 // END :: Agenda
 
+dhtmlXTooltip.config.className = 'dhtmlXTooltip tooltip';
 scheduler.locale.labels.new_event = "";
 scheduler.locale.labels.section_text = locale.labels.section_text;
 scheduler.locale.labels.section_location = locale.labels.section_location;
