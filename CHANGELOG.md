@@ -17,10 +17,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Possibilité de changer la devise sur les projets et affichage de la devise sur les tableaux de statistiques. 
 - Lorsque on saisi des absences, ne pas annuler la saisie lors d'un changement de mois
 - Dans le back office ajout d'un bouton sur le tableau de la liste d'admin d'une société pour switcher sur leur compte pour de la maintenance.
-- Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
+### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 ##Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
+- Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
 
 
 
