@@ -9,6 +9,8 @@ use App\Form\FinalizeInscriptionType;
 use App\Service\ResetPasswordService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use libphonenumber\NumberParseException;
+use libphonenumber\PhoneNumberUtil;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -24,6 +26,13 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SecurityController extends AbstractController
 {
+    private PhoneNumberUtil $phoneNumberUtil;
+
+    public function __construct(PhoneNumberUtil $phoneNumberUtil)
+    {
+        $this->phoneNumberUtil = $phoneNumberUtil;
+    }
+
     /**
      * @Route("/connexion", name="app_login")
      */
@@ -72,12 +81,19 @@ class SecurityController extends AbstractController
         TranslatorInterface $translator,
         EntityManagerInterface $em
     ) {
+        if ($request->get('user_telephone')){
+            try {
+                $phoneNumber = $this->phoneNumberUtil->parse($request->get('user_telephone'), 'FR');
+            } catch (NumberParseException $e) {
+                $this->addFlash('danger', 'Le numéro de téléphone semble invalide : ' . $e->getMessage());
+            }
+        }
         $user = new User();
         $user
             ->setPrenom($request->get('user_prenom', ''))
             ->setNom($request->get('user_nom', ''))
             ->setEmail($request->get('user_email'))
-            ->setTelephone($request->get('user_telephone'))
+            ->setTelephone(isset($phoneNumber) ? $phoneNumber : null)
             ->setCguCgvAcceptedAt(new DateTime())
         ;
 
