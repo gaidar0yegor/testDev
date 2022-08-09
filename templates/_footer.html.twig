@@ -3,8 +3,6 @@
         {{ userContext|apply_code_color_societe('background-image')  }}
     {% elseif app.request.attributes.get('_app') == "LabApp" %}
         background-color:#416C94;
-    {% else %}
-        background-color: grey;
     {% endif %}
     ">
     <p class="d-none d-md-inline">RDI-Manager <span class="text-monospace">{{ shivas_app_version }}</span></p>

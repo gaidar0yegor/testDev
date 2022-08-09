@@ -33,7 +33,8 @@ $(() => {
             addAlert(
                 'success',
                 'calendar-check-o',
-                `Vous avez saisi vos temps passés de ${craMonthName(cra)} le ${cra.tempsPassesModifiedAt}.`,
+                'Vous êtes à jour dans la saisie de vos temps',
+                // `Vous avez saisi vos temps passés de ${craMonthName(cra)} le ${cra.tempsPassesModifiedAt}.`,
             );
 
             return;

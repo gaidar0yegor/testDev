@@ -77,6 +77,9 @@ body.corp_app .navbar-dark, body.corp_app header, body.corp_app table thead tr, 
 body.lab_app .navbar-dark, body.lab_app header, body.lab_app table thead tr, body.lab_app .facts{
   background-color: #416C94 !important;
 }
+body.default_app .navbar-dark, body.default_app #footer, body.default_app header, body.default_app table thead tr, body.default_app .facts{
+  background-color: #303030 !important;
+}
 body.corp_app h1, body.corp_app h1 select  {
   color: #ce352c;
 }

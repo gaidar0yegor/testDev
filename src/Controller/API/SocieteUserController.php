@@ -21,6 +21,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use App\Security\Voter\TeamManagementVoter;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Exception\RdiException;
 
 /**
  * @Route("/api")
@@ -60,9 +61,15 @@ class SocieteUserController extends AbstractController
             throw new BadRequestHttpException('Date entree is required');
         }
 
-        $societeUserPeriod = SocieteUserPeriod::create(\DateTime::createFromFormat('d/m/Y', $dateEntree));
-
-        $societeUser->addSocieteUserPeriod($societeUserPeriod);
+        if($societeUser->getSocieteUserPeriods()->count() === 0){
+            $societeUserPeriod = SocieteUserPeriod::create(\DateTime::createFromFormat('d/m/Y', $dateEntree));
+            $societeUser->addSocieteUserPeriod($societeUserPeriod);
+        } elseif($societeUser->getSocieteUserPeriods()->last()->getDateEntry() === null){
+            $societeUserPeriod = $societeUser->getSocieteUserPeriods()->last();
+            $societeUserPeriod->setDateEntry(\DateTime::createFromFormat('d/m/Y', $dateEntree));
+        } else {
+            throw new RdiException('Une erreur est survenue !');
+        }
 
         $em->persist($societeUser);
         $em->flush();
