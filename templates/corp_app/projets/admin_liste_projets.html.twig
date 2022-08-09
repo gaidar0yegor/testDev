@@ -50,11 +50,11 @@
                     <td class="text-center" data-sort='{{ projet.rdi }}'>
                         {% include 'corp_app/projets/_eligible_rdi.html.twig' with {projet: projet} %}
                     </td>
-                    <td class="d-flex justify-content-end">
-                        <a href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}">
+                    <td class="d-flex justify-content-end align-items-center">
+                        <a class="btn-rdi-icon" href="{{ path('corp_app_fo_projet', {'id': projet.id}) }}">
                             <i class="fa fa-lg fa-eye" aria-hidden="true"></i>
                         </a>
-                        <a href="{{ path('corp_app_fo_projet_stats', {'id': projet.id}) }}">
+                        <a class="btn-rdi-icon" href="{{ path('corp_app_fo_projet_stats', {'id': projet.id}) }}">
                             <i class="fa fa-lg fa-bar-chart" aria-hidden="true"></i>
                         </a>
                     </td>

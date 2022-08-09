@@ -49,16 +49,16 @@
                 </td>
                 <td class="text-center" data-search='{{ societeUser.statut }}'>{{ societeUser.statut|trans }}</td>
                 <td class="text-center">{{ societeUser.projetParticipants|length }}</td>
-                <td class="d-flex justify-content-end">
+                <td class="d-flex justify-content-end align-items-center">
                     {% if not isTeamUsers and societeUser.teamMembers | length > 0 %}
-                        <a href="javascript:;" class="show_user_organigramme" data-societe-user-id="{{ societeUser.id }}" title="{{ 'show_user_organigram'|trans }}">
+                        <a href="javascript:;" class="show_user_organigramme btn-rdi-icon" data-societe-user-id="{{ societeUser.id }}" title="{{ 'show_user_organigram'|trans }}">
                             <i class="fa fa-lg fa-sitemap"></i>
                         </a>
                     {% endif %}
-                    <a href="{{ path('corp_app_fo_societe_user', { 'id': societeUser.id }) }}" title="{{ 'user_profil_fo'|trans }}">
+                    <a class="btn-rdi-icon" href="{{ path('corp_app_fo_societe_user', { 'id': societeUser.id }) }}" title="{{ 'user_profil_fo'|trans }}">
                         <i class="fa fa-lg fa-eye"></i>
                     </a>
-                    <a href="{{ path('corp_app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}" title="{{ 'user_profil_edit'|trans }}">
+                    <a class="btn-rdi-icon" href="{{ path('corp_app_fo_utilisateur_modifier', { 'id': societeUser.id }) }}" title="{{ 'user_profil_edit'|trans }}">
                         <i class="fa fa-lg fa-edit"></i>
                     </a>
                 </td>

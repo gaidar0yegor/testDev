@@ -25,9 +25,7 @@
         {{ form_row(form.fichierEtudes) }}
     </div>
     <div class="col-sm-12 text-center mt-3">
-        <button class="btn btn-success">
-            {{ 'publish' | trans }}
-        </button>
+        <input type="submit" onclick="this.disabled=true;this.value='{{ "sending..."|trans }}';this.form.submit();" value="{{ 'publish' | trans }}" class="btn btn-success" />
     </div>
 </div>
 

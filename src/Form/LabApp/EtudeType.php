@@ -39,12 +39,6 @@ class EtudeType extends AbstractType
                 'label' => 'etude.dateFin',
                 'required' => false,
             ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'etude.submit',
-                'attr' => [
-                    'class' => 'mt-5 btn btn-success',
-                ],
-            ])
         ;
     }
 
