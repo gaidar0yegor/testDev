@@ -15,5 +15,9 @@
     "updating...": "Updating…",
     "SOCIETE_ADMIN": "Administrator",
     "SOCIETE_CDP": "Project Manager",
-    "SOCIETE_USER": "User"
+    "SOCIETE_USER": "User",
+    "PROJET_CDP": "Project Manager",
+    "PROJET_CONTRIBUTEUR": "Contributor",
+    "PROJET_OBSERVATEUR": "Observer",
+    "PROJET_OBSERVATEUR_EXTERNE": "External observer"
 }

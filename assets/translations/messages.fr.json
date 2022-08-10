@@ -15,5 +15,9 @@
     "project_heading": "Projet {{project_name}}",
     "SOCIETE_ADMIN": "Administrateur",
     "SOCIETE_CDP": "Chef de Projet",
-    "SOCIETE_USER": "Utilisateur"
+    "SOCIETE_USER": "Utilisateur",
+    "PROJET_CDP": "Chef de Projet",
+    "PROJET_CONTRIBUTEUR": "Contributeur",
+    "PROJET_OBSERVATEUR": "Observateur",
+    "PROJET_OBSERVATEUR_EXTERNE": "Observateur externe"
 }
