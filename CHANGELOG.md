@@ -19,12 +19,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans le back office ajout d'un bouton sur le tableau de la liste d'admin d'une société pour switcher sur leur compte pour de la maintenance.
 - Mettre le nom du collaborateur sur une absence dans l'Agenda
 - Invitation des participants : Select-2 et placeholder pour la liste des utilisateurs
+- Programmation des notifications de façon personnelle du planning, agenda
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
 - Changement de la couleur de BO et de l'interface quand on est déconnecté, refacto des cards et des boutons du multi société et changement de texte pour le temps mis à jour
+- Planification : date fin d'une tâche = date début + durée (exp: date début = 01/01/2022 & durée = 1j => date fin = 01/01/2020) 
 
 
 
