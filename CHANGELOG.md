@@ -21,6 +21,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Invitation des participants : Select-2 et placeholder pour la liste des utilisateurs
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
+- Changement du texte pour retourner au projet.
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
