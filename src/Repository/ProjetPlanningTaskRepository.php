@@ -2,10 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\Projet;
 use App\Entity\ProjetPlanningTask;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -24,17 +22,14 @@ class ProjetPlanningTaskRepository extends ServiceEntityRepository
     /**
      * @return ProjetPlanningTask[] Returns an array of ProjetPlanningTask objects
      */
-    public function getForLateNotification(Projet $projet = null) : array
+    public function getForLateNotification() : array
     {
-        $todayPlus3Days = (new \DateTime('today midnight'))->modify('+3 days');
-
         return $this->createQueryBuilder('ppt')
+            ->innerJoin('ppt.projetPlanning', 'projetPlanning')
+            ->innerJoin('projetPlanning.projet', 'projet')
             ->andWhere('ppt.progress < 1')
-            ->andWhere('ppt.endDate = :todayPlus3Days')
-            ->setParameter('todayPlus3Days', $todayPlus3Days)
+            ->andWhere("ppt.endDate = DATE_ADD(CURRENT_DATE(), projet.nbrDaysNotifTaskEcheance, 'day')")
             ->getQuery()
             ->getResult();
     }
-
-
 }

@@ -97,7 +97,7 @@ class SaisieTemps implements ActivityInterface, EventSubscriberInterface
         $activity = new Activity();
 
         $activity
-            ->setType($this->getType())
+            ->setType(self::getType())
             ->setParameters([
                 'month' => $month->format('Y-m'),
             ])

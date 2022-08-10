@@ -54,8 +54,8 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-3 col-sm-6">
+            <div class="row mb-3">
+                <div class="col-md-4 col-sm-6">
 
                     {{ form_label(form.dateDebut) }}
                     <div class="input-group flex-nowrap">
@@ -68,7 +68,7 @@
                     </div>
 
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     {{ form_label(form.dateFin) }}
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text">
@@ -79,7 +79,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-4 col-sm-6">
                     {{ form_label(form.etp) }}
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text">
@@ -91,7 +94,7 @@
                     </div>
                     {{ form_help(form.etp) }}
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     {{ form_label(form.budgetEuro) }}
                     <div class="input-group flex-nowrap">
                         <span class="input-group-text">
@@ -102,6 +105,19 @@
                         </div>
                     </div>
                 </div>
+                {% if form.nbrDaysNotifTaskEcheance is defined %}
+                    <div class="col-md-4 col-sm-6">
+                        {{ form_label(form.nbrDaysNotifTaskEcheance) }}
+                        <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-tasks" aria-hidden="true"></i>
+                        </span>
+                            <div class="overflow-hidden flex-grow-1">
+                                {{ form_widget(form.nbrDaysNotifTaskEcheance) }}
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="row mt-3">

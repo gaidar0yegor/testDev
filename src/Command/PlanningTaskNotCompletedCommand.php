@@ -28,7 +28,7 @@ class PlanningTaskNotCompletedCommand extends Command
 
     protected function configure()
     {
-        $this->setDescription('Envoyer des notification si progress d\'une tâche < 100 en j-3 du date fin.');
+        $this->setDescription('Envoyer des notification si progress d\'une tâche < 100 en j-X du date fin.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int

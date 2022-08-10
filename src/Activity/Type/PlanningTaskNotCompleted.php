@@ -9,8 +9,6 @@ use App\Entity\ProjetPlanningTask;
 use App\Entity\SocieteUserNotification;
 use App\Notification\Event\PlanningTaskNotCompletedNotification;
 use App\Service\EntityLink\EntityLinkService;
-use App\SocieteProduct\Product\ProductPrivileges;
-use App\SocieteProduct\ProductPrivilegeCheker;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -39,25 +37,28 @@ class PlanningTaskNotCompleted implements ActivityInterface, EventSubscriberInte
         return 'projet_planning';
     }
 
-    public function render(array $activityParameters, Activity $activity): string
-    {
-        return sprintf(
-            "%s La date d'échéance de la tâche %s du projet %s est dans 3 jours.",
-            '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
-            $this->entityLinkService->generateLink(ProjetPlanningTask::class, $activityParameters['projetPlanningTask']),
-            $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet'])
-        );
-    }
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setRequired([
             'projetPlanningTask',
             'projet',
+            'nbrDaysNotifTaskEcheance',
         ]);
 
         $resolver->setAllowedTypes('projetPlanningTask', 'integer');
         $resolver->setAllowedTypes('projet', 'integer');
+        $resolver->setAllowedTypes('nbrDaysNotifTaskEcheance', 'integer');
+    }
+
+    public function render(array $activityParameters, Activity $activity): string
+    {
+        return sprintf(
+            "%s La date d'échéance de la tâche %s du projet %s est dans %s jours.",
+            '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>',
+            $this->entityLinkService->generateLink(ProjetPlanningTask::class, $activityParameters['projetPlanningTask']),
+            $this->entityLinkService->generateLink(Projet::class, $activityParameters['projet']),
+            (isset($activityParameters['nbrDaysNotifTaskEcheance']) ? $activityParameters['nbrDaysNotifTaskEcheance'] : 3),
+        );
     }
 
     public static function getSubscribedEvents(): array
@@ -75,10 +76,11 @@ class PlanningTaskNotCompleted implements ActivityInterface, EventSubscriberInte
         $activity = new Activity();
 
         $activity
-            ->setType($this->getType())
+            ->setType(self::getType())
             ->setParameters([
                 'projetPlanningTask' => $projetPlanningTask->getId(),
                 'projet' => $projet->getId(),
+                'nbrDaysNotifTaskEcheance' => $projet->getNbrDaysNotifTaskEcheance(),
             ])
         ;
 

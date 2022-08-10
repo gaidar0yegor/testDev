@@ -375,6 +375,8 @@ projet.projetUrl.url.help: Url
 projet.etp.help: "1 ETP &asymp; 1607 heures/an"
 projet.etp.label.help: "Nombre d'équivalent temps plein prévu sur la période"
 projet.budget_euro.label.help: "Budget prévisionnel pour le projet sur la période"
+projet.nbrDaysNotifTaskEcheance.label: "Rappel d'échéance des tâches"
+projet.nbrDaysNotifTaskEcheance.label.help: "Nombre de jours avant la date d'échéance d'une tâche. Une notification sera envoyée aux membres du projet lorsque la tâche approche de la deadline"
 add_folder_file_project: Ajouter un dossier
 projet.dossierFichierProjets: "Dossiers des fichiers du projet"
 projet.dossierFichierProjets.help: "Organiser le stockage des fichiers du projet"

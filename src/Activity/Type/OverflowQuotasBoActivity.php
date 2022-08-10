@@ -72,7 +72,7 @@ class OverflowQuotasBoActivity implements ActivityInterface, EventSubscriberInte
         $activity = new Activity();
 
         $activity
-            ->setType($this->getType())
+            ->setType(self::getType())
             ->setParameters([
                 'societe' => $event->getSociete()->getId(),
                 'limitedElement' => $event->getLimitedElement(),
