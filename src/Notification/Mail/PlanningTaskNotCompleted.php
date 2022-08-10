@@ -49,10 +49,17 @@ class PlanningTaskNotCompleted implements EventSubscriberInterface
                 'projetPlanningTask' => $projetPlanningTask,
             ]);
 
-        $toEmails[] = $projet->getChefDeProjet()->getUser()->getEmail();
+        $toEmails = [];
+
+        if ($projet->getChefDeProjet()->getUser()->getNotificationPlanningTaskNotCompletedEnabled()){
+            $toEmails[] = $projet->getChefDeProjet()->getUser()->getEmail();
+        }
 
         foreach ($projetPlanningTask->getParticipants() as $participant){
-            if(!in_array($participant->getSocieteUser()->getUser()->getEmail(), $toEmails, true)){
+            if(
+                $participant->getSocieteUser()->getUser()->getNotificationPlanningTaskNotCompletedEnabled() &&
+                !in_array($participant->getSocieteUser()->getUser()->getEmail(), $toEmails, true)
+            ){
                 array_push($toEmails, $participant->getSocieteUser()->getUser()->getEmail());
             }
         }

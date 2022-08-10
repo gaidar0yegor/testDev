@@ -56,7 +56,9 @@ class EvenementInvitation
 
         foreach ($evenement->getEvenementParticipants() as $evenementParticipant){
             try{
-                $this->mailer->send($email->to($evenementParticipant->getSocieteUser()->getUser()->getEmail()));
+                if ($evenementParticipant->getSocieteUser()->getUser()->getNotificationEvenementInvitationEnabled()){
+                    $this->mailer->send($email->to($evenementParticipant->getSocieteUser()->getUser()->getEmail()));
+                }
             } catch (TransportException $e){}
         }
     }
@@ -79,7 +81,9 @@ class EvenementInvitation
 
         foreach ($evenement->getEvenementParticipants() as $evenementParticipant){
             try{
-                $this->mailer->send($email->to($evenementParticipant->getSocieteUser()->getUser()->getEmail()));
+                if ($evenementParticipant->getSocieteUser()->getUser()->getNotificationEvenementInvitationEnabled()){
+                    $this->mailer->send($email->to($evenementParticipant->getSocieteUser()->getUser()->getEmail()));
+                }
             } catch (TransportException $e){}
         }
     }

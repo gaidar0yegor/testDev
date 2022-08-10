@@ -132,6 +132,16 @@ class User implements UserInterface
     private $notificationSaisieTempsEnabled;
 
     /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $notificationPlanningTaskNotCompletedEnabled;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $notificationEvenementInvitationEnabled;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $onboardingEnabled;
@@ -220,6 +230,8 @@ class User implements UserInterface
         $this->notificationCreateFaitMarquantEnabled = true;
         $this->notificationLatestFaitMarquantEnabled = true;
         $this->notificationSaisieTempsEnabled = true;
+        $this->notificationPlanningTaskNotCompletedEnabled = true;
+        $this->notificationEvenementInvitationEnabled = true;
         $this->onboardingEnabled = true;
         $this->onboardingTimesheetCompleted = false;
         $this->societeUsers = new ArrayCollection();
@@ -758,6 +770,30 @@ class User implements UserInterface
     public function setCurrentUserBook(?UserBook $currentUserBook): self
     {
         $this->currentUserBook = $currentUserBook;
+
+        return $this;
+    }
+
+    public function getNotificationPlanningTaskNotCompletedEnabled(): ?bool
+    {
+        return $this->notificationPlanningTaskNotCompletedEnabled;
+    }
+
+    public function setNotificationPlanningTaskNotCompletedEnabled(bool $notificationPlanningTaskNotCompletedEnabled): self
+    {
+        $this->notificationPlanningTaskNotCompletedEnabled = $notificationPlanningTaskNotCompletedEnabled;
+
+        return $this;
+    }
+
+    public function getNotificationEvenementInvitationEnabled(): ?bool
+    {
+        return $this->notificationEvenementInvitationEnabled;
+    }
+
+    public function setNotificationEvenementInvitationEnabled(bool $notificationEvenementInvitationEnabled): self
+    {
+        $this->notificationEvenementInvitationEnabled = $notificationEvenementInvitationEnabled;
 
         return $this;
     }
