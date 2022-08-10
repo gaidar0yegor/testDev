@@ -26,12 +26,12 @@ class ProjetPlanningTaskRepository extends ServiceEntityRepository
      */
     public function getForLateNotification(Projet $projet = null) : array
     {
-        $todayMinus3Days = (new \DateTime('today midnight'))->modify('-3 days');
+        $todayPlus3Days = (new \DateTime('today midnight'))->modify('+3 days');
 
         return $this->createQueryBuilder('ppt')
             ->andWhere('ppt.progress < 1')
-            ->andWhere('ppt.endDate = :todayMinus3Days')
-            ->setParameter('todayMinus3Days', $todayMinus3Days)
+            ->andWhere('ppt.endDate = :todayPlus3Days')
+            ->setParameter('todayPlus3Days', $todayPlus3Days)
             ->getQuery()
             ->getResult();
     }
