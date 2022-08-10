@@ -26,6 +26,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
 - Changement de la couleur de BO et de l'interface quand on est déconnecté, refacto des cards et des boutons du multi société et changement de texte pour le temps mis à jour
+-Correction des couleurs qui n'etait pas respecté pour le chart sur les status des projets.
 
 
 
