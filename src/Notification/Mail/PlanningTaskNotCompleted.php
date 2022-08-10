@@ -41,7 +41,7 @@ class PlanningTaskNotCompleted implements EventSubscriberInterface
         $projet = $event->getProjet();
 
         $email = (new TemplatedEmail())
-            ->subject('Date d\'échéance d\'une tâche est dans 3 jours')
+            ->subject('Date d\'échéance d\'une tâche est dans '. $projet->getNbrDaysNotifTaskEcheance() .' jours')
             ->textTemplate('corp_app/mail/notification_planning_task_not_completed.txt.twig')
             ->htmlTemplate('corp_app/mail/notification_planning_task_not_completed.html.twig')
             ->context([
@@ -60,7 +60,7 @@ class PlanningTaskNotCompleted implements EventSubscriberInterface
                 $participant->getSocieteUser()->getUser()->getNotificationPlanningTaskNotCompletedEnabled() &&
                 !in_array($participant->getSocieteUser()->getUser()->getEmail(), $toEmails, true)
             ){
-                array_push($toEmails, $participant->getSocieteUser()->getUser()->getEmail());
+                $toEmails[] = $participant->getSocieteUser()->getUser()->getEmail();
             }
         }
 

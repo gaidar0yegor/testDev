@@ -390,6 +390,8 @@ projet.projetUrl.url.help: Url
 projet.etp.help: "1 ETP &asymp; 1607 hours/year"
 projet.etp.label.help: Number of full-time equivalents expected over the period
 projet.budget_euro.label.help: Estimated budget for the project over the period
+projet.nbrDaysNotifTaskEcheance.label: Task Due Reminder
+projet.nbrDaysNotifTaskEcheance.label.help: Number of days before a task's due date. A notification will be sent to project members when the task approaches the deadline
 add_folder_file_project: Add a folder
 projet.dossierFichierProjets: Project files folders
 projet.dossierFichierProjets.help: Organize the storage of project files

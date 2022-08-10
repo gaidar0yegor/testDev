@@ -183,6 +183,11 @@ class Projet implements HasSocieteInterface
      */
     private $evenements;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : 3})
+     */
+    private $nbrDaysNotifTaskEcheance;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -203,6 +208,7 @@ class Projet implements HasSocieteInterface
         $this->annualRdiScores = [];
         $this->projetBudgetExpenses = new ArrayCollection();
         $this->evenements = new ArrayCollection();
+        $this->nbrDaysNotifTaskEcheance = 3;
     }
 
     public function getId(): ?int
@@ -587,7 +593,7 @@ class Projet implements HasSocieteInterface
 
         foreach ($this->projetParticipants as $participant) {
             if ($participant->getRole() === RoleProjet::CONTRIBUTEUR) {
-                array_push($contributeurs,$participant);
+                $contributeurs[] = $participant;
             }
         }
 
@@ -600,7 +606,7 @@ class Projet implements HasSocieteInterface
 
         foreach ($this->projetParticipants as $participant) {
             if ($participant->getRole() === RoleProjet::OBSERVATEUR) {
-                array_push($observatuers,$participant);
+                $observatuers[] = $participant;
             }
         }
 
@@ -926,6 +932,18 @@ class Projet implements HasSocieteInterface
                 $evenement->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNbrDaysNotifTaskEcheance(): ?int
+    {
+        return $this->nbrDaysNotifTaskEcheance;
+    }
+
+    public function setNbrDaysNotifTaskEcheance(int $nbrDaysNotifTaskEcheance): self
+    {
+        $this->nbrDaysNotifTaskEcheance = $nbrDaysNotifTaskEcheance;
 
         return $this;
     }

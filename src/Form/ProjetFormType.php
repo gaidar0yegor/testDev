@@ -7,6 +7,8 @@ use App\Entity\RdiDomain;
 use App\Form\Custom\RadioChoiceColorsType;
 use App\Form\Custom\DatePickerType;
 use App\MultiSociete\UserContext;
+use App\SocieteProduct\Product\ProductPrivileges;
+use App\SocieteProduct\ProductPrivilegeCheker;
 use Doctrine\ORM\EntityRepository;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -20,7 +22,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 
@@ -37,8 +38,10 @@ class ProjetFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $societeCurrency = ($options['data'])->getSociete()->getCurrency();
-        $usedProjectColors = ($options['data'])->getSociete()->getUsedProjectColors();
+        $projet = $builder->getData();
+
+        $societeCurrency = $projet->getSociete()->getCurrency();
+        $usedProjectColors = $projet->getSociete()->getUsedProjectColors();
         $usedProjectColors = is_array($usedProjectColors) ? $usedProjectColors : [];
 
         $builder
@@ -143,6 +146,16 @@ class ProjetFormType extends AbstractType
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setDossierFichierProjet'])
         ;
+
+        if (ProductPrivilegeCheker::checkProductPrivilege($projet->getSociete(),ProductPrivileges::PLANIFICATION_PROJET_AVANCE)){
+            $builder
+                ->add('nbrDaysNotifTaskEcheance', NumberType::class, [
+                    'label' => $this->translator->trans('projet.nbrDaysNotifTaskEcheance.label') . ' <i class="fa fa-question-circle" title="'. $this->translator->trans('projet.nbrDaysNotifTaskEcheance.label.help') .'"></i>',
+                    'label_html' => true,
+                    'empty_data' => 3,
+                    'required' => false,
+                ]);
+        }
     }
 
     public function setDossierFichierProjet(SubmitEvent $event)

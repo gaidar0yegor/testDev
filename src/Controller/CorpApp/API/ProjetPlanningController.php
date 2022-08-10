@@ -7,7 +7,6 @@ use App\Entity\ProjetParticipant;
 use App\Entity\ProjetPlanning;
 use App\Entity\ProjetPlanningTask;
 use App\MultiSociete\UserContext;
-use App\Notification\Event\PlanningTaskNotCompletedNotification;
 use App\Notification\Event\ProjetParticipantTaskAssignedEvent;
 use App\Security\Role\RoleProjet;
 use App\Service\ParticipantService;
