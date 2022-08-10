@@ -20,7 +20,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Mettre le nom du collaborateur sur une absence dans l'Agenda
 - Invitation des participants : Select-2 et placeholder pour la liste des utilisateurs
 - Programmation des notifications de façon personnelle du planning, agenda
-- Personalisation de nombre de jours pour envoyer les notification de la date d'échéance d'une tâche
+- Personnalisation de nombre de jours pour envoyer les notification de la date d'échéance d'une tâche
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.
