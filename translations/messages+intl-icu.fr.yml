@@ -572,6 +572,7 @@ user_profil_fo: "Voir les informations de l'utilisateur"
 user_profil_edit: "Modifier les informations de l'utilisateur"
 submit: Soumettre
 'sending...': 'Envoi en cours...'
+back_to_project: 'Retour à la page projet'
 #################################### Lab App #######################################
 LABO_ADMIN: Administrateur
 LABO_SENIOR: "Chercheur sénior"
