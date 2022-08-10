@@ -70,11 +70,18 @@ class PlanningTaskCompleted implements ActivityInterface
     {
         $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($projetPlanningTask);
 
-        if (!isset($changes['progress']) || $changes['progress'][1] != 1) {
+        $em = $args->getEntityManager();
+
+        if (!isset($changes['progress'])) {
             return;
         }
 
-        $em = $args->getEntityManager();
+        if ($changes['progress'][1] != 1) {
+            $projetPlanningTask->setEndDateReal(null);
+            $em->persist($projetPlanningTask);
+            return;
+        }
+
         $projetPlanningTask->setEndDateReal(new \DateTime());
         $em->persist($projetPlanningTask);
     }

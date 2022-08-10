@@ -37,11 +37,18 @@ class PlanningTaskNotCompletedCommand extends Command
 
         $retartedTasks = $this->em->getRepository(ProjetPlanningTask::class)->getForLateNotification();
 
+        $sumSendedNotif = 0;
         foreach ($retartedTasks as $retartedTask){
+            $sumSendedNotif++;
             $this->dispatcher->dispatch(new PlanningTaskNotCompletedNotification($retartedTask));
         }
 
-        $io->success('Notifications est envoyées avec succés !');
+        if ($sumSendedNotif === 0){
+            $io->success('Aucune notification est envoyée.');
+        } else {
+            $io->success($sumSendedNotif . ' notification(s) est envoyée(s) avec succés !');
+        }
+
 
         return 0;
     }

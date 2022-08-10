@@ -6,10 +6,11 @@ use App\Notification\Event\PlanningTaskNotCompletedNotification;
 use App\SocieteProduct\Product\ProductPrivileges;
 use App\SocieteProduct\ProductPrivilegeCheker;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PlanningTaskNotCompleted
+class PlanningTaskNotCompleted implements EventSubscriberInterface
 {
     private TranslatorInterface $translator;
 

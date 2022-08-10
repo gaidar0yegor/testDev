@@ -30,6 +30,19 @@ gantt.config.columns = [
     {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/corp/projet/${projectId}/planning/task/${task.id}" title="Liste des faits marquants liés" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
 
+gantt.templates.task_end_date = function(date){
+    return gantt.templates.task_date(new Date(date.valueOf() - 1));
+};
+
+var gridDateToStr = gantt.date.date_to_str("%Y-%m-%d");
+gantt.templates.grid_date_format = function(date, column){
+    if(column === "end_date"){
+        return gridDateToStr(new Date(date.valueOf() - 1));
+    }else{
+        return gridDateToStr(date);
+    }
+}
+
 $('#project_planning_content').on('click', '.add-sub-task', function () {
     if($(this).data('taskId'))
         gantt.createTask({id: gantt.uid(), text: "New Task"}, parseInt($(this).data('taskId')));
@@ -101,7 +114,7 @@ gantt.attachEvent("onTaskCreated", function(task){
 });
 $('.gantt-controls').on('click', 'a[data-action="addTask"]', function () {
     gantt.createTask(null, null);
-})
+});
 
 // START :: Menu nav bar
 
