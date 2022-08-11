@@ -16,7 +16,7 @@ Feature: Mot de passe oublié
         When I am on "/connexion"
         And I follow "Mot de passe oublié"
         And I fill in the following:
-            | form[username] | 06 05 04 03 02 |
+            | form[username] | +33605040302 |
         And I press "Demander un lien de réinitialisation"
         Then I should see "Un lien de réinitialisation de mot de passe vous a été envoyé"
 

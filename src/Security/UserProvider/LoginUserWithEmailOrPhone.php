@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use InvalidArgumentException;
 use libphonenumber\NumberParseException;
-use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -34,7 +33,7 @@ class LoginUserWithEmailOrPhone implements UserProviderInterface
             $user = $this->userRepository->findOneByEmail($usernameOrPhone);
         } else {
             try {
-                $phoneNumber = $this->phoneNumberUtil->parse($usernameOrPhone, 'FR');
+                $phoneNumber = $this->phoneNumberUtil->parse($usernameOrPhone);
                 $user = $this->userRepository->findOneByTelephone($phoneNumber);
             } catch (NumberParseException $e) {
                 // If invalid phone number, let authentication fail

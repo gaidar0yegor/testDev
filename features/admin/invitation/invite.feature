@@ -67,7 +67,8 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
         Then I should see "Inviter un nouvel utilisateur"
 
         When I fill in the following:
-            | invite_user[invitationTelephone] | 06 05 04 03 02 |
-            | invite_user[role]                | SOCIETE_CDP    |
+            | invite_user[invitationTelephone][country] | FR |
+            | invite_user[invitationTelephone][number] | 06 05 04 03 02 |
+            | invite_user[role]                        | SOCIETE_CDP    |
         And I press "Inviter"
         Then I should see "Un lien d'invitation a été envoyé"

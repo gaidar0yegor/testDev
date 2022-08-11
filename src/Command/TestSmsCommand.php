@@ -55,7 +55,7 @@ class TestSmsCommand extends Command
         $numero = $input->getArgument('numero');
 
         try {
-            $phoneNumber = $this->phoneNumberUtil->parse($numero, 'FR');
+            $phoneNumber = $this->phoneNumberUtil->parse($numero);
         } catch (NumberParseException $e) {
             $io->error('Le numéro de téléphone semble invalide : '.$e->getMessage());
             return 1;

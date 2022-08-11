@@ -22,7 +22,7 @@ class SmsSender
 
     public function sendSms(PhoneNumber $phoneNumber, string $message): bool
     {
-        $phoneNumber = $this->phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::E164);
+        $phoneNumber = $this->phoneNumberUtil->format($phoneNumber, PhoneNumberFormat::INTERNATIONAL);
 
         $sms = new SmsMessage($phoneNumber, $this->removeAccents($message));
 

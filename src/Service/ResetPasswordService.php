@@ -47,7 +47,7 @@ class ResetPasswordService
             ]);
         } else {
             try {
-                $phoneNumber = $this->phoneNumberUtil->parse($username, 'FR');
+                $phoneNumber = $this->phoneNumberUtil->parse($username);
             } catch (NumberParseException $e) {
                 throw new ResetPasswordException('Ce numéro de téléphone semble incorrect.', $e);
             }
