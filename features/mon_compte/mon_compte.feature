@@ -55,27 +55,21 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         Given I am on "/corp/mon-compte/modifier"
 
         When I fill in the following:
-            | Mobile | mauvais_numero |
+            | mon_compte[telephone][number] | mauvais_numero |
         And I press "Mettre à jour"
         Then I should see "Cette valeur n'est pas un numéro de téléphone valide"
 
         When I fill in the following:
-            | Mobile | 0102030405 |
+            | mon_compte[telephone][number] | 0102030405 |
         And I press "Mettre à jour"
         Then I should see "Cette valeur n'est pas un numéro de téléphone mobile valide"
 
         When I fill in the following:
-            | Mobile | 06457 |
+            | mon_compte[telephone][number] | 06457 |
         And I press "Mettre à jour"
         Then I should see "Cette valeur n'est pas un numéro de téléphone mobile valide"
 
         When I fill in the following:
-            | Mobile | 0606060606 |
-        And I press "Mettre à jour"
-        Then I should see "Vos informations personnelles ont été mises à jour"
-
-        When I go to "/corp/mon-compte/modifier"
-        When I fill in the following:
-            | Mobile | +33606060606 |
+            | mon_compte[telephone][number] | 0606060606 |
         And I press "Mettre à jour"
         Then I should see "Vos informations personnelles ont été mises à jour"

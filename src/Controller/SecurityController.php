@@ -83,7 +83,7 @@ class SecurityController extends AbstractController
     ) {
         if ($request->get('user_telephone')){
             try {
-                $phoneNumber = $this->phoneNumberUtil->parse($request->get('user_telephone'), 'FR');
+                $phoneNumber = $this->phoneNumberUtil->parse($request->get('user_telephone'));
             } catch (NumberParseException $e) {
                 $this->addFlash('danger', 'Le numéro de téléphone semble invalide : ' . $e->getMessage());
             }
