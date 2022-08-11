@@ -21,9 +21,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Invitation des participants : Select-2 et placeholder pour la liste des utilisateurs
 - Programmation des notifications de façon personnelle du planning, agenda
 - Personnalisation de nombre de jours pour envoyer les notification de la date d'échéance d'une tâche
+- Géolocalisation du fait marquant
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.
+- Dans le navbar : Mes projets => Projets | Mon équipe => Equipe | Dans équipe ( Utilisateurs => Collaborateurs )
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation

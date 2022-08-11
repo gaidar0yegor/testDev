@@ -22,7 +22,9 @@
     <tbody class="filter-projets-by-selected-year">
         {% for projetObservateurExterne in projetObservateurExternes %}
             {% set projet = projetObservateurExterne.projet %}
-            <tr>
+            <tr
+                    data-href="{{ path('corp_app_fo_observateur_externe_view', {'id': projet.id}) }}"
+            >
                 <td class="text-left">
                     <a title="{{ projet.titre }}" href="{{ path('corp_app_fo_observateur_externe_view', {'id': projet.id}) }}">
                         {{ projet.acronyme }}

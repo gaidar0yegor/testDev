@@ -95,12 +95,15 @@
 
                                 </h4>
                                 <h3>{{ faitMarquant.titre }}</h3>
+                                {% if faitMarquant.geolocalisation %}
+                                    <p class="fait-marquant-geolocalisation"><i class="fa fa-map-marker "></i> <i>{{ faitMarquant.geolocalisation }}</i></p>
+                                {% endif %}
                                 <div class="fait-marquant-content event-content text-justify text-word-break position-relative overflow-hidden">
                                     {{ faitMarquant.description|markdown|raw }}
 
                                     <div class="read-more">{{ 'see_more'|trans }}</div>
                                 </div>
-                                <ul class="list-unstyled mt-3">
+                                <ul class="list-unstyled">
                                     {% for fichierProjet in faitMarquant.fichierProjets %}
                                         {% if isAccessibleFichierProjet(fichierProjet) %}
                                             <li>

@@ -43,6 +43,11 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     private $date;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $geolocalisation;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -301,6 +306,18 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
                 $comment->setFaitMarquant(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getGeolocalisation(): ?string
+    {
+        return $this->geolocalisation;
+    }
+
+    public function setGeolocalisation(?string $geolocalisation): self
+    {
+        $this->geolocalisation = $geolocalisation;
 
         return $this;
     }

@@ -32,7 +32,7 @@ menu.dashboard.general: Consolidated view
 menu.dashboard.consolide: General view
 menu.dashboard.create_view: Create a consolidated view
 menu.all_projects: All my projects
-menu.projects: My projects
+menu.projects: Projects
 menu.projects.list: Projects list
 menu.projects.create: Create a project
 menu.projects.external: Externals projects
@@ -45,6 +45,8 @@ suspended: Suspended
 upcoming: Upcoming
 ended: Ended
 in_progress: In progress
+menu.equipe: Team
+menu.equipe.users: Collaborators
 menu.mon_equipe: My team
 my_account: 'My account'
 PRESENTATION: Project's presentation
@@ -242,6 +244,7 @@ create_my_company: Create my company
 societe.raisonSociale: Social reason / Organisation
 projet.titre: Descriptive title
 projet.acronyme: Acronymn
+projet.geolocalisation: Geolocation
 user.role: Role
 user.heuresParJours: Hours worked per day
 user.heuresParJours.help: You can specify the number of daily working hours for this employee.
