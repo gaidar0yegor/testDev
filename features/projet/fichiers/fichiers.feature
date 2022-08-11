@@ -11,7 +11,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | observateur              |
         And I press "Connexion"
 
-        When I follow "Mes projets"
+        When I follow "Projets"
         And I follow "PTEST"
         And I follow "Liste des fichiers"
         Then I should see "Liste des fichiers" in the "h1" element
@@ -29,7 +29,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | contributeur              |
         And I press "Connexion"
 
-        When I follow "Mes projets"
+        When I follow "Projets"
         And I follow "PTEST"
         And I follow "Liste des fichiers"
         When I click on the 1st "[href='/corp/projets/1/fichiers/1/modifier']" element
@@ -48,7 +48,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | contributeur              |
         And I press "Connexion"
 
-        When I follow "Mes projets"
+        When I follow "Projets"
         And I follow "PTEST"
         And I follow "Liste des fichiers"
         When I click on the 1st "[href='/corp/projets/1/fichiers/1/modifier']" element
@@ -67,7 +67,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | _password | observateur              |
         And I press "Connexion"
 
-        When I follow "Mes projets"
+        When I follow "Projets"
         And I follow "PTEST"
         And I follow "Liste des fichiers"
         Then I should see a "[href='/corp/projets/1/fichiers/1/modifier'].disabled" element
