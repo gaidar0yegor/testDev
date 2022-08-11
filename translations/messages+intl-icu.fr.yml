@@ -69,7 +69,7 @@ menu.dashboard.general: "Vue générale"
 menu.dashboard.consolide: "Vue consolidée"
 menu.dashboard.create_view: "Créer une vue consolidée"
 menu.all_projects: "Tous mes projets"
-menu.projects: "Mes projets"
+menu.projects: "Projets"
 menu.projects.list: "Liste des projets"
 menu.projects.create: "Créer un projet"
 menu.projects.external: "Projets externes"
@@ -78,6 +78,8 @@ menu.time_tracking.time_spent: "Temps passés"
 menu.time_tracking.absences: Absences
 menu.time_tracking.my_tracking: "Mon suivi de temps"
 menu.admin: Administration
+menu.equipe: "Équipe"
+menu.equipe.users: "Collaborateurs"
 menu.mon_equipe: "Mon équipe"
 suspended: "Suspendu"
 upcoming: "À venir"
@@ -362,6 +364,7 @@ societe.raisonSociale: "Raison sociale / Organisation"
 societe.siret: Siret
 projet.titre: "Titre descriptif"
 projet.acronyme: Acronyme
+projet.geolocalisation: "Géolocalisation"
 user.role: Rôle
 user.heuresParJours: "Heures travaillées par jour"
 user.heuresParJours.help: "Vous pouvez spécifier le nombre d'heures de travail journalier de ce collaborateur."

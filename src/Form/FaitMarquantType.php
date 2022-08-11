@@ -128,6 +128,12 @@ class FaitMarquantType extends AbstractType
                 ],
                 'disabled' => !$hasPrivilegeFmDate
             ])
+            ->add('geolocalisation', null, [
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'projet.geolocalisation'
+                ],
+            ])
             ->add('sendedToEmails', ChoiceType::class, [
                 'label' => false,
                 'multiple'    => true,

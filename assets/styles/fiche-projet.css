@@ -1,3 +1,9 @@
+.fait-marquant-geolocalisation{
+    margin-top: 10px;
+}
+.fait-marquant-content{
+    margin: 20px 0;
+}
 #fait_marquant_timeline_dt{
     margin-left: -10px;
     margin-top: 0 !important;

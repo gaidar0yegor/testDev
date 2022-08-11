@@ -81,7 +81,7 @@ class FaitMarquantCommentCreated implements ActivityInterface
             $targets[] = $faitMarquant->getProjet()->getChefDeProjet();
         }
         if ($faitMarquant->getCreatedBy()->getUser() !== $faitMarquantComment->getCreatedBy()->getUser()){
-            $targets[] = $faitMarquant->getCreatedBy();
+            if (!in_array($faitMarquant->getCreatedBy(), $targets))  $targets[] = $faitMarquant->getCreatedBy();
         }
 
         foreach ($targets as $target) {

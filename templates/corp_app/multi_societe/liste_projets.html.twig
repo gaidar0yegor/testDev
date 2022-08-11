@@ -63,7 +63,9 @@
         <tbody>
 
             {% for projetObservateurExterne in app.user.projetObservateurExternes %}
-                <tr>
+                <tr
+                        data-href="{{ path('corp_app_fo_observateur_externe_view', {'id': projetObservateurExterne.projet.id}) }}"
+                >
                     <td class="text-center" data-sort='{{ projetObservateurExterne.projet.colorCode }}'>
                         {% include 'utils/_code_color.html.twig' with {color: projetObservateurExterne.projet.colorCode, size: 15} %}
                     </td>
