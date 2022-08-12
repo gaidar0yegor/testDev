@@ -33,6 +33,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Changement de la couleur de BO et de l'interface quand on est déconnecté, refacto des cards et des boutons du multi société et changement de texte pour le temps mis à jour
 - Planification : date fin d'une tâche = date début + durée (exp: date début = 01/01/2022 & durée = 1j => date fin = 01/01/2020)
 - Correction des couleurs qui n'etait pas respecté pour le chart sur les status des projets
+- Dans les sms, mettre les mois de l’année en français lorsque l’on a sélectionné la langue française dans l’application.
 
 
 
