@@ -1,11 +1,11 @@
 Saisie de vos temps :
 
 {% if cra and cra.isTempsPassesSubmitted %}
-Vous avez déjà saisi vos temps le {{ cra.tempsPassesModifiedAt|format_date(pattern='d MMMM') }}.
+Vous avez déjà saisi vos temps le {{ cra.tempsPassesModifiedAt|format_date(pattern='d MMMM', locale=cra.societeUser.user.locale) }}.
 
 Vous pouvez les revérifier ici :
 {% else %}
-Vous n'avez pas encore saisi vos temps de {{ month|format_date(pattern='MMMM') }}.
+Vous n'avez pas encore saisi vos temps de {{ month|format_date(pattern='MMMM', locale='fr') }}.
 
 Vous pouvez les saisir ici :
 {% endif %}
