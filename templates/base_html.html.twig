@@ -39,6 +39,7 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('base') }}
+            {% include '_flash_toastr_messages.html.twig' %}
         {% endblock %}
 
         {% include '_matomo.html.twig' %}

@@ -1,18 +1,31 @@
+import toastr from './toastr';
+import $ from "jquery";
+
 const container = document.querySelector('.flash-messages');
 
-const addFlashMessage = (level, message) => {
-    container.insertAdjacentHTML('beforeend', `
+const addToastrFlashMessage = (level, message) => {
+    toastr[level](message);
+};
+
+const addHtmlFlashMessage = (level, message) => {
+     container.insertAdjacentHTML('beforeend', `
         <div class="alert alert-${level}" role="alert">
             ${message}
+            <i class='fa fa-times alert-close'></i>
         </div>
     `);
 };
 
-const clearFlashMessages = () => {
+const clearHtmlFlashMessages = () => {
     container.innerHTML = '';
 };
 
+$(document).on('click', '.flash-messages .alert-close', function (e) {
+    $(this).parent().remove();
+});
+
 export {
-    addFlashMessage,
-    clearFlashMessages,
+    addHtmlFlashMessage,
+    addToastrFlashMessage,
+    clearHtmlFlashMessages,
 };

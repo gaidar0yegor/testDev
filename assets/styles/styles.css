@@ -696,3 +696,16 @@ select.select-2, .select2.select2-container  {
 .dhtmlx_message_area {
   top: 65px !important;
 }
+
+/****************** flash messages Toastr *************************/
+#toast-container > div{
+  width: 60rem !important;
+  opacity: 1 !important;
+}
+.toast-top-right{
+  top: 60px !important;
+}
+.flash-messages .alert-close{
+  float: right;
+  cursor: pointer;
+}

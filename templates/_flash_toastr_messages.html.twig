@@ -1,0 +1,7 @@
+<script>
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            window.toastr[`{{ type }}`](`{{ message | striptags('<a>') | raw }}`);
+        {% endfor %}
+    {% endfor %}
+</script>

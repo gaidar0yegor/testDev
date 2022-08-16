@@ -407,6 +407,7 @@ n_contributors_added: "{n, plural, =1 {The contributor has been added to the pro
 bo.onboarding_notification_every: "Send an onboarding email every..."
 bo.onboarding_notification_every.help: 'Example of accepted format : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'I accept the <a href="https://rdimanager.com/fr/cgu.html" target="_blank">general conditions of use</a> and the <a href="https://rdimanager.com/fr/cgv.html" target="_blank">general conditions of sale</a>.'
+add_file_success: "List of files has been updated successfully"
 edit_file_success: "Your file {oldName} has been changed to {newName}"
 download: Download
 delete_user.projects.warning: "{user} is part of <strong>{n, plural, =1 {a project} other {# projects}}</strong> :"

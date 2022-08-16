@@ -30,7 +30,7 @@ class FichierController extends AbstractController
     /**
      * @Route("/projets/{id}/fichiers", name="corp_app_fo_projet_fichiers")
      */
-    public function listeFichiers(Request $request, Projet $projet, EntityManagerInterface $em)
+    public function listeFichiers(Request $request, Projet $projet, EntityManagerInterface $em, TranslatorInterface $translator)
     {
         $this->denyAccessUnlessGranted('view', $projet);
 
@@ -45,6 +45,8 @@ class FichierController extends AbstractController
             $em->flush();
 
             $this->dispatcher->dispatch(new FichierProjetAddedEvent($projet->getFichierProjets()->last()));
+
+            $this->addFlash('success', $translator->trans('add_file_success'));
 
             return $this->redirectToRoute('corp_app_fo_projet_fichiers', [
                 'id' => $projet->getId(),

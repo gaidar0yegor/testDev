@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { addFlashMessage } from './flash-messages';
+import { addToastrFlashMessage } from './flash-messages';
 import { format, fromUnixTime } from 'date-fns';
 import locale from './dateFnsLocale';
 import { t } from './translation';
@@ -29,7 +29,6 @@ function initAbsences(date, craJours) {
     $('.calmonth').on('click', 'button', function () {
         calMonthUpdated = true;
         $btnSubmit.html(t('save'));
-        $(".flash-messages").empty();
 
         const $btn = $(this);
         const dayNumber = parseInt($btn.data('daynumber'), 10);
@@ -63,7 +62,7 @@ function initAbsences(date, craJours) {
                 $btnSubmit.prop('disabled', false);
                 $btnSubmit.html('<i class="fa fa-check" aria-hidden="true"></i> ' + t('updated!'));
                 $('.message-validation .text-warning').remove();
-                addFlashMessage('alerte alert alert-success text-center w-25 m-auto', '<i class="fa fa-check" aria-hidden="true"></i> ' + t('your_absences_have_been_updated'));
+                addToastrFlashMessage('success', t('your_absences_have_been_updated'));
                 calMonthUpdated = false;
             })
         ;
@@ -166,7 +165,7 @@ function createDayButton(dayNumber) {
     $button.append($('<span class="demi-journee">').text('½'));
     $button.append($('<span>').text(dayNumber));
 
-    $button.data('daynumber', dayNumber)
+    $button.data('daynumber', dayNumber);
 
     return $button;
 }

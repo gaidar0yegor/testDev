@@ -36,6 +36,7 @@
         "select2": "^4.1.0-rc.0",
         "smartwizard": "^5.1.1",
         "tippy.js": "^6.3.1",
+        "toastr": "^2.1.4",
         "vue-tippy": "6.0.0-alpha.29"
     },
     "devDependencies": {

@@ -440,7 +440,8 @@ n_contributors_added: "{n, plural, =1 {Le contributeur a été ajouté au projet
 bo.onboarding_notification_every: "Envoyer un email d'onboarding tout les..."
 bo.onboarding_notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
 i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.html" target="_blank">conditions générales d''utilisation</a> et les <a href="https://rdimanager.com/fr/cgv.html" target="_blank">conditions générales de vente</a>.'
-edit_file_success: "Votre fichier {oldName} à bien été modifié en {newName}"
+add_file_success: "La liste des fichiers a été mise à jour avec succès"
+edit_file_success: "Votre fichier {oldName} a bien été modifié en {newName}"
 download: "Télécharger"
 see_more: "Voir plus ..."
 societeUser.societeUserPeriods: "Les périodes"
