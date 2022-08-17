@@ -44,6 +44,9 @@ const statsMatomo = (config) => {
                 case 'day':
                     apiDate = 'last365';
                     break;
+                case 'week':
+                    apiDate = 'last' + (Math.ceil(Math.abs(endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 7)));
+                    break;
                 case 'month':
                     apiDate = 'last' + (endDate.getMonth() - startDate.getMonth() + 12 * (endDate.getFullYear() - startDate.getFullYear()));
                     break;
@@ -55,6 +58,7 @@ const statsMatomo = (config) => {
             fetch(`${config.host}/index.php?module=API&method=VisitsSummary.getVisits&idSite=${config.siteId}&period=${period}&date=${apiDate}&format=json`)
                 .then(response => response.json())
                 .then(datas => {
+                    console.log(datas)
                     options.xaxis.categories = Object.keys(datas);
                     options.series[0].data = Object.values(datas);
                     let getVisitsChartDiv = document.querySelector("#VisitsSummary_getVisits .getVisits-chart");

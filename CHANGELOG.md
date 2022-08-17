@@ -32,6 +32,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans le navbar : Mes projets => Projets | Mon équipe => Equipe | Dans équipe ( Utilisateurs => Collaborateurs )
 - Dans Liste Tous mes projets, classer toujours les projets par société
 - Page Mes projets | Enlever le bouton "Projet externe"
+- Back office : des modifications visuelles et textuelles
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation

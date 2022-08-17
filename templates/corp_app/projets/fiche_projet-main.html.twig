@@ -84,7 +84,7 @@
                                                     title="Le projet est suspendu"
                                                 {% elseif not is_granted(constant('App\\ProjetResourceInterface::EDIT'), faitMarquant) %}
                                                     disabled
-                                                    title="Vous ne pouvez pas modifier les faits marquants qui ne vous appartiennent pas"
+                                                    title="Seul le chef de projet peut modifier un fait marquant créé par quelqu'un d'autre"
                                                 {% else %}
                                                     title="{{ "edit_btn"|trans }}"
                                                 {% endif %}
