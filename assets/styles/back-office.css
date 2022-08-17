@@ -25,3 +25,27 @@
 .notification .card-body::-webkit-scrollbar-track {
     border-radius: 10px;
 }
+#UserCountry_getCountry table tbody {
+    display: block;
+    height: 276px;
+    overflow: auto;
+}
+#UserCountry_getCountry table thead, #UserCountry_getCountry table tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+#UserCountry_getCountry table thead {
+    width: 100%;
+}
+#UserCountry_getCountry table {
+    width: 400px;
+}
+@media (min-width: 768px) {
+    #UserCountry_getCountry table thead{
+        border-right: 1px solid gray;
+    }
+    #UserCountry_getCountryGraph table thead{
+        border-left: 1px solid gray;
+    }
+}

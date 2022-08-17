@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h1>Statistiques</h1>
+    <h1>Analyse des visites de la plateforme</h1>
 
     <div id="statsMatomo" class="row mb-4">
         <div id="VisitsSummary_getVisits" class="col-md-12 mb-4">
@@ -10,17 +10,23 @@
                 <h5 class="mb-0 pr-3" style="border-right: 1px solid lightgrey;">Nombre de visites</h5>
                 <div class="btn-group ml-3" role="group">
                     <button type="button" class="btn btn-sm btn-outline-success scale-period-visits active" data-period="day">Jour</button>
+                    <button type="button" class="btn btn-sm btn-outline-success scale-period-visits" data-period="week">Semaine</button>
                     <button type="button" class="btn btn-sm btn-outline-success scale-period-visits" data-period="month">Mois</button>
                     <button type="button" class="btn btn-sm btn-outline-success scale-period-visits" data-period="year">Année</button>
                 </div>
             </div>
             <div class="getVisits-chart"></div>
         </div>
-        <div id="UserCountry_getCountry" class="col-md-6 col-sm-12 mb-4">
+
+        <div class="col-md-12">
+            <h1>Origine géographique des visites</h1>
+        </div>
+
+        <div id="UserCountry_getCountry" class="col-md-6 col-sm-12 mb-4 p-0">
             <table class="w-100 text-center">
                 <thead>
                 <tr>
-                    <th colspan="3">en {{ 'now' | date('Y') }}</th>
+                    <th colspan="3">En {{ "now"|format_date(pattern='Y') }}</th>
                 </tr>
                 <th>Pays</th>
                 <th>Nbr visites</th>
@@ -30,15 +36,23 @@
                 </tbody>
             </table>
         </div>
-        <div id="UserCountry_getCountryGraph" class="col-md-6 col-sm-12 mb-4">
+        <div id="UserCountry_getCountryGraph" class="col-md-6 col-sm-12 mb-4 p-0">
             <table class="w-100 text-center">
                 <thead>
-                <tr><th>en {{ 'now' | date('m-Y') }}</th></tr>
+                    <tr>
+                        <th>En {{ "now"|format_date(pattern='MMMM Y') }}</th>
+                    </tr>
+                    <tr><th>&nbsp;&nbsp;</th></tr>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
+
+        <div class="col-md-12">
+            <h1>Actions réalisées par visite</h1>
+        </div>
+
         <div id="Actions_getPageTitles" class="col-md-12 mb-4">
             <table class="w-100 text-center">
                 <thead>
