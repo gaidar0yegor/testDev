@@ -37,9 +37,9 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I should see "Projet Société1 / PTEST"
         And I should see "Chef de projet : User Societe1"
 
-        When I follow "Projets"
-        And I follow "Projets externes"
-        Then I should see "Projets externes" in the "h1" element
+        When I go to "/corp/mes-societes"
+        And I follow "Tous mes projets"
+        Then I should see "Mes projets externes" in the "h1" element
         When I follow "PTEST"
         Then I should see "Projet Société1 / PTEST" in the "h1" element
 
