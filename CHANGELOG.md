@@ -24,10 +24,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Géolocalisation du fait marquant
 - Pouvoir changer l'indicatif de pays lors de l'inscription par téléphone
 - Ajouter les Pop-up avec le plugin Toastr
+- Dans Liste Tous mes projets, ajouter un lien qui switch la société et rediriger vers le projet
+- Dans Liste Tous mes projets, le tableau "Mes projets" devrait être renommé en "Mes projets par sociétés"
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.
 - Dans le navbar : Mes projets => Projets | Mon équipe => Equipe | Dans équipe ( Utilisateurs => Collaborateurs )
+- Dans Liste Tous mes projets, classer toujours les projets par société
+- Page Mes projets | Enlever le bouton "Projet externe"
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
