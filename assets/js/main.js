@@ -118,7 +118,7 @@ $(document).ready( function () {
         buttons: btnsDatatable,
         responsive: true,
         rowGroup: {dataSrc: [0]},
-        order: [[2, 'asc'], [7, 'desc']],
+        order: [[0, 'asc'], [2, 'asc']],
         paging: false,
         columnDefs: [{visible: false, targets: 0}],
         searchHighlight: true,
