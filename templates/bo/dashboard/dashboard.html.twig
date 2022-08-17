@@ -2,7 +2,7 @@
 
 {% block body %}
 
-    <h1>Tableau de bord</h1>
+    <h1>Actualité</h1>
 
     <div class="row mt-4 notification">
         <div class="col-lg-4 notification">
@@ -62,9 +62,7 @@
     </ul>
 
     <div id="graph" class="tab-target">
-        <h1 class="mt-5">
-            Graphiques d'évolution de l'application
-        </h1>
+        <h1 class="mt-5">Analyse de l'Onboarding en temps réel</h1>
         <div class="row">
             <div class="col-md-10 col-sm-12 order-md-first order-sm-last">
                 <div id="allTimeUserChart"></div>
@@ -108,7 +106,7 @@
     <div id="table" class="tab-target mt-5" style="display: none;">
 
         <h1>
-            Tableau d'évolution de l'application de l'année
+            Analyse de l'Onboarding en
             <span class="year-switch" data-event-name="bo-table-by-year" data-year-from="2020"
                   data-year-to="{{ "now"|date('Y') }}"></span>
         </h1>
