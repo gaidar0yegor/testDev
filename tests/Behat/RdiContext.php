@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Behat;
 
-use App\Entity\User;
-use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\MinkContext;
-use Behat\MinkExtension\Context\RawMinkContext;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use Doctrine\Persistence\ManagerRegistry;
 use Fidry\AliceDataFixtures\LoaderInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * This context class contains the definitions of the steps used by the demo
@@ -79,6 +74,7 @@ final class RdiContext extends MinkContext
      *      Then I should see "Contributeur" in the "Projet 3" row
      *
      * @Then I should see :text in the :element element containing :textContainer
+     * @throws \Exception
      */
     public function iShouldSeeTextInTheElementContainingText($text, $element, $textContainer)
     {
@@ -90,5 +86,19 @@ final class RdiContext extends MinkContext
         }
 
         $this->assertElementContainsText($rowSelector, $text);
+    }
+
+    /**
+     * Exemple:
+     *      Then I should find toastr message "Le projet a été créé avec succès"
+     *
+     * @When /^(?:|I )should find toastr message "(?P<message>(?:[^"]|\\")*)"$/
+     */
+    public function iShouldFindToastrMessage($message)
+    {
+        $scriptElement = $this->getSession()->getPage()->find('css', 'html script._flash_toastr_messages');
+        $scriptContent = html_entity_decode($scriptElement->getText());
+
+        return strpos($scriptContent, $message) !== false;
     }
 }

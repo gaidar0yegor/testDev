@@ -23,6 +23,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Personnalisation de nombre de jours pour envoyer les notification de la date d'échéance d'une tâche
 - Géolocalisation du fait marquant
 - Pouvoir changer l'indicatif de pays lors de l'inscription par téléphone
+- Ajouter les Pop-up avec le plugin Toastr
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.

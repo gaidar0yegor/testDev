@@ -20,7 +20,7 @@ Feature: L'admin peut personnaliser le jour et l'heure d'envoi des notifications
         And I should see "Rappel pour saisir nos temps et absences"
 
         When I press "Mettre à jour"
-        Then I should see "Vos préférences de notifications ont été mises à jour"
+        Then I should find toastr message "Vos préférences de notifications ont été mises à jour"
 
     Scenario: L'admin peut voir les dernières notifications envoyées
         When I follow "Paramètres notifications"

@@ -11,10 +11,10 @@ Feature: Création d'une nouvelle société
 
     Scenario: Je peux envoyer un mail d'invitation à un administrateur
         Then I should see "admin@societe.dev"
-        And I should see "Aucun administrateur de la société SociétéTest n'a encore pas reçu de notifications. Envoyez un email d'invitation depuis cette page afin qu'il puisse finaliser son inscription !"
+        And I should find toastr message "Aucun administrateur de la société SociétéTest n'a encore pas reçu de notifications. Envoyez un email d'invitation depuis cette page afin qu'il puisse finaliser son inscription !"
 
         When I press "Envoyer un email d'invitation"
-        Then I should see "Un email avec un lien d'invitation a été envoyé à l'administrateur \"admin@societe.dev\""
+        Then I should find toastr message "Un email avec un lien d'invitation a été envoyé à l'administrateur \"admin@societe.dev\""
         And I should see "Dernière invitation envoyée le"
         And I should not see "Aucun administrateur de la société SociétéTest n'a encore pas reçu de notifications. Envoyez un email d'invitation depuis cette page afin qu'il puisse finaliser son inscription !"
 
@@ -22,4 +22,4 @@ Feature: Création d'une nouvelle société
         When I fill in the following:
             | user_email[invitationEmail] | autre_admin@societe.dev |
         And I press "Inviter un autre administrateur"
-        Then I should see "L'administrateur a été ajouté ! Vous pouvez lui envoyer un email d'invitation afin qu'il finalise son inscription"
+        Then I should find toastr message "L'administrateur a été ajouté ! Vous pouvez lui envoyer un email d'invitation afin qu'il finalise son inscription"

@@ -27,7 +27,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
             | update_password[newPassword][first]  | nouveauMotDePasse |
             | update_password[newPassword][second] | nouveauMotDePasse |
         And I press "Mettre à jour mon mot de passe"
-        Then I should see "Votre mot de passe a été mis à jour"
+        Then I should find toastr message "Votre mot de passe a été mis à jour"
 
     Scenario: Je doit connaître l'ancien mot de passe pour le changer
         Given I am on "/corp/mon-compte"
@@ -39,7 +39,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
             | update_password[newPassword][first]  | nouveauMotDePasse |
             | update_password[newPassword][second] | nouveauMotDePasse |
         And I press "Mettre à jour mon mot de passe"
-        Then I should see " Votre ancien mot de passe saisis n'est pas le bon"
+        Then I should find toastr message " Votre ancien mot de passe saisis n'est pas le bon"
 
     Scenario: Je peut modifier mes infos personnelles
         Given I am on "/corp/mon-compte"
@@ -48,7 +48,7 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         When I fill in the following:
             | Prénom | NouveauPrenom |
         And I press "Mettre à jour"
-        Then I should see "Vos informations personnelles ont été mises à jour"
+        Then I should find toastr message "Vos informations personnelles ont été mises à jour"
         And I should see "NouveauPrenom" in the "nav" element
 
     Scenario: Je peut ajouter mon numéro de téléphone afin de recevoir les notifications importantes
@@ -72,4 +72,4 @@ Feature: Mon compte, voir et modifier mes données personnelles.
         When I fill in the following:
             | mon_compte[telephone][number] | 0606060606 |
         And I press "Mettre à jour"
-        Then I should see "Vos informations personnelles ont été mises à jour"
+        Then I should find toastr message "Vos informations personnelles ont été mises à jour"

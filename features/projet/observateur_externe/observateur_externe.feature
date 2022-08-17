@@ -19,7 +19,7 @@ Feature: Affichage de la liste des projets de l'utilisateur
         And I fill in the following:
             | invite_observateur_externe[invitationEmail] | observateur_externe@externe.dev |
         And I press "Inviter un observateur externe"
-        Then I should see "Une notification avec un lien d'invitation a été envoyée à votre observateur externe"
+        Then I should find toastr message "Une notification avec un lien d'invitation a été envoyée à votre observateur externe"
         And I should see "En cours d'invitation..." in the "observateur_externe@externe.dev" row
 
     Scenario: L'observateur externe peut rejoindre le projet avec son lien d'invitation
@@ -56,5 +56,5 @@ Feature: Affichage de la liste des projets de l'utilisateur
         Then I should see "En cours d'invitation..." in the "email@unused.dev" row
 
         When I press "Retirer cet observateur externe"
-        Then I should see "Cet observateur externe a été retiré"
+        Then I should find toastr message "Cet observateur externe a été retiré"
         Then I should not see "En cours d'invitation..."

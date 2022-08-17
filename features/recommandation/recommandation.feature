@@ -9,7 +9,7 @@ Feature: Recommandation
         When I fill in the following:
             | recommandation_message[to] | mon-contact@test.fr |
         And I press "Envoyer"
-        Then I should see "Un email de recommandation a bien été envoyé à \"mon-contact@test.fr\""
+        Then I should find toastr message "Un email de recommandation a bien été envoyé à \"mon-contact@test.fr\""
 
     Scenario: Un utilisateur connecté peut recommander RDI-Manager à ses propres contacts
         Given I have loaded fixtures from "recommandation/fixtures.yml"
@@ -27,7 +27,7 @@ Feature: Recommandation
         When I fill in the following:
             | recommandation_message[to] | mon-contact@test.fr |
         And I press "Envoyer"
-        Then I should see "Un email de recommandation a bien été envoyé à \"mon-contact@test.fr\""
+        Then I should find toastr message "Un email de recommandation a bien été envoyé à \"mon-contact@test.fr\""
 
     Scenario: Un utilisateur connecté avec un n° de téléphone peut recommander RDI-Manager à ses propres contacts
         Given I have loaded fixtures from "recommandation/fixtures.yml"
@@ -44,4 +44,4 @@ Feature: Recommandation
         When I fill in the following:
             | recommandation_message[to] | mon-contact@test.fr |
         And I press "Envoyer"
-        Then I should see "Un email de recommandation a bien été envoyé à \"mon-contact@test.fr\""
+        Then I should find toastr message "Un email de recommandation a bien été envoyé à \"mon-contact@test.fr\""

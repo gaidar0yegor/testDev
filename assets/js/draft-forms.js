@@ -1,5 +1,5 @@
 import { FormDataJson, FormDataJsonOptions } from 'form-data-json-convert';
-import { addFlashMessage } from './flash-messages';
+import { addHtmlFlashMessage } from './flash-messages';
 import { t } from './translation';
 
 /**
@@ -87,7 +87,7 @@ const saveDraft = form => {
  */
 const enableDraft = form => {
     if (hasDraft(form)) {
-        addFlashMessage('info', t('unsubmitted_data_warning', {
+        addHtmlFlashMessage('info', t('unsubmitted_data_warning', {
             link_start: '<a href="#" class="draft-continue">',
             link_end: '</a>',
             interpolation: {

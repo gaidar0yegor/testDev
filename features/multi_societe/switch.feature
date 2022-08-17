@@ -44,7 +44,7 @@ Feature: Multi-société, page de changement de société
         When I fill in the following:
             | Prénom | NouveauPrenom |
         And I press "Mettre à jour"
-        Then I should see "Vos informations personnelles ont été mises à jour"
+        Then I should find toastr message "Vos informations personnelles ont été mises à jour"
         And I should see "NouveauPrenom" in the "nav" element
 
     Scenario: Je ne peux pas switcher sur une société dont mon accès a été désactivé par l'admin

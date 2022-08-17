@@ -6,6 +6,7 @@ import './styles/footer.css';
 
 import './js/popper';
 import './js/matomo';
+import './js/toastr';
 
 // Import all images so that we can use them in twig templates
 const imagesContext = require.context('./img', true);

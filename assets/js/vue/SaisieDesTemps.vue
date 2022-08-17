@@ -97,7 +97,7 @@
 import { format, parseISO } from 'date-fns';
 import locale from '../dateFnsLocale';
 import { directive as tippy } from 'vue-tippy';
-import { addFlashMessage, clearFlashMessages } from './../flash-messages';
+import { addToastrFlashMessage, addHtmlFlashMessage, clearHtmlFlashMessages } from './../flash-messages';
 import { t } from '../translation';
 import monthly from './period/monthly';
 import weekly from './period/weekly';
@@ -176,7 +176,7 @@ export default {
         submitCra(e) {
             e.preventDefault();
 
-            clearFlashMessages();
+            clearHtmlFlashMessages();
             this.submitting = true;
 
             this.strategy.apiSaveCra(this.cra, this.selectedDate)
@@ -184,7 +184,7 @@ export default {
                     this.submitting = false;
                     this.cra.tempsPassesModifiedAt = new Date();
 
-                    addFlashMessage('success', t('time_spent_updated'));
+                    addToastrFlashMessage('success', t('time_spent_updated'));
 
                     if (this.urlToAbsences) {
                         const url = this.urlToAbsences
@@ -192,7 +192,7 @@ export default {
                             .replace('99', ('0' + (this.selectedDate.getMonth() + 1)).substr(-2))
                         ;
 
-                        addFlashMessage('warning', t('enter_absences_if_taken_this_month', {
+                        addHtmlFlashMessage('warning', t('enter_absences_if_taken_this_month', {
                             link_start: `<a href="${url}" class="alert-link">`,
                             link_end: `</a>`,
                             interpolation: {

@@ -24,7 +24,7 @@ Feature: Suppression d'un projet
         And I should see "Le projet a un participant, il sera détaché du projet : Chef de projet Eureka"
 
         When I press "Supprimer"
-        Then I should see "Le projet PEMPTY a été supprimé"
+        Then I should find toastr message "Le projet PEMPTY a été supprimé"
 
     Scenario: Le chef de projet peut supprimer un projet bien rempli, la vérification lui indique toutes les données liées qui seront supprimées.
         When I go to "/corp/projets"
@@ -41,4 +41,4 @@ Feature: Suppression d'un projet
         And I should see "Le projet a 2 participants, ils seront détachés du projet : Chef de projet Eureka User Eureka"
 
         When I press "Supprimer"
-        Then I should see "Le projet PFULL a été supprimé"
+        Then I should find toastr message "Le projet PFULL a été supprimé"
