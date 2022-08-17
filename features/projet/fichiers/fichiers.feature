@@ -38,7 +38,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | fichier_projet_modifier[fichier][nomFichier] | business-plan.txt |
         And I press "Modifier"
 
-        And I should see "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
+        And I should find toastr message "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
         Then I should see "business-plan.txt" in the "form[name='projet_fichier_projets']" element
 
     Scenario: Un contributeur ne peut pas changer l'extension d'un fichier
@@ -57,7 +57,7 @@ Feature: Les contributeurs d'un projet peuvent téléverser des fichiers
             | fichier_projet_modifier[fichier][nomFichier] | business-plan.php |
         And I press "Modifier"
 
-        And I should see "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
+        And I should find toastr message "Votre fichier fichier_de_contributeur.txt à bien été modifié en business-plan.txt"
         Then I should see "business-plan.txt" in the "form[name='projet_fichier_projets']" element
 
     Scenario: Un observateur ne peut pas renommer les fichiers

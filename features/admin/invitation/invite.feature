@@ -19,7 +19,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | invite_user[role]            | SOCIETE_CDP             |
             | invite_user[societeUserPeriods][0][dateEntry] | 01 janvier 2020 |
         And I press "Inviter"
-        Then I should see "Un lien d'invitation a été envoyé"
+        Then I should find toastr message "Un lien d'invitation a été envoyé"
 
     Scenario: L'utilisateur invité peut finaliser son inscription après avoir suivi le lien d'invitation qu'il a recu.
         Given I am on "/corp/inscription/cV2bvNJg4e_zkzXis-rfKlih"
@@ -40,7 +40,7 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
 
         # Rejoindre la société
         When I press "Rejoindre la société SociétéTest"
-        Then I should see "Vous avez rejoint la société"
+        Then I should find toastr message "Vous avez rejoint la société"
         And I should see "Tableau de bord"
 
         # Vérifie que je peux me connecter après la finalisation
@@ -71,4 +71,4 @@ Feature: L'admin (ou référent) peut inviter des nouvels utilisateurs
             | invite_user[invitationTelephone][number] | 06 05 04 03 02 |
             | invite_user[role]                        | SOCIETE_CDP    |
         And I press "Inviter"
-        Then I should see "Un lien d'invitation a été envoyé"
+        Then I should find toastr message "Un lien d'invitation a été envoyé"

@@ -19,7 +19,7 @@ Feature: Gestion des faits marquants d'un projet
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
         And I press "Publier"
-        Then I should see "Le fait marquant \"Mon fait marquant\" a été ajouté au projet"
+        Then I should find toastr message "Le fait marquant \"Mon fait marquant\" a été ajouté au projet"
         And I should see "J'ai créé un fait marquant" in the ".timeline" element
 
     Scenario: Un observateur ne peut pas créer de fait marquant
@@ -50,7 +50,7 @@ Feature: Gestion des faits marquants d'un projet
             | fait_marquant[titre]       | Fait marquant déjà créé et modifié            |
             | fait_marquant[description] | J'ai créé un fait marquant et je l'ai modifié |
         And I press "Publier"
-        Then I should see "Le fait marquant \"Fait marquant déjà créé et modifié\" a été modifié"
+        Then I should find toastr message "Le fait marquant \"Fait marquant déjà créé et modifié\" a été modifié"
         And I should see "J'ai créé un fait marquant et je l'ai modifié" in the ".timeline" element
 
     Scenario: Un contributeur peut supprimer son fait marquant
@@ -65,7 +65,7 @@ Feature: Gestion des faits marquants d'un projet
 
         When I click on the 1st ".timeline a.edit-fait-marquant" element
         And I press "Supprimer"
-        Then I should see "Le fait marquant \"Fait marquant déjà créé\" a été supprimé"
+        Then I should find toastr message "Le fait marquant \"Fait marquant déjà créé\" a été supprimé"
         But I should not see "Contenu du fait marquant déjà créé"
 
     Scenario: Un contributeur ne peut pas modifier les faits marquants des autres contributeurs

@@ -9,7 +9,7 @@ Feature: Mot de passe oublié
         When I fill in the following:
             | form[username] | user@societe.dev |
         And I press "Demander un lien de réinitialisation"
-        Then I should see "Un lien de réinitialisation de mot de passe vous a été envoyé"
+        Then I should find toastr message "Un lien de réinitialisation de mot de passe vous a été envoyé"
 
     Scenario: Je dois pouvoir m'envoyer un SMS de réinitialisation de mot de passe
         Given I have loaded fixtures from "connexion/fixtures.yml"
@@ -18,7 +18,7 @@ Feature: Mot de passe oublié
         And I fill in the following:
             | form[username] | +33605040302 |
         And I press "Demander un lien de réinitialisation"
-        Then I should see "Un lien de réinitialisation de mot de passe vous a été envoyé"
+        Then I should find toastr message "Un lien de réinitialisation de mot de passe vous a été envoyé"
 
     Scenario: Je dois pouvoir changer mon mot de passe après avoir suivi mon lien de réinitialisation
         Given I have loaded fixtures from "connexion/fixtures.yml"
@@ -29,7 +29,7 @@ Feature: Mot de passe oublié
             | form[password][first]  | nouveauMotDePasse |
             | form[password][second] | nouveauMotDePasse |
         And I press "Valider mon mot de passe"
-        Then I should see "Votre mot de passe a été changé"
+        Then I should find toastr message "Votre mot de passe a été changé"
 
         When I go to "/connexion"
         And I fill in the following:

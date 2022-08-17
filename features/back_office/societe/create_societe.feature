@@ -17,6 +17,6 @@ Feature: Création d'une nouvelle société
             | Raison sociale                 | SociétéTest          |
             | Email du nouvel administrateur | test@societetest.com |
         And I press "Initialiser la société"
-        Then I should see "La société \"SociétéTest\" a bien été créée"
+        Then I should find toastr message "La société \"SociétéTest\" a bien été créée"
         And I should see "En attente de finalisation d'inscription"
         And I should see "Invitation pas encore envoyée"

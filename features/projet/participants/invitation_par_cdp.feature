@@ -16,4 +16,4 @@ Feature: Le chef de projet doit pouvoir inviter un nouvel utilisateur
             | invite_user_sur_projet[email] | invite@societe.dev  |
             | invite_user_sur_projet[role]  | PROJET_CONTRIBUTEUR |
         And I press "Inviter"
-        Then I should see "Un email avec un lien d'invitation a été envoyé à \"invite@societe.dev\""
+        Then I should find toastr message "Un email avec un lien d'invitation a été envoyé à \"invite@societe.dev\""

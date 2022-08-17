@@ -14,4 +14,4 @@ Feature: Pouvoir me mettre un avatar
         And I follow "Modifier mon avatar"
         When I attach the file "mon_compte/avatar.jpg" to "avatar[file]"
         And I press "Mettre à jour"
-        Then I should see "Votre avatar a été mis à jour"
+        Then I should find toastr message "Votre avatar a été mis à jour"
