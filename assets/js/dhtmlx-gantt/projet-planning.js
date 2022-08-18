@@ -1,5 +1,4 @@
 import $ from "jquery";
-import initTippyTitle from './../popper';
 
 const projectId = window['project_planning_content'].dataset.projectId;
 const societeRaisonSociale = window['project_planning_content'].dataset.societeRaisonSociale;
@@ -90,15 +89,17 @@ var dp = gantt.createDataProcessor({
     mode:"REST"
 });
 dp.attachEvent("onAfterUpdate", function(id, action, tid, response){
-    let task = gantt.getTask(tid);
+    let task = gantt.isTaskExists(tid) ? gantt.getTask(tid) : null;
 
-    if (response.action !== "deleted" && task.parent !== 0) {
-        updateParentProgress(task);
-    }
+    if (task !== null){
+        if (response.action !== "deleted" && task.parent !== 0) {
+            updateParentProgress(task);
+        }
 
-    if (response.linkFaitMarquant){
-        $('#createFaitMarquant').find('.link-fait-marquant').attr("href", response.linkFaitMarquant);
-        $('#createFaitMarquant').modal('show');
+        if (response.linkFaitMarquant){
+            $('#createFaitMarquant').find('.link-fait-marquant').attr("href", response.linkFaitMarquant);
+            $('#createFaitMarquant').modal('show');
+        }
     }
 });
 gantt.attachEvent("onBeforeTaskDelete", function(id, task){
@@ -250,20 +251,22 @@ gantt.ext.zoom.setLevel("quarter");
 // END :: zoom function
 
 const updateParentProgress = (child, isDeleted = false) => {
-    let parentTask = gantt.getTask(child.parent);
-    let childs = gantt.getChildren(parentTask.id);
-    let totProgress = 0;
+    if (child.parent){
+        let parentTask = gantt.getTask(child.parent);
+        let childs = gantt.getChildren(parentTask.id);
+        let totProgress = 0;
 
-    var tempTask;
-    var countChilds = 0;
-    for (var i = 0; i < childs.length; i++) {
-        tempTask = gantt.getTask(childs[i]);
-        if (!isDeleted || (isDeleted && child.id !== tempTask.id)){
-            totProgress += parseFloat(tempTask.progress);
-            countChilds++;
+        var tempTask;
+        var countChilds = 0;
+        for (var i = 0; i < childs.length; i++) {
+            tempTask = gantt.getTask(childs[i]);
+            if (!isDeleted || (isDeleted && child.id !== tempTask.id)){
+                totProgress += parseFloat(tempTask.progress);
+                countChilds++;
+            }
         }
-    }
 
-    parentTask.progress = (totProgress / countChilds).toFixed(2);
-    gantt.updateTask(parentTask.id);
-}
+        parentTask.progress = countChilds > 0 ? (totProgress / countChilds).toFixed(2) : 0;
+        gantt.updateTask(parentTask.id);
+    }
+};
