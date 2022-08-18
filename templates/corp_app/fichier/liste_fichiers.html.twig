@@ -11,10 +11,12 @@
             {{ 'back_to_project'|trans }}
         </a>
 
+        {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), projet) %}
         <button class="btn btn-outline-primary scroll-to-add-file-btn" type="button">
             <i class="fa fa-plus" aria-hidden="true"></i>
             Ajouter un fichier
         </button>
+        {% endif %}
     </div>
 
     <ul class="nav nav-tabs mb-3 tab-filter-fichiers">
