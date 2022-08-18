@@ -92,8 +92,6 @@ if (chartContents) {
     $(modal).find('form').submit(function( event ) {
         event.preventDefault();
 
-        console.log( $( this ).serialize() );
-
         let titre = $(this).find("input[name='special_expense_form[titre]']").val();
         let amount = $(this).find("input[name='special_expense_form[amount]']").val();
         let date = $(this).find("input[name='special_expense_form[date]']").val();
