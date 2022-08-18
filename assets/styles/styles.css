@@ -680,13 +680,31 @@ select.select-2, .select2.select2-container  {
 }
 
 /* special Expenses */
-#specialExpenses .list-special-expenses{
-  overflow-y : scroll;
+#specialExpenses .list-special-expenses table tbody {
+  display: block;
   max-height: 16rem;
+  overflow: auto;
+}
+#specialExpenses .list-special-expenses table thead, #specialExpenses .list-special-expenses table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+#specialExpenses .list-special-expenses table thead {
+  width: 100%;
+}
+/*#specialExpenses .list-special-expenses{*/
+/*  overflow-y : scroll;*/
+/*  max-height: 16rem;*/
+/*}*/
+#specialExpenses .list-special-expenses tr th:first-child, #specialExpenses .list-special-expenses tr td:first-child{
+  width: 40%;
+}
+#specialExpenses .list-special-expenses tr td.expense-amount, #specialExpenses .list-special-expenses tr td:last-child{
+  text-align: right;
 }
 #specialExpenses .list-special-expenses tr td:not(:first-child){
-  text-align: right;
-  width: 1%;
+  width: auto;
   white-space: nowrap;
 }
 #specialExpenses .list-special-expenses tr td:last-child a{

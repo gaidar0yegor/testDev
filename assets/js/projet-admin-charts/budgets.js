@@ -35,7 +35,7 @@ if (chartContents) {
             format: {
                 title: function (d) { return `Analyse budgétaire en ${euroBudgetDiv.dataset.devise}`; },
                 value: function (value, ratio, id) {
-                    return value + ' €';
+                    return `${value} ${euroBudgetDiv.dataset.devise}`;
                 }
             }
         }
@@ -92,8 +92,11 @@ if (chartContents) {
     $(modal).find('form').submit(function( event ) {
         event.preventDefault();
 
+        console.log( $( this ).serialize() );
+
         let titre = $(this).find("input[name='special_expense_form[titre]']").val();
         let amount = $(this).find("input[name='special_expense_form[amount]']").val();
+        let date = $(this).find("input[name='special_expense_form[date]']").val();
         let updateId = $(this).find("input[name='special_expense_form[updateId]']").val();
 
         if (titre && amount){
@@ -103,6 +106,7 @@ if (chartContents) {
                 data: {
                     titre: titre,
                     amount: amount,
+                    date: date,
                     updateId: updateId,
                 },
                 success: function (response) {
@@ -112,6 +116,7 @@ if (chartContents) {
 
                     $($newTr).html(`
                             <td class="expense-titre">${response.titre}</td>
+                            <td class="expense-date">${response.date}</td>
                             <td class="expense-amount">${response.amount}</td>
                             <td>
                                 <a href="javascript:;" class="text-warning btn-edit-expense"><i class="fa fa-pencil"></i></a>
@@ -145,6 +150,7 @@ if (chartContents) {
 
         $(modal).find('form').find("input[name='special_expense_form[updateId]']").val(expenseId);
         $(modal).find('form').find("input[name='special_expense_form[titre]']").val($($tr).find('.expense-titre').text());
+        $(modal).find('form').find("input[name='special_expense_form[date]']").val($($tr).find('.expense-date').text());
         $(modal).find('form').find("input[name='special_expense_form[amount]']").val(parseFloat($($tr).find('.expense-amount').text()));
     });
 

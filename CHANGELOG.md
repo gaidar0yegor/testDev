@@ -26,6 +26,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter les Pop-up avec le plugin Toastr
 - Dans Liste Tous mes projets, ajouter un lien qui switch la société et rediriger vers le projet
 - Dans Liste Tous mes projets, le tableau "Mes projets" devrait être renommé en "Mes projets par sociétés"
+- Analyse budgétaire projet, Ajout de la date pour les Dépenses ponctuelles 
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.
