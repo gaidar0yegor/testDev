@@ -38,9 +38,6 @@
 #UserCountry_getCountry table thead {
     width: 100%;
 }
-#UserCountry_getCountry table {
-    width: 400px;
-}
 @media (min-width: 768px) {
     #UserCountry_getCountry table thead{
         border-right: 1px solid gray;

@@ -4,15 +4,7 @@ namespace App\Controller\CorpApp\API;
 
 use App\Entity\Projet;
 use App\Entity\ProjetBudgetExpense;
-use App\Entity\ProjetParticipant;
-use App\Entity\ProjetPlanning;
-use App\Entity\ProjetPlanningTask;
-use App\MultiSociete\UserContext;
-use App\Notification\Event\ProjetParticipantTaskAssignedEvent;
-use App\Security\Role\RoleProjet;
-use App\Service\ParticipantService;
-use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -52,6 +44,17 @@ class ProjetBudgetExpenseController extends AbstractController
 
         $budgetExpense->setTitre($request->request->get('titre'));
         $budgetExpense->setAmount($request->request->get('amount'));
+
+        $date = $request->get('date');
+
+        if ($date){
+            if (\DateTime::createFromFormat('d/m/Y', $date)) {
+                $budgetExpense->setDate(\DateTime::createFromFormat('d/m/Y', $date));
+            } else {
+                throw new BadRequestHttpException('Date entree is invalid');
+            }
+        }
+
         $budgetExpense->setProjet($projet);
 
         $this->em->persist($budgetExpense);
@@ -61,7 +64,8 @@ class ProjetBudgetExpenseController extends AbstractController
             "action" => "inserted",
             "id" => $budgetExpense->getId(),
             "titre" => $budgetExpense->getTitre(),
-            "amount" => number_format((float)$budgetExpense->getAmount(), 2)
+            "amount" => number_format((float)$budgetExpense->getAmount(), 2),
+            "date" => $budgetExpense->getDate() ? $budgetExpense->getDate()->format('d/m/Y') : '',
         ]);
     }
 

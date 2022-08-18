@@ -58,7 +58,6 @@ const statsMatomo = (config) => {
             fetch(`${config.host}/index.php?module=API&method=VisitsSummary.getVisits&idSite=${config.siteId}&period=${period}&date=${apiDate}&format=json`)
                 .then(response => response.json())
                 .then(datas => {
-                    console.log(datas)
                     options.xaxis.categories = Object.keys(datas);
                     options.series[0].data = Object.values(datas);
                     let getVisitsChartDiv = document.querySelector("#VisitsSummary_getVisits .getVisits-chart");
