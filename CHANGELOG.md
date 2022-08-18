@@ -26,7 +26,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajouter les Pop-up avec le plugin Toastr
 - Dans Liste Tous mes projets, ajouter un lien qui switch la société et rediriger vers le projet
 - Dans Liste Tous mes projets, le tableau "Mes projets" devrait être renommé en "Mes projets par sociétés"
-- Analyse budgétaire projet, Ajout de la date pour les Dépenses ponctuelles 
+- Analyse budgétaire projet, Ajout de la date pour les Dépenses ponctuelles
+- Button **Ajouter un fichier** dans la liste des fichiers
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.
@@ -34,6 +35,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans Liste Tous mes projets, classer toujours les projets par société
 - Page Mes projets | Enlever le bouton "Projet externe"
 - Back office : des modifications visuelles et textuelles
+- Spécification des participants dans le mail de d'invitation calendaire 
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
@@ -41,6 +43,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Planification : date fin d'une tâche = date début + durée (exp: date début = 01/01/2022 & durée = 1j => date fin = 01/01/2020)
 - Correction des couleurs qui n'etait pas respecté pour le chart sur les status des projets
 - Dans les sms, mettre les mois de l’année en français lorsque l’on a sélectionné la langue française dans l’application.
+- Bug : suppression d'une tâche dans la planification du projet
 
 
 
