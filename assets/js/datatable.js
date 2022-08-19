@@ -60,6 +60,9 @@ $('.table.datatable:not(.custom-datatable)').DataTable( {
     searchHighlight: true,
     responsive: true,
     language: language_dt,
+    createdRow: function(settings){
+        initTippyTitle();
+    }
 } );
 
 export {
