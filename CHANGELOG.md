@@ -34,6 +34,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans Liste Tous mes projets, classer toujours les projets par société
 - Page Mes projets | Enlever le bouton "Projet externe"
 - Back office : des modifications visuelles et textuelles
+- Qualification RDI, mise à jour du code couleur des Tags projet pour les score RDI
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
