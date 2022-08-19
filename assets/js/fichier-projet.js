@@ -3,6 +3,7 @@ import EmbedForm from './EmbedForm';
 import {detectedLocale, language_dt} from './translation';
 
 import {domDatatable, btnsDatatable} from './datatable';
+import initTippyTitle from "./popper";
 
 var files_list_dt = $('#files_list_dt').DataTable({
     rowGroup: $('#filter-files-dossier').length > 0
@@ -21,6 +22,9 @@ var files_list_dt = $('#files_list_dt').DataTable({
     responsive: true,
     searchHighlight: true,
     language: language_dt,
+    createdRow: function(settings){
+        initTippyTitle();
+    }
 });
 
 const activeDossierFichierTab = () => {

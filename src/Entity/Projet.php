@@ -620,15 +620,17 @@ class Projet implements HasSocieteInterface
         }
 
         if($this->getAnnualRdiScores()){
-            if (count($this->getAnnualRdiScores()) === 1){
-                return
-                    isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y')]) &&
-                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y')] >= $seuil;
-            } elseif (count($this->getAnnualRdiScores()) > 1){
-                return
-                    isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1]) &&
-                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1] >= $seuil;
-            }
+            return max($this->getAnnualRdiScores()) >= $seuil;
+
+//            if (count($this->getAnnualRdiScores()) === 1){
+//                return
+//                    isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y')]) &&
+//                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y')] >= $seuil;
+//            } elseif (count($this->getAnnualRdiScores()) > 1){
+//                return
+//                    isset($this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1]) &&
+//                    $this->getAnnualRdiScores()[(new \DateTime())->format('Y') - 1] >= $seuil;
+//            }
         }
         return false;
     }

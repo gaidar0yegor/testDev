@@ -126,7 +126,7 @@ class ProjetScoreRdiUpdater
 
     private function calculGlobalProjetScore(array $projetData): float
     {
-        $seuilFmRDI = 5 / $projetData['volumeMoyenAllFms'];
+        $seuilFmRDI = $projetData['volumeMoyenAllFms'] > 0 ? 5 / $projetData['volumeMoyenAllFms'] : 0;
 
         $scoreKeywordsGlobal = $projetData['volumeMoyenAllFms'] > 0 ? ($projetData['nbrKeywordsGlobal']['keywords_1'] * self::COEF_KEYWORD_1 + $projetData['nbrKeywordsGlobal']['keywords_2'] * self::COEF_KEYWORD_2) / $projetData['volumeMoyenAllFms'] : 0;
 

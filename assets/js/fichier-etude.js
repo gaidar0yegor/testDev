@@ -3,6 +3,7 @@ import EmbedForm from './EmbedForm';
 import {detectedLocale, language_dt} from './translation';
 
 import {domDatatable, btnsDatatable} from './datatable';
+import initTippyTitle from "./popper";
 
 var lab_files_list_dt = $('#lab_files_list_dt').DataTable({
     order: [[1, 'desc']],
@@ -14,6 +15,9 @@ var lab_files_list_dt = $('#lab_files_list_dt').DataTable({
     responsive: true,
     searchHighlight: true,
     language: language_dt,
+    createdRow: function(settings){
+        initTippyTitle();
+    }
 });
 
 $('.tab-filter-fichiers')

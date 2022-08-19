@@ -1,8 +1,7 @@
 {% if projet.annualRdiScores | length > 0 %}
-    {% set danger = true %}
     <span style="cursor: help;"
-          title="{% for year, score in projet.annualRdiScores %} {% set danger = score < 0.5 %} {{ year }} : <strong>{{ score * 100 }}%</strong><br> {% endfor %}"
-          class="badge badge-{{ projet.rdi ? 'success' : ( danger ? 'danger' : 'warning') }}">
+          title="{% for year, score in projet.annualRdiScores %} {{ year }} : <strong>{{ score * 100 }}%</strong><br> {% endfor %}"
+          class="badge badge-{{ projet.rdi ? 'success' : ( max(projet.annualRdiScores) >= 0.3 ? 'warning' : 'danger') }}">
             {{ projet.rdi ? 'Éligible RDI' : 'Éligibilité' }}
     </span>
 {% else %}

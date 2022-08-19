@@ -5,6 +5,7 @@ import {detectedLocale,language_dt} from './js/translation';
 import './js/datatable.js';
 
 import './js/fait-marquant-comment';
+import initTippyTitle from "./js/popper";
 
 language_dt.searchPlaceholder = detectedLocale === "en" ? 'Search within the striking facts' : 'Rechercher dans les faits marquants';
 language_dt.emptyTable = detectedLocale === "en" ? 'There is no striking fact on this project' : "Il n'existe aucun fait marquant sur ce projet";
@@ -23,6 +24,9 @@ $(document).ready( function () {
             $(oSettings.nTHead).hide();
             $('div.add-fait-marquant').prependTo('#fait_marquant_timeline_dt_filter');
         },
+        createdRow: function(settings){
+            initTippyTitle();
+        }
     });
 
     $('#fait_marquant_timeline_dt').find('.fait-marquant-content').each((i, div) => {

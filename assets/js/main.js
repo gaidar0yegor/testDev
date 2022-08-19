@@ -5,6 +5,7 @@ import {hexIsLight} from "./utils";
 import {detectedLocale, language_dt} from './translation';
 
 import { domDatatable, btnsDatatable } from './datatable';
+import initTippyTitle from "./popper";
 
 $('form').on('change', 'input.custom-file-input', function () {
     const $input = $(this);
@@ -97,6 +98,9 @@ $(document).ready( function () {
         initComplete: function(settings, json) {
             $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
         },
+        createdRow: function(settings){
+            initTippyTitle();
+        }
     });
     users_list_dt = $('#users_list_dt').DataTable( {
         dom: domDatatable,
@@ -112,6 +116,9 @@ $(document).ready( function () {
         initComplete: function(settings, json) {
             $('#filter-users-statut').val('SOCIETE_USER_STATUT_ACTIVE').trigger('change');
         },
+        createdRow: function(settings){
+            initTippyTitle();
+        }
     });
     $('#multi_societe_projets_dt').DataTable( {
         dom: domDatatable,
@@ -122,7 +129,10 @@ $(document).ready( function () {
         paging: false,
         columnDefs: [{visible: false, targets: 0}],
         searchHighlight: true,
-        language: language_dt
+        language: language_dt,
+        createdRow: function(settings){
+            initTippyTitle();
+        }
     });
 });
 
