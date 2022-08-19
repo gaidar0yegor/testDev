@@ -12,7 +12,7 @@
             <p>
                 Un nouveau évènement a été créé par <strong>{{ evenement.createdBy.user.fullname }}</strong>
                 {% if evenement.projet %}
-                sur le projet <strong>{{ evenement.projet.acronyme }}</strong>
+                    sur le projet <strong>{{ evenement.projet.acronyme }}</strong>
                 {% endif %}
             </p>
 
@@ -24,9 +24,18 @@
                 {{ evenement.description|raw }}
             </p>
             <br>
-            <h4>Les invités</h4>
+            <h4>Invités</h4>
             <ul>
-                {% for evenementParticipant in evenement.evenementParticipants %}
+                {% for evenementParticipant in evenement.requiredEvenementParticipants %}
+                    <li>{{ evenementParticipant.societeUser.user.fullname }}</li>
+                {% endfor %}
+            </ul>
+
+            <br>
+
+            <h4>Information / Informés</h4>
+            <ul>
+                {% for evenementParticipant in evenement.notRequiredEvenementParticipants %}
                     <li>{{ evenementParticipant.societeUser.user.fullname }}</li>
                 {% endfor %}
             </ul>
