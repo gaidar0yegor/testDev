@@ -36,7 +36,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Page Mes projets | Enlever le bouton "Projet externe"
 - Back office : des modifications visuelles et textuelles
 - Qualification RDI, mise à jour du code couleur des Tags projet pour les score RDI
-- Spécification des participants dans le mail de d'invitation calendaire 
+- Spécification des participants dans le mail de d'invitation calendaire
+- Mettre la liste des projets de mon équipe au même format que celle de l'admin
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
