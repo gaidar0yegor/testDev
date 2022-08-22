@@ -331,7 +331,6 @@ $('.sidebar.sidebar-projects').on('mouseleave', function() {
     }
 });
 
-$('tr[data-href]').on('click', function() {
-    let href = $(this).data('href');
-    window.location.href = href;
-})
+$(document).on('click', 'tr[data-href]', function (e) {
+    if ($(this).data('href')) window.location.href = $(this).data('href');
+});
