@@ -19,6 +19,7 @@ import './js/recommandation-text-preview';
 import './js/rdiScore';
 import './js/onboarding';
 import './js/helpText';
+import './js/patchnote';
 import './js/user-notifications';
 import './js/user-events-notifications';
 import './js/societe-notifications';

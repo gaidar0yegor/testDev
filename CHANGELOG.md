@@ -28,6 +28,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Dans Liste Tous mes projets, le tableau "Mes projets" devrait être renommé en "Mes projets par sociétés"
 - Analyse budgétaire projet, Ajout de la date pour les Dépenses ponctuelles
 - Button **Ajouter un fichier** dans la liste des fichiers
+- Mettre une note de Patchnote
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.

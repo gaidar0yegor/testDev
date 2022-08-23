@@ -578,6 +578,7 @@ user_profil_edit: "Edit user information"
 submit: Submit
 'sending...': 'Sending, please wait...'
 back_to_project: 'Back to the project page'
+patchnote: 'Patch notes'
 #################################### Lab App #######################################
 LABO_ADMIN: Administrator
 LABO_SENIOR: Senior researcher

@@ -71,17 +71,20 @@ option:disabled {
   }
 }
 /**************** Plateform color ************************/
-body.corp_app .navbar-dark, body.corp_app header, body.corp_app table thead tr, body.corp_app .facts {
+body.corp_app .navbar-dark, body.corp_app header, body.corp_app table thead tr, body.corp_app .facts, .corp_app_bg {
   background-color: #ce352c !important;
 }
-body.lab_app .navbar-dark, body.lab_app header, body.lab_app table thead tr, body.lab_app .facts{
+body.lab_app .navbar-dark, body.lab_app header, body.lab_app table thead tr, body.lab_app .facts, .lab_app_bg{
   background-color: #416C94 !important;
 }
-body.default_app .navbar-dark, body.default_app #footer, body.default_app header, body.default_app table thead tr, body.default_app .facts{
+body.default_app .navbar-dark, body.default_app #footer, body.default_app header, body.default_app table thead tr, body.default_app .facts, .default_app_bg{
   background-color: #303030 !important;
 }
-body.corp_app h1, body.corp_app h1 select  {
+body.corp_app h1, body.corp_app h1 select, .corp_app_text {
   color: #ce352c;
+}
+body.lab_app h1, body.lab_app h1 select, .lab_app_text {
+  color: #416C94;
 }
 /*****************************HTML*************************/
 h1,
@@ -726,4 +729,75 @@ select.select-2, .select2.select2-container  {
 .flash-messages .alert-close{
   float: right;
   cursor: pointer;
+}
+
+/********************** patch note ***************************/
+.patchnote-modal.bg-modal {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  width: 100%;
+
+  background: rgba(0, 0, 0, 0.300);
+}
+
+.patchnote-modal .patchnote-title{
+  width: 100%;
+  padding: 20px;
+  color: white;
+}
+
+.patchnote-modal .patchnote-body{
+  overflow-y: scroll;
+  height: 55vh;
+  width: 100%;
+  padding: 20px;
+}
+
+.patchnote-modal .patchnote-body .nav-tabs .nav-link:not(.active){
+  color: #495057;
+  background-color: #fff !important;
+}
+.patchnote-modal .patchnote-body .nav-tabs .nav-link.active{
+  color: white !important;
+}
+
+.patchnote-modal .patchnote-body .nav-tabs .nav-link:focus {
+  outline: none;
+}
+
+.patchnote-modal .patchnote-footer{
+  width: 100%;
+  padding: 20px;
+  color: white;
+  text-align: right;
+  border-top: 1px solid #949494;
+}
+
+.patchnote-modal .content{
+  position: fixed;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  background-color: #fff;
+  border-radius: 0.25rem !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.patchnote-modal .patchnote-content h6 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 18px;
 }

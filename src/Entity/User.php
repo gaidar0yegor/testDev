@@ -220,6 +220,11 @@ class User implements UserInterface
      */
     private $currentUserBook;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $patchnoteReaded;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -237,6 +242,7 @@ class User implements UserInterface
         $this->societeUsers = new ArrayCollection();
         $this->projetObservateurExternes = new ArrayCollection();
         $this->locale = 'fr';
+        $this->patchnoteReaded = false;
         $this->dashboardConsolides = new ArrayCollection();
         $this->boUserNotifications = new ArrayCollection();
         $this->userBooks = new ArrayCollection();
@@ -794,6 +800,18 @@ class User implements UserInterface
     public function setNotificationEvenementInvitationEnabled(bool $notificationEvenementInvitationEnabled): self
     {
         $this->notificationEvenementInvitationEnabled = $notificationEvenementInvitationEnabled;
+
+        return $this;
+    }
+
+    public function getPatchnoteReaded(): ?bool
+    {
+        return $this->patchnoteReaded;
+    }
+
+    public function setPatchnoteReaded(bool $patchnoteReaded): self
+    {
+        $this->patchnoteReaded = $patchnoteReaded;
 
         return $this;
     }

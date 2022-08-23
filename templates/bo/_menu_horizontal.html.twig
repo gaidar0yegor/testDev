@@ -20,7 +20,12 @@
             </li>
         </ul>
 
+
+
         <div class="btn-group user-menu">
+            <a href="{{ path('corp_app_bo_patchnote_list') }}" class="btn btn-outline-warning {{ activeOn('corp_app_bo_patchnote_list', 'corp_app_bo_patchnote_new', 'corp_app_bo_patchnote_update') }}">
+                Patch note
+            </a>
             <a href="#" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Back office | {{ app.user.prenom }}
                 <i class="fa fa-lg fa-user-circle-o" aria-hidden="true"></i>

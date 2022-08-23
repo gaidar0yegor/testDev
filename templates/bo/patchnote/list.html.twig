@@ -1,0 +1,57 @@
+{% extends 'bo/base.html.twig' %}
+
+{% block title %}Patche notes | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>Patche notes</h1>
+
+    <div class="my-3 text-right">
+        <div class="btn-group">
+            <a href="#" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-lg fa-plus" aria-hidden="true"></i>
+                {{ 'patchnote'|trans }}
+            </a>
+            <div class="dropdown-menu">
+                <a
+                        class="dropdown-item"
+                        href="{{ path('corp_app_bo_patchnote_new', { 'rdi_app' : constant('App\\Entity\\Patchnote::CORP_APP')}) }}"
+                >
+                    {{ 'corp_app_name'|trans }}
+                </a>
+                <a
+                        class="dropdown-item"
+                        href="{{ path('corp_app_bo_patchnote_new', { 'rdi_app' : constant('App\\Entity\\Patchnote::LAB_APP')}) }}"
+                >
+                    {{ 'lab_app_name'|trans }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table datatable hover" data-order='[[ 1, "asc" ]]'>
+        <thead>
+        <tr>
+            <th>Rdi App</th>
+            <th>Version</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for patchnote in patchnotes %}
+            <tr>
+                <td class="text-left">{{ (patchnote.rdiApp ~ '_name') | trans }}</td>
+                <td>{{ patchnote.version }}</td>
+                <td data-sort='{{ patchnote.date|date('Ymd') }}'>{{ patchnote.date|date('d/m/Y') }}</td>
+                <td class="text-center">
+                    <a class="btn-rdi-icon" href="{{ path('corp_app_bo_patchnote_update', { 'id': patchnote.id }) }}" title="{{ 'edit_btn'|trans }}">
+                        <i class="fa fa-lg fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
