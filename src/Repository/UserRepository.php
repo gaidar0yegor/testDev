@@ -114,4 +114,14 @@ class UserRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function updatePatchnoteReaded($readed = false): void
+    {
+        $this->createQueryBuilder('user')
+            ->update(User::class, 'user')
+            ->set('user.patchnoteReaded', (int)$readed)
+            ->getQuery()
+            ->execute()
+        ;
+    }
 }	
