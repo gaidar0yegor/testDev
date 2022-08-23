@@ -8,7 +8,7 @@
     <div class="col-12 col-lg-8">
         <h1>
             {% include 'utils/_code_color.html.twig' with {color: projet.colorCode} %}
-            {{ "projectString"|trans }} {{ projet.societe.raisonSociale }} / {{ projet.acronyme }}
+            {{ "projectString"|trans }} {{ projet.acronyme }}
         </h1>
 
         <p class="lead text-center">{{ projet.titre }}</p>
