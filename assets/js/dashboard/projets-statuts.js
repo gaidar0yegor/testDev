@@ -19,9 +19,9 @@ const chart = c3.generate({
     },
     color: {
         pattern: [
-            '#ffc107',
+            '#1f77b4',
             '#28a745',
-            '#dc3545',
+            '#ffc107',
         ],
     },
 });
