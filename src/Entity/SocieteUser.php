@@ -16,6 +16,7 @@ use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumbe
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Représente un utilisateur qui a un rôle sur une société.
@@ -25,6 +26,18 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @AppAssert\NotBlankEither(
  *      fields={"invitationEmail", "invitationTelephone"},
  *      groups={"invitation"}
+ * )
+ *
+ * @UniqueEntity(
+ *      fields={"societe","invitationEmail"},
+ *      groups={"Default", "invitation", "registration"},
+ *      message="There is already an invitation with this email address"
+ * )
+ *
+ * @UniqueEntity(
+ *      fields={"societe","invitationTelephone"},
+ *      groups={"Default", "invitation", "registration"},
+ *      message="There is already an invitation with this phone number"
  * )
  */
 class SocieteUser implements HasSocieteInterface, UserResourceInterface

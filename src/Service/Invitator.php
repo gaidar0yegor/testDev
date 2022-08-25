@@ -125,6 +125,15 @@ class Invitator
             return;
         }
 
+        if ($entity instanceof SocieteUser && $entity->getInvitationEmail()){
+            $userSameEmail = $this->em->getRepository(User::class)->findByEmailAndSociete($entity->getSociete(), $entity->getInvitationEmail());
+
+            if (null !== $userSameEmail){
+                throw new RdiException('There is already an account with this email');
+            }
+        }
+
+
         if ($errors->count() > 0) {
             $errorMessages = [];
 

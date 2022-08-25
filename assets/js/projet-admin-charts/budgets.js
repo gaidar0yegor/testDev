@@ -136,6 +136,7 @@ if (chartContents) {
                     });
 
                     $(modal).find('form').trigger("reset");
+                    $(modal).find('form input[name="special_expense_form[updateId]"]').val('')
                 },
             });
         }

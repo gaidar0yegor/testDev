@@ -124,8 +124,11 @@ $(document).ready( function () {
         dom: domDatatable,
         buttons: btnsDatatable,
         responsive: true,
-        rowGroup: {dataSrc: [0]},
-        order: [[0, 'asc'], [2, 'asc']],
+        orderFixed: [[0, 'asc']],
+        rowGroup: {
+            dataSrc: 0
+        },
+        order: [[2, 'asc']],
         paging: false,
         columnDefs: [{visible: false, targets: 0}],
         searchHighlight: true,

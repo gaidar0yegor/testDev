@@ -64,7 +64,7 @@ class ProjetBudgetExpenseController extends AbstractController
             "action" => "inserted",
             "id" => $budgetExpense->getId(),
             "titre" => $budgetExpense->getTitre(),
-            "amount" => number_format((float)$budgetExpense->getAmount(), 2),
+            "amount" => number_format((float)$budgetExpense->getAmount(), 2 , ".", ""),
             "date" => $budgetExpense->getDate() ? $budgetExpense->getDate()->format('d/m/Y') : '',
         ]);
     }

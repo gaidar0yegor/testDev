@@ -47,6 +47,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Correction des couleurs qui n'etait pas respecté pour le chart sur les status des projets
 - Dans les sms, mettre les mois de l’année en français lorsque l’on a sélectionné la langue française dans l’application.
 - Bug : suppression d'une tâche dans la planification du projet
+- Bug : Modifier dépenses spéciales
+- Bug : retour à la ligne avec tag <pre>
 
 
 
