@@ -627,55 +627,6 @@ select.select-2, .select2.select2-container  {
 
   margin-top: 5px;
 }
-
-#center-fixed-alerts #bg-modal {
-  position: fixed;
-  z-index: 9999;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  height: 100vh;
-  width: 100%;
-
-  background: rgba(0, 0, 0, 0.300);
-}
-
-#center-fixed-alerts .custom-alert{
-  position: fixed;
-  z-index: 99999;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  width: 320px;
-
-  padding: 20px 30px;
-
-  background-color: #fff; 
-  border-radius: 0.25rem !important;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-#center-fixed-alerts .custom-alert h6 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 18px;
-}
-
-#center-fixed-alerts .custom-alert p {
-  margin-top: 10px;
-  font-size: 16px;
-  text-align: center;
-}
-
 .read-more{
   position: absolute;
   bottom: 0;
@@ -741,49 +692,46 @@ select.select-2, .select2.select2-container  {
   cursor: pointer;
 }
 
-/********************** patch note ***************************/
-.patchnote-modal.bg-modal {
+/******************** RDI Popup *************************/
+.rdi-popup.bg-modal {
   position: fixed;
   z-index: 9999;
   top: 0;
   left: 0;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   height: 100vh;
   width: 100%;
-
   background: rgba(0, 0, 0, 0.300);
 }
-
-.patchnote-modal .patchnote-title{
+.rdi-popup .content{
+  position: fixed;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  background-color: #fff;
+  border-radius: 0.25rem !important;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.rdi-popup .rdi-popup-title{
   width: 100%;
   padding: 20px;
   color: white;
 }
-
-.patchnote-modal .patchnote-body{
-  overflow-y: scroll;
-  height: 55vh;
+.rdi-popup .rdi-popup-body{
+  position: relative;
+  overflow-y: auto;
+  max-height: 55vh;
   width: 100%;
   padding: 20px;
+  text-align: justify;
+  word-break: break-word !important;
 }
-
-.patchnote-modal .patchnote-body .nav-tabs .nav-link:not(.active){
-  color: #495057;
-  background-color: #fff !important;
-}
-.patchnote-modal .patchnote-body .nav-tabs .nav-link.active{
-  color: white !important;
-}
-
-.patchnote-modal .patchnote-body .nav-tabs .nav-link:focus {
-  outline: none;
-}
-
-.patchnote-modal .patchnote-footer{
+.rdi-popup .rdi-popup-footer{
   width: 100%;
   padding: 20px;
   color: white;
@@ -791,23 +739,25 @@ select.select-2, .select2.select2-container  {
   border-top: 1px solid #949494;
 }
 
-.patchnote-modal .content{
-  position: fixed;
-  z-index: 99999;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 60%;
-  background-color: #fff;
-  border-radius: 0.25rem !important;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+/********************** manque date début societe popup **********************/
+.input-date-entry-popup .content{
+  width: 320px;
 }
 
-.patchnote-modal .patchnote-content h6 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 18px;
+/********************** patch note ***************************/
+.rdi-popup.patchnote-modal .rdi-popup-body{
+  height: 55vh;
+}
+.rdi-popup.patchnote-modal .rdi-popup-body .nav-tabs .nav-link:not(.active){
+  color: #495057;
+  background-color: #fff !important;
+}
+.rdi-popup.patchnote-modal .rdi-popup-body .nav-tabs .nav-link.active{
+  color: white !important;
+}
+.rdi-popup.patchnote-modal .rdi-popup-body .nav-tabs .nav-link:focus {
+  outline: none;
+}
+.rdi-popup.patchnote-modal .content{
+  width: 60%;
 }
