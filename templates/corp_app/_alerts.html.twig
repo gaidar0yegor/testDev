@@ -27,16 +27,19 @@
     (userContext.societeUser.societeUserPeriods | length > 0 and userContext.societeUser.societeUserPeriods.first.dateEntry is null) %}
 
 		{% if is_granted(constant('App\\Security\\Role\\RoleSociete::ADMIN')) or userContext.societeUser.superiorFo %}
-			<div id="bg-modal">
-				<div class="custom-alert">
-					<h6>
-						<i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>&emsp;Finalisez votre inscription</h6>
-					<p>Saisissez votre date d'entrée dans la société.</p>
-					<form class="d-flex flex-column justify-content-center align-items-center" method="post" action="{{ path('api_societe_user_date_entree_update', {'societeId': userContext.societeUser.societe.id, 'societeUserId': userContext.societeUser.id }) }}" onsubmit="return confirm('Enregistrer votre date d\'entrée dans la société ?');">
-						<input type="text" name="date-entree" class="date-picker numeric-format form-control" autocomplete="off"/>
-						<button type="submit" class="btn btn-success mt-3">Valider</button>
-						<input type="hidden" name="token" value="{{ csrf_token('update-date-entree-admin') }}"/>
-					</form>
+			<div class="input-date-entry-popup rdi-popup bg-modal">
+				<div class="content">
+					<div class="rdi-popup-title corp_app_bg">
+						<h6><i class="fa fa-exclamation-triangle text-warning" aria-hidden="true"></i>&emsp;Finalisez votre inscription</h6>
+					</div>
+					<div class="rdi-popup-body">
+						<p>Saisissez votre date d'entrée dans la société.</p>
+						<form class="d-flex flex-column justify-content-center align-items-center" method="post" action="{{ path('api_societe_user_date_entree_update', {'societeId': userContext.societeUser.societe.id, 'societeUserId': userContext.societeUser.id }) }}" onsubmit="return confirm('Enregistrer votre date d\'entrée dans la société ?');">
+							<input type="text" name="date-entree" class="date-picker numeric-format form-control" autocomplete="off"/>
+							<button type="submit" class="btn btn-success mt-3">Valider</button>
+							<input type="hidden" name="token" value="{{ csrf_token('update-date-entree-admin') }}"/>
+						</form>
+					</div>
 				</div>
 			</div>
 		{% else %}

@@ -1,10 +1,10 @@
 {% extends 'corp_app/base.html.twig' %}
 
-{% block title %}{{ 'edit_user_user'|trans({'%user%': societeUser.user.fullname}) }} | {{ parent() }}{% endblock %}
+{% block title %}{{ 'edit_user_user'|trans({'%user%': societeUser.user.fullnameOrEmail}) }} | {{ parent() }}{% endblock %}
 
 {% block body %}
 
-<h1>{{ 'edit_user_user'|trans({'%user%': societeUser.user.fullname}) }}</h1>
+<h1>{{ 'edit_user_user'|trans({'%user%': societeUser.user.fullnameOrEmail}) }}</h1>
 
 {{ form_start(form) }}
 {{ form_errors(form) }}
@@ -39,12 +39,12 @@
                 {% if societeUser.enabled %}
                     <h5 class="card-title text-danger">{{ 'disable_account'|trans }}</h5>
                     <p class="card-text text-danger">
-                        {{ 'disable_account_explain'|trans({'%user%': societeUser.user.fullname}) }}
+                        {{ 'disable_account_explain'|trans({'%user%': societeUser.user.fullnameOrEmail}) }}
                     </p>
                     {% if projetsAsCdp | length > 0 %}
                         <hr>
                         <p class="card-text">
-                            {{ 'disable_account_with_CDP_roles_explain'|trans({'%user%': societeUser.user.fullname}) }}
+                            {{ 'disable_account_with_CDP_roles_explain'|trans({'%user%': societeUser.user.fullnameOrEmail}) }}
                         </p>
                         <ul>
                             {% for projetParticipant in projetsAsCdp %}
@@ -76,7 +76,7 @@
                 {% else %}
                     <h5 class="card-title">{{ 're_enable_account'|trans }}</h5>
                     <p class="card-text">
-                        {{ 're_enable_account_explain'|trans({'%user%': societeUser.user.fullname}) }}
+                        {{ 're_enable_account_explain'|trans({'%user%': societeUser.user.fullnameOrEmail}) }}
                     </p>
                     <form
                         action="{{ path('corp_app_fo_utilisateur_enable', { id: societeUser.id }) }}"
@@ -96,4 +96,21 @@
     </div>
 </div>
 
+    {% if putDateLeaveForDisabling %}
+    <div class="input-date-leave-popup rdi-popup bg-modal">
+        <div class="content">
+            <div class="rdi-popup-title corp_app_bg">
+                <h6>Désactiver le compte</h6>
+            </div>
+            <div class="rdi-popup-body">
+                <p>{{ 'verif_date_leave_on_disable_user'|trans({'user': societeUser.user.fullnameOrEmail}) }}</p>
+                <form class="d-flex flex-column justify-content-center align-items-center" method="post" action="{{ path('corp_app_fo_utilisateur_disable', {'id': societeUser.id }) }}">
+                    <input type="text" name="dateLeave" class="date-picker numeric-format form-control" autocomplete="off"/>
+                    <button type="submit" class="btn btn-success mt-3">Enregistrer et désactiver</button>
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token('date_leave_disable_societe_user_' ~ societeUser.id) }}"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 {% endblock %}

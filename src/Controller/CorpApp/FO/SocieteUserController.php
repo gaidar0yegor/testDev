@@ -6,6 +6,8 @@ use App\DTO\NullUser;
 use App\Entity\ProjetParticipant;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserActivity;
+use App\Entity\SocieteUserPeriod;
+use App\Exception\RdiException;
 use App\Form\SocieteUserType;
 use App\MultiSociete\UserContext;
 use App\Notification\Event\ProjetParticipantRemovedEvent;
@@ -20,6 +22,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
@@ -116,6 +119,7 @@ class SocieteUserController extends AbstractController
             'form' => $form->createView(),
             'societeUser' => $societeUser,
             'projetsAsCdp' => $projetsAsCdp,
+            'putDateLeaveForDisabling' => $request->query->has('putDateLeaveForDisabling')
         ]);
     }
 
@@ -125,6 +129,7 @@ class SocieteUserController extends AbstractController
      *      name="corp_app_fo_utilisateur_disable",
      *      methods={"POST"}
      * )
+     * @throws RdiException
      */
     public function disable(
         Request $request,
@@ -136,7 +141,24 @@ class SocieteUserController extends AbstractController
     {
         $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
-        if (!$this->isCsrfTokenValid('disable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
+        if ($this->isCsrfTokenValid('date_leave_disable_societe_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
+            $dateLeave = $request->get('dateLeave');
+
+            if (!$dateLeave || !\DateTime::createFromFormat('d/m/Y', $dateLeave)) {
+                throw new BadRequestHttpException('Date Leave is required');
+            }
+
+            if($societeUser->getSocieteUserPeriods()->last()->getDateLeave() === null){
+                $societeUserPeriod = $societeUser->getSocieteUserPeriods()->last();
+                $societeUserPeriod->setDateLeave(\DateTime::createFromFormat('d/m/Y', $dateLeave));
+            } else {
+                throw new RdiException('Une erreur est survenue !');
+            }
+
+            $em->persist($societeUser);
+            $em->flush();
+
+        } elseif (!$this->isCsrfTokenValid('disable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
             $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
 
             return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
@@ -160,6 +182,7 @@ class SocieteUserController extends AbstractController
 
             return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                 'id' => $societeUser->getId(),
+                'putDateLeaveForDisabling' => true,
             ]);
         }
 

@@ -39,6 +39,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Qualification RDI, mise à jour du code couleur des Tags projet pour les score RDI
 - Spécification des participants dans le mail de d'invitation calendaire
 - Mettre la liste des projets de mon équipe au même format que celle de l'admin
+- Modifier le processus pour désactiver un compte utilisatuer dans une societe
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
@@ -46,9 +47,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Planification : date fin d'une tâche = date début + durée (exp: date début = 01/01/2022 & durée = 1j => date fin = 01/01/2020)
 - Correction des couleurs qui n'etait pas respecté pour le chart sur les status des projets
 - Dans les sms, mettre les mois de l’année en français lorsque l’on a sélectionné la langue française dans l’application.
-- Bug : suppression d'une tâche dans la planification du projet
+- Bug : Suppression d'une tâche dans la planification du projet
 - Bug : Modifier dépenses spéciales
-- Bug : retour à la ligne avec tag <pre>
+- Bug : Retour à la ligne avec tag <pre>
+- Bug : Inviter une adresse mail plus qu'une seule fois dans la même société
 
 
 
