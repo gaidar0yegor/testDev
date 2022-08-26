@@ -29,11 +29,11 @@
         </div>
     </div>
 
-    <table class="table datatable hover" data-order='[[ 1, "asc" ]]'>
+    <table id="patchnotes_list_dt" class="table datatable custom-datatable hover">
         <thead>
         <tr>
-            <th>Rdi App</th>
             <th>Version</th>
+            <th>Rdi App</th>
             <th>Date</th>
             <th></th>
         </tr>
@@ -41,8 +41,8 @@
         <tbody>
         {% for patchnote in patchnotes %}
             <tr>
-                <td class="text-left">{{ (patchnote.rdiApp ~ '_name') | trans }}</td>
                 <td>{{ patchnote.version }}</td>
+                <td class="text-left">{{ (patchnote.rdiApp ~ '_name') | trans }}</td>
                 <td data-sort='{{ patchnote.date|date('Ymd') }}'>{{ patchnote.date|date('d/m/Y') }}</td>
                 <td class="text-center">
                     <a class="btn-rdi-icon" href="{{ path('corp_app_bo_patchnote_update', { 'id': patchnote.id }) }}" title="{{ 'edit_btn'|trans }}">

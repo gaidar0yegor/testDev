@@ -7,7 +7,7 @@
             <img class="logofooter float-left" src="{{ asset('build/assets/img/logosignFooterRDI.png') }}" alt="RDI Manager">
             <h4 class="text-center">Mise à jour effectuée !</h4>
             <h6 class="m-0">
-                RDI Manager {{ shivas_app_version }} est actuellement la version disponible la plus récente.
+                <i>{{ patchnotes[0].date|format_date }}</i> | RDI Manager {{ shivas_app_version }} est actuellement la version disponible la plus récente.
             </h6>
         </div>
         <div class="rdi-popup-body">

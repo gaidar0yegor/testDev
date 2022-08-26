@@ -53,6 +53,16 @@ class PatchnoteController extends AbstractController
         UserRepository $userRepository
     )
     {
+        $existedPatchnote = $this->em->getRepository(Patchnote::class)->findOneBy(['rdiApp' => $rdi_app, 'version' => $versionManager->getVersion()]);
+
+        if (null !== $existedPatchnote){
+            $this->addFlash('warning','Patch note est déjà créée pour cette version !! Vous avez la possibilité de la modifier.');
+
+            return $this->redirectToRoute('corp_app_bo_patchnote_update',[
+                'id' => $existedPatchnote->getId()
+            ]);
+        }
+
         $patchnote = new Patchnote();
         try{
             $patchnote->setVersion($versionManager->getVersion());

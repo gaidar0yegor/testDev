@@ -38,6 +38,11 @@
 #UserCountry_getCountry table thead {
     width: 100%;
 }
+#patchnotes_list_dt tr.dtrg-group.dtrg-level-0 {
+    background-color: gray;
+    color: white;
+    font-weight: bold;
+}
 @media (min-width: 768px) {
     #UserCountry_getCountry table thead{
         border-right: 1px solid gray;
