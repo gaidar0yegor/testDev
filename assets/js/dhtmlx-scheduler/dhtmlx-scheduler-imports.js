@@ -138,16 +138,22 @@ var format = scheduler.date.date_to_str("%Y-%m-%d %H:%i");
 
 scheduler.attachEvent("onTemplatesReady", function() {
     scheduler.templates.event_text = function (start, end, ev) {
-        return ev.eventType === "ABSENCE" ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
+        console.log(ev);
+        return ev.eventType === "ABSENCE" && ev.hasOwnProperty("required_participants_names") ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
     };
     scheduler.templates.event_bar_text = function (start, end, ev) {
-        return ev.eventType === "ABSENCE" ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
+        return ev.eventType === "ABSENCE" && ev.hasOwnProperty("required_participants_names") ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
     };
     scheduler.templates.tooltip_text = function(start,end,ev) {
-        return `<b>Event:</b> ${ev.text}<br/>
+        let tooltipText = `<b>Event:</b> ${ev.text}<br/>
                 <b>Start date:</b> ${format(start)}<br/>
-                <b>End date:</b> ${format(end)}<br/>
-                <b>Participants:</b> ${ev.required_participants_names}`;
+                <b>End date:</b> ${format(end)}<br/>`;
+
+        if(ev.hasOwnProperty("required_participants_names")){
+            tooltipText += `<b>Participants:</b> ${ev.required_participants_names}`
+        }
+
+        return tooltipText;
     };
 });
 
