@@ -14,4 +14,5 @@ twig:
             host: '%env(MATOMO_HOST)%'
             siteId: '%env(MATOMO_SITE_ID)%'
         rdiManagerDemoUrl: '%env(RDI_DEMO_URL)%'
+        rdi_mail_address: '%env(MAILER_FROM)%'
         userContext: '@App\MultiSociete\UserContext'

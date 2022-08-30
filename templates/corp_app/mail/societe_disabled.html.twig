@@ -1,0 +1,43 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}L’espace RDI-Manager de votre société a été désactivé{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>Bonjour,</p>
+            <p>
+                En qualité d’administrateur de l’espace RDI-Manager de la société {{ societe.raisonSociale }}, vous êtes
+                informé que
+                votre espace RDI a été désactivé et que plus aucun de vos utilisateurs ne pourra accéder à la société.
+            </p>
+
+            <p>
+                Conformément aux conditions générales de vente et d’utilisation de la plateforme, vos données seront
+                conservées pendant une période d’au moins un an au cours de laquelle vous pourrez demander à les
+                récupérer numériquement. Au terme de cette période, l’espace de votre société, ainsi que les données
+                associées seront automatiquement mis dans le workflow de suppression définitive de la plateforme.
+            </p>
+
+            <p>
+                Vous pouvez à tout moment contacter le service client RDI-Manager durant la période de carence d’un an
+                pour réactiver votre espace.
+            </p>
+            <br>
+
+            <button onclick="location.href='mailto:{{ rdi_mail_address }}?subject=Société {{ societe.raisonSociale }} | Réactivation Espace RDI';">Réactiver
+                votre espace RDI-Manager
+            </button>
+            <br>
+            <hr>
+            <br>
+
+            <p><strong>Vous avez des questions ?</strong></p>
+            <p>
+                Vous pouvez joindre notre service client sur {{ rdi_mail_address }} ou par téléphone au + 33 1 30 50 13
+                49 du lundi au vendredi de 9h à 18h. Vous pouvez également consulter notre documentation <a
+                        href="https://rdimanager.com/pages/cgv.html">CGU-CGV</a>.
+            </p>
+        </columns>
+    </row>
+{% endblock %}

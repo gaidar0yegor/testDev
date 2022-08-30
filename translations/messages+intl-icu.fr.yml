@@ -24,6 +24,9 @@ yes: Oui
 no: Non
 enabled: Actifs
 disabled: Désactivés
+renable: Ré-activer
+disable: Désactiver
+put_on_stand_by: Mettre en veille
 organigramme: Organigramme
 product_privilege_no_dispo: 'Indisponible avec votre license'
 FAIT_MARQUANT_DESCRIPTION_SIZE: Taille de la description des faits marquants
@@ -393,6 +396,12 @@ edit_my_avatar: Modifier mon avatar
 "new_avatar:": "Nouvel avatar :"
 "new_logo:": "Nouveau logo :"
 "color_code:": "Code couleur :"
+societe_have_been_disbled: "La société {raisonSociale} a été désactivée !"
+societe_have_been_enabled: "La société {raisonSociale} a été ré-activée !"
+societe_have_been_puted_on_stand_by: "La société {raisonSociale} a été mise en veille !"
+are_you_sure_disable_societe: "Êtes-vous sûr de vouloir désactiver la société {raisonSociale} ?"
+are_you_sure_enable_societe: "Êtes-vous sûr de vouloir ré-activer la société {raisonSociale} ?"
+are_you_sure_stand_by_societe: "Êtes-vous sûr de vouloir mettre en veille la société {raisonSociale} ?"
 delete_project_title: "Supprimer le projet {projectAcronyme}"
 suspend_project_title: "Suspendre le projet {projectAcronyme}"
 resume_project_title: "Ré-activer le projet {projectAcronyme}"
@@ -439,7 +448,8 @@ who_is_working_on_this_project: "Qui contribue à ce projet ?"
 n_contributors_added: "{n, plural, =1 {Le contributeur a été ajouté au projet.} other {Les # contributeurs ont été ajoutés au projet.}}"
 bo.onboarding_notification_every: "Envoyer un email d'onboarding tout les..."
 bo.onboarding_notification_every.help: 'Exemple de format acceptés : "2 days", "3 weeks", "1 month", ...'
-i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/fr/cgu.html" target="_blank">conditions générales d''utilisation</a> et les <a href="https://rdimanager.com/fr/cgv.html" target="_blank">conditions générales de vente</a>.'
+i_accept_cgu_and_cgv: 'J''accepte les <a href="https://rdimanager.com/pages/cgv.html" target="_blank">Conditions Générales de Vente et d''Utilisation</a>.'
+societe_disabled_contact_rdi: 'Cette société à été désactivée !! Merci de contacter le service client RDI-Manager'
 add_file_success: "La liste des fichiers a été mise à jour avec succès"
 edit_file_success: "Votre fichier {oldName} a bien été modifié en {newName}"
 download: "Télécharger"
@@ -498,6 +508,7 @@ max_projects: "Nombre de projets max :"
 license_notRelated: Cette license n'est pas liée à votre société.
 account_goBack: Retourner à mon compte
 access_disabled: Accès désactivé
+societe_disabled: Société désactivée
 goOn: Aller sur
 timeString: Temps
 resultString: Résultat

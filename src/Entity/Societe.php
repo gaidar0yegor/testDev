@@ -200,8 +200,20 @@ class Societe implements HasSocieteInterface
      */
     private $currency;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $enabled;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : false})
+     */
+    private $onStandBy;
+
     public function __construct()
     {
+        $this->enabled = true;
+        $this->onStandBy = false;
         $this->uuid = Uuid::uuid4();
         $this->societeUsers = new ArrayCollection();
         $this->heuresParJours = self::DEFAULT_HEURES_PAR_JOURS;
@@ -568,6 +580,30 @@ class Societe implements HasSocieteInterface
     public function setCurrency(?string $currency): self
     {
         $this->currency = $currency;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getOnStandBy(): ?bool
+    {
+        return $this->onStandBy;
+    }
+
+    public function setOnStandBy(bool $onStandBy): self
+    {
+        $this->onStandBy = $onStandBy;
 
         return $this;
     }

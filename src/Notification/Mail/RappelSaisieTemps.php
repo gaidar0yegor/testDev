@@ -40,6 +40,11 @@ class RappelSaisieTemps implements EventSubscriberInterface
     public function rappelSaisieTemps(RappelSaisieTempsNotification $event): void
     {
         $societe = $event->getSociete();
+
+        if (!$societe->getEnabled()){
+            return;
+        }
+
         $month = $this->dateMonthService->normalize($event->getMonth());
         $societeUsers = $this->societeUserRepository->findAllNotifiableUsers('notificationSaisieTempsEnabled', $societe);
 

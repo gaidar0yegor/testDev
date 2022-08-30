@@ -41,6 +41,10 @@ class SocieteUserInvitation implements EventSubscriberInterface
      */
     public function sendInvitationEmail(SocieteUser $invitedUser, User $fromUser): void
     {
+        if (!$invitedUser->getSociete()->getEnabled()){
+            return;
+        }
+
         if (null === $invitedUser->getInvitationToken()) {
             throw new RdiException('Cannot send invitation email, this user has no invitation token.');
         }

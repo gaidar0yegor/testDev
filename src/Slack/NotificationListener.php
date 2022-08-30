@@ -29,6 +29,10 @@ class NotificationListener implements EventSubscriberInterface
 
     public function rappelSaisieTemps(RappelSaisieTempsNotification $event): void
     {
+        if (!$event->getSociete()->getEnabled()){
+            return;
+        }
+
         $buttonLink = $this->urlGenerator->generate('corp_app_fo_temps', [], UrlGeneratorInterface::ABSOLUTE_URL);
 
         $blocks = [
@@ -72,6 +76,10 @@ class NotificationListener implements EventSubscriberInterface
 
     public function planningTaskNotCompleted(PlanningTaskNotCompletedNotification $event): void
     {
+        if (!$event->getSociete()->getEnabled()){
+            return;
+        }
+
         $buttonLink = $this->urlGenerator->generate(
             'corp_app_fo_projet_planning',
             ['projetId' => $event->getProjet()->getId()],

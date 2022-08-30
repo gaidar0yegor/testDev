@@ -23,13 +23,17 @@
                             {{ app.user.currentSocieteUser.societe.raisonSociale }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg-right">
-                            {% for societeUser in app.user.societeUsers|slice(0, 3) %}
-                                <form action="{{ path('corp_app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
-                                    <button type="submit" class="dropdown-item btn-outline-light border-0 pl-3 {{ societeUser.enabled ? '' : 'disabled' }}">
-                                        {% include 'utils/_avatar.html.twig' with {societe: societeUser.societe, size: 20} %}
-                                        {{ societeUser.societe.raisonSociale }}
-                                    </button>
-                                </form>
+                            {% set nbrSocietes = 0 %}
+                            {% for societeUser in app.user.societeUsers %}
+                                {% if not societeUser.societe.onStandBy and nbrSocietes < 3 %}
+                                    <form action="{{ path('corp_app_fo_multi_societe_switch_post', {'id': societeUser.id}) }}" method="post">
+                                        <button type="submit" class="dropdown-item btn-outline-light border-0 pl-3 {{ not societeUser.societe.enabled or not societeUser.enabled ? 'disabled' : '' }}">
+                                            {% include 'utils/_avatar.html.twig' with {societe: societeUser.societe, size: 20} %}
+                                            {{ societeUser.societe.raisonSociale }}
+                                        </button>
+                                    </form>
+                                    {% set nbrSocietes = nbrSocietes + 1 %}
+                                {% endif %}
                             {% endfor %}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item {{ activeOn('corp_app_fo_multi_societe_switch') }}"

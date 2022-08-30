@@ -75,7 +75,6 @@ pre{
   overflow-x: auto; /* Use horizontal scroller if needed; for Firefox 2, not needed in Firefox 3 */
   white-space: pre-wrap; /* css-3 */
   white-space: -moz-pre-wrap !important; /* Mozilla, since 1999 */
-  white-space: -pre-wrap; /* Opera 4-6 */
   white-space: -o-pre-wrap; /* Opera 7 */
   /* width: 99%; */
   word-wrap: break-word; /* Internet Explorer 5.5+ */
@@ -201,7 +200,13 @@ a.disabled {
   z-index: 1;
 }
 .bg-light-danger {
-  background-color: rgba(206, 53, 44, 0.68);
+  background-color: rgba(206, 53, 44, 0.3);
+}
+.bg-light-success {
+  background-color: rgba(40, 163, 49, 0.25);
+}
+.bg-light-warning {
+  background-color: rgba(255, 163, 7, 0.25);
 }
 .card.bg-light-grey {
   background-color: #e9ece6;
@@ -714,13 +719,14 @@ select.select-2, .select2.select2-container  {
   align-items: center;
   width: 40%;
   background-color: #fff;
-  border-radius: 0.25rem !important;
+  border-radius: 1rem !important;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 .rdi-popup .rdi-popup-title{
   width: 100%;
   padding: 20px;
   color: white;
+  border-radius: 1rem 1rem 0 0;
 }
 .rdi-popup .rdi-popup-body{
   position: relative;
@@ -745,6 +751,9 @@ select.select-2, .select2.select2-container  {
 }
 
 /********************** patch note ***************************/
+.rdi-popup.patchnote-modal .rdi-popup-title{
+  background-color: #6d6a6a !important;
+}
 .rdi-popup.patchnote-modal .rdi-popup-body{
   height: 55vh;
 }

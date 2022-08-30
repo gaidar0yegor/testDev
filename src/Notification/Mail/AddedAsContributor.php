@@ -28,6 +28,10 @@ class AddedAsContributor implements EventSubscriberInterface
         $user = $event->getSocieteUser()->getUser();
         $societe = $event->getSocieteUser()->getSociete();
 
+        if (!$societe->getEnabled()){
+            return;
+        }
+
         if (null === $user) {
             return;
         }

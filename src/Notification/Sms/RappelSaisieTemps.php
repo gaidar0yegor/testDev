@@ -69,6 +69,11 @@ class RappelSaisieTemps implements EventSubscriberInterface
     public function sendNotificationSaisieTempsAllUsers(RappelSaisieTempsNotification $event): void
     {
         $societe = $event->getSociete();
+
+        if (!$societe->getEnabled()){
+            return;
+        }
+
         if (ProductPrivilegeCheker::checkProductPrivilege($societe,ProductPrivileges::SMS_NOTIFICATION_SAISIE_TEMPS)){
             $month = $event->getMonth();
             $societeUsers = $this->societeUserRepository->findAllNotifiableUsers('notificationSaisieTempsEnabled', $societe);
