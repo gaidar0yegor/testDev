@@ -43,6 +43,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Mettre la liste des projets de mon équipe au même format que celle de l'admin
 - Modifier le processus pour désactiver un compte utilisatuer dans une societe
 - Couleur de l'évènement **Absence** en gris
+- Augmenter le nombre des contributeurs et des projets pour l'offre STARTER
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
