@@ -30,6 +30,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Button **Ajouter un fichier** dans la liste des fichiers
 - Mettre une note de Patchnote
 - Désactiver et mettre en veille une société
+- Filtrer la liste des sociétés dans le Back-Office
 ### Modifié
 - Dans le modal d'ajout d'un événement, inverser l'emplacement des deux boutons : "Enregistrer" et "Annuler"
 - Changement du texte pour retourner au projet.
@@ -41,7 +42,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Spécification des participants dans le mail de d'invitation calendaire
 - Mettre la liste des projets de mon équipe au même format que celle de l'admin
 - Modifier le processus pour désactiver un compte utilisatuer dans une societe
-- Filtrer la liste des sociétés dans le Back-Office
+- Couleur de l'évènement **Absence** en gris
+- Augmenter le nombre des contributeurs et des projets pour l'offre STARTER
 ## Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation

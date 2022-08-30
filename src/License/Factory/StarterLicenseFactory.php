@@ -40,8 +40,8 @@ class StarterLicenseFactory implements LicenseFactoryInterface
             ->setSociete($societe)
             ->setExpirationDate($expirationDate)
             ->setQuotas([
-                ActiveProjetQuota::NAME => 2,
-                ContributeurQuota::NAME => 3,
+                ActiveProjetQuota::NAME => 5,
+                ContributeurQuota::NAME => 5,
             ])
         ;
 

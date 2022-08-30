@@ -40,8 +40,8 @@ class StandardLicenseFactory implements LicenseFactoryInterface
             ->setSociete($societe)
             ->setExpirationDate($expirationDate)
             ->setQuotas([
-                ActiveProjetQuota::NAME => 10,
-                ContributeurQuota::NAME => 49,
+                ActiveProjetQuota::NAME => 1E3,
+                ContributeurQuota::NAME => 5E3,
             ])
         ;
 
