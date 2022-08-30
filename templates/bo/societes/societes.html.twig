@@ -2,20 +2,34 @@
 
 {% block body %}
 
-<h1>Sociétés</h1>
+    <h1>Sociétés</h1>
 
-<table class="table datatable" data-column-defs='[{"sortable": false, "targets": [0]}]' data-order='[[ 1, "asc" ]]'>
-    <thead>
+    <ul class="nav nav-tabs mb-3 tab-filter-societes">
+        <li class="nav-item">
+            <a class="nav-link enabled-societes active" href="#0">{{ "enabled"|trans }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled-societes" href="#0">{{ "disabled"|trans }}</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link all-societes" href="#0">{{ 'allString'|trans }}</a>
+        </li>
+        <input type="hidden" id="filter-societes-statut">
+    </ul>
+
+    <table id="societes_list_dt" class="table datatable custom-datatable hover" data-column-defs='[{"sortable": false, "targets": [0]}]' data-order='[[ 1, "asc" ]]'>
+        <thead>
         <tr>
             <th>Logo</th>
             <th>Société</th>
             <th>Administrateurs</th>
             <th>Utilisateurs</th>
             <th>Projets</th>
+            <th>Statut</th>
             <th>Licence</th>
         </tr>
-    </thead>
-    <tbody>
+        </thead>
+        <tbody>
         {% for societe in societes %}
             <tr>
                 <td>{% include 'utils/_avatar.html.twig' with {societe: societe, size: 35, border: true, toExpend: true} %}</td>
@@ -23,6 +37,7 @@
                 <td>{{ societe.admins|map(societeUser => "#{societeUser.user.fullnameOrEmail}")|join(', ') }}</td>
                 <td>{{ societe.societeUsers|length }}</td>
                 <td>{{ societe.projets|length }}</td>
+                <td>{{ societe.enabled ? 'Actif' : 'Désactivé' ~ (societe.onStandBy ? ' / En veille' : '') }}</td>
                 <td>
                     <ul>
                         <li>{{ societe.productKey|trans }}</li>
@@ -30,22 +45,23 @@
                             <li>{{ "try_offer"|trans }}</li>
                         {% endif %}
                         {% if not hasActiveLicense(societe) or hasQuotaOverflow(societe) %}
-                        <li>
-                            <span class="text-warning" title="Cette société n'a pas de licence active, ou les quotas sont dépassés.">
+                            <li>
+                            <span class="text-warning"
+                                  title="Cette société n'a pas de licence active, ou les quotas sont dépassés.">
                                 <i class="fa fa-warning" aria-hidden="true"></i> Licence
                             </span>
-                        </li>
+                            </li>
                         {% endif %}
                     </ul>
                 </td>
             </tr>
         {% endfor %}
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
-<a href="{{ path('corp_app_bo_societes_creer') }}" class="btn btn-outline-primary">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-    Créer une nouvelle société
-</a>
+    <a href="{{ path('corp_app_bo_societes_creer') }}" class="btn btn-outline-primary">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+        Créer une nouvelle société
+    </a>
 
 {% endblock %}

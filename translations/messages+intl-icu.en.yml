@@ -108,6 +108,9 @@ end: End
 all: All
 enabled: Enabled
 disabled: Disabled
+renable: Renable
+disable: Disable
+put_on_stand_by: Put on stand by
 organigramme: Organizational chart
 status: Status
 kpis_indicators: "Performance indicators (KPIs)"
@@ -146,6 +149,12 @@ edit_my_avatar: Edit my avatar
 "new_avatar:": "New avatar :"
 "new_logo:": "New logo :"
 "color_code:": "Color code :"
+societe_have_been_disbled: "The company {raisonSociale} has been deactivate !"
+societe_have_been_enabled: "The company {raisonSociale} has been reactivated!"
+societe_have_been_puted_on_stand_by: "The company {raisonSociale} has been puted on stand by !"
+are_you_sure_disable_societe: "Are you sure you want to deactivate the company {raisonSociale} ?"
+are_you_sure_enable_societe: "Are you sure you want to reactivate the company {raisonSociale} ?"
+are_you_sure_stand_by_societe: "Are you sure you want to suspend the company {raisonSociale} ?"
 .in_days_unit: in days
 n_hours_short: "{n} h"
 cost_hours_short: "{n} €"
@@ -406,7 +415,8 @@ project_have_been_resumed: "Project {projectAcronym} has been reactivated!"
 n_contributors_added: "{n, plural, =1 {The contributor has been added to the project.} other {The # contributors have been added to the project.}}"
 bo.onboarding_notification_every: "Send an onboarding email every..."
 bo.onboarding_notification_every.help: 'Example of accepted format : "2 days", "3 weeks", "1 month", ...'
-i_accept_cgu_and_cgv: 'I accept the <a href="https://rdimanager.com/fr/cgu.html" target="_blank">general conditions of use</a> and the <a href="https://rdimanager.com/fr/cgv.html" target="_blank">general conditions of sale</a>.'
+i_accept_cgu_and_cgv: 'I accept the <a href="https://rdimanager.com/pages/cgv.html" target="_blank">General Terms and Conditions of Sale</a>.'
+societe_disabled_contact_rdi: 'This company has been deactivated !! Please contact RDI-Manager customer service'
 add_file_success: "List of files has been updated successfully"
 edit_file_success: "Your file {oldName} has been changed to {newName}"
 download: Download
@@ -490,6 +500,7 @@ max_projects: "Maximum number of projects:"
 license_notRelate: This license is not linked to your company.
 account_goBack: Go back to my account
 access_disabled: Access disabled
+societe_disabled: Company disabled
 delete: Delete
 budget_analysis: "Budget analysis"
 goOn: Go on

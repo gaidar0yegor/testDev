@@ -42,6 +42,10 @@ class RappelCreationFaitMarquants implements EventSubscriberInterface
      */
     public function sendReminderFaitMarquant(SocieteUser $societeUser): void
     {
+        if (!$societeUser->getSociete()->getEnabled()){
+            return;
+        }
+
         if (null === $societeUser->getUser()->getEmail()) {
             return;
         }

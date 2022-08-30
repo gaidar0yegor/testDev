@@ -42,6 +42,10 @@ class LatestFaitMarquants implements EventSubscriberInterface
 
     public function sendLatestFaitsMarquants(SocieteUser $societeUser): void
     {
+        if (!$societeUser->getSociete()->getEnabled()){
+            return;
+        }
+
         if (null === $societeUser->getUser()->getEmail()) {
             return;
         }

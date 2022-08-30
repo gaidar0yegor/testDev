@@ -33,12 +33,16 @@ class PlanningTaskNotCompleted implements EventSubscriberInterface
 
     public function onNotification(PlanningTaskNotCompletedNotification $event): void
     {
-        if (!ProductPrivilegeCheker::checkProductPrivilege($event->getSociete(),ProductPrivileges::PLANIFICATION_PROJET_AVANCE)){
+        $projetPlanningTask = $event->getProjetPlanningTask();
+        $projet = $event->getProjet();
+
+        if (!$projet->getSociete()->getEnabled()){
             return;
         }
 
-        $projetPlanningTask = $event->getProjetPlanningTask();
-        $projet = $event->getProjet();
+        if (!ProductPrivilegeCheker::checkProductPrivilege($event->getSociete(),ProductPrivileges::PLANIFICATION_PROJET_AVANCE)){
+            return;
+        }
 
         $email = (new TemplatedEmail())
             ->subject('Date d\'échéance d\'une tâche est dans '. $projet->getNbrDaysNotifTaskEcheance() .' jours')

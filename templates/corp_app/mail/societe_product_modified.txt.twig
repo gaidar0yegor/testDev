@@ -1,0 +1,5 @@
+{% if oldLicense is not null %}
+En qualité d’administrateur de l’espace RDI-Manager de la société {{ societe.raisonSociale }}, nous vous informons que votre offre RDI-Manager est passée de l’offre {{ oldLicense.productKey | trans }} vers l’offre {{ newLicense.productKey | trans }}.
+{% else %}
+En qualité d’administrateur de l’espace RDI-Manager de la société {{ societe.raisonSociale }}, nous vous informons que vous pouvez profiter dès à présent de l'offre {{ newLicense.productKey | trans }} sur RDI-Manager.
+{% endif %}

@@ -1,0 +1,28 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}L’espace RDI-Manager de votre société a été réactivé{% endblock %}
+
+{% block body %}
+    <row>
+        <columns>
+            <p>Bonjour,</p>
+
+            <p>
+                En qualité d’administrateur de l’espace RDI-Manager de la société {{ societe.raisonSociale }}, vous êtes informé que
+                votre espace RDI a été réactivé. Vos utilisateurs peuvent à nouveau accéder à la société via leur compte
+                RDI-Manager et contribuer ainsi à la gestion collaborative de vos projets.
+            </p>
+
+            <br>
+            <hr>
+            <br>
+
+            <p><strong>Vous avez des questions ?</strong></p>
+            <p>
+                Vous pouvez joindre notre service client sur {{ rdi_mail_address }} ou par téléphone au + 33 1 30 50 13
+                49 du lundi au vendredi de 9h à 18h. Vous pouvez également consulter notre documentation <a
+                        href="https://rdimanager.com/pages/cgv.html">CGU-CGV</a>.
+            </p>
+        </columns>
+    </row>
+{% endblock %}

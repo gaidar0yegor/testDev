@@ -15,6 +15,9 @@ use App\License\LicenseService;
 use App\LicenseGeneration\Exception\EncryptionKeysException;
 use App\LicenseGeneration\Form\GenerateLicenseType;
 use App\LicenseGeneration\LicenseGeneration;
+use App\Notification\Event\SocieteDisabledNotification;
+use App\Notification\Event\SocieteEnabledNotification;
+use App\Notification\Event\SocieteProductModifiedNotification;
 use App\Repository\SocieteRepository;
 use App\Security\Role\RoleSociete;
 use App\File\FileResponseFactory;
@@ -31,9 +34,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class SocieteController extends AbstractController
 {
+    private EventDispatcherInterface $dispatcher;
+
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @Route("/societes", name="corp_app_bo_societes")
      */
@@ -140,7 +152,6 @@ class SocieteController extends AbstractController
             $license->setExpirationDate(reset($oldLicenses)->getExpirationDate());
             $license->setQuotas(reset($oldLicenses)->getQuotas());
             $license->setIsTryLicense(reset($oldLicenses)->getIsTryLicense());
-            $license->setName(reset($oldLicenses)->getName());
         }
 
         $form = $this->createForm(GenerateLicenseType::class, $license);
@@ -159,6 +170,9 @@ class SocieteController extends AbstractController
                 );
             }
 
+            $oldLicense = count($oldLicenses) > 0 ? reset($oldLicenses) : null;
+            $this->dispatcher->dispatch(new SocieteProductModifiedNotification($societe, $oldLicense, $license));
+
             $this->addFlash(
                 'success',
                 'Une nouvelle license a été générée et ajoutée à la société '.$societe->getRaisonSociale()
@@ -173,6 +187,117 @@ class SocieteController extends AbstractController
             'form' => $form->createView(),
             'societe' => $societe,
             'license' => $license,
+        ]);
+    }
+
+    /**
+     * @Route("/societes/{id}/désactiver",
+     *     name="corp_app_bo_societe_disable",
+     *     requirements={"id"="\d+"},
+     *    methods={"POST"}
+     *     )
+     */
+    public function societeDisable(
+        Request $request,
+        Societe $societe,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em
+    )
+    {
+        if (!$this->isCsrfTokenValid('disable_societe_'.$societe->getId(), $request->get('_token'))) {
+            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+
+            return $this->redirectToRoute('corp_app_bo_societe', [
+                'id' => $societe->getId(),
+            ]);
+        }
+
+        $societe->setEnabled(false);
+        $em->persist($societe);
+        $em->flush();
+
+        $this->dispatcher->dispatch(new SocieteDisabledNotification($societe));
+
+        $this->addFlash('success', $translator->trans('societe_have_been_disbled', [
+            'raisonSociale' => $societe->getRaisonSociale(),
+        ]));
+
+        return $this->redirectToRoute('corp_app_bo_societe', [
+            'id' => $societe->getId(),
+        ]);
+    }
+
+    /**
+     * @Route("/societes/{id}/réactiver",
+     *     name="corp_app_bo_societe_enable",
+     *     requirements={"id"="\d+"},
+     *    methods={"POST"}
+     *     )
+     */
+    public function societeEnable(
+        Request $request,
+        Societe $societe,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em
+    )
+    {
+        if (!$this->isCsrfTokenValid('enable_societe_'.$societe->getId(), $request->get('_token'))) {
+            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+
+            return $this->redirectToRoute('corp_app_bo_societe', [
+                'id' => $societe->getId(),
+            ]);
+        }
+
+        $societe->setEnabled(true);
+        $societe->setOnStandBy(false);
+        $em->persist($societe);
+        $em->flush();
+
+        $this->dispatcher->dispatch(new SocieteEnabledNotification($societe));
+
+        $this->addFlash('success', $translator->trans('societe_have_been_enabled', [
+            'raisonSociale' => $societe->getRaisonSociale(),
+        ]));
+
+        return $this->redirectToRoute('corp_app_bo_societe', [
+            'id' => $societe->getId(),
+        ]);
+    }
+
+    /**
+     * @Route("/societes/{id}/mettre-en-veille",
+     *     name="corp_app_bo_societe_stand_by",
+     *     requirements={"id"="\d+"},
+     *    methods={"POST"}
+     *     )
+     */
+    public function societeStandBy(
+        Request $request,
+        Societe $societe,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em
+    )
+    {
+        if (!$this->isCsrfTokenValid('stand_by_societe_'.$societe->getId(), $request->get('_token'))) {
+            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+
+            return $this->redirectToRoute('corp_app_bo_societe', [
+                'id' => $societe->getId(),
+            ]);
+        }
+
+        $societe->setEnabled(false);
+        $societe->setOnStandBy(true);
+        $em->persist($societe);
+        $em->flush();
+
+        $this->addFlash('success', $translator->trans('societe_have_been_puted_on_stand_by', [
+            'raisonSociale' => $societe->getRaisonSociale(),
+        ]));
+
+        return $this->redirectToRoute('corp_app_bo_societe', [
+            'id' => $societe->getId(),
         ]);
     }
 
