@@ -40,7 +40,11 @@ class PatchnoteType extends AbstractType
                 ],
                 'disabled' => true
             ])
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn-success',
+                ],
+            ])
           ;
     }
 
