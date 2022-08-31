@@ -107,7 +107,7 @@ class SocieteUserController extends AbstractController
 
         if ($form->isSubmitted() && !$form->isValid()) {
             $this->addFlash(
-                'danger',
+                'error',
                 'Les rôles n\'ont pas été mis à jour à cause d\'une incohérence, vous pouvez revérifier'
             );
         }

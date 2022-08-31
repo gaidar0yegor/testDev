@@ -148,7 +148,7 @@ class RegisterUserBookController extends AbstractController
                 return $this->redirectToRoute('lab_app_register_labo');
             }
 
-            $this->addFlash('danger', $translator->trans('Le code n\'est pas valide.'));
+            $this->addFlash('error', $translator->trans('Le code n\'est pas valide.'));
         }
 
         return $this->render('lab_app/register/account-verification.html.twig', [
@@ -172,7 +172,7 @@ class RegisterUserBookController extends AbstractController
 
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('register_join_labo', $request->get('csrf_token'))) {
-                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+                $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('lab_app_register_account_join');
             }

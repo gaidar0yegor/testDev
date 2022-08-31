@@ -205,7 +205,7 @@ class SocieteController extends AbstractController
     )
     {
         if (!$this->isCsrfTokenValid('disable_societe_'.$societe->getId(), $request->get('_token'))) {
-            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+            $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
             return $this->redirectToRoute('corp_app_bo_societe', [
                 'id' => $societe->getId(),
@@ -242,7 +242,7 @@ class SocieteController extends AbstractController
     )
     {
         if (!$this->isCsrfTokenValid('enable_societe_'.$societe->getId(), $request->get('_token'))) {
-            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+            $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
             return $this->redirectToRoute('corp_app_bo_societe', [
                 'id' => $societe->getId(),
@@ -280,7 +280,7 @@ class SocieteController extends AbstractController
     )
     {
         if (!$this->isCsrfTokenValid('stand_by_societe_'.$societe->getId(), $request->get('_token'))) {
-            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+            $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
             return $this->redirectToRoute('corp_app_bo_societe', [
                 'id' => $societe->getId(),

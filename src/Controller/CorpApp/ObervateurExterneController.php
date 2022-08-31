@@ -55,7 +55,7 @@ class ObervateurExterneController extends AbstractController
 
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('invitation_join_projet_observateur_externe', $request->get('csrf_token'))) {
-                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+                $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('corp_app_observateur_externe_join_confirm', [
                     'token' => $token,

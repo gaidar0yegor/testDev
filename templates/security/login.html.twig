@@ -18,7 +18,12 @@
                 </div>
                 <div class="form-group">
                     <label for="input-password">{{ 'password'|trans }}</label>
-                    <input type="password" name="_password" class="form-control" id="input-password" placeholder="Votre mot de passe">
+                    <div class="showHiddenPassword-wrapper">
+                        <input type="password" id="input-password" name="_password" class="form-control" placeholder="Votre mot de passe">
+                        <span class="showHiddenPassword-toggle" data-target-id="input-password">
+                            <i id="showHideToggle-input-password" class="fa fa-eye-slash"></i>
+                        </span>
+                    </div>
                 </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 <input type="submit" class="btn btn-success" value="{{ 'login'|trans }}">

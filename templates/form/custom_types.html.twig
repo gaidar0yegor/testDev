@@ -1,5 +1,27 @@
 {% extends 'bootstrap_4_layout.html.twig' %}
 
+{% block password_row %}
+    {%- if compound is defined and compound -%}
+        {%- set element ='fieldset' -%}
+    {%- endif -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help",'class':'showHiddenPassword-widget'}} -%}  class added
+    {%- endif -%}
+    <{{ element|default('div') }}{% with {attr: row_attr|merge({class: (row_attr.class|default('') ~'form-group')|trim})} %} {{ block('attributes') }}{% endwith %}>
+    {{- form_label(form) -}}
+
+    <div class='showHiddenPassword-wrapper'>
+        {{- form_widget(form, widget_attr) -}}
+        <span class='showHiddenPassword-toggle' data-target-id='{{ form.vars.id }}'>
+            <i id='showHideToggle-{{ form.vars.id }}' class="fa fa-eye-slash"></i>
+        </span>
+    </div>
+
+    {{- form_help(form) -}}
+    </{{ element|default('div') }}>
+{% endblock %}
+
 {% block temps_passe_row %}
     <div class="row mb-2 align-items-center">
         <div class="col text-right lead">

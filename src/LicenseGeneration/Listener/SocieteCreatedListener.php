@@ -59,7 +59,7 @@ class SocieteCreatedListener
                 $args->getEntityManager()->flush();
             }
         } catch (EncryptionKeysException $e) {
-            $this->flashBag->add('danger', 'Impossible de générer une license gratuite par défaut.');
+            $this->flashBag->add('error', 'Impossible de générer une license gratuite par défaut.');
         }
     }
 }
