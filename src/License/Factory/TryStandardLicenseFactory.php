@@ -4,10 +4,8 @@ namespace App\License\Factory;
 
 use App\Entity\Societe;
 use App\License\DTO\License;
-use App\License\Quota\ActiveProjetQuota;
-use App\License\Quota\ContributeurQuota;
+use App\SocieteProduct\Product\PremiumProduct;
 use App\SocieteProduct\Product\ProductPrivileges;
-use App\SocieteProduct\Product\StandardProduct;
 use DateTime;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -18,32 +16,23 @@ class TryStandardLicenseFactory implements LicenseFactoryInterface
 {
     private ProductPrivileges $productPrivileges;
     private TranslatorInterface $translator;
+    private PremiumLicenseFactory $premiumLicenseFactory;
 
-    public function __construct(ProductPrivileges $productPrivileges, TranslatorInterface $translator)
+    public function __construct(ProductPrivileges $productPrivileges, PremiumLicenseFactory $premiumLicenseFactory, TranslatorInterface $translator)
     {
         $this->productPrivileges = $productPrivileges;
         $this->translator = $translator;
+        $this->premiumLicenseFactory = $premiumLicenseFactory;
     }
 
     public function createLicense(Societe $societe, DateTime $expirationDate = null): License
     {
-        $license = new License();
-
-        if (null === $expirationDate) {
-            $expirationDate = (new DateTime())->modify('+3 months');
-        }
+        $license = $this->premiumLicenseFactory->createLicense($societe, (new DateTime())->modify('+3 months'));
 
         $license
             ->setIsTryLicense(true)
-            ->setProductKey($this->getSocieteProductKey())
-            ->setName('Offre d\'essai')
-            ->setDescription('Permet de tester le pack Standard de RDI-Manager pendant 3 mois.')
-            ->setSociete($societe)
-            ->setExpirationDate($expirationDate)
-            ->setQuotas([
-                ActiveProjetQuota::NAME => 10,
-                ContributeurQuota::NAME => 49,
-            ])
+            ->setName($license->getName() . ' / Offre d\'essai')
+            ->setDescription('Permet de tester le journal collaboratif RDI-Manager pendant 3 mois.')
         ;
 
         return $license;
@@ -54,6 +43,6 @@ class TryStandardLicenseFactory implements LicenseFactoryInterface
      */
     public function getSocieteProductKey(): string
     {
-        return StandardProduct::PRODUCT_KEY;
+        return PremiumProduct::PRODUCT_KEY;
     }
 }
