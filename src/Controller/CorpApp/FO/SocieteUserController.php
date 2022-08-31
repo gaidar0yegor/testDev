@@ -159,7 +159,7 @@ class SocieteUserController extends AbstractController
             $em->flush();
 
         } elseif (!$this->isCsrfTokenValid('disable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
-            $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
+            $this->addFlash('error', $this->translator->trans('csrf_token_invalid'));
 
             return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                 'id' => $societeUser->getId(),
@@ -224,7 +224,7 @@ class SocieteUserController extends AbstractController
         $this->denyAccessUnlessGranted(TeamManagementVoter::NAME, $societeUser);
 
         if (!$this->isCsrfTokenValid('re_enable_user_'.$societeUser->getId(), $request->get('csrf_token'))) {
-            $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
+            $this->addFlash('error', $this->translator->trans('csrf_token_invalid'));
 
             return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                 'id' => $societeUser->getId(),
@@ -275,7 +275,7 @@ class SocieteUserController extends AbstractController
         if ($request->isMethod('POST')) {
 
             if (!$this->isCsrfTokenValid('delete_user_'.$societeUser->getId(), $request->get('_token'))) {
-                $this->addFlash('danger', $this->translator->trans('csrf_token_invalid'));
+                $this->addFlash('error', $this->translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('corp_app_fo_utilisateur_modifier', [
                     'id' => $societeUser->getId(),

@@ -141,7 +141,7 @@ class ObervateurExterneController extends AbstractController
         ]);
 
         if (!$this->isCsrfTokenValid('delete_observateur_externe', $request->get('csrf_token'))) {
-            $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+            $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
             return $redirectResponse;
         }

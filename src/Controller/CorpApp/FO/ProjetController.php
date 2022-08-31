@@ -359,7 +359,7 @@ class ProjetController extends AbstractController
 
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('delete_project_'.$projet->getId(), $request->get('_token'))) {
-                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+                $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('corp_app_fo_projet_delete', [
                     'id' => $projet->getId(),
@@ -394,7 +394,7 @@ class ProjetController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $projet);
 
         if ($projet->getIsSuspended()){
-            $this->addFlash('danger', $translator->trans('project_have_been_suspended', [
+            $this->addFlash('error', $translator->trans('project_have_been_suspended', [
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 
@@ -446,7 +446,7 @@ class ProjetController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $projet);
 
         if (!$projet->getIsSuspended()){
-            $this->addFlash('danger', $translator->trans('project_have_been_resumed', [
+            $this->addFlash('error', $translator->trans('project_have_been_resumed', [
                 'projectAcronyme' => $projet->getAcronyme(),
             ]));
 

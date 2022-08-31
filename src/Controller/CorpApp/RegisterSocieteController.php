@@ -147,7 +147,7 @@ class RegisterSocieteController extends AbstractController
                 return $this->redirectToRoute('corp_app_register_projet');
             }
 
-            $this->addFlash('danger', $translator->trans('Le code n\'est pas valide.'));
+            $this->addFlash('error', $translator->trans('Le code n\'est pas valide.'));
         }
 
         return $this->render('corp_app/register/account-verification.html.twig', [
@@ -171,7 +171,7 @@ class RegisterSocieteController extends AbstractController
 
         if ($request->isMethod('POST')) {
             if (!$this->isCsrfTokenValid('register_join_societe', $request->get('csrf_token'))) {
-                $this->addFlash('danger', $translator->trans('csrf_token_invalid'));
+                $this->addFlash('error', $translator->trans('csrf_token_invalid'));
 
                 return $this->redirectToRoute('corp_app_register_account_join');
             }

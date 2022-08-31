@@ -65,9 +65,9 @@ class SlackConnectHandler
 
             $this->flashBag->add('success', 'Connexion à Slack réussie !');
         } catch (SlackErrorResponse $e) {
-            $this->flashBag->add('danger', 'Erreur lors de la connexion à Slack : '.$e->getMessage());
+            $this->flashBag->add('error', 'Erreur lors de la connexion à Slack : '.$e->getMessage());
         } catch (UnexpectedUserException $e) {
-            $this->flashBag->add('danger', 'Impossible de se connecter à Slack, aucun utilisateur RDI-Manager actuellement connecté.');
+            $this->flashBag->add('error', 'Impossible de se connecter à Slack, aucun utilisateur RDI-Manager actuellement connecté.');
         }
     }
 }

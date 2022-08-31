@@ -48,7 +48,7 @@ class SecurityController extends AbstractController
 
         // get the login error if there is one
         if ($error = $authenticationUtils->getLastAuthenticationError()) {
-            $this->addFlash('danger', $trans->trans(
+            $this->addFlash('error', $trans->trans(
                 $error->getMessageKey(),
                 $error->getMessageData(),
                 'security'
@@ -85,7 +85,7 @@ class SecurityController extends AbstractController
             try {
                 $phoneNumber = $this->phoneNumberUtil->parse($request->get('user_telephone'));
             } catch (NumberParseException $e) {
-                $this->addFlash('danger', 'Le numéro de téléphone semble invalide : ' . $e->getMessage());
+                $this->addFlash('error', 'Le numéro de téléphone semble invalide : ' . $e->getMessage());
             }
         }
         $user = new User();

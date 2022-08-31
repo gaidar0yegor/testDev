@@ -146,7 +146,7 @@ class MonCompteController extends AbstractController
                 return $this->redirectToRoute('corp_app_fo_mon_compte');
             }
 
-            $this->addFlash('danger', 'Votre ancien mot de passe saisis n\'est pas le bon.');
+            $this->addFlash('error', 'Votre ancien mot de passe saisi n\'est pas le bon.');
         }
 
         return $this->render('corp_app/mon_compte/update_password.html.twig', [
