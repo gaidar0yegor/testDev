@@ -6,6 +6,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+
+## [1.70.0] - 2022-08-31
+### Ajouté
 - Création d'une modale pour la saisie de la date d'entrée de l'admin dans la société au moment de la création de la société.
 - Initialisation de l'application **Cahier de laboratoire** : Labo, Cahier de laboratoire, Etude, Note Fichier, Equipe, Utilisateurs ...
 - Optimiser le zoom de la planification du projet.
@@ -55,9 +63,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Bug : Modifier dépenses spéciales
 - Bug : Retour à la ligne avec tag <pre>
 - Bug : Inviter une adresse mail plus qu'une seule fois dans la même société
-
-
-
 
 ## [1.50.1] - 2022-06-24
 ### Modifié
