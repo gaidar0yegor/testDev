@@ -3,7 +3,7 @@
 {% block title %}{{ (isTeamUsers ? 'menu.equipe.users' : 'users_list') | trans }} | {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>{{ (isTeamUsers ? 'menu.equipe.users' : 'users_list') | trans }}</h1>
+    <h1>{{ (isTeamUsers ? 'my_collaborators' : 'users_list') | trans }}</h1>
 
     <ul class="nav nav-tabs mb-3 tab-filter-users">
         <li class="nav-item">

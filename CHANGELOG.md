@@ -11,6 +11,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Back office : afficher la date de création dans la liste des sociétés
 ### Modifié
 - Offre d'essais = Offre premium avec 3 mois
+- Barre de navigation : **Mes collaborateurs** au lieu de **Equipe** et de **Collaborateurs**
 
 
 
