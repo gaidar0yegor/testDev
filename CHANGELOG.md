@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Bouton pour afficher / cacher un mot de passe
 - Back office : afficher l'email et le numéro de tel des admins
+- Back office : afficher la date de création dans la liste des sociétés
 ### Modifié
 - Offre d'essais = Offre premium avec 3 mois
 
