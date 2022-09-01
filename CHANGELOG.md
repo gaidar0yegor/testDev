@@ -12,6 +12,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 - Offre d'essais = Offre premium avec 3 mois
 - Barre de navigation : **Mes collaborateurs** au lieu de **Equipe** et de **Collaborateurs**
+### Réparé
+- L'invitation peut être acceptée que par la personne invitée (email / telephone) 
 
 
 
@@ -58,7 +60,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Modifier le processus pour désactiver un compte utilisatuer dans une societe
 - Couleur de l'évènement **Absence** en gris
 - Augmenter le nombre des contributeurs et des projets pour l'offre STARTER
-## Réparé
+### Réparé
 - En cliquant 2 fois sur valider un projet ou un FM, ils vont être créés 2 fois
 - Lorsque l'invité fait son inscription, on affiche le numéro de téléphone de l'invitation
 - Changement de la couleur de BO et de l'interface quand on est déconnecté, refacto des cards et des boutons du multi société et changement de texte pour le temps mis à jour
