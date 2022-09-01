@@ -21,11 +21,11 @@
 
     <h3>Administrateurs</h3>
 
-    <table class="table datatable mb-3" data-info="false" data-paging="false">
+    <table class="table datatable mb-3 hover" data-info="false" data-paging="false">
         <thead>
         <tr>
             <th>Nom</th>
-            <th>Email</th>
+            <th>Email / Tel</th>
             <th>Statut</th>
             <th></th>
             <th></th>
@@ -35,7 +35,12 @@
         {% for admin in societe.admins %}
             <tr>
                 <td>{{ admin.user.fullname }}</td>
-                <td>{{ admin.user.email }}</td>
+                <td>
+                    {% if admin.user.email %}
+                        {{ admin.user.email }} <br>
+                    {% endif %}
+                    {{ admin.user.telephone|phone_number_rdi }}
+                </td>
                 <td>
                     {% if admin.invitationToken %}
                         En attente de finalisation d'inscription
