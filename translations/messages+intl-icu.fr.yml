@@ -132,7 +132,7 @@ all: Tous
 status: Statut
 kpis_indicators: "Indicateurs de performance (KPIs)"
 efficiency: "Efficacité"
-efficiency.help: "Indique votre aptitude à réaliser vos tâches dans les temps impartis"
+efficiency.help: "Indique votre aptitude à réaliser vos tâches dans les temps impartis. Valeur comprise entre -1 et +1."
 effectiveness: "Effectivité"
 effectiveness.help: "Indique votre niveau de complétude dans la réalisation des tâches du projet"
 last_activity: Dernière activité

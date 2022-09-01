@@ -115,7 +115,7 @@ organigramme: Organizational chart
 status: Status
 kpis_indicators: "Performance indicators (KPIs)"
 efficiency: Efficiency
-efficiency.help: Indicates your ability to complete your tasks on time
+efficiency.help: Indicates your ability to complete your tasks on time. Value between -1 and +1.
 effectiveness: Effectiveness
 effectiveness.help: Indicates your level of completeness in carrying out the tasks of the project
 last_activity: Last activity
