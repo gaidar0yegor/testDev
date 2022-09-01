@@ -78,8 +78,20 @@ class InvitationController extends AbstractController
                 ]);
             }
 
+            if (
+                ($societeUser->getInvitationEmail() && $societeUser->getInvitationEmail() !== $this->getUser()->getEmail()) ||
+                ($societeUser->getInvitationTelephone() && $this->getUser()->getTelephone() && $societeUser->getInvitationTelephone() !== $this->getUser()->getTelephone())
+            ){
+                $this->addFlash('error', 'Vous essayez de rejoindre une société dans laquelle vous n\'êtes pas invité');
+                return $this->render('corp_app/invitation/join_societe.html.twig', [
+                    'societeUser' => $societeUser,
+                ]);
+            }
+
+            $user = $this->getUser();
+            $user->setTelephone($societeUser->getInvitationTelephone());
             $societeUser
-                ->setUser($this->getUser())
+                ->setUser($user)
                 ->removeInvitationToken()
             ;
 

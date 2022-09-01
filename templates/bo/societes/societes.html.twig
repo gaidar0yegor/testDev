@@ -17,7 +17,7 @@
         <input type="hidden" id="filter-societes-statut">
     </ul>
 
-    <table id="societes_list_dt" class="table datatable custom-datatable hover" data-column-defs='[{"sortable": false, "targets": [0]}]' data-order='[[ 1, "asc" ]]'>
+    <table id="societes_list_dt" class="table datatable custom-datatable hover">
         <thead>
         <tr>
             <th>Logo</th>
@@ -26,6 +26,7 @@
             <th>Utilisateurs</th>
             <th>Projets</th>
             <th>Statut</th>
+            <th>Date de création</th>
             <th>Licence</th>
         </tr>
         </thead>
@@ -38,6 +39,7 @@
                 <td>{{ societe.societeUsers|length }}</td>
                 <td>{{ societe.projets|length }}</td>
                 <td>{{ societe.enabled ? 'Actif' : 'Désactivé' ~ (societe.onStandBy ? ' / En veille' : '') }}</td>
+                <td>{{ societe.createdAt|format_datetime }}</td>
                 <td>
                     <ul>
                         <li>{{ societe.productKey|trans }}</li>

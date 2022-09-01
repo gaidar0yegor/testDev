@@ -344,7 +344,7 @@ my_company: "Ma société"
 .administrator: administrateur
 my_project: "Mon projet"
 .that_i_want_to_track: "que je souhaite suivre"
-my_collaborators: "Mes collaborateur"
+my_collaborators: "Mes collaborateurs"
 .to_invite: "à inviter"
 finished!: "Terminé !"
 welcome_on_rdi_manager: "Bienvenue sur RDI-Manager !"

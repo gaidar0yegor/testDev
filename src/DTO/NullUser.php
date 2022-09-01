@@ -5,6 +5,7 @@ namespace App\DTO;
 use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\UserResourceInterface;
+use libphonenumber\PhoneNumber;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
 
@@ -51,5 +52,10 @@ class NullUser extends User
     public function getEmail(): ?string
     {
         return $this->userResource->getInvitationEmail();
+    }
+
+    public function getTelephone(): ?PhoneNumber
+    {
+        return $this->userResource->getInvitationTelephone();
     }
 }
