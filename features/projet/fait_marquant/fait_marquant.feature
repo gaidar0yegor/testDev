@@ -98,7 +98,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/corp/projets/1"
 
-        Then I should see "Contributeurs (2)"
+        Then I should see "Contributeurs (3)"
         And I should see an "img[alt='Avatar de Contributeur Eureka']" element
         And I should see an "img[alt='Avatar de Contributeur2 Eureka']" element
         And I should see "Observateur Eureka"

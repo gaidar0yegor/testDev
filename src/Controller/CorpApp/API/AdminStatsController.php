@@ -145,4 +145,31 @@ class AdminStatsController extends AbstractController
             'budgets' => $budgets,
         ]);
     }
+
+    /**
+     * @Route(
+     *      "/revenues/{id}",
+     *      methods={"GET"},
+     *      name="api_stats_admin_revenues"
+     * )
+     *
+     * @IsGranted("SOCIETE_CDP")
+     */
+    public function getRevenuesProjet(Projet $projet, BudgetAnalysisProjetService $budgetAnalysisProjetService)
+    {
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $projet);
+
+        try{
+            $roi = $budgetAnalysisProjetService->getRoi($projet);
+        } catch (BudgetAnalysisException $exception){
+            return new JsonResponse(
+                [ 'message' => $exception->getMessage() ],
+                500
+            );
+        }
+
+        return new JsonResponse([
+            'roi' => $roi,
+        ]);
+    }
 }

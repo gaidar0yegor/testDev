@@ -32,7 +32,7 @@ class ObervateurExterneController extends AbstractController
 
         return $this->render('corp_app/projets/externe/fiche_projet.html.twig', [
             'projet' => $projet,
-            'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
+            'contributeurs' => $participantService->getProjetParticipantsWithRole(
                 $projet->getActiveProjetParticipants(),
                 RoleProjet::CONTRIBUTEUR
             ),

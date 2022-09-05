@@ -95,6 +95,14 @@ class ProjetFormType extends AbstractType
                 'label_html' => true,
                 'required' => false,
             ])
+            ->add('roiEnabled', CheckboxType::class, [
+                'label' => 'ROI <i class="fa fa-question-circle" title="'. $this->translator->trans('return_on_investment') .'"></i>',
+                'label_html' => true,
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'switch-custom',
+                ],
+            ])
             ->add('projetUrls', CollectionType::class, [
                 'label' => 'projet.projetUrls',
                 'help' => 'projet.projetUrls.help',

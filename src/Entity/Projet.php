@@ -188,6 +188,16 @@ class Projet implements HasSocieteInterface
      */
     private $nbrDaysNotifTaskEcheance;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ProjetRevenue::class, mappedBy="projet", orphanRemoval=true)
+     */
+    private $projetRevenues;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
+    private $roiEnabled;
+
     public function __construct()
     {
         $this->fichierProjets = new ArrayCollection();
@@ -209,6 +219,8 @@ class Projet implements HasSocieteInterface
         $this->projetBudgetExpenses = new ArrayCollection();
         $this->evenements = new ArrayCollection();
         $this->nbrDaysNotifTaskEcheance = 3;
+        $this->projetRevenues = new ArrayCollection();
+        $this->roiEnabled = true;
     }
 
     public function getId(): ?int
@@ -946,6 +958,48 @@ class Projet implements HasSocieteInterface
     public function setNbrDaysNotifTaskEcheance(int $nbrDaysNotifTaskEcheance): self
     {
         $this->nbrDaysNotifTaskEcheance = $nbrDaysNotifTaskEcheance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjetRevenue[]
+     */
+    public function getProjetRevenues(): Collection
+    {
+        return $this->projetRevenues;
+    }
+
+    public function addProjetRevenue(ProjetRevenue $projetRevenue): self
+    {
+        if (!$this->projetRevenues->contains($projetRevenue)) {
+            $this->projetRevenues[] = $projetRevenue;
+            $projetRevenue->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetRevenue(ProjetRevenue $projetRevenue): self
+    {
+        if ($this->projetRevenues->removeElement($projetRevenue)) {
+            // set the owning side to null (unless already changed)
+            if ($projetRevenue->getProjet() === $this) {
+                $projetRevenue->setProjet(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getRoiEnabled(): ?bool
+    {
+        return $this->roiEnabled;
+    }
+
+    public function setRoiEnabled(bool $roiEnabled): self
+    {
+        $this->roiEnabled = $roiEnabled;
 
         return $this;
     }

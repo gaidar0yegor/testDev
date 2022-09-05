@@ -138,7 +138,6 @@ var format = scheduler.date.date_to_str("%Y-%m-%d %H:%i");
 
 scheduler.attachEvent("onTemplatesReady", function() {
     scheduler.templates.event_text = function (start, end, ev) {
-        console.log(ev);
         return ev.eventType === "ABSENCE" && ev.hasOwnProperty("required_participants_names") ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
     };
     scheduler.templates.event_bar_text = function (start, end, ev) {
