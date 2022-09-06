@@ -1,145 +1,156 @@
 {% extends "base_html.html.twig" %}
 
-{% block title %}Suivi de temps sur vos projets innovants - {{ parent() }}{% endblock %}
+{% block title %}Suivi de temps sur vos projets innovants -
+	{{ parent() }}
+{% endblock %}
 
 {% block base_body %}
 
-<section class="container login-container">
-    <div class="row">
-        <div class="col-12 col-sm-8 offset-sm-2 col-md-4 offset-md-0">
-            <h1><img src="{{ asset('build/assets/img/Logo-RDI-rouge.png') }}" alt="RDI-Manager" class="rdi-manager-title"></h1>
+	<section class="container login-container">
+		<div class="row">
+			<div class="col-12 col-sm-8 offset-sm-2 col-md-4 offset-md-0">
+				<h1><img src="{{ asset('build/assets/img/Logo-RDI-rouge.png') }}" alt="RDI-Manager" class="rdi-manager-title"></h1>
 
-            {% include '_flash_messages.html.twig' %}
+				{% include '_flash_messages.html.twig' %}
 
-            <form method="post" class="mb-4">
-                <div class="form-group">
-                    <label for="input-email">{{ 'username'|trans }}</label>
-                    <input type="text" name="_username" class="form-control" id="input-email" placeholder="Votre email ou n° de téléphone">
-                </div>
-                <div class="form-group">
-                    <label for="input-password">{{ 'password'|trans }}</label>
-                    <div class="showHiddenPassword-wrapper">
-                        <input type="password" id="input-password" name="_password" class="form-control" placeholder="Votre mot de passe">
-                        <span class="showHiddenPassword-toggle" data-target-id="input-password">
-                            <i id="showHideToggle-input-password" class="fa fa-eye-slash"></i>
-                        </span>
-                    </div>
-                </div>
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <input type="submit" class="btn btn-success" value="{{ 'login'|trans }}">
-            </form>
+				<form method="post" class="mb-4">
+					<div class="form-group">
+						<label for="input-email">{{ 'username'|trans }}</label>
+						<input type="text" name="_username" class="form-control" id="input-email" placeholder="Votre email ou n° de téléphone">
+					</div>
+					<div class="form-group">
+						<label for="input-password">{{ 'password'|trans }}</label>
+						<div class="showHiddenPassword-wrapper">
+							<input type="password" id="input-password" name="_password" class="form-control" placeholder="Votre mot de passe">
+							<span class="showHiddenPassword-toggle" data-target-id="input-password">
+								<i id="showHideToggle-input-password" class="fa fa-eye-slash"></i>
+							</span>
+						</div>
+					</div>
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					<input type="submit" class="btn btn-success" value="{{ 'login'|trans }}">
+				</form>
 
-            <a href="{{ path('app_fo_reset_password_request') }}"><small>Mot de passe oublié</small></a>
-            <br>
-            <a href="{{ path('corp_app_register') }}"><small>Créer ma société</small></a>
-            <br>
-            <a href="{{ path('lab_app_register') }}"><small>Créer mon cahier de laboratoire</small></a>
-        </div>
-        <div class="d-none col-7 offset-1 d-md-block">
-            <p class="mb-1 text-justify">
-                Gérer son activité RDI de manière structurée peut s’avérer compliqué et contraignant.
-                C’est pourquoi nos ingénieurs ont conçu pour vous : RDI-Manager.
-                Une application simple, efficace, intelligente et collaborative pour le management de votre activité de RDI.
-            </p>
-            <ul class="list-unstyled mb-1">
-                <li class="media mb-1">
-                    <i class="mr-3 mt-1 fa fa-flag-o"></i>
-                    <div class="media-body">
-                        Suivi des projets via leurs faits marquants
-                    </div>
-                </li>
-                <li class="media mb-1">
-                    <i class="mr-3 mt-1 fa fa-calendar-check-o"></i>
-                    <div class="media-body">
-                        Simplification du suivi du temps des équipes
-                    </div>
-                </li>
-                <li class="media mb-1">
-                    <i class="mr-3 mt-1 fa fa-files-o"></i>
-                    <div class="media-body">
-                        Gestion des documents projets
-                    </div>
-                </li>
-                <li class="media mb-1">
-                    <i class="mr-3 mt-1 fa fa-tachometer"></i>
-                    <div class="media-body">
-                        Engagement des collaborateurs via un tableau de bord personnalisé
-                    </div>
-                </li>
-                <li class="media mb-1">
-                    <i class="mr-3 mt-1 fa fa-users"></i>
-                    <div class="media-body">
-                        Collaboration (interne &amp; externe) dans le suivi des projets.
-                    </div>
-                </li>
-            </ul>
-            <p>
-                Bref, le management de l’innovation, par des innovateurs, pour des innovateurs.
-            </p>
-        </div>
-        {% include 'dynamic_templates/_login-message.html.twig' ignore missing %}
-    </div>
-</section>
+				<a href="{{ path('app_fo_reset_password_request') }}">
+					<small>Mot de passe oublié</small>
+				</a>
+				<br>
+				<a href="{{ path('corp_app_register') }}">
+					<small>Créer ma société</small>
+				</a>
+				<br>
+				<a href="{{ path('lab_app_register') }}">
+					<small>Créer mon cahier de laboratoire</small>
+				</a>
+			</div>
+			<div class="d-none col-7 offset-1 d-md-block">
+				<p class="mb-1 text-justify">
+					Gérer son activité RDI de manière structurée peut s’avérer compliqué et contraignant.
+					                C’est pourquoi nos ingénieurs ont conçu pour vous : RDI-Manager.
+					                Une application simple, efficace, intelligente et collaborative pour le management de votre activité de RDI.
+				</p>
+				<ul class="list-unstyled mb-1">
+					<li class="media mb-1">
+						<i class="mr-3 mt-1 fa fa-flag-o"></i>
+						<div class="media-body">
+							Suivi des projets via leurs faits marquants
+						</div>
+					</li>
+					<li class="media mb-1">
+						<i class="mr-3 mt-1 fa fa-calendar-check-o"></i>
+						<div class="media-body">
+							Simplification du suivi du temps des équipes
+						</div>
+					</li>
+					<li class="media mb-1">
+						<i class="mr-3 mt-1 fa fa-files-o"></i>
+						<div class="media-body">
+							Gestion des documents projets
+						</div>
+					</li>
+					<li class="media mb-1">
+						<i class="mr-3 mt-1 fa fa-tachometer"></i>
+						<div class="media-body">
+							Engagement des collaborateurs via un tableau de bord personnalisé
+						</div>
+					</li>
+					<li class="media mb-1">
+						<i class="mr-3 mt-1 fa fa-users"></i>
+						<div class="media-body">
+							Collaboration (interne &amp; externe) dans le suivi des projets.
+						</div>
+					</li>
+				</ul>
+				<p>
+					Bref, le management de l’innovation, par des innovateurs, pour des innovateurs.
+				</p>
+			</div>
+			{% include 'dynamic_templates/_login-message.html.twig' ignore missing %}
+		</div>
+	</section>
 
-<div class="page-background"></div>
+	<div class="page-background"></div>
 
-{% include('_footer.html.twig') %}
+	{% include('_footer.html.twig') %}
 
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    {{ encore_entry_link_tags('login') }}
+	{{ parent() }}
+	{{ encore_entry_link_tags('login') }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    {{ encore_entry_script_tags('login') }}
+	{{ parent() }}
+	{{ encore_entry_script_tags('login') }}
 {% endblock %}
 
 {% block meta %}
-<meta name="slack-app-id" content="A01M4F72518">
+	<meta name="slack-app-id" content="A01M4F72518">
 
-<meta name="title" content="Suivi de temps sur vos projets innovants - RDI-Manager">
-<meta name="description" content="Suivez vos projets, les temps passés, générez les feuilles de temps et invitez des collaborateurs externe.">
-<meta name="keywords" content="recherche, innovation, rdi, cir, projet, feuilles de temps">
-<meta name="robots" content="index, nofollow">
-<meta name="language" content="French">
-<meta name="author" content="RDI MANAGER">
+	<meta name="title" content="Journal collaboratif de projet - RDI-Manager">
+	<meta name="description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente.">
+	<meta name="keywords" content="recherche, recherches, innovation, innovations, Recherche &amp; innovation, entreprise innovante, CIR, R&amp;D, R&amp;D&amp;I, KPI, projet, projets, Gestion de projet, journal de projets, journal collaboratif de projet, plateforme collaborative, management de projet, suivi de projet, management, management de projet, suivi collaboratif, suivi du temps, time tracking, mensuel, hebdomadaire, journalier, fait marquant, foire aux questions, avancement, tâche, réalisation tâche, planification, gestion documentaire, gestion de fichiers, monitoring, stratégie financière, analyse stratégique, analyse financière, suivi budgétaire, indicateur performance, contribution collaborateur, tableau de bord, score RDI, potentiel financement public, CIR, CII, efficacité, effectivité, administrateur, chef de projet, observateur, contributeur, analyse statistique projet, gestion fichier, visibilité, dossier, sécurité, hébergement, sauvegarde données, lien hiérarchique, liens hiérarchiques, gestion d’équipe, organigramme, manager, collaborateur, planning, planification projet, monitoring, lot, lots, lot de tâches, tâche, tâches, sous-tâche, notification, notifications, sms, e-mail, contact, contacter, message, research, innovation, innovations, Research &amp; innovation, innovative company, CIR, R&amp;D, R&amp;D&amp;I, KPI, project, projects, Project management, project journal, collaborative project journal, collaborative platform, project management, project monitoring , management, project management, collaborative monitoring, time tracking, time tracking, monthly, weekly, daily, highlight, Frequently Asked Questions, progress, task, task completion, planning, document management, file management, monitoring, financial strategy, strategic analysis, financial analysis, budget monitoring, performance indicator, employee contribution, dashboard, RDI score, potential public funding, CIR, CII, efficiency, effectiveness, administrator, project manager, observer, contributor, project statistical analysis, file management, visibility, folder, security, hosting, data backup, hierarchical link, hierarchical links, team management, organization chart, manager, collaborator, planning, project planning, monitoring, batch, batches, batch of tasks, task, tasks, sub-task, notification, notifications, sms, email, contact, message">
+	<meta name="robots" content="index, nofollow">
+	<meta name="language" content="French">
+	<meta name="author" content="RDI MANAGER">
 
-<link rel="base" href="https://app.rdimanager.com/"/>
-<link rel="canonical" href="https://app.rdimanager.com/"/>
-<meta rel="sitemap" type="application/xml" content="https://app.rdimanager.com/sitemap.xml"/>
-<meta name="googlebot" content="index/nofollow"/>
-<meta name="theme-color" content="#ce352c"/>
-<meta name="msapplication-navbutton-color" content="#ce352c"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="#ce352c"/>
-{# Schema.org markup for Google+ #}
-<meta itemprop="name" content="Suivi de temps sur vos projets innovants - RDI-Manager"/>
-<meta itemprop="description" content="Application de suivi de temps passés sur vos projets de recherche et d'innovation."/>
-<meta itemprop="image" content="{{ absolute_url(asset('build/assets/img/logosign.png')) }}"/>
-{# markup for facebook #}
-<meta property="og:type" content="website"/>
-<meta property="og:title" content="RDI-Manager"/>
-<meta property="og:url" content="https://app.rdimanager.com/"/>
-<meta property="og:site_name" content="RDI-Manager"/>
-<meta property="og:image" content="{{ absolute_url(asset('build/assets/img/logosign.png')) }}"/>
-<meta property="og:description" content="Application de suivi de temps passés sur vos projets de recherche et d'innovation."/>
-<meta property="og:locale" content="fr"/>
-{# markup for twitter #}
-<meta name="twitter:card" content="Summary"/>
-<meta name="twitter:title" content="RDI-Manager"/>
-<meta name="twitter:description" content="Application de suivi de temps passés sur vos projets de recherche et d'innovation."/>
-<meta name="twitter:creator" content="Eurêka C.I"/>
-<meta name="twitter:site" content="@Eureka_Conseil">
-<meta name="twitter:image" content="{{ absolute_url(asset('build/assets/img/logosign.png')) }}"/>
+	<link rel="base" href="https://app.rdimanager.com/"/>
+	<link rel="canonical" href="https://app.rdimanager.com/"/>
+	<meta rel="sitemap" type="application/xml" content="https://app.rdimanager.com/sitemap.xml"/>
+	<meta name="googlebot" content="index/nofollow"/>
+	<meta name="theme-color" content="#ce352c"/>
+	<meta name="msapplication-navbutton-color" content="#ce352c"/>
+	<meta
+	name="apple-mobile-web-app-status-bar-style" content="#ce352c"/>
+	{# Schema.org markup for Google+ #}
+	<meta itemprop="name" content="Suivi de temps sur vos projets innovants - RDI-Manager"/>
+	<meta itemprop="description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente."/>
+	<meta
+	itemprop="image" content="{{ absolute_url(asset('build/assets/img/logosignRDI.png')) }}"/>
+	{# markup for facebook #}
+	<meta property="og:type" content="website"/>
+	<meta property="og:title" content="RDI-Manager"/>
+	<meta property="og:url" content="https://app.rdimanager.com/"/>
+	<meta property="og:site_name" content="RDI-Manager"/>
+	<meta property="og:image" content="{{ absolute_url(asset('build/assets/img/logosignRDI.png')) }}"/>
+	<meta property="og:description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente."/>
+	<meta
+	property="og:locale" content="fr"/>
+	{# markup for twitter #}
+	<meta name="twitter:card" content="Summary"/>
+	<meta name="twitter:title" content="RDI-Manager"/>
+	<meta name="twitter:description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente."/>
+	<meta name="twitter:creator" content="Eurêka C.I"/>
+	<meta name="twitter:site" content="@Eureka_Conseil">
+	<meta name="twitter:image" content="{{ absolute_url(asset('build/assets/img/logosignRDI.png')) }}"/>
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org/",
-  "@type": "WebSite",
-  "name": "RDI-Manager",
-  "url": "https://app.rdimanager.com/"
-}
-</script>
+	<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org/",
+		  "@type": "WebSite",
+		  "name": "RDI-Manager",
+		  "url": "https://app.rdimanager.com/"
+		}
+	</script>
 {% endblock %}
