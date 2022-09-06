@@ -483,7 +483,7 @@ notif_never_program: Notification never scheduled before
 gen_time_sheet: Generation of timesheets
 gen_time_sheet_msg_one: Generate timesheets for one or more users, over the period of time you want.
 gen_time_sheet_msg_two: You can then download in a single PDF or excel everyone's timesheets.
-understandString: It's understood !
+understandString: It's OK !
 tell_abs_one: Here you can indicate the days on which you were absent or on half-days.
 tell_abs_two: By default, if you do not validate, you are considered present for the whole month.
 legendString: "Legend :"
