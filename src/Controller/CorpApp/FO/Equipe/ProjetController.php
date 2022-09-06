@@ -69,7 +69,7 @@ class ProjetController extends AbstractController
 
         return $this->render('corp_app/projets/mon_equipe/fiche_projet.html.twig', [
             'projet' => $projet,
-            'contributeurs' => $participantService->getProjetParticipantsWithRoleExactly(
+            'contributeurs' => $participantService->getProjetParticipantsWithRole(
                 $projet->getActiveProjetParticipants(),
                 RoleProjet::CONTRIBUTEUR
             )

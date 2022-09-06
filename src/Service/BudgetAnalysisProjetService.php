@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Cra;
 use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
+use App\Entity\ProjetRevenue;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Exception\BudgetAnalysisException;
@@ -32,7 +33,18 @@ class BudgetAnalysisProjetService
     {
         return [
             'heure' => $this->getBudgetEnHeure($projet),
-            'euro' => $this->getBudgetEnEuro($projet)
+            'euro' => [
+                'prev' => $this->getPrevBudgetEnEuro($projet),
+                'reel' => $this->getReelBudgetEnEuro($projet)
+            ]
+        ];
+    }
+
+    public function getRoi(Projet $projet): array
+    {
+        return [
+            'revenue' => $this->getReelRevenueEnEuro($projet),
+            'expense' => $this->getReelBudgetEnEuro($projet)
         ];
     }
 
@@ -56,7 +68,12 @@ class BudgetAnalysisProjetService
         ];
     }
 
-    public function getBudgetEnEuro(Projet $projet): array
+    public function getPrevBudgetEnEuro(Projet $projet): int
+    {
+        return $projet->getBudgetEuro() ? (int)$projet->getBudgetEuro() : 0;
+    }
+
+    public function getReelBudgetEnEuro(Projet $projet): float
     {
         $usersCoutHoraire = $projet->getProjetParticipants()->map(function (ProjetParticipant $participant){
             return self::getUserCoutEtp($participant->getSocieteUser()) * $this->statisticsService->getTempsTotalParUserParProjet($participant->getSocieteUser(), $participant->getProjet());
@@ -68,10 +85,15 @@ class BudgetAnalysisProjetService
             $budgetReel += $expense->getAmount();
         }
 
-        return [
-            'prev' => $projet->getBudgetEuro() ? (int)$projet->getBudgetEuro() : 0,
-            'reel' => $budgetReel
-        ];
+        return $budgetReel;
+    }
+
+    public function getReelRevenueEnEuro(Projet $projet): float
+    {
+        $revenues = $projet->getProjetRevenues()->map(function (ProjetRevenue $projetRevenue){
+            return $projetRevenue->getAmount();
+        });
+        return array_sum($revenues->toArray());
     }
 
     /**

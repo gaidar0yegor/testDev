@@ -442,6 +442,7 @@ are_you_sure_delete_user: "Êtes-vous sûr de vouloir supprimer le compte de {us
 user_have_been_deleted: "Le compte de {user} a été supprimé !"
 delete: Supprimer
 budget_analysis: "Analyse budgétaire"
+return_on_investment: "Retour sur investissement"
 add_contributors: "Ajouter des contributeurs"
 add_contributors_help: "Sans autres contributeurs, vous serez le seul à pouvoir ajouter des faits marquant, joindre des fichiers... Ajoutez les contributeurs sur ce projet afin qu'ils puissent l'enrichir et saisir leurs temps passé dessus."
 who_is_working_on_this_project: "Qui contribue à ce projet ?"

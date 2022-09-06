@@ -52,4 +52,4 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         And I press "Mettre à jour"
         Then I should find toastr message "Les rôles de Admin Eureka sur les projets ont été mis à jour"
         When I follow "PTEST"
-        Then I should see "Contributeurs (0)"
+        Then I should see "Contributeurs (1)"

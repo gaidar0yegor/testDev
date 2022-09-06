@@ -502,7 +502,8 @@ account_goBack: Go back to my account
 access_disabled: Access disabled
 societe_disabled: Company disabled
 delete: Delete
-budget_analysis: "Budget analysis"
+budget_analysis: Budget analysis
+return_on_investment: Return on investment
 goOn: Go on
 timeString: Time
 resultString: Result
