@@ -92,7 +92,7 @@ class FaitMarquant implements ProjetResourceInterface, HasSocieteInterface
     /**
      * @ORM\OneToMany(targetEntity=FaitMarquantComment::class, mappedBy="faitMarquant", orphanRemoval=true)
      *
-     * @ORM\OrderBy({"createdAt" = "DESC", "id" = "DESC"})
+     * @ORM\OrderBy({"createdAt" = "ASC", "id" = "ASC"})
      */
     private $comments;
 

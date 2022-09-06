@@ -40,7 +40,7 @@ $(document).on('click', '.btn-comment-publish', function (e) {
                 avatarPublicUrl = response.avatarPublicUrl;
                 var data = response.data;
 
-                $($commentContentList).prepend(generateHtmlComment(data)).ready(function () {
+                $($commentContentList).append(generateHtmlComment(data)).ready(function () {
                     $($textarea).val('').trigger('input');
                     updateCounter($commentContainer, 1)
                 });
