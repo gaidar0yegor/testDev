@@ -1,11 +1,18 @@
 <row class="footer">
-            <columns>
-                <p class="text-center">
-                    <small>© Copyright Eurêka C.I</small>
-                </p>
-                <center>
-                    <img src="{{ email.image('@public' ~ asset('build/assets/img/logosignRDI.png')) }}" height="50" alt="Logo RDI manager">
-                </center>
-                <spacer size="8"></spacer>
-            </columns>
+    <columns>
+        <br><hr>
+        <p class="text-center text-muted">
+            <small>
+                Pour toute question ou information, n’hésitez pas à joindre le service commercial RDI sur <strong>{{ rdi_mail_address }}</strong> ou  par téléphone
+                au <strong>+ 33 1 30 50 13 49</strong> du lundi au vendredi de 9h à 18h. Consulter notre documentation <a href="https://rdimanager.com/pages/cgv.html"><strong>CGU-CGV</strong></a>
+            </small>
+        </p>
+        <p class="text-center">
+            <small>© Copyright Eurêka C.I</small>
+        </p>
+        <center>
+            <img src="{{ email.image('@public' ~ asset('build/assets/img/logosignRDI.png')) }}" height="50" alt="Logo RDI manager">
+        </center>
+        <spacer size="8"></spacer>
+    </columns>
 </row>

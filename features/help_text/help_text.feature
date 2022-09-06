@@ -11,11 +11,11 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
 
     Scenario: L'utilisateur doit voir le message d'aide la première fois, et pouvoir le fermer définitivement
         When I follow "Temps passés"
-        Then I should see "Vous pouvez ici saisir en pourcentage le temps que vous avez passé en moyenne sur vos projets dont vous avez contribué dans ce mois"
+        Then I should see "Vous pouvez saisir ici le temps que vous avez passé en moyenne sur les projets pour lesquels vous avez contribué durant cette période"
 
         When I send a POST request to "/corp/api/help-text/acknowledge" with body:
             """
             {"helpId":"saisieTempsPasse"}
             """
         And I go to "/corp/temps"
-        Then I should not see "Vous pouvez ici saisir en pourcentage le temps que vous avez passé en moyenne sur vos projets dont vous avez contribué dans ce mois"
+        Then I should not see "Vous pouvez saisir ici le temps que vous avez passé en moyenne sur les projets pour lesquels vous avez contribué durant cette période"

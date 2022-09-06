@@ -10,12 +10,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Back office : afficher l'email et le numéro de tel des admins
 - Back office : afficher la date de création dans la liste des sociétés
 - Retour sur investissement ROI
-- Ajout des meta données pour le SEO de RDI-Manager, ainsi que le logo de preview de l'url.
+- Une signature pour les emails
+- Ajout des meta données pour le SEO de RDI-Manager, ainsi que le logo de preview de l'url
 ### Modifié
 - Offre d'essais = Offre premium avec 3 mois
 - Barre de navigation : **Mes collaborateurs** au lieu de **Equipe** et de **Collaborateurs**
 - Dans la page projet : compter le chef de projet dans la liste des contributeur
-- Modification de l'ordre d'affichage des commentaires sous un fait marquant.
+- Les messages d'aide dela saisie du Temps Passé
+- Modification de l'ordre d'affichage des commentaires sous un fait marquant
 ### Réparé
 - L'invitation peut être acceptée que par la personne invitée (email / telephone) 
 
