@@ -489,9 +489,9 @@ tell_abs_two: By default, if you do not validate, you are considered present for
 legendString: "Legend :"
 presentString: Presence
 halfDayString: Half-day
-time_spend_one: Here you can enter the percentage of time you spent on average on your projects that you have contributed to this month.
-time_spend_two: The sum may not add up to 100%, for example if you have spent time on projects not listed here.
-time_spend_three: If you were absent, fill in your percentages for the days you were present.
+time_spend_one: Here you can enter the average time you spent on the projects you contributed to during this period.
+time_spend_two: "<strong>For monthly or weekly time tracking, the entry is made in percentage</strong>. The sum may not add up to 100%, for example if you have spent time on projects not listed here. If you were absent, fill in your percentages for the days you were present."
+time_spend_three: "<strong>For daily time tracking, the entry is made per hour unit per day</strong>, and the sum of the clocked hours cannot exceed your daily number of hours defined by your Administrator/Manager."
 licence_title: "License RDI-Manager :"
 tied_society: Related to society
 valid_until: Valid until

@@ -498,9 +498,9 @@ tell_abs_two: Par défaut, si vous ne validez pas, vous êtes considérés comme
 legendString: "Légende :"
 presentString: Présence
 halfDayString: Demi-journée
-time_spend_one: Vous pouvez ici saisir en pourcentage le temps que vous avez passé en moyenne sur vos projets dont vous avez contribué dans ce mois.
-time_spend_two: La somme peut ne pas faire 100%, par exemple si vous avez passé du temps sur des projets non listés ici.
-time_spend_three: Si vous avez été absent, remplissez vos pourcentages pour les jours où vous avez été present.
+time_spend_one: Vous pouvez saisir ici le temps que vous avez passé en moyenne sur les projets pour lesquels vous avez contribué durant cette période.
+time_spend_two: "<strong>Pour le suivi de temps mensuel ou hebdomadaire, la saisi se fait en pourcentage</strong>. La somme peut ne pas faire 100%, par exemple si vous avez passé du temps sur des projets non listés ici. Si vous avez été absent, remplissez vos pourcentages pour les jours où vous avez été présent."
+time_spend_three: "<strong>Pour le suivi de temps journalier, la saisi est faite par unité d’heure à la journée</strong>, et la somme des heures pointées ne peut dépasser votre nombre d’heure journalier défini par votre Administrateur/Manager."
 licence_title: "Licence RDI-Manager :"
 tied_society: Liée à la société
 valid_until: Valide jusqu'au

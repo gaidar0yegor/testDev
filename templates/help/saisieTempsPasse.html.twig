@@ -6,8 +6,8 @@
     <p class="card-text">
         {{ 'time_spend_one'|trans }}
         <ul>
-            <li>{{ 'time_spend_two'|trans }}</li>
-            <li>{{ 'time_spend_three'|trans }}</li>
+            <li>{{ 'time_spend_two'|trans|raw|striptags('<strong>')|raw }}</li>
+            <li>{{ 'time_spend_three'|trans|raw|striptags('<strong>')|raw }}</li>
         </ul>
     </p>
 {% endblock %}
