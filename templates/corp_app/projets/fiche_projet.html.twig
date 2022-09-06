@@ -89,14 +89,14 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="contributeurModalLabel">{{ 'n_contributeur'|trans({'%n%': projet.projetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR'))|length}) }}</h5>
+                <h5 class="modal-title" id="contributeurModalLabel">{{ 'n_contributeur'|trans({'%n%': projet.projetParticipants|filterByRoleMinimum(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR'))|length}) }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" style="overflow-y: scroll;height: 250px;">
                 <ul>
-                    {% for projetParticipant in projet.activeProjetParticipants|filterByRoleExactly(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR')) %}
+                    {% for projetParticipant in projet.activeProjetParticipants|filterByRoleMinimum(constant('App\\Security\\Role\\RoleProjet::CONTRIBUTEUR')) %}
                         {% if projetParticipant.societeUser.invitationToken == null %}
                             <li>{{ projetParticipant.societeUser.user.fullname }} </li>
                         {% endif %}
