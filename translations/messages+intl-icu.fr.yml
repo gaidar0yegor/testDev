@@ -367,6 +367,7 @@ societe.raisonSociale: "Raison sociale / Organisation"
 societe.siret: Siret
 projet.titre: "Titre descriptif"
 projet.acronyme: Acronyme
+projet.description: "Écrivez votre fait marquant..."
 projet.geolocalisation: "Géolocalisation"
 user.role: Rôle
 user.heuresParJours: "Heures travaillées par jour"

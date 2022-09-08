@@ -110,6 +110,10 @@
     </div>
 </div>
 
+    {% if formFmPopup is defined %}
+        {{ include('corp_app/fait_marquant/_form_popup.html.twig', { 'form' : formFmPopup }) }}
+    {% endif %}
+
 {% endblock %}
 
 {% block stylesheets %}

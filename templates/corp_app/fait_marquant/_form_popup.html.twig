@@ -1,0 +1,91 @@
+<div id="rdi-popup-fait-marquant-container"
+     style="{% if formFmPopup.vars.valid %} display: none; {% endif %}"
+>
+    {{ form_start(formFmPopup) }}
+    <div class="rdi-popup-fait-marquant rdi-popup bg-modal">
+        <div class="content">
+            <div class="rdi-popup-title bg-light-grey">
+                <h5>Créer votre fait marquant</h5>
+                <div class="col_form_close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+            <div class="rdi-popup-errors">
+                {{ form_errors(formFmPopup) }}
+            </div>
+            <div class="rdi-popup-body">
+                <div class="widget" data-widget="widget-main">
+                    <div class="d-flex flex-row justify-content-between align-column-center mt-2 mr-2 ml-2">
+                        <div class="col_form_title">
+                            {{ form_row(formFmPopup.titre) }}
+                        </div>
+                        <div class="col_form_date">
+                            {{ form_row(formFmPopup.date) }}
+                        </div>
+                    </div>
+                    <hr class="w-25 ml-2 mt-1 mb-1">
+                    <div class="col_form_description">
+                        {{ form_row(formFmPopup.description) }}
+                        <span id="custom_ckeditor_max_char" class="d-none"
+                              data-limit="{{ userContext.societeUser.societe.faitMarquantMaxDesc }}"
+                              data-limitBlocking="{{ userContext.societeUser.societe.faitMarquantMaxDescIsblocking }}"></span>
+                    </div>
+                </div>
+                <div class="widget" data-widget="widget-geolocalisation">
+                    {{ form_row(formFmPopup.geolocalisation) }}
+                </div>
+                <div class="widget" data-widget="widget-projetPlanningTask">
+                    {{ form_row(formFmPopup.projetPlanningTask) }}
+                </div>
+                <div class="widget" data-widget="widget-sendedToEmails">
+                    <div>
+                        {{ form_label(form.sendedToEmails) }}
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                            </span>
+                            <div class="overflow-hidden flex-grow-1">
+                                {{ form_widget(form.sendedToEmails) }}
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="w-50">
+                    <div>
+                        {{ form_label(form.extraSendedToEmails) }}
+                        <div class="input-group flex-nowrap">
+                        <span class="input-group-text">
+                            <i class="fa fa-share-square" aria-hidden="true"></i>
+                        </span>
+                            <div class="overflow-hidden flex-grow-1">
+                                {{ form_widget(form.extraSendedToEmails) }}
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">
+                            Ajouter des nouvelles adresses e-mail séparées par un point-virgule " ; "
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <div class="rdi-popup-footer">
+                <div class="btn-widgets">
+                    <button type="button" data-widget-target="widget-fichierProjets"><i class="fa fa-file"></i></button>
+                    <button type="button" data-widget-target="widget-geolocalisation"><i class="fa fa-map-marker"></i>
+                    </button>
+                    <button type="button" data-widget-target="widget-projetPlanningTask"><i class="fa fa-tasks"></i>
+                    </button>
+                    <button type="button" data-widget-target="widget-sendedToEmails"><i
+                                class="fa fa-share-square-o"></i></button>
+                </div>
+                <div class="fm-actions">
+                    <input type="button" value="Retour" class="btn btn-outline-secondary btn-return">
+                    <input type="submit"
+                           onclick="this.disabled=true;this.value='{{ "sending..."|trans }}';this.form.submit();"
+                           value="{{ 'publish' | trans }}" class="btn btn-success"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(formFmPopup) }}
+</div>

@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\FaitMarquant;
 use App\Entity\ProjetPlanningTask;
 use App\Form\Custom\DatePickerType;
-use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
 use App\Repository\ProjetPlanningTaskRepository;
 use App\SocieteProduct\Product\ProductPrivileges;
@@ -25,7 +24,7 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class FaitMarquantType extends AbstractType
+class FaitMarquantPopupType extends AbstractType
 {
     private UserContext $userContext;
     private TranslatorInterface $translator;
@@ -78,7 +77,9 @@ class FaitMarquantType extends AbstractType
                 'label' => false,
                 'required' => true,
                 'attr' => [
-                    'placeholder' => 'projet.titre'
+                    'class' => 'input-sm',
+                    'placeholder' => 'projet.titre',
+                    'autocomplete' => 'off'
                 ],
                 'constraints'=>[
                     new NotBlank(),
@@ -87,18 +88,35 @@ class FaitMarquantType extends AbstractType
             ->add('description', CKEditorType:: class, [
                 'label' => false,
                 'required' => true,
-                'attr' => [
-                    'class' => 'ckeditor-instance',
-                ],
+                'config_name' => 'without_options',
                 'config' => [
                     'placeholder' => $this->translator->trans('projet.description')
+                ],
+                'attr' => [
+                    'class' => 'ckeditor-instance',
                 ],
                 'constraints'=>[
                     new NotBlank(),
                 ]
             ])
-            ->add('projetPlanningTask', EntityType::class, [
+            ->add('date', DatePickerType::class, [
                 'label' => false,
+                'required' => true,
+                'attr' => [
+                    'class' => 'input-sm text-center date-picker',
+                    'placeholder' => 'projet.date',
+                    'title' => !$hasPrivilegeFmDate ? $this->translator->trans('product_privilege_no_dispo') : false,
+                ],
+                'disabled' => !$hasPrivilegeFmDate,
+                'constraints'=>[
+                    new NotBlank(),
+                ],
+            ])
+            ->add('geolocalisation', null, [
+                'label' => 'projet.geolocalisation',
+            ])
+            ->add('projetPlanningTask', EntityType::class, [
+                'label' => 'Lots du planning',
                 'class' => ProjetPlanningTask::class,
                 'query_builder' => function (ProjetPlanningTaskRepository $repository) use ($builder) {
                     $projet = $builder->getData()->getProjet();
@@ -118,58 +136,28 @@ class FaitMarquantType extends AbstractType
                     'data-placeholder' => 'Lier ce fait marquant à un lot du planning',
                 ],
             ])
-            ->add('fichierProjets', FichierProjetsType::class, [
-                'projet' => $builder->getData()->getProjet(),
-                'entry_options' => array('projet' => $builder->getData()->getProjet()),
-                'label' => false,
-                'attr' => [
-                    'class' => 'no-searchBar no-exportBtn'
-                ],
-            ])
-            ->add('date', DatePickerType::class, [
-                'label' => false,
-                'required' => true,
-                'attr' => [
-                    'class' => 'text-center date-picker',
-                    'placeholder' => 'projet.date',
-                    'title' => !$hasPrivilegeFmDate ? $this->translator->trans('product_privilege_no_dispo') : false,
-                ],
-                'disabled' => !$hasPrivilegeFmDate,
-                'constraints'=>[
-                    new NotBlank(),
-                ],
-            ])
-            ->add('geolocalisation', null, [
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'projet.geolocalisation'
-                ],
-            ])
             ->add('sendedToEmails', ChoiceType::class, [
-                'label' => false,
+                'label' => 'Envoyer immédiatement par e-mail en interne',
                 'multiple'    => true,
                 'expanded' 	  => false,
                 'required' 	  => false,
                 'attr' => [
                     'class' => 'select-2 form-control w-100',
-                    'data-placeholder' => 'Envoyer immédiatement par e-mail en interne',
                     'title' => !$hasPrivilegeFmSendMail ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
                 'disabled' => !$hasPrivilegeFmSendMail,
                 'choices' => $sendedToEmailsChoices,
             ])
             ->add('extraSendedToEmails', TextType::class, [
-                'label' => false,
+                'label' => 'Partager par e-mail en externe',
                 'required' 	  => false,
                 'mapped' => false,
                 'attr' => [
                     'class' => 'form-control w-100',
-                    'placeholder' => 'Partager par e-mail en externe',
                     'title' => !$hasPrivilegeFmSendMail ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
                 'disabled' => !$hasPrivilegeFmSendMail,
             ])
-            ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
             ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'addExtraSendedToEmails'])
         ;
         $builder->get('extraSendedToEmails')
@@ -191,25 +179,6 @@ class FaitMarquantType extends AbstractType
         }
     }
 
-    public function setFichierProjetFaitMarquant(SubmitEvent $event)
-    {
-        $faitMarquant = $event->getData();
-
-        foreach ($faitMarquant->getFichierProjets() as $fichierProjet) {
-            if (null !== $fichierProjet->getId()) {
-                continue;
-            }
-
-            $fichierProjet->getFichier()->setDateUpload($faitMarquant->getDate());
-
-            $fichierProjet
-                ->setProjet($faitMarquant->getProjet())
-                ->setFaitMarquant($faitMarquant)
-                ->setUploadedBy($this->userContext->getSocieteUser())
-            ;
-        }
-    }
-
     public function addExtraSendedToEmails(PostSubmitEvent $event)
     {
         $extraSendedToEmails = $event->getForm()->get('extraSendedToEmails')->getData();
@@ -225,7 +194,10 @@ class FaitMarquantType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => FaitMarquant::class
+            'data_class' => FaitMarquant::class,
+            'attr' => [
+                'id' => 'fait_marquant_popup_form'
+            ]
         ]);
     }
 }
