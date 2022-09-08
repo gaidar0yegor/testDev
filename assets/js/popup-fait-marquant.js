@@ -1,6 +1,6 @@
-import './styles/popup-fait-marquant.scss';
+import '../styles/popup-fait-marquant.scss';
 import $ from 'jquery';
-import { initSelect2 } from './js/select2';
+import { initSelect2 } from './select2';
 
 let container = $('#rdi-popup-fait-marquant-container');
 let form = $(container).find('form');

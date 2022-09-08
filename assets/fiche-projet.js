@@ -3,7 +3,7 @@ import './styles/fiche-projet.css';
 import $ from 'jquery';
 import {detectedLocale,language_dt} from './js/translation';
 import './js/datatable.js';
-import './popup-fait-marquant';
+import './js/popup-fait-marquant';
 
 import './js/fait-marquant-comment';
 import initTippyTitle from "./js/popper";
