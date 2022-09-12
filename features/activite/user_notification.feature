@@ -10,7 +10,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
             | _password | user              |
         And I press "Connexion"
         And I go to "/corp/projets/1"
-        And I follow "Ajouter un fait marquant"
+        And I follow "Ajouter un fait marquant dans un nouvel onglet"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
@@ -58,7 +58,7 @@ Feature: Un utilisateur peut voir les dernières activité liées à lui même (
             | _password | user              |
         And I press "Connexion"
         And I go to "/corp/projets/1"
-        And I follow "Ajouter un fait marquant"
+        And I follow "Ajouter un fait marquant dans un nouvel onglet"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |

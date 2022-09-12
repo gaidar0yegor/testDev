@@ -253,6 +253,7 @@ create_my_company: Create my company
 societe.raisonSociale: Social reason / Organisation
 projet.titre: Descriptive title
 projet.acronyme: Acronymn
+projet.description: Write your striking fact...
 projet.geolocalisation: Geolocation
 user.role: Role
 user.heuresParJours: Hours worked per day
@@ -455,6 +456,7 @@ dashboard_consolide.societes: My companies
 modifier_FM: Edit your striking Fact
 go_back_go_project: Cancel and return to project
 addNew_FM: Add a new striking Fact
+startNew_FM: Start a new striking Fact ...
 projectString: Project
 trashString: Trash can
 beenOf_FM: Trash can of striking Fact

@@ -367,6 +367,7 @@ societe.raisonSociale: "Raison sociale / Organisation"
 societe.siret: Siret
 projet.titre: "Titre descriptif"
 projet.acronyme: Acronyme
+projet.description: "Écrivez votre fait marquant..."
 projet.geolocalisation: "Géolocalisation"
 user.role: Rôle
 user.heuresParJours: "Heures travaillées par jour"
@@ -464,6 +465,7 @@ dashboard_consolide.societes: "Mes sociétés"
 modifier_FM: Modifiez votre Fait Marquant
 go_back_go_project: Annuler et retourner au projet
 addNew_FM: Ajouter un fait marquant
+startNew_FM: Commencer un fait marquant ...
 projectString: Projet
 beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille

@@ -54,7 +54,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
         When I go to "/corp/projets"
         And I follow "PTEST"
-        And I follow "Ajouter un fait marquant"
+        And I follow "Ajouter un fait marquant dans un nouvel onglet"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
@@ -66,7 +66,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
         When I go to "/corp/projets"
         And I follow "PTEST"
-        And I follow "Ajouter un fait marquant"
+        And I follow "Ajouter un fait marquant dans un nouvel onglet"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |
@@ -80,7 +80,7 @@ Feature: Limiter l'utilisation de RDI-Manager dans le temps et le nombre de cont
 
         When I go to "/corp/projets"
         And I follow "PTEST"
-        And I follow "Ajouter un fait marquant"
+        And I follow "Ajouter un fait marquant dans un nouvel onglet"
         And I fill in the following:
             | fait_marquant[titre]       | Mon fait marquant          |
             | fait_marquant[description] | J'ai créé un fait marquant |

@@ -1,3 +1,5 @@
+import './../styles/datatable-fichier.scss';
+
 import $ from 'jquery';
 import EmbedForm from './EmbedForm';
 import {detectedLocale, language_dt} from './translation';
@@ -5,7 +7,7 @@ import {detectedLocale, language_dt} from './translation';
 import {domDatatable, btnsDatatable} from './datatable';
 import initTippyTitle from "./popper";
 
-var files_list_dt = $('#files_list_dt').DataTable({
+var files_list_dt = $("#files_list_dt:not('.rdi-popup-fait-marquant #files_list_dt')").DataTable({
     rowGroup: $('#filter-files-dossier').length > 0
         ? {
             dataSrc: [0],
@@ -24,6 +26,17 @@ var files_list_dt = $('#files_list_dt').DataTable({
     language: language_dt,
     createdRow: function(settings){
         initTippyTitle();
+    }
+});
+
+$('#files_list_dt').on('change', 'input.custom-file-input', function () {
+    const $input = $(this);
+    const path = $input.val();
+    const filename = path.split(/[\/\\]+/).pop();
+
+    let fileNameInput = $($input).parents('tr').find('.form-file-name');
+    if (fileNameInput){
+        $(fileNameInput).val(filename);
     }
 });
 
@@ -91,4 +104,15 @@ $('.fichier-projets-container').on('click', '.remove-file-btn', function () {
 });
 
 document.addEventListener('DOMContentLoaded', activeDossierFichierTab);
+
+$(document).on('click', '.fichier-projets-container button[popup-target]', function(event) {
+    let popup = $('#' + $(this).attr('popup-target'));
+    if (popup){
+        $(popup).show();
+    }
+});
+$(document).on('click', '.fichier-projet-children-popup .rdi-popup .rdi-popup-close', function(event) {
+    let popup = $(this).parents('.fichier-projet-children-popup');
+    $(popup).hide();
+});
 

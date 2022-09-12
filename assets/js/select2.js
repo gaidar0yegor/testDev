@@ -5,6 +5,7 @@ import $ from "jquery";
 
 const initSelect2 = ($element = null, options = {}) => {
     var $elem = $element ? $element : $('select.select-2');
+    options.width = '100%';
     $($elem).select2(options);
 };
 

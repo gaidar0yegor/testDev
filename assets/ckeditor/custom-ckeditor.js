@@ -9,4 +9,5 @@ if (typeof CKEDITOR !== "undefined") {
 
     CKEDITOR.config.scayt_autoStartup = true;
     CKEDITOR.config.scayt_sLang = detectedLocale + "_" + detectedLocale.toUpperCase();
+    CKEDITOR.timestamp = (Math.random() + 1).toString(36).substring(7);
 }

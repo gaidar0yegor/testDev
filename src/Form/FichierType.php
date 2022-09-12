@@ -35,7 +35,8 @@ class FichierType extends AbstractType
                 'label' => false,
                 'required' 	=> true,
                 'attr' => [
-                    'placeholder' => 'Nom du fichier ...'
+                    'class' => 'form-file-name',
+                    'placeholder' => 'Nom du fichier ...',
                 ]
             ])
             ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'uploadFichier'])

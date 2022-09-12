@@ -251,6 +251,29 @@ h2.facts {
   background-color: #f5f5f5;
 }
 
+.rdi-btn-circle {
+  border: none;
+  margin-left: 0.3rem;
+  height: 2.4rem;
+  width: 2.4rem;
+  min-width: auto;
+  border-radius: 50%;
+  background-color: white;
+}
+.rdi-btn-circle.active, .rdi-btn-circle:hover {
+  background-color: #00000014;
+}
+.rdi-btn-circle:focus, .rdi-btn-circle:focus-visible {
+  outline: none;
+}
+.rdi-btn-circle .fa {
+  font-size: 22px;
+  vertical-align: inherit;
+}
+.rdi-btn-circle .fa:focus, .rdi-btn-circle .fa:focus-visible {
+  outline: none;
+}
+
 /**************************** NAV ************************/
 nav.navbar {
   position: fixed;
@@ -700,7 +723,7 @@ select.select-2, .select2.select2-container  {
 /******************** RDI Popup *************************/
 .rdi-popup.bg-modal {
   position: fixed;
-  z-index: 9999;
+  z-index: 100;
   top: 0;
   left: 0;
   display: flex;
@@ -722,11 +745,16 @@ select.select-2, .select2.select2-container  {
   border-radius: 1rem !important;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
-.rdi-popup .rdi-popup-title{
+.rdi-popup .rdi-popup-header{
   width: 100%;
   padding: 20px;
   color: white;
   border-radius: 1rem 1rem 0 0;
+  border-bottom: 1px solid #cbcbcb;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .rdi-popup .rdi-popup-body{
   position: relative;
@@ -742,7 +770,7 @@ select.select-2, .select2.select2-container  {
   padding: 20px;
   color: white;
   text-align: right;
-  border-top: 1px solid #949494;
+  border-top: 1px solid #cbcbcb;
 }
 
 /********************** manque date début societe popup **********************/
@@ -751,7 +779,7 @@ select.select-2, .select2.select2-container  {
 }
 
 /********************** patch note ***************************/
-.rdi-popup.patchnote-modal .rdi-popup-title{
+.rdi-popup.patchnote-modal .rdi-popup-header{
   background-color: #6d6a6a !important;
 }
 .rdi-popup.patchnote-modal .rdi-popup-body{

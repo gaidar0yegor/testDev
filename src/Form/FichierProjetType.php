@@ -51,19 +51,18 @@ class FichierProjetType extends AbstractType
                 'fileHandler' => $this->projectFileHandler,
             ])
             ->add('accessesChoices', ChoiceType::class, [
-                'label' => false,
+                'label' => 'Les droits de visibilité (Par défaut : Tous)',
                 'multiple'    => true,
                 'expanded' 	  => false,
                 'attr' => [
                     'class' => 'select-2 form-control',
-                    'data-placeholder' => 'Droits de visibilité (Par défaut : Tous)',
                     'title' => !$hasPrivilegeFichierProjetAccesses ? $this->translator->trans('product_privilege_no_dispo') : false,
                 ],
                 'disabled' => !$hasPrivilegeFichierProjetAccesses,
                 'choices' => FichierProjetService::getChoicesForAddFileAccess($projet),
             ])
             ->add('dossierFichierProjet', EntityType::class, [
-                'label' => false,
+                'label' => 'Les dossiers du projet',
                 'class' => DossierFichierProjet::class,
                 'choice_label' => 'nom',
                 'query_builder' => function (EntityRepository $er) use ($projet) {

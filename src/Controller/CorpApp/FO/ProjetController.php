@@ -2,8 +2,10 @@
 
 namespace App\Controller\CorpApp\FO;
 
+use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Entity\ProjetSuspendPeriod;
+use App\Form\FaitMarquantPopupType;
 use App\Form\FaitMarquantType;
 use App\Form\ProjetFormType;
 use App\Entity\ProjetParticipant;
@@ -226,13 +228,43 @@ class ProjetController extends AbstractController
      * @Route("/{id}", name="corp_app_fo_projet", requirements={"id"="\d+"})
      */
     public function ficheProjet(
-        UserContext $userContext,
         Projet $projet,
-        ParticipantService $participantService
+        Request $request,
+        UserContext $userContext,
+        ParticipantService $participantService,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em
     ) {
         $this->denyAccessUnlessGranted('view', $projet);
 
+        $faitMarquant = new FaitMarquant();
+        $faitMarquant
+            ->setProjet($projet)
+            ->setCreatedBy($userContext->getSocieteUser())
+            ->setDate(new \DateTime())
+        ;
+
+        $formFmPopup = $this->createForm(FaitMarquantPopupType::class, $faitMarquant);
+        $formFmPopup->handleRequest($request);
+
+        if ($formFmPopup->isSubmitted() && $formFmPopup->isValid()) {
+            $em->persist($faitMarquant);
+            $em->flush();
+
+            $this->addFlash('success', $translator->trans(
+                'Le fait marquant "{titre_fait_marquant}" a été ajouté au projet.',
+                [
+                    'titre_fait_marquant' => $faitMarquant->getTitre(),
+                ]
+            ));
+
+            return $this->redirectToRoute('corp_app_fo_projet', [
+                'id' => $projet->getId(),
+            ]);
+        }
+
         return $this->render('corp_app/projets/fiche_projet.html.twig', [
+            'formFmPopup' => $formFmPopup->createView(),
             'projet' => $projet,
             'faitMarquants' => $projet->getFaitMarquants(),
             'participation' => $participantService->getProjetParticipant($userContext->getSocieteUser(), $projet),
