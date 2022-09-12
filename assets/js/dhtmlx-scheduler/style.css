@@ -126,3 +126,21 @@ form[name='filter_user_event'] #filter_user_event_users {
     max-height: 18rem;
     overflow-y: auto;
 }
+
+/* vue tableau */
+#tab-table .nav a[href="#tab-next-events"]{
+    color: rgb(33, 123, 41);
+    font-weight: 600;
+}
+#tab-table .nav a[href="#tab-next-events"].active{
+    background-color: rgba(40, 163, 49, 0.25);
+    color: black;
+}
+#tab-table .nav a[href="#tab-old-events"]{
+    color: rgb(0, 95, 190);
+    font-weight: 600;
+}
+#tab-table .nav a[href="#tab-old-events"].active{
+    background-color: rgba(0, 123, 255, 0.25);
+    color: black;
+}

@@ -37,44 +37,98 @@
                 </div>
             </div>
             <div class="tab-pane" id="tab-table">
-                <table class="table datatable w-100 hover" data-order='[[ 4, "asc" ]]'>
-                    <thead>
-                    <tr>
-                        <th>{{ 'evenement.text'|trans }}</th>
-                        <th>{{ 'project'|trans }}</th>
-                        <th>Type</th>
-                        <th>{{ 'createdBy'|trans }}</th>
-                        <th>{{ 'evenement.startDate'|trans }}</th>
-                        <th>{{ 'evenement.endDate'|trans }}</th>
-                        <th>{{ 'evenement.location'|trans }}</th>
-                        <th>{{ 'evenement.solicitation'|trans }}</th>
-                    </tr>
-                    </thead>
-                    <tbody class="filter-projets-by-selected-year">
-                    {% for nextEvenementParticipant in nextEvenementParticipants %}
-                        <tr>
-                            <td class="text-left">
-                                <a href="{{ path('corp_app_fo_current_user_events', { 'event' : nextEvenementParticipant.evenement.id }) }}" title="{{ nextEvenementParticipant.evenement.description }}">
-                                    {{ nextEvenementParticipant.evenement.text }}
-                                </a>
-                            </td>
-                            <td class="text-center">
-                                {% if nextEvenementParticipant.evenement.projet %}
-                                <a href="{{ path('corp_app_fo_projet', {'id': nextEvenementParticipant.evenement.projet.id}) }}" title="{{ nextEvenementParticipant.evenement.projet.titre }}">
-                                    {{ nextEvenementParticipant.evenement.projet.acronyme }}
-                                </a>
-                                {% endif %}
-                            </td>
-                            <td class="text-center">{{ nextEvenementParticipant.evenement.type|trans }}</td>
-                            <td class="text-center">{{ nextEvenementParticipant.evenement.createdBy.user.fullName }}</td>
-                            <td class="text-center" data-sort='{{ nextEvenementParticipant.evenement.startDate|date('YmdHi') }}'>{{ nextEvenementParticipant.evenement.startDate|date('d/m/Y H:i') }}</td>
-                            <td class="text-center" data-sort='{{ nextEvenementParticipant.evenement.endDate|date('YmdHi') }}'>{{ nextEvenementParticipant.evenement.endDate|date('d/m/Y H:i') }}</td>
-                            <td class="text-center">{{ nextEvenementParticipant.evenement.location }}</td>
-                            <td class="text-center">{{ nextEvenementParticipant.required ? 'Invitation' : 'Information' }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+
+                <ul class="nav nav-pills nav-fill w-50 ml-auto mr-auto mb-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#tab-next-events" data-toggle="tab">Événements à venir</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tab-old-events" data-toggle="tab">Événements passés</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="ex2-content">
+                    <div class="tab-pane fade show active" id="tab-next-events" role="tabpanel" aria-labelledby="tab-next-events">
+                        <table class="table datatable w-100 hover" data-order='[[ 4, "asc" ]]'>
+                            <thead>
+                            <tr>
+                                <th>{{ 'evenement.text'|trans }}</th>
+                                <th>{{ 'project'|trans }}</th>
+                                <th>Type</th>
+                                <th>{{ 'createdBy'|trans }}</th>
+                                <th>{{ 'evenement.startDate'|trans }}</th>
+                                <th>{{ 'evenement.endDate'|trans }}</th>
+                                <th>{{ 'evenement.location'|trans }}</th>
+                                <th>{{ 'evenement.solicitation'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody class="filter-projets-by-selected-year">
+                            {% for nextEvenementParticipant in nextEvenementParticipants %}
+                                <tr>
+                                    <td class="text-left">
+                                        <a href="{{ path('corp_app_fo_current_user_events', { 'event' : nextEvenementParticipant.evenement.id }) }}" title="{{ nextEvenementParticipant.evenement.description }}">
+                                            {{ nextEvenementParticipant.evenement.text }}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        {% if nextEvenementParticipant.evenement.projet %}
+                                            <a href="{{ path('corp_app_fo_projet', {'id': nextEvenementParticipant.evenement.projet.id}) }}" title="{{ nextEvenementParticipant.evenement.projet.titre }}">
+                                                {{ nextEvenementParticipant.evenement.projet.acronyme }}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">{{ nextEvenementParticipant.evenement.type|trans }}</td>
+                                    <td class="text-center">{{ nextEvenementParticipant.evenement.createdBy.user.fullName }}</td>
+                                    <td class="text-center" data-sort='{{ nextEvenementParticipant.evenement.startDate|date('YmdHi') }}'>{{ nextEvenementParticipant.evenement.startDate|date('d/m/Y H:i') }}</td>
+                                    <td class="text-center" data-sort='{{ nextEvenementParticipant.evenement.endDate|date('YmdHi') }}'>{{ nextEvenementParticipant.evenement.endDate|date('d/m/Y H:i') }}</td>
+                                    <td class="text-center">{{ nextEvenementParticipant.evenement.location }}</td>
+                                    <td class="text-center">{{ nextEvenementParticipant.required ? 'Invitation' : 'Information' }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane fade" id="tab-old-events" role="tabpanel" aria-labelledby="tab-old-events">
+                        <table class="table datatable w-100 hover" data-order='[[ 4, "desc" ]]'>
+                            <thead>
+                            <tr>
+                                <th>{{ 'evenement.text'|trans }}</th>
+                                <th>{{ 'project'|trans }}</th>
+                                <th>Type</th>
+                                <th>{{ 'createdBy'|trans }}</th>
+                                <th>{{ 'evenement.startDate'|trans }}</th>
+                                <th>{{ 'evenement.endDate'|trans }}</th>
+                                <th>{{ 'evenement.location'|trans }}</th>
+                                <th>{{ 'evenement.solicitation'|trans }}</th>
+                            </tr>
+                            </thead>
+                            <tbody class="filter-projets-by-selected-year">
+                            {% for oldEvenementParticipant in oldEvenementParticipants %}
+                                <tr>
+                                    <td class="text-left">
+                                        <a href="{{ path('corp_app_fo_current_user_events', { 'event' : oldEvenementParticipant.evenement.id }) }}" title="{{ oldEvenementParticipant.evenement.description }}">
+                                            {{ oldEvenementParticipant.evenement.text }}
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        {% if oldEvenementParticipant.evenement.projet %}
+                                            <a href="{{ path('corp_app_fo_projet', {'id': oldEvenementParticipant.evenement.projet.id}) }}" title="{{ oldEvenementParticipant.evenement.projet.titre }}">
+                                                {{ oldEvenementParticipant.evenement.projet.acronyme }}
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="text-center">{{ oldEvenementParticipant.evenement.type|trans }}</td>
+                                    <td class="text-center">{{ oldEvenementParticipant.evenement.createdBy.user.fullName }}</td>
+                                    <td class="text-center" data-sort='{{ oldEvenementParticipant.evenement.startDate|date('YmdHi') }}'>{{ oldEvenementParticipant.evenement.startDate|date('d/m/Y H:i') }}</td>
+                                    <td class="text-center" data-sort='{{ oldEvenementParticipant.evenement.endDate|date('YmdHi') }}'>{{ oldEvenementParticipant.evenement.endDate|date('d/m/Y H:i') }}</td>
+                                    <td class="text-center">{{ oldEvenementParticipant.evenement.location }}</td>
+                                    <td class="text-center">{{ oldEvenementParticipant.required ? 'Invitation' : 'Information' }}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

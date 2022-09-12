@@ -18,6 +18,12 @@ $('form').on('change', 'input.custom-file-input', function () {
     ;
 });
 
+$(document).ready(function () {
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();
+    });
+});
+
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         if (settings.sInstance === 'users_list_dt' || settings.sInstance === 'validation_temps_dt' ){
