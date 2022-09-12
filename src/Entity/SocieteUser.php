@@ -920,6 +920,26 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     }
 
     /**
+     * @param int|null $limit
+     * @return Collection|EvenementParticipant[]
+     */
+    public function getOldEvenementParticipants(int $limit = null): Collection
+    {
+        $iterator = $this->evenementParticipants->filter(function (EvenementParticipant $evenementParticipant) {
+            return $evenementParticipant->getEvenement()->getStartDate()->getTimestamp() < (new \DateTime())->getTimestamp();
+        })->getIterator();
+
+        $iterator->uasort(function (EvenementParticipant $evenementParticipant1 , EvenementParticipant $evenementParticipant2){
+            return $evenementParticipant1->getEvenement()->getStartDate() < $evenementParticipant2->getEvenement()->getStartDate() ? 1 : -1;
+        });
+
+        $collection = new ArrayCollection(iterator_to_array($iterator));
+        $collection = $limit !== null ? new ArrayCollection($collection->slice(0, $limit)) : $collection;
+
+        return $collection;
+    }
+
+    /**
      * @param Evenement $evenement
      * @return bool
      */

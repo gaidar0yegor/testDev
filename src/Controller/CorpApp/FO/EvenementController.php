@@ -48,6 +48,7 @@ class EvenementController extends AbstractController
     {
         return $this->render('corp_app/projets/user_projets_events.html.twig', [
             'nextEvenementParticipants' => $this->userContext->getSocieteUser()->getNextEvenementParticipants(),
+            'oldEvenementParticipants' => $this->userContext->getSocieteUser()->getOldEvenementParticipants(),
         ]);
     }
 
