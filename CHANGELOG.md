@@ -12,6 +12,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Retour sur investissement ROI
 - Une signature pour les emails
 - Ajout des meta données pour le SEO de RDI-Manager, ainsi que le logo de preview de l'url
+- Ajout des faits marquant à travers une popup
 ### Modifié
 - Offre d'essais = Offre premium avec 3 mois
 - Barre de navigation : **Mes collaborateurs** au lieu de **Equipe** et de **Collaborateurs**

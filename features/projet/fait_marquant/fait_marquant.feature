@@ -11,7 +11,7 @@ Feature: Gestion des faits marquants d'un projet
         And I press "Connexion"
         And I am on "/corp/projets/1"
 
-        When I follow "Ajouter un fait marquant"
+        When I follow "Ajouter un fait marquant dans un nouvel onglet"
         Then I should see "Ajouter un fait marquant" in the "h1" element
         And I should see "Projet PTEST" in the "h2" element
 
