@@ -179,30 +179,66 @@
                 </tr>
         {% else %}
             <tr>
-                <td colspan="4">
+                <td colspan="5">
                     <div class="row">
                         <div class="col-md-12 mb-1">
                             {{ form_errors(form.children.fichier.file) }}
                         </div>
-                        <div class="col-md-4 col-sm-12 mb-1">
+                        <div class="col-md-3 col-sm-12">
                             {{ form_widget(form.children.fichier.file) }}
                         </div>
-                        <div class="col-md-8 col-sm-12 mb-1">
+                        <div class="col-md-6 col-sm-12">
                             {{ form_widget(form.children.fichier.nomFichier) }}
                         </div>
-                        <div class="col-md-8 col-sm-12 mb-1">
-                            {{ form_widget(form.accessesChoices) }}
+
+                        <div class="col-md-3 col-sm-12 text-center">
+                            <button type="button" class="rdi-btn-circle text-success" popup-target="popup-{{ form.accessesChoices.vars.id }}"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
+                            <button type="button" class="rdi-btn-circle text-info" popup-target="popup-{{ form.dossierFichierProjet.vars.id }}"><i class="fa fa-folder-open" aria-hidden="true"></i></button>
+                            <button type="button" class="rdi-btn-circle text-danger remove-file-btn" ><i class="fa fa-trash" aria-hidden="true"></i></button>
                         </div>
-                        <div class="col-md-4 col-sm-12 mb-1">
-                            {{ form_widget(form.dossierFichierProjet) }}
+
+                        <div id="popup-{{ form.accessesChoices.vars.id }}" class="fichier-projet-children-popup">
+                            <div class="rdi-popup bg-modal">
+                                <div class="content">
+                                    <div class="rdi-popup-header bg-light-grey">
+                                        <div class="title">
+                                            {{ form_label(form.accessesChoices) }}
+                                        </div>
+                                        <button type="button" class="close rdi-popup-close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="rdi-popup-body">
+                                        {{ form_widget(form.accessesChoices) }}
+                                    </div>
+                                    <div class="rdi-popup-footer">
+                                        <input type="button" value="Valider" class="btn btn-success rdi-popup-close">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="popup-{{ form.dossierFichierProjet.vars.id }}" class="fichier-projet-children-popup">
+                            <div class="rdi-popup bg-modal">
+                                <div class="content">
+                                    <div class="rdi-popup-header bg-light-grey">
+                                        <div class="title">
+                                            {{ form_label(form.dossierFichierProjet) }}
+                                        </div>
+                                        <button type="button" class="close rdi-popup-close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="rdi-popup-body">
+                                        {{ form_widget(form.dossierFichierProjet) }}
+                                    </div>
+                                    <div class="rdi-popup-footer">
+                                        <input type="button" value="Valider" class="btn btn-success rdi-popup-close">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </td>
-
-                <td class="pt-3">
-                    <button type="button" class="btn btn-sm btn-outline-danger remove-file-btn">
-                        <i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
                 </td>
             </tr>
         {% endif %}

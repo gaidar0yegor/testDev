@@ -4,7 +4,7 @@
     {{ form_start(formFmPopup) }}
     <div class="rdi-popup-fait-marquant rdi-popup bg-modal">
         <div class="content">
-            <div class="rdi-popup-title bg-light-grey">
+            <div class="rdi-popup-header bg-light-grey">
                 <h5>Créer votre fait marquant</h5>
                 <div class="col_form_close">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -41,25 +41,25 @@
                 </div>
                 <div class="widget" data-widget="widget-sendedToEmails">
                     <div>
-                        {{ form_label(form.sendedToEmails) }}
+                        {{ form_label(formFmPopup.sendedToEmails) }}
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text">
                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                             </span>
                             <div class="overflow-hidden flex-grow-1">
-                                {{ form_widget(form.sendedToEmails) }}
+                                {{ form_widget(formFmPopup.sendedToEmails) }}
                             </div>
                         </div>
                     </div>
                     <hr class="w-50">
                     <div>
-                        {{ form_label(form.extraSendedToEmails) }}
+                        {{ form_label(formFmPopup.extraSendedToEmails) }}
                         <div class="input-group flex-nowrap">
-                        <span class="input-group-text">
-                            <i class="fa fa-share-square" aria-hidden="true"></i>
-                        </span>
+                            <span class="input-group-text">
+                                <i class="fa fa-share-square" aria-hidden="true"></i>
+                            </span>
                             <div class="overflow-hidden flex-grow-1">
-                                {{ form_widget(form.extraSendedToEmails) }}
+                                {{ form_widget(formFmPopup.extraSendedToEmails) }}
                             </div>
                         </div>
                         <small class="form-text text-muted">
@@ -67,16 +67,16 @@
                         </small>
                     </div>
                 </div>
+                <div class="widget" data-widget="widget-fichierProjets">
+                    {{ form_row(formFmPopup.fichierProjets) }}
+                </div>
             </div>
             <div class="rdi-popup-footer">
                 <div class="btn-widgets">
-                    <button type="button" data-widget-target="widget-fichierProjets"><i class="fa fa-file"></i></button>
-                    <button type="button" data-widget-target="widget-geolocalisation"><i class="fa fa-map-marker"></i>
-                    </button>
-                    <button type="button" data-widget-target="widget-projetPlanningTask"><i class="fa fa-tasks"></i>
-                    </button>
-                    <button type="button" data-widget-target="widget-sendedToEmails"><i
-                                class="fa fa-share-square-o"></i></button>
+                    <button type="button" class="rdi-btn-circle" data-widget-target="widget-fichierProjets"><i class="fa fa-file"></i></button>
+                    <button type="button" class="rdi-btn-circle" data-widget-target="widget-geolocalisation"><i class="fa fa-map-marker"></i></button>
+                    <button type="button" class="rdi-btn-circle" data-widget-target="widget-projetPlanningTask"><i class="fa fa-tasks"></i></button>
+                    <button type="button" class="rdi-btn-circle" data-widget-target="widget-sendedToEmails"><i class="fa fa-share-square-o"></i></button>
                 </div>
                 <div class="fm-actions">
                     <input type="button" value="Retour" class="btn btn-outline-secondary btn-return">

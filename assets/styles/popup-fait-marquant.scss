@@ -24,107 +24,97 @@
   }
 
   .rdi-popup.rdi-popup-fait-marquant {
-    .rdi-popup-title {
-      color: black;
-      padding: 10px 15px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+    & > .content{
+      min-width: 50%!important;
 
-      .col_form_close {
-        width: 5%;
-        text-align: center;
+      & > .rdi-popup-header {
+        color: black;
+        padding: 10px 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .col_form_close {
+          width: 5%;
+          text-align: center;
+        }
       }
-    }
 
-    .rdi-popup-body {
-      padding: 0;
-      min-height: 260px;
-
-      .widget {
-        width: 100%;
-        margin: 0;
+      & > .rdi-popup-body {
         padding: 0;
+        min-height: 260px;
+
+        .widget {
+          width: 100%;
+          margin: 0;
+          padding: 0;
+        }
+
+        .widget:not([data-widget="widget-main"]) {
+          display: none;
+          padding: 10px;
+        }
+
+        .col_form_title {
+          width: 65%;
+        }
+
+        .col_form_date {
+          width: auto;
+        }
       }
 
-      .widget:not([data-widget="widget-main"]) {
-        display: none;
-        padding: 10px;
+      & > .rdi-popup-footer {
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+        .btn-widgets {
+
+          button[data-widget-target="widget-fichierProjets"] {
+            color: #41B35D;
+          }
+
+          button[data-widget-target="widget-geolocalisation"] {
+            color: #E94F3A;
+          }
+
+          button[data-widget-target="widget-projetPlanningTask"] {
+            color: #1771E6;
+          }
+
+          button[data-widget-target="widget-sendedToEmails"] {
+            color: #EAB026;
+          }
+        }
+
+        .fm-actions {
+
+          input {
+            padding: 5px 20px;
+            border-radius: 50vh;
+          }
+
+          .btn-return {
+            display: none;
+          }
+
+        }
       }
 
-      .col_form_title {
-        width: 65%;
-      }
-
-      .col_form_date {
-        width: auto;
-      }
     }
 
-    .rdi-popup-footer {
-      padding: 10px 20px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-
-      .btn-widgets {
-        button {
-          border: none;
-          margin-left: 0.3rem;
-          height: 2.4rem;
-          width: 2.4rem;
-          min-width: auto;
-          border-radius: 50%;
-          background-color: white;
-
-          &.active, &:hover {
-            background-color: #00000014;
-          }
-
-          &:focus, &:focus-visible {
-            outline: none;
-          }
-
-          .fa {
-            font-size: 22px;
-            vertical-align: inherit;
-
-            &:focus, &:focus-visible {
-              outline: none;
-            }
-          }
-        }
-
-        button[data-widget-target="widget-fichierProjets"] {
-          color: #41B35D;
-        }
-
-        button[data-widget-target="widget-geolocalisation"] {
-          color: #E94F3A;
-        }
-
-        button[data-widget-target="widget-projetPlanningTask"] {
-          color: #1771E6;
-        }
-
-        button[data-widget-target="widget-sendedToEmails"] {
-          color: #EAB026;
-        }
+    #files_list_dt{
+      thead{
+        display: none;
       }
-
-      .fm-actions {
-
-        input {
-          padding: 5px 20px;
-          border-radius: 50vh;
+      .fichier-projets-container-tfoot{
+        td{
+          border: none;
         }
-
-        .btn-return {
-          display: none;
-        }
-
       }
     }
   }
@@ -136,6 +126,12 @@
     }
     .cke_top, .cke_path{
       display: none;
+    }
+  }
+
+  .fichier-projets-container-tfoot {
+    td{
+      text-align: center;
     }
   }
 }

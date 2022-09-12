@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\FaitMarquant;
 use App\Entity\ProjetPlanningTask;
 use App\Form\Custom\DatePickerType;
+use App\Form\Custom\FichierProjetsType;
 use App\MultiSociete\UserContext;
 use App\Repository\ProjetPlanningTaskRepository;
 use App\SocieteProduct\Product\ProductPrivileges;
@@ -112,6 +113,14 @@ class FaitMarquantPopupType extends AbstractType
                     new NotBlank(),
                 ],
             ])
+            ->add('fichierProjets', FichierProjetsType::class, [
+                'projet' => $builder->getData()->getProjet(),
+                'entry_options' => array('projet' => $builder->getData()->getProjet()),
+                'label' => false,
+                'attr' => [
+                    'class' => 'no-searchBar no-exportBtn'
+                ],
+            ])
             ->add('geolocalisation', null, [
                 'label' => 'projet.geolocalisation',
             ])
@@ -131,9 +140,9 @@ class FaitMarquantPopupType extends AbstractType
                 },
                 'choice_label' => 'text',
                 'required' 	  => false,
+                'placeholder' => 'Lier ce fait marquant à un lot du planning ...',
                 'attr' => [
                     'class' => 'select-2 form-control w-100',
-                    'data-placeholder' => 'Lier ce fait marquant à un lot du planning',
                 ],
             ])
             ->add('sendedToEmails', ChoiceType::class, [
@@ -158,6 +167,7 @@ class FaitMarquantPopupType extends AbstractType
                 ],
                 'disabled' => !$hasPrivilegeFmSendMail,
             ])
+            ->addEventListener(FormEvents::SUBMIT, [$this, 'setFichierProjetFaitMarquant'])
             ->addEventListener(FormEvents::POST_SUBMIT, [$this, 'addExtraSendedToEmails'])
         ;
         $builder->get('extraSendedToEmails')
@@ -176,6 +186,25 @@ class FaitMarquantPopupType extends AbstractType
                     break;
                 }
             }
+        }
+    }
+
+    public function setFichierProjetFaitMarquant(SubmitEvent $event)
+    {
+        $faitMarquant = $event->getData();
+
+        foreach ($faitMarquant->getFichierProjets() as $fichierProjet) {
+            if (null !== $fichierProjet->getId()) {
+                continue;
+            }
+
+            $fichierProjet->getFichier()->setDateUpload($faitMarquant->getDate());
+
+            $fichierProjet
+                ->setProjet($faitMarquant->getProjet())
+                ->setFaitMarquant($faitMarquant)
+                ->setUploadedBy($this->userContext->getSocieteUser())
+            ;
         }
     }
 

@@ -39,5 +39,12 @@ $(document).ready(function () {
             $(btnReturn).hide();
         })
     ;
+
+    // afficher popup si error
+    let errorsContainer = $(document).find('.rdi-popup-fait-marquant .invalid-feedback');
+    if (errorsContainer){
+        let dataWidget = $($(errorsContainer)[0]).parents('.widget').data('widget');
+        $(document).find(`.rdi-popup-fait-marquant .rdi-popup-footer button[data-widget-target="${dataWidget}"]`).trigger('click');
+    }
 });
 

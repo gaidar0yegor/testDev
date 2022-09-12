@@ -30,12 +30,11 @@
         <div class="add-fait-marquant">
             {% if userCanAddFaitMarquant %}
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-outline-primary btn-add-fm-popup">
-                        <i class="fa fa-plus" aria-hidden="true"></i>
-                        <span class="d-xs-none d-sm-none d-md-none d-xl-inline-block d-lg-inline-block">{{ 'addNew_FM'|trans }}</span>
+                    <button type="button" class="btn-add-fm-popup">
+                        {{ 'addNew_FM'|trans }}
                     </button>
-                    <a href="{{ path('corp_app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}" class="btn btn-outline-primary">
-                        <i class="fa fa-external-link" aria-hidden="true"></i>
+                    <a href="{{ path('corp_app_fo_fait_marquant_ajouter', {'projetId': projet.id}) }}" style="border-radius: 0 35px 35px 0;" class="btn text-center btn-outline-secondary pl-3 pr-3">
+                        <i class="fa fa-arrows-alt" aria-hidden="true"  style="vertical-align: bottom;"></i>
                     </a>
                 </div>
             {% elseif projet.isSuspended %}

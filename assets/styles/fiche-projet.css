@@ -23,6 +23,14 @@
     align-items: center;
     margin-bottom: 1rem;
 }
+@media (max-width: 768px) {
+    #fait_marquant_timeline_dt_filter{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
 #fait_marquant_timeline_dt_filter label{
     margin-bottom: 0;
     min-width: 50%;
@@ -31,12 +39,19 @@
     padding: 0 1rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: 0.3rem;
-    min-height: 38px;
+    min-height: 48px;
     width: 100%;
+    margin-bottom: 10px;
+    border: 1px solid #6c757d;
+    border-radius: 35px;
+    padding-left: 1.6rem!important;
+    padding-right: 1.6rem!important;
 }
 #fait_marquant_timeline_dt_filter label input::placeholder {
-    font-size: 0.8rem;
+    font-size: 1rem;
+    color: #6c757d;
+    font-weight: 600;
+    line-height: 1.5;
 }
 #fait_marquant_timeline_dt_filter label input:focus {
     outline: none !important;
@@ -73,7 +88,9 @@
 #planning-task-content *:not(.text) {
     font-size: 0.9rem;
 }
-
+.add-fait-marquant{
+    margin-bottom: 10px;
+}
 @media (max-width: 640px) {
     .add-fait-marquant p{
         padding-top: 0;
@@ -177,4 +194,33 @@
 }
 .next-projet-events a{
     text-decoration: none;
+}
+
+.btn-add-fm-popup{
+    background-color: #ffffff00;
+    color: #6c757d;
+    width: 90%;
+    justify-content: left;
+    line-height: 1.5;
+    border: 1px solid #6c757d;
+    border-radius: 35px 0 0 35px;
+    padding-left: 1.6rem!important;
+    padding-right: 1.6rem!important;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: 167ms;
+    align-items: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    display: inline-flex;
+    overflow: hidden;
+    text-align: center;
+    transition-property: background-color,box-shadow,color;
+    vertical-align: middle;
+    min-height: 3rem;
+}
+.btn-add-fm-popup:hover{
+    background-color: #00000014;
+    color: #6c757d;
 }

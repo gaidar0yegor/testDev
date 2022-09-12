@@ -8,7 +8,7 @@ import './js/popup-fait-marquant';
 import './js/fait-marquant-comment';
 import initTippyTitle from "./js/popper";
 
-language_dt.searchPlaceholder = detectedLocale === "en" ? 'Search within the striking facts' : 'Rechercher dans les faits marquants';
+language_dt.searchPlaceholder = detectedLocale === "en" ? 'Search within the striking facts ...' : 'Rechercher dans les faits marquants ...';
 language_dt.emptyTable = detectedLocale === "en" ? 'There is no striking fact on this project' : "Il n'existe aucun fait marquant sur ce projet";
 
 var fait_marquant_timeline_dt;
