@@ -1,11 +1,16 @@
 {% extends 'mail/layouts/base_mail.html.twig' %}
 
-{% block title %}Date d'échéance d'une tâche est dans 3 jours{% endblock %}
+{% block title %}RDI-Manager – Echéance de tache{% endblock %}
 {% block body %}
     <row>
         <columns>
+            <p>Bonjour,</p>
+
             <p>
-                La date d'échéance de la tâche <strong>{{ projetPlanningTask.text }}</strong> du projet <strong>{{ projet.titre }}</strong> est dans {{ projet.nbrDaysNotifTaskEcheance }} jours.
+                La date d'échéance de la tâche <strong>{{ projetPlanningTask.text }}</strong> du projet <strong>{{ projet.titre }}</strong> arrive dans {{ projet.nbrDaysNotifTaskEcheance }} jours.
+            </p>
+            <p>
+                Pensez à gérer son avancement, car vous y êtes affecté.
             </p>
         </columns>
     </row>

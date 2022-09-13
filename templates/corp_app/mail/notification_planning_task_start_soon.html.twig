@@ -1,0 +1,18 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}RDI-Manager – Début de tache{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>Bonjour,</p>
+
+            <p>
+                La tâche <strong>{{ projetPlanningTask.text }}</strong> du projet <strong>{{ projet.titre }}</strong> à laquelle vous êtes affecté débute ce jour {{ projetPlanningTask.startDate|date('d/m/Y') }}. A vous de jouer !
+            </p>
+
+            <p>
+                Pensez aussi à gérer son avancement au fur et à mesure de sa réalisation.
+            </p>
+        </columns>
+    </row>
+{% endblock %}
