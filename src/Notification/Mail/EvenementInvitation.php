@@ -10,6 +10,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportException;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class EvenementInvitation
 {
@@ -17,16 +18,20 @@ class EvenementInvitation
 
     private UserContext $userContext;
 
+    private TranslatorInterface $translator;
+
     private IcsFileGenerator $icsFileGenerator;
 
     public function __construct(
         MailerInterface $mailer,
         UserContext $userContext,
+        TranslatorInterface $translator,
         IcsFileGenerator $icsFileGenerator
     )
     {
         $this->mailer = $mailer;
         $this->userContext = $userContext;
+        $this->translator = $translator;
         $this->icsFileGenerator = $icsFileGenerator;
     }
 
@@ -42,17 +47,34 @@ class EvenementInvitation
         $this->sendEmail($evenement, $calendar, true);
     }
 
-    public function preRemove(Evenement $evenement, LifecycleEventArgs $args): void
+    private function sendEmail(Evenement $evenement, string $calendar = null, bool $edit = false): void
     {
-        $email = (new TemplatedEmail())
-            ->subject("[". $evenement->getType() ."] Annulation : " . $evenement->getText())
-            ->htmlTemplate('corp_app/mail/evenement_cancel_invitation.html.twig')
-            ->textTemplate('corp_app/mail/evenement_cancel_invitation.txt.twig')
-            ->context([
-                'societe' => $evenement->getSociete(),
-                'evenement' => $evenement,
-            ])
-        ;
+        if ($edit){
+            $email = (new TemplatedEmail())
+                ->subject("[Update | " . $this->translator->trans($evenement->getType()) ."] Invitation : " . $evenement->getText())
+                ->htmlTemplate('corp_app/mail/evenement_update_invitation.html.twig')
+                ->textTemplate('corp_app/mail/evenement_update_invitation.txt.twig')
+                ->context([
+                    'societe' => $evenement->getSociete(),
+                    'evenement' => $evenement,
+                ])
+            ;
+        } else {
+            $email = (new TemplatedEmail())
+                ->subject("[New | " . $this->translator->trans($evenement->getType()) ."] Invitation : " . $evenement->getText())
+                ->htmlTemplate('corp_app/mail/evenement_send_invitation.html.twig')
+                ->textTemplate('corp_app/mail/evenement_send_invitation.txt.twig')
+                ->context([
+                    'societe' => $evenement->getSociete(),
+                    'evenement' => $evenement,
+                ])
+            ;
+        }
+
+
+        if ($calendar !== null){
+            $email->attach($calendar, 'rdi_manager_event.ics','text/calendar');
+        }
 
         foreach ($evenement->getEvenementParticipants() as $evenementParticipant){
             try{
@@ -63,21 +85,17 @@ class EvenementInvitation
         }
     }
 
-    private function sendEmail(Evenement $evenement, string $calendar = null, bool $edit = false): void
+    public function sendMailPreRemove(Evenement $evenement): void
     {
         $email = (new TemplatedEmail())
-            ->subject("[". ($edit ? "Update | " : "New | ") . $evenement->getType() ."] Invitation : " . $evenement->getText())
-            ->htmlTemplate('corp_app/mail/evenement_send_invitation.html.twig')
-            ->textTemplate('corp_app/mail/evenement_send_invitation.txt.twig')
+            ->subject("[Annulation | " . $this->translator->trans($evenement->getType()) ."] Invitation : " . $evenement->getText())
+            ->htmlTemplate('corp_app/mail/evenement_cancel_invitation.html.twig')
+            ->textTemplate('corp_app/mail/evenement_cancel_invitation.txt.twig')
             ->context([
                 'societe' => $evenement->getSociete(),
                 'evenement' => $evenement,
             ])
         ;
-
-        if ($calendar !== null){
-            $email->attach($calendar, 'rdi_manager_event.ics','text/calendar');
-        }
 
         foreach ($evenement->getEvenementParticipants() as $evenementParticipant){
             try{

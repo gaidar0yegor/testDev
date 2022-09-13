@@ -1,6 +1,4 @@
-{{ evenement.createdBy.user.fullname }} a annulé un évènement {% if evenement.projet %}sur le projet {{ evenement.projet.acronyme }}{% endif %}.
-
-{{ evenement.createdBy.user.fullname }} a annulé l'évènement {{ evenement.text }}.
+{{ evenement.createdBy.user.fullname }} a annulé l'évènement {{ evenement.text }} {% if evenement.projet %}sur le projet {{ evenement.projet.acronyme }}{% endif %}.
 
 Voir sur RDI-Manager :
 
