@@ -256,7 +256,7 @@ if (chartContents) {
                             }
                         });
 
-                        updateRoiPercent(revenue, 0);
+                        updateRoiPercent(revenue, expense);
                     });
                 }
             });

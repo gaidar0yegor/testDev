@@ -192,9 +192,9 @@
                         </div>
 
                         <div class="col-md-3 col-sm-12 text-center">
-                            <button type="button" class="rdi-btn-circle text-success" popup-target="popup-{{ form.accessesChoices.vars.id }}"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
-                            <button type="button" class="rdi-btn-circle text-info" popup-target="popup-{{ form.dossierFichierProjet.vars.id }}"><i class="fa fa-folder-open" aria-hidden="true"></i></button>
-                            <button type="button" class="rdi-btn-circle text-danger remove-file-btn" ><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            <button type="button" class="rdi-btn-circle text-success" title="Gérer les droits de visibilité" popup-target="popup-{{ form.accessesChoices.vars.id }}"><i class="fa fa-unlock-alt" aria-hidden="true"></i></button>
+                            <button type="button" class="rdi-btn-circle text-info" title="Intégrer dans un dossier" popup-target="popup-{{ form.dossierFichierProjet.vars.id }}"><i class="fa fa-folder-open" aria-hidden="true"></i></button>
+                            <button type="button" class="rdi-btn-circle text-danger remove-file-btn" title="Supprimer"><i class="fa fa-trash" aria-hidden="true"></i></button>
                         </div>
 
                         <div id="popup-{{ form.accessesChoices.vars.id }}" class="fichier-projet-children-popup">
