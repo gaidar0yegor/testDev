@@ -139,6 +139,11 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean", options={"default" : true})
      */
+    private $notificationPlanningTaskStartSoonEnabled;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" : true})
+     */
     private $notificationEvenementInvitationEnabled;
 
     /**
@@ -236,6 +241,7 @@ class User implements UserInterface
         $this->notificationLatestFaitMarquantEnabled = true;
         $this->notificationSaisieTempsEnabled = true;
         $this->notificationPlanningTaskNotCompletedEnabled = true;
+        $this->notificationPlanningTaskStartSoonEnabled = true;
         $this->notificationEvenementInvitationEnabled = true;
         $this->onboardingEnabled = true;
         $this->onboardingTimesheetCompleted = false;
@@ -812,6 +818,18 @@ class User implements UserInterface
     public function setPatchnoteReaded(bool $patchnoteReaded): self
     {
         $this->patchnoteReaded = $patchnoteReaded;
+
+        return $this;
+    }
+
+    public function getNotificationPlanningTaskStartSoonEnabled(): ?bool
+    {
+        return $this->notificationPlanningTaskStartSoonEnabled;
+    }
+
+    public function setNotificationPlanningTaskStartSoonEnabled(bool $notificationPlanningTaskStartSoonEnabled): self
+    {
+        $this->notificationPlanningTaskStartSoonEnabled = $notificationPlanningTaskStartSoonEnabled;
 
         return $this;
     }

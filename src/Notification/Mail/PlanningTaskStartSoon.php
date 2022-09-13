@@ -61,7 +61,7 @@ class PlanningTaskStartSoon implements EventSubscriberInterface
 
         foreach ($projetPlanningTask->getParticipants() as $participant){
             if(
-                $participant->getSocieteUser()->getUser()->getNotificationPlanningTaskNotCompletedEnabled() &&
+                $participant->getSocieteUser()->getUser()->getNotificationPlanningTaskStartSoonEnabled() &&
                 !in_array($participant->getSocieteUser()->getUser()->getEmail(), $toEmails, true)
             ){
                 $toEmails[] = $participant->getSocieteUser()->getUser()->getEmail();
