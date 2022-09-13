@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 class ListCurrencies {
     public const DEFAULT_CURRENCY = 'EUR';
-    
+
     public static function getCurrencies(): array
     {
         return array(
@@ -174,6 +174,14 @@ class ListCurrencies {
             "VND" => "Vietnamese Dong",
             "YER" => "Yemeni Rial",
             "ZMK" => "Zambian Kwacha"
+        );
+    }
+
+    public static function getPreferredCurrencies(): array
+    {
+        return array(
+            "EUR" => "Euro",
+            "USD" => "US Dollar"
         );
     }
 }

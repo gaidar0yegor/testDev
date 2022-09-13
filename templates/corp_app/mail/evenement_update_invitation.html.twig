@@ -10,7 +10,7 @@
     <row>
         <columns>
             <p>
-                Une modification a été apportée à l’événement de <strong>{{ evenement.createdBy.user.fullname }}</strong>
+                L’évènement <strong>{{ evenement.text }}</strong> a été modifié par <strong>{{ evenement.createdBy.user.fullname }}</strong>
                 {% if evenement.projet %}
                     sur le projet <strong>{{ evenement.projet.acronyme }}</strong>
                 {% endif %}
@@ -18,7 +18,7 @@
 
             <spacer size="8"></spacer>
 
-            <h3>{{ evenement.text }}</h3>
+            <h4 class="text-center">{{ evenement.text }}</h4>
 
             <p>
                 {{ evenement.description|raw }}

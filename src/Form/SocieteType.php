@@ -32,6 +32,7 @@ class SocieteType extends AbstractType
             ->add('currency', ChoiceType::class, [
                 'label' => "Devise",
                 'choices' => array_flip(ListCurrencies::getCurrencies()),
+                'preferred_choices' => array_flip(ListCurrencies::getPreferredCurrencies()),
                 'attr' => [
                     'class' => 'select-2 form-control'
                 ],

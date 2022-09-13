@@ -1,7 +1,4 @@
-Un nouvel évènement a été créé par {{ evenement.createdBy.user.shortname }} {% if evenement.projet %}sur le projet {{ evenement.projet.acronyme }}{% endif %}
-
-{{ evenement.text }}
-(Vous êtes invités par {{ evenement.createdBy.user.fullname }})
+L’évènement {{ evenement.text }} a été créé par {{ evenement.createdBy.user.shortname }} {% if evenement.projet %}sur le projet {{ evenement.projet.acronyme }}{% endif %}
 
 {{ evenement.description|raw }}
 

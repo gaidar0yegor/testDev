@@ -11,7 +11,7 @@
     <row>
         <columns>
             <p>
-                <strong>{{ evenement.createdBy.user.fullname }}</strong> a annulé l'évènement <strong>{{ evenement.text }}</strong>
+                L’évènement <strong>{{ evenement.text }}</strong> a été annulé par <strong>{{ evenement.createdBy.user.fullname }}</strong>
                 {% if evenement.projet %}
                     sur le projet <strong>{{ evenement.projet.acronyme }}</strong>
                 {% endif %}

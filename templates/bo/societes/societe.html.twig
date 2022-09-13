@@ -82,7 +82,7 @@
                 </td>
                 <td class="d-flex justify-content-end">
                     {% if not admin.invitationToken and is_granted('ROLE_ALLOWED_TO_SWITCH') %}
-                        <a href="{{ path('app_home', {'_switch_user': admin.user.email }) }}">
+                        <a href="{{ path('app_home', {'_switch_user': admin.user.email }) }}" class="btn-rdi-icon">
                             <i class="fa fa-sign-in" aria-hidden="true"></i>
                         </a>
                     {% endif %}
