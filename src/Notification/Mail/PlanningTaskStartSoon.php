@@ -2,7 +2,7 @@
 
 namespace App\Notification\Mail;
 
-use App\Notification\Event\PlanningTaskNotCompletedNotification;
+use App\Notification\Event\PlanningTaskStartSoonNotification;
 use App\SocieteProduct\Product\ProductPrivileges;
 use App\SocieteProduct\ProductPrivilegeCheker;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -10,7 +10,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class PlanningTaskNotCompleted implements EventSubscriberInterface
+class PlanningTaskStartSoon implements EventSubscriberInterface
 {
     private TranslatorInterface $translator;
 
@@ -27,11 +27,11 @@ class PlanningTaskNotCompleted implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            PlanningTaskNotCompletedNotification::class => 'onNotification',
+            PlanningTaskStartSoonNotification::class => 'onNotification',
         ];
     }
 
-    public function onNotification(PlanningTaskNotCompletedNotification $event): void
+    public function onNotification(PlanningTaskStartSoonNotification $event): void
     {
         $projetPlanningTask = $event->getProjetPlanningTask();
         $projet = $event->getProjet();
@@ -45,9 +45,9 @@ class PlanningTaskNotCompleted implements EventSubscriberInterface
         }
 
         $email = (new TemplatedEmail())
-            ->subject('RDI-Manager – Echéance de tache')
-            ->textTemplate('corp_app/mail/notification_planning_task_not_completed.txt.twig')
-            ->htmlTemplate('corp_app/mail/notification_planning_task_not_completed.html.twig')
+            ->subject('RDI-Manager – Début de tache')
+            ->textTemplate('corp_app/mail/notification_planning_task_start_soon.html.twig')
+            ->htmlTemplate('corp_app/mail/notification_planning_task_start_soon.html.twig')
             ->context([
                 'projet' => $projet,
                 'projetPlanningTask' => $projetPlanningTask,
@@ -61,7 +61,7 @@ class PlanningTaskNotCompleted implements EventSubscriberInterface
 
         foreach ($projetPlanningTask->getParticipants() as $participant){
             if(
-                $participant->getSocieteUser()->getUser()->getNotificationPlanningTaskNotCompletedEnabled() &&
+                $participant->getSocieteUser()->getUser()->getNotificationPlanningTaskStartSoonEnabled() &&
                 !in_array($participant->getSocieteUser()->getUser()->getEmail(), $toEmails, true)
             ){
                 $toEmails[] = $participant->getSocieteUser()->getUser()->getEmail();

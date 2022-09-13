@@ -29,8 +29,12 @@ class UserNotificationType extends AbstractType
                 'help' => 'Notifications type newsletter pour me remonter les derniers faits marquants ajoutés sur mes projets par les autres contributeurs.',
             ])
             ->add('notificationPlanningTaskNotCompletedEnabled', null, [
-                'label' => 'Notification de la planification du projet',
+                'label' => 'Notification de la planification du projet : Echéance de tâche',
                 'help' => 'Notification pour vous rappelez mes échéances sur les tâches des projets auxquels je participe.',
+            ])
+            ->add('notificationPlanningTaskStartSoonEnabled', null, [
+                'label' => 'Notification de la planification du projet : Début de tâche',
+                'help' => 'Notification pour vous rappelez du début des tâches des projets auxquels je participe.',
             ])
             ->add('notificationEvenementInvitationEnabled', null, [
                 'label' => 'Notification de l\'agenda',
