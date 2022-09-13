@@ -13,12 +13,14 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Une signature pour les emails
 - Ajout des meta données pour le SEO de RDI-Manager, ainsi que le logo de preview de l'url
 - Ajout des faits marquant à travers une popup
+- Rappel du jour de debut des tâches
 ### Modifié
 - Offre d'essais = Offre premium avec 3 mois
 - Barre de navigation : **Mes collaborateurs** au lieu de **Equipe** et de **Collaborateurs**
 - Dans la page projet : compter le chef de projet dans la liste des contributeur
 - Les messages d'aide dela saisie du Temps Passé
 - Modification de l'ordre d'affichage des commentaires sous un fait marquant
+- Les notifications par mail pour les evenements (Création / Modification / Annulation)
 ### Réparé
 - L'invitation peut être acceptée que par la personne invitée (email / telephone) 
 

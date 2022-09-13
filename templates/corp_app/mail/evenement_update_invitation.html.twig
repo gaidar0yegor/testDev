@@ -1,7 +1,7 @@
 {% extends 'mail/layouts/base_mail.html.twig' %}
 
 {% block title %}
-    {{ evenement.createdBy.user.fullname }} vous a invité à un évènement
+    {{ evenement.createdBy.user.fullname }} a modifié un événement
     {% if evenement.projet %}
         sur le projet {{ evenement.projet.acronyme }}
     {% endif %}
@@ -10,7 +10,7 @@
     <row>
         <columns>
             <p>
-                Un nouvel événement a été créé par <strong>{{ evenement.createdBy.user.fullname }}</strong>
+                Une modification a été apportée à l’événement de <strong>{{ evenement.createdBy.user.fullname }}</strong>
                 {% if evenement.projet %}
                     sur le projet <strong>{{ evenement.projet.acronyme }}</strong>
                 {% endif %}
@@ -25,23 +25,23 @@
             </p>
 
             {% if evenement.requiredEvenementParticipants | length > 0 %}
-            <br>
-            <h5>Invités :</h5>
-            <ul>
-                {% for evenementParticipant in evenement.requiredEvenementParticipants %}
-                    <li>{{ evenementParticipant.societeUser.user.fullname }}</li>
-                {% endfor %}
-            </ul>
+                <br>
+                <h5>Invités :</h5>
+                <ul>
+                    {% for evenementParticipant in evenement.requiredEvenementParticipants %}
+                        <li>{{ evenementParticipant.societeUser.user.fullname }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
 
             {% if evenement.notRequiredEvenementParticipants | length > 0 %}
-            <br>
-            <h5>Information / Informés :</h5>
-            <ul>
-                {% for evenementParticipant in evenement.notRequiredEvenementParticipants %}
-                    <li>{{ evenementParticipant.societeUser.user.fullname }}</li>
-                {% endfor %}
-            </ul>
+                <br>
+                <h5>Information / Informés :</h5>
+                <ul>
+                    {% for evenementParticipant in evenement.notRequiredEvenementParticipants %}
+                        <li>{{ evenementParticipant.societeUser.user.fullname }}</li>
+                    {% endfor %}
+                </ul>
             {% endif %}
 
             <spacer size="8"></spacer>

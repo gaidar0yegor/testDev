@@ -9,6 +9,7 @@ use App\Entity\ProjetActivity;
 use App\Entity\Evenement;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserEvenementNotification;
+use App\Notification\Mail\EvenementInvitation;
 use App\Service\EntityLink\EntityLinkGenerator\EvenementLink;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
@@ -24,11 +25,19 @@ class EvenementRemovedActivity implements ActivityInterface
 
     private UserContext $userContext;
 
-    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext, EntityManagerInterface $em)
+    private EvenementInvitation $mailEvenementInvitation;
+
+    public function __construct(
+        EntityLinkService $entityLinkService,
+        UserContext $userContext,
+        EntityManagerInterface $em,
+        EvenementInvitation $mailEvenementInvitation
+    )
     {
         $this->em = $em;
         $this->entityLinkService = $entityLinkService;
         $this->userContext = $userContext;
+        $this->mailEvenementInvitation = $mailEvenementInvitation;
     }
 
     public static function getType(): string
@@ -99,6 +108,8 @@ class EvenementRemovedActivity implements ActivityInterface
         }
 
         $em->persist($activity);
+
+        $this->mailEvenementInvitation->sendMailPreRemove($evenement);
 
         $em->flush();
     }
