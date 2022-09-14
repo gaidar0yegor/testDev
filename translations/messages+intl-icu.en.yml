@@ -554,6 +554,8 @@ no_files_here: No files found here...
 no_projet_events_here: No upcoming events...
 next_projet_events: Upcoming events
 my_calendar: My calendar
+mes_rappels: My reminders
+create_rappel: Create a reminder
 evenement.text: Title
 evenement.startDate: Start date
 evenement.endDate: End date

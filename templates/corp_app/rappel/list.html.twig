@@ -1,0 +1,33 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}Rappel | {{ parent() }}{% endblock %}
+
+{% block body %}
+    <h1>{{ 'mes_rappels'|trans }}</h1>
+
+    <div class="d-flex flex-row justify-content-end align-items-center">
+        <a class="btn btn-info" href="{{ path('corp_app_fo_rappel_post_edit') }}">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+            {{ 'create_rappel'|trans }}
+        </a>
+    </div>
+
+    <div class="row">
+        {% for rappel in rappels %}
+            <div class="col-md-3 col-sm-6">
+                <div class="item card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <span>{{ rappel.titre }}</span>
+                        </h5>
+                        <ul class="list-unstyled">{{ rappel.description }}</ul>
+                        <div class="card-footer">
+                            <small><i>{{ rappel.reminderAt  | format_datetime }}</i></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}

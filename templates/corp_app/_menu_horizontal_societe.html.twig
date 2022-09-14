@@ -173,7 +173,10 @@
         <i class="fa fa-lg fa-calendar-o mb-3 mb-lg-0" aria-hidden="true"></i>
     </a>
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownEventsNotifications">
-        <a href="{{ path('corp_app_fo_current_user_events') }}" class="badge badge-primary p-1 float-right mr-2" style="margin-bottom: -20px;">{{ 'my_calendar'|trans }}</a>
+        <div class="d-flex flex-row justify-content-around align-items-center mb-3">
+            <a href="{{ path('corp_app_fo_rappel_list') }}" class="badge badge-success p-1" style="margin-bottom: -20px;">Mes Rappels</a>
+            <a href="{{ path('corp_app_fo_current_user_events') }}" class="badge badge-primary p-1" style="margin-bottom: -20px;">{{ 'my_calendar'|trans }}</a>
+        </div>
         <div class="events-dropdown-scroll events-notification-container w-100">
             <span class="dropdown-item disabled mt-3"><small>{{ 'loading'|trans }}</small></span>
         </div>

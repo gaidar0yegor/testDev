@@ -560,6 +560,8 @@ no_files_here: Il n'y a pas de fichiers ici...
 no_projet_events_here: Pas d'évènements à venir...
 next_projet_events: Évènements à venir
 my_calendar: Mon agenda
+mes_rappels: Mes rappels
+create_rappel: Créer un rappel
 evenement.text: Titre
 evenement.startDate: Date début
 evenement.endDate: Date fin

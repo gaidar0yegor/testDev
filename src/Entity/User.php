@@ -230,6 +230,11 @@ class User implements UserInterface
      */
     private $patchnoteReaded;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Rappel::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $rappels;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -252,6 +257,7 @@ class User implements UserInterface
         $this->dashboardConsolides = new ArrayCollection();
         $this->boUserNotifications = new ArrayCollection();
         $this->userBooks = new ArrayCollection();
+        $this->rappels = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -830,6 +836,36 @@ class User implements UserInterface
     public function setNotificationPlanningTaskStartSoonEnabled(bool $notificationPlanningTaskStartSoonEnabled): self
     {
         $this->notificationPlanningTaskStartSoonEnabled = $notificationPlanningTaskStartSoonEnabled;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rappel[]
+     */
+    public function getRappels(): Collection
+    {
+        return $this->rappels;
+    }
+
+    public function addRappel(Rappel $rappel): self
+    {
+        if (!$this->rappels->contains($rappel)) {
+            $this->rappels[] = $rappel;
+            $rappel->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRappel(Rappel $rappel): self
+    {
+        if ($this->rappels->removeElement($rappel)) {
+            // set the owning side to null (unless already changed)
+            if ($rappel->getUser() === $this) {
+                $rappel->setUser(null);
+            }
+        }
 
         return $this;
     }
