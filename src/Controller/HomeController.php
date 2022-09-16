@@ -19,11 +19,15 @@ class HomeController extends AbstractController
                 return $this->redirectToRoute('corp_app_fo_dashboard');
             }
 
-            if($userContext->hasUserBook() && !$userContext->hasSocieteUser()) {
-                return $this->redirectToRoute('lab_app_fo_dashboard');
-            }
+            if (str_contains($this->getParameter('router.request_context.host'), 'afpa')){
+                if($userContext->hasUserBook() && !$userContext->hasSocieteUser()) {
+                    return $this->redirectToRoute('lab_app_fo_dashboard');
+                }
 
-            return $this->redirectToRoute('app_fo_multi_platefrom_switch');
+                return $this->redirectToRoute('app_fo_multi_platefrom_switch');
+            } else {
+                return $this->redirectToRoute('corp_app_fo_multi_societe_switch');
+            }
         }
         return $this->redirectToRoute('app_login');
     }
