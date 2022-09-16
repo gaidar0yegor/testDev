@@ -23,7 +23,7 @@ class MultiUserBookController extends AbstractController
     ): Response
     {
         if (!str_contains($this->getParameter('router.request_context.host'), 'afpa')){
-            return $this->render('dynamic_templates/_comming_soon.html.twig');
+            return $this->render('_comming_soon.html.twig');
         }
         $userContext->disconnectUserLabo();
         $em->flush();
