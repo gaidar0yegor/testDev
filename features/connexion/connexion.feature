@@ -25,6 +25,19 @@ Feature: Page de connexion
         Then I should be on "/connexion"
         And I should not see "Société | User"
 
+#    Activer Cahier de labo
+#    Scenario: Je ne peux pas me connecter si mon compte a été désactivé par l'administrateur
+#        Given I have loaded fixtures from "connexion/fixtures.yml"
+#        And I am on "/connexion"
+#        When I fill in the following:
+#            | _username | user-desactive@societe.dev     |
+#            | _password | user-desactive |
+#        And I press "Connexion"
+#        Then I should be on "/mes-plateformes"
+#        When I go to "/corp/mes-societes"
+#        And I should see "UserDésactivé" in the "nav" element
+#        And I should see "Accès désactivé" in the ".card" element
+
     Scenario: Je ne peux pas me connecter si mon compte a été désactivé par l'administrateur
         Given I have loaded fixtures from "connexion/fixtures.yml"
         And I am on "/connexion"
@@ -32,7 +45,6 @@ Feature: Page de connexion
             | _username | user-desactive@societe.dev     |
             | _password | user-desactive |
         And I press "Connexion"
-        Then I should be on "/mes-plateformes"
-        When I go to "/corp/mes-societes"
+        Then I should be on "/corp/mes-societes"
         And I should see "UserDésactivé" in the "nav" element
         And I should see "Accès désactivé" in the ".card" element
