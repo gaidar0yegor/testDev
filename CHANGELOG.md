@@ -6,6 +6,13 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+## [1.70.1] - 2022-09-16
+### Ajouté
 - Bouton pour afficher / cacher un mot de passe
 - Back office : afficher l'email et le numéro de tel des admins
 - Back office : afficher la date de création dans la liste des sociétés
@@ -23,11 +30,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Les notifications par mail pour les evenements (Création / Modification / Annulation)
 ### Réparé
 - L'invitation peut être acceptée que par la personne invitée (email / telephone) 
-
-
-
-
-
 
 ## [1.70.0] - 2022-08-31
 ### Ajouté
