@@ -1,0 +1,24 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}
+    Rappel : {{ rappel.titre }}
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p>
+                Rappel : {{ rappel.rappelDate | format_datetime }} - {{ rappel.titre }}
+            </p>
+
+            <p>
+                {{ rappel.description }}
+            </p>
+
+            <small>
+                <a href="{{ url('corp_app_fo_rappel_list') }}">
+                    Cliquez-ici afin de consulter en détails vos rappels sur l'application RDI Manager.
+                </a>
+            </small>
+        </columns>
+    </row>
+{% endblock %}

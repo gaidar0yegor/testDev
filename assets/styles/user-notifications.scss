@@ -1,4 +1,9 @@
-.user-notifications-list {
+.user-events-notifications-list, .user-rappels-notifications-list {
+    margin-right: 0.5rem;
+    padding-right: 0.5rem;
+    border-right: 1px white solid;
+}
+.user-notifications-list, .user-events-notifications-list, .user-rappels-notifications-list {
     .dropdown-menu {
         width: 280px;
 
@@ -21,6 +26,11 @@
         }
 
         .rdi-dropdown-scroll {
+            overflow-y: auto;
+            max-height: 340px;
+        }
+
+        .events-dropdown-scroll {
             overflow-y: auto;
             max-height: 340px;
         }

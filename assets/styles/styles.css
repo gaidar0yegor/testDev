@@ -32,6 +32,22 @@ body {
   -ms-transition: all 0.4s ease-in-out;
 }
 
+legend.col-form-label {
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+.form-time {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-time select{
+  width: 45% !important;
+}
+
 option:disabled {
   color: rgba(206, 53, 44, 0.62);
 }
@@ -214,6 +230,10 @@ a.disabled {
 }
 .card.bg-light-grey .progress {
   background-color: white;
+}
+
+.fa-sm{
+  font-size: 0.5rem;
 }
 
 .col-4.bis {

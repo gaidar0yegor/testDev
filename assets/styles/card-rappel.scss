@@ -1,0 +1,44 @@
+.rappels-list {
+
+    .card-rappel{
+
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-content: start;
+        padding: 20px;
+        border-radius: 10px;
+
+        .card-side{
+            padding: 10px 10px 0 0;
+        }
+
+        .card-body{
+            padding: 0;
+
+            .card-title{
+                font-size: 1.2rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+
+                .fa{
+                    padding: 0 7px;
+                }
+            }
+
+            .card-actions{
+                display: flex;
+                flex-direction: row;
+                justify-content: start;
+                align-items: center;
+
+                a{
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+
+}

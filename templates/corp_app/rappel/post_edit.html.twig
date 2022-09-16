@@ -1,0 +1,45 @@
+{% extends 'corp_app/base.html.twig' %}
+
+{% block title %}{{ (rappel.id is null ? 'create_rappel' : 'update_rappel') | trans }} | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <h1>{{ (rappel.id is null ? 'create_rappel' : 'update_rappel') | trans }}</h1>
+
+    <a class="d-block mb-4" href="{{ path('corp_app_fo_rappel_list') }}">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        {{ 'back'|trans }}
+    </a>
+
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    {{ form_row(form.titre) }}
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    {{ form_row(form.societe) }}
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    {{ form_row(form.rappelDate) }}
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    {{ form_row(form.reminderTimeAt) }}
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    {{ form_row(form.minutesToReminde) }}
+                </div>
+            </div>
+
+            {{ form_row(form.description) }}
+            <div class="d-flex justify-content-center w-100">
+                {{ form_row(form.submit) }}
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+{% endblock %}

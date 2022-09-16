@@ -6,6 +6,7 @@ import './styles/timeline.css';
 import './styles/styles.css';
 import './styles/register.scss';
 import './styles/radio-choice-colors.scss';
+import './styles/card-rappel.scss';
 
 import 'bootstrap';
 import 'bootstrap-datepicker';
@@ -22,6 +23,7 @@ import './js/helpText';
 import './js/patchnote';
 import './js/user-notifications';
 import './js/user-events-notifications';
+import './js/user-rappels-notifications';
 import './js/societe-notifications';
 import './js/syntax-highlighter';
 // import './js/markdown-wysiwyg';

@@ -319,6 +319,7 @@ delete_user_user: Suppression of {user}'s account
 re_enable_account_explain:
   Reactivating the {user}'s account will allow him to access
   your company again.
+'Le rappel "{titre_rappel}" a été supprimé.': The reminder "{titre_rappel}" have been deleted.
 cancel: Cancel
 disable_account: Deactivate account
 re_enable_account: Reactivate account
@@ -554,6 +555,9 @@ no_files_here: No files found here...
 no_projet_events_here: No upcoming events...
 next_projet_events: Upcoming events
 my_calendar: My calendar
+mes_rappels: My reminders
+create_rappel: Create a reminder
+update_rappel: Update a reminder
 evenement.text: Title
 evenement.startDate: Start date
 evenement.endDate: End date
@@ -593,6 +597,13 @@ submit: Submit
 'sending...': 'Sending, please wait...'
 back_to_project: 'Back to the project page'
 patchnote: 'Patch notes'
+AT_TIME: On time
+10_MINUTES_BEFORE: 10 minutes before
+30_MINUTES_BEFORE: 30 minutes before
+1_HOUR_BEFORE: 1 hour before
+6_HOURS_BEFORE: 6 hours before
+12_HOURS_BEFORE: 12 hours before
+1_DAY_BEFORE: 1 day before
 #################################### Lab App #######################################
 LABO_ADMIN: Administrator
 LABO_SENIOR: Senior researcher
