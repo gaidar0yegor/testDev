@@ -21,16 +21,19 @@
                         <i class="fa fa-3x fa-clock-o" style="color: {{ color }};"></i>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">
-                            {% if rappel.societe %}
-                                <span>{{ rappel.societe.raisonSociale }}</span>
+                        <div class="m-0 p-0">
+                            <h5 class="card-title">
+                                {% if rappel.societe %}
+                                    <span>{{ rappel.societe.raisonSociale }}</span>
+                                    <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
+                                {% endif %}
+                                <span>{{ rappel.rappelDate | date('d/m/Y') }}</span>
                                 <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
-                            {% endif %}
-                            <span>{{ rappel.rappelDate | date('d/m/Y') }}</span>
-                            <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
-                            <span>{{ rappel.rappelDate | date('H:i') }}</span>
-                        </h5>
-                        <ul class="list-unstyled">{{ rappel.description }}</ul>
+                                <span>{{ rappel.rappelDate | date('H:i') }}</span>
+                            </h5>
+                            <h4>{{ rappel.titre }}</h4>
+                            <ul class="list-unstyled text-justify">{{ rappel.description }}</ul>
+                        </div>
                         <div class="card-actions">
                             <a href="{{ path('corp_app_fo_rappel_post_edit', {'rappelId': rappel.id}) }}" class="badge badge-warning">{{ 'update' | trans }}</a>
                             <a href="{{ path('corp_app_fo_rappel_delete', {'rappelId': rappel.id}) }}" class="badge badge-danger">{{ 'delete' | trans }}</a>
@@ -48,7 +51,7 @@
         <h5 class="text-center w-100 mt-3 mb-4">Historique des rappels</h5>
     {% endif %}
 
-    <div class="row rappels-list">
+    <div class="row row-flex row-cols-1 row-cols-md-2 row-cols-lg-3 rappels-list">
         {% for rappel in remindedRappels %}
             {% set color = rappel.societe ? rappel.societe.colorCode : '#000' %}
             <div class="col-md-4 col-sm-6">
@@ -57,16 +60,19 @@
                         <i class="fa fa-3x fa-clock-o" style="color: {{ color }};"></i>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">
-                            {% if rappel.societe %}
-                                <span>{{ rappel.societe.raisonSociale }}</span>
+                        <div class="m-0 p-0">
+                            <h5 class="card-title">
+                                {% if rappel.societe %}
+                                    <span>{{ rappel.societe.raisonSociale }}</span>
+                                    <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
+                                {% endif %}
+                                <span>{{ rappel.rappelDate | date('d/m/Y') }}</span>
                                 <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
-                            {% endif %}
-                            <span>{{ rappel.rappelDate | date('d/m/Y') }}</span>
-                            <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
-                            <span>{{ rappel.rappelDate | date('H:i') }}</span>
-                        </h5>
-                        <ul class="list-unstyled">{{ rappel.description }}</ul>
+                                <span>{{ rappel.rappelDate | date('H:i') }}</span>
+                            </h5>
+                            <h4>{{ rappel.titre }}</h4>
+                            <ul class="list-unstyled text-justify">{{ rappel.description }}</ul>
+                        </div>
                         <div class="card-actions">
                             <a href="{{ path('corp_app_fo_rappel_post_edit', {'rappelId': rappel.id}) }}" class="badge badge-warning">{{ 'update' | trans }}</a>
                             <a href="{{ path('corp_app_fo_rappel_delete', {'rappelId': rappel.id}) }}" class="badge badge-danger">{{ 'delete' | trans }}</a>
