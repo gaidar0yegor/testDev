@@ -1,0 +1,21 @@
+<div class="dropdown user-rappels-notifications-list d-inline-block">
+	<a
+			href="#"
+			class="text-light dropdown-toggle"
+			role="button"
+			id="dropdownRappelsNotifications"
+			data-toggle="dropdown"
+			aria-haspopup="true"
+			aria-expanded="false"
+	>
+		<i class="fa fa-lg fa-clock-o mb-3 mb-lg-0 opacity-25" aria-hidden="true"></i>
+	</a>
+	<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownRappelsNotifications">
+		<div class="d-flex flex-row justify-content-end align-items-center mb-3 mr-3">
+			<a href="{{ path('corp_app_fo_rappel_list') }}" class="badge badge-success p-1" style="margin-bottom: -20px;">{{ 'mes_rappels'|trans }}</a>
+		</div>
+		<div class="rappels-dropdown-scroll rappels-notification-container w-100">
+			<span class="dropdown-item disabled mt-3"><small>{{ 'loading'|trans }}</small></span>
+		</div>
+	</div>
+</div>

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Rappel;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,32 +20,49 @@ class RappelRepository extends ServiceEntityRepository
         parent::__construct($registry, Rappel::class);
     }
 
-    // /**
-    //  * @return Rappel[] Returns an array of Rappel objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Rappel[]
+     */
+    public function findToReminder()
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('rappel')
+            ->andWhere('rappel.isReminded = false')
+            ->andWhere('rappel.reminderAt <= :now')
+            ->orderBy('rappel.reminderAt', 'desc')
+            ->setParameter('now', date('Y-m-d H:i') . ':00')
             ->getQuery()
             ->getResult()
-        ;
+            ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Rappel
+    /**
+     * @return Rappel[]
+     */
+    public function findLastFor(User $user)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+        return $this->createQueryBuilder('rappel')
+            ->andWhere('rappel.user = :user')
+            ->andWhere('rappel.isReminded = true')
+            ->orderBy('rappel.reminderAt', 'desc')
+            ->setParameter('user', $user)
+            ->setMaxResults(20)
             ->getQuery()
-            ->getOneOrNullResult()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @param User $user
+     */
+    public function acknowledgeAllFor(User $user): void
+    {
+        $this->createQueryBuilder('rappel')
+            ->update(Rappel::class, 'rappel')
+            ->set('rappel.acknowledged', true)
+            ->where('rappel.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute()
         ;
     }
-    */
 }

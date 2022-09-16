@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\API;
+namespace App\Controller\CorpApp\API;
 
 use App\Entity\Societe;
 use App\Entity\SocieteUser;

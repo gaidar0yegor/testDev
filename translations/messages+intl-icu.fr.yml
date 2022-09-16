@@ -281,6 +281,7 @@ disable_account_with_CDP_roles_explain: "Merci de modifier les rôles de {user} 
 re_enable_account_explain:
   "Ré-activer le compte de {user} lui permettra d'accéder
   à nouveau à votre société."
+'Le rappel "{titre_rappel}" a été supprimé.': 'Le rappel "{titre_rappel}" a été supprimé.'
 cancel: Annuler
 disable_account: "Désactiver le compte"
 re_enable_account: "Ré-activer le compte"
@@ -562,6 +563,7 @@ next_projet_events: Évènements à venir
 my_calendar: Mon agenda
 mes_rappels: Mes rappels
 create_rappel: Créer un rappel
+update_rappel: Modifier un rappel
 evenement.text: Titre
 evenement.startDate: Date début
 evenement.endDate: Date fin
@@ -596,6 +598,13 @@ submit: Soumettre
 'sending...': 'Envoi en cours...'
 back_to_project: 'Retour à la page projet'
 patchnote: 'Notes de la mise à jour'
+AT_TIME: "À l'heure"
+10_MINUTES_BEFORE: "10 minutes avant"
+30_MINUTES_BEFORE: "30 minutes avant"
+1_HOUR_BEFORE: "1 heure avant"
+6_HOURS_BEFORE: "6 heures avant"
+12_HOURS_BEFORE: "12 heures avant"
+1_DAY_BEFORE: "1 jour avant"
 #################################### Lab App #######################################
 LABO_ADMIN: Administrateur
 LABO_SENIOR: "Chercheur sénior"

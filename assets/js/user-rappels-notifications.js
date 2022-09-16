@@ -6,11 +6,11 @@ import locale from './dateFnsLocale';
 import userContext from './userContext';
 
 $(() => {
-    if (0 === document.querySelectorAll('.user-events-notifications-list').length) {
+    if (0 === document.querySelectorAll('.user-rappels-notifications-list').length) {
         return;
     }
 
-    if (!userContext.societeUserId) {
+    if (!userContext.userId) {
         return;
     }
 
@@ -25,7 +25,7 @@ $(() => {
     /**
      * Retrieve last user notifications.
      */
-    const apiGetUserNotifications = () => fetch(`/corp/api/user-events-notifications/${userContext.societeUserId}`);
+    const apiGetUserNotifications = () => fetch(`/api/rappel/notifications/${userContext.userId}`);
 
     /**
      * Mark the list of notifications defined by their ids in acknowledgeIds as read.
@@ -34,7 +34,7 @@ $(() => {
      *
      * @param {Number[]} acknowledgeIds
      */
-    const apiPostUserNotifications = acknowledgeIds => fetch(`/corp/api/user-events-notifications/${userContext.societeUserId}`, {
+    const apiPostUserNotifications = acknowledgeIds => fetch(`/api/rappel/notifications/${userContext.userId}`, {
         method: 'post',
         headers: {
             'Content-Type': 'application/json;charset=utf-8',
@@ -55,64 +55,62 @@ $(() => {
         .then(json => {
             let currentMonth = null;
 
-            $('.events-notification-container').empty();
+            $('.rappels-notification-container').empty();
 
-            if (0 === json.notifications.length) {
-                $('.events-notification-container')
-                    .append(`<span class="dropdown-item disabled mt-3"><small>Vous n'avez pas encore de notifications.</small></span>`)
+            if (0 === json.rappels.length) {
+                $('.rappels-notification-container')
+                    .append(`<span class="dropdown-item disabled mt-3"><small>Vous n'avez pas de rappels.</small></span>`)
                 ;
 
                 return;
             }
 
-            json.notifications.forEach(notification => {
-                const date = new Date(notification.activity.datetime.date);
+            json.rappels.forEach(rappel => {
+                const date = new Date(rappel.rappelDate);
 
                 if (null === currentMonth || !sameMonth(date, currentMonth)) {
                     currentMonth = date;
 
-                    $('.events-notification-container')
+                    $('.rappels-notification-container')
                         .append(`<h6 class="dropdown-header">${format(date, 'MMMM', {locale})}</h6>`)
                     ;
                 }
 
-                const $notification = $(`<span class="dropdown-item"><small>${notification.activity.rendered}</small></span>`);
+                const $notification = $(`<span class="dropdown-item"><small><i class="fa fa-clock-o" aria-hidden="true"></i> Rappel - ${format(date, 'd MMMM Y H:m', {locale})} | ${rappel.titre}</small></span>`);
 
-                if (!notification.acknowledged) {
-                    acknowledgeIds.push(notification.id)
+                if (!rappel.acknowledged) {
+                    acknowledgeIds.push(rappel.id)
 
                     $notification.find('small').wrapInner('<strong>');
                     $notification.find('strong').prepend('<i class="fa fa-circle text-danger" aria-hidden="true"></i> ')
                 }
 
-                $('.events-notification-container').append($notification);
+                $('.rappels-notification-container').append($notification);
             });
 
             if (acknowledgeIds.length > 0) {
-                $('.user-events-notifications-list .dropdown-toggle')
+                $('.user-rappels-notifications-list .dropdown-toggle')
                     .append(`<span class="badge badge-light badge-pill">${acknowledgeIds.length}</span>`)
                 ;
 
-                $('.user-events-notifications-list > .dropdown-toggle > .fa-calendar-o')
-                    .removeClass('fa-calendar-o')
-                    .addClass('fa-calendar')
+                $('.user-rappels-notifications-list > .dropdown-toggle > .fa-clock-o')
+                    .removeClass('opacity-25')
                 ;
             }
         })
     ;
 
-    $('.user-events-notifications-list .dropdown-toggle').on('click', () => {
+    $('.user-rappels-notifications-list .dropdown-toggle').on('click', () => {
         if (0 === acknowledgeIds.length) {
             return;
         }
 
         apiPostUserNotifications(acknowledgeIds)
             .then(() => {
-                $('.user-events-notifications-list .dropdown-toggle .badge').remove();
+                $('.user-rappels-notifications-list .dropdown-toggle .badge').remove();
 
-                $('.user-events-notifications-list > .dropdown-toggle > .fa-calendar')
-                    .removeClass('fa-calendar')
-                    .addClass('fa-calendar-o')
+                $('.user-rappels-notifications-list > .dropdown-toggle > .fa-clock-o')
+                    .addClass('opacity-25')
                 ;
             })
         ;

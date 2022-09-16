@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/rappels")
@@ -33,14 +34,14 @@ class RappelController extends AbstractController
      *     name="corp_app_fo_rappel_list"
      * )
      */
-    public function list(
-        RappelRepository $rappelRepository
-    )
+    public function list(RappelRepository $rappelRepository)
     {
-        $rappels = $rappelRepository->findAll();
+        $remindedRappels = $rappelRepository->findBy(['isReminded' => true],['rappelDate' => 'DESC']);
+        $notRemindedRappels = $rappelRepository->findBy(['isReminded' => false],['rappelDate' => 'DESC']);
 
         return $this->render('corp_app/rappel/list.html.twig', [
-            'rappels' => $rappels
+            'remindedRappels' => $remindedRappels,
+            'notRemindedRappels' => $notRemindedRappels
         ]);
     }
 
@@ -55,9 +56,13 @@ class RappelController extends AbstractController
         Rappel $rappel = null
     ) : Response
     {
+        $update = true;
         if (null === $rappel){
             $rappel = new Rappel();
             $rappel->setUser($userContext->getUser());
+            $update = false;
+        } elseif ($rappel->getUser() !== $userContext->getUser()){
+            throw $this->createAccessDeniedException();
         }
 
         $form = $this->createForm(RappelType::class, $rappel);
@@ -69,7 +74,7 @@ class RappelController extends AbstractController
             $em->persist($rappel);
             $em->flush();
 
-            $this->addFlash('success', sprintf('Votre rappel a été crée avec succès.'));
+            $this->addFlash('success', sprintf('Votre rappel a été ' . ($update ? 'modifié' : 'créé') . ' avec succès.'));
 
             return $this->redirectToRoute('corp_app_fo_rappel_list');
         }
@@ -78,5 +83,34 @@ class RappelController extends AbstractController
             'form' => $form->createView(),
             'rappel' => $rappel
         ]);
+    }
+
+    /**
+     * @Route("/supprimer/{rappelId}", name="corp_app_fo_rappel_delete", methods={"DELETE"})
+     *
+     * @ParamConverter("rappel", options={"id" = "rappelId"})
+     */
+    public function delete(
+        Rappel $rappel,
+        TranslatorInterface $translator,
+        EntityManagerInterface $em,
+        UserContext $userContext
+    ): Response {
+        if ($rappel->getUser() !== $userContext->getUser()){
+            throw $this->createAccessDeniedException();
+        }
+        $rappelTitre = $rappel->getTitre();
+
+        $em->remove($rappel);
+        $em->flush();
+
+        $this->addFlash('success', $translator->trans(
+            'Le rappel "{titre_rappel}" a été supprimé.',
+            [
+                'titre_rappel' => $rappelTitre,
+            ]
+        ));
+
+        return $this->redirectToRoute('corp_app_fo_rappel_list');
     }
 }
