@@ -53,7 +53,7 @@ if (chartContents) {
         axis: { rotated: true, x: { show:false }, y: { show:false } },
         tooltip: {
             format: {
-                title: function (d) { return `Analyse budgétaire en ${euroRevenueDiv.dataset.devise}`; },
+                title: function (d) { return `Retour sur investissement (ROI)`; },
                 value: function (value, ratio, id) {
                     return `${value} ${euroRevenueDiv.dataset.devise}`;
                 }
