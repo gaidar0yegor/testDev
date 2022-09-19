@@ -39,4 +39,21 @@ class SocieteRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /*
+     * Mettre en veille les société désactivées automatiquement après X mois
+     */
+    public function findToMettreEnVeille(int $nbrMonths): array
+    {
+        $date = (new \DateTime())->modify("-". $nbrMonths ." month");
+
+        return $this
+            ->createQueryBuilder('societe')
+            ->where('societe.disabledAt <= :date')
+            ->andWhere('societe.enabled = false')
+            ->andWhere('societe.onStandBy = false')
+            ->setParameter('date', $date->format('Y-m-d') . ' 00:00:00')
+            ->getQuery()
+            ->getResult();
+    }
 }
