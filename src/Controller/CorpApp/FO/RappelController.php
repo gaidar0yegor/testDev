@@ -36,8 +36,8 @@ class RappelController extends AbstractController
      */
     public function list(RappelRepository $rappelRepository)
     {
-        $remindedRappels = $rappelRepository->findBy(['isReminded' => true],['rappelDate' => 'DESC']);
-        $notRemindedRappels = $rappelRepository->findBy(['isReminded' => false],['rappelDate' => 'DESC']);
+        $remindedRappels = $rappelRepository->findBy(['user' => $this->userContext->getUser(), 'isReminded' => true],['rappelDate' => 'DESC']);
+        $notRemindedRappels = $rappelRepository->findBy(['user' => $this->userContext->getUser(), 'isReminded' => false],['rappelDate' => 'DESC']);
 
         return $this->render('corp_app/rappel/list.html.twig', [
             'remindedRappels' => $remindedRappels,
