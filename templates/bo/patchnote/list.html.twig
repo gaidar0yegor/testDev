@@ -45,9 +45,8 @@
                 <td class="text-left">{{ (patchnote.rdiApp ~ '_name') | trans }}</td>
                 <td data-sort='{{ patchnote.date|date('Ymd') }}'>{{ patchnote.date|date('d/m/Y') }}</td>
                 <td class="text-center">
-                    <a class="btn-rdi-icon" href="{{ path('corp_app_bo_patchnote_update', { 'id': patchnote.id }) }}" title="{{ 'edit_btn'|trans }}">
-                        <i class="fa fa-lg fa-edit"></i>
-                    </a>
+                    <a class="btn-rdi-icon text-warning" href="{{ path('corp_app_bo_patchnote_update', { 'id': patchnote.id }) }}" title="{{ 'edit_btn'|trans }}"><i class="fa fa-lg fa-edit"></i></a>
+                    <a class="btn-rdi-icon text-danger" href="{{ path('corp_app_bo_patchnote_delete', { 'id': patchnote.id }) }}" title="{{ 'delete'|trans }}"><i class="fa fa-lg fa-trash"></i></a>
                 </td>
             </tr>
         {% endfor %}
