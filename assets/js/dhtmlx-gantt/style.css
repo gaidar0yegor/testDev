@@ -73,6 +73,13 @@
     background-color: #e2e2e2;
 }
 
+.gantt-menu-item a[data-action="myTasksFilter"] i {
+    font-size: 1.4em;
+    vertical-align: middle;
+    color: rgb(117,117,117);
+    margin-right: 0.3em;
+}
+
 .gantt-controls .gantt-controls{
     display: none;
 }

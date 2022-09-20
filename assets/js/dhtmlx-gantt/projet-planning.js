@@ -258,6 +258,23 @@ gantt.ext.zoom.setLevel("quarter");
 
 // END :: zoom function
 
+// START :: my tasks filter
+
+var myTasksFilterEnable = false;
+$(document).on('click', 'a[data-action="myTasksFilter"]', function () {
+    var $a = $(this);
+    myTasksFilterEnable = $($a).data('checked') == false;
+    $($a).find('i').toggleClass( 'fa-square-o', !myTasksFilterEnable ).toggleClass( 'fa-check-square-o', myTasksFilterEnable );
+    $($a).data('checked', myTasksFilterEnable);
+    gantt.render();
+});
+gantt.attachEvent("onBeforeTaskDisplay", function(id, task){
+    if(!myTasksFilterEnable) return true;
+    return task.is_participant;
+});
+
+// END :: my tasks filter
+
 const updateParentProgress = (child, isDeleted = false) => {
     if (child.parent){
         let parentTask = gantt.getTask(child.parent);
