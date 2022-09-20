@@ -27,6 +27,8 @@ gantt.config.columns = [
     {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" title="Utilisateurs affectés" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
     {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/corp/projet/${projectId}/planning/task/${task.id}" title="Liste des faits marquants liés" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
+gantt.config.buttons_left = ["gantt_cancel_btn", "gantt_delete_btn"];
+gantt.config.buttons_right = ["gantt_save_btn"];
 
 gantt.ext.inlineEditors.attachEvent("onBeforeEditStart", function(state){
     if (state.columnName === "progress"){
