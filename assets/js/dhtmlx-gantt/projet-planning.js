@@ -5,6 +5,7 @@ const societeRaisonSociale = window['project_planning_content'].dataset.societeR
 const projectAcronyme = window['project_planning_content'].dataset.projectAcronyme;
 const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
+var progressEditor = {type: "number_progress", map_to: "progress"};
 var numberEditor = gantt.config.editor_types.number;
 gantt.config.editor_types.number_progress = gantt.mixin({
     set_value: function(value, id, column, node){
@@ -14,8 +15,6 @@ gantt.config.editor_types.number_progress = gantt.mixin({
         return numberEditor.get_value.apply(this, [id, column, node]) /100;
     },
 }, numberEditor);
-
-var progressEditor = {type: "number_progress", map_to: "progress"};
 
 gantt.config.columns = [
     {name: "wbs", label: "#", width: 40, min_width: 40, max_width: 40, align: "center", template: gantt.getWBSCode},
@@ -28,6 +27,14 @@ gantt.config.columns = [
     {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" title="Utilisateurs affectés" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
     {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/corp/projet/${projectId}/planning/task/${task.id}" title="Liste des faits marquants liés" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
+
+gantt.ext.inlineEditors.attachEvent("onBeforeEditStart", function(state){
+    if (state.columnName === "progress"){
+        var task = gantt.getTask(state.id);
+        return gantt.getChildren(task.id).length === 0;
+    }
+    return true;
+});
 
 gantt.templates.task_end_date = function(date){
     return gantt.templates.task_date(new Date(date.valueOf() - 1));
@@ -75,6 +82,7 @@ gantt.config.xml_date = "%d/%m/%Y";
 gantt.config.autosize = true;
 gantt.config.scroll_size = 20;
 gantt.config.tooltip_timeout = 50;
+gantt.config.drag_progress = false;
 
 gantt.init("project_planning_content");
 
