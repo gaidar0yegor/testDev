@@ -34,6 +34,11 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     private $text;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
      * @ORM\Column(type="date")
      */
     private $startDate;
@@ -284,6 +289,18 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     public function setEndDateReal(?\DateTimeInterface $endDateReal): self
     {
         $this->endDateReal = $endDateReal;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

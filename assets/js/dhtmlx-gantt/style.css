@@ -1,5 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700);
 
+.gantt_tooltip{
+    max-width: 30rem;
+    height: auto;
+    white-space: unset;
+}
+
 .landing-view-demo{
     min-height: 641px;
 }
