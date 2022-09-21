@@ -144,7 +144,7 @@ export default {
 
         const path = window.location.pathname.split('/');
 
-        if (4 === path.length) {
+        if (5 === path.length) {
             const [year, month] = path.slice(-2);
 
             this.selectedDate = this.strategy.calculateInitialDate(new Date(
