@@ -46,18 +46,19 @@
 
                     <div
                         v-for="tempsPasse in cra.tempsPasses" :key="tempsPasse.id"
-                        class="mb-2 d-flex flex-row justify-content-center align-items-center"
+                        class="mb-3 d-flex flex-row justify-content-center align-items-center"
                     >
-                        <div class="col d-none d-sm-block"></div>
-                        <div class="col text-center lead">
-                            <label
-                                :for="'temps_passe_pourcentage_' + tempsPasse.id"
-                                v-tippy="{content: tempsPasse.projet.titre}"
-                                class="m-0"
-                            >{{ t('project_heading', {project_name: tempsPasse.projet.acronyme}) }}</label>
-                        </div>
-                        <div class="col">
-                            <div class="input-group input-group-lg">
+
+                            <div class="input-group input-group-lg w-50 w-sm-100 m-auto">
+                                <div class="input-group-append">
+                                    <label :for="'temps_passe_pourcentage_' + tempsPasse.id"
+                                           v-tippy="{content: tempsPasse.projet.titre}"
+                                           class="input-group-text min-w-12"
+                                    >
+                                        <span class="badge d-inline-block rounded-circle mt-1 mr-2" :style="{ 'background-color': tempsPasse.projet.colorCode, 'width': '15px', 'height': '15px' }"></span>
+                                        {{ t('project_heading', {project_name: tempsPasse.projet.acronyme}) }}
+                                    </label>
+                                </div>
                                 <input
                                     v-model="tempsPasse.pourcentage"
                                     type="number"
@@ -73,8 +74,7 @@
                                     <span class="input-group-text">%</span>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col d-none d-sm-block"></div>
+
                     </div>
                     <p 
                         v-if="!validCra(cra)" 
@@ -256,5 +256,13 @@ export default {
 <style scoped>
     .saisie-des-temps-weekly .text-month {
         font-size: 0.75em;
+    }
+    .min-w-12{
+        min-width: 12rem;
+    }
+    @media (max-width: 945px) {
+        .w-sm-100{
+            width: 100% !important;
+        }
     }
 </style>

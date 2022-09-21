@@ -130,6 +130,8 @@ class Projet implements HasSocieteInterface
 
     /**
      * @ORM\Column(type="string", length=10)
+     *
+     * @Serializer\Groups({"saisieTemps"})
      */
     private $colorCode;
 
