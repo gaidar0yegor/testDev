@@ -152,6 +152,13 @@ EmbedForm.init($('#projet_form_projetUrls'), {
 EmbedForm.init($('#projet_form_dossierFichierProjets'), {
     $addButton: $('.add-folder-file'),
 });
+$('.dossierFichierProjets, .projetUrls').on('keypress', 'input', function (e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        $(this).parents('.dossierFichierProjets').find('button.add-folder-file').trigger('click');
+        $(this).parents('.projetUrls').find('button.add-external-link').trigger('click');
+    }
+});
 $('#projet_form_projetUrls').on('click', '.remove-row-btn', function (e) {
     e.preventDefault();
     $(this).closest('.row').remove();

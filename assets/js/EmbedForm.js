@@ -28,6 +28,9 @@ EmbedForm.init = function ($prototypeContainer, options = {}) {
     options.$addButton.on('click', function (e) {
         e.preventDefault();
         EmbedForm.addPrototypedItem($prototypeContainer, options);
+        if ($($prototypeContainer).find('.row:last-child')){
+            $($($prototypeContainer).find('.row:last-child').find('input')[0]).focus().select();
+        }
     });
 
     options.$addButton.show();

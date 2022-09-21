@@ -210,6 +210,11 @@ class Societe implements HasSocieteInterface
      */
     private $onStandBy;
 
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $disabledAt;
+
     public function __construct()
     {
         $this->enabled = true;
@@ -604,6 +609,18 @@ class Societe implements HasSocieteInterface
     public function setOnStandBy(bool $onStandBy): self
     {
         $this->onStandBy = $onStandBy;
+
+        return $this;
+    }
+
+    public function getDisabledAt(): ?\DateTimeInterface
+    {
+        return $this->disabledAt;
+    }
+
+    public function setDisabledAt(?\DateTimeInterface $disabledAt): self
+    {
+        $this->disabledAt = $disabledAt;
 
         return $this;
     }

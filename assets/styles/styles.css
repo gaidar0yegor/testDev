@@ -4,6 +4,16 @@ body {
   padding-top: 3rem;
 }
 
+@media (max-width: 1400px){
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 95%;
+  }
+}
+
 @media (min-width: 1400px) {
   .container,
   .container-sm,
@@ -753,6 +763,16 @@ select.select-2, .select2.select2-container  {
   width: 100%;
   background: rgba(0, 0, 0, 0.300);
 }
+@media (max-width: 1200px){
+  .rdi-popup .content{
+    width: 80% !important;
+  }
+}
+@media (min-width: 1200px){
+  .rdi-popup .content{
+    width: 50% !important;
+  }
+}
 .rdi-popup .content{
   position: fixed;
   z-index: 99999;
@@ -760,7 +780,6 @@ select.select-2, .select2.select2-container  {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
   background-color: #fff;
   border-radius: 1rem !important;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

@@ -213,6 +213,7 @@ class SocieteController extends AbstractController
         }
 
         $societe->setEnabled(false);
+        $societe->setDisabledAt(new \DateTime());
         $em->persist($societe);
         $em->flush();
 
@@ -250,6 +251,7 @@ class SocieteController extends AbstractController
         }
 
         $societe->setEnabled(true);
+        $societe->setDisabledAt(null);
         $societe->setOnStandBy(false);
         $em->persist($societe);
         $em->flush();

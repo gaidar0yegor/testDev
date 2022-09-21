@@ -32,7 +32,7 @@ class RemindeRappel implements EventSubscriberInterface
 
         $email = (new TemplatedEmail())
             ->to($rappel->getUser()->getEmail())
-            ->subject('Rappel : ' . $rappel->getRappelDate()->format('d MMMM Y H:i') . ' - ' . $rappel->getTitre())
+            ->subject('Rappel : ' . $rappel->getTitre())
             ->textTemplate('corp_app/mail/reminde_rappel.txt.twig')
             ->htmlTemplate('corp_app/mail/reminde_rappel.html.twig')
             ->context([

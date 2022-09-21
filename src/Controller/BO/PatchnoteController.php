@@ -12,6 +12,8 @@ use Shivas\VersioningBundle\Service\VersionManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class PatchnoteController extends AbstractController
 {
@@ -121,5 +123,24 @@ class PatchnoteController extends AbstractController
             'rdi_app' => $patchnote->getRdiApp(),
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/patchnote/supprimer/{id}", name="corp_app_bo_patchnote_delete")
+     */
+    public function delete(
+        Patchnote $patchnote,
+        EntityManagerInterface $em,
+        TranslatorInterface $translator
+    ): Response {
+
+        $msg = $patchnote->getVersion() . ' - ' . $translator->trans($patchnote->getRdiApp().'_name');
+
+        $em->remove($patchnote);
+        $em->flush();
+
+        $this->addFlash('success','Patch note '. $msg .' est supprimé avec succès');
+
+        return $this->redirectToRoute('corp_app_bo_patchnote_list');
     }
 }

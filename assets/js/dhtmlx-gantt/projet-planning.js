@@ -1,10 +1,15 @@
 import $ from "jquery";
 
+import '../../../node_modules/dhtmlx-gantt/codebase/ext/dhtmlxgantt_tooltip';
+import '../../../node_modules/dhtmlx-gantt/codebase/ext/dhtmlxgantt_drag_timeline';
+import '../../../node_modules/dhtmlx-gantt/codebase/ext/dhtmlxgantt_click_drag';
+
 const projectId = window['project_planning_content'].dataset.projectId;
 const societeRaisonSociale = window['project_planning_content'].dataset.societeRaisonSociale;
 const projectAcronyme = window['project_planning_content'].dataset.projectAcronyme;
 const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
+var progressEditor = {type: "number_progress", map_to: "progress"};
 var numberEditor = gantt.config.editor_types.number;
 gantt.config.editor_types.number_progress = gantt.mixin({
     set_value: function(value, id, column, node){
@@ -15,11 +20,9 @@ gantt.config.editor_types.number_progress = gantt.mixin({
     },
 }, numberEditor);
 
-var progressEditor = {type: "number_progress", map_to: "progress"};
-
 gantt.config.columns = [
     {name: "wbs", label: "#", width: 40, min_width: 40, max_width: 40, align: "center", template: gantt.getWBSCode},
-    {name: "text", tree: true, width: '*', min_width: 250, resize: true, template:function(task){ return `<span class="task-title" title="${task.text}">${task.text}</span>`; }},
+    {name: "text", tree: true, width: '*', min_width: 250, resize: true },
     {name: "start_date", label: "Start", width:80, min_width: 80, max_width: 80, align: "center", editor: {type: "date", map_to: "start_date"}, resize: true},
     {name: "duration", width:50, min_width: 50, max_width: 50, align: "center", editor: {type: "number", map_to: "duration", min:1}, resize: true},
     {name: "end_date", label: "Finish", width:80, min_width: 80, max_width: 80, align: "center", editor: {type: "date", map_to: "end_date"}, resize: true},
@@ -28,6 +31,35 @@ gantt.config.columns = [
     {name: "people", align: "center", label:"People", width: 44, min_width: 44, max_width: 44, template:function(task){ return `<a href="javascript:;" class="show-assigned-to-task" title="Utilisateurs affectés" data-task-id="${task.id}"><i class="fa fa-users"></i></a>` } },
     {name: "fait_marquants", align: "center", label:"FM", width: 30, min_width: 30, max_width: 30, template:function(task){ return task.$level === 0 && task.id ? `<a href="/corp/projet/${projectId}/planning/task/${task.id}" title="Liste des faits marquants liés" target="_blank"><i class="fa fa-eye"></i></a>` : '' } }
 ];
+
+gantt.locale.labels.section_text = 'Title';
+gantt.config.buttons_left = ["gantt_cancel_btn", "gantt_delete_btn"];
+gantt.config.buttons_right = ["gantt_save_btn"];
+
+gantt.config.lightbox.sections = [
+    {name:"text", height:40, map_to:"text", type:"textarea",focus:true},
+    {name:"description", height:80, map_to:"description", type:"textarea"},
+    {name:"time", height:40, type:"duration", map_to:"auto"}
+];
+
+var format = gantt.date.date_to_str("%Y-%m-%d");
+gantt.templates.tooltip_text = function(start,end,task){
+    let tooltipText = `<b>Task:</b> ${task.text}<br/>`;
+    if(task.description){
+        tooltipText += `<b>Description:</b> ${task.description}<br/>`
+    }
+    tooltipText += `<b>Start date:</b> ${format(start)}<br/>
+                <b>End date:</b> ${format(end)}`;
+    return tooltipText;
+};
+
+gantt.ext.inlineEditors.attachEvent("onBeforeEditStart", function(state){
+    if (state.columnName === "progress"){
+        var task = gantt.getTask(state.id);
+        return gantt.getChildren(task.id).length === 0;
+    }
+    return true;
+});
 
 gantt.templates.task_end_date = function(date){
     return gantt.templates.task_date(new Date(date.valueOf() - 1));
@@ -69,12 +101,18 @@ gantt.config.scales = [
     {unit: "week", step: 1, format: weekScaleTemplate},
 ];
 
+gantt.config.smart_rendering = true;
 gantt.config.auto_scheduling = true;
 gantt.config.readonly = readonly;
 gantt.config.xml_date = "%d/%m/%Y";
 gantt.config.autosize = true;
 gantt.config.scroll_size = 20;
 gantt.config.tooltip_timeout = 50;
+gantt.config.drag_progress = false;
+gantt.config.drag_timeline = {
+    ignore:".gantt_task_line, .gantt_task_link",
+    useKey: false
+};
 
 gantt.init("project_planning_content");
 
@@ -249,6 +287,23 @@ gantt.ext.zoom.init(zoomConfig);
 gantt.ext.zoom.setLevel("quarter");
 
 // END :: zoom function
+
+// START :: my tasks filter
+
+var myTasksFilterEnable = false;
+$(document).on('click', 'a[data-action="myTasksFilter"]', function () {
+    var $a = $(this);
+    myTasksFilterEnable = $($a).data('checked') == false;
+    $($a).find('i').toggleClass( 'fa-square-o', !myTasksFilterEnable ).toggleClass( 'fa-check-square-o', myTasksFilterEnable );
+    $($a).data('checked', myTasksFilterEnable);
+    gantt.render();
+});
+gantt.attachEvent("onBeforeTaskDisplay", function(id, task){
+    if(!myTasksFilterEnable) return true;
+    return task.is_participant;
+});
+
+// END :: my tasks filter
 
 const updateParentProgress = (child, isDeleted = false) => {
     if (child.parent){

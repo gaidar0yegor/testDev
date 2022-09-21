@@ -75,6 +75,7 @@ class ProjetPlanningController extends AbstractController
             $tasks[] = [
                 'id' => $planningTask->getId(),
                 'text' => $planningTask->getText(),
+                'description' => $planningTask->getDescription(),
                 'duration' => $planningTask->getDuration(),
                 'progress' => $planningTask->getProgress(),
                 'start_date' => $planningTask->getStartDate()->format('d/m/Y'),
@@ -113,6 +114,7 @@ class ProjetPlanningController extends AbstractController
 
         $projetPlanningTask = new ProjetPlanningTask();
         $projetPlanningTask->setText($request->request->get('text'));
+        $projetPlanningTask->setDescription($request->request->get('description'));
 
         $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');
         $projetPlanningTask->setStartDate($startdDate);
@@ -151,6 +153,7 @@ class ProjetPlanningController extends AbstractController
     public function updateTaskFromGantt(Projet $projet, ProjetPlanningTask $projetPlanningTask, Request $request)
     {
         $projetPlanningTask->setText($request->request->get('text'));
+        $projetPlanningTask->setDescription($request->request->get('description'));
         $newProgress = (float)$request->request->get('progress');
         $linkFaitMarquant = false;
         if ($newProgress == 1 && $newProgress != $projetPlanningTask->getProgress()){

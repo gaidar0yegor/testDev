@@ -32,11 +32,11 @@ var files_list_dt = $("#files_list_dt:not('.rdi-popup-fait-marquant #files_list_
 $('#files_list_dt').on('change', 'input.custom-file-input', function () {
     const $input = $(this);
     const path = $input.val();
-    const filename = path.split(/[\/\\]+/).pop();
+    const filename = path.split(/[\/\\]+/).pop().split('.').slice(0, -1).join('.');
 
     let fileNameInput = $($input).parents('tr').find('.form-file-name');
     if (fileNameInput){
-        $(fileNameInput).val(filename);
+        $(fileNameInput).val(filename).focus().select();
     }
 });
 
