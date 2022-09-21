@@ -6,6 +6,15 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+
+
+## [1.70.2] - 2022-09-21
+### Ajouté
 - Mettre un société en veille après 1an de la date de désactivation
 - Filtrer la liste des tâches dans le planning
 - Désactiver la modification de l'avancement d'une tâche si elle a une sous-tâche
@@ -18,10 +27,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Switcher les buttons **DELETE** & **SAVE** du planning
 ### Réparé
 - Correction bug de la suppression d'un rappel
-
-
-
-
 
 ## [1.70.1] - 2022-09-16
 ### Ajouté
