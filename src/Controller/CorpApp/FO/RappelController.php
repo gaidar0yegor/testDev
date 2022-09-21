@@ -86,7 +86,7 @@ class RappelController extends AbstractController
     }
 
     /**
-     * @Route("/supprimer/{rappelId}", name="corp_app_fo_rappel_delete", methods={"DELETE"})
+     * @Route("/supprimer/{rappelId}", name="corp_app_fo_rappel_delete")
      *
      * @ParamConverter("rappel", options={"id" = "rappelId"})
      */
