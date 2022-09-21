@@ -6,6 +6,18 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+- Mettre un société en veille après 1an de la date de désactivation
+- Filtrer la liste des tâches dans le planning
+- Désactiver la modification de l'avancement d'une tâche si elle a une sous-tâche
+- Ajouter une description à les tâches du planning
+- Afficher un tooltip pour les tâches du planning
+- Supprimer une patchnote
+- Dossier / Lien externe : ajouter une ligne en cliquant sur *ENTRER*
+### Modifié
+- En upload un fichier, on selectionne automatiquement le nom sans extension
+- Switcher les buttons **DELETE** & **SAVE** du planning
+### Réparé
+- Correction bug de la suppression d'un rappel
 
 
 
