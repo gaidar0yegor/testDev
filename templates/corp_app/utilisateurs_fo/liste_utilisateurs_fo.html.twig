@@ -38,10 +38,7 @@
         </thead>
         <tbody>
         {% for societeUser in societeUsers %}
-            <tr
-                    class="{{ societeUser.enabled ? '' : 'text-muted' }}"
-                    data-href="{{ path('corp_app_fo_societe_user', {'id': societeUser.id}) }}"
-            >
+            <tr class="{{ societeUser.enabled ? '' : 'text-muted' }}">
                 <td class="text-center"> {% include 'utils/_avatar.html.twig' with {user: societeUser.user, size: 24, toExpend: true} %}</td>
                 <td class="text-center">{{ societeUser.user.nom }}</td>
                 <td class="text-center">{{ societeUser.user.prenom }}</td>
