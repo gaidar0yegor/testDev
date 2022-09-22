@@ -42,6 +42,6 @@ class PatchnoteExtension extends AbstractExtension
             return null;
         }
 
-        return $this->patchnoteRepository->findBy(['version' => $this->versionManager->getVersion()]);
+        return $this->patchnoteRepository->findBy(['version' => $this->versionManager->getVersion(), 'isDraft' => false]);
     }
 }

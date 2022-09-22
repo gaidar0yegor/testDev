@@ -604,6 +604,7 @@ AT_TIME: On time
 6_HOURS_BEFORE: 6 hours before
 12_HOURS_BEFORE: 12 hours before
 1_DAY_BEFORE: 1 day before
+show_historic_patch_note: "View old patch notes"
 #################################### Lab App #######################################
 LABO_ADMIN: Administrator
 LABO_SENIOR: Senior researcher

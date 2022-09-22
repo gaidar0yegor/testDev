@@ -6,6 +6,7 @@ use App\Entity\Patchnote;
 use App\Form\Custom\DatePickerType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -39,6 +40,13 @@ class PatchnoteType extends AbstractType
                     'class' => 'text-center date-picker',
                 ],
                 'disabled' => true
+            ])
+            ->add('isDraft', CheckboxType::class, [
+                'label' => 'Enregistrer en tant que brouillon',
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'switch-custom',
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'attr' => [

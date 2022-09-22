@@ -48,9 +48,15 @@ class Patchnote
      */
     private $rdiApp;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isDraft;
+
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->isDraft = true;
     }
 
     public function getId(): ?int
@@ -102,6 +108,18 @@ class Patchnote
     public function setRdiApp(string $rdiApp): self
     {
         $this->rdiApp = $rdiApp;
+
+        return $this;
+    }
+
+    public function getIsDraft(): ?bool
+    {
+        return $this->isDraft;
+    }
+
+    public function setIsDraft(bool $isDraft): self
+    {
+        $this->isDraft = $isDraft;
 
         return $this;
     }

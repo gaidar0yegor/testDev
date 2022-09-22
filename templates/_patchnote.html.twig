@@ -1,4 +1,5 @@
-{% set patchnotes = getPatchnote(app.request.attributes.get('_app_class')) %}
+{% set testPreview = testPreview|default(false) %}
+{% set patchnotes = patchnotes|default(getPatchnote(app.request.attributes.get('_app_class'))) %}
 
 {% if patchnotes %}
 <div class="patchnote-modal rdi-popup bg-modal">
@@ -7,27 +8,27 @@
             <img class="logofooter float-left" src="{{ asset('build/assets/img/logosignFooterRDI.png') }}" alt="RDI Manager">
             <h4 class="text-center">Mise à jour effectuée !</h4>
             <h6 class="m-0">
-                <i>{{ patchnotes[0].date|format_date }}</i> | RDI Manager {{ shivas_app_version }} est actuellement la version disponible la plus récente.
+                <i>{{ patchnotes[0].date|format_date }}</i> | RDI Manager {{ patchnotes[0].version }} est actuellement la version disponible la plus récente.
             </h6>
         </div>
         <div class="rdi-popup-body">
             <nav class="mb-3">
                 <div class="nav nav-tabs nav-justified" role="tablist">
                     {% for patchnote in patchnotes %}
-                        <button class="nav-link {{ patchnote.rdiApp ~ '_bg' }} {{ patchnote.rdiApp == app.request.attributes.get('_app_class') ? 'active' : '' }}" id="{{ patchnote.rdiApp ~ '-tab' }}" data-toggle="tab" data-target="#{{ patchnote.rdiApp ~ '-panel' }}" type="button" role="tab" aria-controls="{{ patchnote.rdiApp ~ '-panel' }}" aria-selected="{{ patchnote.rdiApp == app.request.attributes.get('_app_class') ? 'true' : 'false' }}">{{ (patchnote.rdiApp ~ '_name')|trans }}</button>
+                        <button class="nav-link {{ patchnote.rdiApp ~ '_bg' }} {{ patchnote.rdiApp == app.request.attributes.get('_app_class') or (patchnotes|length == 1) ? 'active' : '' }}" id="{{ patchnote.rdiApp ~ '-tab' }}" data-toggle="tab" data-target="#{{ patchnote.rdiApp ~ '-panel' }}" type="button" role="tab" aria-controls="{{ patchnote.rdiApp ~ '-panel' }}" aria-selected="{{ patchnote.rdiApp == app.request.attributes.get('_app_class') or (patchnotes|length == 1) ? 'true' : 'false' }}">{{ (patchnote.rdiApp ~ '_name')|trans }}</button>
                     {% endfor %}
                 </div>
             </nav>
             <div class="tab-content">
                 {% for patchnote in patchnotes %}
-                <div class="tab-pane fade {{ patchnote.rdiApp == app.request.attributes.get('_app_class') ? 'show active' : '' }}" id="{{ patchnote.rdiApp ~ '-panel' }}" role="tabpanel" aria-labelledby="{{ patchnote.rdiApp ~ '-tab' }}">
+                <div class="tab-pane fade {{ patchnote.rdiApp == app.request.attributes.get('_app_class') or (patchnotes|length == 1) ? 'show active' : '' }}" id="{{ patchnote.rdiApp ~ '-panel' }}" role="tabpanel" aria-labelledby="{{ patchnote.rdiApp ~ '-tab' }}">
                     {{ patchnote.notes|markdown|raw }}
                 </div>
                 {% endfor %}
             </div>
         </div>
         <div class="rdi-popup-footer">
-            <button class="btn btn-success btn-patchnote-readed">OK</button>
+            <button class="btn btn-success {{ testPreview == true ? "btn-patchnote-close" : "btn-patchnote-readed" }}">OK</button>
         </div>
     </div>
 </div>

@@ -15,6 +15,9 @@ $(document).on('click', '.btn-patchnote-readed', function (e) {
             }
         });
 });
+$(document).on('click', '.btn-patchnote-close', function (e) {
+    $('.patchnote-modal').remove();
+});
 
 $('#patchnotes_list_dt').DataTable( {
     dom: domDatatable,

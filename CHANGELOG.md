@@ -6,6 +6,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+- Enregistrer une note de mise à jour en tant que brouillon
+- Visualiser une note de mise à jour avant la publier
+- Consulter les anciennes notes de misa à jour en cliquant sur la version du Footer
 ### Modifié
 - Style des champs de la saisie des temps
 ### Réparé

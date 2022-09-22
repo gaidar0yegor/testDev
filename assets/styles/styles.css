@@ -838,3 +838,8 @@ select.select-2, .select2.select2-container  {
 .rdi-popup.patchnote-modal .content{
   width: 60%;
 }
+@media (min-width: 1200px){
+  .rdi-popup.patchnote-modal .content {
+    width: 70% !important;
+  }
+}

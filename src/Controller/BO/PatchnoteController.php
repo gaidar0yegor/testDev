@@ -31,13 +31,18 @@ class PatchnoteController extends AbstractController
      * )
      */
     public function list(
+        Request $request,
         PatchnoteRepository $patchnoteRepository
     )
     {
+        $previewPatchnote = $request->query->has('preview')
+            ? $patchnoteRepository->find($request->query->get('preview'))
+            : null;
         $patchnotes = $patchnoteRepository->findAll();
 
         return $this->render('bo/patchnote/list.html.twig', [
-            'patchnotes' => $patchnotes
+            'patchnotes' => $patchnotes,
+            'previewPatchnote' => $previewPatchnote,
         ]);
     }
 

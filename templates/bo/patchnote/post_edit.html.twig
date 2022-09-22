@@ -17,11 +17,14 @@
             {{ form_errors(form) }}
 
             <div class="row">
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     {{ form_row(form.version) }}
                 </div>
-                <div class="col-md-6 col-sm-12">
+                <div class="col-md-4 col-sm-12">
                     {{ form_row(form.date) }}
+                </div>
+                <div class="col-md-4 col-sm-12 d-flex flex-column justify-content-center align-items-center">
+                    {{ form_row(form.isDraft) }}
                 </div>
             </div>
 
