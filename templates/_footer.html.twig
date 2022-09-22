@@ -5,7 +5,13 @@
         background-color:#416C94;
     {% endif %}
     ">
-    <p class="d-none d-md-inline">RDI-Manager <span class="text-monospace">{{ shivas_app_version }}</span></p>
+    <p class="d-none d-md-inline">RDI-Manager
+        {% if app.request.attributes.get('_app_class') %}
+        <a href="{{ path('app_patchnote_historic', {'rdi_app' : app.request.attributes.get('_app_class')}) }}" target="_blank" title="{{ 'show_historic_patch_note'|trans }}" class="text-monospace">{{ shivas_app_version }}</a>
+        {% else %}
+        <span class="text-monospace">{{ shivas_app_version }}</span>
+        {% endif %}
+    </p>
     <p>
         &copy;
         <span class="d-none d-md-inline">Copyright</span>

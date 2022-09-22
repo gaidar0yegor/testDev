@@ -1,0 +1,89 @@
+{% extends "base_html.html.twig" %}
+
+{% block title %}
+	{{ 'show_historic_patch_note'|trans }}
+{% endblock %}
+
+{% block base_body %}
+
+	<section class="container mt-5 mb-5">
+		<div class="w-100 text-center m-3">
+			<h1>Versions de <strong class="text-danger">RDI-Manager</strong> : {{ (rdi_app ~ '_name') |trans }}</h1>
+		</div>
+		<div class="row">
+			{% for patchnote in patchnotes %}
+				<div class="col-12 mt-3 mb-3 pt-3" style="background-color: white; border-radius: 10px;font-size: 1.2rem;">
+					<h3><i class="fa fa-refresh" style="font-size: 1.2rem;"></i> Version <strong class="text-danger">{{ patchnote.version }}</strong></h3>
+					<div class="p-2">
+						{{ patchnote.notes|raw }}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</section>
+
+	<div class="page-background"></div>
+
+	{% include('_footer.html.twig') %}
+
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	{{ encore_entry_link_tags('login') }}
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('login') }}
+{% endblock %}
+
+{% block meta %}
+	<meta name="slack-app-id" content="A01M4F72518">
+
+	<meta name="title" content="Journal collaboratif de projet - RDI-Manager">
+	<meta name="description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente.">
+	<meta name="keywords" content="recherche, recherches, innovation, innovations, Recherche &amp; innovation, entreprise innovante, CIR, R&amp;D, R&amp;D&amp;I, KPI, projet, projets, Gestion de projet, journal de projets, journal collaboratif de projet, plateforme collaborative, management de projet, suivi de projet, management, management de projet, suivi collaboratif, suivi du temps, time tracking, mensuel, hebdomadaire, journalier, fait marquant, foire aux questions, avancement, tâche, réalisation tâche, planification, gestion documentaire, gestion de fichiers, monitoring, stratégie financière, analyse stratégique, analyse financière, suivi budgétaire, indicateur performance, contribution collaborateur, tableau de bord, score RDI, potentiel financement public, CIR, CII, efficacité, effectivité, administrateur, chef de projet, observateur, contributeur, analyse statistique projet, gestion fichier, visibilité, dossier, sécurité, hébergement, sauvegarde données, lien hiérarchique, liens hiérarchiques, gestion d’équipe, organigramme, manager, collaborateur, planning, planification projet, monitoring, lot, lots, lot de tâches, tâche, tâches, sous-tâche, notification, notifications, sms, e-mail, contact, contacter, message, research, innovation, innovations, Research &amp; innovation, innovative company, CIR, R&amp;D, R&amp;D&amp;I, KPI, project, projects, Project management, project journal, collaborative project journal, collaborative platform, project management, project monitoring , management, project management, collaborative monitoring, time tracking, time tracking, monthly, weekly, daily, highlight, Frequently Asked Questions, progress, task, task completion, planning, document management, file management, monitoring, financial strategy, strategic analysis, financial analysis, budget monitoring, performance indicator, employee contribution, dashboard, RDI score, potential public funding, CIR, CII, efficiency, effectiveness, administrator, project manager, observer, contributor, project statistical analysis, file management, visibility, folder, security, hosting, data backup, hierarchical link, hierarchical links, team management, organization chart, manager, collaborator, planning, project planning, monitoring, batch, batches, batch of tasks, task, tasks, sub-task, notification, notifications, sms, email, contact, message">
+	<meta name="robots" content="index, nofollow">
+	<meta name="language" content="French">
+	<meta name="author" content="RDI MANAGER">
+
+	<link rel="base" href="https://app.rdimanager.com/"/>
+	<link rel="canonical" href="https://app.rdimanager.com/"/>
+	<meta rel="sitemap" type="application/xml" content="https://app.rdimanager.com/sitemap.xml"/>
+	<meta name="googlebot" content="index/nofollow"/>
+	<meta name="theme-color" content="#ce352c"/>
+	<meta name="msapplication-navbutton-color" content="#ce352c"/>
+	<meta
+	name="apple-mobile-web-app-status-bar-style" content="#ce352c"/>
+	{# Schema.org markup for Google+ #}
+	<meta itemprop="name" content="Suivi de temps sur vos projets innovants - RDI-Manager"/>
+	<meta itemprop="description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente."/>
+	<meta
+	itemprop="image" content="{{ absolute_url(asset('build/assets/img/logosignRDI.png')) }}"/>
+	{# markup for facebook #}
+	<meta property="og:type" content="website"/>
+	<meta property="og:title" content="RDI-Manager"/>
+	<meta property="og:url" content="https://app.rdimanager.com/"/>
+	<meta property="og:site_name" content="RDI-Manager"/>
+	<meta property="og:image" content="{{ absolute_url(asset('build/assets/img/logosignRDI.png')) }}"/>
+	<meta property="og:description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente."/>
+	<meta
+	property="og:locale" content="fr"/>
+	{# markup for twitter #}
+	<meta name="twitter:card" content="Summary"/>
+	<meta name="twitter:title" content="RDI-Manager"/>
+	<meta name="twitter:description" content="Journal collaboratif de projet | RDI-Manager réinvente la gestion de projet grâce à son journal collaboratif de projet, qui permet de mettre automatiquement à jour les parties prenantes du projet via les faits marquants et évènements à venir du projet. Ceci via une plateforme collaborative et intelligente."/>
+	<meta name="twitter:creator" content="Eurêka C.I"/>
+	<meta name="twitter:site" content="@Eureka_Conseil">
+	<meta name="twitter:image" content="{{ absolute_url(asset('build/assets/img/logosignRDI.png')) }}"/>
+
+	<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org/",
+		  "@type": "WebSite",
+		  "name": "RDI-Manager",
+		  "url": "https://app.rdimanager.com/"
+		}
+	</script>
+{% endblock %}
