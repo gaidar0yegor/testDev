@@ -6,7 +6,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
-
+### Modifié
+- Style des champs de la saisie des temps
+### Réparé
+- Accéder à une date antérieure dans la saisie des temps
 
 
 
