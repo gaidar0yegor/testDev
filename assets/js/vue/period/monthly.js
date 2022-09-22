@@ -11,7 +11,7 @@ export default {
     apiLoadCra(date) {
         const year = date.getFullYear();
         const month = ('0' + (date.getMonth() + 1)).substr(-2);
-
+console.log(date);
         return fetch(`/corp/api/temps/${year}/${month}`);
     },
 

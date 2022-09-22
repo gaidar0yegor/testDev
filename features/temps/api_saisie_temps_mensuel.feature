@@ -22,7 +22,8 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
                             "projet": {
                                 "id": 1,
                                 "titre": "Projet de test 1",
-                                "acronyme": "P1"
+                                "acronyme": "P1",
+                                "colorCode": "#e9ece6"
                             },
                             "pourcentage": 0
                         },
@@ -31,7 +32,8 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
                             "projet": {
                                 "id": 2,
                                 "titre": "Projet de test 2",
-                                "acronyme": "P2"
+                                "acronyme": "P2",
+                                "colorCode": "#e9ece6"
                             },
                             "pourcentage": 0
                         },
@@ -40,7 +42,8 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
                             "projet": {
                                 "id": 3,
                                 "titre": "Projet de test 3",
-                                "acronyme": "P3"
+                                "acronyme": "P3",
+                                "colorCode": "#e9ece6"
                             },
                             "pourcentage": 0
                         }
