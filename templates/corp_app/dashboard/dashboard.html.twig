@@ -15,6 +15,36 @@
                 <div id="mes-temps-rappel" data-url-temps-passes="{{ path('corp_app_fo_temps') }}"></div>
             </div>
             <div class="col-lg-12">
+                <div id="recents-projets-menu" class="d-flex flex-row justify-content-start align-column-center">
+                    <h5>Actualité des projets</h5>
+                    <div class="btn-group dropright">
+                        <button type="button" class="btn btn-sm bg-transparent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+                        </button>
+                        <div class="dropdown-menu">
+                            <div class="form-check">
+                                <input type="checkbox" id="target_filter_type-projet" class="form-check-input" value=".projet" checked="checked">
+                                <label class="form-check-label" for="target_filter_type-projet">Projets</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="target_filter_type-fait_marquant" class="form-check-input" value=".fait_marquant" checked="checked">
+                                <label class="form-check-label" for="target_filter_type-fait_marquant">Faits marquants</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="target_filter_type-projet_planning" class="form-check-input" value=".projet_planning" checked="checked">
+                                <label class="form-check-label" for="target_filter_type-projet_planning">Planification</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="target_filter_type-evenement" class="form-check-input" value=".evenement" checked="checked">
+                                <label class="form-check-label" for="target_filter_type-evenement">Agenda</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="target_filter_type-fichier_projet" class="form-check-input" value=".fichier_projet" checked="checked">
+                                <label class="form-check-label" for="target_filter_type-fichier_projet">Fichiers</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div id="recents-projets" class="carousel-wrapper" data-url-projet="{{ path('corp_app_fo_projet', {'id': 0}) }}">
                 </div>
             </div>

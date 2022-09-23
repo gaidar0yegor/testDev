@@ -4893,7 +4893,7 @@ isstream@~0.1.2:
   resolved "https://registry.npmjs.org/isstream/-/isstream-0.1.2.tgz"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
-jquery@3.5.1, jquery@>=1.7, "jquery@>=1.7.1 <4.0.0", jquery@>=1.8.3:
+jquery@3.5.1, jquery@>=1.7, "jquery@>=1.7.1 <4.0.0":
   version "3.5.1"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.5.1.tgz"
   integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
@@ -5856,13 +5856,6 @@ os-browserify@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/os-browserify/-/os-browserify-0.3.0.tgz"
   integrity sha1-hUNzx/XCMVkU/Jv8a9gjj92h7Cc=
-
-owl.carousel2@^2.2.2:
-  version "2.2.2"
-  resolved "https://registry.npmjs.org/owl.carousel2/-/owl.carousel2-2.2.2.tgz"
-  integrity sha512-921RxBewuoM/g4Y/CxLrbYnhdOmA5f84/jMOekyr3yi752Jjc/T+QaWJdDJ8YiiaOuoli8XP/O4/YvWBSrUPdg==
-  dependencies:
-    jquery ">=1.8.3"
 
 p-finally@^1.0.0:
   version "1.0.0"
