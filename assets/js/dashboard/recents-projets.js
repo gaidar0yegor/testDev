@@ -1,12 +1,17 @@
 import $ from 'jquery';
-import {initOwlCarousel} from "../owl-carousel";
+import {initSlickCarousel} from "../slick-carousel/init-slick-carousel";
 
 $(() => {
     if (!window['recents-projets']) {
         return;
     }
 
+    $(document).on('click', '#recents-projets-menu .dropdown-menu', function (e) {
+        e.stopPropagation();
+    });
+
     const createProjetPath = id => window['recents-projets'].dataset.urlProjet.replace('0', id);
+    var carousel;
 
     fetch('/corp/api/dashboard/recents-projets')
         .then(response => response.json())
@@ -16,7 +21,7 @@ $(() => {
             }
 
             const $wrapper = $('#recents-projets');
-            const $cards = $('<div class="owl-carousel owl-theme">');
+            const $cards = $('<div class="slick-carousel">');
 
             $wrapper.append($cards);
 
@@ -24,15 +29,18 @@ $(() => {
                 const projetPath = createProjetPath(projet.projetId);
 
                 const $projet = $(`
-                    <div class="item card">
+                    <div class="item card-actualite ${projet.filterType}" style="border: 1px solid ${projet.colorCode};border-left: 5px solid ${projet.colorCode};">
+                        <div class="card-side">
+                            <i class="fa fa-exclamation-circle" style="color: ${projet.colorCode};"></i>
+                        </div>
                         <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="${projetPath}">${projet.acronyme}</a>
-                                <span class="badge d-inline-block rounded-circle mt-1 float-right" style="background-color: ${projet.colorCode};width: 15px;height: 15px;"></span>
-                            </h5>
-                            <ul class="list-unstyled">${projet.activity}</ul>
-                            <div class="card-footer">
-                                <small><i>${projet.datetime}</i></small>
+                            <div class="m-0 p-0">
+                                <h5 class="card-title">
+                                    <a href="${projetPath}">${projet.acronyme}</a>
+                                    <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
+                                    <small><i>${projet.datetime}</i></small>
+                                </h5>
+                                <ul class="list-unstyled">${projet.activity}</ul>
                             </div>
                         </div>
                     </div>
@@ -41,8 +49,19 @@ $(() => {
                 $cards.append($projet);
             });
 
-            initOwlCarousel($cards);
+            $(document).ready(function(){
+                carousel = initSlickCarousel($cards);
+            });
+
         })
     ;
+
+    $(document).on('change', '#recents-projets-menu input:checkbox', function (e) {
+        var checkedCheckboxs = $('#recents-projets-menu input:checkbox:checked');
+        var filterClass = checkedCheckboxs.map(function() { return $(this).val(); }).get().filter(function(n) { return n !== ""; }).join(', ');
+
+        $(carousel).slick('slickUnfilter');
+        $(carousel).slick('slickFilter', filterClass);
+    });
 });
 

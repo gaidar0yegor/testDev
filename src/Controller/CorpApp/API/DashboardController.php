@@ -13,16 +13,24 @@ use App\Service\DateMonthService;
 use App\Service\ParticipantService;
 use App\Service\StatisticsService;
 use App\MultiSociete\UserContext;
+use App\Twig\DiffDateTimesExtension;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * @Route("/api/dashboard")
  */
 class DashboardController extends AbstractController
 {
+    private TranslatorInterface $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
     /**
      * Retourne si l'utilisateur est à jour dans la saisie de ses temps.
      *
@@ -75,7 +83,8 @@ class DashboardController extends AbstractController
     public function getRecentsProjets(
         UserContext $userContext,
         ProjetActivityRepository $projetActivityRepository,
-        ActivityService $activityService
+        ActivityService $activityService,
+        DiffDateTimesExtension $diffDateTimesExtension
     ): JsonResponse {
         $lastProjetActivities = $projetActivityRepository->findBySocieteUser($userContext->getSocieteUser(), 100);
         $normalizedLastProjetActivities = [];
@@ -88,7 +97,9 @@ class DashboardController extends AbstractController
                 "colorCode" => $projetActivity->getProjet()->getColorCode(),
                 "activity" => $activityService->render($projetActivity->getActivity()),
                 "filterType" => $activityService->getFilterType($projetActivity->getActivity()),
-                "datetime" => $projetActivity->getActivity()->getDatetime()->format('d/m/Y H:i'),
+                "datetime" => $this->translator->trans('date_ago', [
+                    'date' => $diffDateTimesExtension->diffDateTimes($projetActivity->getActivity()->getDatetime()),
+                ])
             ]);
         }
 

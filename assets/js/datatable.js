@@ -40,7 +40,7 @@ const btnsDatatable = [
         .on('init.dt.dth', function (e, settings, json) {
             var table;
             table = new $.fn.dataTable.Api(settings);
-            if (settings.oInit.searchHighlight) {
+            if (settings.oInit && settings.oInit.searchHighlight) {
                 return table.on('draw', function () {
                     var body;
                     body = $(table.table().body());

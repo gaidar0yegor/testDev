@@ -19,7 +19,11 @@ fos_ck_editor:
             extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions,scayt,confighelper"
         without_options:
             toolbar: []
-            extraPlugins: "wordcount,scayt,confighelper"
+            allowedContent: true
+            inline: false
+            input_sync: true
+            toolbarCanCollapse: true
+            extraPlugins: "wordcount,textmatch,autocomplete,mentions,scayt,confighelper"
     toolbars:
         configs:
             my_toolbar: [ '@styles', '-', '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@wiris', '-', '@scayt' ]

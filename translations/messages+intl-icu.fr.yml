@@ -606,6 +606,7 @@ AT_TIME: "À l'heure"
 12_HOURS_BEFORE: "12 heures avant"
 1_DAY_BEFORE: "1 jour avant"
 show_historic_patch_note: "Consulter les anciennes notes de misa à jour"
+date_ago: "depuis { date }"
 #################################### Lab App #######################################
 LABO_ADMIN: Administrateur
 LABO_SENIOR: "Chercheur sénior"

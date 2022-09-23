@@ -31,7 +31,6 @@
         "html2pdf.js": "^0.10.1",
         "i18next": "^20.3.2",
         "jquery": "3.5.1",
-        "owl.carousel2": "^2.2.2",
         "popper.js": "^1.16.1",
         "select2": "^4.1.0-rc.0",
         "smartwizard": "^5.1.1",
