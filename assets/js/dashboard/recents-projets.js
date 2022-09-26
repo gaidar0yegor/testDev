@@ -62,6 +62,10 @@ $(() => {
 
         $(carousel).slick('slickUnfilter');
         $(carousel).slick('slickFilter', filterClass);
+
+        setTimeout(function() {
+            carousel.slick("slickGoTo", 0);
+        },1000);
     });
 });
 
