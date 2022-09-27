@@ -8,6 +8,7 @@ use App\Entity\SocieteUser;
 use App\Entity\User;
 use App\Security\Role\RoleProjet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -57,6 +58,19 @@ class ProjetParticipantRepository extends ServiceEntityRepository
             ])
             ->getQuery()
             ->getOneOrNullResult()
+            ;
+    }
+
+    public function createByProjetQueryBuilder(Projet $projet): QueryBuilder
+    {
+        return $this->createQueryBuilder('projetParticipant')
+            ->leftJoin('projetParticipant.projet', 'projet')
+            ->andWhere('projet = :projet')
+            ->andWhere('projetParticipant.role in (:role)')
+            ->setParameters([
+                'projet' => $projet,
+                'role' => RoleProjet::getRoles(RoleProjet::CONTRIBUTEUR),
+            ])
             ;
     }
 }

@@ -34,7 +34,17 @@
             <li class="gantt-menu-item"><a data-action="collapseAll"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_collapse_all_24.png') }}"></a></li>
             <li class="gantt-menu-item"><a data-action="expandAll"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_expand_all_24.png') }}"></a></li>
             {% if userCanEditProjet %}
-            <li class="gantt-menu-item gantt-menu-item-last"><a data-action="assignUsers"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_users_24.png') }}">Affectation</a></li>
+            <li class="gantt-menu-item gantt-menu-item-last">
+                <div class="dropdown dropdown-affectation">
+                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuAffectation" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_users_24.png') }}">Affectation
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuAffectation">
+                        <button class="dropdown-item" data-action="assignUsers">{{ 'affectation_rapide'|trans }}</button>
+                        <a href="{{ path('corp_app_fo_projet_planning_task_affectation', {'projetId' : projet.id}) }}" class="dropdown-item" >{{ 'affectation_groupe'|trans }}</a>
+                    </div>
+                </div>
+            </li>
             <li class="gantt-menu-item gantt-menu-item-last"><a data-action="addTask"><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_plus_24.png') }}">Ajouter un lot</a></li>
             {% endif %}
             <li class="gantt-menu-item gantt-menu-item-right gantt-menu-item-last"><a><img src="{{ asset('build/assets/js/dhtmlx-gantt/icons/ic_export_24.png') }}">Export</a>
@@ -57,7 +67,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="assignUsersLabel">Affectation</h5>
+                    <h5 class="modal-title" id="assignUsersLabel">{{ 'affectation_rapide'|trans }}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

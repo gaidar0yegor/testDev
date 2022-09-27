@@ -1,0 +1,82 @@
+#table_affectation_equipe {
+  table-layout: fixed;
+
+  thead {
+    width: 100% !important;
+
+    tr {
+      th:first-child {
+        max-width: 25% !important;
+        width: 25% !important;
+      }
+    }
+  }
+
+  .planning-task-affectation-participants {
+    width: 100% !important;
+
+    td {
+      border-bottom: 1px grey solid;
+    }
+
+    .task_level {
+      max-width: 25% !important;
+      width: 25% !important;
+      overflow-wrap: anywhere;
+
+      &.level_0 {
+        background: rgb(2, 136, 209);
+        background: linear-gradient(90deg, rgba(2, 136, 209,0.3) 0%, rgba(255,255,255,1) 100%);
+        font-weight: bold;
+      }
+
+      &.level_1 {
+        background: rgb(15, 196, 167);
+        background: linear-gradient(90deg, rgba(15, 196, 167,0.3) 0%, rgba(255,255,255,1) 100%);
+
+        &  > div{
+          margin-left: 10px;
+        }
+      }
+
+      &.level_2 {
+        background: rgb(255,87,34);
+        background: linear-gradient(90deg, rgba(255,87,34,0.3) 0%, rgba(255,255,255,1) 100%);
+
+        &  > div{
+          margin-left: 25px;
+        }
+      }
+
+      .picto-img {
+        width: 28px;
+        height: 28px;
+        background-repeat: no-repeat;
+        background-position: 50%;
+        display: inline-block;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        vertical-align: top;
+      }
+    }
+
+    .planning-task-participants {
+
+      & > div {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+
+        .form-check {
+          margin-right: 20px;
+
+          & * {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
