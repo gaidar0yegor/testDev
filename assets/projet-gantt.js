@@ -1,5 +1,6 @@
 import 'dhtmlx-gantt/codebase/dhtmlxgantt.css';
 import './js/dhtmlx-gantt/style.css';
+import './styles/affectation-equipe.scss';
 import 'dhtmlx-gantt/codebase/dhtmlxgantt';
 import './js/dhtmlx-gantt/export_api';
 import './js/dhtmlx-gantt/projet-planning';

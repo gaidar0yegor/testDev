@@ -462,6 +462,8 @@ projectString: Project
 trashString: Trash can
 beenOf_FM: Trash can of striking Fact
 list_files: Files list
+affectation_rapide: Quick assignment
+affectation_groupe: Group assignment
 planning: "Planning of the project : { projectAcronyme }"
 projet_events_calendar: "Agenda of the project : { projectAcronyme }"
 user_events_calendar: Events calendar

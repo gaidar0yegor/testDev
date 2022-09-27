@@ -22,6 +22,22 @@
     </{{ element|default('div') }}>
 {% endblock %}
 
+{% block projet_planning_task_row %}
+    <tr class="planning-task-affectation-participants">
+        <td class="task_level {{ 'level_' ~ (form.vars['sort']|split('.')|length-1) }}">
+            <div class="d-flex flex-row justify-content-start align-items-start">
+                <div class="picto-img"></div>
+                {{ form_label(form) }}
+            </div>
+            {{ form_errors(form) }}
+        </td>
+        <td class="planning-task-participants">
+            {{ form_errors(form.children.participants) }}
+            {{ form_widget(form.children.participants) }}
+        </td>
+    </tr>
+{% endblock %}
+
 {% block temps_passe_row %}
     <div class="row mb-2 align-items-center">
         <div class="col text-right lead">

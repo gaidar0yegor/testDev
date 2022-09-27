@@ -10,6 +10,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Visualiser une note de mise à jour avant la publier
 - Consulter les anciennes notes de misa à jour en cliquant sur la version du Footer
 - Filtrer les actualités sur le tableau de bord
+- Affectation équipe des tâches de la planification du projet
 ### Modifié
 - Style des champs de la saisie des temps
 ### Réparé

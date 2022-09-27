@@ -22,7 +22,7 @@
 .slick-carousel{
 
     .slick-list{
-        padding: 10px;
+        padding: 10px 11px 10px 10px;
     }
 
     .slick-arrow:before{
@@ -66,7 +66,7 @@
                     font-size: 1.2em;
                     display: flex;
                     flex-direction: row;
-                    justify-content: start;
+                    justify-content: space-between;
                     align-items: center;
 
                     .fa{
@@ -81,6 +81,7 @@
                 .list-unstyled{
                     margin: 0;
                     font-size: 0.85em;
+                    text-align: justify;
                 }
             }
         }

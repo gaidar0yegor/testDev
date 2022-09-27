@@ -4,10 +4,12 @@ namespace App\Controller\CorpApp\FO;
 
 use App\Entity\Projet;
 use App\Entity\ProjetPlanningTask;
+use App\Form\ListePlanningTasksType;
 use App\MultiSociete\UserContext;
 use App\ProjetResourceInterface;
 use App\Security\Role\RoleProjet;
 use App\Service\ParticipantService;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -69,6 +71,41 @@ class ProjetPlanningController extends AbstractController
             ),
             'userCanEditProjet' => $this->isGranted('edit', $projet),
             'userCanAddFaitMarquant' => $this->isGranted(ProjetResourceInterface::CREATE, $projet),
+        ]);
+    }
+
+    /**
+     * @Route("/affectation", name="corp_app_fo_projet_planning_task_affectation")
+     *
+     * @ParamConverter("projet", options={"id" = "projetId"})
+     */
+    public function affectationMultiple(
+        Projet $projet,
+        Request $request
+    )
+    {
+        $this->denyAccessUnlessGranted('edit', $projet);
+
+        $planning = $projet->getProjetPlanning();
+
+        $form = $this->createForm(ListePlanningTasksType::class, $planning);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $this->em->persist($planning);
+            $this->em->flush();
+
+            $this->addFlash('success', 'Les affectations des participants ont été mis à jour.');
+
+            return $this->redirectToRoute('corp_app_fo_projet_planning', [
+                'projetId' => $projet->getId(),
+            ]);
+        }
+
+        return $this->render('corp_app/projets/planning_affectation.html.twig', [
+            'projet' => $projet,
+            'form' => $form->createView(),
+            'userCanEditProjet' => $this->isGranted('edit', $projet),
         ]);
     }
 

@@ -471,6 +471,8 @@ projectString: Projet
 beenOf_FM: Corbeille des faits marquants
 trashString: Corbeille
 list_files: Liste des fichiers
+affectation_rapide: "Affectation rapide"
+affectation_groupe: "Affectation de groupe"
 planning: "Planification du projet : { projectAcronyme }"
 projet_events_calendar: "Agenda du projet : { projectAcronyme }"
 user_events_calendar: "Agenda des évènements"

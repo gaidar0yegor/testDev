@@ -37,7 +37,6 @@ $(() => {
                             <div class="m-0 p-0">
                                 <h5 class="card-title">
                                     <a href="${projetPath}">${projet.acronyme}</a>
-                                    <i class="fa fa-sm fa-circle" aria-hidden="true"></i>
                                     <small><i>${projet.datetime}</i></small>
                                 </h5>
                                 <ul class="list-unstyled">${projet.activity}</ul>
