@@ -13,6 +13,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Affectation équipe des tâches de la planification du projet
 ### Modifié
 - Style des champs de la saisie des temps
+- Rappel : Anciens rappels grisés, icon toujours active, **Heure** à la place de **Heures & minutes**
 ### Réparé
 - Accéder à une date antérieure dans la saisie des temps
 

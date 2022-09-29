@@ -71,7 +71,7 @@ class RappelType extends AbstractType
                 ]
             ])
             ->add('reminderTimeAt', TimeType::class, [
-                'label' => 'Heure & minutes',
+                'label' => 'Heure',
                 'mapped' => false,
                 'input' => 'datetime',
                 'widget' => 'choice',
@@ -120,6 +120,7 @@ class RappelType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
+                'label' => 'submit',
                 'attr' => [
                     'class' => 'btn-success',
                 ],

@@ -55,7 +55,7 @@
         {% for rappel in remindedRappels %}
             {% set color = rappel.societe ? rappel.societe.colorCode : '#000' %}
             <div class="col-lg-4 col-md-6 col-sm-12 mb-2">
-                <div class="card-rappel" style="border: 3px solid {{ color }};border-left: 10px solid {{ color }};">
+                <div class="card-rappel" style="border: 3px solid {{ color }};border-left: 10px solid {{ color }};opacity: 0.3;">
                     <div class="card-side">
                         <i class="fa fa-3x fa-clock-o" style="color: {{ color }};"></i>
                     </div>
