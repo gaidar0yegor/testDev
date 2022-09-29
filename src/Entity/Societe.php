@@ -27,6 +27,22 @@ class Societe implements HasSocieteInterface
     public const DEFAULT_HEURES_PAR_JOURS = 7;
 
     /**
+     * Heure de début du travail définie par défaut
+     * lorsque une société est créée.
+     *
+     * @param float
+     */
+    public const DEFAULT_WORK_START_TIME = "09:00";
+
+    /**
+     * Heure de fin du travail définie par défaut
+     * lorsque une société est créée.
+     *
+     * @param float
+     */
+    public const DEFAULT_WORK_END_TIME = "17:00";
+
+    /**
      * This societe has been created by someone who followed
      * the inscription tunnel (/creer-ma-societe).
      *
@@ -97,6 +113,28 @@ class Societe implements HasSocieteInterface
      * @ORM\Column(type="decimal", precision=5, scale=3, nullable=true)
      */
     private $heuresParJours;
+
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true, options={"default" : self::DEFAULT_WORK_START_TIME})
+     *
+     * @Assert\Regex(
+     *     pattern="/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/",
+     *     match= true,
+     *     message="Work start time is invalid"
+     *     )
+     */
+    private $workStartTime;
+
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true, options={"default" : self::DEFAULT_WORK_END_TIME})
+     *
+     * @Assert\Regex(
+     *     pattern="/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/",
+     *     match= true,
+     *     message="Work end time is invalid"
+     *     )
+     */
+    private $workEndTime;
 
     /**
      * Coût moyen d'1 ETP R&D
@@ -222,6 +260,8 @@ class Societe implements HasSocieteInterface
         $this->uuid = Uuid::uuid4();
         $this->societeUsers = new ArrayCollection();
         $this->heuresParJours = self::DEFAULT_HEURES_PAR_JOURS;
+        $this->workStartTime = self::DEFAULT_WORK_START_TIME;
+        $this->workEndTime = self::DEFAULT_WORK_END_TIME;
         $this->smsEnabled = true;
         $this->slackAccessTokens = new ArrayCollection();
         $this->projets = new ArrayCollection();
@@ -621,6 +661,30 @@ class Societe implements HasSocieteInterface
     public function setDisabledAt(?\DateTimeInterface $disabledAt): self
     {
         $this->disabledAt = $disabledAt;
+
+        return $this;
+    }
+
+    public function getWorkStartTime(): ?string
+    {
+        return $this->workStartTime;
+    }
+
+    public function setWorkStartTime(?string $workStartTime): self
+    {
+        $this->workStartTime = $workStartTime;
+
+        return $this;
+    }
+
+    public function getWorkEndTime(): ?string
+    {
+        return $this->workEndTime;
+    }
+
+    public function setWorkEndTime(?string $workEndTime): self
+    {
+        $this->workEndTime = $workEndTime;
 
         return $this;
     }

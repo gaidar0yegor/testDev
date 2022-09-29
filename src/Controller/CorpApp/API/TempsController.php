@@ -10,7 +10,6 @@ use App\Service\CraService;
 use App\Service\DateMonthService;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -66,6 +65,8 @@ class TempsController extends AbstractController
             $tempsPasse['pourcentage'] = $tempsPasse['pourcentages'][0];
             unset($tempsPasse['pourcentages']);
         }
+
+        $normalizedCra = $craService->calculatePourcentageMinimun($cra, $normalizedCra);
 
         $normalizedCra['isUserBelongingToSociete'] = $this->dateMonthService->isUserBelongingToSocieteByDate($userContext->getSocieteUser(),$month);
 

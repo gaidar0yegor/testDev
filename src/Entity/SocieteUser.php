@@ -122,6 +122,28 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
     private $heuresParJours;
 
     /**
+     * @ORM\Column(type="string", length=5, nullable=true)
+     *
+     * @Assert\Regex(
+     *     pattern="/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/",
+     *     match= true,
+     *     message="Work start time is invalid"
+     *     )
+     */
+    private $workStartTime;
+
+    /**
+     * @ORM\Column(type="string", length=5, nullable=true)
+     *
+     * @Assert\Regex(
+     *     pattern="/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/",
+     *     match= true,
+     *     message="Work end time is invalid"
+     *     )
+     */
+    private $workEndTime;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -968,6 +990,30 @@ class SocieteUser implements HasSocieteInterface, UserResourceInterface
                 $evenementParticipant->setSocieteUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWorkStartTime(): ?string
+    {
+        return $this->workStartTime;
+    }
+
+    public function setWorkStartTime(?string $workStartTime): self
+    {
+        $this->workStartTime = $workStartTime;
+
+        return $this;
+    }
+
+    public function getWorkEndTime(): ?string
+    {
+        return $this->workEndTime;
+    }
+
+    public function setWorkEndTime(?string $workEndTime): self
+    {
+        $this->workEndTime = $workEndTime;
 
         return $this;
     }

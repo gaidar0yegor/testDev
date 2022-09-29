@@ -3,13 +3,16 @@
 namespace App\Service;
 
 use App\Entity\Cra;
+use App\Entity\EvenementParticipant;
 use App\Entity\Projet;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserPeriod;
 use App\Entity\TempsPasse;
 use App\Repository\CraRepository;
+use App\Repository\EvenementParticipantRepository;
 use App\Repository\ProjetRepository;
 use App\Security\Role\RoleProjet;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class CraService
@@ -20,6 +23,8 @@ class CraService
 
     private $projetRepository;
 
+    private $evenementParticipantRepository;
+
     private $joursFeriesCalculator;
 
     private $em;
@@ -28,12 +33,14 @@ class CraService
         DateMonthService $dateMonthService,
         CraRepository $craRepository,
         ProjetRepository $projetRepository,
+        EvenementParticipantRepository $evenementParticipantRepository,
         JoursFeriesCalculator $joursFeriesCalculator,
         EntityManagerInterface $em
     ) {
         $this->dateMonthService = $dateMonthService;
         $this->craRepository = $craRepository;
         $this->projetRepository = $projetRepository;
+        $this->evenementParticipantRepository = $evenementParticipantRepository;
         $this->joursFeriesCalculator = $joursFeriesCalculator;
         $this->em = $em;
     }
@@ -126,6 +133,48 @@ class CraService
 
             $cra->addTempsPass($tempsPasse);
         }
+    }
+
+    /**
+     * Calculer le pourcentage minimum par projet : % du nombre d'heures passées dans les réunions, évenements ,...
+     */
+    public function calculatePourcentageMinimun(Cra $cra, array $normalizedCra): array
+    {
+        $projets = [];
+        if (null === $cra->getMois()){
+            return $projets;
+        }
+
+        $evenementParticipants = new ArrayCollection(
+            $this->evenementParticipantRepository->findBySocieteUserByMonth($cra->getSocieteUser(), $cra->getMois())
+        );
+
+        foreach ($normalizedCra['tempsPasses'] as &$tempsPasse){
+            $tempsPasse['pourcentageMin'] = 0.0;
+
+            $perProjetParticipants = $evenementParticipants->filter(
+                function (EvenementParticipant $evenementParticipant) use ($tempsPasse) {
+                    return  $evenementParticipant->getProjet()->getId() === $tempsPasse['projet']['id'];
+                }
+            );
+
+            if ($perProjetParticipants->count() === 0) continue;
+
+            foreach ($perProjetParticipants as $evenementParticipant){
+                $evenement = $evenementParticipant->getEvenement();
+                $diff = $evenement->getStartDate()->diff($evenement->getEndDate());
+
+                if (null !== $cra->getSocieteUser()->getHeuresParJours()) {
+                    $heuresParJours = (float)$cra->getSocieteUser()->getHeuresParJours();
+                } else{
+                    $heuresParJours = (float)$cra->getSocieteUser()->getSociete()->getHeuresParJours();
+                }
+
+                $tempsPasse['pourcentageMin'] += $diff->d * $heuresParJours + $diff->h;
+            }
+        }
+
+        return $normalizedCra;
     }
 
     /**
