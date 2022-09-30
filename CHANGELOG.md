@@ -9,6 +9,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Button **Créer un projet** dans la liste des projets (Vue administrateur)
 ### Réparé
 - Export du projet en PDF
+- Erreur si l'utilisateur laisse les champs Dossier / lien externe vide
 
 
 
