@@ -5,6 +5,17 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
+### Réparé
+- Export du projet en PDF
+
+
+
+
+
+
+
+
+## [1.70.3] - 2022-09-29
 ### Ajouté
 - Enregistrer une note de mise à jour en tant que brouillon
 - Visualiser une note de mise à jour avant la publier
@@ -13,13 +24,9 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Affectation équipe des tâches de la planification du projet
 ### Modifié
 - Style des champs de la saisie des temps
+- Rappel : Anciens rappels grisés, icon toujours active, **Heure** à la place de **Heures & minutes**
 ### Réparé
 - Accéder à une date antérieure dans la saisie des temps
-
-
-
-
-
 
 ## [1.70.2] - 2022-09-21
 ### Ajouté

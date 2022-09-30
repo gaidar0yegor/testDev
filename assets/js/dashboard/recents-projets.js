@@ -31,7 +31,7 @@ $(() => {
                 const $projet = $(`
                     <div class="item card-actualite ${projet.filterType}" style="border: 1px solid ${projet.colorCode};border-left: 5px solid ${projet.colorCode};">
                         <div class="card-side">
-                            <i class="fa fa-exclamation-circle" style="color: ${projet.colorCode};"></i>
+                            <i class="fa fa-circle" style="color: ${projet.colorCode};"></i>
                         </div>
                         <div class="card-body">
                             <div class="m-0 p-0">
