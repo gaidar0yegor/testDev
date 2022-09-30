@@ -63,6 +63,7 @@ class ProjetPlanningController extends AbstractController
             ]);
         }
 
+        $tasks = [];
         foreach ($projet->getProjetPlanning()->getProjetPlanningTasks() as $planningTask){
             $isParticipant = false;
             if ($this->userContext->hasSocieteUser()){

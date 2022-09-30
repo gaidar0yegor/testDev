@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Button **Créer un projet** dans la liste des projets (Vue administrateur)
+- Création d'une tâche : Date par défaut = date début du projet
 ### Réparé
 - Export du projet en PDF
 - Erreur si l'utilisateur laisse les champs Dossier / lien externe vide

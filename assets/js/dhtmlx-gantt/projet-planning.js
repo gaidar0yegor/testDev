@@ -8,6 +8,7 @@ if (window['project_planning_content']){
     const projectId = window['project_planning_content'].dataset.projectId;
     const societeRaisonSociale = window['project_planning_content'].dataset.societeRaisonSociale;
     const projectAcronyme = window['project_planning_content'].dataset.projectAcronyme;
+    const projectStartDate = (window['project_planning_content'].dataset.startDate).split('-');
     const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
     var progressEditor = {type: "number_progress", map_to: "progress"};
@@ -102,6 +103,10 @@ if (window['project_planning_content']){
         {unit: "week", step: 1, format: weekScaleTemplate},
     ];
 
+    if (projectStartDate.length === 3) {
+        gantt.config.start_date = new Date(parseInt(projectStartDate[0]), parseInt(projectStartDate[1]) - 1, parseInt(projectStartDate[2]));
+    }
+    gantt.config.fit_tasks = true;
     gantt.config.smart_rendering = true;
     gantt.config.auto_scheduling = true;
     gantt.config.readonly = readonly;
