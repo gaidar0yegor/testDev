@@ -44,6 +44,10 @@ var societes_list_dt = $('#societes_list_dt').DataTable( {
     }
 });
 
+$(document).ready( function () {
+    $('.tab-filter-societes .enabled-societes').trigger('click');
+});
+
 $.fn.dataTable.ext.search.push(
     function( settings, data, dataIndex ) {
         if (settings.sInstance === 'societes_list_dt'){

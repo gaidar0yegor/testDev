@@ -153,6 +153,7 @@ class ProjetFormType extends AbstractType
                 ],
             ])
             ->addEventListener(FormEvents::SUBMIT, [$this, 'setDossierFichierProjet'])
+            ->addEventListener(FormEvents::SUBMIT, [$this, 'setProjetUrls'])
         ;
 
         if (ProductPrivilegeCheker::checkProductPrivilege($projet->getSociete(),ProductPrivileges::PLANIFICATION_PROJET_AVANCE)){
@@ -168,12 +169,30 @@ class ProjetFormType extends AbstractType
 
     public function setDossierFichierProjet(SubmitEvent $event)
     {
-        foreach ($event->getData()->getDossierFichierProjets() as $dossierFichierProjet) {
+        $projet = $event->getData();
+
+        foreach ($projet->getDossierFichierProjets() as $dossierFichierProjet) {
             if (null !== $dossierFichierProjet->getId()) {
                 continue;
             }
 
+            if (null === $dossierFichierProjet->getNom()) {
+                $projet->removeDossierFichierProjet($dossierFichierProjet);
+                continue;
+            }
+
             $dossierFichierProjet->setDefaultFolderName();
+        }
+    }
+
+    public function setProjetUrls(SubmitEvent $event)
+    {
+        $projet = $event->getData();
+
+        foreach ($projet->getProjetUrls() as $projetUrl) {
+            if (null === $projetUrl->getUrl()) {
+                $projet->removeProjetUrl($projetUrl);
+            }
         }
     }
 

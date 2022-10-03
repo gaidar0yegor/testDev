@@ -6,15 +6,14 @@ use App\Activity\ActivityInterface;
 use App\Entity\Activity;
 use App\Entity\Projet;
 use App\Entity\ProjetActivity;
-use App\Entity\Evenement;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserEvenementNotification;
+use App\Notification\Event\EvenementRemovedEvent;
 use App\Notification\Mail\EvenementInvitation;
 use App\Service\EntityLink\EntityLinkGenerator\EvenementLink;
 use App\Service\EntityLink\EntityLinkService;
 use App\MultiSociete\UserContext;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EvenementRemovedActivity implements ActivityInterface
@@ -78,39 +77,47 @@ class EvenementRemovedActivity implements ActivityInterface
         );
     }
 
-    public function preRemove(Evenement $evenement, LifecycleEventArgs $args): void
+    public static function getSubscribedEvents(): array
     {
-        $em = $args->getEntityManager();
+        return [
+            EvenementRemovedEvent::class => 'createActivity',
+        ];
+    }
+
+    public function createActivity(EvenementRemovedEvent $event): void
+    {
+        $evenement = $event->getEvenement();
+        $projet = $event->getProjet();
 
         $activity = new Activity();
         $activity
             ->setType(self::getType())
             ->setParameters([
                 'evenement' => mb_strlen($evenement->getText()) <= EvenementLink::MAX_SIZE ? $evenement->getText() : mb_substr($evenement->getText(), 0, EvenementLink::MAX_SIZE).'…',
-                'projet' => $evenement->getProjet() ? intval($evenement->getProjet()->getId()) : '',
+                'projet' => null !== $projet ? intval($projet->getId()) : '',
                 'removedBy' => intval($this->userContext->getSocieteUser()->getId()),
             ])
         ;
 
-        if ($evenement->getProjet()){
+        if (null !== $projet){
             $projetActivity = new ProjetActivity();
             $projetActivity
                 ->setProjet($evenement->getProjet())
                 ->setActivity($activity)
             ;
-            $em->persist($projetActivity);
+            $this->em->persist($projetActivity);
         }
 
         foreach ($evenement->getEvenementParticipants() as $evenementParticipant) {
             if ($evenementParticipant->getSocieteUser() !== $this->userContext->getSocieteUser()){
-                $em->persist(SocieteUserEvenementNotification::create($activity, $evenementParticipant->getSocieteUser()));
+                $this->em->persist(SocieteUserEvenementNotification::create($activity, $evenementParticipant->getSocieteUser()));
             }
         }
 
-        $em->persist($activity);
+        $this->em->persist($activity);
 
         $this->mailEvenementInvitation->sendMailPreRemove($evenement);
 
-        $em->flush();
+        $this->em->flush();
     }
 }

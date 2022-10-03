@@ -8,6 +8,7 @@ if (window['project_planning_content']){
     const projectId = window['project_planning_content'].dataset.projectId;
     const societeRaisonSociale = window['project_planning_content'].dataset.societeRaisonSociale;
     const projectAcronyme = window['project_planning_content'].dataset.projectAcronyme;
+    const projectStartDate = (window['project_planning_content'].dataset.startDate).split('-');
     const readonly = parseInt(window['project_planning_content'].dataset.canEdit) === 0;
 
     var progressEditor = {type: "number_progress", map_to: "progress"};
@@ -80,12 +81,22 @@ if (window['project_planning_content']){
             gantt.createTask({id: gantt.uid(), text: "New Task"}, parseInt($(this).data('taskId')));
     });
 
-    gantt.templates.task_class = gantt.templates.grid_row_class = function(start, end, task){switch (task.$level) {
-        case 0: return "lot_level";
-        case 1: return "task_level";
-        case 2: return "subtask_level";
-        default: return "";
-    }};
+    gantt.templates.task_class = gantt.templates.grid_row_class = function (start, end, task) {
+        let classNames = '';
+        if (gantt.getChildren(task.id).length > 0){
+            classNames += ' hide_progress_drag';
+        }
+        switch (task.$level) {
+            case 0:
+                classNames += " lot_level";break;
+            case 1:
+                classNames +=  " task_level";break;
+            case 2:
+                classNames +=  " subtask_level";break;
+        }
+
+        return classNames;
+    };
 
     gantt.templates.task_text = function (start, end, task) {
         return `<span class="task-title" title="${task.text}">${task.text}</span>`
@@ -102,6 +113,10 @@ if (window['project_planning_content']){
         {unit: "week", step: 1, format: weekScaleTemplate},
     ];
 
+    if (projectStartDate.length === 3) {
+        gantt.config.start_date = new Date(parseInt(projectStartDate[0]), parseInt(projectStartDate[1]) - 1, parseInt(projectStartDate[2]));
+    }
+    gantt.config.fit_tasks = true;
     gantt.config.smart_rendering = true;
     gantt.config.auto_scheduling = true;
     gantt.config.readonly = readonly;
@@ -109,7 +124,8 @@ if (window['project_planning_content']){
     gantt.config.autosize = true;
     gantt.config.scroll_size = 20;
     gantt.config.tooltip_timeout = 50;
-    gantt.config.drag_progress = false;
+    gantt.config.drag_progress = true;
+    gantt.config.drag_links = false;
     gantt.config.drag_timeline = {
         ignore:".gantt_task_line, .gantt_task_link",
         useKey: false

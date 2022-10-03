@@ -51,12 +51,16 @@ $('.month-picker').datepicker({
     minViewMode: 'months',
     format: 'MM yyyy',
     immediateUpdates: true,
+    todayHighlight:'TRUE',
+    autoclose: true,
 });
 
 $('.date-picker:not(.numeric-format)').datepicker({
     language: detectedLocale,
     format: 'dd MM yyyy',
     immediateUpdates: true,
+    todayHighlight:'TRUE',
+    autoclose: true,
 });
 
 $('.date-picker.numeric-format').datepicker({
@@ -64,6 +68,8 @@ $('.date-picker.numeric-format').datepicker({
     dateFormat: "yy-mm-dd",
     altFormat: 'mm/dd/yyyy',
     immediateUpdates: true,
+    todayHighlight:'TRUE',
+    autoclose: true,
 });
 
 // liste utilisateurs

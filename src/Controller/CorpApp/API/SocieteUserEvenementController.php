@@ -7,6 +7,7 @@ use App\Entity\Evenement;
 use App\Entity\SocieteUser;
 use App\Exception\RdiException;
 use App\MultiSociete\UserContext;
+use App\Notification\Event\EvenementRemovedEvent;
 use App\Service\Evenement\EvenementManager\SocieteUserEvenementService;
 use App\Service\Evenement\IcsFileGenerator;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/api/utilisateur/evenement")
@@ -27,6 +29,7 @@ class SocieteUserEvenementController extends AbstractController
     private ValidatorInterface $validator;
     private IcsFileGenerator $icsFileGenerator;
     private SocieteUserEvenementService $societeUserEvenementService;
+    private EventDispatcherInterface $dispatcher;
     private UserContext $userContext;
 
     public function __construct(
@@ -34,6 +37,7 @@ class SocieteUserEvenementController extends AbstractController
         ValidatorInterface $validator,
         SocieteUserEvenementService $societeUserEvenementService,
         IcsFileGenerator $icsFileGenerator,
+        EventDispatcherInterface $dispatcher,
         UserContext $userContext
     )
     {
@@ -41,6 +45,7 @@ class SocieteUserEvenementController extends AbstractController
         $this->validator = $validator;
         $this->societeUserEvenementService = $societeUserEvenementService;
         $this->icsFileGenerator = $icsFileGenerator;
+        $this->dispatcher = $dispatcher;
         $this->userContext = $userContext;
     }
 
@@ -122,6 +127,8 @@ class SocieteUserEvenementController extends AbstractController
                 ->setOldEvenement($evenement);
             $this->societeUserEvenementService->updateSocieteUsersCra($evenementUpdatesCra);
         }
+
+        $this->dispatcher->dispatch(new EvenementRemovedEvent($evenement));
 
         $this->em->remove($evenement);
         $this->em->flush();
