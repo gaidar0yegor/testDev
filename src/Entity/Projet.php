@@ -114,7 +114,7 @@ class Projet implements HasSocieteInterface
     private $projetInterne;
 
     /**
-     * @ORM\OneToMany(targetEntity=ProjetActivity::class, mappedBy="projet", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=ProjetActivity::class, mappedBy="projet", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $projetActivities;
 
@@ -161,7 +161,7 @@ class Projet implements HasSocieteInterface
     private $annualRdiScores = [];
 
     /**
-     * @ORM\OneToOne(targetEntity=ProjetPlanning::class, mappedBy="projet", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=ProjetPlanning::class, mappedBy="projet", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $projetPlanning;
 
@@ -181,7 +181,7 @@ class Projet implements HasSocieteInterface
     private $budgetEuro;
 
     /**
-     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="projet")
+     * @ORM\OneToMany(targetEntity=Evenement::class, mappedBy="projet", orphanRemoval=true, cascade={"persist"})
      */
     private $evenements;
 

@@ -11,10 +11,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Donner l'accès au chef d'équipe pour gérer les accès aux projets des collaborateurs
 - Curseur pour modifier l'avancement d'une tâche
 - Proposer d'ajouter un FM lorsque on termine une tâche en sélectionnant son lôt associé.
+- Le calendrier se ferme automatiquement lors de la sélection d'une date
 ### Réparé
 - Export du projet en PDF
 - Erreur si l'utilisateur laisse les champs Dossier / lien externe vide
-
+- Erreur lors de la suppression d'un projet
 
 
 
