@@ -5,6 +5,7 @@ namespace App\Controller\CorpApp\API;
 use App\Entity\Projet;
 use App\Entity\Evenement;
 use App\Exception\RdiException;
+use App\Notification\Event\EvenementRemovedEvent;
 use App\Service\Evenement\EvenementManager\ProjetEvenementService;
 use App\Service\Evenement\IcsFileGenerator;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +16,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @Route("/api/projet/{projetId}/evenement")
@@ -24,18 +26,21 @@ class ProjetEvenementController extends AbstractController
     private EntityManagerInterface $em;
     private ValidatorInterface $validator;
     private IcsFileGenerator $icsFileGenerator;
+    private EventDispatcherInterface $dispatcher;
     private ProjetEvenementService $projetEvenementService;
 
     public function __construct(
         EntityManagerInterface $em,
         ValidatorInterface $validator,
         ProjetEvenementService $projetEvenementService,
+        EventDispatcherInterface $dispatcher,
         IcsFileGenerator $icsFileGenerator
     )
     {
         $this->em = $em;
         $this->validator = $validator;
         $this->projetEvenementService = $projetEvenementService;
+        $this->dispatcher = $dispatcher;
         $this->icsFileGenerator = $icsFileGenerator;
     }
 
@@ -120,6 +125,8 @@ class ProjetEvenementController extends AbstractController
         if ($projet !== $evenement->getProjet()){
             throw new RdiException('Un problème est survenu !!');
         }
+
+        $this->dispatcher->dispatch(new EvenementRemovedEvent($evenement));
 
         $this->em->remove($evenement);
         $this->em->flush();

@@ -13,7 +13,7 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         When I follow "Utilisateurs"
         And I click on the 1st "[href='/corp/utilisateur/3']" element
         And I follow "Gérer ses accès aux projets"
-        Then I should be on "/corp/admin/utilisateurs/3/roles-projets"
+        Then I should be on "/corp/mon_equipe/utilisateurs/3/roles-projets"
         And I should see "Rôles sur projets de Utilisateur Eureka" in the "h1" element
         And I should see "PTEST"
         And I should see "Aucun"
@@ -23,14 +23,14 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         And I should see "Mettre à jour"
 
     Scenario: L'admin peut mettre un utilisateur en tant que contributeur depuis la page de ses rôles sur projets
-        Given I am on "/corp/admin/utilisateurs/3/roles-projets"
+        Given I am on "/corp/mon_equipe/utilisateurs/3/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] | PROJET_CONTRIBUTEUR |
         And I press "Mettre à jour"
         Then I should find toastr message "Les rôles de Utilisateur Eureka sur les projets ont été mis à jour"
 
     Scenario: L'admin ne peut pas mettre un utilisateur en tant que chef de projet si il y a déjà un autre chef de projet
-        Given I am on "/corp/admin/utilisateurs/3/roles-projets"
+        Given I am on "/corp/mon_equipe/utilisateurs/3/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] | PROJET_CDP |
         And I press "Mettre à jour"
@@ -38,7 +38,7 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         Then I should see "Il doit y avoir un seul chef de projet sur ce projet, vous en avez plusieurs"
 
     Scenario: L'admin ne peut pas retirer le chef de projet
-        Given I am on "/corp/admin/utilisateurs/2/roles-projets"
+        Given I am on "/corp/mon_equipe/utilisateurs/2/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] | PROJET_CONTRIBUTEUR |
         And I press "Mettre à jour"
@@ -46,7 +46,7 @@ Feature: Pouvoir modifier les rôle d'un utilisateur sur tous ses projets
         Then I should see "Il doit y avoir un chef de projet sur ce projet, vous n'en avez mis aucun"
 
     Scenario: L'admin peut retirer un participant en mettant son rôle à "Aucun"
-        Given I am on "/corp/admin/utilisateurs/1/roles-projets"
+        Given I am on "/corp/mon_equipe/utilisateurs/1/roles-projets"
         When I fill in the following:
             | societe_user_projets_roles[projetParticipants][0][role] |  |
         And I press "Mettre à jour"
