@@ -6,6 +6,16 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+
+
+
+
+
+
+
+
+## [1.70.4] - 2022-10-03
+### Ajouté
 - Button **Créer un projet** dans la liste des projets (Vue administrateur)
 - Création d'une tâche : Date par défaut = date début du projet
 - Donner l'accès au chef d'équipe pour gérer les accès aux projets des collaborateurs
@@ -16,12 +26,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Export du projet en PDF
 - Erreur si l'utilisateur laisse les champs Dossier / lien externe vide
 - Erreur lors de la suppression d'un projet
-
-
-
-
-
-
 
 ## [1.70.3] - 2022-09-29
 ### Ajouté
