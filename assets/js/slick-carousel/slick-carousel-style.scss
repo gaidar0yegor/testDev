@@ -4,14 +4,14 @@
         &:focus, &.focus{
             box-shadow: none !important;
         }
-        i.fa-circle{
-            margin: 0 3px;
-            font-size: 0.3rem;
+        i.fa-filter{
+            font-size: 1.2rem;
         }
     }
     .dropdown-menu{
         padding: 10px;
-        top: -40px !important;
+        top: 30px !important;
+        right: 20px !important;
 
         .form-check{
             margin: 5px;
