@@ -9,12 +9,9 @@ use App\Entity\Projet;
 use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
 use App\Service\CraService;
-use App\Service\ParticipantService;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use function Clue\StreamFilter\fun;
 
 class EvenementService
 {
@@ -110,7 +107,7 @@ class EvenementService
 
         $evenement->setAutoUpdateCra($request->request->get('auto_update_cra') == true);
 
-        $evenement = self::createEvenementParticipants(
+        $evenement = $this->createEvenementParticipants(
             $evenement,
             array_map('intval', explode(',', $request->request->get('required_participants_ids'))),
             array_map('intval', explode(',', $request->request->get('optional_participants_ids')))
@@ -148,6 +145,11 @@ class EvenementService
         }
 
         return $evenement;
+    }
+
+    public function checkOverlapEventsParticipants(\DateTime $startDate, \DateTime $endDate, array $societeUserIds, int $exceptEventId = null)
+    {
+        return $this->em->getRepository(EvenementParticipant::class)->checkOverlapEvenements($startDate, $endDate, $societeUserIds, $exceptEventId);
     }
 
     /**

@@ -152,16 +152,16 @@ class CraService
         foreach ($normalizedCra['tempsPasses'] as &$tempsPasse){
             $tempsPasse['pourcentageMin'] = 0.0;
 
-            $perProjetParticipants = $evenementParticipants->filter(
+            $evenementProjetParticipants = $evenementParticipants->filter(
                 function (EvenementParticipant $evenementParticipant) use ($tempsPasse) {
                     return  $evenementParticipant->getProjet()->getId() === $tempsPasse['projet']['id'];
                 }
             );
 
-            if ($perProjetParticipants->count() === 0) continue;
+            if ($evenementProjetParticipants->count() === 0) continue;
 
-            foreach ($perProjetParticipants as $evenementParticipant){
-                $evenement = $evenementParticipant->getEvenement();
+            foreach ($evenementProjetParticipants as $evenementProjetParticipant){
+                $evenement = $evenementProjetParticipant->getEvenement();
                 $diff = $evenement->getStartDate()->diff($evenement->getEndDate());
 
                 if (null !== $cra->getSocieteUser()->getHeuresParJours()) {

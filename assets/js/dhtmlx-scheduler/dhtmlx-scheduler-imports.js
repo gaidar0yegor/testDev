@@ -18,6 +18,8 @@ import userContext from './../userContext';
 import apiGenerateIcsCalendar from "./ext/ics-export-api";
 import {truncateString} from "../utils";
 
+const projectId = window['project_events_calendar'] ? window['project_events_calendar'].dataset.projectId : null;
+
 var locale = detectedLocale === 'en' ? locale_en : locale_fr;
 
 Scheduler.plugin(function(scheduler){ scheduler.locale = locale });
@@ -45,17 +47,52 @@ scheduler.attachEvent("onParse", function(){
     scheduler.showEvent(selectedEvent,"week");
 });
 
-scheduler.attachEvent("onEventSave", function(id,event){
-    if (!event.text) {
-        dhtmlx.alert(locale.alerts.title_must_not_be_empty);
-        return false;
-    }
-    if (event.required_participants_ids === "") {
-        dhtmlx.alert(locale.alerts.minimum_invitation_is_required);
-        return false;
-    }
+var lightboxValidated = false;
 
-    return true;
+scheduler.attachEvent("onEventSave", function (id, event, is_new) {
+    if (lightboxValidated) {
+        return true;
+    } else {
+        if (!event.text) {
+            dhtmlx.alert(locale.alerts.title_must_not_be_empty);
+            return false;
+        }
+        if (event.required_participants_ids === "") {
+            dhtmlx.alert(locale.alerts.minimum_invitation_is_required);
+            return false;
+        }
+
+        if (projectId){
+            $.ajax({
+                url: `/corp/api/projet/${projectId}/evenement/check-overlap`,
+                method: 'POST',
+                data: {id: is_new ? null : id, event: JSON.stringify(event)},
+                success: function (response) {
+                    if (response.action === "error" && response.context.title === "overlap_Participants") {
+                        let message = `Conflit d'événements sur l'agenda de : <ul>`;
+                        $.each(response.context.data, function (i, obj) {
+                            message += `<li>${obj.fullName}</li>`
+                        });
+                        message += `</ul>Vous pouvez les informer à titre d'invitation facultative.`;
+
+                        $.each(response.context.data, function (i, obj) {
+                            scheduler.formSection("requiredParticipant").node.querySelector(`input[type='checkbox'][value='${obj.id}']`).checked = false;
+                        });
+
+                        dhtmlx.alert(message);
+                    } else {
+                        lightboxValidated = true;
+                        scheduler.save_lightbox();
+                    }
+                }
+            });
+        } else {
+            lightboxValidated = true;
+            scheduler.save_lightbox();
+        }
+
+        return false;
+    }
 });
 
 scheduler.attachEvent("onSaveError", function(ids, response){
@@ -88,6 +125,7 @@ scheduler.attachEvent("onLightboxButton", function (id, node, e){ // to generate
     }
 });
 scheduler.attachEvent("onLightbox", function (id) {
+    lightboxValidated = false;
     const event = scheduler.getEvent(id);
     if (!event.is_invited) {
         scheduler.getLightbox().querySelector('.dhx_btn_set.dhx_ics_calendar_btn_set').remove();

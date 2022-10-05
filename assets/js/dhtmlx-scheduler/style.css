@@ -1,3 +1,7 @@
+.dhtmlx_popup_text li {
+    text-align: left;
+}
+
 .dhx_cal_ltext::-webkit-scrollbar {
     width: 5px;
     background: #ce352c;

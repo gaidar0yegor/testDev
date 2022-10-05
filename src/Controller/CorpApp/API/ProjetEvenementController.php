@@ -60,6 +60,10 @@ class ProjetEvenementController extends AbstractController
     {
         $evenement = $this->projetEvenementService->saveEvenementFromRequest($request, $projet);
 
+        if ($evenement instanceof JsonResponse){
+            return $evenement;
+        }
+
         if ($errorResponse = self::validateEvenement($evenement, $this->validator)) {
             return $errorResponse;
         }
@@ -70,6 +74,55 @@ class ProjetEvenementController extends AbstractController
         return new JsonResponse([
             "action" => "inserted",
             "tid" => $evenement->getId(),
+        ]);
+    }
+
+    /**
+     * @Route(
+     *      "/check-overlap",
+     *      methods={"POST"},
+     *      name="corp_app_fo_projet_evenements_check_overlap"
+     * )
+     *
+     * @ParamConverter("projet", options={"id" = "projetId"})
+     */
+    public function checkOverlap(Request $request, Projet $projet)
+    {
+        if (!$request->request->has('event')){
+            return new JsonResponse(null, JsonResponse::HTTP_BAD_GATEWAY);
+        }
+
+        $event = json_decode($request->request->get('event'), true);
+        $exceptEventId = $request->request->get('id') ? (int)$request->request->get('id') : null;
+
+        $eventStartDate = new \DateTime(date('Y-m-d H:i', strtotime($event['start_date'])));
+        $eventEndDate = new \DateTime(date('Y-m-d H:i', strtotime($event['end_date'])));
+        $requiredParticipantsIds = explode(',', $event['required_participants_ids']);
+
+        $evenementParticipants = $this->projetEvenementService->checkOverlapEventsParticipants($eventStartDate, $eventEndDate, $requiredParticipantsIds, $exceptEventId);
+        $deniedParticipants = [];
+
+        foreach ($evenementParticipants as $evenementParticipant){
+            if (array_search($evenementParticipant->getSocieteUser()->getId(), array_column($deniedParticipants, 'id')) === false){
+                $deniedParticipants[] = [
+                    'id' => $evenementParticipant->getSocieteUser()->getId(),
+                    'fullName' => $evenementParticipant->getSocieteUser()->getUser()->getFullnameOrEmail(),
+                ];
+            }
+        }
+
+        if (count($deniedParticipants) > 0){
+            return new JsonResponse([
+                "action" => "error",
+                "context" => [
+                    "title" => "overlap_Participants",
+                    "data" => $deniedParticipants
+                ],
+            ]);
+        }
+
+        return new JsonResponse([
+            "action" => "success",
         ]);
     }
 
@@ -91,6 +144,10 @@ class ProjetEvenementController extends AbstractController
         }
 
         $evenement = $this->projetEvenementService->saveEvenementFromRequest($request, $projet, $evenement);
+
+        if ($evenement instanceof JsonResponse){
+            return $evenement;
+        }
 
         if ($errorResponse = self::validateEvenement($evenement, $this->validator)) {
             return $errorResponse;
