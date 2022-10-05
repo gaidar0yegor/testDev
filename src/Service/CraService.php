@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\DTO\Timesheet;
 use App\Entity\Cra;
 use App\Entity\EvenementParticipant;
 use App\Entity\Projet;
@@ -19,6 +20,8 @@ class CraService
 {
     private $dateMonthService;
 
+    private $evenementService;
+
     private $craRepository;
 
     private $projetRepository;
@@ -31,6 +34,7 @@ class CraService
 
     public function __construct(
         DateMonthService $dateMonthService,
+        EvenementService $evenementService,
         CraRepository $craRepository,
         ProjetRepository $projetRepository,
         EvenementParticipantRepository $evenementParticipantRepository,
@@ -38,6 +42,7 @@ class CraService
         EntityManagerInterface $em
     ) {
         $this->dateMonthService = $dateMonthService;
+        $this->evenementService = $evenementService;
         $this->craRepository = $craRepository;
         $this->projetRepository = $projetRepository;
         $this->evenementParticipantRepository = $evenementParticipantRepository;
@@ -148,6 +153,8 @@ class CraService
         $evenementParticipants = new ArrayCollection(
             $this->evenementParticipantRepository->findBySocieteUserByMonth($cra->getSocieteUser(), $cra->getMois())
         );
+        $heuresParJours = Timesheet::getUserHeuresParJours($cra->getSocieteUser());
+        $maxHeureMois = array_sum(array_map(function($el) use ($heuresParJours) { return (float)$el * $heuresParJours; }, $cra->getJours()));
 
         foreach ($normalizedCra['tempsPasses'] as &$tempsPasse){
             $tempsPasse['pourcentageMin'] = 0.0;
@@ -161,16 +168,8 @@ class CraService
             if ($evenementProjetParticipants->count() === 0) continue;
 
             foreach ($evenementProjetParticipants as $evenementProjetParticipant){
-                $evenement = $evenementProjetParticipant->getEvenement();
-                $diff = $evenement->getStartDate()->diff($evenement->getEndDate());
-
-                if (null !== $cra->getSocieteUser()->getHeuresParJours()) {
-                    $heuresParJours = (float)$cra->getSocieteUser()->getHeuresParJours();
-                } else{
-                    $heuresParJours = (float)$cra->getSocieteUser()->getSociete()->getHeuresParJours();
-                }
-
-                $tempsPasse['pourcentageMin'] += $diff->d * $heuresParJours + $diff->h;
+                $tempsPerEvenement = $this->evenementService->calculeWorkHoursPerEventParticipant($evenementProjetParticipant);
+                $tempsPasse['pourcentageMin'] = ceil(($tempsPerEvenement / $maxHeureMois) * 100);
             }
         }
 

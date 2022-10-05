@@ -234,7 +234,7 @@ export default {
         },
 
         sumPercentageMin(tempsPasses) {
-            return tempsPasses.reduce((sum, tempsPasse) => sum + parseInt(tempsPasse.pourcentageMin, 10), 0);
+            return tempsPasses.reduce((sum, tempsPasse) => sum + tempsPasse.pourcentageMin, 0);
         },
 
         validPercentage(percentage, min) {
