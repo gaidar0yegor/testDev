@@ -6,6 +6,7 @@ use App\DTO\Timesheet;
 use App\Entity\Cra;
 use App\Entity\EvenementParticipant;
 use App\Entity\Projet;
+use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Entity\SocieteUserPeriod;
 use App\Entity\TempsPasse;
@@ -143,18 +144,25 @@ class CraService
     /**
      * Calculer le pourcentage minimum par projet : % du nombre d'heures passées dans les réunions, évenements ,...
      */
-    public function calculatePourcentageMinimun(Cra $cra, array $normalizedCra): array
+    public function calculatePourcentageMinimun(Cra $cra, array $normalizedCra, \DateTime $month): array
     {
-        $projets = [];
         if (null === $cra->getMois()){
-            return $projets;
+            return $normalizedCra;
         }
 
         $evenementParticipants = new ArrayCollection(
-            $this->evenementParticipantRepository->findBySocieteUserByMonth($cra->getSocieteUser(), $cra->getMois())
+            $this->evenementParticipantRepository->findBySocieteUserByMonth($cra->getSocieteUser(), $month)
         );
         $heuresParJours = Timesheet::getUserHeuresParJours($cra->getSocieteUser());
-        $maxHeureMois = array_sum(array_map(function($el) use ($heuresParJours) { return (float)$el * $heuresParJours; }, $cra->getJours()));
+
+        if ($cra->getSociete()->getTimesheetGranularity() === Societe::GRANULARITY_MONTHLY){
+            $maxHeureWork = array_sum(array_map(function($el) use ($heuresParJours) { return (float)$el * $heuresParJours; }, $cra->getJours()));
+        } elseif ($cra->getSociete()->getTimesheetGranularity() === Societe::GRANULARITY_WEEKLY){
+            $maxHeureWork = array_sum(array_map(function($el) use ($heuresParJours) { return (float)$el * $heuresParJours; }, array_slice($cra->getJours(), (int)$month->format('d') - 1, 7)));
+        } else{
+            return $normalizedCra;
+        }
+
 
         foreach ($normalizedCra['tempsPasses'] as &$tempsPasse){
             $tempsPasse['pourcentageMin'] = 0.0;
@@ -167,10 +175,24 @@ class CraService
 
             if ($evenementProjetParticipants->count() === 0) continue;
 
+            $tempsPerEvenement = 0;
             foreach ($evenementProjetParticipants as $evenementProjetParticipant){
-                $tempsPerEvenement = $this->evenementService->calculeWorkHoursPerEventParticipant($evenementProjetParticipant);
-                $tempsPasse['pourcentageMin'] = ceil(($tempsPerEvenement / $maxHeureMois) * 100);
+                if (null === $evenementProjetParticipant->getHeures()){
+                    continue;
+                }
+                if (false === array_key_exists($month->format('Y-m'),$evenementProjetParticipant->getHeures())) {
+                    continue;
+                }
+
+                $heures = $evenementProjetParticipant->getHeures()[$month->format('Y-m')];
+
+                if ($cra->getSociete()->getTimesheetGranularity() === Societe::GRANULARITY_MONTHLY){
+                    $tempsPerEvenement += array_sum($heures);
+                } elseif ($cra->getSociete()->getTimesheetGranularity() === Societe::GRANULARITY_WEEKLY){
+                    $tempsPerEvenement += array_sum(array_slice($heures, (int)$month->format('d') - 1, 7));
+                }
             }
+            $tempsPasse['pourcentageMin'] = ceil(($tempsPerEvenement / $maxHeureWork) * 100);
         }
 
         return $normalizedCra;

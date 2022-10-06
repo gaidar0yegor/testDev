@@ -476,6 +476,7 @@ MEETING: Meeting
 EVENT: Event
 ABSENCE: Absence
 OTHER: Other
+invitation_not_accepted: Invitation not accepted
 allString: All
 editFile: Edit a file
 go_back_go_files: Return to files list

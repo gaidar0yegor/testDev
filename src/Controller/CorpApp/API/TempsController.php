@@ -66,7 +66,7 @@ class TempsController extends AbstractController
             unset($tempsPasse['pourcentages']);
         }
 
-        $normalizedCra = $craService->calculatePourcentageMinimun($cra, $normalizedCra);
+        $normalizedCra = $craService->calculatePourcentageMinimun($cra, $normalizedCra, $month);
 
         $normalizedCra['isUserBelongingToSociete'] = $this->dateMonthService->isUserBelongingToSocieteByDate($userContext->getSocieteUser(),$month);
 
@@ -162,6 +162,8 @@ class TempsController extends AbstractController
 
             unset($tempsPasse['pourcentages']);
         }
+
+        $normalizedCra = $craService->calculatePourcentageMinimun($cra, $normalizedCra, $month);
 
         $normalizedCra['isUserBelongingToSociete'] = $this->dateMonthService->isUserBelongingToSocieteByDate($userContext->getSocieteUser(), $month,false);
 

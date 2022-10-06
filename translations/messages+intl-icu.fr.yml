@@ -485,6 +485,7 @@ MEETING: 'Réunion'
 EVENT: 'Évènement'
 ABSENCE: 'Absence'
 OTHER: 'Autre'
+invitation_not_accepted: "Invitation non acceptée"
 allString: Tous
 editFile: Modifier un fichier
 go_back_go_files: Retourner à la liste des fichiers
