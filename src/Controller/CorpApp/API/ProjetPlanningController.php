@@ -161,7 +161,7 @@ class ProjetPlanningController extends AbstractController
             if ($projetPlanningTask->getParentTask() === null){
                 $lotId = $projetPlanningTask->getId();
             } elseif ($projetPlanningTask->getParentTask()->getParentTask() === null){
-                $lotId = $projetPlanningTask->getParentTask();
+                $lotId = $projetPlanningTask->getParentTask()->getId();
             } else {
                 $lotId = $projetPlanningTask->getParentTask()->getParentTask()->getId();
             }

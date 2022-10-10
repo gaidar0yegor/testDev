@@ -5,8 +5,11 @@ Tous les changements apportés au projet sont suivis dans ce fichier.
 Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0/).
 
 ## [À venir dans la prochaine version]
-### Ajouté
-
+### Modifié
+- Tableau de bord : Minimiser la taille du graphique de l'efficacité 
+### Réparé
+- Le nombre de fichiers par dossier dans la liste des fichiers
+- Fait marquant créé après la fin d'une tâche
 
 
 

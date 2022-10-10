@@ -21,7 +21,7 @@
 
     <ul class="nav nav-tabs mb-3 tab-filter-fichiers">
         <li class="nav-item">
-            <a class="nav-link all-fichiers active" href="#0"><span class="dossier-name">{{ 'allString'|trans }}</span> <span class="badge badge-pill badge-info">{{ projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length | length }}</span></a>
+            <a class="nav-link all-fichiers active" href="#0"><span class="dossier-name">{{ 'allString'|trans }}</span> <span class="badge badge-pill badge-info">{{ projet.getAccessibleFichierProjets(app.user.currentSocieteUser)|length }}</span></a>
         </li>
 
         {% for dossierFichierProjet in projet.dossierFichierProjets %}
