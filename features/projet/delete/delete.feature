@@ -15,7 +15,7 @@ Feature: Suppression d'un projet
         And I follow "Paramétrage du projet"
         And I follow "Vérifier et supprimer le projet"
         Then I should see "Supprimer le projet PEMPTY"
-        And I should see 4 ".alert-success" elements
+        And I should see 6 ".alert-success" elements
         And I should see 1 ".alert-warning" elements
         And I should see "Aucun temps passé n'a été saisi sur ce projet"
         And I should see "Le projet n'a pas de fait marquant"

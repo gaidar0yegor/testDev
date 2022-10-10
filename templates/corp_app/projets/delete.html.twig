@@ -69,6 +69,53 @@
     </div>
 {% endif %}
 
+    {% if (projet.projetPlanning is not null) and (projet.projetPlanning.projetPlanningTasks|length > 0) %}
+        <div class="alert alert-danger">
+            <i class="fa fa-warning" aria-hidden="true"></i>
+
+            {{ 'delete_project.planning_task.warning'|trans({
+                'n': projet.projetPlanning.projetPlanningTasks|length
+            })|raw|striptags('<strong>')|raw }}
+
+            <ul class="mt-2">
+                {% for planningTask in projet.projetPlanning.projetPlanningTasks[-preview:] %}
+                    <li>{{ planningTask.text }} ({{ planningTask.progress * 100 }}%)</li>
+                {% endfor %}
+                {% if projet.projetPlanning.projetPlanningTasks|length > preview %}
+                    <li><i>{{ '...and_n_others'|trans({'n': projet.projetPlanning.projetPlanningTasks|length - preview}) }}</i></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-success">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            {{ 'delete_project.planning_task.safe'|trans }}
+        </div>
+    {% endif %}
+
+    {% if projet.getNextEvenements()|length > 0 %}
+        <div class="alert alert-danger">
+            <i class="fa fa-warning" aria-hidden="true"></i>
+
+            {{ 'delete_project.evenement.warning'|trans({
+                'n': projet.evenements|length
+            })|raw|striptags('<strong>')|raw }}
+
+            <ul class="mt-2">
+                {% for evenement in projet.getNextEvenements()[-preview:] %}
+                    <li>{{ evenement.text }} ({{ evenement.startDate|format_datetime }})</li>
+                {% endfor %}
+                {% if projet.getNextEvenements()|length > preview %}
+                    <li><i>{{ '...and_n_others'|trans({'n': projet.getNextEvenements()|length - preview}) }}</i></li>
+                {% endif %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-success">
+            <i class="fa fa-check" aria-hidden="true"></i>
+            {{ 'delete_project.evenement.safe'|trans }}
+        </div>
+    {% endif %}
 
 {% if projet.fichierProjets|length > 0 %}
     <div class="alert alert-danger">

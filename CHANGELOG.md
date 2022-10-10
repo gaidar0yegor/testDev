@@ -13,9 +13,25 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 
 
+## [1.70.5] - 2022-10-10
+### Modifié
+- Tableau de bord : Minimiser la taille du graphique de l'efficacité 
+### Réparé
+- Le nombre de fichiers par dossier dans la liste des fichiers
+- Fait marquant créé après la fin d'une tâche
 
-
-
+## [1.70.4] - 2022-10-03
+### Ajouté
+- Button **Créer un projet** dans la liste des projets (Vue administrateur)
+- Création d'une tâche : Date par défaut = date début du projet
+- Donner l'accès au chef d'équipe pour gérer les accès aux projets des collaborateurs
+- Curseur pour modifier l'avancement d'une tâche
+- Proposer d'ajouter un FM lorsque on termine une tâche en sélectionnant son lôt associé.
+- Le calendrier se ferme automatiquement lors de la sélection d'une date
+### Réparé
+- Export du projet en PDF
+- Erreur si l'utilisateur laisse les champs Dossier / lien externe vide
+- Erreur lors de la suppression d'un projet
 
 ## [1.70.3] - 2022-09-29
 ### Ajouté

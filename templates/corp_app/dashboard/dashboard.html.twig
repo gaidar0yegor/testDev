@@ -15,13 +15,13 @@
                 <div id="mes-temps-rappel" data-url-temps-passes="{{ path('corp_app_fo_temps') }}"></div>
             </div>
             <div class="col-lg-12">
-                <div id="recents-projets-menu" class="d-flex flex-row justify-content-start align-column-center">
-                    <h5>Actualité des projets</h5>
-                    <div class="btn-group dropright">
-                        <button type="button" class="btn btn-sm bg-transparent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-circle"></i><i class="fa fa-circle"></i><i class="fa fa-circle"></i>
+                <div id="recents-projets-menu" class="d-flex flex-row justify-content-end align-column-center">
+                    <div class="btn-group dropleft">
+                        <button type="button" id="btnFilter" class="btn btn-sm bg-transparent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-filter mr-1" title="Filtrer mes actualités"></i>Filtrer
                         </button>
                         <div class="dropdown-menu">
+                        <div id="whiteSquare"></div>
                             <div class="form-check">
                                 <input type="checkbox" id="target_filter_type-projet" class="form-check-input" value=".projet" checked="checked">
                                 <label class="form-check-label" for="target_filter_type-projet">Projets</label>
@@ -62,7 +62,7 @@
         </div>
 
         <div class="row d-flex flex-row justify-content-around align-items-start">
-            <div class="col-xl-5 col-lg-12 mt-3">
+            <div class="col-xl-4 col-lg-12 mt-3">
                 <h5 class="text-center d-block">{{ 'hours_by_project'|trans }}</h5>
                 <div id="heures-par-projet"></div>
             </div>
@@ -125,7 +125,7 @@
                 </div>
             </div>
             {% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-                <div id="projets-efficacite-moyenne" class="col-xl-4 col-lg-6 mt-3">
+                <div id="projets-efficacite-moyenne" class="col-xl-3 col-lg-6 mt-3">
                     <h5 class="text-center d-block">{{ 'efficiency'|trans }}</h5>
                     <canvas id="efficacite-moyenne" class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
                 </div>

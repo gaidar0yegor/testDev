@@ -189,6 +189,10 @@
     background-color: rgb(255, 87, 34) !important;
 }
 
+.hide_progress_drag .gantt_task_progress_drag{
+    display:none !important;
+}
+
 .gantt_tooltip {
     font-size: 14px;
     line-height: 120%;

@@ -63,6 +63,7 @@ class ProjetPlanningController extends AbstractController
             ]);
         }
 
+        $tasks = [];
         foreach ($projet->getProjetPlanning()->getProjetPlanningTasks() as $planningTask){
             $isParticipant = false;
             if ($this->userContext->hasSocieteUser()){
@@ -157,7 +158,14 @@ class ProjetPlanningController extends AbstractController
         $newProgress = (float)$request->request->get('progress');
         $linkFaitMarquant = false;
         if ($newProgress == 1 && $newProgress != $projetPlanningTask->getProgress()){
-            $linkFaitMarquant = $this->generateUrl('corp_app_fo_fait_marquant_ajouter', ['projetId' => $projet->getId(), 'link_task' => $projetPlanningTask->getId()]);
+            if ($projetPlanningTask->getParentTask() === null){
+                $lotId = $projetPlanningTask->getId();
+            } elseif ($projetPlanningTask->getParentTask()->getParentTask() === null){
+                $lotId = $projetPlanningTask->getParentTask()->getId();
+            } else {
+                $lotId = $projetPlanningTask->getParentTask()->getParentTask()->getId();
+            }
+            $linkFaitMarquant = $this->generateUrl('corp_app_fo_fait_marquant_ajouter', ['projetId' => $projet->getId(), 'link_task' => $lotId]);
         }
 
         $startdDate = \DateTime::createFromFormat('d/m/Y H:i', $request->request->get('start_date') . ' 00:00');
@@ -278,5 +286,4 @@ class ProjetPlanningController extends AbstractController
 
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
     }
-
 }

@@ -61,7 +61,7 @@
         </ul>
     </div>
 
-    <div id="project_planning_content" data-societe-raison-sociale="{{ projet.societe.raisonSociale }}" data-project-id="{{ projet.id }}" data-project-acronyme="{{ projet.acronyme }}" data-can-edit="{{ userCanEditProjet ? 1 : 0 }}"></div>
+    <div id="project_planning_content" data-societe-raison-sociale="{{ projet.societe.raisonSociale }}" data-project-id="{{ projet.id }}" data-project-acronyme="{{ projet.acronyme }}" data-start-date="{{ projet.dateDebut ? (projet.dateDebut | date('Y-m-d')) : "" }}" data-can-edit="{{ userCanEditProjet ? 1 : 0 }}"></div>
 
     <div class="modal fade" id="assignUsers" tabindex="-1" role="dialog" aria-labelledby="assignUsersLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
