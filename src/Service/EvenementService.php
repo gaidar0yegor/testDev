@@ -86,6 +86,6 @@ class EvenementService
 
     private static function getFloatHoursDiffDatetimes(\DateTime $dateInf, \DateTime $dateSup) : float
     {
-        return ($dateSup->getTimestamp() - $dateInf->getTimestamp()) / 60 / 60;
+        return round(($dateSup->getTimestamp() - $dateInf->getTimestamp()) / 60 / 60, 2);
     }
 }

@@ -28,3 +28,5 @@ doctrine:
             string_functions:
                 MONTH: DoctrineExtensions\Query\Mysql\Month
                 YEAR: DoctrineExtensions\Query\Mysql\Year
+                JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
+                JSON_KEYS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonKeys

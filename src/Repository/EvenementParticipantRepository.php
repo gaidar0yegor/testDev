@@ -81,4 +81,41 @@ class EvenementParticipantRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+
+    /**
+     * @param SocieteUser $societeUser
+     * @param \DateTimeInterface $month
+     * @return array : nombre d'heures passé dans chaque evenement par jours par projet (projetId = array keys)
+     */
+    public function getHeuresBySocieteUserByMonth(SocieteUser $societeUser, array $projetIds, \DateTimeInterface $month): array
+    {
+        $heures = $this->createQueryBuilder('evenement_participant')
+            ->select('evenement_participant.heures, projet.id as projetId')
+            ->leftJoin('evenement_participant.evenement', 'evenement')
+            ->leftJoin('evenement.projet', 'projet')
+            ->where('evenement_participant.societeUser = :societeUser')
+            ->andWhere("JSON_KEYS(evenement_participant.heures) LIKE '%" . $month->format('Y-m') . "%'")
+            ->andWhere('evenement_participant.required = true')
+            ->andWhere('projet.id IN (:projetIds)')
+            ->setParameters([
+                'societeUser' => $societeUser,
+                'projetIds' => $projetIds,
+            ])
+            ->getQuery()->getResult();
+
+        $eventsTempsPasse = [];
+        foreach ($heures as $heure){
+            $eventsTempsPasse[$heure['projetId']][] = $heure['heures'][$month->format('Y-m')];
+        }
+
+        $tempsPasseByProjet = [];
+        foreach ($eventsTempsPasse as $projetId => $eventTempsPasse){
+            $tempsPasseByProjet[$projetId] = count($eventTempsPasse) === 1
+                ? $eventTempsPasse[0]
+                : array_map('array_sum', array_map(null, ...array_values($eventTempsPasse)));
+        }
+dd($tempsPasseByProjet);
+        return $tempsPasseByProjet;
+    }
 }
