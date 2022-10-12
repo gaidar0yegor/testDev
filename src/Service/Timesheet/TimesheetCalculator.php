@@ -7,10 +7,11 @@ use App\DTO\Timesheet;
 use App\DTO\TimesheetProjet;
 use App\Entity\Cra;
 use App\Entity\ProjetParticipant;
+use App\Entity\Societe;
 use App\Entity\SocieteUser;
 use App\Entity\TempsPasse;
-use App\Entity\User;
 use App\Exception\TimesheetException;
+use App\Repository\EvenementParticipantRepository;
 use App\Service\CraService;
 use App\Service\DateMonthService;
 
@@ -20,6 +21,8 @@ class TimesheetCalculator
 
     private UserMonthCraRepositoryInterface $craRepository;
 
+    private EvenementParticipantRepository $evenementParticipantRepository;
+
     private CraService $craService;
 
     private DateMonthService $dateMonthService;
@@ -27,32 +30,61 @@ class TimesheetCalculator
     public function __construct(
         UserContributingProjetRepositoryInterface $participationRepository,
         UserMonthCraRepositoryInterface $craRepository,
+        EvenementParticipantRepository $evenementParticipantRepository,
         CraService $craService,
         DateMonthService $dateMonthService
     ) {
         $this->participationRepository = $participationRepository;
         $this->craRepository = $craRepository;
+        $this->evenementParticipantRepository = $evenementParticipantRepository;
         $this->craService = $craService;
         $this->dateMonthService = $dateMonthService;
     }
 
-    public function generateTimesheetProjet(ProjetParticipant $participation, Cra $cra): TimesheetProjet
+    /**
+     * @param ProjetParticipant[] $projetParticipants
+     * @param Cra $cra
+     * @return TimesheetProjet[]
+     * @throws TimesheetException
+     */
+    public function generateTimesheetProjets(array $projetParticipants, Cra $cra): array
     {
-        $tempsPasse = $this->getTempsPassesOnProjet($cra, $participation);
+        $societeUser = $cra->getSocieteUser();
+        $this->craService->uncheckJoursNotBelongingToSociete($cra, $societeUser);
 
-        if (null === $tempsPasse) {
-            return new TimesheetProjet($participation);
+        $tempsPasses = [];
+        foreach ($projetParticipants as $projetParticipant){
+            $tempsPasse = $this->getTempsPassesOnProjet($cra, $projetParticipant);
+            if (null === $tempsPasse) {
+                $tempsPasse = new TimesheetProjet($projetParticipant);
+            }
+            $tempsPasses[$projetParticipant->getProjet()->getId()] = $tempsPasse;
         }
 
-        $workedHours = $this->calculateWorkedHoursPerDay($tempsPasse);
+        if ($societeUser->getSociete()->getTimesheetGranularity() === Societe::GRANULARITY_DAILY){
+            $workedHoursProjets = $this->generateWorkedHoursPerDayForDaiy($cra, $tempsPasses);
+        } else {
+            $workedHoursProjets = $this->generateWorkedHoursPerDay($cra, $tempsPasses);
+        }
 
-        return new TimesheetProjet(
-            $participation,
-            $tempsPasse,
-            $workedHours
-        );
+        $timesheetProjets = [];
+        foreach ($projetParticipants as $projetParticipant){
+            $timesheetProjets[] = new TimesheetProjet(
+                $projetParticipant,
+                $tempsPasses[$projetParticipant->getProjet()->getId()],
+                $workedHoursProjets[$projetParticipant->getProjet()->getId()]
+            );
+        }
+
+        return $timesheetProjets;
     }
 
+    /**
+     * @param SocieteUser $societeUser
+     * @param \DateTime $month
+     * @return Timesheet
+     * @throws TimesheetException
+     */
     public function generateTimesheet(SocieteUser $societeUser, \DateTime $month): Timesheet
     {
         $month = $this->dateMonthService->normalize($month);
@@ -68,16 +100,17 @@ class TimesheetCalculator
         }
 
         $participations = $this->participationRepository->findProjetsContributingUser($cra->getSocieteUser());
-        $timesheetProjets = [];
 
+        $projetParticipants = [];
         foreach ($participations as $participation) {
             if (!$this->dateMonthService->isProjetActiveInMonth($participation->getProjet(), $month)) {
                 continue;
             }
 
-            $timesheetProjets[] = $this->generateTimesheetProjet($participation, $cra);
+            $projetParticipants[] = $participation;
         }
 
+        $timesheetProjets = $this->generateTimesheetProjets($projetParticipants, $cra);
         return new Timesheet(
             $cra,
             $timesheetProjets
@@ -107,29 +140,108 @@ class TimesheetCalculator
     }
 
     /**
-     * @return float[] Grille d'heure par jours sur un mois
+     * @param Cra $cra
+     * @param TempsPasse[] $tempsPasses
+     * @return array
+     * @throws TimesheetException
      */
-    public function calculateWorkedHoursPerDay(TempsPasse $tempsPasse): array
+    public function generateWorkedHoursPerDay(Cra $cra, array $tempsPasses): array
     {
-        $cra = $tempsPasse->getCra();
+        $societeUser = $cra->getSocieteUser();
+        $heuresParJours = Timesheet::getUserHeuresParJours($societeUser);
+        $this->craService->uncheckJoursNotBelongingToSociete($cra, $societeUser);
+
+        $presenceJours = $cra->getJours();
+        $totalHeurePasse = array_sum($presenceJours) * $heuresParJours;
+
+        $projetIds = [];
+        $tempsPasseProjets = [];
+
+        foreach ($tempsPasses as $tempsPasse){
+            $projetIds[] = $tempsPasse->getProjet()->getId();
+            $tempsPasseProjets[$tempsPasse->getProjet()->getId()] = ($totalHeurePasse * (array_sum($tempsPasse->getPourcentages()) / count($tempsPasse->getPourcentages()))) / 100;
+        }
+        arsort($tempsPasseProjets);
+
+        $eventsHeuresPasseProjets = $this->evenementParticipantRepository->getHeuresBySocieteUserByMonth($societeUser, $projetIds, $cra->getMois());
+
+        foreach ($projetIds as $projetId){
+            if (!array_key_exists($projetId, $eventsHeuresPasseProjets)){
+                $eventsHeuresPasseProjets[$projetId] = array_fill(0, count($cra->getJours()), null);
+            }
+        }
+
+        // premier passage remplissage par demi journée
+        foreach ($tempsPasseProjets as $projetId => $tempsPasseProjet){
+            foreach ($eventsHeuresPasseProjets[$projetId] as $jour => $heuresJour){
+                $sumHeuresProjet = array_sum($eventsHeuresPasseProjets[$projetId]);
+                if (null === $heuresJour){
+                    $sumHeuresJour = array_sum(array_column($eventsHeuresPasseProjets,$jour));
+                    $maxHeuresJour = $presenceJours[$jour] * $heuresParJours;
+                    if (
+                        ($tempsPasseProjet >= $sumHeuresProjet) &&
+                        ($maxHeuresJour / 2) + $sumHeuresJour <= $maxHeuresJour
+                    ){
+                        $eventsHeuresPasseProjets[$projetId][$jour] = min($tempsPasseProjet - $sumHeuresProjet, ($maxHeuresJour / 2));
+                    } else {
+                        $eventsHeuresPasseProjets[$projetId][$jour] = 0;
+                    }
+                }
+            }
+        }
+
+
+        // completer les heures par projet
+        foreach ($tempsPasseProjets as $projetId => $tempsPasseProjet){
+            if (array_sum($eventsHeuresPasseProjets[$projetId]) === $tempsPasseProjet){
+                continue;
+            }
+
+            foreach ($eventsHeuresPasseProjets[$projetId] as $jour => $heuresJour){
+                $sumHeuresProjet = array_sum($eventsHeuresPasseProjets[$projetId]);
+                $sumHeuresJour = array_sum(array_column($eventsHeuresPasseProjets, $jour));
+                $maxHeuresJour = $presenceJours[$jour] * $heuresParJours;
+
+                if (($tempsPasseProjet > $sumHeuresProjet) && ($maxHeuresJour > $sumHeuresJour)){
+                    $eventsHeuresPasseProjets[$projetId][$jour] += min(
+                        $tempsPasseProjet - $sumHeuresProjet,
+                        $maxHeuresJour - $sumHeuresJour
+                    );
+                }
+            }
+        }
+
+        return $eventsHeuresPasseProjets;
+    }
+
+    /**
+     * @return float[] Lisser les heures de travaille par jours sur un mois
+     */
+    private function generateWorkedHoursPerDayForDaiy(Cra $cra, array $tempsPasses): array
+    {
         $societeUser = $cra->getSocieteUser();
         $heuresParJours = Timesheet::getUserHeuresParJours($societeUser);
 
         $this->craService->uncheckJoursNotBelongingToSociete($cra, $societeUser);
 
-        return array_map(
-            function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse) {
-                $day = (new \DateTime($tempsPasse->getCra()->getMois()->format('d-m-Y')))->modify("+$key days");
+        $workedHoursProjets = [];
+        foreach ($tempsPasses as $tempsPasse){
+            $workedHoursProjets[$tempsPasse->getProjet()->getId()] = array_map(
+                function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse) {
+                    $day = (new \DateTime($tempsPasse->getCra()->getMois()->format('d-m-Y')))->modify("+$key days");
 
-                if (!$tempsPasse->getProjet()->isProjetActiveInDate($day)) {
-                    return 0.0;
-                }
+                    if (!$tempsPasse->getProjet()->isProjetActiveInDate($day)) {
+                        return 0.0;
+                    }
 
-                return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage($key)) / 100.0;
-            },
-            $cra->getJours(),
-            array_keys($cra->getJours())
-        );
+                    return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage($key)) / 100.0;
+                },
+                $cra->getJours(),
+                array_keys($cra->getJours())
+            );
+        }
+
+        return $workedHoursProjets;
     }
 
     private function getTempsPassesOnProjet(Cra $cra, ProjetParticipant $projetParticipant): ?TempsPasse

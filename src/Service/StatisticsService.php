@@ -2,10 +2,12 @@
 
 namespace App\Service;
 
+use App\DTO\Timesheet;
 use App\Entity\DashboardConsolide;
 use App\Entity\Projet;
 use App\Entity\Societe;
 use App\Entity\SocieteUser;
+use App\Entity\TempsPasse;
 use App\Entity\User;
 use App\Repository\CraRepository;
 use App\Repository\ProjetRepository;
@@ -24,6 +26,8 @@ class StatisticsService
 
     private CraRepository $craRepository;
 
+    private CraService $craService;
+
     private TimesheetCalculator $timesheetCalculator;
 
     public function __construct(
@@ -31,12 +35,14 @@ class StatisticsService
         ProjetRepository $projetRepository,
         SocieteUserRepository $societeUserRepository,
         CraRepository $craRepository,
+        CraService $craService,
         TimesheetCalculator $timesheetCalculator
     ) {
         $this->tempsPasseRepository = $tempsPasseRepository;
         $this->projetRepository = $projetRepository;
         $this->societeUserRepository = $societeUserRepository;
         $this->craRepository = $craRepository;
+        $this->craService = $craService;
         $this->timesheetCalculator = $timesheetCalculator;
     }
 
@@ -120,7 +126,7 @@ class StatisticsService
 
         foreach ($tempsPasses as $tempsPasse) {
             $totalHours += array_sum(
-                $this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)
+                $this->calculateWorkedHoursPerDay($tempsPasse)
             );
         }
 
@@ -142,7 +148,7 @@ class StatisticsService
                 $heuresPassees[$projetIndex] = 0.0;
             }
 
-            $hoursPerDay = $this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse);
+            $hoursPerDay = $this->calculateWorkedHoursPerDay($tempsPasse);
             $heuresPassees[$projetIndex] += array_sum($hoursPerDay);
         }
 
@@ -180,7 +186,7 @@ class StatisticsService
                     case 'percent':
                         $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = $tempsPasse->getPourcentage();break;
                     case 'hour':
-                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = round(array_sum($this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
+                        $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = round(array_sum($this->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
                     default:
                         $tempsPasses[$tempsPasse->getProjet()->getAcronyme()] = $tempsPasse->getPourcentage();break;
                 }
@@ -202,7 +208,7 @@ class StatisticsService
 
         $tempsTotal = 0;
         foreach ($tempsPasses as $tempsPasse) {
-            $tempsTotal += round(array_sum($this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);
+            $tempsTotal += round(array_sum($this->calculateWorkedHoursPerDay($tempsPasse)), 1);
         }
 
         return $tempsTotal;
@@ -228,12 +234,38 @@ class StatisticsService
                 case 'percent':
                     $data[$month][$user] = $tempsPasse->getPourcentage();break;
                 case 'hour':
-                    $data[$month][$user] = round(array_sum($this->timesheetCalculator->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
+                    $data[$month][$user] = round(array_sum($this->calculateWorkedHoursPerDay($tempsPasse)), 1);break;
                 default:
                     $data[$month][$user] = $tempsPasse->getPourcentage();break;
             }
         }
 
         return $data;
+    }
+
+    /**
+     * @return float[] Lisser les heures de travaille par jours sur un mois
+     */
+    private function calculateWorkedHoursPerDay(TempsPasse $tempsPasse): array
+    {
+        $cra = $tempsPasse->getCra();
+        $societeUser = $cra->getSocieteUser();
+        $heuresParJours = Timesheet::getUserHeuresParJours($societeUser);
+
+        $this->craService->uncheckJoursNotBelongingToSociete($cra, $societeUser);
+
+        return array_map(
+            function (float $presenceJour, int $key) use ($heuresParJours, $tempsPasse) {
+                $day = (new \DateTime($tempsPasse->getCra()->getMois()->format('d-m-Y')))->modify("+$key days");
+
+                if (!$tempsPasse->getProjet()->isProjetActiveInDate($day)) {
+                    return 0.0;
+                }
+
+                return ($heuresParJours * $presenceJour * $tempsPasse->getPourcentage($key)) / 100.0;
+            },
+            $cra->getJours(),
+            array_keys($cra->getJours())
+        );
     }
 }

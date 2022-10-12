@@ -32,6 +32,7 @@ Cron\CronBundle\Entity\CronReport:
         runTime: 1.234
         exitCode: 0
         output: Run successfully
+        error: ''
 
 App\Entity\Societe:
     societe:

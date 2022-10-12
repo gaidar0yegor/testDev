@@ -95,7 +95,7 @@ class EvenementParticipantRepository extends ServiceEntityRepository
             ->leftJoin('evenement_participant.evenement', 'evenement')
             ->leftJoin('evenement.projet', 'projet')
             ->where('evenement_participant.societeUser = :societeUser')
-            ->andWhere("JSON_KEYS(evenement_participant.heures) LIKE '%" . $month->format('Y-m') . "%'")
+            ->andWhere("evenement_participant.heures LIKE '%" . $month->format('Y-m') . "%'")
             ->andWhere('evenement_participant.required = true')
             ->andWhere('projet.id IN (:projetIds)')
             ->setParameters([
@@ -114,8 +114,10 @@ class EvenementParticipantRepository extends ServiceEntityRepository
             $tempsPasseByProjet[$projetId] = count($eventTempsPasse) === 1
                 ? $eventTempsPasse[0]
                 : array_map('array_sum', array_map(null, ...array_values($eventTempsPasse)));
+
+            foreach($tempsPasseByProjet[$projetId] as $key => $eventsHeure) if($eventsHeure === 0) $tempsPasseByProjet[$projetId][$key] = null;
         }
-dd($tempsPasseByProjet);
+
         return $tempsPasseByProjet;
     }
 }

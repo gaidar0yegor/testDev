@@ -46,7 +46,9 @@ class CalculEvenementParticipantHeuresCommand extends Command
 
         $count = 0;
         foreach ($evenementParticipants as $evenementParticipant) {
-            if (null === $evenementParticipant->getProjet() || null !== $evenementParticipant->getHeures()) continue;
+            if (
+                null === $evenementParticipant->getProjet()
+            ) continue;
 
             try {
                 $heuresMonths = $this->evenementService->generateHeuresMonths($evenementParticipant);

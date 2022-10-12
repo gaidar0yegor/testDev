@@ -25,7 +25,8 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
                                 "acronyme": "P1",
                                 "colorCode": "#e9ece6"
                             },
-                            "pourcentage": 0
+                            "pourcentage": 0,
+                            "pourcentageMin": 0
                         },
                         {
                             "id": null,
@@ -35,7 +36,8 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
                                 "acronyme": "P2",
                                 "colorCode": "#e9ece6"
                             },
-                            "pourcentage": 0
+                            "pourcentage": 0,
+                            "pourcentageMin": 0
                         },
                         {
                             "id": null,
@@ -45,7 +47,8 @@ Feature: Saisie des temps passés en pourcentage sur les projets dont l'utilisat
                                 "acronyme": "P3",
                                 "colorCode": "#e9ece6"
                             },
-                            "pourcentage": 0
+                            "pourcentage": 0,
+                            "pourcentageMin": 0
                         }
                     ],
                     "isUserBelongingToSociete":false
