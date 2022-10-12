@@ -10,7 +10,11 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\DTO\ListCurrencies;
 
@@ -25,6 +29,18 @@ class SocieteType extends AbstractType
             ->add('siret')
             ->add('heuresParJours', NumberType::class, [
                 'label' => "Heures par jour"
+            ])
+            ->add('workStartTime', TextType::class, [
+                'label' => "Heure de début du travail",
+                'attr' => [
+                    'placeholder' => Societe::DEFAULT_WORK_START_TIME
+                ]
+            ])
+            ->add('workEndTime', TextType::class, [
+                'label' => "Heure de fin du travail",
+                'attr' => [
+                    'placeholder' => Societe::DEFAULT_WORK_END_TIME
+                ]
             ])
             ->add('coutEtp', NumberType::class, [
                 'label' => "Coût moyen horaire de l'ETP ({$societe->getCurrency()}/h)"
@@ -55,7 +71,9 @@ class SocieteType extends AbstractType
                     Societe::GRANULARITY_WEEKLY => 'fa-calendar-minus-o',
                     Societe::GRANULARITY_DAILY => 'fa-calendar',
                 ],
-            ]);
+            ])
+            ->addEventListener(FormEvents::SUBMIT, [$this, 'verifyHeuresParJours'])
+        ;
         if (ProductPrivilegeCheker::checkProductPrivilege($societe, ProductPrivileges::FAIT_MARQUANT_DESCRIPTION_SIZE)) {
             $builder
                 ->add('faitMarquantMaxDesc', ChoiceType::class, [
@@ -71,6 +89,19 @@ class SocieteType extends AbstractType
                     'label' => 'isBlocking',
                     'required' => false,
                 ]);
+        }
+    }
+
+    public function verifyHeuresParJours(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $data = $event->getData();
+        $workStartTime = new \DateTime($data->getWorkStartTime() . ':00');
+        $workEndTime = new \DateTime($data->getWorkEndTime() . ':00');
+        $diff = $workStartTime->diff($workEndTime)->h;
+
+        if ($data->getHeuresParJours() > $diff){
+            $form->addError(new FormError("Le nombre d'heures de travail n'est pas compatible avec la plage horaire indiquée."));
         }
     }
 

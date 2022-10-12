@@ -35,6 +35,11 @@ class EvenementParticipant implements HasSocieteInterface
      */
     private $societeUser;
 
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $heures = [];
+
     public static function create(Evenement $evenement, SocieteUser $societeUser, bool $required): self
     {
         return (new self())
@@ -71,7 +76,7 @@ class EvenementParticipant implements HasSocieteInterface
         return $this->societeUser;
     }
 
-    public function getProjet(): Projet
+    public function getProjet(): ?Projet
     {
         return $this->evenement->getProjet();
     }
@@ -96,6 +101,18 @@ class EvenementParticipant implements HasSocieteInterface
     public function setSocieteUser(?SocieteUser $societeUser): self
     {
         $this->societeUser = $societeUser;
+
+        return $this;
+    }
+
+    public function getHeures(): ?array
+    {
+        return $this->heures;
+    }
+
+    public function setHeures(array $heures): self
+    {
+        $this->heures = $heures;
 
         return $this;
     }

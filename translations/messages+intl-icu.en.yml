@@ -258,6 +258,10 @@ projet.geolocalisation: Geolocation
 user.role: Role
 user.heuresParJours: Hours worked per day
 user.heuresParJours.help: You can specify the number of daily working hours for this employee.
+user.workStartTime: Work start time
+user.workStartTime.help: You can specify the work start time for this employee.
+user.workEndTime: Work end time
+user.workEndTime.help: You can specify the work end time for this employee.
 societeUserPeriod.dateEntry: Date of entry into the company
 societeUserPeriod.dateLeave: Date of exit from the company
 default_value_used_in_timesheets.: Value by default, used to create timesheets.
@@ -476,6 +480,7 @@ MEETING: Meeting
 EVENT: Event
 ABSENCE: Absence
 OTHER: Other
+invitation_not_accepted: Invitation not accepted
 allString: All
 editFile: Edit a file
 go_back_go_files: Return to files list

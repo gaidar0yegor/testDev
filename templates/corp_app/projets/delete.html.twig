@@ -152,7 +152,11 @@
 
         <ul class="mt-2">
             {% for projetObservateurExterne in projet.projetObservateurExternes[-preview:] %}
-                <li>{{ projetObservateurExterne.user.fullname }}</li>
+                {% if projetObservateurExterne.user %}
+                    <li>{{ projetObservateurExterne.user.fullnameOrEmail }}</li>
+                {% else %}
+                    <li>{{ projetObservateurExterne.invitationEmail }} <i>({{ 'invitation_not_accepted'|trans }})</i></li>
+                {% endif %}
             {% endfor %}
             {% if projet.projetObservateurExternes|length > preview %}
                 <li><i>{{ '...and_n_others'|trans({'n': projet.projetObservateurExternes|length - preview}) }}</i></li>

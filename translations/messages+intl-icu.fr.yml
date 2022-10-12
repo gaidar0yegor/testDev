@@ -373,6 +373,10 @@ projet.geolocalisation: "Géolocalisation"
 user.role: Rôle
 user.heuresParJours: "Heures travaillées par jour"
 user.heuresParJours.help: "Vous pouvez spécifier le nombre d'heures de travail journalier de ce collaborateur."
+user.workStartTime: "Heure de début du travail"
+user.workStartTime.help: "Vous pouvez spécifier l'heure de début du travail de ce collaborateur."
+user.workEndTime: "Heure de fin du travail"
+user.workEndTime.help: "Vous pouvez spécifier l'heure de fin du travail de ce collaborateur."
 societeUserPeriod.dateEntry: Date d'entrée dans la société
 societeUserPeriod.dateLeave: Date de sortie de la société
 add_external_link: Ajouter un lien externe
@@ -485,6 +489,7 @@ MEETING: 'Réunion'
 EVENT: 'Évènement'
 ABSENCE: 'Absence'
 OTHER: 'Autre'
+invitation_not_accepted: "Invitation non acceptée"
 allString: Tous
 editFile: Modifier un fichier
 go_back_go_files: Retourner à la liste des fichiers

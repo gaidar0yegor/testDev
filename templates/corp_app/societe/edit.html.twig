@@ -11,12 +11,15 @@
     </a>
 
     {{ form_start(form) }}
+    {{ form_errors(form) }}
 
     <div class="row">
         <div class="col-md-6">
             {{ form_row(form.raisonSociale) }}
             {{ form_row(form.siret) }}
             {{ form_row(form.heuresParJours) }}
+            {{ form_row(form.workStartTime) }}
+            {{ form_row(form.workEndTime) }}
             {{ form_row(form.coutEtp) }}
             {{ form_row(form.currency) }}
             {{ form.faitMarquantMaxDesc is defined ? form_row(form.faitMarquantMaxDesc) : ''}}

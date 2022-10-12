@@ -53,19 +53,28 @@
                                 <div class="input-group-append">
                                     <label :for="'temps_passe_pourcentage_' + tempsPasse.id"
                                            v-tippy="{content: tempsPasse.projet.titre}"
-                                           class="input-group-text min-w-12"
+                                           class="input-group-text min-w-12 d-flex flex-column justify-content-start align-items-start pb-1"
                                     >
-                                        <span class="badge d-inline-block rounded-circle mt-1 mr-2" :style="{ 'background-color': tempsPasse.projet.colorCode, 'width': '15px', 'height': '15px' }"></span>
-                                        {{ t('project_heading', {project_name: tempsPasse.projet.acronyme}) }}
+                                        <div>
+                                            <span class="badge d-inline-block rounded-circle mt-1 mr-2" :style="{ 'background-color': tempsPasse.projet.colorCode, 'width': '15px', 'height': '15px' }"></span>
+                                            {{ t('project_heading', {project_name: tempsPasse.projet.acronyme}) }}
+                                        </div>
+                                        <a
+                                                href="javascript:;"
+                                                v-if="tempsPasse.pourcentageMin"
+                                                class="f-s-75"
+                                        >
+                                            <i class="fa fa-exclamation-circle"></i> {{ t('help_percentage', {min: tempsPasse.pourcentageMin}) }}
+                                        </a>
                                     </label>
                                 </div>
                                 <input
                                     v-model="tempsPasse.pourcentage"
                                     type="number"
-                                    class="form-control"
-                                    :class="{'is-invalid': !validPercentage(tempsPasse.pourcentage) || !validPercentagesSum(cra.tempsPasses)}"
+                                    class="form-control h-auto"
+                                    :class="{'is-invalid': !validPercentage(tempsPasse.pourcentage, tempsPasse.pourcentageMin) || !validPercentagesSum(cra.tempsPasses)}"
                                     :id="'temps_passe_pourcentage_' + tempsPasse.id"
-                                    min="0"
+                                    :min="tempsPasse.pourcentageMin"
                                     max="100"
                                     placeholder="0"
                                     required
@@ -80,7 +89,7 @@
                         v-if="!validCra(cra)" 
                         class="text-danger text-center"
                     >
-                        {{ t('invalid_percentages') }}
+                        {{ t('invalid_percentages', {min: sumPercentageMin(cra.tempsPasses)}) }}
                     </p>
                     <button
                         type="submit"
@@ -224,16 +233,22 @@ export default {
             return format(date, 'EEEE d LLLL yyyy', {locale});
         },
 
-        validPercentage(percentage) {
-            return percentage >= 0 && percentage <= 100;
+        sumPercentageMin(tempsPasses) {
+            return tempsPasses.reduce((sum, tempsPasse) => sum + tempsPasse.pourcentageMin, 0);
+        },
+
+        validPercentage(percentage, min) {
+            return percentage >= min && percentage <= 100;
         },
 
         validPercentagesSum(tempsPasses) {
-            return this.validPercentage(tempsPasses.reduce((sum, tempsPasse) => sum + parseInt(tempsPasse.pourcentage, 10), 0));
+            const sumPercentage = tempsPasses.reduce((sum, tempsPasse) => sum + parseInt(tempsPasse.pourcentage, 10), 0);
+
+            return this.validPercentage(sumPercentage, this.sumPercentageMin(tempsPasses));
         },
 
         validCra(cra) {
-            if (cra.tempsPasses.some(tempsPasse => !this.validPercentage(tempsPasse.pourcentage))) {
+            if (cra.tempsPasses.some(tempsPasse => !this.validPercentage(tempsPasse.pourcentage, tempsPasse.pourcentageMin))) {
                 return false;
             }
 
@@ -259,6 +274,9 @@ export default {
     }
     .min-w-12{
         min-width: 12rem;
+    }
+    .f-s-75{
+        font-size: 0.75rem;
     }
     @media (max-width: 945px) {
         .w-sm-100{

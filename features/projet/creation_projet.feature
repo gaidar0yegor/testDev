@@ -36,6 +36,6 @@ Feature: Création de projet
 
         When I check "User Eureka"
         And I check "Admin Eureka"
-        And I press "Ajouter ces contributeurs"
+        And I press "Ajouter des contributeurs"
         Then I should find toastr message "Les 2 contributeurs ont été ajoutés au projet"
         And I should see "Contributeurs (3)"
