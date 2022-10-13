@@ -37,13 +37,15 @@ class ProjectFileHandler implements FileHandlerInterface
 
         $fichier->setDefaultFilename();
 
-        $filename = $fichierProjet->getRelativeFilePath();
-        $stream = fopen($fichier->getFile()->getRealPath(), 'r+');
+        if (null !== $fichier->getFile()){
+            $filename = $fichierProjet->getRelativeFilePath();
+            $stream = fopen($fichier->getFile()->getRealPath(), 'r+');
 
-        $this->storage->writeStream($filename, $stream);
+            $this->storage->writeStream($filename, $stream);
 
-        if (is_resource($stream)) {
-            fclose($stream);
+            if (is_resource($stream)) {
+                fclose($stream);
+            }
         }
     }
 
@@ -63,6 +65,8 @@ class ProjectFileHandler implements FileHandlerInterface
 
     public function delete(FichierProjet $fichierProjet): void
     {
-        $this->storage->delete($fichierProjet->getRelativeFilePath());
+        if ($this->storage->has($fichierProjet->getRelativeFilePath())){
+            $this->storage->delete($fichierProjet->getRelativeFilePath());
+        }
     }
 }

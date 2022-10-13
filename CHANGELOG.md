@@ -8,6 +8,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Ne pas avoir un chevauchement des événements sur les plannings des projets
 - Export feuilles de temps réaliste
+- Joindre des fichiers à travers des liens externes
 ### Réparé
 - Export du projet en PDF
 

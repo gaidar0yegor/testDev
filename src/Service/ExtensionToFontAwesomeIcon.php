@@ -6,6 +6,8 @@ class ExtensionToFontAwesomeIcon
 {
     public const DEFAULT_ICON = 'fa-file-o';
 
+    public const EXTERNAL_LINK_ICON = 'fa-link';
+
     public const MAPPER = [
         'fa-file-audio-o' => [
             'aif',
@@ -31,7 +33,6 @@ class ExtensionToFontAwesomeIcon
             'tar.gz',
             'z',
             'zip',
-
             'bin',
             'dmg',
             'iso',
@@ -150,6 +151,9 @@ class ExtensionToFontAwesomeIcon
 
     public function getIconForExtension(string $extension): string
     {
+        if (!$extension){
+            return self::EXTERNAL_LINK_ICON;
+        }
         if (!isset($this->extensionToIcon[$extension])) {
             return self::DEFAULT_ICON;
         }

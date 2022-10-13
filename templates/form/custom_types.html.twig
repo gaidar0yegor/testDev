@@ -115,10 +115,19 @@
             {% if is_granted(constant('App\\ProjetResourceInterface::CREATE'), form.vars.projet) %}
                 <tr>
                     <td colspan="5">
-                        <button class="btn btn-outline-primary add-file-btn" type="button">
-                            <i class="fa fa-plus" aria-hidden="true"></i>
-                            {{ 'add_file_btn'|trans }}
-                        </button>
+                        <div class="input-group add-file-btn-input-group">
+                            <span class="label d-flex flex-column justify-content-center align-column-center p-2">
+                                <label>{{ 'add_file_btn'|trans }}</label>
+                            </span>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary add-file-btn" title="Joindre un fichier" data-upload-type="localFile" type="button">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                </button>
+                                <button class="btn btn-outline-primary add-file-btn" title="Insérer un lien" data-upload-type="externalLink" type="button">
+                                    <i class="fa fa-link" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             {% endif %}
@@ -164,7 +173,7 @@
                             'projetId': form.vars.data.projet.id,
                             'fichierProjetId': form.vars.data.id,
                             'download': '',
-                        }) }}" class="btn btn-outline-success btn-sm mr-2" title="{{ 'download'|trans }}">
+                        }) }}" target="_blank" class="btn btn-outline-success btn-sm mr-2" title="{{ 'download'|trans }}">
                             <i class="fa fa-download" aria-hidden="true"></i>
                         </a>
                         <a href="{{ path('corp_app_fo_projet_fichier_modifier', {
@@ -199,9 +208,15 @@
                     <div class="row">
                         <div class="col-md-12 mb-1">
                             {{ form_errors(form.children.fichier.file) }}
+                            {{ form_errors(form.children.fichier.externalLink) }}
                         </div>
                         <div class="col-md-3 col-sm-12">
-                            {{ form_widget(form.children.fichier.file) }}
+                            <div class="target-upload-type" data-target-upload-type="localFile">
+                                {{ form_widget(form.children.fichier.file) }}
+                            </div>
+                            <div class="target-upload-type" data-target-upload-type="externalLink">
+                                {{ form_widget(form.children.fichier.externalLink) }}
+                            </div>
                         </div>
                         <div class="col-md-6 col-sm-12">
                             {{ form_widget(form.children.fichier.nomFichier) }}

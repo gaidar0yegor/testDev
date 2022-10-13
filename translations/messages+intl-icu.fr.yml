@@ -464,6 +464,7 @@ societe_disabled_contact_rdi: 'Cette société à été désactivée !! Merci de
 add_file_success: "La liste des fichiers a été mise à jour avec succès"
 edit_file_success: "Votre fichier {oldName} a bien été modifié en {newName}"
 download: "Télécharger"
+open_external_link: "Ouvrir le lien externe"
 see_more: "Voir plus ..."
 societeUser.societeUserPeriods: "Les périodes"
 verif_date_leave_on_disable_user: "Pour désactiver le compte de {user}, veuillez préciser sa date de sortie de la société."

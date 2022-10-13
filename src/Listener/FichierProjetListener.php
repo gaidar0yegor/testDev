@@ -39,7 +39,7 @@ class FichierProjetListener
             $em->flush();
         }
 
-        if (isset($changes['dossierFichierProjet'])){
+        if (isset($changes['dossierFichierProjet']) && null === $fichierProjet->getFichier()->getExternalLink()){
             $oldRelativeFilePath = $fichierProjet->getRelativeProjetLocationPath() .
                 ($changes['dossierFichierProjet'][0] === null ? "" : ($changes['dossierFichierProjet'][0])->getNomMd5() . "/") .
                 $fichierProjet->getFichier()->getNomMd5();

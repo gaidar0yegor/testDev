@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Serializable;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Serializer\Annotation\Groups;
+use App\Validator as AppAssert;
 
 /**
  * @ORM\Entity(repositoryClass=FichierRepository::class)
@@ -48,6 +49,11 @@ class Fichier implements Serializable
      * @var UploadedFile
      */
     private $file;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $externalLink;
 
     public function __construct()
     {
@@ -109,8 +115,19 @@ class Fichier implements Serializable
 
     public function setDefaultFilename(): self
     {
-        $fileName = md5(uniqid()).'.'.$this->file->guessExtension();
-        $nomFichier = null === $this->nomFichier ? $this->file->getClientOriginalName() : $this->nomFichier.'.'.$this->file->guessExtension();
+        $extension = null !== $this->file ? '.' . $this->file->guessExtension() : '';
+        $fileName = md5(uniqid()) . $extension;
+
+        if (null === $this->nomFichier){
+            if (null !== $this->file){
+                $nomFichier = $this->file->getClientOriginalName();
+            } else {
+                $nomFichier = $fileName;
+            }
+        } else {
+            $nomFichier =  $this->nomFichier . $extension;
+        }
+
         $this
             ->setNomFichier($nomFichier)
             ->setNomMd5($fileName)
@@ -137,5 +154,17 @@ class Fichier implements Serializable
             $this->nomFichier,
             $this->dateUpload,
         ) = unserialize($data);
+    }
+
+    public function getExternalLink(): ?string
+    {
+        return $this->externalLink;
+    }
+
+    public function setExternalLink(?string $externalLink): self
+    {
+        $this->externalLink = $externalLink;
+
+        return $this;
     }
 }
