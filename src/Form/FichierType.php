@@ -24,12 +24,19 @@ class FichierType extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'label' => false,
-                'required' 	=> true,
+                'required' 	=> false,
                 'constraints' => [
                     new File([
                         'maxSize' => Fichier::MAX_FILE_SIZE,
                     ]),
                 ],
+            ])
+            ->add('externalLink', TextType::class, [
+                'label' => false,
+                'required' 	=> false,
+                'attr' => [
+                    'placeholder' => 'Lien externe du fichier ...',
+                ]
             ])
             ->add('nomFichier', TextType::class, [
                 'label' => false,

@@ -99,7 +99,7 @@ class FichierProjetType extends AbstractType
         $fichier = $fichierProjet->getFichier();
 
         // In case file has already been imported and entity is just updating
-        if (null === $fichier->getFile()) {
+        if (null !== $fichier->getId() && (null === $fichier->getFile() || null !== $fichier->getExternalLink())) {
             return;
         }
 

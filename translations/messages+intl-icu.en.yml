@@ -426,6 +426,7 @@ societe_disabled_contact_rdi: 'This company has been deactivated !! Please conta
 add_file_success: "List of files has been updated successfully"
 edit_file_success: "Your file {oldName} has been changed to {newName}"
 download: Download
+open_external_link: Open external link
 delete_user.projects.warning: "{user} is part of <strong>{n, plural, =1 {a project} other {# projects}}</strong> :"
 delete_user.projects.safe: "{user} is not part of any project."
 delete_user.fait_marquant.warning: "{user} created <strong>{n, plural, =1 {a striking fact} other {# striking facts}}</strong>, {n, plural, =1 {it will be deleted} other {they will be deleted}} également :"

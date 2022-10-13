@@ -7,3 +7,27 @@
     }
   }
 }
+.fichier-projets-container-tfoot {
+  .add-file-btn-input-group{
+    width: unset;
+
+    span.label{
+      border: 1px #007bff solid;
+      color: #007bff;
+      border-top-left-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+
+      label{
+        margin: 0 !important;
+      }
+    }
+
+    button{
+      height: 100%;
+
+      &:first-of-type{
+        border-radius: 0;
+      }
+    }
+  }
+}

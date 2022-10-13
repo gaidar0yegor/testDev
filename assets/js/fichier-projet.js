@@ -96,7 +96,7 @@ EmbedForm.init($('.fichier-projets-container'), {
 
 $(document).on('click', '.scroll-to-add-file-btn', function () {
     $('.add-file-btn').get(0).scrollIntoView();
-    $('.add-file-btn').trigger('click');
+    $('.add-file-btn').first().trigger('click');
 });
 
 $('.fichier-projets-container').on('click', '.remove-file-btn', function () {

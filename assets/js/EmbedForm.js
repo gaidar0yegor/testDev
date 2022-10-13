@@ -27,9 +27,14 @@ EmbedForm.init = function ($prototypeContainer, options = {}) {
 
     options.$addButton.on('click', function (e) {
         e.preventDefault();
+        var $btn = $(this);
         EmbedForm.addPrototypedItem($prototypeContainer, options);
-        if ($($prototypeContainer).find('.row:last-child')){
-            $($($prototypeContainer).find('.row:last-child').find('input')[0]).focus().select();
+        var $lastRow = $('.fichier-projets-container').find('.row').last();
+        if ($lastRow){
+            if ($($btn).data('uploadType')){
+                $($lastRow).find('.target-upload-type:not([data-target-upload-type="' + $($btn).data('uploadType') + '"])').hide();
+            }
+            $($lastRow).find('input:visible').first().focus().select();
         }
     });
 

@@ -89,7 +89,7 @@ class FichierController extends AbstractController
             $newName = pathinfo($nomFichier, PATHINFO_FILENAME);
 
             if($originalExt !== $wrongExt){
-                $fichier->setNomFichier($newName . '.' . $originalExt);
+                $fichier->setNomFichier($newName . ($originalExt ? '.' . $originalExt : ''));
             }
 
             $em->flush();     
@@ -145,6 +145,10 @@ class FichierController extends AbstractController
     public function download(Request $request, FichierProjet $fichierProjet, ProjectFileHandler $projectFileHandler): Response
     {
         $this->denyAccessUnlessGranted(ProjetResourceInterface::VIEW, $fichierProjet);
+
+        if ($fichierProjet->getFichier()->getExternalLink() !== null){
+            return $this->redirect($fichierProjet->getFichier()->getExternalLink());
+        }
 
         return $projectFileHandler->createDownloadResponse($fichierProjet, $request->query->has('download'));
     }
