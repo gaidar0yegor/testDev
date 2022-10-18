@@ -4,8 +4,6 @@ namespace App\Form;
 
 use App\DTO\FilterUserEvenement;
 use App\Entity\SocieteUser;
-use App\Form\Custom\SameSocieteUserType;
-use App\Form\Custom\SameTeamUserType;
 use App\MultiSociete\UserContext;
 use App\Repository\SocieteUserRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

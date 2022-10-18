@@ -105,6 +105,7 @@
         "MEETING": "Réunion",
         "EVENT": "Évènement",
         "ABSENCE": "Absence",
+        "PERSONAL": "Personnel",
         "OTHER": "Autre"
     }
 }

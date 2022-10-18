@@ -17,9 +17,10 @@ class Evenement implements HasSocieteInterface
     const TYPE_MEETING = 'MEETING';
     const TYPE_EVENT = 'EVENT';
     const TYPE_ABSENCE = 'ABSENCE';
+    const TYPE_PERSONAL = 'PERSONAL';
     const TYPE_OTHER = 'OTHER';
 
-    const EVENEMENT_TYPES = [...self::PROJET_EVENEMENT_TYPES, ...self::SOCIETE_USER_EVENEMENT_TYPES];
+    const EVENEMENT_TYPES = [ ...self::SOCIETE_USER_EVENEMENT_TYPES, ...self::PROJET_EVENEMENT_TYPES];
 
     const PROJET_EVENEMENT_TYPES = [
         self::TYPE_MEETING,
@@ -28,7 +29,8 @@ class Evenement implements HasSocieteInterface
     ];
 
     const SOCIETE_USER_EVENEMENT_TYPES = [
-        self::TYPE_ABSENCE
+        self::TYPE_ABSENCE,
+        self::TYPE_PERSONAL,
     ];
 
     private const EVENEMENT_TYPES_UPDATE_CRA = [self::TYPE_ABSENCE];

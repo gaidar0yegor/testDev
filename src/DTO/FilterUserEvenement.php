@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use App\Entity\Evenement;
+
 /**
  * Classe utilisée pour stocker les filtres
  * lors d'une génération d'une calendrier des évènements des utilisateurs
@@ -32,7 +34,13 @@ class FilterUserEvenement
 
     public function getEventTypes(): array
     {
-        return $this->eventTypes;
+        $eventTypes = $this->eventTypes;
+
+        if (in_array(Evenement::TYPE_PERSONAL, $eventTypes, true)){
+            unset($eventTypes[array_search(Evenement::TYPE_PERSONAL, $eventTypes)]);
+        }
+
+        return $eventTypes;
     }
 
     public function setEventTypes(array $eventTypes): self

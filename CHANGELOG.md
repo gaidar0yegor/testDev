@@ -10,6 +10,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Export feuilles de temps réaliste
 - Joindre des fichiers à travers des liens externes
 - Ajout d'une colonne efficacité dans la liste des projets
+- Type d'événement : Personnel
 ### Réparé
 - Export du projet en PDF
 
