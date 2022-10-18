@@ -17,28 +17,34 @@
                     rows="1"
                     {% if projet.societe.faitMarquantMaxDesc > 0 %} maxlength="{{ projet.societe.faitMarquantMaxDesc }}" {% endif %}
                     placeholder="{{ 'write_comment'|trans }} ..."></textarea>
-            <button type="button" class="btn btn-outline-info btn-comment-publish"><i class="fa fa-paper-plane"></i> {{ 'publish'|trans }}</button>
+            <button type="button" class="btn btn-outline-info btn-comment-publish d-flex align-items-center justify-content-center">
+                <i class="fa fa-paper-plane mr-1 mr-md-0"></i>
+                <span class="ml-1 d-none d-md-block">{{ 'publish'|trans }}</span>
+            </button>
         </div>
         {% if faitMarquant.comments.count %}
             <div class="comment-content-list">
                 {% for comment in faitMarquant.comments %}
                     <div class="comment-elem">
                         <div class="header">
-                            <div>
+                            <div class="d-flex align-items-center justify-content-center">
                                 {% include 'utils/_avatar.html.twig' with {user: comment.createdBy.user, size: 24, toExpend: true} %}
-                                <span class="text-primary">{{ comment.createdBy.user.fullname }}</span> |
-                                <span class="badge badge-secondary">{{ comment.createdByRole|trans }}</span>
+                                <span class="text-primary ml-2">{{ comment.createdBy.user.fullname }}</span> 
+                                <span class="d-none d-md-block ml-1 mr-1">|</span>
+                                <span class="badge badge-secondary d-none d-md-block">{{ comment.createdByRole|trans }}</span>
                             </div>
-                            <div class="actions">
-                                <span class="created_at"><i>{{ diffDateTimes(comment.createdAt) }}</i></span>
+                            <div class="actions d-flex align-items-center justify-content-center">
+                                <span class="created_at d-none d-md-block"><i>{{ diffDateTimes(comment.createdAt) }}</i></span>
                                 {% if comment.createdBy.user == userContext.user or (userContext.hasSocieteUser and userContext.getSocieteUser.isAdminFo) %}
-                                | <a href="javascript:;" class="ml-1 btn-comment-delete" data-comment-id="{{ comment.id }}"><i class="fa fa-trash"></i></a>
+                                <span class="d-none d-md-block ml-1 mr-1">|</span>
+                                 <a href="javascript:;" class="ml-1 btn-comment-delete" data-comment-id="{{ comment.id }}"><i class="fa fa-trash"></i></a>
                                 {% endif %}
                             </div>
-                        </div>
+                        </div>                            
                         <div class="body text-justify">
                             {{ comment.text }}
                         </div>
+                        <hr>
                     </div>
                 {% endfor %}
             </div>
