@@ -19,7 +19,7 @@ class Fichier implements Serializable
      *
      * @var string
      */
-    const MAX_FILE_SIZE = 5000000;
+    const MAX_FILE_SIZE = 5242880;
 
     /**
      * @ORM\Id
