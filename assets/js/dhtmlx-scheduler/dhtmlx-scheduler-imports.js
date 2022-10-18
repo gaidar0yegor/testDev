@@ -167,6 +167,7 @@ scheduler.templates.event_class = function (start, end, event) {
         case 'MEETING': return classNames + " meeting_projetEvent";
         case 'EVENT': return classNames +  " event_projetEvent";
         case 'ABSENCE': return classNames +  " absence_projetEvent";
+        case 'PERSONAL': return classNames +  " personal_projetEvent";
         case 'OTHER': return classNames +  " other_projetEvent";
         default: return classNames;
     }
@@ -182,7 +183,7 @@ scheduler.attachEvent("onTemplatesReady", function() {
         return ev.eventType === "ABSENCE" && ev.hasOwnProperty("required_participants_names") ? ev.text + " - " + truncateString(ev.required_participants_names, 50) : ev.text;
     };
     scheduler.templates.tooltip_text = function(start,end,ev) {
-        let tooltipText = `<b>Event:</b> ${ev.text}<br/>
+        let tooltipText = `<b>${locale.types[ev.eventType]} :</b> ${ev.text}<br/>
                 <b>Start date:</b> ${format(start)}<br/>
                 <b>End date:</b> ${format(end)}<br/>`;
 

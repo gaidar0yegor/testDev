@@ -85,6 +85,10 @@
     background-color: #a29e9b !important;
     color: white !important;
 }
+.dhx_cal_event_line.personal_projetEvent, .dhx_cal_event.personal_projetEvent div{
+    background-color: #9800A9 !important;
+    color: white !important;
+}
 .dhx_cal_event_line.other_projetEvent, .dhx_cal_event.other_projetEvent div{
     background-color: #ff5722 !important;
     color: white !important;
@@ -97,6 +101,9 @@
 }
 .dhx_cal_event_clear.absence_projetEvent{
     color: #a29e9b !important;
+}
+.dhx_cal_event_clear.personal_projetEvent{
+    color: #9800A9 !important;
 }
 .dhx_cal_event_clear.other_projetEvent{
     color: #ff5722 !important;

@@ -480,6 +480,7 @@ create_event: Create an event
 MEETING: Meeting
 EVENT: Event
 ABSENCE: Absence
+PERSONAL: Personal
 OTHER: Other
 invitation_not_accepted: Invitation not accepted
 allString: All

@@ -489,6 +489,7 @@ create_event: "Créer un évènement"
 MEETING: 'Réunion'
 EVENT: 'Évènement'
 ABSENCE: 'Absence'
+PERSONAL: 'Personnel'
 OTHER: 'Autre'
 invitation_not_accepted: "Invitation non acceptée"
 allString: Tous
