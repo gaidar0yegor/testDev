@@ -116,12 +116,9 @@
                 <tr>
                     <td colspan="5">
                         <div class="input-group add-file-btn-input-group">
-                            <span class="label d-flex flex-column justify-content-center align-column-center p-2">
-                                <label>{{ 'add_file_btn'|trans }}</label>
-                            </span>
                             <div class="input-group-append">
-                                <button class="btn btn-outline-primary add-file-btn" title="Joindre un fichier" data-upload-type="localFile" type="button">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                <button class="btn btn-outline-primary add-file-btn" title="Joindre un fichier (Max. 5 Mo)" data-upload-type="localFile" type="button">
+                                    {{ 'add_file_btn'|trans }} <i class="fa fa-upload" aria-hidden="true"></i>
                                 </button>
                                 <button class="btn btn-outline-primary add-file-btn" title="Insérer un lien" data-upload-type="externalLink" type="button">
                                     <i class="fa fa-link" aria-hidden="true"></i>

@@ -3,6 +3,7 @@ import './../styles/datatable-fichier.scss';
 import $ from 'jquery';
 import EmbedForm from './EmbedForm';
 import {detectedLocale, language_dt} from './translation';
+import { addToastrFlashMessage } from './flash-messages';
 
 import {domDatatable, btnsDatatable} from './datatable';
 import initTippyTitle from "./popper";
@@ -114,5 +115,16 @@ $(document).on('click', '.fichier-projets-container button[popup-target]', funct
 $(document).on('click', '.fichier-projet-children-popup .rdi-popup .rdi-popup-close', function(event) {
     let popup = $(this).parents('.fichier-projet-children-popup');
     $(popup).hide();
+});
+$(document).on('change', '.fichier-projets-container input[type="file"]', function(event) {
+    const fi = event.target;
+    if (fi.files.length) {
+        for (let i = 0; i <= fi.files.length - 1; i++) {
+            if (Math.round((fi.files.item(i).size / 1024)) >= 5000) {
+                addToastrFlashMessage('error', 'La taille de chaque pièce jointe est limitée à : <b>5 Mo</b>.<br>Vous pouvez joindre le fichier avec un lien externe.');
+                $(fi).parents('tr').remove();
+            }
+        }
+    }
 });
 
