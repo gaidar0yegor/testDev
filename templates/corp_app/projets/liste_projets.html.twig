@@ -64,6 +64,7 @@
                 <th>{{ 'status'|trans }}</th>
                 <th>{{ 'last_activity'|trans }}</th>
                 <th>{{ 'participants'|trans }}</th>
+                <th>{{ 'efficiency'|trans }}</th>
             </tr>
         </thead>
         <tbody class="filter-projets-by-selected-year">
@@ -86,6 +87,7 @@
                     </td>
                     <td class="text-center" data-sort='{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime|date('Ymd') : '' }}'>{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime | format_datetime : '' }}</td>
                     <td class="text-center">{{ projet.projetParticipants|length }}</td>
+                    <td class="text-center">{{ projet.projetPlanning ? projet.projetPlanning.efficacite : "Aucune information" }}</td>
                 </tr>
             {% endfor %}
         </tbody>

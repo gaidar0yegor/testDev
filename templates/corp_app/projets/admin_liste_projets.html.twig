@@ -39,6 +39,7 @@
             <th>{{ 'last_activity'|trans }}</th>
             <th>{{ 'participants'|trans }}</th>
             <th>{{ 'rdi_project'|trans }}</th>
+            <th>{{ 'efficiency'|trans }}</th>
             <th></th>
         </tr>
         </thead>
@@ -74,6 +75,7 @@
                         <i class="fa fa-lg fa-bar-chart" aria-hidden="true"></i>
                     </a>
                 </td>
+                <td class="text-center">{{ projet.projetPlanning ? projet.projetPlanning.efficacite : "" }}</td>
             </tr>
         {% endfor %}
         </tbody>
