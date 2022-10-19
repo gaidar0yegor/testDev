@@ -62,7 +62,7 @@
 				<div class="card shadow rounded h-100">
 					<div class="card-body">
 						<h5 class="text-left d-block">{{ 'hours_by_project'|trans }}</h5>
-						<p class="card-text h3">1 547h</p>
+						<p class="card-text h3" data-target-highlight="heures-par-projet">...</p>
 						<small class="text-muted">Temps total passé sur les projets.</small>
 						<hr>
                         <div class="h-full d-flex justify-content-center align-items-center">
@@ -75,7 +75,7 @@
 				<div class="card shadow rounded h-100" id="my_contributions">
 					<div class="card-body">
 						<h5 class="text-left d-block">{{ 'my_contributions'|trans }}</h5>
-						<p class="card-text h3 moi-vs-equipe equipe temps-total"></p>
+						<p class="card-text h3" data-target-highlight="my_contributions">...</p>
 						<small class="text-muted">Mon temps total de contributions sur les projets.</small>
 						<hr>
 						<div class="h-75 d-flex justify-content-center align-items-center">
@@ -108,7 +108,7 @@
 						<div class="card-body">
 							<h5 class="text-left d-block">{{ 'efficiency'|trans }}
 								de vos projets</h5>
-							<p class="card-text h3">0.00</p>
+							<p class="card-text h3" data-target-highlight="efficacite-moyenne">...</p>
 							<small class="text-muted">Valeur comprise entre -1 et 1.</small>
 							<hr>
                             <div class="h-full d-flex justify-content-center align-items-center">
@@ -133,7 +133,7 @@
                 <div class="card shadow rounded h-100">
 					<div class="card-body">
 						<h5 class="text-left d-block">{{ 'projects_realisations'|trans }}</h5>
-						<p class="card-text h3">3 en cours</p>
+						<p class="card-text h3" data-target-highlight="projets-statuts">...</p>
 						<small class="text-muted">Statistiques des projets Suspendus | En cours | Terminés.</small>
 						<hr>
                         <div class="h-full d-flex justify-content-center align-items-center">
@@ -146,8 +146,8 @@
                 <div class="card shadow rounded h-100">
 					<div class="card-body">
 						<h5 class="text-left d-block">{{ 'realized_projects_type'|trans }}</h5>
-						<p class="card-text h3">1 projet RDI</p>
-						<small class="text-muted">Pertinence RDI des projets.</small>
+						<p class="card-text h3" data-target-highlight="projets-rdi-vs-non-rdi">...</p>
+						<small class="text-muted">Éligibilité RDI en {{ 'now' |date('Y') }}.</small>
 						<hr>
                         <div class="h-full d-flex justify-content-center align-items-center">
 						   <div id="projets-rdi-vs-non-rdi"></div>

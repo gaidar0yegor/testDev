@@ -29,6 +29,8 @@ const displayGraph = year => {
                             instance.reference.removeAttribute('title');
                         },
                     });
+
+                document.querySelector('[data-target-highlight="my_contributions"]').innerText = formatHours(moiVsEquipe.tempsTotal.moi);
             })
         ;
     }

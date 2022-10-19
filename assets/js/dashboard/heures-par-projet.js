@@ -33,6 +33,7 @@ window.addEventListener('loadYearlyCharts', event => {
             .then(response => response.json())
             .then(datas => {
                 let heuresParProjet = datas.userProjetsHeuresPassees;
+                const sumHeures = Object.values(heuresParProjet).reduce((a, b) => a + b);
 
                 heuresParProjet._projects_year = year;
 
@@ -41,6 +42,8 @@ window.addEventListener('loadYearlyCharts', event => {
                     columns: Object.keys(heuresParProjet).map(projetName => [projetName, heuresParProjet[projetName]]),
                     colors: datas.codeColors,
                 });
+
+                document.querySelector('[data-target-highlight="heures-par-projet"]').innerText = formatHours(sumHeures);
             })
         ;
     }, 1000);

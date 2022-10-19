@@ -30,13 +30,14 @@ const displayGraph = year => {
     fetch(`/corp/api/dashboard/projets-efficacite-moyenne/${year}`)
         .then(response => response.json())
         .then(efficaciteMoyenne => {
+            const efficacite = Math.round(efficaciteMoyenne * 100) / 100;
             new Chart(
                 efficaciteMoyenneDiv.getContext("2d"),
                 {
                     type: 'gauge',
                     data: {
                         datasets: [{
-                            value: Math.round(efficaciteMoyenne * 100) / 100,
+                            value: efficacite,
                             minValue: -1,
                             maxValue: 1,
                             data: [-1, -0.66, -0.33, 0, 0.5, 1],
@@ -44,6 +45,8 @@ const displayGraph = year => {
                         }]
                     }
                 });
+
+            document.querySelector('[data-target-highlight="efficacite-moyenne"]').innerText = efficacite;
         })
     ;
 };
