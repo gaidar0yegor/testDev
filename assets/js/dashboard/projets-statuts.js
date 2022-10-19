@@ -43,6 +43,8 @@ window.addEventListener('loadSinceYearCharts', event => {
                         ['Suspendus', heuresParProjet.suspended]
                     ],
                 });
+
+                document.querySelector('[data-target-highlight="projets-statuts"]').innerText = heuresParProjet.active + ' en cours';
             })
         ;
     }, 1000);

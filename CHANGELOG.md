@@ -12,6 +12,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Ajout d'une colonne efficacité dans la liste des projets
 - Type d'événement : Personnel
 - Evénement : Invitation de personnes externes via ajout de mails externes
+### Modifié
+- Tableau de bord : style des graphs
 ### Réparé
 - Export du projet en PDF
 

@@ -64,6 +64,10 @@ window.addEventListener('loadSinceYearCharts', event => {
                         nbProjetsRdi50,
                     ],
                 });
+
+                const elligibleRDICurrentYear = projetsType[currentYear].projetsRdi50;
+                document.querySelector('[data-target-highlight="projets-rdi-vs-non-rdi"]').innerText = elligibleRDICurrentYear +
+                    (elligibleRDICurrentYear <= 1 ? ' projet éligible' : ' projets éligibles');
             })
         ;
     }, 1000);
