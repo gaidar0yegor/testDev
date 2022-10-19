@@ -16,7 +16,7 @@ import { detectedLocale } from './../translation';
 import $ from "jquery";
 import userContext from './../userContext';
 import apiGenerateIcsCalendar from "./ext/ics-export-api";
-import {truncateString} from "../utils";
+import {truncateString, validateEmail} from "../utils";
 
 const projectId = window['project_events_calendar'] ? window['project_events_calendar'].dataset.projectId : null;
 
@@ -60,6 +60,13 @@ scheduler.attachEvent("onEventSave", function (id, event, is_new) {
         if (event.required_participants_ids === "") {
             dhtmlx.alert(locale.alerts.minimum_invitation_is_required);
             return false;
+        }
+
+        const emails = event.external_participants_emails.split(";");
+        for (let i = 0; i < emails.length; i++) {
+            if (validateEmail(emails[i]) === false) {
+                dhtmlx.alert(locale.alerts.external_emails_invalide + emails[i]);return false;
+            }
         }
 
         if (projectId){
@@ -131,8 +138,8 @@ scheduler.attachEvent("onLightbox", function (id) {
         scheduler.getLightbox().querySelector('.dhx_btn_set.dhx_ics_calendar_btn_set').remove();
     }
     if (!event.readonly){
-        var textarea = scheduler.formSection("text").control;
-        textarea.oninput = function () {
+        var title = scheduler.formSection("text").control;
+        title.oninput = function () {
             if (this.value.length > 250) {
                 this.value = this.value.substring(0, 250);
                 dhtmlx.alert(locale.alerts.title_is_too_long);
@@ -214,6 +221,7 @@ scheduler.locale.labels.section_location = locale.labels.section_location;
 scheduler.locale.labels.section_eventType = locale.labels.section_eventType;
 scheduler.locale.labels.section_requiredParticipant = `${locale.labels.invitation}<br/><a href='javascript:;' class='select-all text-left' data-state='unselected'><small>${locale.labels.select_all}</small></a>`;
 scheduler.locale.labels.section_optionalParticipant = `${locale.labels.information}<br/><a href='javascript:;' class='select-all text-left' data-state='unselected'><small>${locale.labels.select_all}</small></a>`;
+scheduler.locale.labels.section_externalParticipant = `${locale.labels.external_emails}<br/><small class='text-muted text-left'>${locale.labels.external_emails_help}</small>`;
 scheduler.config.details_on_dblclick = true;
 scheduler.config.event_duration = 60;
 scheduler.config.auto_end_date = true;
@@ -228,6 +236,7 @@ scheduler.config.lightbox.sections = [
     { name:"location", height:30, map_to:"location", type:"textarea" },
     { name:"requiredParticipant", height:53, map_to:"required_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
     { name:"optionalParticipant", height:53, map_to:"optional_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
+    { name:"externalParticipant", height:50 , map_to:"external_participants_emails", type:"textarea" },
     { name:"time", height:72, type:"time", map_to:"auto", time_format:["%d","%m","%Y","%H:%i"] }
 ];
 

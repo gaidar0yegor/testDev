@@ -118,8 +118,6 @@ class ProjetController extends AbstractController
      * Page statistiques d'un projet.
      *
      * @Route("/projets/{id}", name="corp_app_fo_projet_stats")
-     *
-     * @IsGranted("SOCIETE_CDP")
      */
     public function projetstatistics(Projet $projet)
     {

@@ -90,6 +90,9 @@
         "invitation": "Invitation",
         "information": "Information",
 
+        "external_emails": "E-mails externes",
+        "external_emails_help": "séparées par un point-virgule \";\"",
+
         "select_all": "Tout sélectionner",
         "created_by": "Créé par",
         "projet": "Projet"
@@ -98,7 +101,8 @@
     {
         "title_is_too_long": "Le titre est trop long",
         "title_must_not_be_empty": "Le titre ne doit pas être vide",
-        "minimum_invitation_is_required": "Une invitation minimum est requise"
+        "minimum_invitation_is_required": "Une invitation minimum est requise",
+        "external_emails_invalide": "Adresse mail externe invalide : "
     },
     "types":
     {

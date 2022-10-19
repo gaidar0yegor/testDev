@@ -90,6 +90,9 @@
         "invitation": "Invitation",
         "information": "Information",
 
+        "external_emails": "External emails",
+        "external_emails_help": "separated by a semicolon \";\"",
+
         "select_all": "Select All",
         "created_by": "Created by",
         "projet": "Project"
@@ -98,7 +101,8 @@
     {
         "title_is_too_long": "Title is too long",
         "title_must_not_be_empty": "Title must not be empty",
-        "minimum_invitation_is_required": "A minimum invitation is required"
+        "minimum_invitation_is_required": "A minimum invitation is required",
+        "external_emails_invalide": "Invalid external email address : "
     },
     "types":
     {

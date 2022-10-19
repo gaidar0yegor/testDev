@@ -83,6 +83,12 @@ class EvenementInvitation
                 }
             } catch (TransportException $e){}
         }
+
+        foreach ($evenement->getExternalParticipantEmails() as $externalParticipantEmail){
+            try{
+                $this->mailer->send($email->to($externalParticipantEmail));
+            } catch (TransportException $e){}
+        }
     }
 
     public function sendMailPreRemove(Evenement $evenement): void
@@ -102,6 +108,12 @@ class EvenementInvitation
                 if ($evenementParticipant->getSocieteUser()->getUser()->getNotificationEvenementInvitationEnabled()){
                     $this->mailer->send($email->to($evenementParticipant->getSocieteUser()->getUser()->getEmail()));
                 }
+            } catch (TransportException $e){}
+        }
+
+        foreach ($evenement->getExternalParticipantEmails() as $externalParticipantEmail){
+            try{
+                $this->mailer->send($email->to($externalParticipantEmail));
             } catch (TransportException $e){}
         }
     }
