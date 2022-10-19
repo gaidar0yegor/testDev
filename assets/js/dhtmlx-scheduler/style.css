@@ -15,6 +15,11 @@
     background-color: #ce352c;
     border-radius: 20px;
 }
+
+.dhx_cal_light.dhx_cal_light_wide{
+    border-radius: 1rem !important;
+}
+
 .dhx_cal_light_wide .dhx_cal_lsection{
     width: 125px;
 }

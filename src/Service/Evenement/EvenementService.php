@@ -67,6 +67,8 @@ class EvenementService
 
             'is_invited' => $this->userContext->getSocieteUser()->isInvitedToEvenement($evenement),
 
+            'external_participants_emails' => implode(";", $evenement->getExternalParticipantEmails()),
+
             'auto_update_cra' => $evenement->getAutoUpdateCra(),
         ];
 
@@ -106,6 +108,9 @@ class EvenementService
         if ($request->request->has('eventType')) $evenement->setType($request->request->get('eventType'));
 
         $evenement->setAutoUpdateCra($request->request->get('auto_update_cra') == true);
+
+        if ($request->request->has('external_participants_emails'))
+            $evenement->setExternalParticipantEmails(explode(';', $request->request->get('external_participants_emails')));
 
         $evenement = $this->createEvenementParticipants(
             $evenement,
