@@ -76,6 +76,11 @@ class Evenement implements HasSocieteInterface
     private $evenementParticipants;
 
     /**
+     * @ORM\Column(type="simple_array", nullable=true)
+     */
+    private $externalParticipantEmails = [];
+
+    /**
      * @ORM\ManyToOne(targetEntity=SocieteUser::class, inversedBy="createdEvenements")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -284,6 +289,18 @@ class Evenement implements HasSocieteInterface
     public function setAutoUpdateCra(bool $autoUpdateCra): self
     {
         $this->autoUpdateCra = $autoUpdateCra;
+
+        return $this;
+    }
+
+    public function getExternalParticipantEmails(): ?array
+    {
+        return $this->externalParticipantEmails;
+    }
+
+    public function setExternalParticipantEmails(?array $externalParticipantEmails): self
+    {
+        $this->externalParticipantEmails = $externalParticipantEmails;
 
         return $this;
     }
