@@ -3,7 +3,7 @@
 {% block title %}
     {{ evenement.createdBy.user.fullname }} vous a invité à un évènement
     {% if evenement.projet %}
-        sur le projet {{ evenement.projet.acronyme }}
+        lié au projet {{ evenement.projet.acronyme }}
     {% endif %}
 {% endblock %}
 {% block body %}
