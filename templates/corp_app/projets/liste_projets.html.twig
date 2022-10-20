@@ -85,7 +85,7 @@
                     <td class="text-center">
                         {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
                     </td>
-                    <td class="text-center" data-sort='{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime|date('Ymd') : '' }}'>{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime | format_datetime : '' }}</td>
+                    <td class="text-center" data-sort='{{ projet.projetActivities.last ? projet.projetActivities.last.activity.datetime|date('Ymd') : '' }}'>{{ 'since'|trans }} {{ projet.projetActivities.last ? diffDateTimes(projet.projetActivities.last.activity.datetime) : '' }}</td>
                     <td class="text-center">{{ projet.projetParticipants|length }}</td>
                     <td class="text-center">
 						{% if projet.projetPlanning %}

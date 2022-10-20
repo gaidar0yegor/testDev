@@ -14,6 +14,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Evénement : Invitation de personnes externes via ajout de mails externes
 ### Modifié
 - Tableau de bord : style des graphs
+- Changement du format de date dans la liste des projets
 ### Réparé
 - Export du projet en PDF
 
