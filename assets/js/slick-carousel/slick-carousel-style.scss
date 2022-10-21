@@ -1,11 +1,13 @@
 #recents-projets-menu{
-    padding-left: 20px;
     
     #btnFilter{
         display: flex !important;
+        justify-content: center;
+        align-items: center;
         border: 1px solid #ddd !important;
         border-radius: 6px !important;
-        padding: 10px 12px !important;
+        padding: 0 12px !important;
+        height: 40px !important;
 
         &:focus, &.focus{
             box-shadow: none !important;
@@ -16,7 +18,7 @@
     }
     .dropdown-menu{
         padding: 10px;
-        top: 38px !important;
+        top: 33px !important;
         left: 83px !important;
 
         #whiteSquare {
