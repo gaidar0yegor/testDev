@@ -101,14 +101,11 @@ class AdminStatsController extends AbstractController
      *      requirements={"year"="\d{4}", "unit"="^[a-z]+$"},
      *      name="api_stats_admin_temps_projet_users"
      * )
-     * @IsGranted("SOCIETE_CDP")
      */
     public function getTempsProjetParUsers(
         Projet $projet,
         string $year,
-        string $unit,
-        TempsPasseRepository $tempsPasseRepository,
-        TimesheetCalculator $timesheetCalculator
+        string $unit
     ) {
         $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $projet);
 
@@ -125,8 +122,6 @@ class AdminStatsController extends AbstractController
      *      methods={"GET"},
      *      name="api_stats_admin_budgets"
      * )
-     *
-     * @IsGranted("SOCIETE_CDP")
      */
     public function getBudgetsProjet(Projet $projet, BudgetAnalysisProjetService $budgetAnalysisProjetService)
     {
@@ -152,8 +147,6 @@ class AdminStatsController extends AbstractController
      *      methods={"GET"},
      *      name="api_stats_admin_revenues"
      * )
-     *
-     * @IsGranted("SOCIETE_CDP")
      */
     public function getRevenuesProjet(Projet $projet, BudgetAnalysisProjetService $budgetAnalysisProjetService)
     {
@@ -171,5 +164,28 @@ class AdminStatsController extends AbstractController
         return new JsonResponse([
             'roi' => $roi,
         ]);
+    }
+
+    /**
+     * @Route(
+     *      "/tasks-status/{id}",
+     *      methods={"GET"},
+     *      name="api_stats_admin_tasks_status"
+     * )
+     */
+    public function getTasksStatus(Projet $projet)
+    {
+        $this->denyAccessUnlessGranted(SameSocieteVoter::NAME, $projet);
+
+        $stats = [
+            'in_progress' => 0,
+            'ended' => 0,
+            'upcoming' => 0,
+        ];
+        foreach ($projet->getProjetPlanning()->getProjetPlanningTasks() as $planningTask){
+            $stats[$planningTask->getStatut()]++;
+        }
+
+        return new JsonResponse($stats);
     }
 }

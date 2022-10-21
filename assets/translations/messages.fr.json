@@ -1,4 +1,8 @@
 {
+    "suspended": "Suspendu",
+    "upcoming": "À venir",
+    "ended": "Terminé",
+    "in_progress": "En cours",
     "week_from_to": "Semaine du {{from}} au {{to}}",
     "update": "Mettre à jour",
     "month_validated_on": "Vous avez validé ce mois le {{month}}.",

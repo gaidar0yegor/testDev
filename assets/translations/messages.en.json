@@ -1,4 +1,8 @@
 {
+    "suspended": "Suspended",
+    "upcoming": "Upcoming",
+    "ended": "Ended",
+    "in_progress": "In progress",
     "week_from_to": "Week from {{from}} to {{to}}",
     "update": "Update",
     "month_validated_on": "You validated this month on {{month}}.",
