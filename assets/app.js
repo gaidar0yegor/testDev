@@ -35,6 +35,7 @@ import './js/annual-rdi-scores';
 import './js/admin-user-chart-temps-projets';
 import './js/projet-admin-charts/temps-users';
 import './js/projet-admin-charts/budgets';
+import './js/projet-admin-charts/planning-tasks-statuts';
 import './js/projet-admin-charts/stats';
 import './js/fait-marquant-highlight';
 import './js/filter-projets-by-selected-year';

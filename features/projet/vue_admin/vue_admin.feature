@@ -13,6 +13,6 @@ Feature: Affichage du score RDI
         Given I am on "/corp/projets"
         And I follow "PTEST"
         When I follow "Statistiques"
-        Then I should see "Contributeurs" in the ".card-deck" element
-        And I should see "Faits marquants" in the ".card-deck" element
+        Then I should see "Contributeurs"
+        And I should see "Faits marquants"
         And I should see "Temps passé en"
