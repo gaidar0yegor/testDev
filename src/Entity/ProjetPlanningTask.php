@@ -98,6 +98,21 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
         return $this->id;
     }
 
+    public function getStatut(): string
+    {
+        $now = new \DateTime();
+
+        if ($now < $this->startDate) {
+            return 'upcoming';
+        }
+
+        if ($this->progress < 1) {
+            return 'in_progress';
+        }
+
+        return 'ended';
+    }
+
     public function getProjetPlanning(): ?ProjetPlanning
     {
         return $this->projetPlanning;
