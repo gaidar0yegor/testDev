@@ -31,13 +31,13 @@ class ProjetPlanningListener
                 if ($task->getProgress() == 1){
                     $nbrTaskEnded++;
 
-                    $endDateReal = $task->getEndDateReal() ? $task->getEndDateReal() : (new \DateTime());
+                    $endDateReal = $task->getEndDateReal() ? $task->getEndDateReal() : (new \DateTime())->setTime(0,0,0);
 
                     $T = round(($task->getEndDate()->getTimestamp() - $task->getStartDate()->getTimestamp()) / (60 * 60 * 24));
-                    $t = round(($task->getEndDate()->getTimestamp() - $endDateReal->getTimestamp()) / (60 * 60 * 24));
+                    $t = round(($endDateReal->getTimestamp() - $task->getStartDate()->getTimestamp()) / (60 * 60 * 24));
 
                     if ($T >= 2 * $nbrDaysNotifTaskEcheance){
-                        $eff = $t / ( 4 * $nbrDaysNotifTaskEcheance);
+                        $eff = ($T - $t) / ( 4 * $nbrDaysNotifTaskEcheance);
                     } else{
                         $eff = ($T - $t) / $T;
                     }
