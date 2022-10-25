@@ -19,28 +19,44 @@ class ProjetPlanningListener
 
     private function updateStats(ProjetPlanning $projetPlanning)
     {
+        $nbrDaysNotifTaskEcheance = $projetPlanning->getProjet()->getNbrDaysNotifTaskEcheance();
+
+        $nbrTaskEnded = 0;
+        $effGlobal = 0;
+        $effectivite = 0;
+
         if ($projetPlanning->getProjetPlanningTasks()->count() > 0){
-            $nbrTaskEnded = 0;
-            $efficacite = 0;
 
             foreach ($projetPlanning->getProjetPlanningTasks() as $task){
                 if ($task->getProgress() == 1){
                     $nbrTaskEnded++;
-                    $endDateReal = $task->getEndDateReal() ? $task->getEndDateReal() : (new \DateTime());
-                    $diffDays =  round(($task->getEndDate()->getTimestamp() - $endDateReal->getTimestamp()) / (60 * 60 * 24));
 
-                    if ($diffDays === 0){
-                        continue;
-                    } elseif ($diffDays > 0) {
-                        $efficacite += $diffDays <= $task->getDuration() * (3/4) ? 1 : 0.5;
-                    } else {
-                        $efficacite -= abs($diffDays) <= $task->getDuration() * (1/4) ? 0.5 : 1;
+                    $endDateReal = $task->getEndDateReal() ? $task->getEndDateReal() : (new \DateTime())->setTime(0,0,0);
+
+                    $T = round(($task->getEndDate()->getTimestamp() - $task->getStartDate()->getTimestamp()) / (60 * 60 * 24));
+                    $t = round(($endDateReal->getTimestamp() - $task->getStartDate()->getTimestamp()) / (60 * 60 * 24));
+
+                    if ($T >= 2 * $nbrDaysNotifTaskEcheance){
+                        $eff = ($T - $t) / ( 4 * $nbrDaysNotifTaskEcheance);
+                    } else{
+                        $eff = ($T - $t) / $T;
                     }
+
+                    if ($eff > 1){
+                        $eff = 1;
+                    } elseif ($eff < -1) {
+                        $eff = -1;
+                    }
+
+                    $effGlobal += $eff;
                 }
             }
 
-            $projetPlanning->setEfficacite($nbrTaskEnded === 0 ? 0 : $efficacite / $nbrTaskEnded);
-            $projetPlanning->setEffectivite($nbrTaskEnded / $projetPlanning->getProjetPlanningTasks()->count());
+            $effGlobal = $nbrTaskEnded === 0 ? 0 : $effGlobal / $nbrTaskEnded;
+            $effectivite = $nbrTaskEnded / $projetPlanning->getProjetPlanningTasks()->count();
         }
+
+        $projetPlanning->setEfficacite($effGlobal);
+        $projetPlanning->setEffectivite($effectivite);
     }
 }

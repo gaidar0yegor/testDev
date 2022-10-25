@@ -954,7 +954,7 @@ class Projet implements HasSocieteInterface
 
     public function getNbrDaysNotifTaskEcheance(): ?int
     {
-        return $this->nbrDaysNotifTaskEcheance;
+        return $this->nbrDaysNotifTaskEcheance ?? 3;
     }
 
     public function setNbrDaysNotifTaskEcheance(int $nbrDaysNotifTaskEcheance): self
