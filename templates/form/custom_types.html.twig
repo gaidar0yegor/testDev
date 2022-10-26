@@ -23,7 +23,10 @@
 {% endblock %}
 
 {% block projet_planning_task_row %}
-    <tr class="planning-task-affectation-participants">
+    <tr class="planning-task-affectation-participants"
+        data-id="{{ form.vars.data.id }}"
+        data-parent-id="{{ form.vars.data.parentTask ? form.vars.data.parentTask.id : '' }}"
+    >
         <td class="task_level {{ 'level_' ~ (form.vars['sort']|split('.')|length-1) }}">
             <div class="d-flex flex-row justify-content-start align-items-start">
                 <div class="picto-img"></div>
