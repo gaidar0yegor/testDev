@@ -22,9 +22,6 @@ class MultiUserBookController extends AbstractController
         EntityManagerInterface $em
     ): Response
     {
-        if (!str_contains($this->getParameter('router.request_context.host'), 'afpa')){
-            return $this->render('_comming_soon.html.twig');
-        }
         $userContext->disconnectUserLabo();
         $em->flush();
         return $this->render('lab_app/multi_user_book/switch.html.twig');
