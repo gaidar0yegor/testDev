@@ -29,16 +29,18 @@ $(() => {
                 const projetPath = createProjetPath(projet.projetId);
 
                 const $projet = $(`
-                    <div class="item card-actualite ${projet.filterType}" style="border: 1px solid ${projet.colorCode};border-left: 5px solid ${projet.colorCode};">
+                    <div class="item card-actualite rounded shadow-sm border ${projet.filterType}" style="border-top: 5px solid ${projet.colorCode} !important;">
                         <div class="card-side">
                             <i class="fa fa-circle" style="color: ${projet.colorCode};"></i>
                         </div>
-                        <div class="card-body">
-                            <div class="m-0 p-0">
+                        
+                        <div class="card-body w-100">
+                            <div class="m-0 p-0 w-100">
                                 <h5 class="card-title">
                                     <a href="${projetPath}">${projet.acronyme}</a>
                                     <small><i>${projet.datetime}</i></small>
                                 </h5>
+                                <hr>
                                 <ul class="list-unstyled">${projet.activity}</ul>
                             </div>
                         </div>
