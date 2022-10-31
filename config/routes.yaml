@@ -34,6 +34,7 @@ lab:
     type: annotation
     prefix: /lab/
     resource: ../src/Controller/LabApp/
+    controller: App\Controller\LabApp\CommingSoonController::index # à enlever si le cahier de labo est prêt (pour le comming soon)
     defaults:
         _app: LabApp
         _app_name: Cahier de laboratoire

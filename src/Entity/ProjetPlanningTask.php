@@ -200,6 +200,21 @@ class ProjetPlanningTask implements ProjetResourceInterface, HasSocieteInterface
     /**
      * @return Collection|self[]
      */
+    public function getAllLevelsChildren(): Collection
+    {
+        $allLevelsChildren = new ArrayCollection();
+        foreach ($this->children as $child){
+            $allLevelsChildren->add($child);
+            foreach ($child->getChildren() as $subChild){
+                $allLevelsChildren->add($subChild);
+            }
+        }
+        return $allLevelsChildren;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
     public function getChildren(): Collection
     {
         return $this->children;
