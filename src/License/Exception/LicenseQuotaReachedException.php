@@ -12,8 +12,8 @@ class LicenseQuotaReachedException extends LicenseException
     public function __construct(string $limitedElement, Quota $quotaAfter)
     {
         parent::__construct(sprintf(
-            'Vous ne pouvez pas faire cette action car ça dépasserait votre quota "%s" qui sera alors de %d sur %d.',
-            $limitedElement,
+            'Mettre à jour votre licence | Quota dépassé : %s %d sur %d . <a href="https://rdimanager.com/pages/contact.html" style="color: #007bff!important;" target="_blank">Nous contacter</a>',
+            ucfirst($limitedElement),
             $quotaAfter->getCurrent(),
             $quotaAfter->getLimit()
         ));

@@ -6,15 +6,18 @@
 	{% if hasTryLicense or hasNotActiveLicense %}
 		{% if hasTryLicense %}
 			<div class="custom-alert">
-				<p>
-					<i class="fa fa-warning text-warning mt-1" aria-hidden="true"></i>
-					&emsp;Vous utilisez une offre d'essai de RDI-Manager.</p>
+				<i class="fa fa-warning text-warning mt-1" aria-hidden="true"></i>
+				<div class="ml-2">
+					Vous utilisez une offre d'essai de RDI-Manager.
+				</div>
 			</div>
 		{% endif %}
 		{% if hasNotActiveLicense %}
 			<div class="custom-alert">
 				<i class="fa fa-warning text-warning" aria-hidden="true"></i>
-				Votre société n'a pas de licence active, ou les quotas sont dépassés.
+				<div class="ml-2">
+					Mettre à jour votre licence : Quota dépassé ou Licence expirée.<br><a href="https://rdimanager.com/pages/contact.html" target="_blank">Nous contacter</a>
+				</div>
 			</div>
 		{% endif %}
 	{% endif %}
