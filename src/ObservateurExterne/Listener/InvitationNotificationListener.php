@@ -36,6 +36,7 @@ class InvitationNotificationListener implements EventSubscriberInterface
 
     public function onInvitationMail(InvitationObservateurExterneNotification $event): void
     {
+        $projet = $event->getProjetObservateurExterne()->getProjet();
         $emailTo = $event->getProjetObservateurExterne()->getInvitationEmail();
 
         if (null === $emailTo) {
@@ -49,6 +50,7 @@ class InvitationNotificationListener implements EventSubscriberInterface
             ->textTemplate('corp_app/mail/invitation_observateur_externe.txt.twig')
             ->context([
                 'projetObservateurExterne' => $event->getProjetObservateurExterne(),
+                'societe' => null !== $projet ? $projet->getSociete() : null,
             ])
         ;
 
