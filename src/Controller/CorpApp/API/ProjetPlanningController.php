@@ -268,20 +268,43 @@ class ProjetPlanningController extends AbstractController
     {
         $assignedParticipants = new ArrayCollection($this->em->getRepository(ProjetParticipant::class)->findBy(array('id' => $request->request->get('assigned'))));
 
+        $toAddToChilds = [];
         foreach ($assignedParticipants as $assignedParticipant){
             if (!$projetPlanningTask->getParticipants()->contains($assignedParticipant)){
                 $projetPlanningTask->addParticipant($assignedParticipant);
+                $toAddToChilds[] = $assignedParticipant;
                 $this->dispatcher->dispatch(new ProjetParticipantTaskAssignedEvent($projetPlanningTask, $assignedParticipant));
             }
         }
 
+        $toRemoveFromChilds = [];
         foreach ($projetPlanningTask->getParticipants() as $projetParticipant){
             if (!$assignedParticipants->contains($projetParticipant)){
                 $projetPlanningTask->removeParticipant($projetParticipant);
+                $toRemoveFromChilds[] = $projetParticipant;
             }
         }
 
         $this->em->persist($projetPlanningTask);
+
+        $subTasks = $projetPlanningTask->getAllLevelsChildren();
+        foreach ($subTasks as $subTask){
+            foreach ($toAddToChilds as $toAddToChild){
+                if (!$subTask->getParticipants()->contains($toAddToChild)){
+                    $subTask->addParticipant($toAddToChild);
+                    $this->dispatcher->dispatch(new ProjetParticipantTaskAssignedEvent($subTask, $toAddToChild));
+                }
+            }
+
+            foreach ($toRemoveFromChilds as $toRemoveFromChild){
+                if ($subTask->getParticipants()->contains($toRemoveFromChild)){
+                    $subTask->removeParticipant($toRemoveFromChild);
+                }
+            }
+
+            $this->em->persist($subTask);
+        }
+
         $this->em->flush();
 
         return new JsonResponse(null, JsonResponse::HTTP_NO_CONTENT);
