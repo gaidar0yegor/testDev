@@ -100,7 +100,6 @@
 /* commentaire */
 
 .comment-container{
-    padding: 0 10px 20px;
     font-size: 0.9rem;
 }
 
@@ -138,19 +137,38 @@
 .comment-container .comment-content-new textarea{
     border: 2px #a1a1a1 solid;
     border-radius: 20px;
-    padding: 10px 18px 14px 18px;
-    margin: 0 20px;
+    padding: 12px 15px;
+    margin: 0 10px;
     resize: none;
     line-height: 1.2;
     width: 100%;
     overflow-y: hidden;
-    text-align: justify;
 }
 
 .comment-container .comment-content-new button{
     border-radius: 20px;
     min-width: 7rem;
     height: 41px;
+    border-width: 2px;
+}
+
+@media (max-width: 720px) {
+    .comment-container .comment-content-new button{
+        border-radius: 0 20px 20px 0;
+        height: 45px;
+        min-width: 41px;
+    }
+
+    .comment-container .comment-content-new img{
+        display: none;
+    }
+
+    .comment-container .comment-content-new textarea {
+        margin: 0;
+        border-radius: 20px 0 0 20px;
+        border-right: none;
+        padding: 12px 10px;
+    }
 }
 
 .comment-container .comment-content-new textarea:focus{
@@ -159,7 +177,7 @@
 }
 
 .comment-container .comment-content-list{
-    margin-top: 20px;
+    margin-top: 10px;
     border: 1px solid grey;
     border-radius: 20px;
     padding: 10px;
