@@ -49,6 +49,7 @@ class PlanningTaskStartSoon implements EventSubscriberInterface
             ->textTemplate('corp_app/mail/notification_planning_task_start_soon.html.twig')
             ->htmlTemplate('corp_app/mail/notification_planning_task_start_soon.html.twig')
             ->context([
+                'societe' => $projet->getSociete(),
                 'projet' => $projet,
                 'projetPlanningTask' => $projetPlanningTask,
             ]);

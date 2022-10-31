@@ -18,8 +18,10 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Tableau de bord : style des graphs
 - Changement du format de date dans la liste des projets
 - Modèle de calcul de l'efficacité du projet
+- Licence & msg d'erreur
 ### Réparé
 - Export du projet en PDF
+- Mettre le logo de la société dans le mail de commencement d'une tâche
 
 
 

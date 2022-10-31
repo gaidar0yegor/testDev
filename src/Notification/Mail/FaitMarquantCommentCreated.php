@@ -36,6 +36,7 @@ class FaitMarquantCommentCreated
                 'faitMarquantComment' => $faitMarquantComment,
                 'faitMarquant' => $faitMarquant,
                 'user' => $user,
+                'societe' => $faitMarquant->getSociete(),
             ]);
 
         if ($faitMarquant->getProjet()->getChefDeProjet()->getUser() !== $faitMarquantComment->getCreatedBy()->getUser()){
