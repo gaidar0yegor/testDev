@@ -14,7 +14,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Evénement : Invitation de personnes externes via ajout de mails externes
 - Statistiques du projet : ajouter une charte des statuts des tâches
 - Affectation planification : auto affecter les personnes à des sous tâches
-- Sidebar projet : évenement à venir : ajout d'un raccourci
+- Sidebar projet : évenement à venir : ajout d'un raccourci pour créer un évenement
 ### Modifié
 - Tableau de bord : style des graphs
 - Changement du format de date dans la liste des projets
