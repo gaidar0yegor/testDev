@@ -219,8 +219,7 @@ scheduler.templates.agenda_text = function(start, end, event){
 const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
 });
-
-$(document).ready( function () {
+scheduler.attachEvent("onXLE", function(){
     let newEvent = params.new;
 
     if (newEvent){
