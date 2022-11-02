@@ -214,6 +214,22 @@ scheduler.templates.agenda_text = function(start, end, event){
 };
 // END :: Agenda
 
+// START :: New event
+
+const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+});
+
+$(document).ready( function () {
+    let newEvent = params.new;
+
+    if (newEvent){
+        scheduler.addEventNow();
+    }
+});
+
+// END :: New event
+
 dhtmlXTooltip.config.className = 'dhtmlXTooltip tooltip';
 scheduler.locale.labels.new_event = "";
 scheduler.locale.labels.section_text = locale.labels.section_text;
