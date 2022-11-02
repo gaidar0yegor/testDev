@@ -84,7 +84,8 @@ class FaitMarquantModifiedActivity implements ActivityInterface
 
     public function postUpdate(FaitMarquant $faitMarquant, LifecycleEventArgs $args): void
     {
-        $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($faitMarquant);
+        $em = $args->getEntityManager();
+        $changes = $em->getUnitOfWork()->getEntityChangeSet($faitMarquant);
 
         if (key_exists('trashedAt',$changes) && key_exists('trashedBy',$changes) && count($changes) === 2){
             return;
@@ -102,6 +103,19 @@ class FaitMarquantModifiedActivity implements ActivityInterface
                 'faitMarquant' => intval($faitMarquant->getId()),
             ])
         ;
+
+        // START:: Verifier s'il a déjà une notification dans le même jour
+
+        $oldActivities = $em->getRepository(Activity::class)->getByCreteria(
+            $activity->getType(),
+            $activity->getParameters(),
+            new \DateTime('today midnight')
+        );
+        if (count($oldActivities) > 0){
+            return;
+        }
+
+        // END:: Verifier s'il a déjà une notification dans le même jour
 
         $societeUserActivity = new SocieteUserActivity();
         $societeUserActivity

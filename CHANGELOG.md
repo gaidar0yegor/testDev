@@ -23,6 +23,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Réparé
 - Export du projet en PDF
 - Mettre le logo de la société dans le mail de commencement d'une tâche
+- Modification d'un fait marquant : la même notif est affichée qu'une seule fois par jour 
 
 
 
