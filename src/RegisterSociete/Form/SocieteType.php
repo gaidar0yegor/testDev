@@ -20,7 +20,7 @@ class SocieteType extends AbstractType
             ])
             ->add('siret', null, [
                 'required' => false,
-                'help' => 'Optionel, vous pourrez le remplir plus tard.',
+                'help' => 'Optionelle, vous pourrez le remplir plus tard.',
             ])
         ;
     }
