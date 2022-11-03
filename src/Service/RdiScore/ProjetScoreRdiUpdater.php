@@ -50,7 +50,10 @@ class ProjetScoreRdiUpdater
 
         foreach ($projets as $projet) {
             if ($projet->getRdiDomains()->count() > 0) {
-                $levelKeywords = ['keywords_1' => [], 'keywords_2' => []];
+                $levelKeywords = [
+                    'keywords_1' => [],
+                    'keywords_2' => RdiKeywordsStatic::getKeywords()
+                ];
 
                 foreach ($projet->getRdiDomains() as $rdiDomain) {
                     if (count($rdiDomain->getKeywords()) > 0) {
