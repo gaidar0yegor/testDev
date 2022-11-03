@@ -6,6 +6,17 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ## [À venir dans la prochaine version]
 ### Ajouté
+### Modifié
+### Réparé
+
+
+
+
+
+
+
+## [1.70.6] - 2022-11-03
+### Ajouté
 - Ne pas avoir un chevauchement des événements sur les plannings des projets
 - Export feuilles de temps réaliste
 - Joindre des fichiers à travers des liens externes
@@ -25,9 +36,6 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Export du projet en PDF
 - Mettre le logo de la société dans le mail de commencement d'une tâche
 - Modification d'un fait marquant : la même notif est affichée qu'une seule fois par jour 
-
-
-
 
 ## [1.70.5] - 2022-10-10
 ### Modifié
