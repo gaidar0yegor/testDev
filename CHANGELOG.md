@@ -7,6 +7,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ## [À venir dans la prochaine version]
 ### Ajouté
 - Visualiser le fait marquant avant de le sauvegarder
+- Système de rappel pour les événements : Notification, SMS et slack
 ### Modifié
 ### Réparé
 
