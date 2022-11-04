@@ -9,7 +9,6 @@ use App\Entity\Projet;
 use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
 use App\Service\CraService;
-use App\Service\RdiScore\EvenementReminderChoices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;

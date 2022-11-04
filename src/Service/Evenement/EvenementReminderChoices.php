@@ -1,12 +1,9 @@
 <?php
 
-namespace App\Service\RdiScore;
+namespace App\Service\Evenement;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * la liste statique des keywords de niveau 2
- */
 class EvenementReminderChoices
 {
     public static function getChoices(TranslatorInterface $translator): array
