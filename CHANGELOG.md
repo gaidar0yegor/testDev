@@ -10,6 +10,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Système de rappel pour les événements : Notification, SMS et slack
 ### Modifié
 ### Réparé
+- L'accès de l'ADMIN à l'export d'un projet
 
 
 
