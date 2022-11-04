@@ -55,10 +55,9 @@ class TimesheetCalculator
         $tempsPasses = [];
         foreach ($projetParticipants as $projetParticipant){
             $tempsPasse = $this->getTempsPassesOnProjet($cra, $projetParticipant);
-            if (null === $tempsPasse) {
-                $tempsPasse = new TimesheetProjet($projetParticipant);
+            if (null !== $tempsPasse) {
+                $tempsPasses[$projetParticipant->getProjet()->getId()] = $tempsPasse;
             }
-            $tempsPasses[$projetParticipant->getProjet()->getId()] = $tempsPasse;
         }
 
         if ($societeUser->getSociete()->getTimesheetGranularity() === Societe::GRANULARITY_DAILY){
@@ -69,11 +68,13 @@ class TimesheetCalculator
 
         $timesheetProjets = [];
         foreach ($projetParticipants as $projetParticipant){
-            $timesheetProjets[] = new TimesheetProjet(
-                $projetParticipant,
-                $tempsPasses[$projetParticipant->getProjet()->getId()],
-                $workedHoursProjets[$projetParticipant->getProjet()->getId()]
-            );
+            if (isset($tempsPasses[$projetParticipant->getProjet()->getId()])){
+                $timesheetProjets[] = new TimesheetProjet(
+                    $projetParticipant,
+                    $tempsPasses[$projetParticipant->getProjet()->getId()],
+                    $workedHoursProjets[$projetParticipant->getProjet()->getId()]
+                );
+            }
         }
 
         return $timesheetProjets;

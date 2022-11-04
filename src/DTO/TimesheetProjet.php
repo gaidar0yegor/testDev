@@ -2,6 +2,7 @@
 
 namespace App\DTO;
 
+use App\Entity\Projet;
 use App\Entity\ProjetParticipant;
 use App\Entity\TempsPasse;
 
@@ -35,6 +36,11 @@ class TimesheetProjet
     public function getProjetParticipant(): ProjetParticipant
     {
         return $this->projetParticipant;
+    }
+
+    public function getProjet(): Projet
+    {
+        return $this->projetParticipant->getProjet();
     }
 
     /**

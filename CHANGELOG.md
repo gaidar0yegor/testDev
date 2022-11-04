@@ -11,6 +11,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Modifié
 ### Réparé
 - L'accès de l'ADMIN à l'export d'un projet
+- Export feuilles de temps
 
 
 
