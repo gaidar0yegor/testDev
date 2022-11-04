@@ -62,10 +62,12 @@ scheduler.attachEvent("onEventSave", function (id, event, is_new) {
             return false;
         }
 
-        const emails = event.external_participants_emails.split(";");
-        for (let i = 0; i < emails.length; i++) {
-            if (validateEmail(emails[i]) === false) {
-                dhtmlx.alert(locale.alerts.external_emails_invalide + emails[i]);return false;
+        if (event.external_participants_emails){
+            const emails = event.external_participants_emails.split(";");
+            for (let i = 0; i < emails.length; i++) {
+                if (validateEmail(emails[i]) === false) {
+                    dhtmlx.alert(locale.alerts.external_emails_invalide + emails[i]);return false;
+                }
             }
         }
 
@@ -234,6 +236,7 @@ scheduler.locale.labels.new_event = "";
 scheduler.locale.labels.section_text = locale.labels.section_text;
 scheduler.locale.labels.section_location = locale.labels.section_location;
 scheduler.locale.labels.section_eventType = locale.labels.section_eventType;
+scheduler.locale.labels.section_minutesToReminde = locale.labels.section_minutesToReminde;
 scheduler.locale.labels.section_requiredParticipant = `${locale.labels.invitation}<br/><a href='javascript:;' class='select-all text-left' data-state='unselected'><small>${locale.labels.select_all}</small></a>`;
 scheduler.locale.labels.section_optionalParticipant = `${locale.labels.information}<br/><a href='javascript:;' class='select-all text-left' data-state='unselected'><small>${locale.labels.select_all}</small></a>`;
 scheduler.locale.labels.section_externalParticipant = `${locale.labels.external_emails}<br/><small class='text-muted text-left'>${locale.labels.external_emails_help}</small>`;
@@ -252,7 +255,8 @@ scheduler.config.lightbox.sections = [
     { name:"requiredParticipant", height:53, map_to:"required_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
     { name:"optionalParticipant", height:53, map_to:"optional_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
     { name:"externalParticipant", height:50 , map_to:"external_participants_emails", type:"textarea" },
-    { name:"time", height:72, type:"time", map_to:"auto", time_format:["%d","%m","%Y","%H:%i"] }
+    { name:"time", height:72, type:"time", map_to:"auto", time_format:["%d","%m","%Y","%H:%i"] },
+    { name:"minutesToReminde", height:30, map_to:"minutesToReminde", type:"select", options: scheduler.serverList("reminderChoices") }
 ];
 
 export {

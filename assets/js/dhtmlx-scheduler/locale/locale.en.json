@@ -22,6 +22,7 @@
         "confirm_deleting":"Event will be deleted permanently, are you sure?",
         "section_description":"Description",
         "section_time":"Time period",
+        "section_minutesToReminde": "Reminder",
         "full_day":"Full day",
 
         "confirm_recurring":"Do you want to edit the whole set of repeated events?",

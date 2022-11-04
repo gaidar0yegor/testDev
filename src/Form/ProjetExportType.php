@@ -41,13 +41,15 @@ class ProjetExportType extends AbstractType
             'projet' => $projetExportParameters->getProjet(),
         ]);
 
-        if (!$projetParticipant instanceof ProjetParticipant){
-            throw new AccessDeniedException('Un problème est survenu !!');
-        }
+        if (!$this->authChecker->isGranted(RoleSociete::ADMIN)) {
+            if (!$projetParticipant instanceof ProjetParticipant){
+                throw new AccessDeniedException('Un problème est survenu !!');
+            }
 
-        if ($projetParticipant->getRole() === RoleProjet::OBSERVATEUR){
-            unset($exportOptions[ProjetExportParameters::STATISTIQUES]);
-            unset($exportOptions[ProjetExportParameters::PARTICIPANTS]);
+            if ($projetParticipant->getRole() === RoleProjet::OBSERVATEUR){
+                unset($exportOptions[ProjetExportParameters::STATISTIQUES]);
+                unset($exportOptions[ProjetExportParameters::PARTICIPANTS]);
+            }
         }
 
         $builder
