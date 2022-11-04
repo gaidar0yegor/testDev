@@ -22,6 +22,7 @@
         "confirm_deleting": "Cet événement sera supprimé définitivement. Êtes-vous sûr?",
         "section_description": "Description",
         "section_time": "Période",
+        "section_minutesToReminde": "Rappel",
         "full_day": "Journée entière",
 
         "confirm_recurring": "Voulez-vous éditer toute une série d'évènements répétés?",

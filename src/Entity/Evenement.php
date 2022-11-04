@@ -106,6 +106,21 @@ class Evenement implements HasSocieteInterface
      */
     private $autoUpdateCra;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $minutesToReminde;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $reminderAt;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isReminded;
+
     public function __construct()
     {
         $this->evenementParticipants = new ArrayCollection();
@@ -301,6 +316,42 @@ class Evenement implements HasSocieteInterface
     public function setExternalParticipantEmails(?array $externalParticipantEmails): self
     {
         $this->externalParticipantEmails = $externalParticipantEmails;
+
+        return $this;
+    }
+
+    public function getMinutesToReminde(): ?int
+    {
+        return $this->minutesToReminde;
+    }
+
+    public function setMinutesToReminde(int $minutesToReminde): self
+    {
+        $this->minutesToReminde = $minutesToReminde;
+
+        return $this;
+    }
+
+    public function getReminderAt(): ?\DateTimeInterface
+    {
+        return $this->reminderAt;
+    }
+
+    public function setReminderAt(\DateTimeInterface $reminderAt): self
+    {
+        $this->reminderAt = $reminderAt;
+
+        return $this;
+    }
+
+    public function getIsReminded(): ?bool
+    {
+        return $this->isReminded;
+    }
+
+    public function setIsReminded(bool $isReminded): self
+    {
+        $this->isReminded = $isReminded;
 
         return $this;
     }

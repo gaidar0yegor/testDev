@@ -1,0 +1,30 @@
+{% extends 'mail/layouts/base_mail.html.twig' %}
+
+{% block title %}
+    Événement : {{ evenement.text }}
+{% endblock %}
+{% block body %}
+    <row>
+        <columns>
+            <p class="text-center"><strong>Agenda RDI</strong></p>
+            <p>
+                <strong>{{ evenement.text }}</strong> - <i>dans {{ diffDateTimes(evenement.startDate, evenement.reminderAt) }}</i>
+            </p>
+
+            <p>
+                Date : {{ evenement.startDate |format_date(pattern='d MMMM Y \à HH:MM', locale=evenement.createdBy.user.locale) }}
+            </p>
+            {% if evenement.location %}
+            <p>
+                Lieu : {{ evenement.location }}
+            </p>
+            {% endif %}
+
+            <small>
+                <a href="{{ url('corp_app_fo_current_user_events', { 'event' : evenement.id }) }}">
+                    Cliquez-ici afin de consulter en détails votre événement sur l'application RDI Manager.
+                </a>
+            </small>
+        </columns>
+    </row>
+{% endblock %}

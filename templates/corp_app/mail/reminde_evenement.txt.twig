@@ -1,0 +1,7 @@
+Agenda RDI :
+{{ evenement.text }} - dans {{ diffDateTimes(evenement.startDate, evenement.reminderAt) }}
+Date : {{ evenement.startDate |format_date(pattern='d MMMM Y \à HH:MM', locale=evenement.createdBy.user.locale) }}
+{% if evenement.location %}Lieu : {{ evenement.location }}{% endif %}
+
+Voir sur RDI-Manager :
+{{ url('corp_app_fo_current_user_events', { 'event' : evenement.id }) }}

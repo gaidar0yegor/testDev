@@ -57,7 +57,7 @@ class EvenementRemovedActivity implements ActivityInterface
             'removedBy'
         ]);
 
-        $resolver->setAllowedTypes('evenement', 'integer');
+        $resolver->setAllowedTypes('evenement', 'string');
         $resolver->setAllowedTypes('projet', ['integer','string']);
         $resolver->setAllowedTypes('removedBy', 'integer');
     }

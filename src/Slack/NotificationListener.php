@@ -4,6 +4,8 @@ namespace App\Slack;
 
 use App\Notification\Event\PlanningTaskNotCompletedNotification;
 use App\Notification\Event\RappelSaisieTempsNotification;
+use App\Notification\Event\RemindeEvenementEvent;
+use App\Twig\DiffDateTimesExtension;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -13,10 +15,13 @@ class NotificationListener implements EventSubscriberInterface
 
     private UrlGeneratorInterface $urlGenerator;
 
-    public function __construct(Slack $slack, UrlGeneratorInterface $urlGenerator)
+    private DiffDateTimesExtension $diffDateTimesExtension;
+
+    public function __construct(Slack $slack, UrlGeneratorInterface $urlGenerator, DiffDateTimesExtension $diffDateTimesExtension)
     {
         $this->slack = $slack;
         $this->urlGenerator = $urlGenerator;
+        $this->diffDateTimesExtension = $diffDateTimesExtension;
     }
 
     public static function getSubscribedEvents(): array
@@ -24,6 +29,7 @@ class NotificationListener implements EventSubscriberInterface
         return [
             RappelSaisieTempsNotification::class => 'rappelSaisieTemps',
             PlanningTaskNotCompletedNotification::class => 'planningTaskNotCompleted',
+            RemindeEvenementEvent::class => 'remindeEvenement',
         ];
     }
 
@@ -103,6 +109,56 @@ class NotificationListener implements EventSubscriberInterface
                         'text' => [
                             'type' => 'plain_text',
                             'text' => 'Planification du projet',
+                        ],
+                        'value' => 'btn_saisie_temps',
+                        'url' => $buttonLink,
+                    ],
+                ],
+            ],
+        ];
+
+        $this->slack->sendBlocks($event->getSociete(), $blocks);
+    }
+
+    public function remindeEvenement(RemindeEvenementEvent $event): void
+    {
+        if (!$event->getSociete()->getEnabled()){
+            return;
+        }
+
+        $evenement = $event->getEvenement();
+
+        $buttonLink = $this->urlGenerator->generate(
+            'corp_app_fo_current_user_events',
+            ['event' => $evenement->getId()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        $text = "Bonjour ! ";
+        $text .= "L'événement *{$evenement->getText()}* ";
+        if ($evenement->getProjet()){
+            $text .= "du projet *{$evenement->getProjet()->getAcronyme()}* ";
+        }
+        $text .= "est" . ($evenement->getStartDate() === $evenement->getReminderAt() ? " *" : " dans *") . $this->diffDateTimesExtension->diffDateTimes($evenement->getStartDate(), $evenement->getReminderAt()) . "*.";
+
+
+        $blocks = [
+            [
+                'type' => 'section',
+                'text' => [
+                    'type' => 'mrkdwn',
+                    'text' => $text,
+                ],
+            ],
+            [
+                'type' => 'actions',
+                'elements' => [
+                    [
+                        'type' => 'button',
+                        'style' => 'primary',
+                        'text' => [
+                            'type' => 'plain_text',
+                            'text' => 'Agenda RDI',
                         ],
                         'value' => 'btn_saisie_temps',
                         'url' => $buttonLink,

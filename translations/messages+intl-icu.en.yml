@@ -611,6 +611,7 @@ submit: Submit
 'sending...': 'Sending, please wait...'
 back_to_project: 'Back to the project page'
 patchnote: 'Patch notes'
+NONE: None
 AT_TIME: On time
 10_MINUTES_BEFORE: 10 minutes before
 30_MINUTES_BEFORE: 30 minutes before
@@ -618,6 +619,11 @@ AT_TIME: On time
 6_HOURS_BEFORE: 6 hours before
 12_HOURS_BEFORE: 12 hours before
 1_DAY_BEFORE: 1 day before
+2_DAY_BEFORE: 2 days avant
+3_DAY_BEFORE: 3 days avant
+4_DAY_BEFORE: 4 days avant
+1_WEEK_BEFORE: 1 week avant
+2_WEEK_BEFORE: 2 weeks avant
 show_historic_patch_note: "View old patch notes"
 date_ago: "{ date } ago"
 #################################### Lab App #######################################

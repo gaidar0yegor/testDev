@@ -23,11 +23,19 @@ class EvenementModifiedActivity implements ActivityInterface
 
     private UserContext $userContext;
 
-    public function __construct(EntityLinkService $entityLinkService, UserContext $userContext, EntityManagerInterface $em)
+    private   EvenementRemindeActivity $evenementRemindeActivity;
+
+    public function __construct(
+        EntityLinkService $entityLinkService,
+        UserContext $userContext,
+        EntityManagerInterface $em,
+        EvenementRemindeActivity $evenementRemindeActivity
+    )
     {
         $this->em = $em;
         $this->entityLinkService = $entityLinkService;
         $this->userContext = $userContext;
+        $this->evenementRemindeActivity = $evenementRemindeActivity;
     }
 
     public static function getType(): string
@@ -70,6 +78,15 @@ class EvenementModifiedActivity implements ActivityInterface
 
     public function postUpdate(Evenement $evenement, LifecycleEventArgs $args): void
     {
+        $changes = $args->getEntityManager()->getUnitOfWork()->getEntityChangeSet($evenement);
+
+        if (isset($changes['isReminded']) && $changes['isReminded'][1] === true) {
+            $this->evenementRemindeActivity->createActivity($evenement);
+            if (count($changes) === 1){
+                return;
+            }
+        }
+
         $em = $args->getEntityManager();
 
         $activity = new Activity();

@@ -611,6 +611,7 @@ submit: Soumettre
 'sending...': 'Envoi en cours...'
 back_to_project: 'Retour à la page projet'
 patchnote: 'Notes de la mise à jour'
+NONE: "Aucun"
 AT_TIME: "À l'heure"
 10_MINUTES_BEFORE: "10 minutes avant"
 30_MINUTES_BEFORE: "30 minutes avant"
@@ -618,6 +619,11 @@ AT_TIME: "À l'heure"
 6_HOURS_BEFORE: "6 heures avant"
 12_HOURS_BEFORE: "12 heures avant"
 1_DAY_BEFORE: "1 jour avant"
+2_DAY_BEFORE: "2 jours avant"
+3_DAY_BEFORE: "3 jours avant"
+4_DAY_BEFORE: "4 jours avant"
+1_WEEK_BEFORE: "1 semaine avant"
+2_WEEK_BEFORE: "2 semaines avant"
 show_historic_patch_note: "Consulter les anciennes notes de misa à jour"
 date_ago: "depuis { date }"
 since : "Il y a"

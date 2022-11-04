@@ -9,6 +9,7 @@ use App\Entity\Projet;
 use App\Entity\SocieteUser;
 use App\MultiSociete\UserContext;
 use App\Service\CraService;
+use App\Service\RdiScore\EvenementReminderChoices;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -58,6 +59,7 @@ class EvenementService
             'start_date' => $evenement->getStartDate()->format('Y-m-d H:i'),
             'end_date' => $evenement->getEndDate()->format('Y-m-d H:i'),
             'eventType' => $evenement->getType(),
+            'minutesToReminde' => (string)$evenement->getMinutesToReminde(),
 
             'projetId' => $evenement->getProjet() ? $evenement->getProjet()->getId() : null,
             'projetAcronyme' => $evenement->getProjet() ? $evenement->getProjet()->getAcronyme() : null,
@@ -107,9 +109,18 @@ class EvenementService
         $evenement->setEndDate(\DateTime::createFromFormat('Y-m-d H:i', $request->request->get('end_date')));
         if ($request->request->has('eventType')) $evenement->setType($request->request->get('eventType'));
 
+        if ($request->request->has('minutesToReminde')){
+            $minutesToReminde = (int)$request->request->get('minutesToReminde');
+            $evenement->setMinutesToReminde($minutesToReminde);
+
+            $reminderAt = (clone $evenement->getStartDate())->modify("-" . $minutesToReminde . " minutes");
+            $evenement->setReminderAt($reminderAt);
+            $evenement->setIsReminded($reminderAt <= (new \DateTime()));
+        }
+
         $evenement->setAutoUpdateCra($request->request->get('auto_update_cra') == true);
 
-        if ($request->request->has('external_participants_emails'))
+        if ($request->request->has('external_participants_emails') && $request->request->get('external_participants_emails'))
             $evenement->setExternalParticipantEmails(explode(';', $request->request->get('external_participants_emails')));
 
         $evenement = $this->createEvenementParticipants(
@@ -177,6 +188,8 @@ class EvenementService
         foreach ($types as $type){
             $collections['eventTypes'][] = ['value' => $type, 'label' => $this->translator->trans($type)];
         }
+
+        $collections['reminderChoices'] = EvenementReminderChoices::getChoices($this->translator);
 
         return $collections;
     }
