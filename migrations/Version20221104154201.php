@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20221104102618 extends AbstractMigration
+final class Version20221104154201 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20221104102618 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE evenement ADD minutes_to_reminde INT, ADD reminder_at DATETIME, ADD is_reminded TINYINT(1) DEFAULT \'1\' NOT NULL');
+        $this->addSql('ALTER TABLE evenement ADD minutes_to_reminde INT, ADD reminder_at DATETIME, ADD is_reminded TINYINT(1) DEFAULT \'0\' NOT NULL');
         $this->addSql('UPDATE evenement SET minutes_to_reminde = 0');
         $this->addSql('UPDATE evenement SET reminder_at = start_date');
         $this->addSql('UPDATE evenement SET is_reminded = reminder_at <= NOW()');
