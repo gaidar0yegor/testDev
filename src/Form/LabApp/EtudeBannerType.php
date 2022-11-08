@@ -27,6 +27,7 @@ class EtudeBannerType extends FichierType
 
         $builder
             ->remove('nomFichier')
+            ->remove('externalLink')
             ->add('file', FileType::class, [
                 'label' => false,
                 'required' 	=> false,
