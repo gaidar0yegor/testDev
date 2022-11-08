@@ -61,6 +61,13 @@ And login with:
 
 ### Licenses
 
+Sur windows : Ajouter la variable d’environnement système global
+
+```
+Nom de la variable : OPENSSL_CONF
+Valeur de la variable : C:\xampp\apache\conf\openssl.cnf
+```
+
 Pour générer des licenses illimitées pour le dev, ajouter dans votre `.env.local`:
 
 ``` yaml
@@ -77,7 +84,7 @@ Puis lancer les commandes :
 php bin/console app:license-generation:generate-private
 
 # Créer des licenses illimitées pour chacune de vos sociétés en local
-php bin/console app:license-generation:generate:unlimited
+php bin/console app:license-generation:generate:premium-license
 ```
 
 Pour en savoir plus sur les licenses, voir:
@@ -97,6 +104,7 @@ et décommenter :
 ```
 extension=xsl
 extension=sodium
+extension=intl
 extension=zip
 ```
 
