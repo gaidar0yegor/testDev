@@ -58,7 +58,7 @@ $(document).on("click", "#btnHtmlToPdf", function (e) {
             quality: 1
         },
         html2canvas: {
-            scale: 4,
+            scale: 2,
             dpi: 300,
             letterRendering: true
         },
@@ -67,6 +67,7 @@ $(document).on("click", "#btnHtmlToPdf", function (e) {
             format: "A4",
             orientation: "p"
         },
+        pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
     html2pdf()

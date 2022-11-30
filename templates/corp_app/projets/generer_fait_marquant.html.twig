@@ -41,11 +41,13 @@
                 </div>
             </div>
         </div>
-
+            <div class="pt-3">
+                <hr class="bg-primary">
+            </div>
         {{ form_end(form) }}
     </div>
 
-    <div class="card bg-light-grey border-light mt-3">
+    <div class="card border-0 mt-3">
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-2"><strong>{{ "title"|trans }} : </strong></div>
@@ -58,9 +60,12 @@
             {% if projet.rdiDomains | length > 0 %}
                 <div class="row mb-3">
                     <div class="col-md-2"><strong>{{ "domain"|trans }} : </strong></div>
-                    <div class="col-md-10 text-justify">
+                    <div class="col-md-10 text-justify d-flex">
                         {% for domain in projet.rdiDomains %}
                             <p>{{ domain.nom }}</p>
+                                {% if projet.rdiDomains | length > 1 %}
+                                    <p>&nbsp; &nbsp;</p>
+                                {% endif %}
                         {% endfor %}
                     </div>
                 </div>
@@ -97,7 +102,7 @@
         <h2 class="facts">Faits marquants</h2>
 
         {% if projet.hasFaitMarquants() %}
-            <ul class="timeline text-word-break">
+            <ul class="timeline text-word-break border-0 shadow-none">
                 {% for faitMarquant in projet.faitMarquants %}
                     {% if faitMarquant.trashedAt is null %}
                         <li class="event">
@@ -140,3 +145,17 @@
 
 {% endblock %}
 
+{% block javascripts %}
+<script>
+    // uncheck checkbox export project
+
+    var target = document.getElementById("projet_export_exportOptions_5");
+    target.removeAttribute("checked");
+    var target = document.getElementById("projet_export_exportOptions_4");
+    target.removeAttribute("checked");
+    var target = document.getElementById("projet_export_exportOptions_3");
+    target.removeAttribute("checked");
+    var target = document.getElementById("projet_export_exportOptions_2");
+    target.removeAttribute("checked");
+</script>
+{% endblock %}

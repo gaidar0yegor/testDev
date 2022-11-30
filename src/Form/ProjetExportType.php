@@ -55,11 +55,11 @@ class ProjetExportType extends AbstractType
         $builder
         ->add('dateDebut', DatePickerType::class, [
             'required' => false,
-            'label' => 'Date de début',
+            'label' => 'Date de début de l\'export',
         ])
         ->add('dateFin', DatePickerType::class, [
             'required' => false,
-            'label' => 'Date de fin',
+            'label' => 'Date de fin de l\'export',
         ])
         ->add('exportOptions', ChoiceType::class, [
             'required' => false,

@@ -47,7 +47,7 @@
 </p>
 
 {% if constant('App\\DTO\\ProjetExportParameters::PRESENTATION') in customTime.exportOptions or constant('App\\DTO\\ProjetExportParameters::FAITS_MARQUANTS') in customTime.exportOptions %}
-    <div class="card bg-light-grey border-light">
+    <div class="card border-0">
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-2"><strong>Titre : </strong></div>
@@ -60,10 +60,8 @@
             {% if projet.rdiDomains | length > 0 %}
                 <div class="row mb-3">
                     <div class="col-md-2"><strong>{{ "domain"|trans }} : </strong></div>
-                    <div class="col-md-10 text-justify">
-                        {% for domain in projet.rdiDomains %}
-                            <p>{{ domain.nom }}</p>
-                        {% endfor %}
+                    <div class="col-md-10 text-justify d-flex flex-row" style="display: flex; flex-direction: row;">
+                            <p>{% for domain in projet.rdiDomains %}{{ domain.nom }}&nbsp;&nbsp;{% endfor %}</p>
                     </div>
                 </div>
             {% endif %}
@@ -100,15 +98,16 @@
 <section id="timeline">
     <h2 class="facts">Faits marquants</h2>
     {% if projet.hasFaitMarquants() %}
-        <ul class="timeline text-word-break">
+        <ul class="timeline text-word-break border-0 shadow-none">
             {% for faitMarquant in projet.faitMarquants %}
                 {% if faitMarquant.trashedAt is null and (customTime.dateDebut is null or faitMarquant.date >= customTime.dateDebut) and (customTime.dateFin is null or faitMarquant.date <= customTime.dateFin) %}
-                    <li class="event">
-                        <h4 data-date="{{ faitMarquant.date|format_date }}">
-                            {{ faitMarquant.date|format_date }}
-                            -
-                            <span>{{ faitMarquant.createdBy.user.fullname }}</span>
-                        </h4>
+                    <li class="event eventpdf shadow-none border-0 mt-0">
+                        <div class="title-parent">
+                            <div class="roundpdf"></div>
+                            <h4 class="ml-4" data-date="{{ faitMarquant.date|format_date }}">
+                            {{ faitMarquant.date|format_date }} - {{ faitMarquant.createdBy.user.fullname }}
+                            </h4>
+                        </div>
                         <h3 class="font-weight-bold">{{ faitMarquant.titre }}</h3>
                         {% if faitMarquant.geolocalisation %}
                             <p class="fait-marquant-geolocalisation"><i class="fa fa-map-marker "></i> <i>{{ faitMarquant.geolocalisation }}</i></p>
@@ -116,6 +115,7 @@
                         <p class="text-justify">
                             {{ faitMarquant.description|markdown|raw }}
                         </p>
+                        <hr style="break-before: page;">
                     </li>
                 {% endif %}
             {% endfor %}
