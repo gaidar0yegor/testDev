@@ -32,6 +32,7 @@ use App\MultiSociete\UserContext;
 use App\Notification\Event\AddedAsContributorNotification;
 use App\Service\ParticipantService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -330,7 +331,9 @@ class ProjetController extends AbstractController
 
         $nameSociete = $projet->getSociete()->getRaisonSociale();
 
-        $logoSociete = $this->avatarHandler->getPublicUrl($projet->getSociete()->getLogo());
+        $relativeUrlLogo = $this->avatarHandler->getPublicUrl($projet->getSociete()->getLogo());
+
+        $globalUrlLogo = $this->container->get('request_stack')->getCurrentRequest()->getUriForPath($relativeUrlLogo);
 
         $options = [
             'margin-top'    => 10,
@@ -342,9 +345,9 @@ class ProjetController extends AbstractController
                                 <head>
                                 <meta charset="UTF-8">
                                 </head>
-                                <div style="color:#909090; padding-bottom: 10px;">
-                                    <small style="margin-right:600px;">' . $nameSociete . '</small>
-                                    <img src="' . $logoSociete . '">
+                                <div style="color:#909090; padding-top: 10px;">
+                                    <small style="margin-right:620px;padding-bottom: 10px;">' . $nameSociete . '</small>
+                                    <img src="' . $globalUrlLogo . '" alt="Logo Société" style="width:100px" />
                                 </div>',
             'footer-html' => '<div style="color:#909090;">
                                 <small style="margin-right:510px;">Strictement confidentiel</small>
