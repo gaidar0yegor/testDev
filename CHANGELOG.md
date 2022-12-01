@@ -8,8 +8,11 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Ajouté
 - Visualiser le fait marquant avant de le sauvegarder
 - Système de rappel pour les événements : Notification, SMS et slack
+- Rédiger des équations dans les FM
 - Ajout du code google tag manager
+- Pied de page + en-tête sur le pdf de la page projet
 ### Modifié
+- Mise en page de l'export de la page projet
 ### Réparé
 - L'accès de l'ADMIN à l'export d'un projet
 - Export feuilles de temps

@@ -336,7 +336,7 @@ class ProjetController extends AbstractController
         $globalUrlLogo = $this->container->get('request_stack')->getCurrentRequest()->getUriForPath($relativeUrlLogo);
 
         $options = [
-            'margin-top'    => 10,
+            'margin-top'    => 15,
             'margin-right'  => 15,
             'margin-bottom' => 10,
             'margin-left'   => 15,
@@ -345,9 +345,9 @@ class ProjetController extends AbstractController
                                 <head>
                                 <meta charset="UTF-8">
                                 </head>
-                                <div style="color:#909090; padding-top: 10px;">
-                                    <small style="margin-right:620px;padding-bottom: 10px;">' . $nameSociete . '</small>
-                                    <img src="' . $globalUrlLogo . '" alt="Logo Société" style="width:100px" />
+                                <div style="color:#909090; padding-bottom:30px; padding-top:15px;">
+                                    <div style="display:inline;"><small style="margin-right:650px;">' . $nameSociete . '</small></div>
+                                    <div style="display:inline;position:relative;"><img src="' . $globalUrlLogo . '" alt="Logo Société" style="height:50px; position:absolute;top:-20px;" /></div>
                                 </div>',
             'footer-html' => '<div style="color:#909090;">
                                 <small style="margin-right:510px;">Strictement confidentiel</small>
