@@ -254,7 +254,7 @@ scheduler.config.lightbox.sections = [
     { name:"location", height:30, map_to:"location", type:"textarea" },
     { name:"requiredParticipant", height:53, map_to:"required_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
     { name:"optionalParticipant", height:53, map_to:"optional_participants_ids", type:"multiselect", options: scheduler.serverList("participants") },
-    { name:"externalParticipant", height:50 , map_to:"external_participants_emails", type:"textarea" },
+    { name:"externalParticipant", height:50 , map_to:"external_participants_emails", type:"textarea", required: false },
     { name:"time", height:72, type:"time", map_to:"auto", time_format:["%d","%m","%Y","%H:%i"] },
     { name:"minutesToReminde", height:30, map_to:"minutesToReminde", type:"select", options: scheduler.serverList("reminderChoices") }
 ];

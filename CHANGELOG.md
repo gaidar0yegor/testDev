@@ -12,6 +12,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 ### Réparé
 - L'accès de l'ADMIN à l'export d'un projet
 - Export feuilles de temps
+- Champs optionnel email externes agenda
 
 
 
