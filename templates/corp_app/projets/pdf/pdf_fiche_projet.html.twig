@@ -21,7 +21,15 @@
             }
         });
     </script>
-    <script type="text/javascript" src="{{ absolute_url(asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js')) }}"></script>
+    <script type="text/x-mathjax-config;executed=true">
+    MathJax.Hub.Config({
+        showProcessingMessages: false,
+        tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+    });
+    </script>
+    <script type="text/javascript" src="https://www.tuhh.de/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+    {# <script type="text/javascript" src="{{ absolute_url(asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js')) }}"></script> #}
+
 </head>
 <body class="corp_app">
 
