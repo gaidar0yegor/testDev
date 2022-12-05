@@ -19,12 +19,12 @@ if (typeof CKEDITOR !== "undefined") {
 
     $('.container.main-container').append(`<div class="ckeditor-preview-popup rdi-popup bg-modal" style="display: none;">
         <div class="content">
-            <div style="padding: 20px;">
+            <div class="w-100 border-bottom" style="padding: 20px 20px 10px 20px;">
                 <div class="w-100 d-flex justify-content-between align-items-center">
-                    <h6>` + $FMtitle + `</h6>
-                    <p>` + $FMdate + `</p>
+                    <h3>` + $FMtitle + `</h3>
+                    <span style="width:180px; text-align:right;">` + $FMdate + `</span>
                 </div>
-                <small>` + $FMgeoloc + `</small>
+                <small id="FMgeoloc" class="font-italic">` + $FMgeoloc + `</small>
             </div>
             <div class="rdi-popup-body py-3 event-content text-justify text-word-break position-relative" style="max-height: 70vh !important;"></div>
             <div class="rdi-popup-footer">
@@ -32,6 +32,10 @@ if (typeof CKEDITOR !== "undefined") {
             </div>
         </div>
     </div>`);
+}
+
+if($FMgeoloc) {
+    $('#FMgeoloc').prepend(`<i class="fa fa-map-marker mr-1"></i>`)
 }
 
 $(document).on('click', '.ckeditor-preview', function (e) {
