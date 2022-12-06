@@ -51,7 +51,7 @@ $(document).on("click", "#btnHtmlToPdf", function (e) {
         });
 
     var opt = {
-        margin: [0.1, 0.1],
+        margin: [0.4, 0.4],
         enableLinks: false,
         image: {
             type: "jpeg",
@@ -65,8 +65,9 @@ $(document).on("click", "#btnHtmlToPdf", function (e) {
         jsPDF: {
             unit: "in",
             format: "A4",
-            orientation: "p"
+            orientation: "L"
         },
+        pagebreak: {before: '.newPage'},
     };
 
     html2pdf()
@@ -75,6 +76,40 @@ $(document).on("click", "#btnHtmlToPdf", function (e) {
         .toPdf()
         .get("pdf")
         .then(function (pdf) {
+
+            var today = new Date();
+            var options = {
+                day: "numeric",
+                month: "long", 
+                year: "numeric"
+            }
+            var sDay = today.toLocaleDateString("fr-FR", options);
+
+
+            const pageCount = pdf.internal.getNumberOfPages();
+            for(let i = 1; i <= pageCount; i++) {
+                pdf.setPage(i);
+                const pageSize = pdf.internal.pageSize;
+                const pageWidth = pageSize.width ? pageSize.width : pageSize.getWidth();
+                const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
+                const headerLeft = 'Report 2014';
+                const footerLeft = `Strictement confidentiel`;
+                const headerRight = 'Report 2014';
+                const footerRight = `${sDay} | Powered by RDI`;
+
+                pdf.setFontSize(8);
+                pdf.setTextColor(150);
+                // Header Left
+                pdf.text(headerLeft, 0.2, 0.2, { baseline: 'top' });
+                // Footer Left 
+                pdf.text(footerLeft, 0.2, pageHeight - 0.2, { baseline: 'bottom' });
+                // Header Right
+                pdf.text(headerRight, pageWidth - 0.8, 0.2, { baseline: 'top' });
+                // Footer Right
+                pdf.text(footerRight, pageWidth - 2, pageHeight - 0.2, { baseline: 'bottom' });
+            }
+
+
             pdf.save(document.title + ".pdf");
         });
 });
