@@ -56,4 +56,16 @@ class SocieteRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findNameandLogo()
+    {
+        return $this
+            ->createQueryBuilder('societe')
+            ->where('societe.disabledAt <= :date')
+            ->andWhere('societe.enabled = false')
+            ->andWhere('societe.onStandBy = false')
+            ->setParameter('date', $date->format('Y-m-d') . ' 00:00:00')
+            ->getQuery()
+            ->getResult();
+    }
 }
