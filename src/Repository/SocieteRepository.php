@@ -57,15 +57,12 @@ class SocieteRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function findNameandLogo()
-    {
-        return $this
-            ->createQueryBuilder('societe')
-            ->where('societe.disabledAt <= :date')
-            ->andWhere('societe.enabled = false')
-            ->andWhere('societe.onStandBy = false')
-            ->setParameter('date', $date->format('Y-m-d') . ' 00:00:00')
-            ->getQuery()
-            ->getResult();
-    }
+    // public function findRaisonSociale()
+    // {
+    //     return $this
+    //         ->createQueryBuilder('societe')
+    //         ->select('societe.raisonSociale')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 }
