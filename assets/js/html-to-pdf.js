@@ -106,7 +106,7 @@ function exportToPdf($button, initData)
                         const pageHeight = pageSize.height ? pageSize.height : pageSize.getHeight();
                         const headerLeft = initData.societe_name;
                         const footerLeft = `Strictement confidentiel`;
-                        const headerRight = 'Report 2014';
+                        const headerRight = initData.societe_logo;
                         const footerRight = `${sDay} | Powered by RDI`;
         
                         pdf.setFontSize(8);
@@ -116,7 +116,7 @@ function exportToPdf($button, initData)
                         // Footer Left 
                         pdf.text(footerLeft, 0.2, pageHeight - 0.2, { baseline: 'bottom' });
                         // Header Right
-                        pdf.text(headerRight, pageWidth - 0.8, 0.2, { baseline: 'top' });
+                        pdf.addImage(headerRight, "PNG", pageWidth - 1.2, 0.1, 0.9, 0.5, { baseline: 'top' });
                         // Footer Right
                         pdf.text(footerRight, pageWidth - 2, pageHeight - 0.2, { baseline: 'bottom' });
                     }
