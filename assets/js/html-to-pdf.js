@@ -116,7 +116,7 @@ function exportToPdf($button, initData)
                         // Footer Left 
                         pdf.text(footerLeft, 0.2, pageHeight - 0.2, { baseline: 'bottom' });
                         // Header Right
-                        pdf.addImage(headerRight, "PNG", pageWidth - 1.2, 0.1, 0.9, 0.5, { baseline: 'top' });
+                        pdf.addImage(headerRight, "PNG", pageWidth - 1.2, 0.1, 0.8, 0.3, { baseline: 'top' });
                         // Footer Right
                         pdf.text(footerRight, pageWidth - 2, pageHeight - 0.2, { baseline: 'bottom' });
                     }
