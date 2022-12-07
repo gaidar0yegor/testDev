@@ -26,7 +26,7 @@ if (typeof CKEDITOR !== "undefined") {
                 </div>
                 <small id="FMgeoloc" class="font-italic">` + $FMgeoloc + `</small>
             </div>
-            <div class="rdi-popup-body py-3 event-content text-justify text-word-break position-relative" style="max-height: 70vh !important;"></div>
+            <div class="rdi-popup-body py-3 event-content text-justify text-word-break position-relative" style="max-height: 60vh !important;"></div>
             <div class="rdi-popup-footer">
                 <button class="btn btn-success rdi-popup-close">Fermer</button>
             </div>
