@@ -2282,24 +2282,6 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-ckeditor5@^35.3.2:
-  version "35.3.2"
-  resolved "https://registry.yarnpkg.com/ckeditor5/-/ckeditor5-35.3.2.tgz#c5cf786fd09b439fa5b1639b79467f2744d39124"
-  integrity sha512-QQbXi3EbarHOdb8qgQ+EY8PhDYrtpRMQC3k3J9rhTZLQcVYYxMkFwlVtaN8TtxpLo00KGAV1+FticdBL7RqpXA==
-  dependencies:
-    "@ckeditor/ckeditor5-clipboard" "^35.3.2"
-    "@ckeditor/ckeditor5-core" "^35.3.2"
-    "@ckeditor/ckeditor5-engine" "^35.3.2"
-    "@ckeditor/ckeditor5-enter" "^35.3.2"
-    "@ckeditor/ckeditor5-paragraph" "^35.3.2"
-    "@ckeditor/ckeditor5-select-all" "^35.3.2"
-    "@ckeditor/ckeditor5-typing" "^35.3.2"
-    "@ckeditor/ckeditor5-ui" "^35.3.2"
-    "@ckeditor/ckeditor5-undo" "^35.3.2"
-    "@ckeditor/ckeditor5-upload" "^35.3.2"
-    "@ckeditor/ckeditor5-utils" "^35.3.2"
-    "@ckeditor/ckeditor5-widget" "^35.3.2"
-
 ckeditor@^4.12.1:
   version "4.12.1"
   resolved "https://registry.npmjs.org/ckeditor/-/ckeditor-4.12.1.tgz"
