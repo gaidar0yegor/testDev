@@ -74,7 +74,8 @@
       break-after: always;
       break-inside: always;
       break-before: always; */
-      break-before : page;
+      break-after : page;
+      page-break-inside: avoid
   }
 
   .timeline .eventpdf:before,
