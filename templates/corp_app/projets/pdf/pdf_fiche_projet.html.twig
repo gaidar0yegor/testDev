@@ -63,7 +63,7 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-2"><strong>Résumé : </strong></div>
-                <div class="col-md-10 text-justify">{{ projet.resume|markdown|raw }}</div>
+                <div class="col-md-10 text-justify" style="text-align: justify !important;">{{ projet.resume|markdown|raw }}</div>
             </div>
             {% if projet.rdiDomains | length > 0 %}
                 <div class="row mb-3">
@@ -74,27 +74,28 @@
                 </div>
             {% endif %}
             <div class="row">
-                <div class="col-md-6">
-                    <div class="row mb-3">
-                        <div class="col-md-4"><strong>Chef de projet : </strong></div>
-                        <div class="col-md-6">{{ projet.chefDeProjet.user.fullname }}</div>
+                <div class="col-md-12">
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div class="d-flex flex-row mb-3">
+                            <div>
+                                <strong>{{ "PROJET_CDP"|trans }} : </strong>
+                                <span style="margin-right:400px">&nbsp;{{ projet.chefDeProjet.user.fullname }}</span>
+                                <strong>{{ "status"|trans }}  : </strong>
+                                <span>&nbsp;{% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}</span>
+                            </div>
+                            <div></div>
+                        </div>
                     </div>
-                    {% if projet.dateDebut %}
-                        <div class="row mb-3">
-                            <div class="col-md-4"><strong>Date de début : </strong></div>
-                            <div class="col-md-6">{{ projet.dateDebut|format_date }}</div>
-                        </div>
-                    {% endif %}
-                    {% if projet.dateFin %}
-                        <div class="row mb-3">
-                            <div class="col-md-4"><strong>Date de fin : </strong></div>
-                            <div class="col-md-6">{{ projet.dateFin|format_date }}</div>
-                        </div>
-                    {% endif %}
-                    <div class="row mb-3">
-                        <div class="col-md-4"><strong>Statut : </strong></div>
-                        <div class="col-md-6">
-                            {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div class="d-flex flex-row mb-3">
+                            {% if projet.dateDebut %}
+                            <strong>{{ "date_debut"|trans }}  : </strong>
+                            <span style="margin-right:360px">&nbsp;{{ projet.dateDebut|format_date }}</span>
+                            {% endif %}
+                            {% if projet.dateFin %}
+                            <strong>{{ "date_fin"|trans }}  :</strong>
+                            <span>&nbsp;{{ projet.dateFin|format_date }}</span>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
