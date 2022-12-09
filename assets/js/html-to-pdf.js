@@ -65,7 +65,7 @@ function exportToPdf($button, initData) {
     });
 
   var opt = {
-    margin: [0.4, 0.4],
+    margin: [0.5, 0.5],
     enableLinks: false,
     image: {
       type: "jpeg",

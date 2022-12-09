@@ -9,6 +9,15 @@ const chart = c3.generate({
         columns: [],
         colors: [],
     },
+    legend: {
+        position: 'inset',
+        inset: {
+                anchor: 'bottom',
+                x: 150,
+                y: -110,
+                step: -1
+            }
+    },
     bar: {
         width: {
             ratio: 1,
@@ -21,6 +30,9 @@ const chart = c3.generate({
             },
         },
     },
+    padding: {
+        bottom: 30
+    }
 });
 
 window.addEventListener('loadYearlyCharts', event => {
@@ -36,6 +48,13 @@ window.addEventListener('loadYearlyCharts', event => {
                 const sumHeures = Object.values(heuresParProjet).reduce((a, b) => a + b);
 
                 heuresParProjet._projects_year = year;
+
+                // let projectsNames = Object.keys(heuresParProjet);
+                // nameProjectSpaces = projectsNames.forEach((item, index)=>{
+                //     const spaces = 'ㅤ';
+                //     projectsNames[item] = item + spaces;
+                //     console.log(projectsNames[item] = item + spaces)
+                // });
 
                 chart.load({
                     unload: true,
