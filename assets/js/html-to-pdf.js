@@ -93,7 +93,7 @@ function exportToPdf($button, initData) {
       var today = new Date();
       var options = {
         day: "numeric",
-        month: "long",
+        month: "numeric",
         year: "numeric",
       };
       var sDay = today.toLocaleDateString("fr-FR", options);
