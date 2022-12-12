@@ -55,7 +55,7 @@
 			</div>
 		</div>
 
-			<div class="row row-flex d-flex flex-row justify-content-around">
+			<div class="conteneur row row-flex d-flex flex-row justify-content-around">
 				<div class="col-xl-7 col-lg-12 mt-3">
 					<div class="card shadow rounded h-100">
 						<div class="card-body">
@@ -63,8 +63,8 @@
 							<p class="card-text h3" data-target-highlight="heures-par-projet">...</p>
 							<small class="text-muted">{{ 'db_total_time'|trans }}</small>
 							<hr>
-							<div class="h-full d-flex justify-content-center align-items-center">
-								<div id="heures-par-projet" class="mt-3"></div>
+							<div class="d-flex justify-content-center align-items-center">
+								<div id="heures-par-projet"></div>
 							</div>
 						</div>
 					</div>
@@ -111,16 +111,14 @@
 							<p class="card-text h3" data-target-highlight="efficacite-moyenne">...</p>
 							<small class="text-muted">{{ 'db_value_eff'|trans }}</small>
 							<hr>
-							<div class="h-full d-flex justify-content-center align-items-center">
-								<canvas id="efficacite-moyenne" class="mt-3 pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3" style="max-height:350px; max-width:400px;"></canvas>
+							<div class="d-flex justify-content-center align-items-center">
+								<canvas id="efficacite-moyenne" class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3" style="max-height:350px; max-width:400px;"></canvas>
 							</div>
 						</div>
 					</div>
 				</div>
 				{% endif %}
-			</div>
-			{% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-			<div class="newPage row row-flex d-flex flex-row justify-content-center align-items-center">
+				{% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
 				<div class="col-xl-12 col-lg-12  mt-4" id="parentContrib">
 					<div class="myContributions card shadow rounded h-100">
 						<div class="card-body">
@@ -154,39 +152,38 @@
 						</div>
 					</div>
 				</div>
-			</div>
 			{% endif %}
-
+			</div>
 			<div class="row mt-4">
 				<div class="col-md-10 mx-auto bordure">
-					<h2 class="newPage">{{ 'project_analyse_from'|trans }}
+					<h2 class="">{{ 'project_analyse_from'|trans }}
 						<span class="year-switch" data-event-name="loadSinceYearCharts" data-year-selected="{{ '-2 years'|date('Y') }}"></span>
 					</h2>
 				</div>
 			</div>
 
-			<div class="row row-flex d-flex flex-row justify-content-around">
-				<div class="col-md-5 mt-3">
+			<div class="conteneur row row-flex d-flex flex-row justify-content-around">
+				<div class="col-xl-5 col-lg-12  mt-3">
 					<div class="card shadow rounded h-100">
 						<div class="card-body">
 							<h5 class="text-left d-block">{{ 'projects_realisations'|trans }}</h5>
 							<p class="card-text h3" data-target-highlight="projets-statuts">...</p>
 							<small class="text-muted">{{ 'db_stats_suspend'|trans }}</small>
 							<hr>
-							<div class="h-full d-flex justify-content-center align-items-center">
+							<div class="d-flex justify-content-center align-items-center">
 								<div id="projets-statuts"></div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-7 mt-3">				
+				<div class="col-xl-7 col-lg-12  mt-3">				
 					<div class="card shadow rounded h-100">
 						<div class="card-body">
 							<h5 class="text-left d-block">{{ 'realized_projects_type'|trans }}</h5>
 							<p class="card-text h3" data-target-highlight="projets-rdi-vs-non-rdi">...</p>
 							<small class="text-muted">{{ 'db_rdi_elig'|trans }}{{ 'now' |date('Y') }}.</small>
 							<hr>
-							<div class="h-full d-flex justify-content-center align-items-center">
+							<div class="d-flex justify-content-center align-items-center">
 							<div id="projets-rdi-vs-non-rdi"></div>
 							</div>
 						</div>

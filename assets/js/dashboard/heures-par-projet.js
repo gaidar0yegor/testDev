@@ -10,13 +10,13 @@ const chart = c3.generate({
         colors: [],
     },
     legend: {
-        position: 'inset',
-        inset: {
-                anchor: 'bottom',
-                x: 150,
-                y: -110,
-                step: -1
-            }
+        position: 'bottom',
+        // inset: {
+        //         anchor: 'bottom',
+        //         x: 150,
+        //         y: -110,
+        //         step: -1
+        //     }
     },
     bar: {
         width: {
@@ -31,7 +31,7 @@ const chart = c3.generate({
         },
     },
     padding: {
-        bottom: 30
+        bottom: 40
     }
 });
 

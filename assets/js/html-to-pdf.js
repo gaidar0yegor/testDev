@@ -72,9 +72,10 @@ function exportToPdf($button, initData) {
       quality: 1,
     },
     html2canvas: {
-      scale: 4,
+      scale: 2,
       dpi: 300,
       letterRendering: false,
+      windowWidth: 1920
     },
     jsPDF: {
       unit: "in",
