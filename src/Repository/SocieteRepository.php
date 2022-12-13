@@ -56,4 +56,13 @@ class SocieteRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    // public function findRaisonSociale()
+    // {
+    //     return $this
+    //         ->createQueryBuilder('societe')
+    //         ->select('societe.raisonSociale')
+    //         ->getQuery()
+    //         ->getResult();
+    // }
 }

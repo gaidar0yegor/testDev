@@ -3,7 +3,7 @@ import tippy from "tippy.js";
 
 const displayGraph = year => {
 
-    let my_contributions = document.getElementById('my_contributions');
+    let my_contributions = document.querySelector('div.myContributions');
 
     if (my_contributions){
         my_contributions.querySelector('.moi-vs-equipe.moi.projet').innerText = '…';

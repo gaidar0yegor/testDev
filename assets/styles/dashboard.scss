@@ -21,6 +21,176 @@
     }
   }
 }
+
+.conteneur {
+    .card {
+      max-height: 425px !important;
+    }
+}
+
+#heures-par-projet svg {
+  height: 275px !important;
+}
+
+#efficacite-moyenne canvas {
+  height: 300px !important;
+}
+
+#projets-statuts svg {
+  height: 260px !important;
+}
+
+#projets-rdi-vs-non-rdi svg {
+  height: 260px !important;
+}
+
+#parentContrib {
+  max-height: 155px !important;
+
+  .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .titleContrib{
+    border-right: 1px solid rgba(0, 0, 0, 0.2) !important;
+  }
+
+  #contentContrib {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+    padding: 0 0 0 20px;
+
+    .legend {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.5rem;
+
+      width: 100%;
+      height: 30%;
+
+      strong {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25%;
+      }
+    }
+
+    .values {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 70%;
+
+      div {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        &:first-child {
+          margin-bottom: 0.8rem;
+        }
+
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 25%;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 850px) {
+  #parentContrib {
+    max-height: none !important;
+
+    .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+
+    .titleContrib{
+      border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
+      border-right: 0px !important;
+      width: 100%;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+  
+    #contentContrib {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+  
+      width: 100%;
+      height: 100%;
+      padding: 0 0 0 0;
+  
+      .legend {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: 0;
+  
+        width: 40%;
+        height: 100%;
+  
+        strong {
+          display: flex;
+          justify-content: flex-start;
+          height: 45px;
+          width: 100%;
+          font-size: 14px;
+          }
+      }
+  
+      .values {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 60%;
+        height: 100%;
+  
+        div {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: space-between;
+          width: 50%;
+          
+          &:first-child {
+            margin-bottom: 0;
+          }
+  
+          span {
+            width: 100%;
+            height: 45px;
+          }
+        }
+      }
+    }
+  }
+}
+
 #mes-temps-rappel {
   display: flex;
   flex-direction: column;
@@ -33,7 +203,7 @@
     font-size: 0.95rem;
   }
 }
-#my_contributions {
+.myContributions {
   .card {
     background: #fff;
     padding: 10px 10px;
@@ -59,8 +229,4 @@
     width: 100%;
   }
 }
-#projets-efficacite-moyenne {
-  #efficacite-moyenne {
-    margin-top: 30px;
-  }
-}
+

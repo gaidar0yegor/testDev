@@ -22,7 +22,7 @@ const displayGraph = year => {
         backgroundColor: 'rgb(52,92,183,0)',
         borderRadius: 5,
         padding: {
-            top: 10,
+            top: 20,
             bottom: 10
         }
     };
