@@ -1,4 +1,5 @@
 import c3 from 'c3';
+import $ from "jquery";
 import {formatHours} from './utils';
 
 const chart = c3.generate({
@@ -31,7 +32,7 @@ const chart = c3.generate({
         },
     },
     padding: {
-        bottom: 40
+        bottom: 20
     }
 });
 
@@ -49,12 +50,12 @@ window.addEventListener('loadYearlyCharts', event => {
 
                 heuresParProjet._projects_year = year;
 
-                // let projectsNames = Object.keys(heuresParProjet);
-                // nameProjectSpaces = projectsNames.forEach((item, index)=>{
+                // let projectsNames = Object.keys(heuresParProjet.forEach((item, index)=>{
                 //     const spaces = 'ㅤ';
                 //     projectsNames[item] = item + spaces;
-                //     console.log(projectsNames[item] = item + spaces)
-                // });
+                //     console.log(projectsNames[item]);
+                // }));
+
 
                 chart.load({
                     unload: true,

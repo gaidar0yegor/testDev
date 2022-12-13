@@ -1,206 +1,348 @@
 {% extends 'corp_app/base.html.twig' %}
 
 {% block body %}
+  {% include 'utils/_btn_html_to_pdf.html.twig' %}
 
-	{% include('utils/_btn_html_to_pdf.html.twig') %}
+<div id="containerHtmlToPdf">
+    <h1 class="not-printable">
+      {{ 'my_dashboard'|trans }}
+    </h1>
 
-	<div id="containerHtmlToPdf">
+    <h2 class="not-printable">
+      {{ 'dashboard.today'|trans }}
+    </h2>
 
-		<h1 class="not-printable">{{ 'my_dashboard'|trans }}</h1>
+    <div class="row mb-2 not-printable">
+      <div class="col-lg-12">
+        <div id="recents-projets-menu"
+          class="d-flex flex-row justify-content-between align-column-center">
+          <div id="mes-temps-rappel"
+            data-url-temps-passes="{{ path('corp_app_fo_temps') }}"></div>
+          <div class="btn-group dropleft">
+            <button type="button"
+              id="btnFilter"
+              class="btn btn-sm bg-transparent"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fa fa-filter mr-1" title="Filtrer mes actualités"></i>Filtrer
+            </button>
+            <div class="dropdown-menu">
+              <div id="whiteSquare"></div>
+              <div class="form-check">
+                <input type="checkbox"
+                  id="target_filter_type-projet"
+                  class="form-check-input"
+                  value=".projet"
+                  checked="checked" />
+                <label class="form-check-label" for="target_filter_type-projet">
+                  Projets
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox"
+                  id="target_filter_type-fait_marquant"
+                  class="form-check-input"
+                  value=".fait_marquant"
+                  checked="checked" />
+                <label class="form-check-label"
+                  for="target_filter_type-fait_marquant">
+                  Faits marquants
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox"
+                  id="target_filter_type-projet_planning"
+                  class="form-check-input"
+                  value=".projet_planning"
+                  checked="checked" />
+                <label class="form-check-label"
+                  for="target_filter_type-projet_planning">
+                  Planification
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox"
+                  id="target_filter_type-evenement"
+                  class="form-check-input"
+                  value=".evenement"
+                  checked="checked" />
+                <label class="form-check-label"
+                  for="target_filter_type-evenement">
+                  Agenda
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox"
+                  id="target_filter_type-fichier_projet"
+                  class="form-check-input"
+                  value=".fichier_projet"
+                  checked="checked" />
+                <label class="form-check-label"
+                  for="target_filter_type-fichier_projet">
+                  Fichiers
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="recents-projets"
+          class="carousel-wrapper"
+          data-url-projet="{{
+          path(
+            'corp_app_fo_projet',
+            {
+              id: 0
+            }
+          )
+          }}"></div>
+      </div>
+    </div>
 
-		<h2 class="not-printable">{{ 'dashboard.today'|trans }}</h2>
+    <div style="page-break-inside: avoid; break-after : page;">
+      <div class="row">
+        <div class="col-md-10 mx-auto bordure">
+          <h2 class="exportTitle">
+            {{ 'projects_analyse_of_year'|trans }}
+            <span class="year-switch" data-event-name="loadYearlyCharts"></span>
+          </h2>
+        </div>
+      </div>
+      <div class="conteneur row row-flex d-flex flex-row justify-content-around">
+        <div class="col-xl-7 col-lg-12 mt-3">
+          <div class="card shadow rounded h-100">
+            <div class="card-body">
+              <h5 class="text-left d-block">
+                {{ 'hours_by_project'|trans }}
+              </h5>
+              <p class="card-text h3" data-target-highlight="heures-par-projet">
+                ...
+              </p>
+              <small class="text-muted">{{ 'db_total_time'|trans }}</small>
+              <hr />
+              <div class="d-flex justify-content-center align-items-center">
+                <div id="heures-par-projet"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% if
+          not productPrivilegeCheker(
+            constant(
+              'App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE'
+            )
+          ) %}
+          <div class="col-xl-5 col-lg-6 mt-3">
+            <div class="myContributions card shadow rounded h-100">
+              <div class="card-body">
+                <h5 class="text-left d-block">
+                  {{ 'my_contributions'|trans }}
+                </h5>
+                <p class="card-text h3"
+                  data-target-highlight="my_contributions">
+                  ...
+                </p>
+                <small class="text-muted">{{ 'db_total_contrib'|trans }}</small>
+                <hr />
+                <div class="h-75 d-flex justify-content-center align-items-center">
+                  <div class="d-flex flex-column justify-content-center align-items-start w-50 border-right">
+                    <strong class="mt-5 d-flex align-items-center">
+                      <div class="round mr-2"></div>{{
+                        'my_contributions.projects'|trans
+                      }}
+                    </strong>
+                    <strong class="mt-5 d-flex align-items-center">
+                      <div class="round mr-2"></div>{{
+                        'my_contributions.rdi_projects'|trans
+                      }}
+                    </strong>
+                    <strong class="mt-5 d-flex align-items-center">
+                      <div class="round mr-2"></div>{{
+                        'my_contributions.total'|trans
+                      }}
+                    </strong>
+                  </div>
+                  <div class="d-flex justify-content-center align-items-end w-50">
+                    <div class="d-flex flex-column justify-content-between align-items-center w-100">
+                      <span class="ml-3">
+                        {{ 'my_contributions.me'|trans }}
+                      </span>
+                      <span class="ml-3 mt-4 moi-vs-equipe moi projet">…</span>
+                      <span class="ml-3 mt-5 moi-vs-equipe moi projet-rdi">
+                        …
+                      </span>
+                      <span class="ml-3 mt-5 moi-vs-equipe moi temps-total">
+                        …
+                      </span>
+                    </div>
+                    <div class="d-flex flex-column justify-content-center align-items-center w-100">
+                      <span>{{ 'my_contributions.team'|trans }}</span>
+                      <span class="mt-4 moi-vs-equipe equipe projet">…</span>
+                      <span class="mt-5 moi-vs-equipe equipe projet-rdi">
+                        …
+                      </span>
+                      <span class="mt-5 moi-vs-equipe equipe temps-total">
+                        …
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        {% if
+          productPrivilegeCheker(
+            constant(
+              'App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE'
+            )
+          ) %}
+          <div id="projets-efficacite-moyenne" class="col-xl-5 col-lg-12 mt-3">
+            <div class="card shadow rounded-xl h-100">
+              <div class="card-body">
+                <h5 class="text-left d-block">
+                  {{ 'efficiency'|trans }}
+                  de vos projets
+                </h5>
+                <p class="card-text h3"
+                  data-target-highlight="efficacite-moyenne">
+                  ...
+                </p>
+                <small class="text-muted">{{ 'db_value_eff'|trans }}</small>
+                <hr />
+                <div class="d-flex justify-content-center align-items-center">
+                  <canvas id="efficacite-moyenne"
+                    class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"
+                    style="max-height:350px; max-width:400px;"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+        {% if
+          productPrivilegeCheker(
+            constant(
+              'App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE'
+            )
+          ) %}
+          <div class="col-xl-12 col-lg-12 mt-4" id="parentContrib">
+            <div class="myContributions card shadow rounded h-100">
+              <div class="card-body">
+                <div class="titleContrib h-100 pr-4">
+                  <h5 class="text-left d-block">
+                    {{ 'my_contributions'|trans }}
+                  </h5>
+                  <p class="card-text h3"
+                    data-target-highlight="my_contributions">
+                    ...
+                  </p>
+                  <small class="text-muted">
+                    {{ 'db_total_contrib'|trans }}
+                  </small>
+                </div>
+                <div id="contentContrib">
+                  <div class="legend">
+                    <strong></strong>
+                    <strong class="d-flex align-items-center">
+                      <div class="round mr-2"></div>{{
+                        'my_contributions.projects'|trans
+                      }}
+                    </strong>
+                    <strong class="d-flex align-items-center">
+                      <div class="round mr-2"></div>{{
+                        'my_contributions.rdi_projects'|trans
+                      }}
+                    </strong>
+                    <strong class="d-flex align-items-center">
+                      <div class="round mr-2"></div>{{
+                        'my_contributions.total'|trans
+                      }}
+                    </strong>
+                  </div>
+                  <div class="values">
+                    <div>
+                      <span>{{ 'my_contributions.me'|trans }}</span>
+                      <span class="moi-vs-equipe moi projet">…</span>
+                      <span class="moi-vs-equipe moi projet-rdi">…</span>
+                      <span class="moi-vs-equipe moi temps-total">…</span>
+                    </div>
+                    <div>
+                      <span>{{ 'my_contributions.team'|trans }}</span>
+                      <span class="moi-vs-equipe equipe projet">…</span>
+                      <span class="moi-vs-equipe equipe projet-rdi">…</span>
+                      <span class="moi-vs-equipe equipe temps-total">…</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    <div style="page-break-inside: avoid; break-after : page;">
+      <div class="row mt-4">
+        <div class="col-md-10 mx-auto bordure">
+          <h2 class="exportTitle">
+            {{ 'project_analyse_from'|trans }}
+            <span class="year-switch"
+              data-event-name="loadSinceYearCharts"
+              data-year-selected="{{ '-2 years'|date('Y') }}">
 
-		<div class="row mb-2 not-printable">
-			<div class="col-lg-12">
-				<div id="recents-projets-menu" class="d-flex flex-row justify-content-between align-column-center">
-				<div id="mes-temps-rappel" data-url-temps-passes="{{ path('corp_app_fo_temps') }}"></div>
-					<div class="btn-group dropleft">
-						<button type="button" id="btnFilter" class="btn btn-sm bg-transparent" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<i class="fa fa-filter mr-1" title="Filtrer mes actualités"></i>Filtrer
-						</button>
-						<div class="dropdown-menu">
-							<div id="whiteSquare"></div>
-							<div class="form-check">
-								<input type="checkbox" id="target_filter_type-projet" class="form-check-input" value=".projet" checked="checked">
-								<label class="form-check-label" for="target_filter_type-projet">Projets</label>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" id="target_filter_type-fait_marquant" class="form-check-input" value=".fait_marquant" checked="checked">
-								<label class="form-check-label" for="target_filter_type-fait_marquant">Faits marquants</label>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" id="target_filter_type-projet_planning" class="form-check-input" value=".projet_planning" checked="checked">
-								<label class="form-check-label" for="target_filter_type-projet_planning">Planification</label>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" id="target_filter_type-evenement" class="form-check-input" value=".evenement" checked="checked">
-								<label class="form-check-label" for="target_filter_type-evenement">Agenda</label>
-							</div>
-							<div class="form-check">
-								<input type="checkbox" id="target_filter_type-fichier_projet" class="form-check-input" value=".fichier_projet" checked="checked">
-								<label class="form-check-label" for="target_filter_type-fichier_projet">Fichiers</label>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div id="recents-projets" class="carousel-wrapper" data-url-projet="{{ path('corp_app_fo_projet', {'id': 0}) }}"></div>
-			</div>
-		</div>
+            </span>
+          </h2>
+        </div>
+      </div>
 
-		<div class="row">
-			<div class="col-md-10 mx-auto bordure">
-				<h2>{{ 'projects_analyse_of_year'|trans }}
-					<span class="year-switch" data-event-name="loadYearlyCharts"></span>
-				</h2>
-			</div>
-		</div>
-
-			<div class="conteneur row row-flex d-flex flex-row justify-content-around">
-				<div class="col-xl-7 col-lg-12 mt-3">
-					<div class="card shadow rounded h-100">
-						<div class="card-body">
-							<h5 class="text-left d-block">{{ 'hours_by_project'|trans }}</h5>
-							<p class="card-text h3" data-target-highlight="heures-par-projet">...</p>
-							<small class="text-muted">{{ 'db_total_time'|trans }}</small>
-							<hr>
-							<div class="d-flex justify-content-center align-items-center">
-								<div id="heures-par-projet"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{% if not productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-				<div class="col-xl-5 col-lg-6 mt-3">
-					<div class="myContributions card shadow rounded h-100">
-						<div class="card-body">
-							<h5 class="text-left d-block">{{ 'my_contributions'|trans }}</h5>
-							<p class="card-text h3" data-target-highlight="my_contributions">...</p>
-							<small class="text-muted">{{ 'db_total_contrib'|trans }}</small>
-							<hr>
-							<div class="h-75 d-flex justify-content-center align-items-center">
-								<div class="d-flex flex-column justify-content-center align-items-start w-50 border-right">
-									<strong class="mt-5 d-flex align-items-center"><div class="round mr-2"></div>{{ 'my_contributions.projects'|trans }}</strong>
-									<strong class="mt-5 d-flex align-items-center"><div class="round mr-2"></div>{{ 'my_contributions.rdi_projects'|trans }}</strong>
-									<strong class="mt-5 d-flex align-items-center"><div class="round mr-2"></div>{{ 'my_contributions.total'|trans }}</strong>
-								</div>
-								<div class="d-flex justify-content-center align-items-end w-50">
-									<div class="d-flex flex-column justify-content-between align-items-center w-100">
-										<span class="ml-3">{{ 'my_contributions.me'|trans }}</span>
-										<span class="ml-3 mt-4 moi-vs-equipe moi projet">…</span>
-										<span class="ml-3 mt-5 moi-vs-equipe moi projet-rdi">…</span>
-										<span class="ml-3 mt-5 moi-vs-equipe moi temps-total">…</span>
-									</div>
-									<div class="d-flex flex-column justify-content-center align-items-center w-100">
-										<span>{{ 'my_contributions.team'|trans }}</span>
-										<span class="mt-4 moi-vs-equipe equipe projet">…</span>
-										<span class="mt-5 moi-vs-equipe equipe projet-rdi">…</span>
-										<span class="mt-5 moi-vs-equipe equipe temps-total">…</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{% endif %}
-				{% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-				<div id="projets-efficacite-moyenne" class="col-xl-5 col-lg-12 mt-3">
-					<div class="card shadow rounded-xl h-100">
-						<div class="card-body">
-							<h5 class="text-left d-block">{{ 'efficiency'|trans }}
-								de vos projets</h5>
-							<p class="card-text h3" data-target-highlight="efficacite-moyenne">...</p>
-							<small class="text-muted">{{ 'db_value_eff'|trans }}</small>
-							<hr>
-							<div class="d-flex justify-content-center align-items-center">
-								<canvas id="efficacite-moyenne" class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3" style="max-height:350px; max-width:400px;"></canvas>
-							</div>
-						</div>
-					</div>
-				</div>
-				{% endif %}
-				{% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-				<div class="col-xl-12 col-lg-12  mt-4" id="parentContrib">
-					<div class="myContributions card shadow rounded h-100">
-						<div class="card-body">
-							<div class="titleContrib h-100 pr-4">
-								<h5 class="text-left d-block">{{ 'my_contributions'|trans }}</h5>
-								<p class="card-text h3" data-target-highlight="my_contributions">...</p>
-								<small class="text-muted">{{ 'db_total_contrib'|trans }}</small>
-							</div>
-							<div id="contentContrib">
-								<div class="legend">
-									<strong></strong>
-									<strong class="d-flex align-items-center"><div class="round mr-2"></div>{{ 'my_contributions.projects'|trans }}</strong>
-									<strong class="d-flex align-items-center"><div class="round mr-2"></div>{{ 'my_contributions.rdi_projects'|trans }}</strong>
-									<strong class="d-flex align-items-center"><div class="round mr-2"></div>{{ 'my_contributions.total'|trans }}</strong>
-								</div>
-								<div class="values">
-									<div>
-										<span>{{ 'my_contributions.me'|trans }}</span>
-										<span class="moi-vs-equipe moi projet">…</span>
-										<span class="moi-vs-equipe moi projet-rdi">…</span>
-										<span class="moi-vs-equipe moi temps-total">…</span>
-									</div>
-									<div>
-										<span>{{ 'my_contributions.team'|trans }}</span>
-										<span class="moi-vs-equipe equipe projet">…</span>
-										<span class="moi-vs-equipe equipe projet-rdi">…</span>
-										<span class="moi-vs-equipe equipe temps-total">…</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			{% endif %}
-			</div>
-			<div class="row mt-4">
-				<div class="col-md-10 mx-auto bordure">
-					<h2 class="">{{ 'project_analyse_from'|trans }}
-						<span class="year-switch" data-event-name="loadSinceYearCharts" data-year-selected="{{ '-2 years'|date('Y') }}"></span>
-					</h2>
-				</div>
-			</div>
-
-			<div class="conteneur row row-flex d-flex flex-row justify-content-around">
-				<div class="col-xl-5 col-lg-12  mt-3">
-					<div class="card shadow rounded h-100">
-						<div class="card-body">
-							<h5 class="text-left d-block">{{ 'projects_realisations'|trans }}</h5>
-							<p class="card-text h3" data-target-highlight="projets-statuts">...</p>
-							<small class="text-muted">{{ 'db_stats_suspend'|trans }}</small>
-							<hr>
-							<div class="d-flex justify-content-center align-items-center">
-								<div id="projets-statuts"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xl-7 col-lg-12  mt-3">				
-					<div class="card shadow rounded h-100">
-						<div class="card-body">
-							<h5 class="text-left d-block">{{ 'realized_projects_type'|trans }}</h5>
-							<p class="card-text h3" data-target-highlight="projets-rdi-vs-non-rdi">...</p>
-							<small class="text-muted">{{ 'db_rdi_elig'|trans }}{{ 'now' |date('Y') }}.</small>
-							<hr>
-							<div class="d-flex justify-content-center align-items-center">
-							<div id="projets-rdi-vs-non-rdi"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-
+      <div class="conteneur row row-flex d-flex flex-row justify-content-around">
+        <div class="col-xl-5 col-lg-12 mt-3">
+          <div class="card shadow rounded h-100">
+            <div class="card-body">
+              <h5 class="text-left d-block">
+                {{ 'projects_realisations'|trans }}
+              </h5>
+              <p class="card-text h3" data-target-highlight="projets-statuts">
+                ...
+              </p>
+              <small class="text-muted">{{ 'db_stats_suspend'|trans }}</small>
+              <hr />
+              <div class="d-flex justify-content-center align-items-center">
+                <div id="projets-statuts"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-7 col-lg-12 mt-3">
+          <div class="card shadow rounded h-100">
+            <div class="card-body">
+              <h5 class="text-left d-block">
+                {{ 'realized_projects_type'|trans }}
+              </h5>
+              <p class="card-text h3"
+                data-target-highlight="projets-rdi-vs-non-rdi">
+                ...
+              </p>
+              <small class="text-muted">
+                {{ 'db_rdi_elig'|trans }}{{ 'now'|date('Y') }}.
+              </small>
+              <hr />
+              <div class="d-flex justify-content-center align-items-center">
+                <div id="projets-rdi-vs-non-rdi"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block stylesheets %}
-	{{ parent() }}
-	{{ encore_entry_link_tags('dashboard') }}
+  {{ parent() }}
+  {{ encore_entry_link_tags('dashboard') }}
 {% endblock %}
 
 {% block javascripts %}
-	{{ parent() }}
-	{{ encore_entry_script_tags('dashboard') }}
+  {{ parent() }}
+  {{ encore_entry_script_tags('dashboard') }}
 {% endblock %}

@@ -8,8 +8,11 @@ fetch(
   .then((response) => response.json())
   .then((initData) => {
     $(document).on("click", "#btnHtmlToPdf", function (e) {
-      e.preventDefault();
+      $(".exportTitle").addClass('text-danger');
+      $("#heures-par-projet > svg > g > g.c3-legend-item > text").append('<span>ㅤㅤㅤ</span>');
+       e.preventDefault();
       exportToPdf($(this), initData);
+      $(".exportTitle").removeClass('text-danger');
     });
   })
   .catch((err) => console.error(err));
@@ -82,7 +85,7 @@ function exportToPdf($button, initData) {
       format: "A4",
       orientation: "L",
     },
-    pagebreak: { before: ".newPage" },
+    pagebreak: { after: ".newPage" },
   };
 
   html2pdf()
