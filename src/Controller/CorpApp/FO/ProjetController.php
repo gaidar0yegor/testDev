@@ -350,7 +350,7 @@ class ProjetController extends AbstractController
                                     <div style="display:inline;position:relative;"><img src="' . $globalUrlLogo . '" alt="Logo Société" style="height:50px; position:absolute;top:-20px;" /></div>
                                 </div>',
             'footer-html' => '<div style="color:#909090;">
-                                <small style="margin-right:510px;">Strictement confidentiel</small>
+                                <small style="margin-right:520px;">Strictement confidentiel</small>
                                 <small>' . $strDate . ' | Powered by RDI</small>
                                 </div>',
             

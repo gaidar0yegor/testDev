@@ -11,21 +11,17 @@
     {% for file in encore_entry_css_files('app') %}
         <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet"/>
     {% endfor %}
-    <script type="text/x-mathjax-config">
+    <script type="text/x-mathjax-config;executed=true">
         MathJax.Hub.Config({
             config: ["MMLorHTML.js"],
             jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
             extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
             TeX: {
                 extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-            }
+            },
+            showProcessingMessages: false,
+            tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
         });
-    </script>
-    <script type="text/x-mathjax-config;executed=true">
-    MathJax.Hub.Config({
-        showProcessingMessages: false,
-        tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
-    });
     </script>
     <script type="text/javascript" src="{{ absolute_url(asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js')) }}"></script>
     <script type="text/javascript" src="https://www.tuhh.de/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
