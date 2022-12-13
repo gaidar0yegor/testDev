@@ -9,6 +9,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Visualiser le fait marquant avant de le sauvegarder
 - Système de rappel pour les événements : Notification, SMS et slack
 ### Modifié
+- Visualisation d'un FM complet ( titre, date, localisation, description)
 ### Réparé
 - L'accès de l'ADMIN à l'export d'un projet
 - Export feuilles de temps
