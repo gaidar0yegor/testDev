@@ -24,6 +24,9 @@ const chart = c3.generate({
             '#ffc107',
         ],
     },
+    padding: {
+        bottom: 20
+    }
 });
 
 window.addEventListener('loadSinceYearCharts', event => {
@@ -38,9 +41,9 @@ window.addEventListener('loadSinceYearCharts', event => {
                 chart.load({
                     unload: true,
                     columns: [
-                        ['En cours', heuresParProjet.active],
-                        ['Terminés', heuresParProjet.finished],
-                        ['Suspendus', heuresParProjet.suspended]
+                        ['En coursㅤㅤ', heuresParProjet.active],
+                        ['Terminésㅤㅤ', heuresParProjet.finished],
+                        ['Suspendusㅤㅤ', heuresParProjet.suspended]
                     ],
                 });
 

@@ -18,6 +18,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use App\File\FileHandler\AvatarHandler;
+use App\Entity\Projet;
+use App\Entity\SocieteUser;
 
 /**
  * @Route("/api/dashboard")
@@ -25,10 +28,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DashboardController extends AbstractController
 {
     private TranslatorInterface $translator;
+    private AvatarHandler $avatarHandler;
 
-    public function __construct(TranslatorInterface $translator)
+    public function __construct(TranslatorInterface $translator, AvatarHandler $avatarHandler)
     {
         $this->translator = $translator;
+        $this->avatarHandler = $avatarHandler;
     }
 
     /**
@@ -365,5 +370,28 @@ class DashboardController extends AbstractController
         }
 
         return new JsonResponse($stats);
+    }
+
+    /**
+     * @Route(
+     *      "/mon-tableau-de-bord-api/{id}",
+     *      methods={"GET"},
+     *      name="api_dashboard_pdf"
+     * )
+     */
+    public function getPdfInfos(SocieteUser $societeUser)
+    {
+
+        $societe = $societeUser->getSociete();
+
+        $name = $societe->getRaisonSociale();
+
+        $relativeUrlLogo = $this->avatarHandler->getPublicUrl($societe->getLogo());
+        $globalUrlLogo = $this->container->get('request_stack')->getCurrentRequest()->getUriForPath($relativeUrlLogo);
+
+        return new JsonResponse([
+            'societe_name' => $name,
+            'societe_logo' =>  $globalUrlLogo,
+        ]);        
     }
 }

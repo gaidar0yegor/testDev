@@ -16,7 +16,7 @@ fos_ck_editor:
             inline: false
             input_sync: true
             toolbarCanCollapse: true
-            extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions,scayt,confighelper"
+            extraPlugins: "wordcount,ckeditor_wiris,textwatcher,textmatch,autocomplete,mentions,scayt,confighelper,mathjax"
         without_options:
             toolbar: []
             allowedContent: true
@@ -26,7 +26,7 @@ fos_ck_editor:
             extraPlugins: "wordcount,textmatch,autocomplete,mentions,scayt,confighelper"
     toolbars:
         configs:
-            my_toolbar: [ '@styles', '-', '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@wiris', '-', '@scayt' ]
+            my_toolbar: [ '@styles', '-', '@clipboard', '-', '@editing', '-', '@basic_styles', '-', '@paragraph', '-', '@links', '-', '@insert', '-', '@mathjax', '-', '@scayt' ]
         items:
             clipboard: ['Cut', 'Copy', 'Paste', 'PasteText', '-', 'Undo', 'Redo']
             editing: ['Find', 'Replace', '-', 'SelectAll']
@@ -35,8 +35,8 @@ fos_ck_editor:
             links: ['Link', 'Unlink']
             insert: ['Image', 'Flash', 'Table', 'HorizontalRule', 'SpecialChar', 'Smiley']
             styles: ['Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
-            wiris: ['ckeditor_wiris_formulaEditor']
             scayt: ['Scayt']
+            mathjax: ['Mathjax']
     plugins:
         wordcount:
             path: '/build/ckeditor/extra-plugins/wordcount/'
@@ -61,4 +61,7 @@ fos_ck_editor:
             filename: 'plugin.js'
         confighelper:
             path: '/build/ckeditor/extra-plugins/confighelper/'
+            filename: 'plugin.js'
+        mathjax:
+            path: '/build/ckeditor/extra-plugins/mathjax/'
             filename: 'plugin.js'

@@ -627,6 +627,11 @@ AT_TIME: "À l'heure"
 show_historic_patch_note: "Consulter les anciennes notes de misa à jour"
 date_ago: "depuis { date }"
 since : "Il y a"
+db_total_time : "Temps total passé sur les projets."
+db_total_contrib : "Mon temps total de contributions sur les projets."
+db_value_eff : "Valeur comprise entre -1 et 1."
+db_stats_suspend : "Statistiques des projets Suspendus | En cours | Terminés."
+db_rdi_elig : "Éligibilité RDI en "
 #################################### Lab App #######################################
 LABO_ADMIN: Administrateur
 LABO_SENIOR: "Chercheur sénior"

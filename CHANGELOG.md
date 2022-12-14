@@ -13,6 +13,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Pied de page + en-tête sur le pdf de la page projet
 ### Modifié
 - Mise en page de l'export de la page projet
+- Visualisation d'un FM complet ( titre, date, localisation, description)
 ### Réparé
 - L'accès de l'ADMIN à l'export d'un projet
 - Export feuilles de temps

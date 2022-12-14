@@ -626,6 +626,11 @@ AT_TIME: On time
 2_WEEK_BEFORE: 2 weeks avant
 show_historic_patch_note: "View old patch notes"
 date_ago: "{ date } ago"
+db_total_time : "Total time spent on projects."
+db_total_contrib : "My total contribution time on projects."
+db_value_eff : "Value between -1 and 1."
+db_stats_suspend : "Statistics of suspended projects | Ongoing | Completed."
+db_rdi_elig : "RDI eligibility in "
 #################################### Lab App #######################################
 LABO_ADMIN: Administrator
 LABO_SENIOR: Senior researcher
