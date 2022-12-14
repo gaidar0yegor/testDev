@@ -8,7 +8,7 @@
 
     <div id="containerHtmlToPdf">
 
-        <h1>
+        <h1 class="text-center">
             {{ "STATISTIQUES"|trans }}
         </h1>
 
@@ -79,22 +79,6 @@
                                                 <span class="rdi-value"></span><sup>/ 100</sup>
                                             </span>
                                     </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-            {% if projet.projetPlanning and productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <div class="card rdi-card-icon text-center h-100">
-                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-9 offset-3 col-sm-12 offset-sm-0">
-                                    <h5 class="card-title" style="color: #007bff;">Résumé des tâches</h5>
-                                    <div id="planning-tasks-statuts" data-projet-id="{{ projet.id }}"
-                                         class="mt-3"></div>
                                 </div>
                             </div>
                         </div>

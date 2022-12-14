@@ -11,7 +11,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Rédiger des équations dans les FM
 - Ajout du code google tag manager
 - Pied de page + en-tête sur le pdf de la page projet
-### Modifié
+- Pied de page + en-tête sur le pdf du dashboard et des stats projets
+- Onglets sur la page planning
 - Mise en page de l'export de la page projet
 - Visualisation d'un FM complet ( titre, date, localisation, description)
 ### Réparé
