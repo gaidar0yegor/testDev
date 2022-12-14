@@ -9,7 +9,6 @@ fetch(
   .then((initData) => {
     $(document).on("click", "#btnHtmlToPdf", function (e) {
       $(".exportTitle").addClass('text-danger');
-      $("#heures-par-projet > svg > g > g.c3-legend-item > text").append('<span>ㅤㅤㅤ</span>');
        e.preventDefault();
       exportToPdf($(this), initData);
       $(".exportTitle").removeClass('text-danger');
@@ -87,7 +86,7 @@ function exportToPdf($button, initData) {
       format: "A4",
       orientation: "L",
     },
-    pagebreak: { after: ".newPage" },
+    pagebreak: { after: ".newPage", before: ".oldPage" },
   };
 
   html2pdf()
