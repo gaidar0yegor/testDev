@@ -66,7 +66,7 @@ function exportToPdf($button, initData) {
       $(img).width("100%");
       $(img).height("100%");
     });
-
+    
   var opt = {
     margin: [0.5, 0.5],
     enableLinks: false,

@@ -252,6 +252,7 @@ a.disabled {
 
 h2.facts {
   margin-top: 5%;
+  page-break-before: always;
 }
 
 .table-hover {

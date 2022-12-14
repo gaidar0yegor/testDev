@@ -34,7 +34,7 @@
     margin-bottom: 20px;
     position: relative;
   }
-  
+
   .timeline .event img {
     max-width: 100%;
   }
@@ -65,6 +65,29 @@
 
   .corp_app .timeline .event:after{
     box-shadow: 0 0 0 8px #ce352c;
+  }
+
+  .timeline .eventpdf {
+    /* page-break-before: always;
+      page-break-after: always;
+      page-break-inside: always;
+      break-after: always;
+      break-inside: always;
+      break-before: always; */
+      break-after : page;
+      page-break-inside: avoid
+  }
+
+  .timeline .eventpdf:before,
+  .timeline .eventpdf:after  {
+    position: none !important;
+    box-shadow: none !important;
+    left:0 !important;
+    background: transparent !important;
+    border-radius:0 !important;
+    height:0 !important;
+    width: 0 !important;
+    top:0 !important;
   }
 
   .lab_app .timeline .event:after{
@@ -147,4 +170,20 @@
     margin: 0 auto;
     display: block;
     text-align: center;
+  }
+
+  .title-parent {
+    position: relative;
+  }
+
+  .roundpdf {   
+    position: absolute;
+    top: 5px;
+    margin-right: 10px;
+
+    height: 11px;
+    width: 11px;
+    box-shadow: 0 0 0 5px #ce352c;
+    background: white !important;
+    border-radius: 50%;    
   }

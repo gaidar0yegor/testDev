@@ -5,6 +5,8 @@ namespace App\Controller\CorpApp\FO;
 use App\Entity\FaitMarquant;
 use App\Entity\Projet;
 use App\Entity\ProjetSuspendPeriod;
+use App\Entity\Societe;
+use App\File\FileHandler\AvatarHandler;
 use App\Form\FaitMarquantPopupType;
 use App\Form\FaitMarquantType;
 use App\Form\ProjetFormType;
@@ -30,6 +32,7 @@ use App\MultiSociete\UserContext;
 use App\Notification\Event\AddedAsContributorNotification;
 use App\Service\ParticipantService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -39,10 +42,12 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class ProjetController extends AbstractController
 {
     private Pdf $pdf;
+    private AvatarHandler $avatarHandler;
 
-    public function __construct(Pdf $pdf)
+    public function __construct(Pdf $pdf, AvatarHandler $avatarHandler)
     {
         $this->pdf = $pdf;
+        $this->avatarHandler = $avatarHandler;
     }
 
     /**
@@ -316,17 +321,39 @@ class ProjetController extends AbstractController
             'projet' => $projet,
         ]);
 
-        return $this->createPdfResponse($sheetHtml);
+        return $this->createPdfResponse($sheetHtml, $projet);
     }
 
-    private function createPdfResponse(string $htmlContent, string $filename = 'projet.pdf'): PdfResponse
+    private function createPdfResponse(string $htmlContent, Projet $projet = null, string $filename = 'projet.pdf'): PdfResponse
     {
+        $dateNow = new \DateTime('@'.strtotime('now'));
+        $strDate = $dateNow->format('d-m-Y');
+
+        $nameSociete = $projet->getSociete()->getRaisonSociale();
+
+        $relativeUrlLogo = $this->avatarHandler->getPublicUrl($projet->getSociete()->getLogo());
+
+        $globalUrlLogo = $this->container->get('request_stack')->getCurrentRequest()->getUriForPath($relativeUrlLogo);
+
         $options = [
             'margin-top'    => 15,
             'margin-right'  => 15,
-            'margin-bottom' => 15,
+            'margin-bottom' => 10,
             'margin-left'   => 15,
             'images' => true,
+            'header-html' => '<!DOCTYPE html>
+                                <head>
+                                <meta charset="UTF-8">
+                                </head>
+                                <div style="color:#909090; padding-bottom:30px; padding-top:15px;">
+                                    <div style="display:inline;"><small style="margin-right:650px;">' . $nameSociete . '</small></div>
+                                    <div style="display:inline;position:relative;"><img src="' . $globalUrlLogo . '" alt="Logo Société" style="height:50px; position:absolute;top:-20px;" /></div>
+                                </div>',
+            'footer-html' => '<div style="color:#909090;">
+                                <small style="margin-right:520px;">Strictement confidentiel</small>
+                                <small>' . $strDate . ' | Powered by RDI</small>
+                                </div>',
+            
         ];
         $result = $this->pdf->getOutputFromHtml($htmlContent, $options);
         return new PdfResponse($result, $filename);
@@ -367,7 +394,7 @@ class ProjetController extends AbstractController
                 'customTime' => $customTime,
                 'projet' => $projet,
             ]);
-            return $this->createPdfResponse($sheetHtml);
+            return $this->createPdfResponse($sheetHtml, $projet);
         }
         return $this->render('corp_app/projets/generer_fait_marquant.html.twig', [
             'form' => $form->createView(),

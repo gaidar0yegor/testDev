@@ -42,6 +42,18 @@
 		<meta name="twitter:site" content="@Eureka_Conseil">
 		<meta name="twitter:image" content="{{ absolute_url(asset('build/assets/img/logosignRDI.png')) }}"/>
 
+		<!-- Google Tag Manager -->
+
+		<script>
+			(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+			new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+			j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+			'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+			})(window,document,'script','dataLayer','GTM-P3RPKW5');
+		</script>
+
+		<!-- End Google Tag Manager -->
+
 		<title>
 			{% block title %}
 				{{ app.request.attributes.get('_app_name') ? app.request.attributes.get('_app_name') : 'RDI-Manager' }}
@@ -58,19 +70,25 @@
 			{{ encore_entry_link_tags('base') }}
 		{% endblock %}
 
-		<script type="text/x-mathjax-config">
+    	<script type="text/x-mathjax-config;executed=true">
 			MathJax.Hub.Config({
-			                config: ["MMLorHTML.js"],
-			                jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
-			                extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
-			                TeX: {
-			                    extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
-			                }
-			            });
+				showProcessingMessages: false,
+				tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+			});
 		</script>
-		<script type="text/javascript" async="" src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-AMS_HTML"></script>
+		<script type="text/javascript" src="{{ asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js') }}"></script>
+		<script type="text/javascript" src="https://www.tuhh.de/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 	</head>
 	<body class="{{ app.request.attributes.get('_app_class') ? app.request.attributes.get('_app_class') : 'default_app' }}"> {% block base_body %}{% endblock %}
+
+		<!-- Google Tag Manager (noscript) -->
+
+		<noscript>
+			<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P3RPKW5"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe>
+		</noscript>
+
+		<!-- End Google Tag Manager (noscript) -->
 
 		{% block javascripts %}
 			{{ encore_entry_script_tags('base') }}

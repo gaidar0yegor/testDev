@@ -35,17 +35,19 @@
             <div class="col-md-6 offset-md-3">
                 <div class="input-group mt-3">
                     <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-success">Générer</button>
+                        <input type="submit" class="btn btn-success" value="Générer" />
                     </div>
                     {{ form_widget(form.format, {'attr': {'class': 'custom-select'}}) }}
                 </div>
             </div>
         </div>
-
+            <div class="pt-3">
+                <hr class="bg-primary">
+            </div>
         {{ form_end(form) }}
     </div>
 
-    <div class="card bg-light-grey border-light mt-3">
+    <div class="card border-0 mt-3">
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-md-2"><strong>{{ "title"|trans }} : </strong></div>
@@ -58,36 +60,43 @@
             {% if projet.rdiDomains | length > 0 %}
                 <div class="row mb-3">
                     <div class="col-md-2"><strong>{{ "domain"|trans }} : </strong></div>
-                    <div class="col-md-10 text-justify">
+                    <div class="col-md-10 text-justify d-flex">
                         {% for domain in projet.rdiDomains %}
                             <p>{{ domain.nom }}</p>
+                                {% if projet.rdiDomains | length > 1 %}
+                                    <p>&nbsp; &nbsp;</p>
+                                {% endif %}
                         {% endfor %}
                     </div>
                 </div>
             {% endif %}
             <div class="row">
-                <div class="col-md-6">
-                    <div class="row mb-3">
-                        <div class="col-md-4"><strong>{{ "PROJET_CDP"|trans }} : </strong></div>
-                        <div class="col-md-6">{{ projet.chefDeProjet.user.fullname }}</div>
+                <div class="col-md-12">
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        <div class="row mb-3 w-50">
+                            <div class="col-md-4"><strong>{{ "PROJET_CDP"|trans }} : </strong></div>
+                            <div class="col-md-6">&nbsp;{{ projet.chefDeProjet.user.fullname }}</div>
+                        </div>
+                        <div class="row mb-3 w-50">
+                            <div class="col-md-4"><strong>{{ "status"|trans }}  : </strong></div>
+                            <div class="col-md-6">
+                                &nbsp;{% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
+                            </div>
+                        </div>
                     </div>
-                    {% if projet.dateDebut %}
-                        <div class="row mb-3">
-                            <div class="col-md-4"><strong>{{ "date_debut"|trans }}  : </strong></div>
-                            <div class="col-md-6">{{ projet.dateDebut|format_date }}</div>
-                        </div>
-                    {% endif %}
-                    {% if projet.dateFin %}
-                        <div class="row mb-3">
-                            <div class="col-md-4"><strong>{{ "date_fin"|trans }}  : </strong></div>
-                            <div class="col-md-6">{{ projet.dateFin|format_date }}</div>
-                        </div>
-                    {% endif %}
-                    <div class="row mb-3">
-                        <div class="col-md-4"><strong>{{ "status"|trans }}  : </strong></div>
-                        <div class="col-md-6">
-                            {% include 'corp_app/projets/_projet_statut.html.twig' with {projet: projet} %}
-                        </div>
+                    <div class="d-flex flex-row justify-content-between w-100">
+                        {% if projet.dateDebut %}
+                            <div class="row mb-3 w-50">
+                                <div class="col-md-4"><strong>{{ "date_debut"|trans }}  : </strong></div>
+                                <div class="col-md-6">&nbsp;{{ projet.dateDebut|format_date }}</div>
+                            </div>
+                        {% endif %}
+                        {% if projet.dateFin %}
+                            <div class="row mb-3 w-50">
+                                <div class="col-md-4"><strong>{{ "date_fin"|trans }}  : </strong></div>
+                                <div class="col-md-6">&nbsp;{{ projet.dateFin|format_date }}</div>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -97,7 +106,7 @@
         <h2 class="facts">Faits marquants</h2>
 
         {% if projet.hasFaitMarquants() %}
-            <ul class="timeline text-word-break">
+            <ul class="timeline text-word-break border-0 shadow-none">
                 {% for faitMarquant in projet.faitMarquants %}
                     {% if faitMarquant.trashedAt is null %}
                         <li class="event">
@@ -140,3 +149,34 @@
 
 {% endblock %}
 
+{% block javascripts %}
+<script>
+    // uncheck checkbox export project
+
+    var target = document.getElementById("projet_export_exportOptions_5");
+    target.removeAttribute("checked");
+    var target = document.getElementById("projet_export_exportOptions_4");
+    target.removeAttribute("checked");
+    var target = document.getElementById("projet_export_exportOptions_3");
+    target.removeAttribute("checked");
+    var target = document.getElementById("projet_export_exportOptions_2");
+    target.removeAttribute("checked");
+</script>
+<script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            config: ["MMLorHTML.js"],
+            jax: ["input/TeX","input/MathML","output/HTML-CSS","output/NativeMML"],
+            extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js"],
+            TeX: {
+                extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+            },
+            showProcessingMessages: false,
+            tex2jax: { inlineMath: [['$','$'],['\\(','\\)']] }
+        });
+    </script>
+    <script type="text/javascript" src="https://www.tuhh.de/MathJax/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+    <script type="text/javascript" src="{{ absolute_url(asset('build/ckeditor/extra-plugins/ckeditor_wiris/MathJax.js')) }}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+{% endblock %}
