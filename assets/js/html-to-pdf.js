@@ -1,6 +1,7 @@
 import $ from "jquery";
 import userContext from "./userContext";
 import html2pdf from "html2pdf.js/src";
+import { el } from "date-fns/locale";
 
 fetch(
   `/corp/api/dashboard/mon-tableau-de-bord-api/${userContext.societeUserId}`
@@ -9,8 +10,8 @@ fetch(
   .then((initData) => {
     $(document).on("click", "#btnHtmlToPdf", function (e) {
       $(".exportTitle").addClass('text-danger');
-       e.preventDefault();
-      exportToPdf($(this), initData);
+      e.preventDefault();
+        exportToPdf($(this), initData);
       $(".exportTitle").removeClass('text-danger');
     });
   })
@@ -46,19 +47,21 @@ function exportToPdf($button, initData) {
       $(mySVG).parent().html(loader);
     });
 
-  var place = $(elem).find("#efficacite-moyenne");
-  var place = $(elem).find("#efficacite");
-  var place = $(elem).find("#effectivite");
+  var place = $(".canvas");
   if ($(place)) {
-    var canvas = document.getElementById("efficacite-moyenne");
-    var img = document.createElement("img");
-    $(img).width($(canvas).width());
-    $(img).height($(canvas).height());
-    if (canvas) {
-      $(img).attr("src", canvas.toDataURL());
-    }
-    $(img).addClass("svg-to-img");
-    $(place).parent().html($(img));
+    $('.canvas').each(function() {
+      var canvas = $(this);
+      var parent = canvas.parent();
+      var img =  $('<img>')
+      var imgUrl = canvas.get(0).toDataURL();
+      $(img).width($(canvas).width());
+      $(img).height($(canvas).height());
+      if(canvas) {
+        $(img).attr('src', imgUrl);
+      }
+      $(img).addClass("svg-to-img");
+      $(parent).html($(img));
+    });
   }
 
   $(elem)

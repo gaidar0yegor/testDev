@@ -116,7 +116,7 @@
         </div>
         <div id="projet-budget-charts" class="my-4 w-100" data-projet-id="{{ projet.id }}">
             <div class="w-100">
-                <h2 class="mt-3">{{ 'budget_analysis'|trans }}</h2>
+                <h2 class="mt-3 exportTitle">{{ 'budget_analysis'|trans }}</h2>
             </div>
             <div class="row charts">
                 <div class="col-md-12 col-lg-6 mt-3 d-flex flex-column justify-content-between">
@@ -154,7 +154,7 @@
                 <div class="offset-md-2 col-md-8 mt-4 d-flex flex-column justify-content-between" id="pdfMarge">
                     <h4 class="text-center d-flex justify-content-between align-items-center">
                         <div class="w-100">
-                            <h2>{{ 'return_on_investment'|trans }} (ROI = <span id="roi_percent"></span>)</h2>
+                            <h2 class="exportTitle">{{ 'return_on_investment'|trans }} (ROI = <span id="roi_percent"></span>)</h2>
                         </div>
                         <div>
                             {% if userCanEditProjet %}
@@ -178,20 +178,20 @@
         {% if projet.projetPlanning and productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
             <div id="projet-stats-charts" class="row my-4 newPage oldPage">
                 <div class="col-md-12 mx-auto">
-                    <h2>{{ 'kpis_indicators'|trans }}</h2>
+                    <h2 class="exportTitle">{{ 'kpis_indicators'|trans }}</h2>
                 </div>
                 <div class="row col-md-12 mx-auto d-flex justify-content-center align-items-center">
                     <div class="col-lg-4 col-md-12">
                         <div class="card shadow rounded-xl h-100 mt-2">           
                             <div class="card-body">
                                 <h5 class="text-left d-block">
-                                {{ 'efficiency'|trans }} <i class="fa fa-question-circle" title="{{ "efficiency.help"|trans }}"></i>
+                                {{ 'efficiency'|trans }} <i class="fa fa-question-circle not-printable" title="{{ "efficiency.help"|trans }}"></i>
                                 </h5>
                                 <hr />
                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                     <canvas id="efficacite" style="max-height:350px; max-width:400px;"
                                      data-efficacite="{{ projet.projetPlanning.efficacite }}"
-                                     class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
+                                     class="canvas pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
                                 </div>
                             </div>
                         </div>  
@@ -200,13 +200,13 @@
                         <div class="card shadow rounded-xl h-100 mt-2">           
                             <div class="card-body">
                                 <h5 class="text-left d-block">
-                                {{ 'effectiveness'|trans }} <i class="fa fa-question-circle" title="{{ "effectiveness.help"|trans }}"></i>
+                                {{ 'effectiveness'|trans }} <i class="fa fa-question-circle not-printable" title="{{ "effectiveness.help"|trans }}"></i>
                                 </h5>
                                 <hr />
                                 <div class="d-flex flex-column justify-content-center align-items-center">
                                     <canvas id="effectivite" style="max-height:350px; max-width:400px;"
                                      data-effectivite="{{ projet.projetPlanning.effectivite }}"
-                                     class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
+                                     class="canvas pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
                                 </div>
                             </div>
                         </div>
@@ -217,7 +217,7 @@
 
         <div class="row my-4">
             <div class="col-md-12 mx-auto bordure mt-2">
-                <h2>
+                <h2 class="exportTitle">
                             <span
                                     class="year-switch text-center"
                                     data-event-name="projet-chart-year-changed"
