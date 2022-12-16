@@ -47,7 +47,7 @@ function exportToPdf($button, initData) {
       $(mySVG).parent().html(loader);
     });
 
-  var place = $(".canvas");
+  var place = $(elem).find("canvas");
   if ($(place)) {
     $('.canvas').each(function() {
       var canvas = $(this);
@@ -135,6 +135,11 @@ function exportToPdf($button, initData) {
         });
       }
 
-      pdf.save(document.title + ".pdf");
+      // var myImg = $(elem).find("img.svg-to-img");
+
+      // myImg.onload = function() {
+        // console.log(myImg)
+        pdf.save(document.title + ".pdf");
+      // }
     });
 }
