@@ -49,19 +49,24 @@ function exportToPdf($button, initData) {
 
   var place = $(elem).find("canvas");
   if ($(place)) {
-    $('.canvas').each(function() {
-      var canvas = $(this);
-      var parent = canvas.parent();
-      var img =  $('<img>')
-      var imgUrl = canvas.get(0).toDataURL();
+    var canvasElements = document.querySelectorAll(".canvas");
+    var images = [];
+    for (var i = 0; i < canvasElements.length; i++) {
+      var canvas = canvasElements[i];
+      var img = new Image();
       $(img).width($(canvas).width());
       $(img).height($(canvas).height());
       if(canvas) {
-        $(img).attr('src', imgUrl);
+        img.src = canvas.toDataURL();
       }
+      images.push(img);
       $(img).addClass("svg-to-img");
-      $(parent).html($(img));
-    });
+    }
+    var canvasParents = place.parent();
+      for (var i = 0; i < canvasParents.length; i++) {
+        var parents = canvasParents[i];
+        $(parents).html($(images[i]));
+      }
   }
 
   $(elem)
