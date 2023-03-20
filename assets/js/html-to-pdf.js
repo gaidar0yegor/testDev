@@ -48,6 +48,8 @@ function exportToPdf($button, initData) {
     });
 
   var place = $(elem).find("#efficacite-moyenne");
+  var place = $(elem).find("#efficacite");
+  var place = $(elem).find("#effectivite");
   if ($(place)) {
     var canvas = document.getElementById("efficacite-moyenne");
     var img = document.createElement("img");
