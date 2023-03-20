@@ -6,7 +6,7 @@
 
     {% include('utils/_btn_html_to_pdf.html.twig') %}
 
-    <div id="containerHtmlToPdf" style="break-inside: avoid !important;">
+    <div id="containerHtmlToPdf" style="break-inside: avoid !important;page-break-inside:avoid !important; ">
 
         <h1>
             {{ "STATISTIQUES"|trans }}
@@ -113,79 +113,85 @@
                 </div>
             {% endif %} #}
         </div>
-        <div id="projet-budget-charts" class="my-4 w-100" data-projet-id="{{ projet.id }}" style="max-height: 550px !important;">
-            <div class="w-100">
-                <h2 class="mt-3 exportTitle">{{ 'budget_analysis'|trans }}</h2>
-            </div>
-            <div class="row charts">
-                <div class="col-md-12 col-lg-6 mt-3 d-flex flex-column justify-content-between">
-                    <div class="card shadow rounded-xl h-100">           
-                        <div class="card-body">
-                            <h5 class="text-left d-block">en Heure (H)</h5>
-                            <hr />
-                            <div class="d-flex flex-column justify-content-center align-items-center">
-                                <div id="hour-budget"></div>
+        <li class="newPage d-inline mb-0" 
+        style="max-height: 550px !important;list-style-type:none;">
+            <div id="projet-budget-charts" class="w-100 col-sm-12 col-md-12 col-lg-12" data-projet-id="{{ projet.id }}" style="max-height: 550px !important;">
+                <div class="w-100">
+                    <h2 class="mt-3 exportTitle">{{ 'budget_analysis'|trans }}</h2>
+                </div>
+                <div class="row charts">
+                    <div class="col-md-12 col-lg-6 mt-2">
+                        <div class="card shadow rounded-xl h-100">           
+                            <div class="card-body">
+                                <h5 class="text-left d-block">en Heure (H)</h5>
+                                <hr />
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <div id="hour-budget"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-6 mt-3 d-flex flex-column justify-content-between">
+                        <div class="card shadow rounded-xl h-100">           
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center w-100">
+                                    <h5 class="text-left d-block">en {{ projet.societe.currency }}</h5>
+                                    <div>
+                                    {% if userCanEditProjet %}
+                                        <a class="btn btn-success btn-sm btn-add-expenses not-printable"
+                                        title="Ajouter des dépenses spéciales (DS)" href="javascript:;"><i
+                                        class="fa fa-plus"></i></a>
+                                    {% endif %}
+                                </div>
+                                </div>
+                                <hr />
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <div id="euro-budget" data-devise="{{ projet.societe.currency }}"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-6 mt-3 d-flex flex-column justify-content-between">
-                    <div class="card shadow rounded-xl h-100">           
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center w-100">
-                                <h5 class="text-left d-block">en {{ projet.societe.currency }}</h5>
-                                <div>
-                                {% if userCanEditProjet %}
-                                    <a class="btn btn-success btn-sm btn-add-expenses not-printable"
-                                    title="Ajouter des dépenses spéciales (DS)" href="javascript:;"><i
-                                    class="fa fa-plus"></i></a>
-                                {% endif %}
-                            </div>
-                            </div>
-                            <hr />
-                            <div class="d-flex flex-column justify-content-center align-items-center">
-                                <div id="euro-budget" data-devise="{{ projet.societe.currency }}"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-        </div>
-        <li class="oldPage col-sm-12 col-md-8 col-lg-8 mt-4 m-auto w-100 d-flex flex-column justify-content-between" 
-        style="max-height: 550px !important;">
+        </li>
+        <br>
+        <li class="newPage d-inline mt-0" 
+        style="min-height: 550px !important; list-style-type:none;">
         {% if projet.roiEnabled %}
-            <div class="my-4 w-100">
-                <h4 class="text-center d-flex justify-content-between align-items-center">
-                    <div class="w-100">
-                        <h2 class="exportTitle">{{ 'return_on_investment'|trans }} (ROI = <span id="roi_percent"></span>)</h2>
-                    </div>
-                    <div>
-                        {% if userCanEditProjet %}
-                            <a class="btn btn-success btn-sm btn-add-revenue not-printable"
-                                title="Ajouter des revenues" href="javascript:;"><i class="fa fa-plus"></i></a>
-                        {% endif %}
-                    </div>
-                </h4>
-            </div>
-            <div class="card shadow rounded-xl h-100 mt-2">           
-                <div class="card-body">
-                    <h5 class="text-left d-block">ROI de votre projet</h5>
-                    <hr />
-                    <div class="d-flex flex-column justify-content-center align-items-center">
-                        <div id="euro-revenue" data-devise="{{ projet.societe.currency }}"></div>
+            <div class="m-auto col-lg-8 col-md-8 col-sm-12">
+                <div class="mb-4">
+                    <h4 class="d-flex justify-content-between align-items-center">
+                        <div class="text-center w-100">
+                            <h2 class="exportTitle">{{ 'return_on_investment'|trans }} (ROI = <span id="roi_percent"></span>)</h2>
+                        </div>
+                        <div>
+                            {% if userCanEditProjet %}
+                                <a class="btn btn-success btn-sm btn-add-revenue not-printable"
+                                    title="Ajouter des revenues" href="javascript:;"><i class="fa fa-plus"></i></a>
+                            {% endif %}
+                        </div>
+                    </h4>
+                </div>
+                <div class="card shadow rounded-xl h-100">           
+                    <div class="card-body">
+                        <h5 class="text-left d-block">ROI de votre projet</h5>
+                        <hr />
+                        <div class="d-flex flex-column justify-content-center align-items-center">
+                            <div id="euro-revenue" data-devise="{{ projet.societe.currency }}"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         {% endif %}
         </li>
-         <li class="oldPage" style="height: 350px !important;list-style-type:none;">
+        <li class="newPage" style="min-height: 350px !important;list-style-type:none;">
         {% if projet.projetPlanning and productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
             <div id="projet-stats-charts" class="row my-4">
                 <div class="col-md-12 mx-auto">
                     <h2 class="exportTitle">{{ 'kpis_indicators'|trans }}</h2>
                 </div>
                 <div class="row col-md-12 mx-auto d-flex justify-content-center align-items-center">
-                    <div class="col-lg-4 col-md-12">
+                    <div class="col-lg-5 col-md-12">
                         <div class="card shadow rounded-xl h-100 mt-2">           
                             <div class="card-body">
                                 <h5 class="text-left d-block">
@@ -200,7 +206,7 @@
                             </div>
                         </div>  
                     </div>
-                    <div class="col-lg-4 col-md-12">
+                    <div class="col-lg-5 col-md-12">
                         <div class="card shadow rounded-xl h-100 mt-2">           
                             <div class="card-body">
                                 <h5 class="text-left d-block">
@@ -219,7 +225,7 @@
             </div>
         {% endif %}
         </li>
-        <div class="oldPage row my-4">
+        <div class="row my-4">
             <div class="col-md-12 mx-auto bordure mt-2">
                 <h2 class="exportTitle">
                             <span

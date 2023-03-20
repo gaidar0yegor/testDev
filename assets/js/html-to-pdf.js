@@ -73,6 +73,7 @@ fetch(
         margin: [0.5, 0.5],
         enableLinks: false,
         autoPaging: 'text',
+        pagebreak: { after: ".newPage", before: ".oldPage" },
         image: {
           type: "jpeg",
           quality: 1,
@@ -88,7 +89,6 @@ fetch(
           format: "A4",
           orientation: "L",
         },
-        pagebreak: { after: ".newPage", before: ".oldPage" },
       };
 
       html2pdf()
