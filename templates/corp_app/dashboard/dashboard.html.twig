@@ -97,11 +97,11 @@
             {% if productPrivilegeCheker(constant('App\\SocieteProduct\\Product\\ProductPrivileges::PLANIFICATION_PROJET_AVANCE')) %}
                 <div id="projets-efficacite-moyenne" class="col-xl-4 col-lg-6 mt-3">
                     <h5 class="text-center d-block">{{ 'efficiency'|trans }}</h5>
-                    <canvas id="efficacite-moyenne" class="pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
+                    <canvas id="efficacite-moyenne" class="canvas pl-lg-3 pm-lg-5 pt-lg-3 pt-lg-3"></canvas>
                 </div>
             {% endif %}
         </div>
-
+        <div class="newPage"></div>
         <div class="row my-4">
             <div class="col-md-10 mx-auto bordure">
                 <h2>{{ 'project_analyse_from'|trans }}
