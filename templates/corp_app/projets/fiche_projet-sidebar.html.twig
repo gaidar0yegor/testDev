@@ -95,7 +95,11 @@
             </small>
         </p>
     {% endfor %}
+    
 </ul>
+    {% if nextEvenements|length > 1 %}
+        <a href="{{ path('corp_app_fo_projet_evenements', {'id': projet.id }) }}">Voir tous les évènements ...</a>
+    {% endif %}
 
 <hr>
     <div class="d-flex flex-row justify-content-between align-items-center w-100">
