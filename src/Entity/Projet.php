@@ -924,11 +924,19 @@ class Projet implements HasSocieteInterface
      * @return Collection|Evenement[]
      */
     public function getNextEvenements($limit = 4): Collection
-    {
-        return new ArrayCollection($this->evenements->filter(function (Evenement $evenement) {
-            return $evenement->getStartDate() >= (new \DateTime());
-        })->slice(0,$limit));
-    }
+        {
+            $evenements = $this->evenements->filter(function (Evenement $evenement) {
+                return $evenement->getStartDate() >= (new \DateTime());
+            });
+
+            $evenementsArray = $evenements->toArray();
+            usort($evenementsArray, function (Evenement $a, Evenement $b) {
+                return $a->getStartDate() <=> $b->getStartDate();
+            });
+
+            $evenementsProchains = array_slice($evenementsArray, 0, $limit);
+            return new ArrayCollection($evenementsProchains);
+        }
 
     public function addEvenement(Evenement $evenement): self
     {
