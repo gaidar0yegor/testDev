@@ -10,6 +10,8 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 
 ### Réparé
 
+- L'ordre d'affichage des évenements sur la page projet affiche l'evenement le plus proche
+
 ## [1.70.7] - 2023-03-22
 
 ### Ajouté
