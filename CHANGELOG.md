@@ -25,6 +25,7 @@ Le format est basé sur [Tenez un Changelog](https://keepachangelog.com/fr/1.0.0
 - Onglets sur la page planning
 - Mise en page de l'export de la page projet
 - Visualisation d'un FM complet ( titre, date, localisation, description)
+- Ancien dashboard
 
 ### Réparé
 
