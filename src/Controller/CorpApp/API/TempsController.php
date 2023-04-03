@@ -258,11 +258,29 @@ class TempsController extends AbstractController
             AbstractNormalizer::GROUPS => ['saisieTemps'],
         ]);
 
+        // foreach ($normalizedCra['tempsPasses'] as &$tempsPasse) {
+        //     if (count($tempsPasse['pourcentages']) > 1) {
+        //         $tempsPasse['pourcentages'] = array_slice($tempsPasse['pourcentages'], intval($month->format('d')) - 1, 7);
+        //     } else {
+        //         $tempsPasse['pourcentages'] = array_fill(0, 5, $tempsPasse['pourcentages'][0]);
+        //     }
+        // }
+
         foreach ($normalizedCra['tempsPasses'] as &$tempsPasse) {
             if (count($tempsPasse['pourcentages']) > 1) {
-                $tempsPasse['pourcentages'] = array_slice($tempsPasse['pourcentages'], intval($month->format('d')) - 1, 7);
+                $start = intval($month->format('d')) - 1;
+                $weekdays = array_slice($tempsPasse['pourcentages'], $start, 5);
+                $weekend = [0, 0];
+                if ($month->format('N') >= 6) { // samedi ou dimanche
+                    $weekdays[] = 0;
+                }
+                $tempsPasse['pourcentages'] = array_merge($weekdays, $weekend);
             } else {
                 $tempsPasse['pourcentages'] = array_fill(0, 7, $tempsPasse['pourcentages'][0]);
+                if ($month->format('N') >= 6) { // samedi ou dimanche
+                    $tempsPasse['pourcentages'][5] = 0;
+                    $tempsPasse['pourcentages'][6] = 0;
+                }
             }
         }
 
