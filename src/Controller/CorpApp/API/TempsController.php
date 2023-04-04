@@ -258,14 +258,6 @@ class TempsController extends AbstractController
             AbstractNormalizer::GROUPS => ['saisieTemps'],
         ]);
 
-        // foreach ($normalizedCra['tempsPasses'] as &$tempsPasse) {
-        //     if (count($tempsPasse['pourcentages']) > 1) {
-        //         $tempsPasse['pourcentages'] = array_slice($tempsPasse['pourcentages'], intval($month->format('d')) - 1, 7);
-        //     } else {
-        //         $tempsPasse['pourcentages'] = array_fill(0, 5, $tempsPasse['pourcentages'][0]);
-        //     }
-        // }
-
         foreach ($normalizedCra['tempsPasses'] as &$tempsPasse) {
             if (count($tempsPasse['pourcentages']) > 1) {
                 $start = intval($month->format('d')) - 1;
