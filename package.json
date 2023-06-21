@@ -4,10 +4,11 @@
   "scripts": {
     "dev-server": "encore dev-server",
     "dev": "encore dev",
-    "watch": "encore dev --watch",
-    "build": "encore production --progress"
+    "watch": "SET NODE_OPTIONS=--openssl-legacy-provider && encore dev --watch",
+    "build": "SET NODE_OPTIONS=--openssl-legacy-provider && encore production --progress"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@toast-ui/editor": "^3.0.0",
     "apexcharts": "^3.35.0",
     "bootstrap": "4.5.0",
@@ -25,13 +26,14 @@
     "dhtmlx-gantt": "^6.3.7",
     "dhtmlx-scheduler": "^5.3.14",
     "font-awesome": "4.7.0",
+    "form-data": "^4.0.0",
     "form-data-json-convert": "^1.3.0",
     "foundation-emails": "^2.3.1",
     "highlight.js": "^11.0.1",
     "html2pdf": "^0.0.11",
     "html2pdf.js": "^0.10.1",
     "i18next": "^20.3.2",
-    "jquery": "3.5.1",
+    "jquery": "^3.7.0",
     "popper.js": "^1.16.1",
     "sass": "^1.62.1",
     "select2": "^4.1.0-rc.0",
