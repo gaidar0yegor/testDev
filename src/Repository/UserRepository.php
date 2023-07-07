@@ -107,9 +107,10 @@ class UserRepository extends ServiceEntityRepository
     }
 
     public function findByRole(string $role)
+
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.roles LIKE :role')
+            ->andWhere('CAST(u.roles AS text) LIKE :role')
             ->setParameter('role', '%"' . $role . '"%')
             ->getQuery()
             ->getResult();

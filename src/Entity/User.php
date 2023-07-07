@@ -19,6 +19,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * Représente un compte RDI-Manager d'un utilisateur.
  *
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Table(name="`user`")
  * @UniqueEntity(
  *      fields={"email"},
  *      groups={"Default", "invitation", "registration"},
