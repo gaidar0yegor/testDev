@@ -33,15 +33,22 @@ class PdfExport implements FormatInterface
     public function createExportResponse(array $timesheets, string $format): Response
     {
         $sheetHtml = $this->htmlExport->renderTimesheets($timesheets);
+        //echo "<h1>debut</h1>";
         //echo $sheetHtml;
-        //$sheetHtml = "<html><body><h1>testééé</h1></body></html>";
+        //echo "<h1>fin</h1>";
         $options = [
             'margin-top'    => 15,
             'margin-right'  => 15,
             'margin-bottom' => 15,
             'margin-left'   => 15,
-            'orientation'   => 'landscape'
+            'orientation'   => 'landscape',
+            'zoom'   => 0.82,
+            'disable-javascript'  => true,
+            'encoding' => 'UTF-8',
+            'enable-local-file-access' => false
         ];
+        //$sheetHtml = "<html><head></head><body><h1>yduutu</h1><table><tr><th></body></html>";
+        //$sheetHtml = "<html><head></head><body>" . iconv(mb_detect_encoding($sheetHtml, mb_detect_order(), true), "UTF-8", $sheetHtml) ."</body></html>";
         return new PdfResponse($this->pdf->getOutputFromHtml($sheetHtml, $options), 'feuilles-de-temps.pdf');
     }
 }

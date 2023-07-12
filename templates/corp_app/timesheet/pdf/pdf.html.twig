@@ -5,9 +5,23 @@
 
         <title>Feuille de temps | RDI-Manager</title>
 
-        {% for file in encore_entry_css_files('timesheet-pdf') %}
-            <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet" />
-        {% endfor %}
+        <!--{% for file in encore_entry_css_files('timesheet-pdf') %}
+          <link href="{{ absolute_url(asset(file)) }}" rel="stylesheet" />
+        {% endfor %}-->
+          <style>
+			.pdf-page {
+				page-break-after: always;
+			}
+			.rdi-cra-col {
+				min-width: 2.3em;
+			}
+			.rdi-cra-value {
+				font-size: 0.9em;
+			}
+			.lead strong {
+				font-weight: bold;
+			}
+    </style
     </head>
     <body>
         {% if timesheets is not defined %}
@@ -23,3 +37,5 @@
         {% endfor %}
     </body>
 </html>
+
+
