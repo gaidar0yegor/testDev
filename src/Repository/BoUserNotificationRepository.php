@@ -46,7 +46,7 @@ class BoUserNotificationRepository extends ServiceEntityRepository
             ->andWhere('boUser = :boUser')
             ->andWhere('boUserNotification.acknowledged = :acknowledged')
             ->setParameter('boUser', $boUser)
-            ->setParameter('acknowledged', 0)
+            ->setParameter('acknowledged', 'FALSE')
             ->setMaxResults(1)
             ->getQuery()->getOneOrNullResult();
 
@@ -60,7 +60,7 @@ class BoUserNotificationRepository extends ServiceEntityRepository
     {
         $this->createQueryBuilder('notification')
             ->update(BoUserNotification::class, 'notification')
-            ->set('notification.acknowledged', true)
+            ->set('notification.acknowledged', 'TRUE')
             ->where('notification.boUser = :boUser')
             ->setParameter('boUser', $boUser)
             ->getQuery()
