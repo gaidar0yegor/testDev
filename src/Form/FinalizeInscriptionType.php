@@ -17,6 +17,11 @@ class FinalizeInscriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
+        $emailDisabled = isset($options['data']) && $options['data']->getEmail() !== null;
+
+        $telephoneDisabled = isset($options['data']) && $options['data']->getTelephone() !== null;
+
         $builder
             ->add('prenom', TextType::class, [
                 'label' => 'firstname',
@@ -26,8 +31,11 @@ class FinalizeInscriptionType extends AbstractType
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'disabled' => $emailDisabled,
             ])
-            ->add('telephone', RdiMobilePhoneNumberType::class)
+            ->add('telephone', RdiMobilePhoneNumberType::class, [
+                'disabled' => $telephoneDisabled,
+            ])
             ->add('password', RepeatedPasswordType::class)
             ->add('acceptCguCgv', CheckboxType::class, [
                 'label' => 'i_accept_cgu_and_cgv',

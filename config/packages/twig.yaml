@@ -1,18 +1,19 @@
 twig:
-    default_path: '%kernel.project_dir%/templates'
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
-    exception_controller: null
-    paths:
-        '%kernel.project_dir%/public': public
-    form_themes:
-        - 'bootstrap_4_layout.html.twig'
-        - 'form/custom_types.html.twig'
-    globals:
-        matomoConfig:
-            enabled: '%env(bool:MATOMO_ENABLED)%'
-            host: '%env(MATOMO_HOST)%'
-            siteId: '%env(MATOMO_SITE_ID)%'
-        rdiManagerDemoUrl: '%env(RDI_DEMO_URL)%'
-        rdi_mail_address: '%env(MAILER_FROM)%'
-        userContext: '@App\MultiSociete\UserContext'
+  default_path: "%kernel.project_dir%/templates"
+  debug: "%kernel.debug%"
+  strict_variables: "%kernel.debug%"
+  exception_controller: null
+  paths:
+    "%kernel.project_dir%/public": public
+  form_themes:
+    - "bootstrap_4_layout.html.twig"
+    - "form/custom_types.html.twig"
+  globals:
+    matomoConfig:
+      enabled: "%env(bool:MATOMO_ENABLED)%"
+      host: "%env(MATOMO_HOST)%"
+      siteId: "%env(MATOMO_SITE_ID)%"
+    rdiManagerDemoUrl: "%env(RDI_DEMO_URL)%"
+    rdi_mail_address: "%env(MAILER_FROM)%"
+    userContext: '@App\MultiSociete\UserContext'
+    app_version: "%env(APP_VERSION)%"
