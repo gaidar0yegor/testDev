@@ -8,7 +8,6 @@
     "build": "SET NODE_OPTIONS=--openssl-legacy-provider && encore production --progress"
   },
   "dependencies": {
-    "@babel/core": "^7.0.0-0",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@toast-ui/editor": "^3.0.0",
     "apexcharts": "^3.35.0",
@@ -41,8 +40,7 @@
     "smartwizard": "^5.1.1",
     "tippy.js": "^6.3.1",
     "toastr": "^2.1.4",
-    "vue-tippy": "6.0.0-alpha.29",
-    "webpack": "^4.37.0"
+    "vue-tippy": "6.0.0-alpha.29"
   },
   "devDependencies": {
     "@symfony/webpack-encore": "^0.32.0",

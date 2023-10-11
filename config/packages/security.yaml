@@ -5,7 +5,7 @@ security:
             id: App\Security\UserProvider\LoginUserWithEmailOrPhone
 
     encoders:
-        App\Entity\User: auto
+        App\Entity\User: sodium
 
     role_hierarchy:
         ROLE_BO_USER: ROLE_USER
